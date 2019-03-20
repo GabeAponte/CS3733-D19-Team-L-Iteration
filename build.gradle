@@ -4,7 +4,7 @@ version '0.1'
 apply plugin: 'java'
 apply plugin: 'idea'
 apply plugin: 'application'
-  //
+
 mainClassName = "Main" // replace with your main class
 
 sourceCompatibility = 1.8
