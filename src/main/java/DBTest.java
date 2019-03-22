@@ -9,9 +9,9 @@ public class DBTest {
      * Connect to the test.db database
      * @return the Connection object
      */
-    private Connection connect() {
+    /*private Connection connect() {
         // SQLite connection string
-        String url = "jdbc:sqlite:myDB/DBTest";
+        String url = "jdbc:sqlite:myDB/DB";
         Connection conn = null;
         try {
             conn = DriverManager.getConnection(url);
@@ -19,12 +19,13 @@ public class DBTest {
             System.out.println(e.getMessage());
         }
         return conn;
-    }
+    }*/
 
 
     /**
      * select all rows in the warehouses table
      */
+    /*
     public void selectAll(){
         String sql = "SELECT Destination FROM PatientRooms";
 
@@ -40,13 +41,13 @@ public class DBTest {
             System.out.println(e.getMessage());
         }
     }
-
+    */
 
     /**
      * @param args the command line arguments
      */
     public static void main(String[] args) {
         DBTest app = new DBTest();
-        app.selectAll();
+        //app.selectAll();
     }
 }
