@@ -21,15 +21,15 @@ public class DBAccess {
     }
 
     /**
-     * Drops all the tables in the database
+     * Drops the table protoNodes in the database
      * Basically it deletes all of the database information, probably for use on start up
      */
-    public void dropAllTables(){
-        String sql = "select 'drop table' || name || ';' from sqlite_master where type = 'table';";
+    public void dropTable(){
+        String sql = "DROP TABLE IF EXISTS protoNodes;";
 
         try (Connection conn = this.connect();
-             Statement stmt  = conn.createStatement();
-             ResultSet rs    = stmt.executeQuery(sql)){
+             Statement stmt  = conn.createStatement()){
+            stmt.executeUpdate(sql);
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
@@ -38,9 +38,8 @@ public class DBAccess {
     /**
      * reads the csvFile given and adds it to given table
      * @param csvFile
-     * @param tableName
      */
-    public void readCSVintoTable(String csvFile, String tableName){
+    public void readCSVintoTable(String csvFile){
         //String csvFile = "src/main/resources/PrototypeNodes.csv";
         String line = "";
         String cvsSplitBy = ",";
@@ -73,6 +72,13 @@ public class DBAccess {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    /**
+     * takes the information in the database table and writes it to a CSV
+     */
+    public void writeTableIntoCSV(){
+
     }
 
 
@@ -114,8 +120,8 @@ public class DBAccess {
                 "shortName TEXT);";
 
         try (Connection conn = this.connect();
-             Statement stmt  = conn.createStatement();
-             ResultSet rs    = stmt.executeQuery(sql)){
+             Statement stmt  = conn.createStatement()){
+            stmt.executeUpdate(sql);
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
@@ -132,5 +138,8 @@ public class DBAccess {
      */
     public static void main(String[] args) {
         DBAccess db = new DBAccess();
+        db.dropTable();
+        db.createDatabase();
+        db.readCSVintoTable("src/main/resources/PrototypeNodes.csv");
     }
 }
