@@ -1,7 +1,6 @@
+import java.io.*;
 import java.sql.*;
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.IOException;
+import java.time.*;
 
 public class DBAccess {
     /**
@@ -78,6 +77,60 @@ public class DBAccess {
      * takes the information in the database table and writes it to a CSV
      */
     public void writeTableIntoCSV(){
+        File file = new File("output" + Long.toString(System.currentTimeMillis()) + ".csv");
+        BufferedWriter writer = null;
+        try {
+            writer = new BufferedWriter(new FileWriter(file, true));
+        }
+        catch (IOException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        String sql = "select * from protoNodes;";
+
+        try (Connection conn = this.connect();
+             Statement stmt  = conn.createStatement();
+             ResultSet rs    = stmt.executeQuery(sql)){
+            try {
+                writer.append("nodeID," +
+                        "xcoord," +
+                        "ycoord," +
+                        "floor," +
+                        "building," +
+                        "nodeType," +
+                        "longName," +
+                       "shortName");
+                writer.newLine();
+            }
+            catch (IOException o){
+                System.out.println(o.getMessage());
+            }
+            // loop through the result set
+            while (rs.next()) {
+                try {
+                    writer.append(rs.getString("nodeID") +
+                            "," + Integer.toString(rs.getInt("xcoord")) +
+                            "," + Integer.toString(rs.getInt("ycoord")) +
+                            "," + Integer.toString(rs.getInt("floor")) +
+                            "," + rs.getString("building") +
+                            "," + rs.getString("nodeType") +
+                            "," + rs.getString("longName") +
+                            "," + rs.getString("shortName"));
+                    writer.newLine();
+                }
+                catch (IOException o){
+                    System.out.println(o.getMessage());
+                }
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        try {
+            writer.close();
+        }
+        catch(IOException o){
+            System.out.println(o.getMessage());
+        }
 
     }
 
@@ -141,5 +194,6 @@ public class DBAccess {
         db.dropTable();
         db.createDatabase();
         db.readCSVintoTable("src/main/resources/PrototypeNodes.csv");
+        db.writeTableIntoCSV();
     }
 }
