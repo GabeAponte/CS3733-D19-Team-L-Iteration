@@ -180,10 +180,53 @@ public class DBAccess {
         }
     }
 
-    //todo
-    /*
-    method for editing database and creating the CSV from database
+
+    /**
+     * Queries the database for all fields of the protoNodes class and returns a resultSet containing the results
+     * to loop through the ResultSet use this:
+     * while (rs.next()) {
+     *                 use rs.getString/rs.getInt to get specific next field per line
+     *             }
+     *             rs will be of the form: String, Int, Int, Int, String, String, String, String
+     * @return
      */
+    public ResultSet getNodes(){
+        String sql = "SELECT * FROM protoNodes";
+
+        try (Connection conn = this.connect();
+             Statement stmt  = conn.createStatement();
+             ResultSet rs    = stmt.executeQuery(sql)){
+
+            return rs;
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+
+        return null;
+    }
+
+    private void updateProto(String nodeID, String field, String data){
+        String sql = "update protoNodes" +
+                "set ? = ?" +
+                "where nodeID = ?;";
+
+
+        try (Connection conn = this.connect();
+             PreparedStatement pstmt  = updatePSTMT(conn, sql, nodeID, field, data)) {
+            pstmt.executeUpdate();
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    public PreparedStatement updatePSTMT(Connection con, String sql, String nodeID, String field, String data) throws SQLException{
+        PreparedStatement pstmt = con.prepareStatement(sql);
+        pstmt.setString(1, field);
+        pstmt.setString(2, data);
+        pstmt.setString(3, nodeID);
+        return pstmt;
+    }
+
 
     /**
      * Main within database class for testing use
@@ -191,9 +234,9 @@ public class DBAccess {
      */
     public static void main(String[] args) {
         DBAccess db = new DBAccess();
-        db.dropTable();
-        db.createDatabase();
-        db.readCSVintoTable("src/main/resources/PrototypeNodes.csv");
-        db.writeTableIntoCSV();
+        //db.dropTable();
+        //db.createDatabase();
+        //db.readCSVintoTable("src/main/resources/PrototypeNodes.csv");
+        //db.writeTableIntoCSV();
     }
 }
