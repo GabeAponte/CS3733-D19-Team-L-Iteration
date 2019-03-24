@@ -205,6 +205,12 @@ public class DBAccess {
         return null;
     }
 
+    /**
+     * Call this to update the database with the required paramaters
+     * @param nodeID
+     * @param field
+     * @param data
+     */
     private void updateProto(String nodeID, String field, String data){
         String sql = "update protoNodes" +
                 "set ? = ?" +
@@ -219,6 +225,16 @@ public class DBAccess {
         }
     }
 
+    /**
+     * another helper method this time for the updateProto method
+     * @param con
+     * @param sql
+     * @param nodeID
+     * @param field
+     * @param data
+     * @return
+     * @throws SQLException
+     */
     public PreparedStatement updatePSTMT(Connection con, String sql, String nodeID, String field, String data) throws SQLException{
         PreparedStatement pstmt = con.prepareStatement(sql);
         pstmt.setString(1, field);
