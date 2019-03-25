@@ -7,6 +7,9 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
+
 public class EditTableController {
 
 
@@ -29,7 +32,22 @@ public class EditTableController {
 
         PrototypeLocation test1 = new PrototypeLocation("1", 2, 2, 2, "Main", "elevator", "second floor elevator", "Elevator2");
         //PrototypeLocation test2 = new PrototypeLocation("1", "Coffee");
-        final ObservableList<PrototypeLocation> data = FXCollections.observableArrayList(test1);
+
+        final ObservableList<PrototypeLocation> data = FXCollections.observableArrayList();
+
+        DBAccess db = new DBAccess();
+        ResultSet rs = db.getNodes();
+        try {
+            while(rs.next()){
+                PrototypeLocation testx = new PrototypeLocation(rs.getString("nodeID"), rs.getInt("xcoord"), rs.getInt("ycoord"), rs.getInt("floor"), rs.getString("building"), rs.getString("nodeType"), rs.getString("longName"), rs.getString("shortName"));
+
+                data.add(testx);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+
 
         idCol.setCellValueFactory(new PropertyValueFactory<PrototypeLocation,Integer>("id"));
         nameCol.setCellValueFactory(new PropertyValueFactory<PrototypeLocation,String>("name"));
