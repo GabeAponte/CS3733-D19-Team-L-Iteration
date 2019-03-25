@@ -7,13 +7,8 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 
-public class TableViewController {
+public class EditTableController {
 
-    @FXML
-    Button populate;
-
-    @FXML
-    Button makeEditable;
 
     @FXML
     Button download;
@@ -30,7 +25,7 @@ public class TableViewController {
 
     @FXML
     public void initialize(){
-        table.setEditable(false);
+        table.setEditable(true);
 
         PrototypeLocation test1 = new PrototypeLocation(1, "Elevator");
         PrototypeLocation test2 = new PrototypeLocation(2, "Coffee");
@@ -42,11 +37,5 @@ public class TableViewController {
 
         table.setItems(data);
         System.out.println("HERE");
-    }
-
-    @FXML
-    public void callAccepted(ActionEvent event){
-        System.out.println("From controller");
-        //nrb.loadSecondFxml();
     }
 }
