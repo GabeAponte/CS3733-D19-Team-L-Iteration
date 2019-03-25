@@ -1,6 +1,7 @@
 import java.io.*;
 import java.sql.*;
 import java.time.*;
+import java.util.ArrayList;
 
 public class DBAccess {
     /**
@@ -190,7 +191,7 @@ public class DBAccess {
              Statement stmt  = conn.createStatement();
              ResultSet rs    = stmt.executeQuery(sql)){
 
-            return rs.getInt(0);
+            return rs.getInt(1);
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
@@ -199,36 +200,49 @@ public class DBAccess {
     }
 
     /**
-     * Queries the database for all fields of the protoNodes class and returns a string[]
+     * Queries the database for all fields of the protoNodes class and returns an arraylist
      */
-    public String[] getNodes(int getNum){
+    public ArrayList getNodes(int getNum){
         String sql = "SELECT * FROM protoNodes";
         int count = 0;
-        String[] data = null;
-
+        ArrayList data = new ArrayList();
+        //System.out.println("why");
         try (Connection conn = this.connect();
              Statement stmt  = conn.createStatement();
              ResultSet rs    = stmt.executeQuery(sql)){
-
+           // System.out.println("why2");
             while (rs.next()) {
+                //System.out.println("why3");
                 if(count == getNum) {
-                    data[0] = rs.getString("nodeID");
-                    data[1] = Integer.toString(rs.getInt("xcoord"));
-                    data[2] = Integer.toString(rs.getInt("ycoord"));
-                    data[3] = Integer.toString(rs.getInt("floor"));
-                    data[4] = rs.getString("building");
-                    data[5] = rs.getString("nodeType");
-                    data[6] = rs.getString("longName");
-                    data[7] = rs.getString("shortName");
+                    //System.out.println("why4");
+                    //System.out.println(rs.getString("nodeID"));
+                    data.add(rs.getString("nodeID"));
+                    System.out.println(data.get(0));
+                    data.add(rs.getInt("xcoord"));
+                    data.add(rs.getInt("ycoord"));
+                    data.add(rs.getInt("floor"));
+                    data.add(rs.getString("building"));
+                    data.add(rs.getString("nodeType"));
+                    data.add(rs.getString("longName"));
+                    data.add(rs.getString("shortName"));
+
                     return data;
                 }
                 count++;
             }
-            return null;
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
 
+        String[] dumb = null;
+        dumb[0] = "1";
+        dumb[1] = "1";
+        dumb[2] = "1";
+        dumb[3] = "1";
+        dumb[4] = "1";
+        dumb[5] = "1";
+        dumb[6] = "1";
+        dumb[7] = "1";
         return null;
     }
 
@@ -280,6 +294,7 @@ public class DBAccess {
         DBAccess db = new DBAccess();
         //db.dropTable();
         //db.createDatabase();
+        db.getNodes(0);
         //db.readCSVintoTable("src/main/resources/PrototypeNodes.csv");
         //db.writeTableIntoCSV();
     }
