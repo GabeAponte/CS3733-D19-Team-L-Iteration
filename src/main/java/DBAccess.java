@@ -182,22 +182,31 @@ public class DBAccess {
 
 
     /**
-     * Queries the database for all fields of the protoNodes class and returns a resultSet containing the results
-     * to loop through the ResultSet use this:
-     * while (rs.next()) {
-     *                 use rs.getString/rs.getInt to get specific next field per line
-     *             }
-     *             rs will be of the form: String, Int, Int, Int, String, String, String, String
-     * @return
+     * Queries the database for all fields of the protoNodes class and returns a string[]
      */
-    public ResultSet getNodes(){
+    public String[] getNodes(int getNum){
         String sql = "SELECT * FROM protoNodes";
+        int count = 0;
+        String[] data = null;
 
         try (Connection conn = this.connect();
              Statement stmt  = conn.createStatement();
              ResultSet rs    = stmt.executeQuery(sql)){
 
-            return rs;
+            while (rs.next()) {
+                if(count == getNum) {
+                    data[0] = rs.getString("nodeID");
+                    data[1] = Integer.toString(rs.getInt("xcoord"));
+                    data[2] = Integer.toString(rs.getInt("ycoord"));
+                    data[3] = Integer.toString(rs.getInt("floor"));
+                    data[4] = rs.getString("building");
+                    data[5] = rs.getString("nodeType");
+                    data[6] = rs.getString("longName");
+                    data[7] = rs.getString("shortName");
+                    return data;
+                }
+                count++;
+            }
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
@@ -242,11 +251,7 @@ public class DBAccess {
         pstmt.setString(3, nodeID);
         return pstmt;
     }
-
-    public void testDB() throws SQLException{
-        ResultSet rs = getNodes();
-        System.out.println(rs.getString("nodeID"));
-    }
+    
 
 
     /**
