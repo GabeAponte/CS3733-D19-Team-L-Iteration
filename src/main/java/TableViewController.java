@@ -10,6 +10,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 public class TableViewController {
 
@@ -67,10 +68,10 @@ public class TableViewController {
         int count;
         count  = 0;
         while(count < db.countRecords()){
-            String[] arr= db.getNodes(count);
-            System.out.println(arr[0]);
-            PrototypeLocation testx = new PrototypeLocation(arr[0], Integer.parseInt(arr[1]), Integer.parseInt(arr[2]), Integer.parseInt(arr[3]), arr[4], arr[5], arr[6], arr[7]);
-
+            ArrayList<String> arr= db.getNodes(count);
+            //System.out.println(arr.get(count));
+            PrototypeLocation testx = new PrototypeLocation(arr.get(0), Integer.parseInt(arr.get(1)), Integer.parseInt(arr.get(2)), Integer.parseInt(arr.get(3)), arr.get(4), arr.get(5), arr.get(6), arr.get(7));
+            count++;
             data.add(testx);
         }
 
