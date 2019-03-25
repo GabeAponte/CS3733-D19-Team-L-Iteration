@@ -180,6 +180,23 @@ public class DBAccess {
         }
     }
 
+    /**
+     * returns the number of records in protoNodes
+     * @return
+     */
+    public int countRecords(){
+        String sql = "select COUNT(*) from protoNodes";
+        try (Connection conn = this.connect();
+             Statement stmt  = conn.createStatement();
+             ResultSet rs    = stmt.executeQuery(sql)){
+
+            return rs.getInt(0);
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        return 0;
+
+    }
 
     /**
      * Queries the database for all fields of the protoNodes class and returns a string[]
