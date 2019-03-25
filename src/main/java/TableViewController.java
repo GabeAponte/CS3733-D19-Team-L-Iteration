@@ -3,6 +3,7 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.control.Tab;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -19,10 +20,29 @@ public class TableViewController {
     Button download;
 
     @FXML
-    TableColumn<PrototypeLocation, Integer> idCol;
+    TableColumn<PrototypeLocation, String> idCol;
 
     @FXML
-    TableColumn<PrototypeLocation, String> nameCol;
+    TableColumn<PrototypeLocation,Integer> xCol;
+
+    @FXML
+    TableColumn<PrototypeLocation, Integer> yCol;
+
+    @FXML
+    TableColumn<PrototypeLocation, Integer> floorCol;
+
+    @FXML
+    TableColumn<PrototypeLocation, String> buildingCol;
+
+    @FXML
+    TableColumn<PrototypeLocation, String> typeCol;
+
+    @FXML
+    TableColumn<PrototypeLocation, String> longCol;
+
+    @FXML
+    TableColumn<PrototypeLocation, String> shortCol;
+
 
     @FXML
     private TableView<PrototypeLocation> table = new TableView();
@@ -32,13 +52,18 @@ public class TableViewController {
     public void initialize(){
         table.setEditable(false);
 
-        PrototypeLocation test1 = new PrototypeLocation(1, "Elevator");
-        PrototypeLocation test2 = new PrototypeLocation(2, "Coffee");
-        PrototypeLocation test3 = new PrototypeLocation(1, "Elevator");
-        final ObservableList<PrototypeLocation> data = FXCollections.observableArrayList(test1, test2, test3, test1, test1, test2, test1, test2, test3, test1, test1, test2);
+        PrototypeLocation test1 = new PrototypeLocation("1", 2, 2, 2, "Main", "elevator", "second floor elevator", "Elevator2");
+        //PrototypeLocation test2 = new PrototypeLocation("1", "Coffee");
+        final ObservableList<PrototypeLocation> data = FXCollections.observableArrayList(test1);
 
-        idCol.setCellValueFactory(new PropertyValueFactory<PrototypeLocation,Integer>("id"));
-        nameCol.setCellValueFactory(new PropertyValueFactory<PrototypeLocation,String>("name"));
+        idCol.setCellValueFactory(new PropertyValueFactory<PrototypeLocation,String>("id"));
+        xCol.setCellValueFactory(new PropertyValueFactory<PrototypeLocation, Integer>("xcoord"));
+        yCol.setCellValueFactory(new PropertyValueFactory<PrototypeLocation, Integer>("ycoord"));
+        floorCol.setCellValueFactory(new PropertyValueFactory<PrototypeLocation, Integer>("floor"));
+        buildingCol.setCellValueFactory(new PropertyValueFactory<PrototypeLocation, String >("floor"));
+        typeCol.setCellValueFactory(new PropertyValueFactory<PrototypeLocation, String >("nodeType"));
+        longCol.setCellValueFactory(new PropertyValueFactory<PrototypeLocation,String>("longName"));
+        shortCol.setCellValueFactory(new PropertyValueFactory<PrototypeLocation, String>("shortName"));
 
         table.setItems(data);
         System.out.println("HERE");
