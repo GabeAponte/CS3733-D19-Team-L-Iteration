@@ -207,6 +207,7 @@ public class DBAccess {
                 }
                 count++;
             }
+            return null;
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
@@ -251,7 +252,7 @@ public class DBAccess {
         pstmt.setString(3, nodeID);
         return pstmt;
     }
-    
+
 
 
     /**
