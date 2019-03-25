@@ -202,10 +202,10 @@ public class DBAccess {
     /**
      * Queries the database for all fields of the protoNodes class and returns an arraylist
      */
-    public ArrayList getNodes(int getNum){
+    public ArrayList<String> getNodes(int getNum){
         String sql = "SELECT * FROM protoNodes";
         int count = 0;
-        ArrayList data = new ArrayList();
+        ArrayList<String> data = new ArrayList<String>();
         //System.out.println("why");
         try (Connection conn = this.connect();
              Statement stmt  = conn.createStatement();
@@ -218,9 +218,9 @@ public class DBAccess {
                     //System.out.println(rs.getString("nodeID"));
                     data.add(rs.getString("nodeID"));
                     System.out.println(data.get(0));
-                    data.add(rs.getInt("xcoord"));
-                    data.add(rs.getInt("ycoord"));
-                    data.add(rs.getInt("floor"));
+                    data.add(Integer.toString(rs.getInt("xcoord")));
+                    data.add(Integer.toString(rs.getInt("ycoord")));
+                    data.add(Integer.toString(rs.getInt("floor")));
                     data.add(rs.getString("building"));
                     data.add(rs.getString("nodeType"));
                     data.add(rs.getString("longName"));
