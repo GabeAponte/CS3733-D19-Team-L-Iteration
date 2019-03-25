@@ -243,6 +243,11 @@ public class DBAccess {
         return pstmt;
     }
 
+    public void testDB() throws SQLException{
+        ResultSet rs = getNodes();
+        System.out.println(rs.getString("nodeID"));
+    }
+
 
     /**
      * Main within database class for testing use
