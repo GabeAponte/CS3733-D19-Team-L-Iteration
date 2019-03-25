@@ -2,12 +2,18 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.BorderPane;
+import javafx.stage.Stage;
 
+import java.io.IOException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -51,6 +57,8 @@ public class TableViewController {
     @FXML
     private TableView<PrototypeLocation> table = new TableView();
 
+    private Stage stage;
+
 
     @FXML
     public void initialize(){
@@ -91,7 +99,24 @@ public class TableViewController {
 
     @FXML
     public void callAccepted(ActionEvent event){
+
         System.out.println("From controller");
         //nrb.loadSecondFxml();
+    }
+
+    @FXML
+    private void cellClicked(ActionEvent event) {
+        
+    }
+
+    @FXML
+    private void openEdit() throws IOException {
+        stage = (Stage) makeEditable.getScene().getWindow();
+        AnchorPane root;
+        root =  FXMLLoader.load(getClass().getResource("editScreen.fxml"));
+        Scene scene = new Scene(root);
+        //scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
+        stage.setScene(scene);
+
     }
 }
