@@ -34,7 +34,7 @@ public class EditTableController {
         //PrototypeLocation test2 = new PrototypeLocation("1", "Coffee");
 
         final ObservableList<PrototypeLocation> data = FXCollections.observableArrayList();
-
+        /*
         DBAccess db = new DBAccess();
         ResultSet rs = db.getNodes();
         try {
@@ -46,6 +46,7 @@ public class EditTableController {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+        */
 
 
 

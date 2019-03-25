@@ -8,6 +8,9 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
+
 public class TableViewController {
 
     @FXML
@@ -51,10 +54,26 @@ public class TableViewController {
     @FXML
     public void initialize(){
         table.setEditable(false);
-
         PrototypeLocation test1 = new PrototypeLocation("1", 2, 2, 2, "Main", "elevator", "second floor elevator", "Elevator2");
         //PrototypeLocation test2 = new PrototypeLocation("1", "Coffee");
-        final ObservableList<PrototypeLocation> data = FXCollections.observableArrayList(test1);
+
+        final ObservableList<PrototypeLocation> data = FXCollections.observableArrayList();
+        DBAccess db = new DBAccess();
+        db.dropTable();
+        db.createDatabase();
+        db.readCSVintoTable("src/main/resources/PrototypeNodes.csv");
+
+
+        int count;
+        count  = 0;
+        while(count < db.countRecords()){
+            String[] arr= db.getNodes(count);
+            System.out.println(arr[0]);
+            PrototypeLocation testx = new PrototypeLocation(arr[0], Integer.parseInt(arr[1]), Integer.parseInt(arr[2]), Integer.parseInt(arr[3]), arr[4], arr[5], arr[6], arr[7]);
+
+            data.add(testx);
+        }
+
 
         idCol.setCellValueFactory(new PropertyValueFactory<PrototypeLocation,String>("id"));
         xCol.setCellValueFactory(new PropertyValueFactory<PrototypeLocation, Integer>("xcoord"));
