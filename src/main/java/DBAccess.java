@@ -77,8 +77,14 @@ public class DBAccess {
     /**
      * takes the information in the database table and writes it to a CSV
      */
-    public void writeTableIntoCSV(){
-        File file = new File("output" + Long.toString(System.currentTimeMillis()) + ".csv");
+    public void writeTableIntoCSV(String path){
+        File file = null;
+        if(path.equals("")) {
+            file = new File("output" + Long.toString(System.currentTimeMillis()) + ".csv");
+        }
+        else{
+            file = new File(path + "\\output" + Long.toString(System.currentTimeMillis()) + ".csv");
+        }
         BufferedWriter writer = null;
         try {
             writer = new BufferedWriter(new FileWriter(file, true));

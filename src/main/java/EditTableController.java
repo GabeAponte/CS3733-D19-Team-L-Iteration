@@ -91,7 +91,5 @@ public class EditTableController {
         root =  FXMLLoader.load(getClass().getResource("sample.fxml"));
         Scene scene = new Scene(root);
         stage.setScene(scene);
-        db.writeTableIntoCSV();
-
     }
 }

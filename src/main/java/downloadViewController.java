@@ -22,17 +22,29 @@ public class downloadViewController {
     Button downloadButton;
 
     @FXML
+    Button cancelButton;
+
+    @FXML
+    TextField downloadPath;
+
+    @FXML
     public void initialize(){
         // populate text fields
         System.out.println("HEREDOWNLOAD");
     }
 
     @FXML
-    private void downloadClicker2() throws IOException {
-        stage = (Stage) downloadButton.getScene().getWindow();
+    private void cancelClicker() throws IOException {
+        stage = (Stage) cancelButton.getScene().getWindow();
         AnchorPane root;
         root =  FXMLLoader.load(getClass().getResource("sample.fxml"));
         Scene scene = new Scene(root);
         stage.setScene(scene);
+    }
+
+    @FXML
+    private void downloadCSV() throws IOException {
+        DBAccess db = new DBAccess();
+        db.writeTableIntoCSV(downloadPath.getText());
     }
 }
