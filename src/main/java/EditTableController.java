@@ -77,9 +77,6 @@ public class EditTableController {
     @FXML
     private void returnAndSave() throws IOException {
         DBAccess db = new DBAccess();
-        //db.dropTable();
-        //db.createDatabase();
-        //db.readCSVintoTable("src/main/resources/PrototypeNodes.csv");
 
         db.updateProto(tempNodeID, "xcoord" , Integer.parseInt(xcoord.getText()));
         db.updateProto(tempNodeID, "ycoord" , Integer.parseInt(ycoord.getText()));
@@ -93,7 +90,6 @@ public class EditTableController {
         AnchorPane root;
         root =  FXMLLoader.load(getClass().getResource("sample.fxml"));
         Scene scene = new Scene(root);
-        //scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
         stage.setScene(scene);
         db.writeTableIntoCSV();
 

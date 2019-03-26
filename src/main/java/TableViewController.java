@@ -10,6 +10,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -54,7 +55,7 @@ public class TableViewController {
     @FXML
     private TableView<PrototypeLocation> table = new TableView();
 
-    private Stage stage;
+    private Stage thestage;
     private  PrototypeLocation proto;
 
 
@@ -108,54 +109,22 @@ public class TableViewController {
         this.proto= proto;
     }
 
-
-/*
-    @FXML
-    private void openEdit() throws IOException {
-        stage = (Stage) makeEditable.getScene().getWindow();
-        AnchorPane root;
-        String data = "ID";
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("editScreen.fxml"));
-        EditTableController controller = new EditTableController();
-
-        root =  loader.load();
-        Scene scene = new Scene(root);
-        controller.fillTable("COOL");
-        loader.setController(controller);
-
-        //scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
-        stage.setScene(scene);
-
-    }
-*/
     @FXML
     private void openEdit() {
         try {
             //Load second scene
             FXMLLoader loader = new FXMLLoader(getClass().getResource("editScreen.fxml"));
-            Parent root = loader.load();
+            Parent roots = loader.load();
 
             //Get controller of scene2
             EditTableController scene2Controller = loader.getController();
-            //Pass whatever data you want. You can have multiple method calls here
-            /*ArrayList<String> data = new ArrayList<>();
-            data.add("cool");
-            data.add("x");
-            data.add("y");
-            data.add("floor");
-            data.add("building");
-            data.add("type");
-            data.add("Long");
-            data.add("Short");
-            */
 
+            Scene scene = new Scene(roots);
             scene2Controller.fillTable(this.proto);
-
+            thestage = (Stage) makeEditable.getScene().getWindow();
             //Show scene 2 in new window
-            Stage stage = new Stage();
-            stage.setScene(new Scene(root));
-            stage.setTitle("Second Window");
-            stage.show();
+            thestage.setScene(scene);
+
         } catch (IOException ex) {
             System.err.println(ex);
         }
