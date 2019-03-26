@@ -92,6 +92,14 @@ public class EditTableController {
         Scene scene = new Scene(root);
         stage.setScene(scene);
         db.writeTableIntoCSV();
+    }
 
+    @FXML
+    private void cancelButton() throws IOException {
+        stage = (Stage) cancel.getScene().getWindow();
+        AnchorPane root;
+        root =  FXMLLoader.load(getClass().getResource("sample.fxml"));
+        Scene scene = new Scene(root);
+        stage.setScene(scene);
     }
 }
