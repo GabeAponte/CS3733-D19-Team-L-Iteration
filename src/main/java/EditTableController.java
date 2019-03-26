@@ -22,7 +22,7 @@ import java.util.concurrent.TimeoutException;
 public class EditTableController {
 
     private Stage stage;
-    private ArrayList<String> data;
+    private PrototypeLocation data;
 
     @FXML
     Button cancel;
@@ -55,19 +55,16 @@ public class EditTableController {
     TextField shortName;
 
 
-    public void fillTable(ArrayList<String> data) {
+    public void fillTable(PrototypeLocation data) {
         this.data = data;
-        id.setText(data.get(0));
-        xcoord.setText(data.get(1));
-        ycoord.setText(data.get(2));
-        floor.setText(data.get(3));
-        building.setText(data.get(4));
-        nodeType.setText(data.get(5));
-        longName.setText(data.get(6));
-        shortName.setText(data.get(7));
-
-
-        //this.id.setText(data);
+        id.setText(data.getId());
+        xcoord.setText(Integer.toString(data.getXcoord()));
+        ycoord.setText(Integer.toString(data.getYcoord()));
+        floor.setText(Integer.toString(data.getFloor()));
+        building.setText(data.getBuilding());
+        nodeType.setText(data.getNodeType());
+        longName.setText(data.getLongName());
+        shortName.setText(data.getShortName());
     }
 
     @FXML
