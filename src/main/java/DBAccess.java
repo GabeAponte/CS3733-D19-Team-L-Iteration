@@ -252,14 +252,14 @@ public class DBAccess {
      * @param field
      * @param data
      */
-    private void updateProto(String nodeID, String field, String data){
-        String sql = "update protoNodes" +
-                "set ? = ?" +
-                "where nodeID = ?;";
-
+    public void updateProto(String nodeID, String field, String data){
+        String sql = "update protoNodes set " + field +  "= ? where nodeID= ?;";
+        //System.out.println("SQL Statement: " + sql);
 
         try (Connection conn = this.connect();
-             PreparedStatement pstmt  = updatePSTMT(conn, sql, nodeID, field, data)) {
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            pstmt.setString(1, data);
+            pstmt.setString(2, nodeID);
             pstmt.executeUpdate();
         } catch (SQLException e) {
             System.out.println(e.getMessage());
@@ -276,11 +276,10 @@ public class DBAccess {
      * @return
      * @throws SQLException
      */
-    public PreparedStatement updatePSTMT(Connection con, String sql, String nodeID, String field, String data) throws SQLException{
+    public PreparedStatement updatePSTMT(Connection con, String sql, String nodeID, String data) throws SQLException{
         PreparedStatement pstmt = con.prepareStatement(sql);
-        pstmt.setString(1, field);
-        pstmt.setString(2, data);
-        pstmt.setString(3, nodeID);
+        pstmt.setString(1, data);
+        pstmt.setString(2, nodeID);
         return pstmt;
     }
 

@@ -41,9 +41,9 @@ public class Main extends Application {
 
     public static void main(String[] args) {
         DBAccess db = new DBAccess();
-        //db.dropTable();
-        //db.createDatabase();
-        //db.readCSVintoTable("src/main/resources/PrototypeNodes.csv");
+        db.dropTable();
+        db.createDatabase();
+        db.readCSVintoTable("src/main/resources/PrototypeNodes.csv");
         launch(args);
     }
 }

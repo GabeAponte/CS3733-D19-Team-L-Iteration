@@ -1,3 +1,4 @@
+import com.sun.scenario.effect.impl.sw.sse.SSEBlend_SRC_OUTPeer;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -68,10 +69,10 @@ public class TableViewController {
 
         final ObservableList<PrototypeLocation> data = FXCollections.observableArrayList();
         DBAccess db = new DBAccess();
-        db.dropTable();
-        db.createDatabase();
-        db.readCSVintoTable("src/main/resources/PrototypeNodes.csv");
-
+       // db.dropTable();
+        //db.createDatabase();
+        //db.readCSVintoTable("src/main/resources/PrototypeNodes.csv");
+        //System.out.println("DATABASE CREATED RIGHT HERE LOOK HERE");
 
         int count;
         count  = 0;
