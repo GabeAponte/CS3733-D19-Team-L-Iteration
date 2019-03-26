@@ -4,19 +4,15 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.Tab;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 
 import java.io.IOException;
-import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class TableViewController {
@@ -59,6 +55,7 @@ public class TableViewController {
     private TableView<PrototypeLocation> table = new TableView();
 
     private Stage stage;
+    private  PrototypeLocation proto;
 
 
     @FXML
@@ -89,35 +86,80 @@ public class TableViewController {
         xCol.setCellValueFactory(new PropertyValueFactory<PrototypeLocation, Integer>("xcoord"));
         yCol.setCellValueFactory(new PropertyValueFactory<PrototypeLocation, Integer>("ycoord"));
         floorCol.setCellValueFactory(new PropertyValueFactory<PrototypeLocation, Integer>("floor"));
-        buildingCol.setCellValueFactory(new PropertyValueFactory<PrototypeLocation, String >("floor"));
+        buildingCol.setCellValueFactory(new PropertyValueFactory<PrototypeLocation, String >("building"));
         typeCol.setCellValueFactory(new PropertyValueFactory<PrototypeLocation, String >("nodeType"));
         longCol.setCellValueFactory(new PropertyValueFactory<PrototypeLocation,String>("longName"));
         shortCol.setCellValueFactory(new PropertyValueFactory<PrototypeLocation, String>("shortName"));
-
+        table.setOnMouseClicked( event -> {
+                setNext(table.getSelectionModel().getSelectedItem());});
         table.setItems(data);
         System.out.println("HERE");
+
+
+
     }
 
     @FXML
     public void callAccepted(ActionEvent event){
-
-        System.out.println("From controller");
-        //nrb.loadSecondFxml();
+        System.out.println("cool");
     }
 
-    @FXML
-    private void cellClicked(ActionEvent event) {
-
+    public void setNext(PrototypeLocation proto) {
+        this.proto= proto;
     }
 
+
+/*
     @FXML
     private void openEdit() throws IOException {
         stage = (Stage) makeEditable.getScene().getWindow();
         AnchorPane root;
-        root =  FXMLLoader.load(getClass().getResource("editScreen.fxml"));
+        String data = "ID";
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("editScreen.fxml"));
+        EditTableController controller = new EditTableController();
+
+        root =  loader.load();
         Scene scene = new Scene(root);
+        controller.fillTable("COOL");
+        loader.setController(controller);
+
         //scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
         stage.setScene(scene);
 
     }
+*/
+    @FXML
+    private void openEdit() {
+        try {
+            //Load second scene
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("editScreen.fxml"));
+            Parent root = loader.load();
+
+            //Get controller of scene2
+            EditTableController scene2Controller = loader.getController();
+            //Pass whatever data you want. You can have multiple method calls here
+            /*ArrayList<String> data = new ArrayList<>();
+            data.add("cool");
+            data.add("x");
+            data.add("y");
+            data.add("floor");
+            data.add("building");
+            data.add("type");
+            data.add("Long");
+            data.add("Short");
+            */
+
+            scene2Controller.fillTable(this.proto);
+
+            //Show scene 2 in new window
+            Stage stage = new Stage();
+            stage.setScene(new Scene(root));
+            stage.setTitle("Second Window");
+            stage.show();
+        } catch (IOException ex) {
+            System.err.println(ex);
+        }
+    }
+
+
 }

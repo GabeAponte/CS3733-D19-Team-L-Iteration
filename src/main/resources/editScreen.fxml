@@ -87,7 +87,10 @@
                   <Insets left="20.0" right="20.0" />
                </GridPane.margin>
             </JFXTextField>
-            <JFXTextField fx:id="shortName" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+            <JFXTextField fx:id="shortName" GridPane.columnIndex="1" GridPane.rowIndex="3">
+               <GridPane.margin>
+                  <Insets left="20.0" right="20.0" />
+               </GridPane.margin></JFXTextField>
             <Label text="ID" GridPane.halignment="CENTER" GridPane.valignment="TOP" />
             <Label text="xcoord" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="TOP" />
             <Label text="ycoord" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="TOP" />
