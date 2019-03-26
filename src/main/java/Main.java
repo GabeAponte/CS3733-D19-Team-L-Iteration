@@ -9,6 +9,10 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.stage.Stage;
 
+import java.io.File;
+import java.net.MalformedURLException;
+import java.net.URISyntaxException;
+import java.net.URL;
 import java.util.Objects;
 
 public class Main extends Application {
@@ -39,11 +43,11 @@ public class Main extends Application {
     }
 
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws MalformedURLException, URISyntaxException {
         DBAccess db = new DBAccess();
         db.dropTable();
         db.createDatabase();
-        db.readCSVintoTable("src/main/resources/PrototypeNodes.csv");
+        db.readCSVintoTable(new URL("file:///" + System.getProperty("user.dir") + File.separator + "src" + File.separator + "main" + File.separator + "resources" + File.separator + "PrototypeNodes.csv"));
         launch(args);
     }
 }

@@ -1,4 +1,6 @@
 import java.io.*;
+import java.net.URISyntaxException;
+import java.net.URL;
 import java.sql.*;
 import java.time.*;
 import java.util.ArrayList;
@@ -6,6 +8,7 @@ import java.util.ArrayList;
 public class DBAccess {
     /**
      * Connect to the db database
+     *
      * @return the Connection object
      */
     private Connection connect() {
@@ -24,11 +27,11 @@ public class DBAccess {
      * Drops the table protoNodes in the database
      * Basically it deletes all of the database information, probably for use on start up
      */
-    public void dropTable(){
+    public void dropTable() {
         String sql = "DROP TABLE IF EXISTS protoNodes;";
 
         try (Connection conn = this.connect();
-             Statement stmt  = conn.createStatement()){
+             Statement stmt = conn.createStatement()) {
             stmt.executeUpdate(sql);
         } catch (SQLException e) {
             System.out.println(e.getMessage());
@@ -37,18 +40,20 @@ public class DBAccess {
 
     /**
      * reads the csvFile given and adds it to given table
+     *
      * @param csvFile
      */
-    public void readCSVintoTable(String csvFile){
+    public void readCSVintoTable(URL csvFile) throws URISyntaxException {
         //String csvFile = "src/main/resources/PrototypeNodes.csv";
         String line = "";
         String cvsSplitBy = ",";
         int count = 0;
 
-        try (BufferedReader br = new BufferedReader(new FileReader(csvFile))) {
+        File file = new File(csvFile.toURI());
+        try (BufferedReader br = new BufferedReader(new FileReader(file))) {
 
             while ((line = br.readLine()) != null) {
-                if(count != 0) {
+                if (count != 0) {
                     // use comma as separator
                     String[] data = line.split(cvsSplitBy);
 
@@ -58,13 +63,12 @@ public class DBAccess {
 
 
                     try (Connection conn = this.connect();
-                         PreparedStatement pstmt  = createPreparedStatement(conn, sql, data)) {
+                         PreparedStatement pstmt = createPreparedStatement(conn, sql, data)) {
                         pstmt.executeUpdate();
                     } catch (SQLException e) {
                         System.out.println(e.getMessage());
                     }
-                }
-                else{
+                } else {
                     count++;
                 }
             }
@@ -77,27 +81,25 @@ public class DBAccess {
     /**
      * takes the information in the database table and writes it to a CSV
      */
-    public void writeTableIntoCSV(String path){
+    public void writeTableIntoCSV(String path) {
         File file = null;
-        if(path.equals("")) {
+        if (path.equals("")) {
             file = new File("output" + Long.toString(System.currentTimeMillis()) + ".csv");
-        }
-        else{
+        } else {
             file = new File(path + "\\output" + Long.toString(System.currentTimeMillis()) + ".csv");
         }
         BufferedWriter writer = null;
         try {
             writer = new BufferedWriter(new FileWriter(file, true));
-        }
-        catch (IOException e) {
+        } catch (IOException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
         }
         String sql = "select * from protoNodes;";
 
         try (Connection conn = this.connect();
-             Statement stmt  = conn.createStatement();
-             ResultSet rs    = stmt.executeQuery(sql)){
+             Statement stmt = conn.createStatement();
+             ResultSet rs = stmt.executeQuery(sql)) {
             try {
                 writer.append("nodeID," +
                         "xcoord," +
@@ -106,10 +108,9 @@ public class DBAccess {
                         "building," +
                         "nodeType," +
                         "longName," +
-                       "shortName");
+                        "shortName");
                 writer.newLine();
-            }
-            catch (IOException o){
+            } catch (IOException o) {
                 System.out.println(o.getMessage());
             }
             // loop through the result set
@@ -124,8 +125,7 @@ public class DBAccess {
                             "," + rs.getString("longName") +
                             "," + rs.getString("shortName"));
                     writer.newLine();
-                }
-                catch (IOException o){
+                } catch (IOException o) {
                     System.out.println(o.getMessage());
                 }
             }
@@ -134,8 +134,7 @@ public class DBAccess {
         }
         try {
             writer.close();
-        }
-        catch(IOException o){
+        } catch (IOException o) {
             System.out.println(o.getMessage());
         }
 
@@ -146,13 +145,14 @@ public class DBAccess {
      * creates a prepared statement with terms from csv
      * separate method because java 8 does not support preparedStatement methods
      * within a try block
+     *
      * @param con
      * @param sql
      * @param data
      * @return
      * @throws SQLException
      */
-    private PreparedStatement createPreparedStatement(Connection con, String sql, String[] data) throws SQLException{
+    private PreparedStatement createPreparedStatement(Connection con, String sql, String[] data) throws SQLException {
         PreparedStatement pstmt = con.prepareStatement(sql);
         pstmt.setString(1, data[0]);
         pstmt.setInt(2, Integer.parseInt(data[1]));
@@ -168,7 +168,7 @@ public class DBAccess {
     /**
      * create the database for prototype nodes
      */
-    public void createDatabase(){
+    public void createDatabase() {
         String sql = "CREATE TABLE protoNodes(" +
                 "nodeID TEXT PRIMARY KEY, " +
                 "xcoord integer," +
@@ -180,7 +180,7 @@ public class DBAccess {
                 "shortName TEXT);";
 
         try (Connection conn = this.connect();
-             Statement stmt  = conn.createStatement()){
+             Statement stmt = conn.createStatement()) {
             stmt.executeUpdate(sql);
         } catch (SQLException e) {
             System.out.println(e.getMessage());
@@ -189,13 +189,14 @@ public class DBAccess {
 
     /**
      * returns the number of records in protoNodes
+     *
      * @return
      */
-    public int countRecords(){
+    public int countRecords() {
         String sql = "select COUNT(*) from protoNodes";
         try (Connection conn = this.connect();
-             Statement stmt  = conn.createStatement();
-             ResultSet rs    = stmt.executeQuery(sql)){
+             Statement stmt = conn.createStatement();
+             ResultSet rs = stmt.executeQuery(sql)) {
 
             return rs.getInt(1);
         } catch (SQLException e) {
@@ -208,18 +209,18 @@ public class DBAccess {
     /**
      * Queries the database for all fields of the protoNodes class and returns an arraylist
      */
-    public ArrayList<String> getNodes(int getNum){
+    public ArrayList<String> getNodes(int getNum) {
         String sql = "SELECT * FROM protoNodes";
         int count = 0;
         ArrayList<String> data = new ArrayList<String>();
         //System.out.println("why");
         try (Connection conn = this.connect();
-             Statement stmt  = conn.createStatement();
-             ResultSet rs    = stmt.executeQuery(sql)){
-           // System.out.println("why2");
+             Statement stmt = conn.createStatement();
+             ResultSet rs = stmt.executeQuery(sql)) {
+            // System.out.println("why2");
             while (rs.next()) {
                 //System.out.println("why3");
-                if(count == getNum) {
+                if (count == getNum) {
                     //System.out.println("why4");
                     //System.out.println(rs.getString("nodeID"));
                     data.add(rs.getString("nodeID"));
@@ -254,12 +255,13 @@ public class DBAccess {
 
     /**
      * Call this to update the database with the required paramaters
+     *
      * @param nodeID
      * @param field
      * @param data
      */
-    public void updateProto(String nodeID, String field, String data){
-        String sql = "update protoNodes set " + field +  "= ? where nodeID= ?;";
+    public void updateProto(String nodeID, String field, String data) {
+        String sql = "update protoNodes set " + field + "= ? where nodeID= ?;";
         //System.out.println("SQL Statement: " + sql);
 
         try (Connection conn = this.connect();
@@ -274,12 +276,13 @@ public class DBAccess {
 
     /**
      * Call this to update the database with the required paramaters
+     *
      * @param nodeID
      * @param field
      * @param data
      */
-    public void updateProto(String nodeID, String field, int data){
-        String sql = "update protoNodes set " + field +  "= ? where nodeID= ?;";
+    public void updateProto(String nodeID, String field, int data) {
+        String sql = "update protoNodes set " + field + "= ? where nodeID= ?;";
         //System.out.println("SQL Statement: " + sql);
 
         try (Connection conn = this.connect();
@@ -294,6 +297,7 @@ public class DBAccess {
 
     /**
      * another helper method this time for the updateProto method
+     *
      * @param con
      * @param sql
      * @param nodeID
@@ -301,7 +305,7 @@ public class DBAccess {
      * @return
      * @throws SQLException
      */
-    public PreparedStatement updatePSTMT(Connection con, String sql, String nodeID, String data) throws SQLException{
+    public PreparedStatement updatePSTMT(Connection con, String sql, String nodeID, String data) throws SQLException {
         PreparedStatement pstmt = con.prepareStatement(sql);
         pstmt.setString(1, data);
         pstmt.setString(2, nodeID);
@@ -309,9 +313,9 @@ public class DBAccess {
     }
 
 
-
     /**
      * Main within database class for testing use
+     *
      * @param args
      */
     public static void main(String[] args) {
