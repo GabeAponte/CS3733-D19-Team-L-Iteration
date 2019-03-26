@@ -16,11 +16,13 @@ import javax.xml.soap.Text;
 import java.io.IOException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.concurrent.TimeoutException;
 
 public class EditTableController {
 
     private Stage stage;
+    private ArrayList<String> data;
 
     @FXML
     Button cancel;
@@ -52,6 +54,21 @@ public class EditTableController {
     @FXML
     TextField shortName;
 
+
+    public void fillTable(ArrayList<String> data) {
+        this.data = data;
+        id.setText(data.get(0));
+        xcoord.setText(data.get(1));
+        ycoord.setText(data.get(2));
+        floor.setText(data.get(3));
+        building.setText(data.get(4));
+        nodeType.setText(data.get(5));
+        longName.setText(data.get(6));
+        shortName.setText(data.get(7));
+
+
+        //this.id.setText(data);
+    }
 
     @FXML
     public void initialize(){
