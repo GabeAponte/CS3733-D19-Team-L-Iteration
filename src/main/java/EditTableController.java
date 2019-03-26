@@ -23,7 +23,7 @@ public class EditTableController {
 
     private Stage stage;
     private PrototypeLocation data;
-
+    private String tempNodeID;
     @FXML
     Button cancel;
 
@@ -57,6 +57,7 @@ public class EditTableController {
 
     public void fillTable(PrototypeLocation data) {
         this.data = data;
+        tempNodeID = data.getId();
         id.setText(data.getId());
         xcoord.setText(Integer.toString(data.getXcoord()));
         ycoord.setText(Integer.toString(data.getYcoord()));
@@ -75,6 +76,20 @@ public class EditTableController {
 
     @FXML
     private void returnAndSave() throws IOException {
+        DBAccess db = new DBAccess();
+        //db.dropTable();
+        //db.createDatabase();
+        //db.readCSVintoTable("src/main/resources/PrototypeNodes.csv");
+
+        db.updateProto(tempNodeID, "nodeID", id.getText());
+        db.updateProto(tempNodeID, "xcoord" , xcoord.getText());
+        db.updateProto(tempNodeID, "ycoord" , ycoord.getText());
+        db.updateProto(tempNodeID, "floor" , floor.getText());
+        db.updateProto(tempNodeID, "building" , building.getText());
+        db.updateProto(tempNodeID, "nodeType" , nodeType.getText());
+        db.updateProto(tempNodeID, "longName" , longName.getText());
+        db.updateProto(tempNodeID, "shortName" , shortName.getText());
+
         stage = (Stage) saveAndReturn.getScene().getWindow();
         AnchorPane root;
         root =  FXMLLoader.load(getClass().getResource("sample.fxml"));
