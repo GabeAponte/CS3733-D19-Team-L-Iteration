@@ -2,58 +2,71 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.AnchorPane;
+import javafx.stage.Stage;
 
+import javax.xml.soap.Text;
+import java.io.IOException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.concurrent.TimeoutException;
 
 public class EditTableController {
 
+    private Stage stage;
 
     @FXML
-    Button download;
+    Button cancel;
 
     @FXML
-    TableColumn<PrototypeLocation, Integer> idCol;
+    Button saveAndReturn;
 
     @FXML
-    TableColumn<PrototypeLocation, String> nameCol;
+    TextField id;
 
     @FXML
-    private TableView<PrototypeLocation> table = new TableView();
+    TextField xcoord;
+
+    @FXML
+    TextField ycoord;
+
+    @FXML
+    TextField floor;
+
+    @FXML
+    TextField building;
+
+    @FXML
+    TextField nodeType;
+
+    @FXML
+    TextField longName;
+
+    @FXML
+    TextField shortName;
 
 
     @FXML
     public void initialize(){
-        table.setEditable(true);
-
-        PrototypeLocation test1 = new PrototypeLocation("1", 2, 2, 2, "Main", "elevator", "second floor elevator", "Elevator2");
-        //PrototypeLocation test2 = new PrototypeLocation("1", "Coffee");
-
-        final ObservableList<PrototypeLocation> data = FXCollections.observableArrayList();
-        /*
-        DBAccess db = new DBAccess();
-        ResultSet rs = db.getNodes();
-        try {
-            while(rs.next()){
-                PrototypeLocation testx = new PrototypeLocation(rs.getString("nodeID"), rs.getInt("xcoord"), rs.getInt("ycoord"), rs.getInt("floor"), rs.getString("building"), rs.getString("nodeType"), rs.getString("longName"), rs.getString("shortName"));
-
-                data.add(testx);
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        */
-
-
-
-        idCol.setCellValueFactory(new PropertyValueFactory<PrototypeLocation,Integer>("id"));
-        nameCol.setCellValueFactory(new PropertyValueFactory<PrototypeLocation,String>("name"));
-
-        table.setItems(data);
+        // populate text fields
         System.out.println("HERE");
+    }
+
+    @FXML
+    private void returnAndSave() throws IOException {
+        stage = (Stage) saveAndReturn.getScene().getWindow();
+        AnchorPane root;
+        root =  FXMLLoader.load(getClass().getResource("sample.fxml"));
+        Scene scene = new Scene(root);
+        //scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
+        stage.setScene(scene);
+
     }
 }

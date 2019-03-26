@@ -106,7 +106,7 @@ public class TableViewController {
 
     @FXML
     private void cellClicked(ActionEvent event) {
-        
+
     }
 
     @FXML
