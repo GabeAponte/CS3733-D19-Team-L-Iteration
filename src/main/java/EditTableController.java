@@ -81,7 +81,6 @@ public class EditTableController {
         //db.createDatabase();
         //db.readCSVintoTable("src/main/resources/PrototypeNodes.csv");
 
-        db.updateProto(tempNodeID, "nodeID", id.getText());
         db.updateProto(tempNodeID, "xcoord" , Integer.parseInt(xcoord.getText()));
         db.updateProto(tempNodeID, "ycoord" , Integer.parseInt(ycoord.getText()));
         db.updateProto(tempNodeID, "floor" , Integer.parseInt(floor.getText()));
@@ -89,6 +88,7 @@ public class EditTableController {
         db.updateProto(tempNodeID, "nodeType" , nodeType.getText());
         db.updateProto(tempNodeID, "longName" , longName.getText());
         db.updateProto(tempNodeID, "shortName" , shortName.getText());
+        db.updateProto(tempNodeID, "nodeID", id.getText());
         stage = (Stage) saveAndReturn.getScene().getWindow();
         AnchorPane root;
         root =  FXMLLoader.load(getClass().getResource("sample.fxml"));
