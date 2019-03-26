@@ -130,5 +130,14 @@ public class TableViewController {
         }
     }
 
+    @FXML
+    private void downloadClicker() throws IOException {
+        thestage = (Stage) download.getScene().getWindow();
+        AnchorPane root;
+        root =  FXMLLoader.load(getClass().getResource("downloadScreen.fxml"));
+        Scene scene = new Scene(root);
+        thestage.setScene(scene);
+    }
+
 
 }
