@@ -267,6 +267,28 @@ public class DBAccess {
     }
 
     /**
+     * Call this to update the database with the required paramaters
+     * @param nodeID
+     * @param field
+     * @param data
+     */
+    public void updateProto(String nodeID, String field, int data){
+        String sql = "update protoNodes set " + field +  "= ? where nodeID= ?;";
+        //System.out.println("SQL Statement: " + sql);
+
+        try (Connection conn = this.connect();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            pstmt.setInt(1, data);
+            pstmt.setString(2, nodeID);
+            pstmt.executeUpdate();
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+
+
+    /**
      * another helper method this time for the updateProto method
      * @param con
      * @param sql

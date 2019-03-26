@@ -82,9 +82,9 @@ public class EditTableController {
         //db.readCSVintoTable("src/main/resources/PrototypeNodes.csv");
 
         db.updateProto(tempNodeID, "nodeID", id.getText());
-        db.updateProto(tempNodeID, "xcoord" , xcoord.getText());
-        db.updateProto(tempNodeID, "ycoord" , ycoord.getText());
-        db.updateProto(tempNodeID, "floor" , floor.getText());
+        db.updateProto(tempNodeID, "xcoord" , Integer.parseInt(xcoord.getText()));
+        db.updateProto(tempNodeID, "ycoord" , Integer.parseInt(ycoord.getText()));
+        db.updateProto(tempNodeID, "floor" , Integer.parseInt(floor.getText()));
         db.updateProto(tempNodeID, "building" , building.getText());
         db.updateProto(tempNodeID, "nodeType" , nodeType.getText());
         db.updateProto(tempNodeID, "longName" , longName.getText());
