@@ -103,11 +103,11 @@ public class TableViewController {
 
     @FXML
     public void callAccepted(ActionEvent event){
-        this.makeEditable.setDisable(false);
         System.out.println("cool");
     }
 
     public void setNext(PrototypeLocation proto) {
+        this.makeEditable.setDisable(false);
         this.proto= proto;
     }
 

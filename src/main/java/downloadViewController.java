@@ -19,7 +19,7 @@ public class downloadViewController {
     Button cancel;
 
     @FXML
-    Button download;
+    Button downloadButton;
 
     @FXML
     public void initialize(){
@@ -29,7 +29,7 @@ public class downloadViewController {
 
     @FXML
     private void downloadClicker2() throws IOException {
-        stage = (Stage) download.getScene().getWindow();
+        stage = (Stage) downloadButton.getScene().getWindow();
         AnchorPane root;
         root =  FXMLLoader.load(getClass().getResource("sample.fxml"));
         Scene scene = new Scene(root);
