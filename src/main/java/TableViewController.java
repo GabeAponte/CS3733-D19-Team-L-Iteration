@@ -62,6 +62,7 @@ public class TableViewController {
     @FXML
     public void initialize(){
         table.setEditable(false);
+        this.makeEditable.setDisable(true);
         PrototypeLocation test1 = new PrototypeLocation("1", 2, 2, 2, "Main", "elevator", "second floor elevator", "Elevator2");
         //PrototypeLocation test2 = new PrototypeLocation("1", "Coffee");
 
@@ -102,6 +103,7 @@ public class TableViewController {
 
     @FXML
     public void callAccepted(ActionEvent event){
+        this.makeEditable.setDisable(false);
         System.out.println("cool");
     }
 
@@ -128,6 +130,15 @@ public class TableViewController {
         } catch (IOException ex) {
             System.err.println(ex);
         }
+    }
+
+    @FXML
+    private void downloadClicker() throws IOException {
+        thestage = (Stage) download.getScene().getWindow();
+        AnchorPane root;
+        root =  FXMLLoader.load(getClass().getResource("downloadScreen.fxml"));
+        Scene scene = new Scene(root);
+        thestage.setScene(scene);
     }
 
 
