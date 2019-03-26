@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.paint.*?>
 <?import com.jfoenix.controls.*?>
 <?import java.lang.*?>
 <?import javafx.geometry.*?>
@@ -16,20 +17,34 @@
    <children>
       <VBox layoutX="3.0" layoutY="6.0" prefHeight="392.0" prefWidth="590.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
-            <Label text="enter the dierectory to the folder name" />
+            <Label text="enter the dierectory to the folder name">
+               <VBox.margin>
+                  <Insets left="50.0" top="100.0" />
+               </VBox.margin></Label>
             <HBox maxHeight="80.0" prefHeight="80.0" prefWidth="600.0" spacing="50.0">
                <padding>
-                  <Insets bottom="5.0" left="50.0" right="5.0" top="30.0" />
+                  <Insets bottom="5.0" left="50.0" right="5.0" top="10.0" />
                </padding>
                <children>
-                  <TextField fx:id="downloadPath" prefHeight="10.0" prefWidth="506.0" promptText="enter your path" />
+                  <TextField fx:id="downloadPath" promptText="enter your path" HBox.hgrow="ALWAYS">
+                     <HBox.margin>
+                        <Insets right="50.0" />
+                     </HBox.margin></TextField>
                </children>
                <VBox.margin>
                   <Insets />
                </VBox.margin>
             </HBox>
-            <Button fx:id="cancelButton" alignment="CENTER_RIGHT" contentDisplay="RIGHT" mnemonicParsing="false" onAction="#cancelClicker" text="Cancel" />
-            <JFXButton fx:id="downloadButton" onAction="#downloadCSV" prefHeight="25.0" prefWidth="106.0" text="Download" />
+            <HBox spacing="50.0" VBox.vgrow="ALWAYS">
+               <children>
+                  <JFXButton fx:id="cancelButton" buttonType="RAISED" maxWidth="225.0" onAction="#cancelClicker" ripplerFill="#002bff" text="Cancel / Go Back" HBox.hgrow="ALWAYS">
+                     <HBox.margin>
+                        <Insets left="50.0" />
+                     </HBox.margin>
+                  </JFXButton>
+                  <JFXButton fx:id="downloadButton" buttonType="RAISED" maxWidth="225.0" onAction="#downloadCSV" ripplerFill="RED" text="Download" HBox.hgrow="ALWAYS" />
+               </children>
+            </HBox>
          </children>
       </VBox>
    </children>
