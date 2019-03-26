@@ -286,14 +286,11 @@ public class DBAccess {
         }
     }
 
-
-
     /**
      * another helper method this time for the updateProto method
      * @param con
      * @param sql
      * @param nodeID
-     * @param field
      * @param data
      * @return
      * @throws SQLException
