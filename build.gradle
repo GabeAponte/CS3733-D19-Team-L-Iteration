@@ -27,10 +27,17 @@ sourceSets {
     }
 }
 
+task ensureDirectory {
+    doLast {
+        mkdir "images"
+    }
+}
+
 configurations {
     integrationTestCompile.extendsFrom testCompile
     integrationTestRuntime.extendsFrom testRuntime
 }
+
 
 // This will be the name of the task that you'll run to do only your integration tests
 task integrationTest(type: Test) {

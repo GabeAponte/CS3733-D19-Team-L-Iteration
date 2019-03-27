@@ -41,16 +41,16 @@ public class DBAccess {
     /**
      * reads the csvFile given and adds it to given table
      *
-     * @param csvFile
+     * @param
      */
-    public void readCSVintoTable(URL csvFile) throws URISyntaxException {
+    public void readCSVintoTable() throws URISyntaxException {
         //String csvFile = "src/main/resources/PrototypeNodes.csv";
         String line = "";
         String cvsSplitBy = ",";
         int count = 0;
 
-        File file = new File(csvFile.toURI());
-        try (BufferedReader br = new BufferedReader(new FileReader(file))) {
+        InputStream file = this.getClass().getClassLoader().getResourceAsStream("PrototypeNodes.csv");
+        try (BufferedReader br = new BufferedReader(new InputStreamReader(file))) {
 
             while ((line = br.readLine()) != null) {
                 if (count != 0) {

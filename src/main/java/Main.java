@@ -47,7 +47,7 @@ public class Main extends Application {
         DBAccess db = new DBAccess();
         db.dropTable();
         db.createDatabase();
-        db.readCSVintoTable(new URL("file:///" + System.getProperty("user.dir") + File.separator + "src" + File.separator + "main" + File.separator + "resources" + File.separator + "PrototypeNodes.csv"));
+        db.readCSVintoTable();
         launch(args);
     }
 }
