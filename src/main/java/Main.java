@@ -48,6 +48,6 @@ public class Main extends Application {
         db.dropTable();
         db.createDatabase();
         db.readCSVintoTable();
-        launch(args);
+       launch(args);
     }
 }
