@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.Queue;
 
 @SuppressWarnings("unused")
 public class Location {
@@ -86,6 +87,31 @@ public class Location {
         this.shortName = shortName;
     }
 
+    public ArrayList<Location> findPath(Location endNode, Queue<Location> open, Queue<Location> closed) {
+        return new ArrayList<Location>();
+
+    }
+
+    //Nathan - returns ArrayList of locations which this location is connected to
+    public ArrayList<Location> findNeighbors(){
+        ArrayList<Location> neighbors = new ArrayList<Location>();
+        for (int i = 0; i < connectedEdges.size(); i++){
+            if(connectedEdges.get(i).getEndNode().getLocID() != this.getLocID()){
+                neighbors.add(connectedEdges.get(i).getEndNode());
+            } else {
+                neighbors.add(connectedEdges.get(i).getStartNode());
+            }
+        }
+
+        return neighbors;
+    }
+
+    //Nathan - calcualte this location's score
+    //h is total edge length to this node, end node is ending node
+    public double calculateScore(int h, Location endNode){
+        return h + findDistance(endNode);
+    }
+
     //Nathan - finds DIRECT distance between two nodes
     public double findDistance(Location endNode){
         double xDiff, yDiff;
@@ -99,6 +125,5 @@ public class Location {
         xDiff += yDiff;
         return Math.sqrt(xDiff);
     }
-
 
 }
