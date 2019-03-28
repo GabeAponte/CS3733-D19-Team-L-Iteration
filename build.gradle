@@ -1,4 +1,4 @@
-group 'teaml' // replace with your package name
+group 'edu.wpi.cs3733.d19.teaml' // replace with your package name
 version '0.1'
 
 apply plugin: 'java'
