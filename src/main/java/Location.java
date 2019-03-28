@@ -7,6 +7,7 @@ public class Location {
     private int xcoord, ycoord, floor;
     private String locID, building, nodeType, longName, shortName;
     private ArrayList<Edge> connectedEdges;
+    private double score;
 
     public Location(String idIn, int xcoordIn, int ycoordIn, int floorIn, String buildingIn, String nodeTypeIn,
                     String longNameIn, String shortNameIn) {
@@ -18,6 +19,15 @@ public class Location {
         nodeType = nodeTypeIn;
         longName = longNameIn;
         shortName = shortNameIn;
+        score = 0;
+    }
+
+    public double getScore() {
+        return score;
+    }
+
+    public void setScore(double score) {
+        this.score = score;
     }
 
     public int getXcoord() {
@@ -106,7 +116,9 @@ public class Location {
     //Nathan - calcualte this location's score
     //h is total edge length to this node, end node is ending node
     public double calculateScore(int h, Location endNode){
-        return h + findDistance(endNode);
+        double thisScore = h + findDistance(endNode);
+        setScore(thisScore);
+        return thisScore;
     }
 
     //Nathan - finds DIRECT distance between two nodes
