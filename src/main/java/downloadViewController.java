@@ -2,21 +2,15 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
-import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
-import javax.xml.soap.Text;
 import java.io.IOException;
 
 public class downloadViewController {
+    @SuppressWarnings("FieldCanBeLocal")
     private Stage stage;
-
-    @FXML
-    Button cancel;
 
     @FXML
     Button downloadButton;
@@ -27,12 +21,13 @@ public class downloadViewController {
     @FXML
     TextField downloadPath;
 
-    @FXML
-    public void initialize(){
-        // populate text fields
-        System.out.println("HEREDOWNLOAD");
-    }
 
+    @SuppressWarnings("EmptyMethod")
+    @FXML
+    public void initialize(){ }
+
+
+    @SuppressWarnings("Duplicates")
     @FXML
     private void cancelClicker() throws IOException {
         stage = (Stage) cancelButton.getScene().getWindow();
@@ -42,6 +37,7 @@ public class downloadViewController {
         stage.setScene(scene);
     }
 
+    @SuppressWarnings("RedundantThrows")
     @FXML
     private void downloadCSV() throws IOException {
         DBAccess db = new DBAccess();

@@ -1,29 +1,19 @@
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
-import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
-
-import javax.xml.soap.Text;
 import java.io.IOException;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.concurrent.TimeoutException;
 
 public class EditTableController {
-
     private Stage stage;
+
+    @SuppressWarnings("FieldCanBeLocal")
     private PrototypeLocation data;
     private String tempNodeID;
+
     @FXML
     Button cancel;
 
@@ -54,9 +44,8 @@ public class EditTableController {
     @FXML
     TextField shortName;
 
-
-    public void fillTable(PrototypeLocation data) {
-        this.data = data;
+    public void fillTable(PrototypeLocation obj) {
+        this.data = obj;
         tempNodeID = data.getId();
         id.setText(data.getId());
         xcoord.setText(Integer.toString(data.getXcoord()));
@@ -69,11 +58,9 @@ public class EditTableController {
     }
 
     @FXML
-    public void initialize(){
-        // populate text fields
-        System.out.println("HERE");
-    }
+    public void initialize(){}
 
+    @SuppressWarnings("Duplicates")
     @FXML
     private void returnAndSave() throws IOException {
         DBAccess db = new DBAccess();
@@ -93,6 +80,7 @@ public class EditTableController {
         stage.setScene(scene);
     }
 
+    @SuppressWarnings("Duplicates")
     @FXML
     private void cancelButton() throws IOException {
         stage = (Stage) cancel.getScene().getWindow();

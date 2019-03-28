@@ -1,8 +1,8 @@
+@SuppressWarnings("unused")
 public class PrototypeLocation {
 
     private int xcoord, ycoord, floor;
     private String id, building, nodeType, longName, shortName;
-
 
     public PrototypeLocation(String idIn, int xcoordIn, int ycoordIn, int floorIn, String buildingIn, String nodeTypeIn,
                              String longNameIn, String shortNameIn) {

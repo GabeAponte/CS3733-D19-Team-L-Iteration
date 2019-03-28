@@ -17,10 +17,15 @@
    <children>
       <VBox layoutX="3.0" layoutY="6.0" prefHeight="392.0" prefWidth="590.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
-            <Label text="enter the dierectory to the folder name">
+            <Label prefHeight="33.0" prefWidth="496.0" text="Enter desired path OR leave blank to download in same directory with JAR">
                <VBox.margin>
                   <Insets left="50.0" top="100.0" />
                </VBox.margin></Label>
+            <Label prefHeight="33.0" prefWidth="496.0" text="Example: C:\Users\John\Desktop">
+               <VBox.margin>
+                  <Insets left="50.0" />
+               </VBox.margin>
+            </Label>
             <HBox maxHeight="80.0" prefHeight="80.0" prefWidth="600.0" spacing="50.0">
                <padding>
                   <Insets bottom="5.0" left="50.0" right="5.0" top="10.0" />
