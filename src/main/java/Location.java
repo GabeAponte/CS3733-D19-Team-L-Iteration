@@ -83,7 +83,7 @@ public class Location {
         this.shortName = shortName;
     }
 
-    public ArrayList<Location> findPath(Location startNode, Location endNode) {
+    public void findPath(Location startNode, Location endNode) {
         System.out.println("COOL");
     }
 }
