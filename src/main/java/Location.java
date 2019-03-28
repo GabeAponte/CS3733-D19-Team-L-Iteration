@@ -88,6 +88,21 @@ public class Location {
     /*
     public ArrayList<Location> findPath(Location startNode, Location endNode) {
         System.out.println("COOL");
+        return new ArrayList<Location>();
+    }
+
+    //Nathan - finds DIRECT distance between two nodes
+    public double findDistance(Location endNode){
+        double xDiff, yDiff;
+
+        xDiff = this.getXcoord() - endNode.getXcoord();
+        yDiff = this.getYcoord() - endNode.getYcoord();
+
+        xDiff = Math.pow(xDiff, 2);
+        yDiff = Math.pow(yDiff, 2);
+
+        xDiff += yDiff;
+        return Math.sqrt(xDiff);
     }
     */
 
