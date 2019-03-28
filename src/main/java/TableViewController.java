@@ -11,8 +11,16 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.sql.Array;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class TableViewController {
 
@@ -54,13 +62,17 @@ public class TableViewController {
     private Stage thestage;
     private Location proto;
 
+    ArrayList<String[]> edgeBase = new ArrayList<String[]>();
+    final ObservableList<Location> data = FXCollections.observableArrayList();
+    HashMap<String, Location> lookup = new HashMap<String, Location>();
+
 
     @SuppressWarnings("Convert2Diamond")
     @FXML
     public void initialize(){
         table.setEditable(false);
         this.makeEditable.setDisable(true);
-        final ObservableList<Location> data = FXCollections.observableArrayList();
+
         DBAccess db = new DBAccess();
 
         int count;
@@ -69,8 +81,45 @@ public class TableViewController {
             ArrayList<String> arr= db.getNodes(count);
             Location testx = new Location(arr.get(0), Integer.parseInt(arr.get(1)), Integer.parseInt(arr.get(2)), Integer.parseInt(arr.get(3)), arr.get(4), arr.get(5), arr.get(6), arr.get(7));
             count++;
+            lookup.put(arr.get(0), testx);
             data.add(testx);
         }
+        String line;
+        String cvsSplitBy = ",";
+        int count2 = 0;
+
+
+        InputStream file;
+        file = this.getClass().getClassLoader().getResourceAsStream("MapLedges.csv");
+        //noinspection ConstantConditions
+        try (BufferedReader br = new BufferedReader(new InputStreamReader(file))) {
+
+            while ((line = br.readLine()) != null) {
+                if (count2 != 0) {
+                    // use comma as separator
+                    String[] datas = line.split(cvsSplitBy);
+                    edgeBase.add(datas);
+
+                } else {
+                    String[] datas = line.split(cvsSplitBy);
+                    edgeBase.add(datas);
+                    count2++;
+                }
+            }
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        System.out.println(edgeBase.get(2)[2]);
+
+        for (int i = 0; i < edgeBase.size(); i ++) {
+            Edge e = new Edge(edgeBase.get(i)[0], lookup.get(edgeBase.get(i)[1]), lookup.get(edgeBase.get(i)[2]));
+            lookup.get(edgeBase.get(i)[1]).addEdge(e);
+            lookup.get(edgeBase.get(i)[2]).addEdge(e);
+        }
+
+
 
 
         idCol.setCellValueFactory(new PropertyValueFactory<Location,String>("locID"));
@@ -121,6 +170,16 @@ public class TableViewController {
         root =  FXMLLoader.load(getClass().getResource("downloadScreen.fxml"));
         Scene scene = new Scene(root);
         thestage.setScene(scene);
+    }
+
+    ArrayList<Location> openList = new ArrayList<Location>();
+    ArrayList<Location> closeList = new ArrayList<Location>();
+
+
+    private ArrayList<Location> findPath(Location start, Location end) {
+        openList.add(start);
+
+        return new ArrayList<Location>();
     }
 
 
