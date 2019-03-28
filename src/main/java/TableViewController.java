@@ -23,36 +23,36 @@ public class TableViewController {
     Button download;
 
     @FXML
-    TableColumn<PrototypeLocation, String> idCol;
+    TableColumn<Location, String> idCol;
 
     @FXML
-    TableColumn<PrototypeLocation,Integer> xCol;
+    TableColumn<Location,Integer> xCol;
 
     @FXML
-    TableColumn<PrototypeLocation, Integer> yCol;
+    TableColumn<Location, Integer> yCol;
 
     @FXML
-    TableColumn<PrototypeLocation, Integer> floorCol;
+    TableColumn<Location, Integer> floorCol;
 
     @FXML
-    TableColumn<PrototypeLocation, String> buildingCol;
+    TableColumn<Location, String> buildingCol;
 
     @FXML
-    TableColumn<PrototypeLocation, String> typeCol;
+    TableColumn<Location, String> typeCol;
 
     @FXML
-    TableColumn<PrototypeLocation, String> longCol;
+    TableColumn<Location, String> longCol;
 
     @FXML
-    TableColumn<PrototypeLocation, String> shortCol;
+    TableColumn<Location, String> shortCol;
 
 
     @SuppressWarnings("unchecked")
     @FXML
-    private TableView<PrototypeLocation> table = new TableView();
+    private TableView<Location> table = new TableView();
 
     private Stage thestage;
-    private  PrototypeLocation proto;
+    private Location proto;
 
 
     @SuppressWarnings("Convert2Diamond")
@@ -60,34 +60,34 @@ public class TableViewController {
     public void initialize(){
         table.setEditable(false);
         this.makeEditable.setDisable(true);
-        final ObservableList<PrototypeLocation> data = FXCollections.observableArrayList();
+        final ObservableList<Location> data = FXCollections.observableArrayList();
         DBAccess db = new DBAccess();
 
         int count;
         count  = 0;
         while(count < db.countRecords()){
             ArrayList<String> arr= db.getNodes(count);
-            PrototypeLocation testx = new PrototypeLocation(arr.get(0), Integer.parseInt(arr.get(1)), Integer.parseInt(arr.get(2)), Integer.parseInt(arr.get(3)), arr.get(4), arr.get(5), arr.get(6), arr.get(7));
+            Location testx = new Location(arr.get(0), Integer.parseInt(arr.get(1)), Integer.parseInt(arr.get(2)), Integer.parseInt(arr.get(3)), arr.get(4), arr.get(5), arr.get(6), arr.get(7));
             count++;
             data.add(testx);
         }
 
 
-        idCol.setCellValueFactory(new PropertyValueFactory<PrototypeLocation,String>("id"));
-        xCol.setCellValueFactory(new PropertyValueFactory<PrototypeLocation, Integer>("xcoord"));
-        yCol.setCellValueFactory(new PropertyValueFactory<PrototypeLocation, Integer>("ycoord"));
-        floorCol.setCellValueFactory(new PropertyValueFactory<PrototypeLocation, Integer>("floor"));
-        buildingCol.setCellValueFactory(new PropertyValueFactory<PrototypeLocation, String >("building"));
-        typeCol.setCellValueFactory(new PropertyValueFactory<PrototypeLocation, String >("nodeType"));
-        longCol.setCellValueFactory(new PropertyValueFactory<PrototypeLocation,String>("longName"));
-        shortCol.setCellValueFactory(new PropertyValueFactory<PrototypeLocation, String>("shortName"));
+        idCol.setCellValueFactory(new PropertyValueFactory<Location,String>("locID"));
+        xCol.setCellValueFactory(new PropertyValueFactory<Location, Integer>("xcoord"));
+        yCol.setCellValueFactory(new PropertyValueFactory<Location, Integer>("ycoord"));
+        floorCol.setCellValueFactory(new PropertyValueFactory<Location, Integer>("floor"));
+        buildingCol.setCellValueFactory(new PropertyValueFactory<Location, String >("building"));
+        typeCol.setCellValueFactory(new PropertyValueFactory<Location, String >("nodeType"));
+        longCol.setCellValueFactory(new PropertyValueFactory<Location,String>("longName"));
+        shortCol.setCellValueFactory(new PropertyValueFactory<Location, String>("shortName"));
         //noinspection CodeBlock2Expr
         table.setOnMouseClicked( event -> {
                 setNext(table.getSelectionModel().getSelectedItem());});
         table.setItems(data);
     }
 
-    public void setNext(PrototypeLocation proto) {
+    public void setNext(Location proto) {
         this.makeEditable.setDisable(false);
         this.proto= proto;
     }

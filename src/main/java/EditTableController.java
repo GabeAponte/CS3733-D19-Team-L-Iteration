@@ -11,7 +11,7 @@ public class EditTableController {
     private Stage stage;
 
     @SuppressWarnings("FieldCanBeLocal")
-    private PrototypeLocation data;
+    private Location data;
     private String tempNodeID;
 
     @FXML
@@ -44,10 +44,10 @@ public class EditTableController {
     @FXML
     TextField shortName;
 
-    public void fillTable(PrototypeLocation obj) {
+    public void fillTable(Location obj) {
         this.data = obj;
-        tempNodeID = data.getId();
-        id.setText(data.getId());
+        tempNodeID = data.getLocID();
+        id.setText(data.getLocID());
         xcoord.setText(Integer.toString(data.getXcoord()));
         ycoord.setText(Integer.toString(data.getYcoord()));
         floor.setText(Integer.toString(data.getFloor()));
