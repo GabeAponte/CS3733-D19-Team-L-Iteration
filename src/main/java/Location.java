@@ -85,5 +85,6 @@ public class Location {
 
     public ArrayList<Location> findPath(Location startNode, Location endNode) {
         System.out.println("COOL");
+        return new ArrayList<Location>();
     }
 }
