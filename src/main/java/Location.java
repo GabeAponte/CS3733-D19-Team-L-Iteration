@@ -1,12 +1,15 @@
+import java.util.ArrayList;
+
 @SuppressWarnings("unused")
-public class PrototypeLocation {
+public class Location {
 
     private int xcoord, ycoord, floor;
-    private String id, building, nodeType, longName, shortName;
+    private String locID, building, nodeType, longName, shortName;
+    private ArrayList<Edge> connectedEdges;
 
-    public PrototypeLocation(String idIn, int xcoordIn, int ycoordIn, int floorIn, String buildingIn, String nodeTypeIn,
-                             String longNameIn, String shortNameIn) {
-        id = idIn;
+    public Location(String idIn, int xcoordIn, int ycoordIn, int floorIn, String buildingIn, String nodeTypeIn,
+                    String longNameIn, String shortNameIn) {
+        locID = idIn;
         xcoord = xcoordIn;
         ycoord = ycoordIn;
         floor=  floorIn;
@@ -40,12 +43,12 @@ public class PrototypeLocation {
         this.floor = floor;
     }
 
-    public String getId() {
-        return id;
+    public String getLocID() {
+        return locID;
     }
 
-    public void setId(String id) {
-        this.id = id;
+    public void setLocID(String locID) {
+        this.locID = locID;
     }
 
     public String getBuilding() {
