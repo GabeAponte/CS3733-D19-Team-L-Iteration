@@ -10,7 +10,7 @@
 <?import javafx.scene.shape.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="484.0" prefWidth="667.0" style="-fx-background-color: #7fb1ff;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="484.0" prefWidth="667.0" style="-fx-background-color: #7fb1ff;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="PathFindingController">
    <children>
       <ToolBar prefHeight="61.0" prefWidth="667.0" style="-fx-background-color: white;">
          <items>
@@ -86,7 +86,7 @@
             <Font name="Times New Roman Bold" size="25.0" />
          </font>
       </Button>
-      <Button fx:id="PathFindBack" layoutX="483.0" layoutY="6.0" mnemonicParsing="false" style="-fx-background-color: white;" text="Back">
+      <Button fx:id="PathFindBack" layoutX="483.0" layoutY="6.0" mnemonicParsing="false" onAction="#backPressed" style="-fx-background-color: white;" text="Back">
          <font>
             <Font name="Times New Roman" size="22.0" />
          </font>
