@@ -141,15 +141,7 @@ public class NodesAccess extends DBAccess{
             while (rs.next()) {
                 if (count == getNum) {
                     data.add(rs.getString("nodeID"));
-                    data.add(Integer.toString(rs.getInt("xcoord")));
-                    data.add(Integer.toString(rs.getInt("ycoord")));
-                    data.add(Integer.toString(rs.getInt("floor")));
-                    data.add(rs.getString("building"));
-                    data.add(rs.getString("nodeType"));
-                    data.add(rs.getString("longName"));
-                    data.add(rs.getString("shortName"));
-
-                    return data;
+                    return getFields(data, rs);
                 }
                 count++;
             }
@@ -245,13 +237,40 @@ public class NodesAccess extends DBAccess{
     }
 
     /**ANDREW MADE THIS
-     *
+     *  returns the fields of a particular nodeID in an arraylist
      * @param nodeID
      * @return
      */
     public ArrayList<String> getNodeInformation(String nodeID){
         //todo
+        String sql = "SELECT * FROM nodes where nodeID = ?";
+        //noinspection Convert2Diamond
+        ArrayList<String> data = new ArrayList<String>();
+        try (Connection conn = this.connect();
+             PreparedStatement pstmt = conn.prepareStatement(sql)){
+            pstmt.setString(1, nodeID);
+            ResultSet rs = pstmt.executeQuery(sql);
+            while (rs.next()) {
+                return getFields(data, rs);
+            }
+
+
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+
         return null;
+    }
+
+    private ArrayList<String> getFields(ArrayList<String> data, ResultSet rs) throws SQLException {
+        data.add(Integer.toString(rs.getInt("xcoord")));
+        data.add(Integer.toString(rs.getInt("ycoord")));
+        data.add(Integer.toString(rs.getInt("floor")));
+        data.add(rs.getString("building"));
+        data.add(rs.getString("nodeType"));
+        data.add(rs.getString("longName"));
+        data.add(rs.getString("shortName"));
+        return data;
     }
 
     public static void main(String[] args) {
