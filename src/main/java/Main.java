@@ -12,7 +12,6 @@ public class Main extends Application {
     public void start(Stage primaryStage) throws Exception {
         Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getClassLoader().getResource("sample.fxml")));
         primaryStage.setTitle("Prototype");
-        System.out.println("WELCOME TO ALGORITHM BRANCH BAYBEEEEEEE");
         primaryStage.setScene(new Scene(root, 600, 475));
         primaryStage.show();
     }
