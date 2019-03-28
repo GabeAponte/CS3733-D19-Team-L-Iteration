@@ -17,19 +17,19 @@
          <items>
             <ImageView fitHeight="49.0" fitWidth="261.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../../../../Desktop/SoftEng%20UI%20Mockup%20Pics/output-onlinepngtools%20(1).png" />
+                  <!--Image url="@../../../../Desktop/SoftEng%20UI%20Mockup%20Pics/output-onlinepngtools%20(1).png" -->
                </image>
             </ImageView>
          </items></ToolBar>
       <ToolBar layoutY="55.0" prefHeight="12.0" prefWidth="600.0" style="-fx-background-color: #092b60;" />
       <ImageView fitHeight="333.0" fitWidth="300.0" layoutX="303.0" layoutY="67.0" opacity="0.32" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@../../../../Desktop/SoftEng%20UI%20Mockup%20Pics/Screen%20Shot%202019-03-20%20at%2011.42.26%20PM.png" />
+            <!--Image url="@../../../../Desktop/SoftEng%20UI%20Mockup%20Pics/Screen%20Shot%202019-03-20%20at%2011.42.26%20PM.png" -->
          </image>
       </ImageView>
       <ImageView fitHeight="336.0" fitWidth="301.0" layoutY="67.0" opacity="0.64" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@../../../../Desktop/SoftEng%20UI%20Mockup%20Pics/Screen%20Shot%202019-03-20%20at%2011.47.08%20PM.png" />
+            <!--Image url="@../../../../Desktop/SoftEng%20UI%20Mockup%20Pics/Screen%20Shot%202019-03-20%20at%2011.47.08%20PM.png" -->
          </image>
       </ImageView>
       <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#092b60" height="98.0" layoutX="52.0" layoutY="184.0" stroke="#092b60" strokeType="INSIDE" width="196.0" />

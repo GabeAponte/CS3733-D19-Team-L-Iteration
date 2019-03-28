@@ -16,7 +16,7 @@
          <items>
             <ImageView fitHeight="45.0" fitWidth="233.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../../../../Desktop/SoftEng%20UI%20Mockup%20Pics/output-onlinepngtools%20(1).png" />
+                  <!--Image url="@../../../../Desktop/SoftEng%20UI%20Mockup%20Pics/output-onlinepngtools%20(1).png" -->
                </image>
             </ImageView>
          </items>
@@ -55,7 +55,7 @@
       <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#092b60" height="305.0" layoutX="9.0" layoutY="166.0" stroke="#092b60" strokeType="INSIDE" width="649.0" />
       <ImageView fitHeight="288.0" fitWidth="440.0" layoutX="16.0" layoutY="176.0" pickOnBounds="true" preserveRatio="true" style="-: blue;">
          <image>
-            <Image url="@../../../../Desktop/SoftEng%20UI%20Mockup%20Pics/02_thesecondfloor.png" />
+            <!--Image url="@../../../../Desktop/SoftEng%20UI%20Mockup%20Pics/02_thesecondfloor.png" -->
          </image>
       </ImageView>
       <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#7fb1ff" height="169.0" layoutX="468.0" layoutY="184.0" stroke="#7fb1ff" strokeType="INSIDE" width="163.0" />
