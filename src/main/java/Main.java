@@ -18,10 +18,10 @@ public class Main extends Application {
 
     @SuppressWarnings("RedundantThrows")
     public static void main(String[] args) throws URISyntaxException {
-        DBAccess db = new DBAccess();
-        db.dropTable();
-        db.createDatabase();
-        db.readCSVintoTable();
+        //DBAccess db = new DBAccess();
+        //db.dropTable();
+        //db.createDatabase();
+        //db.readCSVintoTable();
         launch(args);
     }
 }
