@@ -17,6 +17,7 @@ public class Location {
         nodeType = nodeTypeIn;
         longName = longNameIn;
         shortName = shortNameIn;
+        connectedEdges = new ArrayList<Edge>();
     }
 
     public int getXcoord() {
@@ -79,11 +80,15 @@ public class Location {
         return shortName;
     }
 
+    public void addEdge(Edge e) { connectedEdges.add(e);}
+
     public void setShortName(String shortName) {
         this.shortName = shortName;
     }
-
+    /*
     public ArrayList<Location> findPath(Location startNode, Location endNode) {
         System.out.println("COOL");
     }
+    */
+
 }
