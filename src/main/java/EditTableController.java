@@ -57,6 +57,7 @@ public class EditTableController {
         shortName.setText(data.getShortName());
     }
 
+    @SuppressWarnings("EmptyMethod")
     @FXML
     public void initialize(){}
 
