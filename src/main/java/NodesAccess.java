@@ -91,13 +91,13 @@ public class NodesAccess extends DBAccess{
     public void createDatabase() {
         String sql = "CREATE TABLE nodes(" +
                 "nodeID TEXT PRIMARY KEY, " +
-                "xcoord integer," +
-                "ycoord integer," +
-                "floor integer," +
-                "building TEXT," +
-                "nodeType TEXT," +
-                "longName TEXT," +
-                "shortName TEXT);";
+                "xcoord integer not null, " +
+                "ycoord integer not null," +
+                "floor integer not null," +
+                "building TEXT not null," +
+                "nodeType TEXT not null," +
+                "longName TEXT not null," +
+                "shortName TEXT not null);";
 
         try (Connection conn = this.connect();
              Statement stmt = conn.createStatement()) {
@@ -244,9 +244,20 @@ public class NodesAccess extends DBAccess{
         }
     }
 
+    /**ANDREW MADE THIS
+     *
+     * @param nodeID
+     * @return
+     */
+    public ArrayList<String> getNodeInformation(String nodeID){
+        //todo
+        return null;
+    }
+
     public static void main(String[] args) {
         NodesAccess na = new NodesAccess();
-        //na.createDatabase();
+        //na.dropTable();
+        na.createDatabase();
         na.readCSVintoTable();
     }
 }
