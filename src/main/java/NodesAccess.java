@@ -276,7 +276,7 @@ public class NodesAccess extends DBAccess{
     public static void main(String[] args) {
         NodesAccess na = new NodesAccess();
         //na.dropTable();
-        na.createDatabase();
-        na.readCSVintoTable();
+        //na.createDatabase();
+        //na.readCSVintoTable();
     }
 }
