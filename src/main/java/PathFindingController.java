@@ -1,3 +1,4 @@
+import javafx.event.ActionEvent;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -58,6 +59,14 @@ public class PathFindingController {
     final ObservableList<Location> data = FXCollections.observableArrayList();
     HashMap<String, Location> lookup = new HashMap<String, Location>();
 
+    @FXML
+    private void backPressed() throws IOException {
+        thestage = (Stage) PathFindBack.getScene().getWindow();
+        AnchorPane root;
+        root = FXMLLoader.load(getClass().getResource("HospitalHome.fxml"));
+        Scene scene = new Scene(root);
+        thestage.setScene(scene);
+    }
 
     @SuppressWarnings("Convert2Diamond")
     @FXML
@@ -80,14 +89,7 @@ public class PathFindingController {
         //generatePath(start, end);
 
     }
-    @FXML
-    private void backPressed() throws IOException {
-        thestage = (Stage) PathFindBack.getScene().getWindow();
-        AnchorPane root;
-        root = FXMLLoader.load(getClass().getResource("HospitalHome.fxml"));
-        Scene scene = new Scene(root);
-        thestage.setScene(scene);
-    }
+
 
     //Nathan - function that will be called when user pressed ENTER button, will do pathfinding
     public void generatePath(Location start, Location end){

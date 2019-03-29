@@ -14,14 +14,29 @@ public class HomeScreenController {
     Button HomeFindPath;
 
     @FXML
-    Button HomeReqService;
+    Button HomeServiceRequest;
 
     @FXML
-    private void SwitchToPathfindScreen(ActionEvent event){
+    Button HomeSuggestions;
+
+    @FXML
+    private void SwitchToPathfindScreen(ActionEvent event) {
         try {
             Stage thestage = (Stage) HomeFindPath.getScene().getWindow();
             AnchorPane root;
             root = FXMLLoader.load(getClass().getResource("HospitalPathFinding.fxml"));
+            Scene scene = new Scene(root);
+            thestage.setScene(scene);
+        } catch (Exception e) {
+        }
+    }
+
+    @FXML
+    private void SwitchToSuggestionBox(ActionEvent event) {
+        try {
+            Stage thestage = (Stage) HomeFindPath.getScene().getWindow();
+            AnchorPane root;
+            root = FXMLLoader.load(getClass().getResource("SuggestionBox.fxml"));
             Scene scene = new Scene(root);
             thestage.setScene(scene);
         } catch (Exception e){
@@ -30,9 +45,9 @@ public class HomeScreenController {
     }
 
     @FXML
-    private void SwitchToServiceRequest(ActionEvent event){
+    private void SwitchToServiceScreen(ActionEvent event){
         try {
-            Stage thestage = (Stage) HomeReqService.getScene().getWindow();
+            Stage thestage = (Stage) HomeServiceRequest.getScene().getWindow();
             AnchorPane root;
             root = FXMLLoader.load(getClass().getResource("ServiceRequest.fxml"));
             Scene scene = new Scene(root);
