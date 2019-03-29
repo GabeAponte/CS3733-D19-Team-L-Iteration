@@ -20,6 +20,9 @@ public class HomeScreenController {
     Button HomeSuggestions;
 
     @FXML
+    Button HomeLogin;
+
+    @FXML
     private void SwitchToPathfindScreen(ActionEvent event) {
         try {
             Stage thestage = (Stage) HomeFindPath.getScene().getWindow();
@@ -53,6 +56,19 @@ public class HomeScreenController {
             Scene scene = new Scene(root);
             thestage.setScene(scene);
         } catch (Exception e){
+        }
+    }
+
+    @FXML
+    private void SwitchToLogin(ActionEvent event) {
+        try {
+            Stage thestage = (Stage) HomeLogin.getScene().getWindow();
+            AnchorPane root;
+            root = FXMLLoader.load(getClass().getResource("Login.fxml"));
+            Scene scene = new Scene(root);
+            thestage.setScene(scene);
+        } catch (Exception e){
+
         }
     }
 }
