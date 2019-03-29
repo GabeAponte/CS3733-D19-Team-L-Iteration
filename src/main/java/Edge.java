@@ -13,7 +13,7 @@ public class Edge {
         this.edgeID = edgeID;
         this.startNode = start;
         this.endNode = end;
-       // this.length = findDistance(start, end);
+        this.length = findDistance(start, end);
     }
     public Edge(Location start, Location end) {
         this.startNode = start;
