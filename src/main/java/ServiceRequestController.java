@@ -44,8 +44,27 @@ public class ServiceRequestController {
 
     //TODO: when submit is pressed, prompt "Are You Sure"
     @FXML
-    private void promptCancel(){
+    private void promptCancel(ActionEvent e){
 
+    }
+
+    //TODO: when button is pressed, change label, make service request object with type
+    @FXML
+    private void makeRequest(ActionEvent e){
+        //source button determines type for service request object, text for label
+        if(e.getSource() == SanitationServices) {
+
+        } else if(e.getSource() == Transportation) {
+
+        } else if(e.getSource() == ITServices) {
+
+        } else if(e.getSource() == FacilitiesMaitnence) {
+
+        } else if(e.getSource() == LanguageInterpreter) {
+
+        } else {
+
+        }
     }
 
 }
