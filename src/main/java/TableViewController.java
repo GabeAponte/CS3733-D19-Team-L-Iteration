@@ -113,7 +113,7 @@ public class TableViewController {
 
         System.out.println(edgeBase.get(1)[2]);
 
-        for (int i = 0; i < edgeBase.size(); i ++) {
+        for (int i = 1; i < edgeBase.size(); i ++) {
             Edge e = new Edge(edgeBase.get(i)[0], lookup.get(edgeBase.get(i)[1]), lookup.get(edgeBase.get(i)[2]));
             lookup.get(edgeBase.get(i)[1]).addEdge(e);
             lookup.get(edgeBase.get(i)[2]).addEdge(e);
