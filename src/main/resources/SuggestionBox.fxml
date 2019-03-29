@@ -16,6 +16,7 @@
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 
+<?import javafx.scene.image.Image?>
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="408.0" prefWidth="601.0" style="-fx-background-color: #7fb1ff;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="SuggestionBoxController">
     <children>
       <ImageView fitHeight="342.0" fitWidth="601.0" layoutY="67.0" opacity="0.51">
@@ -31,7 +32,7 @@
                     <items>
                         <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
                             <image>
-                                <!-- <Image url="@../../../../Documents/newBWH.png" /> -->
+                                <Image url="@BWHlogo.png" />
                             </image>
                         </ImageView>
                         <HBox prefHeight="43.0" prefWidth="376.0">

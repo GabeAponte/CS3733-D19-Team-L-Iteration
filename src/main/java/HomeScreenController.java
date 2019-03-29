@@ -14,11 +14,27 @@ public class HomeScreenController {
     Button HomeFindPath;
 
     @FXML
+    Button HomeServiceRequest;
+
+    @FXML
     private void SwitchToPathfindScreen(ActionEvent event){
         try {
             Stage thestage = (Stage) HomeFindPath.getScene().getWindow();
             AnchorPane root;
             root = FXMLLoader.load(getClass().getResource("HospitalPathFinding.fxml"));
+            Scene scene = new Scene(root);
+            thestage.setScene(scene);
+        } catch (Exception e){
+
+        }
+    }
+
+    @FXML
+    private void SwitchToServiceScreen(ActionEvent event){
+        try {
+            Stage thestage = (Stage) HomeServiceRequest.getScene().getWindow();
+            AnchorPane root;
+            root = FXMLLoader.load(getClass().getResource("ServiceRequest.fxml"));
             Scene scene = new Scene(root);
             thestage.setScene(scene);
         } catch (Exception e){
