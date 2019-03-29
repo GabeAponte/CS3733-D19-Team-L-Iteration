@@ -12,11 +12,11 @@ import java.io.IOException;
 
 public class ServiceSubController {
 
-    private Stage thestage;
+    Stage thestage;
     private String typeOfService;
 
     @FXML
-    private Button Back;
+    Button Back2;
 
     @FXML
     public Label typeLabel;
@@ -35,7 +35,7 @@ public class ServiceSubController {
 
     @FXML
     private void backPressed() throws IOException {
-        thestage = (Stage) Back.getScene().getWindow();
+        thestage = (Stage) Back2.getScene().getWindow();
         AnchorPane root;
         root = FXMLLoader.load(getClass().getResource("ServiceRequest.fxml"));
         Scene scene = new Scene(root);

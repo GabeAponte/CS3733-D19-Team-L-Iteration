@@ -18,7 +18,7 @@ import java.io.IOException;
 
 public class ServiceRequestController {
 
-    private Stage thestage;
+    protected Stage thestage;
     private String typeOfService;
 
     @FXML
@@ -40,10 +40,10 @@ public class ServiceRequestController {
     private Button SecurityStaff;
 
     @FXML
-    private Button Back;
+    public Button Back;
 
     @FXML
-    private void backPressed() throws IOException {
+    protected void backPressed() throws IOException {
         thestage = (Stage) Back.getScene().getWindow();
         AnchorPane root;
         root = FXMLLoader.load(getClass().getResource("HospitalHome.fxml"));

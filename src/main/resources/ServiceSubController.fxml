@@ -45,7 +45,7 @@
                         </ImageView>
                         <HBox alignment="CENTER_RIGHT" prefHeight="43.0" prefWidth="850.0">
                      <children>
-                              <Button fx:id="Back" alignment="CENTER" contentDisplay="CENTER" maxWidth="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#backPressed" prefHeight="125.0" prefWidth="200.0" style="-fx-background-color: white;" text="Back">
+                              <Button fx:id="Back2" alignment="CENTER" contentDisplay="CENTER" maxWidth="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#backPressed" prefHeight="125.0" prefWidth="200.0" style="-fx-background-color: white;" text="Back">
                                   <font>
                                       <Font name="Times New Roman" size="48.0" />
                                   </font>
