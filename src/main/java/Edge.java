@@ -9,7 +9,6 @@ public class Edge {
     }
 
     //Two constructors- not sure if we really need ID, we can delete later
-    //TODO: compute length based off of X and Y
     public Edge(String edgeID, Location start, Location end) {
         this.edgeID = edgeID;
         this.startNode = start;

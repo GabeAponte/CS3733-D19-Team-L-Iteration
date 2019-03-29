@@ -1,12 +1,14 @@
 import java.util.ArrayList;
+import java.util.PriorityQueue;
 import java.util.Queue;
 
 @SuppressWarnings("unused")
-public class Location {
+public class Location implements Comparable<Location>{
 
     private int xcoord, ycoord, floor;
-    private String locID, building, nodeType, longName, shortName;
+    private String locID, building, nodeType, longName, shortName, parentID;
     private ArrayList<Edge> connectedEdges;
+    private double score;
 
     public Location(String idIn, int xcoordIn, int ycoordIn, int floorIn, String buildingIn, String nodeTypeIn,
                     String longNameIn, String shortNameIn) {
@@ -19,6 +21,24 @@ public class Location {
         longName = longNameIn;
         shortName = shortNameIn;
         connectedEdges = new ArrayList<Edge>();
+        score = 0;
+        parentID = "NONE";
+    }
+
+    public String getParentID() {
+        return parentID;
+    }
+
+    public void setParentID(String parentID) {
+        this.parentID = parentID;
+    }
+
+    public double getScore() {
+        return score;
+    }
+
+    public void setScore(double score) {
+        this.score = score;
     }
 
     public int getXcoord() {
@@ -87,7 +107,38 @@ public class Location {
         this.shortName = shortName;
     }
 
-    public ArrayList<Location> findPath(Location endNode, Queue<Location> open, Queue<Location> closed) {
+    @Override
+    public int compareTo(Location loc){
+        if(score <= loc.getScore()){
+            return 1;
+        }
+        return 0;
+    }
+
+    //Nathan - checks to see if given location is closed (False if closed, true if not closed)
+    private boolean isntClosed(Location loc, ArrayList<Location> closed){
+        for(int i = 0; i < closed.size(); i++){
+            //for all elements in closed, if any ID matches this ID, this ID is closed
+            if(closed.get(i).getLocID() == loc.getLocID() || loc.getParentID() != "NONE"){
+                return false;
+            }
+        }
+        return true;
+    }
+
+    //Nathan - returns ArrayList of locations indicating path
+    public ArrayList<Location> findPath(Location endNode, PriorityQueue<Location> open, ArrayList<Location> closed) {
+        ArrayList<Location> neighbors = findNeighbors();
+        //get this locations neighbors
+
+        for(int i = 0; i < neighbors.size(); i++){
+            //for each neighbor, if it isnt in closed and DOESNT have a parent, add to open, this = parent
+            if(isntClosed(neighbors.get(i), closed)){
+                neighbors.get(i).setParentID(this.locID);
+                open.add(neighbors.get(i));
+            }
+        }
+
         return new ArrayList<Location>();
 
     }
@@ -109,7 +160,9 @@ public class Location {
     //Nathan - calcualte this location's score
     //h is total edge length to this node, end node is ending node
     public double calculateScore(int h, Location endNode){
-        return h + findDistance(endNode);
+        double thisScore = h + findDistance(endNode);
+        setScore(thisScore);
+        return thisScore;
     }
 
     //Nathan - finds DIRECT distance between two nodes
@@ -125,5 +178,4 @@ public class Location {
         xDiff += yDiff;
         return Math.sqrt(xDiff);
     }
-
 }
