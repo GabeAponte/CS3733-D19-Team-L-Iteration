@@ -9,16 +9,17 @@ public class Edge {
     }
 
     //Two constructors- not sure if we really need ID, we can delete later
-    //TODO: compute length based off of X and Y
     public Edge(String edgeID, Location start, Location end) {
         this.edgeID = edgeID;
         this.startNode = start;
         this.endNode = end;
+       // this.length = findDistance(start, end);
     }
     public Edge(Location start, Location end) {
         this.startNode = start;
         this.endNode = end;
         this.edgeID = "";
+        this.length = findDistance(start, end);
     }
 
 
@@ -39,6 +40,18 @@ public class Edge {
         return edgeID;
     }
 
+    //Nathan - finds distance between two nodes, used in constructors
+    public double findDistance(Location startNode, Location endNode){
+        double xDiff, yDiff;
 
+        xDiff = startNode.getXcoord() - endNode.getXcoord();
+        yDiff = startNode.getYcoord() - endNode.getYcoord();
+
+        xDiff = Math.pow(xDiff, 2);
+        yDiff = Math.pow(yDiff, 2);
+
+        xDiff += yDiff;
+        return Math.sqrt(xDiff);
+    }
 
 }
