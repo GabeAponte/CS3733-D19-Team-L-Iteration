@@ -67,22 +67,22 @@
                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
               </rowConstraints>
                <children>
-                  <Button fx:id="SanitationServices" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="Sanitation Services" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+                  <Button fx:id="SanitationServices" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="Sanitation Services" GridPane.halignment="CENTER" GridPane.valignment="CENTER" onAction="#makeRequest">
                      <font>
                         <Font name="Times New Roman" size="36.0" />
                      </font>
                   </Button>
-                  <Button fx:id="Transportation" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="Transportation" GridPane.halignment="CENTER" GridPane.rowIndex="1">
+                  <Button fx:id="Transportation" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="Transportation" GridPane.halignment="CENTER" GridPane.rowIndex="1" onAction="#makeRequest">
                      <font>
                         <Font name="Times New Roman" size="36.0" />
                      </font>
                   </Button>
-                  <Button fx:id="LanguageInterpreter" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="Language Interpreter" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1">
+                  <Button fx:id="LanguageInterpreter" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="Language Interpreter" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" onAction="#makeRequest">
                      <font>
                          <Font name="Times New Roman" size="36.0" />
                      </font>
                   </Button>
-                  <Button fx:id="FacilitiesMaitnence" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="Facilities Matinence" GridPane.columnIndex="1" GridPane.halignment="CENTER">
+                  <Button fx:id="FacilitiesMaitnence" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="Facilities Matinence" GridPane.columnIndex="1" GridPane.halignment="CENTER" onAction="#makeRequest">
                      <font>
                          <Font name="Times New Roman" size="36.0" />
                      </font>
@@ -90,12 +90,12 @@
                         <Insets />
                      </GridPane.margin>
                   </Button>
-                  <Button fx:id="ITServices" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="IT Services" GridPane.halignment="CENTER" GridPane.rowIndex="2">
+                  <Button fx:id="ITServices" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="IT Services" GridPane.halignment="CENTER" GridPane.rowIndex="2" onAction="#makeRequest">
                      <font>
                          <Font name="Times New Roman" size="36.0" />
                      </font>
                   </Button>
-                  <Button fx:id="SecurityStaff" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="Security Staff" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="2">
+                  <Button fx:id="SecurityStaff" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="Security Staff" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="2" onAction="#makeRequest">
                      <font>
                          <Font name="Times New Roman" size="36.0" />
                      </font>
