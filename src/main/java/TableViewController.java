@@ -89,6 +89,7 @@ public class TableViewController {
         String cvsSplitBy = ",";
         int count2 = 0;
 
+
         InputStream file;
         file = this.getClass().getClassLoader().getResourceAsStream("MapLedges.csv");
         //noinspection ConstantConditions
@@ -110,6 +111,8 @@ public class TableViewController {
         } catch (IOException e) {
             e.printStackTrace();
         }
+
+        System.out.println(edgeBase.get(1)[2]);
 
         for (int i = 1; i < edgeBase.size(); i ++) {
             Edge e = new Edge(edgeBase.get(i)[0], lookup.get(edgeBase.get(i)[1]), lookup.get(edgeBase.get(i)[2]));
