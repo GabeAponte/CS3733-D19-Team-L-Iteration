@@ -72,12 +72,12 @@
                   <RowConstraints maxHeight="90.0" minHeight="0.0" prefHeight="77.0" vgrow="SOMETIMES" />
               </rowConstraints>
                <children>
-                  <Button maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="Sanitation Services" GridPane.halignment="CENTER" />
-                  <Button maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="Transporation" GridPane.halignment="CENTER" GridPane.rowIndex="1" />
-                  <Button maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="Security Staff" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="2" />
-                  <Button maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="Facilities Matinence" GridPane.columnIndex="1" GridPane.halignment="CENTER" />
-                  <Button maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="IT Services" GridPane.halignment="CENTER" GridPane.rowIndex="2" />
-                  <Button maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="Language Interpreter" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" />
+                  <Button maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="Sanitation Services" GridPane.halignment="CENTER" onAction="#makeRequest" />
+                  <Button maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="Transporation" GridPane.halignment="CENTER" GridPane.rowIndex="1" onAction="#makeRequest" />
+                  <Button maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="Security Staff" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="2" onAction="#makeRequest" />
+                  <Button maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="Facilities Matinence" GridPane.columnIndex="1" GridPane.halignment="CENTER" onAction="#makeRequest" />
+                  <Button maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="IT Services" GridPane.halignment="CENTER" GridPane.rowIndex="2" onAction="#makeRequest" />
+                  <Button maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="Language Interpreter" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" onAction="#makeRequest" />
                   <Button fx:id="nextButton" maxHeight="1.7976931348623157E308" maxWidth="-Infinity" mnemonicParsing="false" prefHeight="41.0" prefWidth="100.0" style="-fx-background-color: #7fb1ff;" text="Next" GridPane.columnSpan="2147483647" GridPane.halignment="CENTER" GridPane.rowIndex="3" GridPane.rowSpan="2">
                      <font>
                         <Font name="Times New Roman" size="18.0" />

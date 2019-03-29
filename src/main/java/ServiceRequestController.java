@@ -48,22 +48,22 @@ public class ServiceRequestController {
 
     }
 
-    //TODO: when button is pressed, change label, make service request object with type
+    //TODO: when button is pressed, change fxml, change label, make service request object or pass type into subcontroller
     @FXML
     private void makeRequest(ActionEvent e){
         //source button determines type for service request object, text for label
         if(e.getSource() == SanitationServices) {
-
+            System.out.println("SUCCESS");
         } else if(e.getSource() == Transportation) {
-
+            System.out.println("SUCCESS");
         } else if(e.getSource() == ITServices) {
-
+            System.out.println("SUCCESS");
         } else if(e.getSource() == FacilitiesMaitnence) {
-
+            System.out.println("SUCCESS");
         } else if(e.getSource() == LanguageInterpreter) {
-
+            System.out.println("SUCCESS");
         } else {
-
+            System.out.println("SUCCESS");
         }
     }
 
