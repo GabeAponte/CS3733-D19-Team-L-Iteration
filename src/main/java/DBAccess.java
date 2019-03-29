@@ -45,7 +45,7 @@ public class DBAccess {
         int count = 0;
 
         InputStream file;
-        file = this.getClass().getClassLoader().getResourceAsStream("PrototypeNodes.csv");
+        file = this.getClass().getClassLoader().getResourceAsStream("MapLnodes.csv");
         //noinspection ConstantConditions
         try (BufferedReader br = new BufferedReader(new InputStreamReader(file))) {
 
