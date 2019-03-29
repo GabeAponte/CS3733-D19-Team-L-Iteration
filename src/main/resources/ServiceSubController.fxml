@@ -25,7 +25,7 @@
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1000.0" prefWidth="1500.0" style="-fx-background-color: #7fb1ff;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ServiceRequestController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1000.0" prefWidth="1500.0" style="-fx-background-color: #7fb1ff;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ServiceSubController">
     <children>
         <ImageView fitHeight="342.0" fitWidth="601.0" layoutY="66.0" opacity="0.51" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="66.0">
             <image>
@@ -45,7 +45,7 @@
                         </ImageView>
                         <HBox alignment="CENTER_RIGHT" prefHeight="43.0" prefWidth="850.0">
                      <children>
-                              <Button fx:id="Back2" alignment="CENTER" contentDisplay="CENTER" maxWidth="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#back2Pressed" prefHeight="125.0" prefWidth="200.0" style="-fx-background-color: white;" text="Back">
+                              <Button fx:id="Back" alignment="CENTER" contentDisplay="CENTER" maxWidth="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#back2Pressed" prefHeight="125.0" prefWidth="200.0" style="-fx-background-color: white;" text="Back">
                                   <font>
                                       <Font name="Times New Roman" size="48.0" />
                                   </font>
@@ -54,7 +54,7 @@
                     </items>
                 </ToolBar>
                 <ToolBar maxHeight="10.0" prefHeight="40.0" prefWidth="200.0" style="-fx-background-color: #092b60;" />
-                <Label fx:id="typeLabel" alignment="CENTER" contentDisplay="CENTER" maxWidth="1.7976931348623157E308">
+                <Label fx:id="typeLabel" alignment="CENTER" contentDisplay="CENTER" maxWidth="1.7976931348623157E308" text="CHANGE">
                     <font>
                         <Font name="Times New Roman Bold" size="48.0" />
                     </font>

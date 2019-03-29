@@ -39,9 +39,6 @@ public class ServiceRequestController {
     private Button SecurityStaff;
 
     @FXML
-    private Button ServiceNext;
-
-    @FXML
     private Button SubmitRequest;
 
     @FXML
@@ -65,21 +62,6 @@ public class ServiceRequestController {
         thestage.setScene(scene);
     }
 
-    @FXML
-    private void back2Pressed() throws IOException {
-        thestage = (Stage) Back2.getScene().getWindow();
-        AnchorPane root;
-        root = FXMLLoader.load(getClass().getResource("ServiceRequest.fxml"));
-        Scene scene = new Scene(root);
-        thestage.setScene(scene);
-    }
-
-    //TODO: when submit is pressed, prompt "Are You Sure"
-    @FXML
-    private void promptCancel(ActionEvent e){
-
-    }
-
     //TODO: when button is pressed, change fxml, change label, make service request object or pass type into subcontroller
     @FXML
     private void makeRequest(ActionEvent e) throws IOException{
@@ -98,10 +80,10 @@ public class ServiceRequestController {
             typeOfService = "Security";
         }
 
-        changeToSub();
+        changeToSub(typeOfService);
     }
 
-    private void changeToSub() throws IOException{
+    private void changeToSub(String service) throws IOException{
         thestage = (Stage) SanitationServices.getScene().getWindow();
         AnchorPane root;
         root = FXMLLoader.load(getClass().getResource("ServiceSubController.fxml"));
