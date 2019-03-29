@@ -67,7 +67,7 @@ public class ServiceRequestController {
     private void back2Pressed() throws IOException {
         thestage = (Stage) Back2.getScene().getWindow();
         AnchorPane root;
-        root = FXMLLoader.load(getClass().getResource("HospitalHome.fxml"));
+        root = FXMLLoader.load(getClass().getResource("ServiceRequest.fxml"));
         Scene scene = new Scene(root);
         thestage.setScene(scene);
     }

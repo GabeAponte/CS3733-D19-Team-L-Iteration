@@ -34,7 +34,7 @@
          </font>
       </Button>
       <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#092b60" height="316.0" layoutX="868.0" layoutY="391.0" stroke="#092b60" strokeType="INSIDE" width="514.0" />
-      <Button fx:id="HomeReqService" layoutX="909.0" layoutY="467.0" mnemonicParsing="false" prefHeight="165.0" prefWidth="435.0" text="REQUEST SERVICE">
+      <Button fx:id="HomeServiceRequest" layoutX="909.0" layoutY="467.0" mnemonicParsing="false" onAction="#SwitchToServiceScreen" prefHeight="165.0" prefWidth="435.0" text="REQUEST SERVICE">
          <font>
             <Font name="Times Bold" size="40.0" />
          </font>
