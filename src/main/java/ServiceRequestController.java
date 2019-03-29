@@ -1,5 +1,6 @@
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.event.ActionEvent;
@@ -50,7 +51,7 @@ public class ServiceRequestController {
         thestage.setScene(scene);
     }
 
-    //TODO: when button is pressed, change fxml, change label, make service request object or pass type into subcontroller
+    //passes off type of button
     @FXML
     private void makeRequest(ActionEvent e) throws IOException{
         //source button determines type for service request object, text for label
@@ -71,11 +72,18 @@ public class ServiceRequestController {
         changeToSub(typeOfService);
     }
 
+    //Nathan - changes screen to service sub screen, param "service" determines label on sub screen
     private void changeToSub(String service) throws IOException{
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("ServiceSubController.fxml"));
+
+        Parent sceneMain = loader.load();
+
+        ServiceSubController controller = loader.<ServiceSubController>getController();
+        controller.init(service);
+
         thestage = (Stage) SanitationServices.getScene().getWindow();
-        AnchorPane root;
-        root = FXMLLoader.load(getClass().getResource("ServiceSubController.fxml"));
-        Scene scene = new Scene(root);
+
+        Scene scene = new Scene(sceneMain);
         thestage.setScene(scene);
     }
 

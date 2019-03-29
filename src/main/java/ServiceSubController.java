@@ -28,7 +28,7 @@ public class ServiceSubController {
     private TextArea ServiceComments;
 
     @FXML
-    public void initialize(String type){
+    public void init(String type){
         typeOfService = type;
         typeLabel.setText(typeOfService + " Services");
     }
