@@ -197,11 +197,22 @@ public class Location implements Comparable<Location>{
         return  bestF;
 
     }
-    //Larry - add element to the open list if it is not in it already
+    //Larry - add element to the open list if it is not in it before
     public void addToOpen(Location A, ArrayList<Location> openList){
+        int count = 0;
         for(int i = 0; i< openList.size(); i++){
-            A.locID = openList.get(i).locID;
+            if(A.locID == openList.get(i).locID){
+                return;    // does not add anything
+            }
+            else{
+                count++;
+            }
         }
+        //This means we did not find the Node in the List so add it into list
+        if(count == openList.size()-1){
+            openList.add(A);
+        }
+
 
     }
 }
