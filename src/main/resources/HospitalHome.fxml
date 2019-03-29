@@ -13,47 +13,30 @@
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #7fb1ff;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="HomeScreenController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1000.0" prefWidth="1500.0" style="-fx-background-color: #7fb1ff;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="HomeScreenController">
    <children>
-      <ToolBar prefHeight="61.0" prefWidth="600.0" style="-fx-background-color: white;">
-         <items>
-            <ImageView fitHeight="49.0" fitWidth="261.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <!--Image url="@../../../../Desktop/SoftEng%20UI%20Mockup%20Pics/output-onlinepngtools%20(1).png" -->
-               </image>
-            </ImageView>
-         </items></ToolBar>
-      <ToolBar layoutY="55.0" prefHeight="12.0" prefWidth="600.0" style="-fx-background-color: #092b60;" />
-      <ImageView fitHeight="333.0" fitWidth="300.0" layoutX="303.0" layoutY="67.0" opacity="0.32" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <!--Image url="@../../../../Desktop/SoftEng%20UI%20Mockup%20Pics/Screen%20Shot%202019-03-20%20at%2011.42.26%20PM.png" -->
-         </image>
-      </ImageView>
-      <ImageView fitHeight="336.0" fitWidth="301.0" layoutY="67.0" opacity="0.64" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <!--Image url="@../../../../Desktop/SoftEng%20UI%20Mockup%20Pics/Screen%20Shot%202019-03-20%20at%2011.47.08%20PM.png" -->
-         </image>
-      </ImageView>
-      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#092b60" height="98.0" layoutX="52.0" layoutY="184.0" stroke="#092b60" strokeType="INSIDE" width="196.0" />
-      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#092b60" height="98.0" layoutX="354.0" layoutY="184.0" stroke="#092b60" strokeType="INSIDE" width="196.0" />
-      <Button fx:id="HomeSuggestions" layoutX="370.0" layoutY="8.0" mnemonicParsing="false" onAction="#SwitchToSuggestionBox" style="-fx-background-color: white;" text="Suggestions">
+      <ToolBar prefHeight="162.0" prefWidth="1503.0" style="-fx-background-color: white;" />
+      <ToolBar layoutY="162.0" prefHeight="10.0" prefWidth="1500.0" style="-fx-background-color: #092b60;" />
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#092b60" height="316.0" layoutX="122.0" layoutY="391.0" stroke="#092b60" strokeType="INSIDE" width="514.0" />
+      <Button fx:id="HomeSuggestions" layoutX="967.0" layoutY="34.0" mnemonicParsing="false" prefHeight="94.0" prefWidth="294.0" style="-fx-background-color: white;" text="Suggestions">
          <font>
-            <Font name="Times New Roman" size="22.0" />
+            <Font name="Times New Roman" size="40.0" />
          </font>
       </Button>
-      <Button fx:id="HomeLogIn" layoutX="509.0" layoutY="8.0" mnemonicParsing="false" prefHeight="41.0" prefWidth="94.0" style="-fx-background-color: white;" text="Log In">
+      <Button fx:id="HomeFindPath" layoutX="160.0" layoutY="470.0" mnemonicParsing="false" onAction="#SwitchToPathfindScreen" prefHeight="165.0" prefWidth="435.0" text="FIND PATH">
          <font>
-            <Font name="Times New Roman" size="22.0" />
+            <Font name="Times Bold" size="43.0" />
          </font>
       </Button>
-      <Button fx:id="HomeFindPath" layoutX="69.0" layoutY="213.0" mnemonicParsing="false" onAction="#SwitchToPathfindScreen" prefHeight="43.0" prefWidth="163.0" text="FIND PATH">
+      <Button fx:id="HomeLogIn" layoutX="1262.0" layoutY="34.0" mnemonicParsing="false" prefHeight="94.0" prefWidth="238.0" style="-fx-background-color: white;" text="Log In">
          <font>
-            <Font name="Times Bold" size="15.0" />
+            <Font name="Times New Roman" size="40.0" />
          </font>
       </Button>
-      <Button fx:id="HomeReqService" layoutX="370.0" layoutY="212.0" mnemonicParsing="false" prefHeight="43.0" prefWidth="163.0" text="REQUEST SERVICE">
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#092b60" height="316.0" layoutX="868.0" layoutY="391.0" stroke="#092b60" strokeType="INSIDE" width="514.0" />
+      <Button fx:id="HomeReqService" layoutX="909.0" layoutY="467.0" mnemonicParsing="false" prefHeight="165.0" prefWidth="435.0" text="REQUEST SERVICE">
          <font>
-            <Font name="Times Bold" size="15.0" />
+            <Font name="Times Bold" size="40.0" />
          </font>
       </Button>
    </children>
