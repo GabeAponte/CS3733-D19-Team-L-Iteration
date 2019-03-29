@@ -63,13 +63,14 @@ public class PathFindingController {
     @SuppressWarnings("Convert2Diamond")
     @FXML
     public void initialize() {
-        /*
-        DBAccess db = new DBAccess();
+
+        NodesAccess na = new NodesAccess();
+        EdgesAccess ea = new EdgesAccess();
 
         int count;
         count = 0;
-        while (count < db.countRecords()) {
-            ArrayList<String> arr = db.getNodes(count);
+        while (count < na.countRecords()) {
+            ArrayList<String> arr = na.getNodes(count);
             Location testx = new Location(arr.get(0), Integer.parseInt(arr.get(1)), Integer.parseInt(arr.get(2)), Integer.parseInt(arr.get(3)), arr.get(4), arr.get(5), arr.get(6), arr.get(7));
             count++;
             //System.out.println(arr.get(0));
@@ -77,32 +78,8 @@ public class PathFindingController {
             data.add(testx);
 
         }
-        String line;
-        String cvsSplitBy = ",";
-        int count2 = 0;
 
 
-        InputStream file;
-        file = this.getClass().getClassLoader().getResourceAsStream("MapLedges.csv");
-        //noinspection ConstantConditions
-        try (BufferedReader br = new BufferedReader(new InputStreamReader(file))) {
-
-            while ((line = br.readLine()) != null) {
-                if (count2 != 0) {
-                    // use comma as separator
-                    String[] datas = line.split(cvsSplitBy);
-                    edgeBase.add(datas);
-
-                } else {
-                    String[] datas = line.split(cvsSplitBy);
-                    edgeBase.add(datas);
-                    count2++;
-                }
-            }
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
 
         System.out.println(edgeBase.get(1)[2]);
 
@@ -116,7 +93,7 @@ public class PathFindingController {
         Location start = new Location("FIX", 5, 5, 5, "FIX", "FIX", "FIX", "FIX");
         Location end = new Location("FIX", 5, 5, 5, "FIX", "FIX", "FIX", "FIX");
         //generatePath(start, end);
-        */
+        
     }
     @FXML
     private void backPressed() throws IOException {
