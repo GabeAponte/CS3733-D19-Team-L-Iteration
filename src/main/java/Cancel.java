@@ -1,7 +1,6 @@
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -12,7 +11,7 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 
-public class ServiceSubController {
+public class Cancel {
 
     Stage thestage;
     private String typeOfService;
@@ -22,12 +21,6 @@ public class ServiceSubController {
 
     @FXML
     public Label typeLabel;
-
-    @FXML
-    private Button SubmitRequest;
-
-    @FXML
-    private TextArea ServiceComments;
 
     @FXML
     public void init(String type){
@@ -46,11 +39,11 @@ public class ServiceSubController {
 
     //TODO: when submit is pressed, prompt "Are You Sure"
     @FXML
-    private void promptCancel(ActionEvent e) throws IOException{
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("ServiceRequest.fxml"));
-        Parent root1 = (Parent) loader.load();
-        Stage stage = new Stage();
-        stage.setScene(new Scene(root1));
+    private void promptCancel(ActionEvent e){
+        BorderPane borderPane = new BorderPane();
+        Scene scene = new Scene(borderPane, 600, 600);
+        Stage stage = new Stage(); stage.setScene(scene);
+        stage.setTitle("Cool Window");
         stage.show();
     }
 }
