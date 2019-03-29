@@ -143,7 +143,7 @@ public class PathFindingController {
                     l.setScore(l.calculateScore(gScore, end));
                     lookup.get(l.getLocID()).setParentID(q.getLocID());
                     //System.out.println(l.getParentID());
-                    if (!(openList.contains(l))) {
+                    if (!(openList.contains(l)) && !(closeList.contains(l))) {
                         openList.add(l);
                     }
                 }
