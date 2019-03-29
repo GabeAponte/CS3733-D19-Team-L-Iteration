@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.paint.*?>
+<?import com.jfoenix.validation.*?>
+<?import com.jfoenix.controls.*?>
+<?import java.lang.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.shape.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="484.0" prefWidth="667.0" style="-fx-background-color: #7fb1ff;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="PathFindingController">
+   <children>
+      <ToolBar prefHeight="61.0" prefWidth="667.0" style="-fx-background-color: white;">
+         <items>
+            <ImageView fitHeight="45.0" fitWidth="233.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <!--Image url="@../../../../Desktop/SoftEng%20UI%20Mockup%20Pics/output-onlinepngtools%20(1).png" -->
+               </image>
+            </ImageView>
+         </items>
+      </ToolBar>
+      <ToolBar layoutY="55.0" prefHeight="12.0" prefWidth="667.0" style="-fx-background-color: #092b60;" />
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#092b60" height="76.0" layoutX="9.0" layoutY="76.0" stroke="#092b60" strokeType="INSIDE" width="649.0" />
+      <MenuButton fx:id="PathFindStartDrop" layoutX="147.0" layoutY="82.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="182.0" text="Select a Location">
+        <items>
+          <MenuItem mnemonicParsing="false" text="Action 1" />
+          <MenuItem mnemonicParsing="false" text="Action 2" />
+        </items>
+      </MenuButton>
+      <MenuButton fx:id="PathFindEndDrop" layoutX="147.0" layoutY="118.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="182.0" text="Select a Location">
+         <items>
+            <MenuItem mnemonicParsing="false" text="Action 1" />
+            <MenuItem mnemonicParsing="false" text="Action 2" />
+         </items>
+      </MenuButton>
+      <Text fill="WHITE" layoutX="19.0" layoutY="102.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Start Location :">
+         <font>
+            <Font name="Times New Roman Bold" size="18.0" />
+         </font>
+      </Text>
+      <Text fill="WHITE" layoutX="26.0" layoutY="137.0" strokeType="OUTSIDE" strokeWidth="0.0" text="End Location :">
+         <font>
+            <Font name="Times New Roman Bold" size="18.0" />
+         </font>
+      </Text>
+      <Text fill="WHITE" layoutX="341.0" layoutY="123.0" strokeType="OUTSIDE" strokeWidth="0.0" text="OR">
+         <font>
+            <Font name="Times New Roman Bold" size="18.0" />
+         </font>
+      </Text>
+      <TextField fx:id="PathFindStartSearch" layoutX="382.0" layoutY="82.0" prefHeight="27.0" prefWidth="266.0" promptText="Search for Location" />
+      <TextField fx:id="PathFindEndSearch" layoutX="382.0" layoutY="118.0" prefHeight="27.0" prefWidth="266.0" promptText="Search for Location" />
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#092b60" height="305.0" layoutX="9.0" layoutY="166.0" stroke="#092b60" strokeType="INSIDE" width="649.0" />
+      <ImageView fitHeight="288.0" fitWidth="440.0" layoutX="16.0" layoutY="176.0" pickOnBounds="true" preserveRatio="true" style="-: blue;">
+         <image>
+            <!--Image url="@../../../../Desktop/SoftEng%20UI%20Mockup%20Pics/02_thesecondfloor.png" -->
+         </image>
+      </ImageView>
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#7fb1ff" height="169.0" layoutX="468.0" layoutY="184.0" stroke="#7fb1ff" strokeType="INSIDE" width="163.0" />
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#092b60" height="61.0" layoutX="468.0" layoutY="183.0" stroke="#7fb1ff" strokeType="INSIDE" width="163.0" />
+      <Text fill="WHITE" layoutX="489.0" layoutY="220.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Other POI">
+         <font>
+            <Font name="Times New Roman Bold" size="27.0" />
+         </font>
+      </Text>
+      <RadioButton fx:id="PathFindElevatorPOI" layoutX="500.0" layoutY="251.0" mnemonicParsing="false" text="Elevator" textFill="#092b60">
+         <font>
+            <Font name="Times New Roman Bold" size="17.0" />
+         </font>
+      </RadioButton>
+      <RadioButton fx:id="PathFindBrPOI" layoutX="500.0" layoutY="284.0" mnemonicParsing="false" text="Bathroom" textFill="#092b60">
+         <font>
+            <Font name="Times New Roman Bold" size="17.0" />
+         </font>
+      </RadioButton>
+      <RadioButton fx:id="PathFindStairsPOI" layoutX="500.0" layoutY="317.0" mnemonicParsing="false" text="Stairs" textFill="#092b60">
+         <font>
+            <Font name="Times New Roman Bold" size="17.0" />
+         </font>
+      </RadioButton>
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#7fb1ff" height="84.0" layoutX="468.0" layoutY="372.0" stroke="#7fb1ff" strokeType="INSIDE" width="163.0" />
+      <Button fx:id="PathFindSubmit" layoutX="482.0" layoutY="384.0" mnemonicParsing="false" prefHeight="61.0" prefWidth="136.0" style="-fx-background-color: #092b60;" text="SUBMIT" textFill="WHITE">
+         <font>
+            <Font name="Times New Roman Bold" size="25.0" />
+         </font>
+      </Button>
+      <Button fx:id="PathFindBack" layoutX="483.0" layoutY="6.0" mnemonicParsing="false" onAction="#backPressed" style="-fx-background-color: white;" text="Back">
+         <font>
+            <Font name="Times New Roman" size="22.0" />
+         </font>
+      </Button>
+      <Button fx:id="PathFindLogOut" layoutX="562.0" layoutY="6.0" mnemonicParsing="false" style="-fx-background-color: white;" text="Log Out">
+         <font>
+            <Font name="Times New Roman" size="22.0" />
+         </font>
+      </Button>
+   </children>
+</AnchorPane>
