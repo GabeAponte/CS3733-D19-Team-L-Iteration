@@ -8,7 +8,7 @@ public class Location implements Comparable<Location>{
     private int xcoord, ycoord, floor;
     private String locID, building, nodeType, longName, shortName, parentID;
     private ArrayList<Edge> connectedEdges;
-    private double score;
+    private double score, gScore;
 
     public Location(String idIn, int xcoordIn, int ycoordIn, int floorIn, String buildingIn, String nodeTypeIn,
                     String longNameIn, String shortNameIn) {
@@ -23,7 +23,11 @@ public class Location implements Comparable<Location>{
         connectedEdges = new ArrayList<Edge>();
         score = 0;
         parentID = "NONE";
+        gScore = 0;
     }
+
+    public Location() {}
+
 
     public String getParentID() {
         return parentID;
@@ -37,8 +41,17 @@ public class Location implements Comparable<Location>{
         return score;
     }
 
+    public double getGScore() {
+        return gScore;
+    }
+
+
     public void setScore(double score) {
         this.score = score;
+    }
+
+    public void setGScore(double gscore) {
+        this.gScore = gscore;
     }
 
     public int getXcoord() {
@@ -120,7 +133,7 @@ public class Location implements Comparable<Location>{
     }
 
     //Nathan - checks to see if given location is closed (False if closed, true if not closed)
-    private boolean isntClosed(Location loc, ArrayList<Location> closed){
+    public boolean isntClosed(Location loc, ArrayList<Location> closed){
         for(int i = 0; i < closed.size(); i++){
             //for all elements in closed, if any ID matches this ID, this ID is closed
             if(closed.get(i).getLocID() == loc.getLocID() || loc.getParentID() != "NONE"){
@@ -163,9 +176,9 @@ public class Location implements Comparable<Location>{
 
     //Nathan - calcualte this location's score
     //h is total edge length to this node, end node is ending node
-    public double calculateScore(int h, Location endNode){
+    public double calculateScore(double h, Location endNode){
         double thisScore = h + findDistance(endNode);
-        setScore(thisScore);
+        this.setScore(thisScore);
         return thisScore;
     }
 
@@ -215,4 +228,7 @@ public class Location implements Comparable<Location>{
 
 
     }
+
+
+
 }
