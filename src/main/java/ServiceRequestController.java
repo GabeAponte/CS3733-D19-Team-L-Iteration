@@ -41,15 +41,11 @@ public class ServiceRequestController {
 
     @FXML
     private Button Back;
-<<<<<<< HEAD
-    
+
     //TODO: when submit is pressed, prompt "Are You Sure"
     @FXML
     private void promptCancel(){
 
     }
-=======
 
-
->>>>>>> origin/UImaster
 }
