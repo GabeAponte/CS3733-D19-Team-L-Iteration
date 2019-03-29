@@ -1,8 +1,7 @@
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.TextArea;
+import javafx.scene.control.*;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -19,6 +18,7 @@ import java.io.IOException;
 public class ServiceRequestController {
 
     private Stage thestage;
+    private String typeOfService;
 
     @FXML
     private Button SanitationServices;
@@ -54,13 +54,7 @@ public class ServiceRequestController {
     private Button Back2;
 
     @FXML
-    private void ServiceNextScreen() throws IOException {
-        thestage = (Stage) ServiceNext.getScene().getWindow();
-        AnchorPane root;
-        root = FXMLLoader.load(getClass().getResource("ServiceSubController.fxml"));
-        Scene scene = new Scene(root);
-        thestage.setScene(scene);
-    }
+    public Label typeLabel;
 
     @FXML
     private void backPressed() throws IOException {
@@ -88,21 +82,31 @@ public class ServiceRequestController {
 
     //TODO: when button is pressed, change fxml, change label, make service request object or pass type into subcontroller
     @FXML
-    private void makeRequest(ActionEvent e){
+    private void makeRequest(ActionEvent e) throws IOException{
         //source button determines type for service request object, text for label
         if(e.getSource() == SanitationServices) {
-            System.out.println("SUCCESS");
+            typeOfService = "Sanitation";
         } else if(e.getSource() == Transportation) {
-            System.out.println("SUCCESS");
+            typeOfService = "Transportation";
         } else if(e.getSource() == ITServices) {
-            System.out.println("SUCCESS");
+            typeOfService = "IT";
         } else if(e.getSource() == FacilitiesMaitnence) {
-            System.out.println("SUCCESS");
+            typeOfService = "Maintenance";
         } else if(e.getSource() == LanguageInterpreter) {
-            System.out.println("SUCCESS");
+            typeOfService = "Language Interpreter";
         } else {
-            System.out.println("SUCCESS");
+            typeOfService = "Security";
         }
+
+        changeToSub();
+    }
+
+    private void changeToSub() throws IOException{
+        thestage = (Stage) SanitationServices.getScene().getWindow();
+        AnchorPane root;
+        root = FXMLLoader.load(getClass().getResource("ServiceSubController.fxml"));
+        Scene scene = new Scene(root);
+        thestage.setScene(scene);
     }
 
 }
