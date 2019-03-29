@@ -1,3 +1,6 @@
+import javafx.fxml.FXML;
+import javafx.scene.control.Button;
+import javafx.scene.control.TextArea;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -38,10 +41,15 @@ public class ServiceRequestController {
 
     @FXML
     private Button Back;
+<<<<<<< HEAD
     
     //TODO: when submit is pressed, prompt "Are You Sure"
     @FXML
     private void promptCancel(){
 
     }
+=======
+
+
+>>>>>>> origin/UImaster
 }
