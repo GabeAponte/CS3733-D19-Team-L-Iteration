@@ -27,16 +27,11 @@
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1000.0" prefWidth="1500.0" style="-fx-background-color: #0067B1;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="SuggestionBoxController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" style="-fx-background-color: #0067B1;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="SuggestionBoxController">
     <children>
-      <ImageView fitHeight="212.0" fitWidth="793.0" preserveRatio="true">
-         <image>
-            <Image url="@BWHlogo.png" />
-         </image>
-      </ImageView>
-      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#012d5a" height="650.0" stroke="BLACK" strokeType="INSIDE" width="1100.0" AnchorPane.leftAnchor="200.0" AnchorPane.rightAnchor="200.0" AnchorPane.topAnchor="250.0" />
-      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#7fb1ff" height="125.0" layoutX="-220.0" stroke="BLACK" strokeType="INSIDE" width="1090.0" AnchorPane.leftAnchor="205.0" AnchorPane.rightAnchor="205.0" AnchorPane.topAnchor="255.0" />
-          <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="143.0" prefWidth="842.0" text="  GIVE US FEEDBACK" AnchorPane.leftAnchor="205.0" AnchorPane.rightAnchor="205.0" AnchorPane.topAnchor="220.0">
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#012d5a" height="459.0" layoutY="196.0" stroke="BLACK" strokeType="INSIDE" width="880.0" AnchorPane.leftAnchor="200.0" AnchorPane.rightAnchor="200.0" AnchorPane.topAnchor="196.0" />
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#7fb1ff" height="94.0" layoutX="-220.0" stroke="BLACK" strokeType="INSIDE" width="865.0" AnchorPane.leftAnchor="207.0" AnchorPane.rightAnchor="208.0" AnchorPane.topAnchor="203.0" />
+          <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="143.0" prefWidth="842.0" text="  GIVE US FEEDBACK" AnchorPane.leftAnchor="205.0" AnchorPane.rightAnchor="205.0" AnchorPane.topAnchor="150.0">
               <font>
                   <Font name="Times New Roman Bold" size="40.0" />
               </font>
@@ -44,27 +39,8 @@
                   <Insets bottom="10.0" top="75.0" />
               </padding>
           </Label>
-        <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+        <VBox alignment="CENTER" layoutY="159.0" prefHeight="562.0" prefWidth="1280.0" AnchorPane.bottomAnchor="-1.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="159.0">
             <children>
-                <ToolBar prefHeight="170.0" prefWidth="1130.0" style="-fx-background-color: white;">
-                    <items>
-                  <ImageView fitHeight="150.0" fitWidth="568.0" preserveRatio="true">
-                     <image>
-                        <Image url="@BWHlogo.png" />
-                     </image>
-                  </ImageView>
-                  <HBox alignment="CENTER_RIGHT" prefHeight="150.0" prefWidth="895.0">
-                     <children>
-                        <JFXButton prefHeight="140.0" prefWidth="209.0" ripplerFill="#f6bd38" text="Back">
-                           <font>
-                              <Font name="Times New Roman" size="40.0" />
-                           </font>
-                        </JFXButton>
-                     </children>
-                  </HBox>
-                    </items>
-                </ToolBar>
-                <ToolBar maxHeight="20.0" prefHeight="40.0" prefWidth="200.0" style="-fx-background-color: #092b60;" />
                 <GridPane alignment="CENTER" hgap="30.0" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="700.0" VBox.vgrow="ALWAYS">
                     <columnConstraints>
                         <ColumnConstraints maxWidth="168.0" minWidth="0.0" prefWidth="0.0" />
@@ -76,12 +52,12 @@
                         <RowConstraints maxHeight="80.0" minHeight="10.0" prefHeight="40.0" vgrow="NEVER" />
                   <RowConstraints maxHeight="80.0" minHeight="10.0" prefHeight="40.0" vgrow="SOMETIMES" />
                   <RowConstraints maxHeight="90.0" minHeight="0.0" prefHeight="77.0" vgrow="SOMETIMES" />
+                  <RowConstraints maxHeight="90.0" minHeight="10.0" prefHeight="77.0" vgrow="SOMETIMES" />
                   <RowConstraints />
                   <RowConstraints />
                   <RowConstraints />
                   <RowConstraints />
                   <RowConstraints />
-                  <RowConstraints maxHeight="71.0" minHeight="12.0" prefHeight="71.0" />
                   <RowConstraints maxHeight="59.0" minHeight="0.0" prefHeight="0.0" />
                   <RowConstraints maxHeight="59.0" minHeight="10.0" prefHeight="30.0" />
                   <RowConstraints maxHeight="59.0" minHeight="10.0" prefHeight="30.0" />
@@ -91,14 +67,14 @@
                   <RowConstraints maxHeight="59.0" minHeight="10.0" prefHeight="30.0" />
                     </rowConstraints>
                     <children>
-                  <TextArea fx:id="feedbackComments" minHeight="-Infinity" minWidth="-Infinity" prefHeight="186.0" prefWidth="662.0" promptText="Type suggestions here" GridPane.columnIndex="1" GridPane.rowIndex="5" GridPane.rowSpan="2">
+                  <TextArea fx:id="feedbackComments" minHeight="-Infinity" minWidth="-Infinity" prefHeight="139.0" prefWidth="639.0" promptText="Type suggestions here" GridPane.columnIndex="1" GridPane.rowIndex="4" GridPane.rowSpan="2">
                      <GridPane.margin>
                         <Insets bottom="10.0" left="100.0" right="100.0" top="10.0" />
                      </GridPane.margin>
                   </TextArea>
-                  <JFXButton buttonType="RAISED" contentDisplay="CENTER" prefHeight="80.0" prefWidth="153.0" ripplerFill="#f6bd38" style="-fx-background-color: white;" text="Submit" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="13" GridPane.valignment="CENTER">
+                  <JFXButton buttonType="RAISED" contentDisplay="CENTER" prefHeight="47.0" prefWidth="131.0" ripplerFill="#f6bd38" style="-fx-background-color: white;" text="Submit" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="14" GridPane.valignment="CENTER">
                      <font>
-                        <Font name="Times New Roman" size="30.0" />
+                        <Font name="Times New Roman" size="25.0" />
                      </font>
                   </JFXButton>
                     </children>
@@ -111,5 +87,24 @@
                 </GridPane>
             </children>
         </VBox>
+          <ToolBar layoutX="-74.0" layoutY="-1.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="125.0" prefWidth="1280.0" style="-fx-background-color: white;" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="-1.0">
+              <items>
+            <ImageView fitHeight="125.0" fitWidth="371.0" preserveRatio="true">
+               <image>
+                  <Image url="@BWHlogo.png" />
+               </image>
+            </ImageView>
+            <HBox alignment="CENTER_RIGHT" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="105.0" prefWidth="875.0">
+               <children>
+                  <JFXButton minHeight="-Infinity" minWidth="-Infinity" prefHeight="100.0" prefWidth="166.0" ripplerFill="#f6bd38" text="Back">
+                     <font>
+                        <Font name="Times New Roman" size="40.0" />
+                     </font>
+                  </JFXButton>
+               </children>
+            </HBox>
+              </items>
+          </ToolBar>
+          <ToolBar layoutX="-99.0" layoutY="121.0" maxHeight="153.0" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="20.0" prefWidth="1280.0" style="-fx-background-color: #092b60;" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="121.0" />
     </children>
 </AnchorPane>
