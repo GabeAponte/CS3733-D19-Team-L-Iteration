@@ -45,7 +45,7 @@
             <Font name="Times Bold" size="15.0" />
          </font>
       </Button>
-      <Button fx:id="HomeReqService" layoutX="370.0" layoutY="212.0" mnemonicParsing="false" prefHeight="43.0" prefWidth="163.0" text="REQUEST SERVICE">
+      <Button fx:id="HomeReqService" layoutX="370.0" layoutY="212.0" mnemonicParsing="false" onAction="#SwitchToServiceRequest" prefHeight="43.0" prefWidth="163.0" text="REQUEST SERVICE">
          <font>
             <Font name="Times Bold" size="15.0" />
          </font>
