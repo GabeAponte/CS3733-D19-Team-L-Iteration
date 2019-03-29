@@ -39,19 +39,7 @@ public class ServiceRequestController {
     private Button SecurityStaff;
 
     @FXML
-    private Button SubmitRequest;
-
-    @FXML
-    private TextArea ServiceComments;
-
-    @FXML
     private Button Back;
-
-    @FXML
-    private Button Back2;
-
-    @FXML
-    public Label typeLabel;
 
     @FXML
     private void backPressed() throws IOException {
