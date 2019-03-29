@@ -54,8 +54,7 @@ public class PathFindingController {
     @FXML
     private MenuButton PathFindStartDrop;
 
-
-    ArrayList<String[]> edgeBase = new ArrayList<String[]>();
+    
     final ObservableList<Location> data = FXCollections.observableArrayList();
     HashMap<String, Location> lookup = new HashMap<String, Location>();
 
@@ -66,34 +65,20 @@ public class PathFindingController {
 
         NodesAccess na = new NodesAccess();
         EdgesAccess ea = new EdgesAccess();
+        initializeTable(na, ea);
+        // AT THIS POINT:
+        // Lookup contains all nodes, you can look them up with their keys
+        // Each node contains a list of edges properly
 
-        int count;
-        count = 0;
-        while (count < na.countRecords()) {
-            ArrayList<String> arr = na.getNodes(count);
-            Location testx = new Location(arr.get(0), Integer.parseInt(arr.get(1)), Integer.parseInt(arr.get(2)), Integer.parseInt(arr.get(3)), arr.get(4), arr.get(5), arr.get(6), arr.get(7));
-            count++;
-            //System.out.println(arr.get(0));
-            lookup.put((arr.get(0)), testx);
-            data.add(testx);
-
-        }
-
-
-
-        System.out.println(edgeBase.get(1)[2]);
-
-        for (int i = 1; i < edgeBase.size(); i++) {
-            Edge e = new Edge(edgeBase.get(i)[0], lookup.get(edgeBase.get(i)[1]), lookup.get(edgeBase.get(i)[2]));
-            lookup.get(edgeBase.get(i)[1]).addEdge(e);
-            lookup.get(edgeBase.get(i)[2]).addEdge(e);
-        }
+        Location testLoc = lookup.get("DHALL01102");
+        System.out.println(testLoc.getXcoord());
+        System.out.println(testLoc.getEdges().get(1).getEndNode().getLocID());
 
         //TODO: allow user to specify start and end location
         Location start = new Location("FIX", 5, 5, 5, "FIX", "FIX", "FIX", "FIX");
         Location end = new Location("FIX", 5, 5, 5, "FIX", "FIX", "FIX", "FIX");
         //generatePath(start, end);
-        
+
     }
     @FXML
     private void backPressed() throws IOException {
@@ -123,6 +108,57 @@ public class PathFindingController {
         openList.add(start);
 
         return new ArrayList<Location>();
+    }
+
+    private void initializeTable(NodesAccess na, EdgesAccess ea) {
+        ArrayList<String> edgeList;
+        int count;
+        count = 0;
+        while (count < na.countRecords()) {
+            ArrayList<String> arr = na.getNodes(count);
+            ArrayList<String> arr2;
+            //only add the node if it hasn't been done yet
+            Location testx = new Location(arr.get(0), Integer.parseInt(arr.get(1)), Integer.parseInt(arr.get(2)), Integer.parseInt(arr.get(3)), arr.get(4), arr.get(5), arr.get(6), arr.get(7));
+            if (!(lookup.containsKey(arr.get(0)))) {
+                lookup.put((arr.get(0)), testx);
+                data.add(testx);
+                edgeList = ea.getConnectedNodes(arr.get(0));
+                for (int j = 0; j < edgeList.size(); j++) {
+                    String nodeID = edgeList.get(j);
+                    if (lookup.containsKey(na.getNodeInformation(nodeID).get(0))) {
+                        Edge e = new Edge(Integer.toString(j), testx, lookup.get(nodeID));
+                        testx.addEdge(e);
+                    } else {
+                        arr2 = na.getNodeInformation(nodeID);
+                        //System.out.println(arr2);
+                        Location testy = new Location(nodeID, Integer.parseInt(arr2.get(0)), Integer.parseInt(arr2.get(1)), Integer.parseInt(arr2.get(2)), arr2.get(3), arr2.get(4), arr2.get(5), arr2.get(6));
+                        Edge e = new Edge(Integer.toString(j), testx, testy);
+                        testx.addEdge(e);
+                        //lookup.put((arr2.get(0)), testy);
+                        //data.add(testy);
+                    }
+                }
+            }
+            else {
+                edgeList = ea.getConnectedNodes(arr.get(0));
+                for (int j = 0; j < edgeList.size(); j++) {
+                    String nodeID = edgeList.get(j);
+                    if (lookup.containsKey(na.getNodeInformation(nodeID).get(0))) {
+                        Edge e = new Edge(Integer.toString(j), testx, lookup.get(nodeID));
+                        testx.addEdge(e);
+                    } else {
+                        arr2 = na.getNodeInformation(nodeID);
+                        //System.out.println(arr2);
+                        Location testy = new Location(nodeID, Integer.parseInt(arr2.get(0)), Integer.parseInt(arr2.get(1)), Integer.parseInt(arr2.get(2)), arr2.get(3), arr2.get(4), arr2.get(5), arr2.get(6));
+                        Edge e = new Edge(Integer.toString(j), testx, testy);
+                        testx.addEdge(e);
+                        //lookup.put((arr2.get(0)), testy);
+                        //data.add(testy);
+                    }
+                }
+            }
+            count++;
+        }
     }
 
 }

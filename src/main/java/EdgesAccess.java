@@ -77,9 +77,9 @@ public class EdgesAccess extends DBAccess
 
         for(int i = 0; i < connectedNodes.size(); i++)
         {
-            System.out.println(connectedNodes.get(i));
+            //System.out.println(connectedNodes.get(i));
         }
-        return null;
+        return connectedNodes;
 
     }
 
