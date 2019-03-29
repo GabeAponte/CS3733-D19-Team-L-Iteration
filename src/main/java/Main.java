@@ -23,5 +23,9 @@ public class Main extends Application {
         //db.createDatabase();
         //db.readCSVintoTable();
         //launch(args);
+        NodesAccess na = new NodesAccess();
+        EdgesAccess ea = new EdgesAccess();
+        System.out.println("" + na.countRecords());
+        ea.getConnectedNodes("DHALL02702");
     }
 }
