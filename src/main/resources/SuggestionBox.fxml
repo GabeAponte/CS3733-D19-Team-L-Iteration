@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.*?>
 <?import java.lang.*?>
 <?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
@@ -32,6 +33,16 @@
          </image>
       </ImageView>
         <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#7fb1ff" height="55.0" stroke="BLACK" strokeType="INSIDE" width="450.0" AnchorPane.bottomAnchor="253.0" AnchorPane.leftAnchor="75.0" AnchorPane.rightAnchor="101.0" AnchorPane.topAnchor="100.0" />
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#012d5a" height="650.0" stroke="BLACK" strokeType="INSIDE" width="1100.0" AnchorPane.leftAnchor="200.0" AnchorPane.rightAnchor="200.0" AnchorPane.topAnchor="250.0" />
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="125.0" layoutX="-220.0" stroke="BLACK" strokeType="INSIDE" width="1090.0" AnchorPane.leftAnchor="205.0" AnchorPane.rightAnchor="205.0" AnchorPane.topAnchor="255.0" />
+          <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="143.0" prefWidth="842.0" text="  GIVE US FEEDBACK" AnchorPane.leftAnchor="205.0" AnchorPane.rightAnchor="205.0" AnchorPane.topAnchor="220.0">
+              <font>
+                  <Font name="Times New Roman Bold" size="40.0" />
+              </font>
+              <padding>
+                  <Insets bottom="10.0" top="75.0" />
+              </padding>
+          </Label>
         <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
             <children>
                 <ToolBar prefHeight="170.0" prefWidth="1130.0" style="-fx-background-color: white;">
@@ -53,17 +64,6 @@
                     </items>
                 </ToolBar>
                 <ToolBar maxHeight="5.0" prefHeight="40.0" prefWidth="200.0" style="-fx-background-color: #092b60;" />
-                <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="143.0" prefWidth="842.0" text="  GIVE US FEEDBACK" VBox.vgrow="NEVER">
-                    <font>
-                        <Font name="Times New Roman Bold" size="40.0" />
-                    </font>
-                    <VBox.margin>
-                        <Insets />
-                    </VBox.margin>
-                    <padding>
-                        <Insets bottom="10.0" top="75.0" />
-                    </padding>
-                </Label>
                 <GridPane alignment="CENTER" hgap="30.0" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="700.0" VBox.vgrow="ALWAYS">
                     <columnConstraints>
                         <ColumnConstraints maxWidth="168.0" minWidth="0.0" prefWidth="0.0" />
@@ -82,25 +82,31 @@
                   <RowConstraints />
                   <RowConstraints maxHeight="71.0" minHeight="12.0" prefHeight="71.0" />
                   <RowConstraints maxHeight="59.0" minHeight="0.0" prefHeight="0.0" />
+                  <RowConstraints maxHeight="59.0" minHeight="10.0" prefHeight="30.0" />
+                  <RowConstraints maxHeight="59.0" minHeight="10.0" prefHeight="30.0" />
+                  <RowConstraints maxHeight="59.0" minHeight="10.0" prefHeight="30.0" />
+                  <RowConstraints maxHeight="59.0" minHeight="10.0" prefHeight="30.0" />
+                  <RowConstraints maxHeight="59.0" minHeight="10.0" prefHeight="30.0" />
+                  <RowConstraints maxHeight="59.0" minHeight="10.0" prefHeight="30.0" />
+                  <RowConstraints maxHeight="59.0" minHeight="10.0" prefHeight="30.0" />
                     </rowConstraints>
                     <children>
-                  <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#012d5a" height="438.0" stroke="BLACK" strokeType="INSIDE" width="859.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-                        <Button fx:id="submitFeedback" disable="true" maxHeight="1.7976931348623157E308" maxWidth="-Infinity" mnemonicParsing="false" prefHeight="30.0" prefWidth="200.0" style="-fx-background-color: #7fb1ff;" text="Submit" GridPane.columnIndex="1" GridPane.columnSpan="2147483647" GridPane.halignment="CENTER" GridPane.rowIndex="10" GridPane.rowSpan="2">
+                  <TextArea fx:id="feedbackComments" minHeight="-Infinity" minWidth="-Infinity" prefHeight="150.0" prefWidth="665.0" promptText="Type suggestions here" GridPane.columnIndex="1" GridPane.rowIndex="10" GridPane.rowSpan="2">
+                     <GridPane.margin>
+                        <Insets bottom="10.0" left="100.0" right="100.0" top="10.0" />
+                     </GridPane.margin>
+                  </TextArea>
+                        <Button fx:id="submitFeedback" disable="true" maxHeight="1.7976931348623157E308" maxWidth="-Infinity" mnemonicParsing="false" prefHeight="30.0" prefWidth="200.0" style="-fx-background-color: #7fb1ff;" text="Submit" textFill="#dd2323" textOverrun="CLIP" GridPane.columnIndex="1" GridPane.columnSpan="2147483647" GridPane.halignment="CENTER" GridPane.rowIndex="16" GridPane.rowSpan="2">
                             <font>
                                 <Font name="Times New Roman" size="30.0" />
                             </font>
                             <GridPane.margin>
                                 <Insets bottom="20.0" top="10.0" />
                             </GridPane.margin>
-                            <effect>
-                                <DropShadow color="#13121e" />
-                            </effect>
+                     <effect>
+                        <DropShadow blurType="GAUSSIAN" color="#12111c74" />
+                     </effect>
                         </Button>
-                  <TextArea fx:id="feedbackComments" minHeight="-Infinity" minWidth="-Infinity" prefHeight="60.0" prefWidth="665.0" promptText="Type suggestions here" GridPane.columnIndex="1" GridPane.rowIndex="1" GridPane.rowSpan="2">
-                     <GridPane.margin>
-                        <Insets bottom="10.0" left="100.0" right="100.0" top="10.0" />
-                     </GridPane.margin>
-                  </TextArea>
                     </children>
                     <VBox.margin>
                         <Insets />
