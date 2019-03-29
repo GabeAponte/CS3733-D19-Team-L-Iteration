@@ -16,20 +16,23 @@ public class HomeScreenController {
     private Button HomeFindPath;
 
     @FXML
-    Button HomeServiceRequest;
+    private Button HomeServiceRequest;
 
     @FXML
-    Button HomeSuggestions;
+    private Button HomeSuggestions;
 
     @FXML
     private void SwitchToPathfindScreen(ActionEvent event) {
         try {
+            System.out.println("Start!");
             Stage thestage = (Stage) HomeFindPath.getScene().getWindow();
             AnchorPane root;
             root = FXMLLoader.load(getClass().getResource("HospitalPathFinding.fxml"));
             Scene scene = new Scene(root);
             thestage.setScene(scene);
+            System.out.println("Done!");
         } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 

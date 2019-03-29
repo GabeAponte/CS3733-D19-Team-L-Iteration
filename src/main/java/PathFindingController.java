@@ -1,16 +1,18 @@
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.MenuButton;
-import javafx.scene.control.RadioButton;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.PriorityQueue;
 
 public class PathFindingController {
     @FXML
@@ -46,27 +48,8 @@ public class PathFindingController {
     @FXML
     private ComboBox<String> PathFindStartDrop;
 
-    private HashMap<String, String> hash;
-
-    @SuppressWarnings("Convert2Diamond")
-    @FXML
-    public void initialize(){
-        final ObservableList<String> OLList = FXCollections.observableArrayList();
-        hash = new HashMap<String, String>();
-        DBAccess db = new DBAccess();
-
-        for (int count = 0; count < db.countRecords(); count++) {
-            ArrayList<String> arr= db.getNodes(count);
-            String LongName = arr.get(6);
-            OLList.add(LongName);
-            hash.put(arr.get(6), arr.get(0));
-        }
-        PathFindStartDrop.setItems(OLList);
-        PathFindEndDrop.setItems(OLList);
-    }
-
-
     final ObservableList<Location> data = FXCollections.observableArrayList();
+    final ObservableList<String> LongNames = FXCollections.observableArrayList();
     HashMap<String, Location> lookup = new HashMap<String, Location>();
 
     @FXML
@@ -89,17 +72,30 @@ public class PathFindingController {
         // Lookup contains all nodes, you can look them up with their keys
         // Each node contains a list of edges properly
 
-        Location testLoc = lookup.get("DHALL01102");
-        System.out.println(testLoc.getXcoord());
-        System.out.println(testLoc.getEdges().get(1).getEndNode().getLocID());
+        for (int count = 0; count < na.countRecords(); count++) {
+            ArrayList<String> arr= na.getNodes(count);
+            LongNames.add(arr.get(6));
+        }
+        PathFindStartDrop.setItems(LongNames);
+        PathFindEndDrop.setItems(LongNames);
 
         //TODO: allow user to specify start and end location
-        Location start = new Location("FIX", 5, 5, 5, "FIX", "FIX", "FIX", "FIX");
-        Location end = new Location("FIX", 5, 5, 5, "FIX", "FIX", "FIX", "FIX");
+//        Location start = new Location("FIX", 5, 5, 5, "FIX", "FIX", "FIX", "FIX");
+//        Location end = new Location("FIX", 5, 5, 5, "FIX", "FIX", "FIX", "FIX");
         //generatePath(start, end);
 
     }
 
+
+    @FXML
+    private void submitPressed(){
+//        String startNodeID = data.get();
+//        String endNodeID = data.get();
+//
+//        System.out.println(startNodeID + "   " + endNodeID);
+
+        //TODO Get node information from ID's, Then call Pallfinding on them.
+    }
 
     //Nathan - function that will be called when user pressed ENTER button, will do pathfinding
     public void generatePath(Location start, Location end){
