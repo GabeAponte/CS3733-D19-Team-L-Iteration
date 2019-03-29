@@ -182,4 +182,26 @@ public class Location implements Comparable<Location>{
         xDiff += yDiff;
         return Math.sqrt(xDiff);
     }
+
+    //Larry - find the node in the Array list that has the lowest F value
+    public Location findBestF(ArrayList<Location> locations){
+        Location bestF = locations.get(0);
+        for(int i = 1; i < locations.size(); i++){
+            if(bestF.score < locations.get(i).score){
+                bestF = bestF;
+            }
+            else{
+                bestF = locations.get(i);
+            }
+        }
+        return  bestF;
+
+    }
+    //Larry - add element to the open list if it is not in it already
+    public void addToOpen(Location A, ArrayList<Location> openList){
+        for(int i = 0; i< openList.size(); i++){
+            A.locID = openList.get(i).locID;
+        }
+
+    }
 }
