@@ -70,14 +70,17 @@ public class PathFindingController {
         // Lookup contains all nodes, you can look them up with their keys
         // Each node contains a list of edges properly
 
-        Location testLoc = lookup.get("DHALL01102");
-        System.out.println(testLoc.getXcoord());
-        System.out.println(testLoc.getEdges().get(1).getEndNode().getLocID());
+        Location start = lookup.get("DHALL01102");
+        Location end = lookup.get("DHALL00102");
+        System.out.println(start.getXcoord());
+        System.out.println(start.getEdges().get(1).getEndNode().getLocID());
+
 
         //TODO: allow user to specify start and end location
-        Location start = new Location("FIX", 5, 5, 5, "FIX", "FIX", "FIX", "FIX");
-        Location end = new Location("FIX", 5, 5, 5, "FIX", "FIX", "FIX", "FIX");
-        //generatePath(start, end);
+        //Location start = new Location("FIX", 5, 5, 5, "FIX", "FIX", "FIX", "FIX");
+        //Location end = new Location("FIX", 5, 5, 5, "FIX", "FIX", "FIX", "FIX");
+
+        generatePath(start, end);
 
     }
     @FXML
@@ -106,6 +109,21 @@ public class PathFindingController {
 
     private ArrayList<Location> findPath(Location start, Location end) {
         openList.add(start);
+        boolean continueSearch = true;
+        while (continueSearch) {
+            while (openList.isEmpty()) {
+                // get the preffered node to explore
+                //recursive method goes here(??)
+            }
+            if (closeList.isEmpty()) {
+                //this means there is no path
+                return new ArrayList<Location>();
+            }
+            else {
+                // get the preffered node to explore from closed list
+            }
+
+        }
 
         return new ArrayList<Location>();
     }
