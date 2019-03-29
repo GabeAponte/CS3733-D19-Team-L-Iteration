@@ -54,7 +54,7 @@ public class PathFindingController {
     @FXML
     private MenuButton PathFindStartDrop;
 
-    
+
     final ObservableList<Location> data = FXCollections.observableArrayList();
     HashMap<String, Location> lookup = new HashMap<String, Location>();
 
@@ -117,8 +117,8 @@ public class PathFindingController {
         while (count < na.countRecords()) {
             ArrayList<String> arr = na.getNodes(count);
             ArrayList<String> arr2;
-            //only add the node if it hasn't been done yet
             Location testx = new Location(arr.get(0), Integer.parseInt(arr.get(1)), Integer.parseInt(arr.get(2)), Integer.parseInt(arr.get(3)), arr.get(4), arr.get(5), arr.get(6), arr.get(7));
+            //only add the node if it hasn't been done yet
             if (!(lookup.containsKey(arr.get(0)))) {
                 lookup.put((arr.get(0)), testx);
                 data.add(testx);
@@ -130,12 +130,9 @@ public class PathFindingController {
                         testx.addEdge(e);
                     } else {
                         arr2 = na.getNodeInformation(nodeID);
-                        //System.out.println(arr2);
                         Location testy = new Location(nodeID, Integer.parseInt(arr2.get(0)), Integer.parseInt(arr2.get(1)), Integer.parseInt(arr2.get(2)), arr2.get(3), arr2.get(4), arr2.get(5), arr2.get(6));
                         Edge e = new Edge(Integer.toString(j), testx, testy);
                         testx.addEdge(e);
-                        //lookup.put((arr2.get(0)), testy);
-                        //data.add(testy);
                     }
                 }
             }
@@ -148,12 +145,9 @@ public class PathFindingController {
                         testx.addEdge(e);
                     } else {
                         arr2 = na.getNodeInformation(nodeID);
-                        //System.out.println(arr2);
                         Location testy = new Location(nodeID, Integer.parseInt(arr2.get(0)), Integer.parseInt(arr2.get(1)), Integer.parseInt(arr2.get(2)), arr2.get(3), arr2.get(4), arr2.get(5), arr2.get(6));
                         Edge e = new Edge(Integer.toString(j), testx, testy);
                         testx.addEdge(e);
-                        //lookup.put((arr2.get(0)), testy);
-                        //data.add(testy);
                     }
                 }
             }
