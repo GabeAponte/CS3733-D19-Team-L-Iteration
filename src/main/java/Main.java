@@ -18,10 +18,12 @@ public class Main extends Application {
 
     @SuppressWarnings("RedundantThrows")
     public static void main(String[] args) throws URISyntaxException {
-        launch(args);
         NodesAccess na = new NodesAccess();
         EdgesAccess ea = new EdgesAccess();
+        System.out.println("2");
         System.out.println("" + na.countRecords());
         ea.getConnectedNodes("DHALL02702");
+        launch(args);
+
     }
 }
