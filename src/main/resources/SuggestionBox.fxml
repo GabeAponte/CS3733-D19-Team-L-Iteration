@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import com.jfoenix.controls.*?>
+<?import javafx.scene.paint.*?>
 <?import javafx.scene.*?>
 <?import java.lang.*?>
 <?import javafx.geometry.*?>
@@ -25,16 +27,15 @@
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1000.0" prefWidth="1500.0" style="-fx-background-color: #7fb1ff;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="SuggestionBoxController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1000.0" prefWidth="1500.0" style="-fx-background-color: #0067B1;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="SuggestionBoxController">
     <children>
       <ImageView fitHeight="212.0" fitWidth="793.0" preserveRatio="true">
          <image>
             <Image url="@BWHlogo.png" />
          </image>
       </ImageView>
-        <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#7fb1ff" height="55.0" stroke="BLACK" strokeType="INSIDE" width="450.0" AnchorPane.bottomAnchor="253.0" AnchorPane.leftAnchor="75.0" AnchorPane.rightAnchor="101.0" AnchorPane.topAnchor="100.0" />
       <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#012d5a" height="650.0" stroke="BLACK" strokeType="INSIDE" width="1100.0" AnchorPane.leftAnchor="200.0" AnchorPane.rightAnchor="200.0" AnchorPane.topAnchor="250.0" />
-      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="125.0" layoutX="-220.0" stroke="BLACK" strokeType="INSIDE" width="1090.0" AnchorPane.leftAnchor="205.0" AnchorPane.rightAnchor="205.0" AnchorPane.topAnchor="255.0" />
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#7fb1ff" height="125.0" layoutX="-220.0" stroke="BLACK" strokeType="INSIDE" width="1090.0" AnchorPane.leftAnchor="205.0" AnchorPane.rightAnchor="205.0" AnchorPane.topAnchor="255.0" />
           <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="143.0" prefWidth="842.0" text="  GIVE US FEEDBACK" AnchorPane.leftAnchor="205.0" AnchorPane.rightAnchor="205.0" AnchorPane.topAnchor="220.0">
               <font>
                   <Font name="Times New Roman Bold" size="40.0" />
@@ -54,16 +55,16 @@
                   </ImageView>
                   <HBox alignment="CENTER_RIGHT" prefHeight="150.0" prefWidth="895.0">
                      <children>
-                                <Button fx:id="SuggestionBack" alignment="CENTER" mnemonicParsing="false" onAction="#backPressed" prefHeight="150.0" prefWidth="215.0" style="-fx-background-color: white;" text="Back">
+                        <JFXButton prefHeight="140.0" prefWidth="209.0" ripplerFill="#f6bd38" text="Back">
                            <font>
                               <Font name="Times New Roman" size="40.0" />
                            </font>
-                                </Button>
+                        </JFXButton>
                      </children>
                   </HBox>
                     </items>
                 </ToolBar>
-                <ToolBar maxHeight="5.0" prefHeight="40.0" prefWidth="200.0" style="-fx-background-color: #092b60;" />
+                <ToolBar maxHeight="20.0" prefHeight="40.0" prefWidth="200.0" style="-fx-background-color: #092b60;" />
                 <GridPane alignment="CENTER" hgap="30.0" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="700.0" VBox.vgrow="ALWAYS">
                     <columnConstraints>
                         <ColumnConstraints maxWidth="168.0" minWidth="0.0" prefWidth="0.0" />
@@ -86,8 +87,8 @@
                   <RowConstraints maxHeight="59.0" minHeight="10.0" prefHeight="30.0" />
                   <RowConstraints maxHeight="59.0" minHeight="10.0" prefHeight="30.0" />
                   <RowConstraints maxHeight="59.0" minHeight="10.0" prefHeight="30.0" />
-                  <RowConstraints maxHeight="59.0" minHeight="10.0" prefHeight="30.0" />
-                  <RowConstraints maxHeight="59.0" minHeight="10.0" prefHeight="30.0" />
+                  <RowConstraints maxHeight="60.0" minHeight="10.0" prefHeight="60.0" />
+                  <RowConstraints maxHeight="59.0" minHeight="0.0" prefHeight="0.0" />
                   <RowConstraints maxHeight="59.0" minHeight="10.0" prefHeight="30.0" />
                     </rowConstraints>
                     <children>
@@ -96,17 +97,11 @@
                         <Insets bottom="10.0" left="100.0" right="100.0" top="10.0" />
                      </GridPane.margin>
                   </TextArea>
-                        <Button fx:id="submitFeedback" disable="true" maxHeight="1.7976931348623157E308" maxWidth="-Infinity" mnemonicParsing="false" prefHeight="30.0" prefWidth="200.0" style="-fx-background-color: #7fb1ff;" text="Submit" textFill="#dd2323" textOverrun="CLIP" GridPane.columnIndex="1" GridPane.columnSpan="2147483647" GridPane.halignment="CENTER" GridPane.rowIndex="16" GridPane.rowSpan="2">
-                            <font>
-                                <Font name="Times New Roman" size="30.0" />
-                            </font>
-                            <GridPane.margin>
-                                <Insets bottom="20.0" top="10.0" />
-                            </GridPane.margin>
-                     <effect>
-                        <DropShadow blurType="GAUSSIAN" color="#12111c74" />
-                     </effect>
-                        </Button>
+                  <JFXButton buttonType="RAISED" contentDisplay="CENTER" prefHeight="80.0" prefWidth="153.0" ripplerFill="#f6bd38" style="-fx-background-color: white;" text="Submit" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="16" GridPane.valignment="CENTER">
+                     <font>
+                        <Font name="Times New Roman" size="30.0" />
+                     </font>
+                  </JFXButton>
                     </children>
                     <VBox.margin>
                         <Insets />
