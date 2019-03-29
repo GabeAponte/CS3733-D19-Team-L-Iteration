@@ -76,7 +76,7 @@
                         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                     </rowConstraints>
                     <children>
-                        <Button fx:id="SubmitRequest" mnemonicParsing="false" style="-fx-background-color: fff;" text="Submit Request" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="2">
+                        <Button fx:id="SubmitRequest" mnemonicParsing="false" style="-fx-background-color: fff;" text="Submit Request" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="2" onAction="#promptCancel">
                             <font>
                                 <Font name="Times New Roman" size="48.0" />
                             </font>
