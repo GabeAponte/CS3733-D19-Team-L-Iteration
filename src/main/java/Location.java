@@ -164,7 +164,7 @@ public class Location implements Comparable<Location>{
         setScore(thisScore);
         return thisScore;
     }
-
+  
     //Nathan - finds DIRECT distance between two nodes
     public double findDistance(Location endNode){
         double xDiff, yDiff;
