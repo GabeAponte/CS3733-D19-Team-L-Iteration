@@ -103,6 +103,10 @@ public class Location implements Comparable<Location>{
 
     public void addEdge(Edge e) { connectedEdges.add(e);}
 
+    public ArrayList<Edge> getEdges() { return connectedEdges;}
+
+    public void addConnectedLocation(Location l) {}
+
     public void setShortName(String shortName) {
         this.shortName = shortName;
     }
