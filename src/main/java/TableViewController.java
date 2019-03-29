@@ -81,13 +81,14 @@ public class TableViewController {
             ArrayList<String> arr= db.getNodes(count);
             Location testx = new Location(arr.get(0), Integer.parseInt(arr.get(1)), Integer.parseInt(arr.get(2)), Integer.parseInt(arr.get(3)), arr.get(4), arr.get(5), arr.get(6), arr.get(7));
             count++;
-            lookup.put(arr.get(0), testx);
+            //System.out.println(arr.get(0));
+            lookup.put((arr.get(0)), testx);
             data.add(testx);
+
         }
         String line;
         String cvsSplitBy = ",";
         int count2 = 0;
-
 
         InputStream file;
         file = this.getClass().getClassLoader().getResourceAsStream("MapLedges.csv");
@@ -111,9 +112,7 @@ public class TableViewController {
             e.printStackTrace();
         }
 
-        System.out.println(edgeBase.get(1)[2]);
-
-        for (int i = 0; i < edgeBase.size(); i ++) {
+        for (int i = 1; i < edgeBase.size(); i ++) {
             Edge e = new Edge(edgeBase.get(i)[0], lookup.get(edgeBase.get(i)[1]), lookup.get(edgeBase.get(i)[2]));
             lookup.get(edgeBase.get(i)[1]).addEdge(e);
             lookup.get(edgeBase.get(i)[2]).addEdge(e);
@@ -172,7 +171,13 @@ public class TableViewController {
         thestage.setScene(scene);
     }
 
+    ArrayList<Location> openList = new ArrayList<Location>();
+    ArrayList<Location> closeList = new ArrayList<Location>();
+
+
     private ArrayList<Location> findPath(Location start, Location end) {
+        openList.add(start);
+
         return new ArrayList<Location>();
     }
 
