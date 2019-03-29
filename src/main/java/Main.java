@@ -1,10 +1,14 @@
 import javafx.application.Application;
-        import javafx.fxml.FXMLLoader;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.fxml.FXMLLoader;
         import javafx.scene.Parent;
         import javafx.scene.Scene;
         import javafx.stage.Stage;
         import java.net.URISyntaxException;
-        import java.util.Objects;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Objects;
 
 public class Main extends Application {
 
@@ -18,10 +22,14 @@ public class Main extends Application {
 
     @SuppressWarnings("RedundantThrows")
     public static void main(String[] args) throws URISyntaxException {
-        launch(args);
         NodesAccess na = new NodesAccess();
         EdgesAccess ea = new EdgesAccess();
-        System.out.println("" + na.countRecords());
+        //System.out.println("2");
+        //System.out.println("" + na.countRecords());
         ea.getConnectedNodes("DHALL02702");
+
+
+        launch(args);
+
     }
 }
