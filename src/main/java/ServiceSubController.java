@@ -34,7 +34,7 @@ public class ServiceSubController {
     }
 
     @FXML
-    private void back2Pressed() throws IOException {
+    private void backPressed() throws IOException {
         thestage = (Stage) Back.getScene().getWindow();
         AnchorPane root;
         root = FXMLLoader.load(getClass().getResource("ServiceRequest.fxml"));
