@@ -249,7 +249,7 @@ public class NodesAccess extends DBAccess{
         try (Connection conn = this.connect();
              PreparedStatement pstmt = conn.prepareStatement(sql)){
             pstmt.setString(1, nodeID);
-            ResultSet rs = pstmt.executeQuery(sql);
+            ResultSet rs = pstmt.executeQuery();
             while (rs.next()) {
                 return getFields(data, rs);
             }
