@@ -70,6 +70,6 @@ public class EdgesAccess extends DBAccess
 
     public static void main(String[] args) {
         EdgesAccess test = new EdgesAccess();
-        //test.readCSVintoTable();
+        test.readCSVintoTable();
     }
 }
