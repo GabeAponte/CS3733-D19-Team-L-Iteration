@@ -6,24 +6,22 @@ import javafx.scene.control.Button;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
+import java.io.IOException;
+
 public class HomeScreenController {
 
     private Stage stage;
 
     @FXML
-    Button HomeFindPath;
+    private Button HomeFindPath;
 
     @FXML
-    private void SwitchToPathfindScreen(ActionEvent event){
-        try {
-            Stage thestage = (Stage) HomeFindPath.getScene().getWindow();
-            AnchorPane root;
-            root = FXMLLoader.load(getClass().getResource("HospitalPathFinding.fxml"));
-            Scene scene = new Scene(root);
-            thestage.setScene(scene);
-        } catch (Exception e){
-
-        }
+    private void SwitchToPathfindScreen() throws IOException {
+        Stage thestage = (Stage) HomeFindPath.getScene().getWindow();
+        AnchorPane root;
+        root = FXMLLoader.load(getClass().getResource("HospitalPathFinding.fxml"));
+        Scene scene = new Scene(root);
+        thestage.setScene(scene);
     }
 
 }

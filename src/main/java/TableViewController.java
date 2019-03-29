@@ -63,8 +63,7 @@ public class TableViewController {
         final ObservableList<Location> data = FXCollections.observableArrayList();
         DBAccess db = new DBAccess();
 
-        int count;
-        count  = 0;
+        int count = 0;
         while(count < db.countRecords()){
             ArrayList<String> arr= db.getNodes(count);
             Location testx = new Location(arr.get(0), Integer.parseInt(arr.get(1)), Integer.parseInt(arr.get(2)), Integer.parseInt(arr.get(3)), arr.get(4), arr.get(5), arr.get(6), arr.get(7));
