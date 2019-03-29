@@ -33,7 +33,7 @@
                     <items>
                         <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
                             <image>
-                                <!-- <Image url="@../../../../Documents/newBWH.png" /> -->
+                                 <Image url="@BWHlogo.png" />
                             </image>
                         </ImageView>
                         <HBox prefHeight="43.0" prefWidth="376.0">
