@@ -86,18 +86,17 @@
                   <RowConstraints maxHeight="59.0" minHeight="10.0" prefHeight="30.0" />
                   <RowConstraints maxHeight="59.0" minHeight="10.0" prefHeight="30.0" />
                   <RowConstraints maxHeight="59.0" minHeight="10.0" prefHeight="30.0" />
-                  <RowConstraints maxHeight="59.0" minHeight="10.0" prefHeight="30.0" />
                   <RowConstraints maxHeight="60.0" minHeight="10.0" prefHeight="60.0" />
                   <RowConstraints maxHeight="59.0" minHeight="0.0" prefHeight="0.0" />
                   <RowConstraints maxHeight="59.0" minHeight="10.0" prefHeight="30.0" />
                     </rowConstraints>
                     <children>
-                  <TextArea fx:id="feedbackComments" minHeight="-Infinity" minWidth="-Infinity" prefHeight="150.0" prefWidth="665.0" promptText="Type suggestions here" GridPane.columnIndex="1" GridPane.rowIndex="10" GridPane.rowSpan="2">
+                  <TextArea fx:id="feedbackComments" minHeight="-Infinity" minWidth="-Infinity" prefHeight="186.0" prefWidth="662.0" promptText="Type suggestions here" GridPane.columnIndex="1" GridPane.rowIndex="5" GridPane.rowSpan="2">
                      <GridPane.margin>
                         <Insets bottom="10.0" left="100.0" right="100.0" top="10.0" />
                      </GridPane.margin>
                   </TextArea>
-                  <JFXButton buttonType="RAISED" contentDisplay="CENTER" prefHeight="80.0" prefWidth="153.0" ripplerFill="#f6bd38" style="-fx-background-color: white;" text="Submit" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="16" GridPane.valignment="CENTER">
+                  <JFXButton buttonType="RAISED" contentDisplay="CENTER" prefHeight="80.0" prefWidth="153.0" ripplerFill="#f6bd38" style="-fx-background-color: white;" text="Submit" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="13" GridPane.valignment="CENTER">
                      <font>
                         <Font name="Times New Roman" size="30.0" />
                      </font>
