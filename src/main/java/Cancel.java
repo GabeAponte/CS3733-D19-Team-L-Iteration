@@ -30,6 +30,10 @@ public class Cancel {
     @FXML
     public Label typeLabel;
 
+    public void init(String service){
+        typeOfService = service;
+        comment = "N/A";
+    }
     public void init(String service, String description){
         typeOfService = service;
         comment = description;

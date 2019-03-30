@@ -14,14 +14,14 @@ import java.io.IOException;
 
 public class ServiceSubController {
 
-    Stage thestage;
+    public Stage thestage;
     private String typeOfService;
 
     @FXML
-    Button Back2;
+    private Button Back2;
 
     @FXML
-    public Label typeLabel;
+    private Label typeLabel;
 
     @FXML
     private Button SubmitRequest;
@@ -52,9 +52,14 @@ public class ServiceSubController {
         Parent sceneMain = loader.load();
 
         Cancel controller = loader.<Cancel>getController();
-        controller.init(typeOfService, ServiceComments.getText());
 
-        thestage = (Stage) Back2.getScene().getWindow();
+        if(ServiceComments == null || ServiceComments.getText() == null || ServiceComments.getText().trim().isEmpty()){
+            controller.init(typeOfService);
+        } else {
+            controller.init(typeOfService, ServiceComments.getText());
+        }
+        System.out.println("?AHHHHHHH");
+        thestage = (Stage) SubmitRequest.getScene().getWindow();
 
         Scene scene = new Scene(sceneMain);
         thestage.setScene(scene);
