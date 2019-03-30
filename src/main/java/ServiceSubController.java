@@ -47,10 +47,16 @@ public class ServiceSubController {
     //TODO: when submit is pressed, prompt "Are You Sure"
     @FXML
     private void promptCancel(ActionEvent e) throws IOException{
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("ServiceRequest.fxml"));
-        Parent root1 = (Parent) loader.load();
-        Stage stage = new Stage();
-        stage.setScene(new Scene(root1));
-        stage.show();
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("Cancel.fxml"));
+
+        Parent sceneMain = loader.load();
+
+        Cancel controller = loader.<Cancel>getController();
+        controller.init(typeOfService, ServiceComments.getText());
+
+        thestage = (Stage) Back2.getScene().getWindow();
+
+        Scene scene = new Scene(sceneMain);
+        thestage.setScene(scene);
     }
 }

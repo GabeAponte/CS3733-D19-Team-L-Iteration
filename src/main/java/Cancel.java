@@ -16,6 +16,7 @@ public class Cancel {
 
     Stage thestage;
     private String typeOfService;
+    private String comment;
 
     @FXML
     Button Back;
@@ -29,12 +30,10 @@ public class Cancel {
     @FXML
     public Label typeLabel;
 
-    @FXML
-    public void init(String type){
-        typeOfService = type;
-        typeLabel.setText(typeOfService + " Services");
+    public void init(String service, String description){
+        typeOfService = service;
+        comment = description;
     }
-
 
     @SuppressWarnings("Duplicates")
     @FXML
@@ -46,27 +45,16 @@ public class Cancel {
         thestage.setScene(scene);
     }
 
-    //TODO: when submit is pressed, prompt "Are You Sure"
     @FXML
-    private void promptCancel(ActionEvent e){
-        BorderPane borderPane = new BorderPane();
-        Scene scene = new Scene(borderPane, 600, 600);
-        Stage stage = new Stage();
-        stage.setScene(scene);
-        stage.setTitle("Cool Window");
-        stage.show();
-    }
-
-    @FXML
-    private void yesClicked(){
-
+    private void yesClicked() throws IOException{
+        backPressed();
     }
 
     @FXML
     private void noClicked() throws IOException {
         thestage = (Stage) yes.getScene().getWindow();
         AnchorPane root;
-        root = FXMLLoader.load(getClass().getResource("ServiceSubController.fxml"));
+        root = FXMLLoader.load(getClass().getResource("HospitalHome.fxml"));
         Scene scene = new Scene(root);
         thestage.setScene(scene);
     }
