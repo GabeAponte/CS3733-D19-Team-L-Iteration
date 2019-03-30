@@ -116,17 +116,27 @@ public class PathFindingController {
         Location q = new Location();
         //while there are items in the open list
         int count = 0;
-        while (!(openList.isEmpty()) && count < 20) {
+        while (!(openList.isEmpty())) {
             q = q.findBestF(openList);
             //System.out.println(q.getLocID());
-            q = lookup.get(q.getLocID());
+           // q = lookup.get(q.getLocID());
            // System.out.println(q.getEdges());
             openList.remove(q);
             ArrayList<Edge> edge = q.getEdges();
+           // System.out.println("this is " + q.getEdges());
             ArrayList<Location> children = new ArrayList<Location>();
             for (Edge e: edge) {
-                children.add(e.getEndNode());
-                e.getEndNode().setGScore(e.findDistance(q, e.getEndNode()));
+                //Larry- probably need if statement here not sure
+                if(e.getEndNode().getLocID().equals(q.getLocID())){
+                    children.add(e.getStartNode());
+                    e.getStartNode().setGScore(e.findDistance(q, e.getStartNode()));
+                }
+                else{
+                    children.add(e.getEndNode());
+                    e.getEndNode().setGScore(e.findDistance(q, e.getEndNode()));
+                }
+
+
                 //System.out.println("edge between " + e.getStartNode().getLocID() + "and " +  e.getEndNode().getLocID() +
                       //  " is " + Double.toString(e.findDistance(q, e.getEndNode())));
             }
@@ -143,15 +153,11 @@ public class PathFindingController {
                     l.setScore(l.calculateScore(gScore, end));
                     lookup.get(l.getLocID()).setParentID(q.getLocID());
                     //System.out.println(l.getParentID());
-                    if (!(openList.contains(l)) && !(closeList.contains(l))) {
-                        openList.add(l);
+                    if(l.isntClosed(l,closeList)){
+                        l.addToOpen(l,openList);
                     }
                 }
             }
-            if (!closeList.contains(q)) {
-                closeList.add(q);
-            }
-            count ++;
             // get the preffered node to explore
             //recursive method goes here(??)
         }
