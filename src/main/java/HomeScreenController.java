@@ -69,6 +69,8 @@ public class HomeScreenController {
             thestage.setScene(scene);
         } catch (Exception e){
 
+
         }
     }
+
 }
