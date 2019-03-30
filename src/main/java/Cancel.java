@@ -30,16 +30,19 @@ public class Cancel {
     @FXML
     public Label typeLabel;
 
+    //Nathan - stores information passed from another controller
     public void init(String service){
         typeOfService = service;
         comment = "";
     }
+
+    //Nathan - stores information passed from another controller
     public void init(String service, String description){
         typeOfService = service;
         comment = description;
     }
 
-    //takes user back to ServiceSubController (and fills in proper info)
+    //Nathan - takes user back to ServiceSubController (and fills in proper info)
     @SuppressWarnings("Duplicates")
     @FXML
     private void backPressed() throws IOException {

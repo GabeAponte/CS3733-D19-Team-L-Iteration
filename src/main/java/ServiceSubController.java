@@ -30,17 +30,20 @@ public class ServiceSubController {
     private TextArea ServiceComments;
 
 
+    //Nathan - sets values passed from another controller
     public void init(String type){
         typeOfService = type;
         typeLabel.setText(typeOfService + " Services");
     }
 
+    //Nathan - sets values passed from another controller
     public void init(String type, String comment){
         typeOfService = type;
         typeLabel.setText(typeOfService + " Services");
         ServiceComments.setText(comment);
     }
 
+    //Nathan - takes you back to service request screen
     @FXML
     private void backPressed() throws IOException {
         thestage = (Stage) Back2.getScene().getWindow();
@@ -50,7 +53,7 @@ public class ServiceSubController {
         thestage.setScene(scene);
     }
 
-    //TODO: when submit is pressed, prompt "Are You Sure"
+    //Nathan - Changes screen to cancel screen, passes along information
     @FXML
     private void promptCancel(ActionEvent e) throws IOException{
         FXMLLoader loader = new FXMLLoader(getClass().getResource("Cancel.fxml"));
