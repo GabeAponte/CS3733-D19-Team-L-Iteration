@@ -96,7 +96,7 @@
             </ImageView>
             <HBox alignment="CENTER_RIGHT" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="105.0" prefWidth="875.0">
                <children>
-                  <JFXButton minHeight="-Infinity" minWidth="-Infinity" prefHeight="100.0" prefWidth="166.0" ripplerFill="#f6bd38" text="Back">
+                  <JFXButton fx:id="SuggestionBack" minHeight="-Infinity" minWidth="-Infinity" onAction="#backPressed" prefHeight="100.0" prefWidth="166.0" ripplerFill="#f6bd38" text="Back">
                      <font>
                         <Font name="Times New Roman" size="40.0" />
                      </font>
