@@ -26,46 +26,35 @@
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1000.0" prefWidth="1500.0" style="-fx-background-color: #7fb1ff;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Cancel">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" style="-fx-background-color: #7fb1ff;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Cancel">
     <children>
         <ImageView fitHeight="342.0" fitWidth="601.0" layoutY="66.0" opacity="0.51" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="66.0">
             <image>
                 <!--  <Image url="@../../../../../Documents/BWHbackground.png" /> -->
             </image>
         </ImageView>
-        <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#85aeeb" height="100.0" stroke="BLACK" strokeType="INSIDE" width="1200.0" AnchorPane.leftAnchor="150.0" AnchorPane.topAnchor="200.0" />
-        <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#092b60" height="600.0" layoutX="50.0" layoutY="152.0" stroke="BLACK" strokeType="INSIDE" width="1200.0" AnchorPane.leftAnchor="150.0" AnchorPane.topAnchor="300.0" />
+        <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#092b60" height="475.0" layoutX="50.0" layoutY="194.0" stroke="BLACK" strokeType="INSIDE" width="880.0" AnchorPane.bottomAnchor="46.0" AnchorPane.leftAnchor="200.0" AnchorPane.rightAnchor="200.0" AnchorPane.topAnchor="194.0" />
         <VBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
             <children>
-                <ToolBar prefHeight="150.0" prefWidth="1490.0" style="-fx-background-color: white;">
+                <ToolBar maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="125.0" prefWidth="1280.0" style="-fx-background-color: white;">
                     <items>
-                        <ImageView fitHeight="113.0" fitWidth="562.0" pickOnBounds="true" preserveRatio="true">
+                        <ImageView fitHeight="98.0" fitWidth="500.0" pickOnBounds="true" preserveRatio="true">
                             <image>
                                 <Image url="@BWHlogo.png" />
                             </image>
                         </ImageView>
-                        <HBox alignment="CENTER_RIGHT" prefHeight="43.0" prefWidth="850.0">
-                            <children>
-                                <Button fx:id="Back" alignment="CENTER" contentDisplay="CENTER" maxWidth="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#backPressed" prefHeight="125.0" prefWidth="200.0" style="-fx-background-color: white;" text="Back">
+                        <HBox alignment="CENTER_RIGHT" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="96.0" prefWidth="782.0">
+                     <children>
+                                <Button fx:id="Back" alignment="CENTER" contentDisplay="CENTER" maxWidth="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#backPressed" prefHeight="96.0" prefWidth="197.0" style="-fx-background-color: white;" text="Back">
                                     <font>
                                         <Font name="Times New Roman" size="48.0" />
                                     </font>
                                 </Button>
-                            </children></HBox>
+                     </children>
+                  </HBox>
                     </items>
                 </ToolBar>
                 <ToolBar maxHeight="10.0" prefHeight="40.0" prefWidth="200.0" style="-fx-background-color: #092b60;" />
-                <Label fx:id="typeLabel" alignment="CENTER" contentDisplay="CENTER" maxWidth="1.7976931348623157E308" text="Are You Sure You Want to Make This Service Request?">
-                    <font>
-                        <Font name="Times New Roman Bold" size="48.0" />
-                    </font>
-                    <VBox.margin>
-                        <Insets />
-                    </VBox.margin>
-                    <padding>
-                        <Insets bottom="10.0" top="60.0" />
-                    </padding>
-                </Label>
                 <GridPane alignment="CENTER" hgap="150.0" prefHeight="611.0" prefWidth="1458.0" vgap="75.0">
                     <columnConstraints>
                         <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -74,18 +63,18 @@
                     <rowConstraints>
                         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                     </rowConstraints>
                     <padding>
                         <Insets bottom="50.0" left="250.0" right="250.0" top="50.0" />
                     </padding>
                <children>
-                  <JFXButton fx:id="yes" prefHeight="135.0" prefWidth="425.0" style="-fx-background-color: green;" text="YES" GridPane.rowIndex="1" onAction="#yesClicked">
+                  <JFXButton fx:id="yes" onAction="#yesClicked" prefHeight="135.0" prefWidth="425.0" style="-fx-background-color: green;" text="YES" GridPane.rowIndex="1">
                      <font>
                         <Font size="55.0" />
                      </font>
                   </JFXButton>
-                  <JFXButton fx:id="no" prefHeight="140.0" prefWidth="446.0" style="-fx-background-color: red;" text="NO" GridPane.columnIndex="1" GridPane.rowIndex="1" onAction="#noClicked">
+                  <JFXButton fx:id="no" onAction="#noClicked" prefHeight="140.0" prefWidth="446.0" style="-fx-background-color: red;" text="NO" GridPane.columnIndex="1" GridPane.rowIndex="1">
                      <font>
                         <Font size="55.0" />
                      </font>
@@ -94,5 +83,14 @@
                 </GridPane>
             </children>
         </VBox>
+        <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#85aeeb" height="100.0" layoutX="206.0" stroke="BLACK" strokeType="INSIDE" width="868.0" AnchorPane.leftAnchor="206.0" AnchorPane.rightAnchor="206.0" AnchorPane.topAnchor="200.0" />
+          <Label fx:id="typeLabel" alignment="CENTER" contentDisplay="CENTER" layoutX="217.0" layoutY="164.0" maxWidth="1.7976931348623157E308" prefHeight="124.0" prefWidth="846.0" text="Are You Sure?">
+              <font>
+                  <Font name="Times New Roman Bold" size="48.0" />
+              </font>
+              <padding>
+                  <Insets bottom="10.0" top="60.0" />
+              </padding>
+          </Label>
     </children>
 </AnchorPane>
