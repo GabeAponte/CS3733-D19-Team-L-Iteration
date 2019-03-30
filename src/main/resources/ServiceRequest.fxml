@@ -82,7 +82,7 @@
                          <Font name="Times New Roman" size="36.0" />
                      </font>
                   </Button>
-                  <Button fx:id="FacilitiesMaitnence" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="Facilities Matinence" GridPane.columnIndex="1" GridPane.halignment="CENTER" onAction="#makeRequest">
+                  <Button fx:id="FacilitiesMaintenance" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="Facilities Matinence" GridPane.columnIndex="1" GridPane.halignment="CENTER" onAction="#makeRequest">
                      <font>
                          <Font name="Times New Roman" size="36.0" />
                      </font>

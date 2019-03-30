@@ -2,15 +2,8 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.*;
 import javafx.event.ActionEvent;
-import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.TextArea;
-import javafx.scene.layout.AnchorPane;
-import javafx.stage.Stage;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
@@ -18,7 +11,7 @@ import java.io.IOException;
 
 public class ServiceRequestController {
 
-    private Stage thestage;
+    private Stage theStage;
 
     @FXML
     private Button SanitationServices;
@@ -30,7 +23,7 @@ public class ServiceRequestController {
     private Button ITServices;
 
     @FXML
-    private Button FacilitiesMaitnence;
+    private Button FacilitiesMaintenance;
 
     @FXML
     private Button LanguageInterpreter;
@@ -43,11 +36,11 @@ public class ServiceRequestController {
 
     @FXML
     protected void backPressed() throws IOException {
-        thestage = (Stage) Back.getScene().getWindow();
+        theStage = (Stage) Back.getScene().getWindow();
         AnchorPane root;
         root = FXMLLoader.load(getClass().getResource("HospitalHome.fxml"));
         Scene scene = new Scene(root);
-        thestage.setScene(scene);
+        theStage.setScene(scene);
     }
 
     //passes off type of button
@@ -61,7 +54,7 @@ public class ServiceRequestController {
             typeOfService = "Transportation";
         } else if(e.getSource() == ITServices) {
             typeOfService = "IT";
-        } else if(e.getSource() == FacilitiesMaitnence) {
+        } else if(e.getSource() == FacilitiesMaintenance) {
             typeOfService = "Maintenance";
         } else if(e.getSource() == LanguageInterpreter) {
             typeOfService = "Language Interpreter";
@@ -81,10 +74,10 @@ public class ServiceRequestController {
         ServiceSubController controller = loader.<ServiceSubController>getController();
         controller.init(service);
 
-        thestage = (Stage) SanitationServices.getScene().getWindow();
+        theStage = (Stage) SanitationServices.getScene().getWindow();
 
         Scene scene = new Scene(sceneMain);
-        thestage.setScene(scene);
+        theStage.setScene(scene);
     }
 
 }
