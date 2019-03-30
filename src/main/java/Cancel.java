@@ -1,3 +1,4 @@
+import com.sun.xml.internal.ws.policy.privateutil.PolicyUtils;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -17,7 +18,13 @@ public class Cancel {
     private String typeOfService;
 
     @FXML
-    Button Back2;
+    Button Back;
+
+    @FXML
+    private Button yes;
+
+    @FXML
+    private Button no;
 
     @FXML
     public Label typeLabel;
@@ -28,11 +35,13 @@ public class Cancel {
         typeLabel.setText(typeOfService + " Services");
     }
 
+
+    @SuppressWarnings("Duplicates")
     @FXML
     private void backPressed() throws IOException {
-        thestage = (Stage) Back2.getScene().getWindow();
+        thestage = (Stage) Back.getScene().getWindow();
         AnchorPane root;
-        root = FXMLLoader.load(getClass().getResource("ServiceRequest.fxml"));
+        root = FXMLLoader.load(getClass().getResource("HospitalHome.fxml"));
         Scene scene = new Scene(root);
         thestage.setScene(scene);
     }
@@ -42,8 +51,23 @@ public class Cancel {
     private void promptCancel(ActionEvent e){
         BorderPane borderPane = new BorderPane();
         Scene scene = new Scene(borderPane, 600, 600);
-        Stage stage = new Stage(); stage.setScene(scene);
+        Stage stage = new Stage();
+        stage.setScene(scene);
         stage.setTitle("Cool Window");
         stage.show();
+    }
+
+    @FXML
+    private void yesClicked(){
+
+    }
+
+    @FXML
+    private void noClicked() throws IOException {
+        thestage = (Stage) yes.getScene().getWindow();
+        AnchorPane root;
+        root = FXMLLoader.load(getClass().getResource("ServiceSubController.fxml"));
+        Scene scene = new Scene(root);
+        thestage.setScene(scene);
     }
 }
