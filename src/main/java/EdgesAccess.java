@@ -4,7 +4,9 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 // Refer to DJ or Andrew for questions or concerns with this class
 public class EdgesAccess extends DBAccess
@@ -48,6 +50,45 @@ public class EdgesAccess extends DBAccess
         }
     }
 
+    @SuppressWarnings("Duplicates")
+    public ArrayList<String> getConnectedNodes(String nodeID){
+        String sql = "SELECT startNode, endNode FROM edges WHERE startNode= ? OR endNode= ?;";
+
+        ArrayList<String> connectedNodes = new ArrayList<>();
+        try (Connection conn = this.connect();
+            PreparedStatement pstmt = conn.prepareStatement(sql)){
+            pstmt.setString(1, nodeID);
+            pstmt.setString(2, nodeID);
+            ResultSet rs = pstmt.executeQuery();
+            while (rs.next()) {
+                getFields(connectedNodes, rs);
+            }
+    }
+        catch (SQLException e) {
+            System.out.println(e.getMessage());
+            System.out.println("HERE");
+        }
+
+        for (int i = connectedNodes.size() - 1; i >= 0; i--) {
+            if (connectedNodes.get(i).contains(nodeID)) {
+                connectedNodes.remove(i);
+            }
+        }
+
+        for(int i = 0; i < connectedNodes.size(); i++)
+        {
+            System.out.println(connectedNodes.get(i));
+        }
+        return null;
+
+    }
+
+    private ArrayList<String> getFields(ArrayList<String> data, ResultSet rs) throws SQLException {
+        data.add(rs.getString("startNode"));
+        data.add(rs.getString("endNode"));
+        return data;
+    }
+
     /**
      * DJ set this up (Andrew can also answer questions
      * creates a prepared statement with terms from csv
@@ -67,6 +108,8 @@ public class EdgesAccess extends DBAccess
         pstmt.setString(3, data[2]);
         return pstmt;
     }
+
+
 
     public static void main(String[] args) {
         EdgesAccess test = new EdgesAccess();
