@@ -19,6 +19,8 @@ import java.io.IOException;
 public class ServiceRequestController {
 
     protected Stage thestage;
+
+    @FXML
     private String typeOfService;
 
     @FXML
