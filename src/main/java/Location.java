@@ -34,7 +34,12 @@ public class Location implements Comparable<Location>{
     }
 
     public void setParentID(String parentID) {
-        this.parentID = parentID;
+        if (this.parentID.equals("NONE")) {
+            this.parentID = parentID;
+        }
+        if (parentID.equals("RESET")) {
+            this.parentID = "NONE";
+        }
     }
 
     public double getScore() {
@@ -136,7 +141,7 @@ public class Location implements Comparable<Location>{
     public boolean isntClosed(Location loc, ArrayList<Location> closed){
         for(int i = 0; i < closed.size(); i++){
             //for all elements in closed, if any ID matches this ID, this ID is closed
-            if(closed.get(i).getLocID() == loc.getLocID() || loc.getParentID() != "NONE"){
+            if(closed.get(i).getLocID().equals(loc.getLocID()) || loc.getParentID() != "NONE"){
                 return false;
             }
         }
