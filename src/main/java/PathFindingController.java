@@ -72,17 +72,38 @@ public class PathFindingController {
 
         Location start = lookup.get("DHALL01202");
         Location end = lookup.get("DHALL00102");
-        System.out.println("TEST 1:");
+        System.out.println("1 Hallway:");
 
         Path p = findPath(start, end);
         System.out.println(p.toString());
 
+        start = lookup.get("DHALL00102");
+        end = lookup.get("DHALL01202");
+        System.out.println("Reverse of first test:");
+
+        p = findPath(start, end);
+        System.out.println(p.toString());
+
         Location start1 = lookup.get("DHALL05702");
         Location end1 = lookup.get("DHALL00102");
-        System.out.println("TEST 2:");
+        System.out.println("Multi-hallway test:");
 
         Path p1 = findPath(start1, end1);
         System.out.println(p1.toString());
+
+        start = lookup.get("DDEPT00402");
+        end = lookup.get("DHALL00102");
+        System.out.println("Long Test:");
+
+        p = findPath(start, end);
+        System.out.println(p.toString());
+
+        start = lookup.get("DHALL00102");
+        end = lookup.get("DHALL00102");
+        System.out.println("Same Node:");
+
+        p = findPath(start, end);
+        System.out.println(p.toString());
 
         //TODO: allow user to specify start and end location
 
