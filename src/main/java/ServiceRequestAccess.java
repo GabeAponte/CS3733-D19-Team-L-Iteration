@@ -5,7 +5,7 @@ public class ServiceRequestAccess extends DBAccess{
     /**ANDREW MADE THIS
      * deletes all the records from the serviceRequest table
      */
-    public void deleteRecordse() {
+    public void deleteRecords() {
         String sql = "Delete from serviceRequest;";
 
         try (Connection conn = this.connect();
@@ -74,7 +74,13 @@ public class ServiceRequestAccess extends DBAccess{
             while (rs.next()) {
                 if (count == getNum) {
                     data.add(""+rs.getInt("requestID"));
-                    data.add(rs.getString("requestDepartments"));
+                    if(rs.getString("comment") != null){
+                        data.add(rs.getString("comment"));
+                    }
+                    else{
+                        data.add("no comment");
+                    }
+                    data.add(rs.getString("requestDepartment"));
                     if(rs.getString("assignedEmployee") != null){
                         data.add(rs.getString("assignedEmployee"));
                     }
@@ -94,6 +100,7 @@ public class ServiceRequestAccess extends DBAccess{
 
     public static void main(String[] args) {
         ServiceRequestAccess sra = new ServiceRequestAccess();
+        sra.deleteRecords();
         sra.makeRequest("test", "test", 1);
         sra.fulfillRequest(1, "bob");
         sra.getRequests(0);
