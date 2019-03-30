@@ -154,7 +154,6 @@ public class PathFindingController {
         }
         Location q = new Location();
         //while there are items in the open list
-        int count = 0;
         while (!(openList.isEmpty())) {
             q = q.findBestF(openList);
             //System.out.println(q.getLocID());
