@@ -1,5 +1,7 @@
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXComboBox;
+import com.jfoenix.controls.JFXDatePicker;
+import com.jfoenix.controls.JFXTimePicker;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -14,7 +16,7 @@ import java.io.IOException;
 public class BookRoomController {
 
     @FXML
-    private DatePicker datePicker;
+    private JFXDatePicker datePicker;
 
     @FXML
     private ChoiceBox avaliableRooms;
@@ -23,10 +25,10 @@ public class BookRoomController {
     private JFXButton requestRoom;
 
     @FXML
-    private JFXComboBox startTime;
+    private JFXTimePicker startTime;
 
     @FXML
-    private JFXComboBox endTime;
+    private JFXTimePicker endTime;
 
     @FXML
     private Stage thestage;

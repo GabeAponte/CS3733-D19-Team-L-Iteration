@@ -1,17 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.effect.*?>
-<?import com.jfoenix.controls.*?>
-<?import javafx.scene.text.*?>
-<?import javafx.scene.shape.*?>
-<?import javafx.scene.image.*?>
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXDatePicker?>
+<?import com.jfoenix.controls.JFXTimePicker?>
+<?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ToolBar?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="BookRoomController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="BookRoomController">
     <children>
         <VBox layoutX="150.0" layoutY="146.0" prefHeight="200.0" prefWidth="100.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
             <children>
@@ -24,7 +27,7 @@
                         </ImageView>
                         <HBox alignment="CENTER_RIGHT" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="125.0" prefWidth="880.0">
                             <children>
-                                <JFXButton fx:id="bookRoomBack" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onAction="#backPressed" prefHeight="117.0" prefWidth="141.0" ripplerFill="#f6bd38" text="Back">
+                                <JFXButton fx:id="bookRoomBack" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onAction="#backPressed" prefHeight="114.0" prefWidth="152.0" ripplerFill="#f6bd38" text="Back">
                                     <font>
                                         <Font name="Times New Roman" size="40.0" />
                                     </font>
@@ -44,7 +47,7 @@
                 <Font name="Times New Roman Bold" size="40.0" />
             </font>
         </Label>
-        <ChoiceBox fx:id="avaliableRooms" layoutX="640.0" layoutY="461.0" prefWidth="300.0" />
+        <ChoiceBox fx:id="avaliableRooms" layoutX="640.0" layoutY="474.0" prefWidth="300.0" />
         <JFXButton fx:id="requestRoom" buttonType="RAISED" layoutX="572.0" layoutY="569.0" ripplerFill="#f6bd38" style="-fx-background-color: WHITE;" text="Request">
             <font>
                 <Font name="Times New Roman" size="30.0" />
@@ -55,10 +58,8 @@
                 <Font name="Times New Roman" size="30.0" />
             </font>
         </Label>
-        <DatePicker fx:id="datePicker" layoutX="828.0" layoutY="345.0" prefHeight="51.0" prefWidth="199.0" />
-        <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="54.0" layoutX="252.0" layoutY="343.0" stroke="BLACK" strokeType="INSIDE" width="199.0" />
-        <JFXComboBox fx:id="startTime" layoutX="252.0" layoutY="346.0" promptText=" Start Time" />
-        <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="54.0" layoutX="541.0" layoutY="343.0" stroke="BLACK" strokeType="INSIDE" width="199.0" />
-        <JFXComboBox fx:id="endTime" layoutX="549.0" layoutY="346.0" promptText="End Time" />
+      <JFXDatePicker fx:id="datePicker" layoutX="810.0" layoutY="345.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="50.0" prefWidth="194.0" promptText=" Choose Date" style="-fx-background-color: white;" stylesheets="@size.css" />
+      <JFXTimePicker fx:id="startTime" layoutX="261.0" layoutY="346.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="50.0" prefWidth="199.0" promptText=" Start Time" style="-fx-background-color: white;" stylesheets="@size.css" />
+      <JFXTimePicker fx:id="endTime" layoutX="541.0" layoutY="346.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="50.0" prefWidth="199.0" promptText=" End Time" style="-fx-background-color: white;" stylesheets="@size.css" />
     </children>
 </AnchorPane>
