@@ -49,11 +49,13 @@ public class Cancel {
         thestage.setScene(scene);
     }
 
+    //Nathan - make a new service request and store it in the database
     @FXML
     private void yesClicked() throws IOException{
         backPressed();
     }
 
+    //Nathan - return the user to the home screen
     @FXML
     private void noClicked() throws IOException {
         thestage = (Stage) yes.getScene().getWindow();
