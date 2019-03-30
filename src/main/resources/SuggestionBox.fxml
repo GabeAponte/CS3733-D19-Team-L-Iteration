@@ -27,7 +27,7 @@
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" style="-fx-background-color: #0067B1;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="SuggestionBoxController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" style="-fx-background-color: #0067B1;" xmlns="http://javafx.com/javafx/8.0.202" xmlns:fx="http://javafx.com/fxml/1" fx:controller="SuggestionBoxController">
     <children>
       <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#012d5a" height="459.0" layoutY="196.0" stroke="BLACK" strokeType="INSIDE" width="880.0" AnchorPane.leftAnchor="200.0" AnchorPane.rightAnchor="200.0" AnchorPane.topAnchor="196.0" />
       <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#7fb1ff" height="94.0" layoutX="-220.0" stroke="BLACK" strokeType="INSIDE" width="865.0" AnchorPane.leftAnchor="207.0" AnchorPane.rightAnchor="208.0" AnchorPane.topAnchor="203.0" />
