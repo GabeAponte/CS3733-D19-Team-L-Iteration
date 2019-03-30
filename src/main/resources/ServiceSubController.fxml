@@ -76,7 +76,7 @@
                         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                     </rowConstraints>
                     <children>
-                        <Button fx:id="SubmitRequest" mnemonicParsing="false" style="-fx-background-color: fff;" text="Submit Request" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="2" onAction="#promptCancel">
+                        <Button fx:id="SubmitRequest" mnemonicParsing="false" onAction="#promptCancel" style="-fx-background-color: fff;" text="Submit Request" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="2">
                             <font>
                                 <Font name="Times New Roman" size="48.0" />
                             </font>
@@ -84,7 +84,7 @@
                                 <DropShadow />
                             </effect>
                         </Button>
-                  <TextArea prefHeight="200.0" prefWidth="200.0" promptText="Type Comments Here" GridPane.columnSpan="2" GridPane.rowSpan="2">
+                  <TextArea fx:id="ServiceComments" prefHeight="200.0" prefWidth="200.0" promptText="Type Comments Here" GridPane.columnSpan="2" GridPane.rowSpan="2">
                      <font>
                         <Font name="Times New Roman" size="36.0" />
                      </font>

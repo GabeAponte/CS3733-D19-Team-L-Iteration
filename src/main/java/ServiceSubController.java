@@ -29,10 +29,16 @@ public class ServiceSubController {
     @FXML
     private TextArea ServiceComments;
 
-    @FXML
+
     public void init(String type){
         typeOfService = type;
         typeLabel.setText(typeOfService + " Services");
+    }
+
+    public void init(String type, String comment){
+        typeOfService = type;
+        typeLabel.setText(typeOfService + " Services");
+        ServiceComments.setText(comment);
     }
 
     @FXML
@@ -57,8 +63,8 @@ public class ServiceSubController {
             controller.init(typeOfService);
         } else {
             controller.init(typeOfService, ServiceComments.getText());
+            System.out.println("Comment Found");
         }
-        System.out.println("?AHHHHHHH");
         thestage = (Stage) SubmitRequest.getScene().getWindow();
 
         Scene scene = new Scene(sceneMain);

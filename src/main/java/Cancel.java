@@ -2,6 +2,7 @@ import com.sun.xml.internal.ws.policy.privateutil.PolicyUtils;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -32,33 +33,44 @@ public class Cancel {
 
     public void init(String service){
         typeOfService = service;
-        comment = "N/A";
+        comment = "";
     }
     public void init(String service, String description){
         typeOfService = service;
         comment = description;
     }
 
+    //takes user back to ServiceSubController (and fills in proper info)
     @SuppressWarnings("Duplicates")
     @FXML
     private void backPressed() throws IOException {
-        thestage = (Stage) Back.getScene().getWindow();
-        AnchorPane root;
-        root = FXMLLoader.load(getClass().getResource("HospitalHome.fxml"));
-        Scene scene = new Scene(root);
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("ServiceSubController.fxml"));
+
+        Parent sceneMain = loader.load();
+
+        ServiceSubController controller = loader.<ServiceSubController>getController();
+
+        if(comment == null || comment == ""){
+            controller.init(typeOfService);
+        } else {
+            controller.init(typeOfService, comment);
+        }
+        thestage = (Stage) yes.getScene().getWindow();
+
+        Scene scene = new Scene(sceneMain);
         thestage.setScene(scene);
     }
 
     //Nathan - make a new service request and store it in the database
     @FXML
     private void yesClicked() throws IOException{
-        backPressed();
+        noClicked();
     }
 
     //Nathan - return the user to the home screen
     @FXML
     private void noClicked() throws IOException {
-        thestage = (Stage) yes.getScene().getWindow();
+        thestage = (Stage) no.getScene().getWindow();
         AnchorPane root;
         root = FXMLLoader.load(getClass().getResource("HospitalHome.fxml"));
         Scene scene = new Scene(root);
