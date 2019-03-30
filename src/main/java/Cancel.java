@@ -21,7 +21,7 @@ import javax.activation.*;
 
 public class Cancel {
 
-    private Stage thestage;
+    private Stage theStage;
     private String typeOfService;
     private String comment;
 
@@ -64,10 +64,10 @@ public class Cancel {
         } else {
             controller.init(typeOfService, comment);
         }
-        thestage = (Stage) yes.getScene().getWindow();
+        theStage = (Stage) yes.getScene().getWindow();
 
         Scene scene = new Scene(sceneMain);
-        thestage.setScene(scene);
+        theStage.setScene(scene);
     }
 
     //Nathan - make a new service request and store it in the database, and sends email
@@ -134,10 +134,10 @@ public class Cancel {
     @SuppressWarnings("Duplicates")
     @FXML
     private void noClicked() throws IOException {
-        thestage = (Stage) no.getScene().getWindow();
+        theStage = (Stage) no.getScene().getWindow();
         AnchorPane root;
         root = FXMLLoader.load(getClass().getResource("HospitalHome.fxml"));
         Scene scene = new Scene(root);
-        thestage.setScene(scene);
+        theStage.setScene(scene);
     }
 }
