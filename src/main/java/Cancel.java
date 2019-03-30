@@ -12,9 +12,12 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.util.*;
+//TODO: Uncomment the following import statements
+/*
 import javax.mail.*;
 import javax.mail.internet.*;
 import javax.activation.*;
+*/
 
 public class Cancel {
 
