@@ -18,10 +18,7 @@ import java.io.IOException;
 
 public class ServiceRequestController {
 
-    protected Stage thestage;
-
-    @FXML
-    private String typeOfService;
+    private Stage thestage;
 
     @FXML
     private Button SanitationServices;
@@ -57,6 +54,7 @@ public class ServiceRequestController {
     @FXML
     private void makeRequest(ActionEvent e) throws IOException{
         //source button determines type for service request object, text for label
+        String typeOfService = "";
         if(e.getSource() == SanitationServices) {
             typeOfService = "Sanitation";
         } else if(e.getSource() == Transportation) {

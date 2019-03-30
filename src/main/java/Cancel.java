@@ -21,7 +21,7 @@ import javax.activation.*;
 
 public class Cancel {
 
-    Stage thestage;
+    private Stage thestage;
     private String typeOfService;
     private String comment;
 
@@ -38,13 +38,13 @@ public class Cancel {
     public Label typeLabel;
 
     //Nathan - stores information passed from another controller
-    public void init(String service){
+    void init(String service){
         typeOfService = service;
         comment = "";
     }
 
     //Nathan - stores information passed from another controller
-    public void init(String service, String description){
+    void init(String service, String description){
         typeOfService = service;
         comment = description;
     }
@@ -59,7 +59,7 @@ public class Cancel {
 
         ServiceSubController controller = loader.<ServiceSubController>getController();
 
-        if(comment == null || comment == ""){
+        if(comment == null || comment.equals("")){
             controller.init(typeOfService);
         } else {
             controller.init(typeOfService, comment);
@@ -117,7 +117,7 @@ public class Cancel {
             message.setSubject("New " + typeOfService + " Service Request");
 
             // THIS STRING IS THE BODY OF THE EMAIL
-            message.setText(comment);
+            message.setText("Hello,\n" + "There is an outstanding service request with the following information:\n\n" + comment);
 
             // Send message
             Transport.send(message);
@@ -126,10 +126,12 @@ public class Cancel {
         }
         */
         //TODO: Uncomment previous line
+
         noClicked();
     }
 
     //Nathan - return the user to the home screen
+    @SuppressWarnings("Duplicates")
     @FXML
     private void noClicked() throws IOException {
         thestage = (Stage) no.getScene().getWindow();
