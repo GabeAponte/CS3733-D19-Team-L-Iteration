@@ -11,6 +11,10 @@ import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.util.*;
+import javax.mail.*;
+import javax.mail.internet.*;
+import javax.activation.*;
 
 public class Cancel {
 
@@ -63,9 +67,62 @@ public class Cancel {
         thestage.setScene(scene);
     }
 
-    //Nathan - make a new service request and store it in the database
+    //Nathan - make a new service request and store it in the database, and sends email
+    //TODO: Store request in Database
     @FXML
     private void yesClicked() throws IOException{
+        //TODO: Uncomment next line
+        /*
+        // RECIPIENT EMAIL
+        // Note: while you DO need sender username and password you do NOT need recipients (obviously)
+        String to = "nwalzer007@gmail.com";
+
+        // SENDER EMAIL
+        String from = "lavenderloraxcs3733@gmail.com";
+
+        // SEND EMAIL USING GMAIL SERVERS
+        String host = "smtp.gmail.com";
+
+        // Get system properties
+        Properties properties = System.getProperties();
+
+        // SETUP : DO NOT TOUCH
+        properties.setProperty("mail.smtp.host", host);
+        properties.put("mail.smtp.socketFactory.port", "465"); //must be included, default 25
+        properties.put("mail.smtp.socketFactory.class",
+                "javax.net.ssl.SSLSocketFactory");
+        properties.put("mail.smtp.auth", "true"); //requires username and password (needed)
+        properties.put("mail.smtp.port", "465"); //must be included, default 25
+
+        // something something internet session who cares
+        Session session = Session.getDefaultInstance(properties,
+                new javax.mail.Authenticator() {
+                    protected PasswordAuthentication getPasswordAuthentication() {
+                        //PUT SENDER USERNAME AND PASSWORD HERE
+                        return new PasswordAuthentication("lavenderloraxcs3733","LavenderLorax2019");
+                    }
+                });
+
+        try {
+            // DONT TOUCH THESE LINES
+            MimeMessage message = new MimeMessage(session);
+            message.setFrom(new InternetAddress(from));
+            message.addRecipient(Message.RecipientType.TO, new InternetAddress(to));
+
+
+            // THIS STRING IS THE SUBJECT
+            message.setSubject("New " + typeOfService + " Service Request");
+
+            // THIS STRING IS THE BODY OF THE EMAIL
+            message.setText(comment);
+
+            // Send message
+            Transport.send(message);
+        } catch (MessagingException mex) {
+            mex.printStackTrace();
+        }
+        */
+        //TODO: Uncomment previous line
         noClicked();
     }
 
