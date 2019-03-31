@@ -21,22 +21,22 @@ public class ServiceRequestAccess extends DBAccess{
      * @param desc
      * @param rDept
      */
-    public void makeRequest(String desc, String rDept, int rid){
+    public void makeRequest(String desc, String rDept){
         String sql = "insert into serviceRequest(" +
-                "requestID, comment, requestDepartment, assignedEmployee, fulfilled)" +
-                "values (?, ?, ?, NULL, 0)";
+                "comment, requestDepartment, assignedEmployee, fulfilled)" +
+                "values (?, ?, NULL, 0)";
 
 
         try (Connection conn = this.connect();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
-            pstmt.setInt(1, rid);
-            pstmt.setString(2, desc);
-            pstmt.setString(3, rDept);
+            pstmt.setString(1, desc);
+            pstmt.setString(2, rDept);
             pstmt.executeUpdate();
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
     }
+    //todo REMIND DJ TO MAKE REQUESTID A AUTOINCREMENTED FIELD also our database doesnt have dates for reservations
 
 
     /**ANDREW MADE THIS
@@ -101,8 +101,8 @@ public class ServiceRequestAccess extends DBAccess{
     public static void main(String[] args) {
         ServiceRequestAccess sra = new ServiceRequestAccess();
         sra.deleteRecords();
-        sra.makeRequest("test", "test", 1);
+        sra.makeRequest("test", "test");
         sra.fulfillRequest(1, "bob");
-        sra.getRequests(0);
+        sra.getRequests(1);
     }
 }
