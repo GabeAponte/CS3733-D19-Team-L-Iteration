@@ -7,9 +7,11 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
+import javafx.scene.shape.Circle;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.PriorityQueue;
@@ -48,6 +50,11 @@ public class PathFindingController {
     @FXML
     private ComboBox<String> PathFindStartDrop;
 
+    @FXML
+    private AnchorPane anchorPaneWindow;
+
+    private NodesAccess na;
+    private EdgesAccess ea;
     final ObservableList<Location> data = FXCollections.observableArrayList();
     final ObservableList<String> LongNames = FXCollections.observableArrayList();
     HashMap<String, Location> lookup = new HashMap<String, Location>();
@@ -64,9 +71,8 @@ public class PathFindingController {
     @SuppressWarnings("Convert2Diamond")
     @FXML
     public void initialize() {
-
-        NodesAccess na = new NodesAccess();
-        EdgesAccess ea = new EdgesAccess();
+        na = new NodesAccess();
+        ea = new EdgesAccess();
         initializeTable(na, ea);
         // AT THIS POINT:
         // Lookup contains all nodes, you can look them up with their keys
@@ -89,10 +95,32 @@ public class PathFindingController {
 
     @FXML
     private void submitPressed(){
-//        String startNodeID = data.get();
-//        String endNodeID = data.get();
-//
-//        System.out.println(startNodeID + "   " + endNodeID);
+        ArrayList<String> arr1 = na.getNodes(60);
+        Location startNode = new Location(arr1.get(0),Integer.parseInt(arr1.get(1)),Integer.parseInt(arr1.get(2)),Integer.parseInt(arr1.get(3)),arr1.get(4),arr1.get(5),arr1.get(6),arr1.get(7));
+
+        ArrayList<String> arr2 = na.getNodes(70);
+        Location endNode = new Location(arr2.get(0),Integer.parseInt(arr2.get(1)),Integer.parseInt(arr2.get(2)),Integer.parseInt(arr2.get(3)),arr2.get(4),arr2.get(5),arr2.get(6),arr2.get(7));
+
+
+        Circle StartCircle = new Circle();
+
+        anchorPaneWindow.getChildren().add(StartCircle);
+
+        //Setting the properties of the circle
+        StartCircle.setCenterX(27f + startNode.getXcoord()/5.0);
+        StartCircle.setCenterY(213f + startNode.getYcoord()/5.0);
+        StartCircle.setRadius(6.0f);
+
+        Circle EndCircle = new Circle();
+
+        anchorPaneWindow.getChildren().add(EndCircle);
+
+        //Setting the properties of the circle
+        EndCircle.setCenterX(27f + endNode.getXcoord()/5.0);
+        EndCircle.setCenterY(213f + endNode.getYcoord()/5.0);
+        EndCircle.setRadius(6.0f);
+
+        System.out.println(startNode.getLocID() + "   " + endNode.getLocID());
 
         //TODO Get node information from ID's, Then call Pallfinding on them.
     }
