@@ -171,7 +171,7 @@ public class PathFindingController {
         }
         return p;
     }
-        
+
 
     public Path returnPath(Location obj) {
         Location l = obj;
