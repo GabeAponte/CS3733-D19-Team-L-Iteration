@@ -27,36 +27,36 @@
         </ToolBar>
         <ToolBar layoutY="150.0" prefHeight="10.0" prefWidth="1280.0" style="-fx-background-color: #092b60;" />
         <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#092b60" height="450.0" layoutX="49.0" layoutY="200.0" stroke="#092b60" strokeType="INSIDE" width="350.0" />
-        <Button mnemonicParsing="false" prefHeight="150.0" prefWidth="281.0" style="-fx-background-color: white;" text="Log Out" AnchorPane.leftAnchor="1000.0">
+        <Button fx:id="logOut" mnemonicParsing="false" onAction="#backPressed" prefHeight="150.0" prefWidth="281.0" style="-fx-background-color: white;" text="Log Out" AnchorPane.leftAnchor="1000.0">
             <font>
                 <Font name="Times New Roman" size="40.0" />
             </font>
         </Button>
       <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#092b60" height="131.0" layoutX="575.0" layoutY="195.0" stroke="#092b60" strokeType="INSIDE" width="583.0" />
       <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#092b60" height="566.0" layoutX="464.0" layoutY="159.0" stroke="#092b60" strokeType="INSIDE" width="12.0" />
-      <JFXButton buttonType="RAISED" layoutX="75.0" layoutY="246.0" prefHeight="150.0" prefWidth="300.0" style="-fx-background-color: fff;" text="Find Path">
+      <JFXButton fx:id="findPath" buttonType="RAISED" layoutX="75.0" layoutY="246.0" prefHeight="150.0" prefWidth="300.0" style="-fx-background-color: fff;" text="Find Path">
          <font>
             <Font name="Times New Roman" size="36.0" />
          </font>
       </JFXButton>
-      <JFXButton buttonType="RAISED" layoutX="75.0" layoutY="440.0" prefHeight="150.0" prefWidth="300.0" style="-fx-background-color: fff;" text="Service Request">
+      <JFXButton fx:id="serviceRequest" buttonType="RAISED" layoutX="75.0" layoutY="440.0" prefHeight="150.0" prefWidth="300.0" style="-fx-background-color: fff;" text="Service Request">
          <font>
             <Font name="Times New Roman" size="36.0" />
          </font>
       </JFXButton>
       <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#092b60" height="131.0" layoutX="575.0" layoutY="360.0" stroke="#092b60" strokeType="INSIDE" width="583.0" />
       <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#092b60" height="131.0" layoutX="575.0" layoutY="533.0" stroke="#092b60" strokeType="INSIDE" width="583.0" />
-      <JFXButton buttonType="RAISED" layoutX="610.0" layoutY="213.0" prefHeight="95.0" prefWidth="510.0" style="-fx-background-color: fff;" text="Edit Locations">
+      <JFXButton fx:id="editLocations" buttonType="RAISED" layoutX="610.0" layoutY="213.0" prefHeight="95.0" prefWidth="510.0" style="-fx-background-color: fff;" text="Edit Locations">
          <font>
             <Font name="Times New Roman" size="36.0" />
          </font>
       </JFXButton>
-      <JFXButton buttonType="RAISED" layoutX="610.0" layoutY="380.0" prefHeight="95.0" prefWidth="510.0" style="-fx-background-color: fff;" text="Fufill Service Request">
+      <JFXButton fx:id="fufillServiceRequest" buttonType="RAISED" layoutX="610.0" layoutY="380.0" prefHeight="95.0" prefWidth="510.0" style="-fx-background-color: fff;" text="Fufill Service Request">
          <font>
             <Font name="Times New Roman" size="36.0" />
          </font>
       </JFXButton>
-      <JFXButton buttonType="RAISED" layoutX="610.0" layoutY="548.0" prefHeight="95.0" prefWidth="510.0" style="-fx-background-color: fff;" text="Book Room">
+      <JFXButton fx:id="bookRoom" buttonType="RAISED" layoutX="610.0" layoutY="548.0" prefHeight="95.0" prefWidth="510.0" style="-fx-background-color: fff;" text="Book Room">
          <font>
             <Font name="Times New Roman" size="36.0" />
          </font>
