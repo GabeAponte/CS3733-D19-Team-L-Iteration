@@ -37,6 +37,44 @@ public class LogInController {
 
     @FXML
     private void enableLogin(){
+        Boolean disable = (username.getText().isEmpty() || username.getText().trim().isEmpty() || password.getText().isEmpty() || password.getText().trim().isEmpty());
+        if(!disable){
+            login.setDisable(false);
+        } else {
+            login.setDisable(true);
+        }
+    }
+
+    @FXML
+    private void LogIn(){
+        String uname = username.getText();
+        String pass = password.getText();
+
+        Boolean validLogin = false;
+
+        //TODO: Query database
+
+        if(validLogin){
+            SwitchToSignedIn();
+        } else {
+
+        }
+    }
+
+    private void SwitchToSignedIn() {
+        try {
+            //TODO: Change BookRoom.fxml to signed in screen
+            Stage thestage = (Stage) username.getScene().getWindow();
+            AnchorPane root;
+            root = FXMLLoader.load(getClass().getResource("BookRoom.fxml"));
+            Scene scene = new Scene(root);
+            thestage.setScene(scene);
+        } catch (Exception e) {
+
+        }
+    }
+
+    private void displayError(){
         
     }
 

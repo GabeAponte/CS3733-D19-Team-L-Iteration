@@ -75,7 +75,7 @@
                         <Insets />
                      </GridPane.margin>
                   </JFXTextField>
-                  <JFXButton fx:id="login" buttonType="RAISED" disable="true" style="-fx-background-color: fff;" text="Log In" GridPane.halignment="CENTER" GridPane.rowIndex="2">
+                  <JFXButton fx:id="login" onAction="#LogIn" buttonType="RAISED" disable="true" style="-fx-background-color: fff;" text="Log In" GridPane.halignment="CENTER" GridPane.rowIndex="2">
                      <font>
                         <Font name="Times New Roman" size="24.0" />
                      </font>
