@@ -112,6 +112,13 @@ public class PathFindingController {
         Path p5 = findPath(start5, end5);
         System.out.println(p5.toString());
 
+        Location start6 = lookup.get("DHALL00102");
+        Location end6 = lookup.get("DSTAI00602");
+        System.out.println("TEST EDGE NODE:");
+
+        Path p6 = findPath(start6, end6);
+        System.out.println(p6.toString());
+
         //TODO: allow user to specify start and end location
 
         //generatePath(start, end);
@@ -151,6 +158,7 @@ public class PathFindingController {
         {
             p.addToPath(start);
             System.out.println("Same location entered for start and end.");
+            cleanup();
             return p;
         }
         Location q = new Location();
