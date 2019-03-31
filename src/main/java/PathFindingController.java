@@ -20,6 +20,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.PriorityQueue;
 
+@SuppressWarnings("Duplicates")
 public class PathFindingController {
     @FXML
     private Stage thestage;
@@ -69,12 +70,19 @@ public class PathFindingController {
         // AT THIS POINT:
         // Lookup contains all nodes, you can look them up with their keys
         // Each node contains a list of edges properly
-
-        Location start = lookup.get("DHALL01202");
-        Location end = lookup.get("DHALL00102");
+        //DSTAI00602
+        Location start = lookup.get("DHALL00102");
+        Location end = lookup.get("DSTAI00602");
         System.out.println("TEST 1:");
 
         Path p = findPath(start, end);
+        System.out.println(p.toString());
+
+        start = lookup.get("DHALL01202");
+        end = lookup.get("DHALL00102");
+        System.out.println("TEST 1:");
+
+        p = findPath(start, end);
         System.out.println(p.toString());
 
         Location start1 = lookup.get("DHALL05702");
@@ -82,6 +90,12 @@ public class PathFindingController {
         System.out.println("TEST 2:");
 
         Path p1 = findPath(start1, end1);
+        System.out.println(p1.toString());
+        start1 = lookup.get("DHALL03002");
+        end1 = lookup.get("DHALL03302");
+        System.out.println("TEST 2:");
+
+        p1 = findPath(start1, end1);
         System.out.println(p1.toString());
 
         //TODO: allow user to specify start and end location
@@ -157,6 +171,7 @@ public class PathFindingController {
         }
         return p;
     }
+        
 
     public Path returnPath(Location obj) {
         Location l = obj;
