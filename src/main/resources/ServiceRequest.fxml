@@ -66,7 +66,7 @@
                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
               </rowConstraints>
                <children>
-                  <Button fx:id="SanitationServices" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#makeRequest" text="Sanitation Services" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+                  <Button fx:id="SanitationServices" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#makeRequest" text="Sanitation Services" GridPane.halignment="CENTER" GridPane.valignment="CENTER" >
                      <font>
                         <Font name="Times New Roman" size="36.0" />
                      </font>
@@ -81,7 +81,7 @@
                          <Font name="Times New Roman" size="36.0" />
                      </font>
                   </Button>
-                  <Button fx:id="FacilitiesMaitnence" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#makeRequest" text="Facilities Matinence" GridPane.columnIndex="1" GridPane.halignment="CENTER">
+                  <Button fx:id="FacilitiesMaintenance" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#makeRequest" text="Facilities Matinence" GridPane.columnIndex="1" GridPane.halignment="CENTER">
                      <font>
                          <Font name="Times New Roman" size="36.0" />
                      </font>

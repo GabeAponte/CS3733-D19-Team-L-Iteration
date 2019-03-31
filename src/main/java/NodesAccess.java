@@ -237,12 +237,53 @@ public class NodesAccess extends DBAccess{
     }
 
     /**ANDREW MADE THIS
+     * adds a node to the database from an arraylist string of the fields
+     * @param data
+     */
+    public void addNode(ArrayList<String> data){
+        String sql = "insert into nodes(" +
+                "nodeID, xcoord, ycoord, floor, building, nodeType, longName, shortName)" +
+                "values (?, ?, ?, ?, ?, ?, ?, ?)";
+
+
+        try (Connection conn = this.connect();
+             PreparedStatement pstmt = createPreparedStatement(conn, sql, data)) {
+            pstmt.executeUpdate();
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    /**
+     * creates a prepared statement with terms from csv
+     * separate method because java 8 does not support preparedStatement methods
+     * within a try block
+     * ANDREW MADE THIS
+     * @param con, Connection
+     * @param sql, the sql string of code
+     * @param data, the data we want to change
+     * @return PreparedStatement
+     * @throws SQLException, More info
+     */
+    private PreparedStatement createPreparedStatement(Connection con, String sql, ArrayList<String> data) throws SQLException {
+        PreparedStatement pstmt = con.prepareStatement(sql);
+        pstmt.setString(1, data.get(0));
+        pstmt.setInt(2, Integer.parseInt(data.get(1)));
+        pstmt.setInt(3, Integer.parseInt(data.get(2)));
+        pstmt.setInt(4, Integer.parseInt(data.get(3)));
+        pstmt.setString(5, data.get(4));
+        pstmt.setString(6, data.get(5));
+        pstmt.setString(7, data.get(6));
+        pstmt.setString(8, data.get(7));
+        return pstmt;
+    }
+
+    /**ANDREW MADE THIS
      *  returns the fields of a particular nodeID in an arraylist
      * @param nodeID
      * @return
      */
     public ArrayList<String> getNodeInformation(String nodeID){
-        //todo
         String sql = "SELECT * FROM nodes where nodeID = ?";
         //noinspection Convert2Diamond
         ArrayList<String> data = new ArrayList<String>();
