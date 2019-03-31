@@ -3,6 +3,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
@@ -24,6 +25,9 @@ public class LogInController {
 
     @FXML
     private TextField password;
+
+    @FXML
+    private Label errorLabel;
 
     @SuppressWarnings("Duplicates")
     @FXML
@@ -52,12 +56,13 @@ public class LogInController {
 
         Boolean validLogin = false;
 
+        if(uname.equals("YO")){ validLogin = true; }
         //TODO: Query database
 
         if(validLogin){
             SwitchToSignedIn();
         } else {
-
+            displayError();
         }
     }
 
@@ -75,7 +80,7 @@ public class LogInController {
     }
 
     private void displayError(){
-        
+        errorLabel.setText("Username or Password is incorrect");
     }
 
 }
