@@ -39,4 +39,13 @@ public class LoggedInHomeController {
         thestage.setScene(scene);
     }
 
+    @FXML
+    private void bookRoom() throws IOException {
+        thestage = (Stage) bookRoom.getScene().getWindow();
+        AnchorPane root;
+        root = FXMLLoader.load(getClass().getResource("BookRoom.fxml"));
+        Scene scene = new Scene(root);
+        thestage.setScene(scene);
+    }
+
 }

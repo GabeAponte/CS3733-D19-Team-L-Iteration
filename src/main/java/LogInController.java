@@ -72,7 +72,7 @@ public class LogInController {
             //TODO: Change BookRoom.fxml to signed in screen
             Stage thestage = (Stage) username.getScene().getWindow();
             AnchorPane root;
-            root = FXMLLoader.load(getClass().getResource("BookRoom.fxml"));
+            root = FXMLLoader.load(getClass().getResource("LoggedInHome.fxml"));
             Scene scene = new Scene(root);
             thestage.setScene(scene);
         } catch (Exception e) {
