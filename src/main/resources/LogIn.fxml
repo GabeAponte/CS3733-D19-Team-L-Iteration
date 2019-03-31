@@ -96,10 +96,13 @@
                   <Insets left="100.0" right="100.0" />
                </VBox.margin>
                 </GridPane>
-            <Label fx:id="errorLabel" alignment="CENTER" contentDisplay="CENTER" textAlignment="CENTER" VBox.vgrow="ALWAYS">
+            <Label fx:id="errorLabel" alignment="CENTER" contentDisplay="CENTER" textAlignment="CENTER">
                <VBox.margin>
-                  <Insets left="640.0" />
+                  <Insets bottom="110.0" left="500.0" />
                </VBox.margin>
+               <font>
+                  <Font size="28.0" />
+               </font>
             </Label>
             </children>
         </VBox>

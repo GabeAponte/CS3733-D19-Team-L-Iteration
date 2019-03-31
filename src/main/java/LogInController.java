@@ -26,6 +26,7 @@ public class LogInController {
     @FXML
     private TextField password;
 
+    //TODO: Format Error Label
     @FXML
     private Label errorLabel;
 
