@@ -150,6 +150,7 @@ public class PathFindingController {
         if(start == end)
         {
             p.addToPath(start);
+            System.out.println("Same location entered for start and end.");
             return p;
         }
         Location q = new Location();
