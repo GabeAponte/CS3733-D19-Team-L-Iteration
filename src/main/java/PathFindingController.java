@@ -79,13 +79,43 @@ public class PathFindingController {
         // Lookup contains all nodes, you can look them up with their keys
         // Each node contains a list of edges properly
 
-        Location testLoc = lookup.get("DHALL01102");
-        System.out.println(testLoc.getXcoord());
-        System.out.println(testLoc.getEdges().get(1).getEndNode().getLocID());
+        Location start = lookup.get("DHALL01202");
+        Location end = lookup.get("DHALL00102");
+        System.out.println("1 Hallway:");
+
+        Path p = findPath(start, end);
+        System.out.println(p.toString());
+
+        start = lookup.get("DHALL00102");
+        end = lookup.get("DHALL01202");
+        System.out.println("Reverse of first test:");
+
+        p = findPath(start, end);
+        System.out.println(p.toString());
+
+        Location start1 = lookup.get("DHALL05702");
+        Location end1 = lookup.get("DHALL00102");
+        System.out.println("Multi-hallway test:");
+
+        Path p1 = findPath(start1, end1);
+        System.out.println(p1.toString());
+
+        start = lookup.get("DDEPT00402");
+        end = lookup.get("DHALL00102");
+        System.out.println("Long Test:");
+
+        p = findPath(start, end);
+        System.out.println(p.toString());
+
+        start = lookup.get("DHALL00102");
+        end = lookup.get("DHALL00102");
+        System.out.println("Same Node:");
+
+        p = findPath(start, end);
+        System.out.println(p.toString());
 
         //TODO: allow user to specify start and end location
-        Location start = new Location("FIX", 5, 5, 5, "FIX", "FIX", "FIX", "FIX");
-        Location end = new Location("FIX", 5, 5, 5, "FIX", "FIX", "FIX", "FIX");
+
         //generatePath(start, end);
 
     }
@@ -104,12 +134,64 @@ public class PathFindingController {
 
     ArrayList<Location> openList = new ArrayList<Location>();
     ArrayList<Location> closeList = new ArrayList<Location>();
+    ArrayList<String> visited = new ArrayList<String>();
 
 
-    private ArrayList<Location> findPath(Location start, Location end) {
+    private Path findPath(Location start, Location end) {
+        //add start to open list
         openList.add(start);
+        start.setParentID("START");
+        ArrayList<Location> path = new ArrayList<Location>();
+        Path p = new Path(path);
+        Location q = new Location();
+        //while there are items in the open list
+        int count = 0;
+        while (!(openList.isEmpty()) && count < 20) {
+            q = q.findBestF(openList);
+            //System.out.println(q.getLocID());
+            openList.remove(q);
+            closeList.add(q);
+            q = lookup.get(q.getLocID());
+            ArrayList<Edge> edge = q.getEdges();
+            ArrayList<Location> children = new ArrayList<Location>();
+            for (Edge e : edge) {
+                if (!(closeList.contains(e.getEndNode())) && !(openList.contains(e.getEndNode()))) {
+                    children.add(e.getEndNode());
+                    e.getEndNode().setGScore(e.findDistance(q, e.getEndNode()));
+                }
+            }
+            for (Location l : children) {
+                //condition for found node
+                if (l.getLocID().equals(end.getLocID())) {
+                    lookup.get(l.getLocID()).setParentID(q.getLocID());
+                    l.setParentID(q.getLocID());
+                    return returnPath(l);
+                } else {
+                    double gScore = q.getGScore() + l.getGScore(); //calculate base G score
+                    l.setScore(l.calculateScore(gScore, end)); //add in H score
+                    l.setParentID(q.getLocID());
+                    lookup.get(l.getLocID()).setParentID(q.getLocID());
+                    if (!openList.contains(l) && !closeList.contains(l)) {
+                        openList.add(l);
+                    }
+                }
+            }
+            //count ++; in case of recursion errors
+        }
+        return p;
+    }
 
-        return new ArrayList<Location>();
+    public Path returnPath(Location obj) {
+        Location l = obj;
+        System.out.println("RUNNING RETURN PATH");
+        ArrayList<Location> path = new ArrayList<Location>();
+        Path p = new Path(path);
+        while (!(l.getParentID().equals("START"))) {
+            p.addToPath(l);
+            l = lookup.get(l.getParentID());
+        }
+        cleanup();
+        return p;
     }
 
     private void initializeTable(NodesAccess na, EdgesAccess ea) {
@@ -157,4 +239,11 @@ public class PathFindingController {
         }
     }
 
+    private void cleanup() {
+        for (Location x : lookup.values()) {
+            x.setParentID("RESET");
+        }
+        openList.clear();
+        closeList.clear();
+    }
 }

@@ -8,7 +8,7 @@ public class Location implements Comparable<Location>{
     private int xcoord, ycoord, floor;
     private String locID, building, nodeType, longName, shortName, parentID;
     private ArrayList<Edge> connectedEdges;
-    private double score;
+    private double score, gScore;
 
     public Location(String idIn, int xcoordIn, int ycoordIn, int floorIn, String buildingIn, String nodeTypeIn,
                     String longNameIn, String shortNameIn) {
@@ -23,22 +23,40 @@ public class Location implements Comparable<Location>{
         connectedEdges = new ArrayList<Edge>();
         score = 0;
         parentID = "NONE";
+        gScore = 0;
     }
+
+    public Location() {}
+
 
     public String getParentID() {
         return parentID;
     }
 
     public void setParentID(String parentID) {
-        this.parentID = parentID;
+        if (this.parentID.equals("NONE")) {
+            this.parentID = parentID;
+        }
+        if (parentID.equals("RESET")) {
+            this.parentID = "NONE";
+        }
     }
 
     public double getScore() {
         return score;
     }
 
+    public double getGScore() {
+        return gScore;
+    }
+
+
     public void setScore(double score) {
         this.score = score;
+    }
+
+    public void setGScore(double gscore) {
+        this.gScore = gscore;
     }
 
     public int getXcoord() {
@@ -120,10 +138,10 @@ public class Location implements Comparable<Location>{
     }
 
     //Nathan - checks to see if given location is closed (False if closed, true if not closed)
-    private boolean isntClosed(Location loc, ArrayList<Location> closed){
+    public boolean isntClosed(Location loc, ArrayList<Location> closed){
         for(int i = 0; i < closed.size(); i++){
             //for all elements in closed, if any ID matches this ID, this ID is closed
-            if(closed.get(i).getLocID() == loc.getLocID() || loc.getParentID() != "NONE"){
+            if(closed.get(i).getLocID().equals(loc.getLocID()) || loc.getParentID() != "NONE"){
                 return false;
             }
         }
@@ -163,12 +181,12 @@ public class Location implements Comparable<Location>{
 
     //Nathan - calcualte this location's score
     //h is total edge length to this node, end node is ending node
-    public double calculateScore(int h, Location endNode){
+    public double calculateScore(double h, Location endNode){
         double thisScore = h + findDistance(endNode);
-        setScore(thisScore);
+        this.setScore(thisScore);
         return thisScore;
     }
-  
+
     //Nathan - finds DIRECT distance between two nodes
     public double findDistance(Location endNode){
         double xDiff, yDiff;
@@ -182,4 +200,40 @@ public class Location implements Comparable<Location>{
         xDiff += yDiff;
         return Math.sqrt(xDiff);
     }
+
+    //Larry - find the node in the Array list that has the lowest F value
+    public Location findBestF(ArrayList<Location> locations){
+        Location bestF = locations.get(0);
+        for(int i = 1; i < locations.size(); i++){
+            if(bestF.score < locations.get(i).score){
+                bestF = bestF;
+            }
+            else{
+                bestF = locations.get(i);
+            }
+        }
+        return  bestF;
+
+    }
+    //Larry - add element to the open list if it is not in it before
+    public void addToOpen(Location A, ArrayList<Location> openList){
+        int count = 0;
+        for(int i = 0; i< openList.size(); i++){
+            if(A.locID == openList.get(i).locID){
+                return;    // does not add anything
+            }
+            else{
+                count++;
+            }
+        }
+        //This means we did not find the Node in the List so add it into list
+        if(count == openList.size()-1){
+            openList.add(A);
+        }
+
+
+    }
+
+
+
 }
