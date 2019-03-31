@@ -6,31 +6,31 @@
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1000.0" prefWidth="1500.0" style="-fx-background-color: #7fb1ff;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="HomeScreenController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" style="-fx-background-color: #7fb1ff;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="HomeScreenController">
    <children>
-      <ToolBar prefHeight="162.0" prefWidth="1503.0" style="-fx-background-color: white;">
+      <ToolBar prefHeight="162.0" prefWidth="1280.0" style="-fx-background-color: white;">
          <items>
             <Button fx:id="BookRoom" mnemonicParsing="false" onAction="#SwitchToBookRoom" prefHeight="141.0" prefWidth="285.0" text="Button" />
          </items></ToolBar>
-      <ToolBar layoutY="162.0" prefHeight="10.0" prefWidth="1500.0" style="-fx-background-color: #092b60;" />
-      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#092b60" height="316.0" layoutX="122.0" layoutY="391.0" stroke="#092b60" strokeType="INSIDE" width="514.0" />
-      <Button fx:id="HomeSuggestions" layoutX="967.0" layoutY="34.0" mnemonicParsing="false" onAction="#SwitchToSuggestionBox" prefHeight="94.0" prefWidth="294.0" style="-fx-background-color: white;" text="Suggestions">
+      <ToolBar layoutY="162.0" prefHeight="10.0" prefWidth="1280.0" style="-fx-background-color: #092b60;" />
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#092b60" height="320.0" layoutX="114.0" layoutY="276.0" stroke="#092b60" strokeType="INSIDE" width="514.0" />
+      <Button fx:id="HomeSuggestions" mnemonicParsing="false" onAction="#SwitchToSuggestionBox" prefHeight="150.0" prefWidth="294.0" style="-fx-background-color: white;" text="Suggestions" AnchorPane.leftAnchor="700.0">
          <font>
             <Font name="Times New Roman" size="40.0" />
          </font>
       </Button>
-      <Button fx:id="HomeFindPath" layoutX="160.0" layoutY="470.0" mnemonicParsing="false" onAction="#SwitchToPathfindScreen" prefHeight="165.0" prefWidth="435.0" text="FIND PATH">
+      <Button fx:id="HomeFindPath" mnemonicParsing="false" onAction="#SwitchToPathfindScreen" prefHeight="165.0" prefWidth="435.0" text="FIND PATH" AnchorPane.leftAnchor="150.0" AnchorPane.topAnchor="350.0">
          <font>
             <Font name="Times Bold" size="43.0" />
          </font>
       </Button>
-      <Button fx:id="HomeLogIn" layoutX="1262.0" layoutY="34.0" mnemonicParsing="false" prefHeight="94.0" prefWidth="238.0" style="-fx-background-color: white;" text="Log In">
+      <Button fx:id="LogIn" mnemonicParsing="false" onAction="#SwitchToLoginScreen" prefHeight="150.0" prefWidth="281.0" style="-fx-background-color: white;" text="Log In" AnchorPane.leftAnchor="1000.0">
          <font>
             <Font name="Times New Roman" size="40.0" />
          </font>
       </Button>
-      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#092b60" height="316.0" layoutX="868.0" layoutY="391.0" stroke="#092b60" strokeType="INSIDE" width="514.0" />
-      <Button fx:id="HomeServiceRequest" layoutX="909.0" layoutY="467.0" mnemonicParsing="false" onAction="#SwitchToServiceScreen" prefHeight="165.0" prefWidth="435.0" text="REQUEST SERVICE">
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#092b60" height="320.0" layoutX="662.0" layoutY="276.0" stroke="#092b60" strokeType="INSIDE" width="514.0" />
+      <Button fx:id="HomeServiceRequest" mnemonicParsing="false" onAction="#SwitchToServiceScreen" prefHeight="165.0" prefWidth="435.0" text="REQUEST SERVICE" AnchorPane.leftAnchor="700.0" AnchorPane.topAnchor="350.0">
          <font>
             <Font name="Times Bold" size="40.0" />
          </font>

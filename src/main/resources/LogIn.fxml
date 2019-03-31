@@ -57,7 +57,7 @@
                         <Insets bottom="10.0" top="100.0" />
                     </padding>
                 </Label>
-                <GridPane alignment="CENTER" hgap="150.0" prefHeight="241.0" prefWidth="786.0">
+                <GridPane alignment="CENTER" hgap="150.0" prefHeight="241.0" prefWidth="709.0">
                     <columnConstraints>
                         <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                     </columnConstraints>
@@ -67,7 +67,7 @@
                         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                     </rowConstraints>
                     <children>
-                  <JFXTextField promptText="Username" style="-fx-background-color: fff;">
+                  <JFXTextField maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="44.0" prefWidth="295.0" promptText="Username" style="-fx-background-color: fff;" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
                      <font>
                         <Font name="Times New Roman" size="24.0" />
                      </font>
@@ -83,7 +83,7 @@
                         <Insets />
                      </GridPane.margin>
                   </JFXButton>
-                  <JFXPasswordField promptText="Password" style="-fx-background-color: fff;" GridPane.rowIndex="1">
+                  <JFXPasswordField maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="44.0" prefWidth="295.0" promptText="Password" style="-fx-background-color: fff;" GridPane.halignment="CENTER" GridPane.rowIndex="1">
                      <font>
                         <Font name="Times New Roman" size="24.0" />
                      </font>
@@ -93,7 +93,7 @@
                         <Insets left="250.0" right="250.0" />
                     </padding>
                <VBox.margin>
-                  <Insets left="100.0" right="400.0" />
+                  <Insets left="100.0" right="100.0" />
                </VBox.margin>
                 </GridPane>
             </children>
