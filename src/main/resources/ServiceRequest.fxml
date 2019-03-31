@@ -4,7 +4,6 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ToolBar?>
-<?import javafx.scene.effect.DropShadow?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -16,15 +15,15 @@
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1000.0" prefWidth="1500.0" style="-fx-background-color: #7fb1ff;" xmlns="http://javafx.com/javafx/8.0.202" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ServiceRequestController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" style="-fx-background-color: #7fb1ff;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ServiceRequestController">
    <children>
       <ImageView fitHeight="342.0" fitWidth="601.0" layoutY="66.0" opacity="0.51" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="66.0">
          <image>
          <!--  <Image url="@../../../../../Documents/BWHbackground.png" /> -->
          </image>
       </ImageView>
-      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#85aeeb" height="100.0" stroke="BLACK" strokeType="INSIDE" width="1200.0" AnchorPane.leftAnchor="150.0" AnchorPane.topAnchor="200.0" />
-      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#092b60" height="600.0" layoutX="50.0" layoutY="152.0" stroke="BLACK" strokeType="INSIDE" width="1200.0" AnchorPane.leftAnchor="150.0" AnchorPane.topAnchor="300.0" />
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#85aeeb" height="100.0" layoutY="174.0" stroke="BLACK" strokeType="INSIDE" width="950.0" AnchorPane.leftAnchor="165.0" AnchorPane.topAnchor="174.0" />
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#092b60" height="402.0" layoutX="50.0" layoutY="274.0" stroke="BLACK" strokeType="INSIDE" width="950.0" AnchorPane.leftAnchor="165.0" AnchorPane.topAnchor="274.0" />
       <VBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
             <ToolBar prefHeight="150.0" prefWidth="1490.0" style="-fx-background-color: white;">
@@ -34,7 +33,7 @@
                          <Image url="@BWHlogo.png" />
                      </image>
                   </ImageView>
-                  <HBox alignment="CENTER_RIGHT" prefHeight="43.0" prefWidth="850.0">
+                  <HBox alignment="CENTER_RIGHT" prefHeight="43.0" prefWidth="725.0">
                      <children>
                         <Button fx:id="Back" alignment="CENTER" contentDisplay="CENTER" maxWidth="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#backPressed" prefHeight="125.0" prefWidth="200.0" style="-fx-background-color: white;" text="Back">
                            <font>
@@ -45,7 +44,7 @@
                </items>
             </ToolBar>
             <ToolBar maxHeight="5.0" prefHeight="40.0" prefWidth="200.0" style="-fx-background-color: #092b60;" />
-            <Label alignment="CENTER" contentDisplay="CENTER" maxWidth="1.7976931348623157E308" text="SERVICE REQUEST">
+            <Label alignment="CENTER" contentDisplay="CENTER" maxWidth="1.7976931348623157E308" prefHeight="187.0" prefWidth="1280.0" text="SERVICE REQUEST">
                <font>
                   <Font name="Times New Roman Bold" size="48.0" />
                </font>
@@ -56,7 +55,7 @@
                   <Insets bottom="10.0" top="60.0" />
                </padding>
             </Label>
-            <GridPane alignment="CENTER" hgap="150.0" prefHeight="611.0" prefWidth="1458.0" vgap="100.0">
+            <GridPane alignment="CENTER" hgap="75.0" prefHeight="560.0" prefWidth="1280.0" vgap="100.0">
               <columnConstraints>
                 <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                 <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -67,22 +66,22 @@
                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
               </rowConstraints>
                <children>
-                  <Button fx:id="SanitationServices" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="Sanitation Services" GridPane.halignment="CENTER" GridPane.valignment="CENTER" onAction="#makeRequest">
+                  <Button fx:id="SanitationServices" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#makeRequest" text="Sanitation Services" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
                      <font>
                         <Font name="Times New Roman" size="36.0" />
                      </font>
                   </Button>
-                  <Button fx:id="Transportation" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="Transportation" GridPane.halignment="CENTER" GridPane.rowIndex="1" onAction="#makeRequest">
+                  <Button fx:id="Transportation" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#makeRequest" text="Transportation" GridPane.halignment="CENTER" GridPane.rowIndex="1">
                      <font>
                         <Font name="Times New Roman" size="36.0" />
                      </font>
                   </Button>
-                  <Button fx:id="LanguageInterpreter" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="Language Interpreter" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" onAction="#makeRequest">
+                  <Button fx:id="LanguageInterpreter" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#makeRequest" text="Language Interpreter" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1">
                      <font>
                          <Font name="Times New Roman" size="36.0" />
                      </font>
                   </Button>
-                  <Button fx:id="FacilitiesMaitnence" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="Facilities Matinence" GridPane.columnIndex="1" GridPane.halignment="CENTER" onAction="#makeRequest">
+                  <Button fx:id="FacilitiesMaitnence" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#makeRequest" text="Facilities Matinence" GridPane.columnIndex="1" GridPane.halignment="CENTER">
                      <font>
                          <Font name="Times New Roman" size="36.0" />
                      </font>
@@ -90,19 +89,19 @@
                         <Insets />
                      </GridPane.margin>
                   </Button>
-                  <Button fx:id="ITServices" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="IT Services" GridPane.halignment="CENTER" GridPane.rowIndex="2" onAction="#makeRequest">
+                  <Button fx:id="ITServices" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#makeRequest" text="IT Services" GridPane.halignment="CENTER" GridPane.rowIndex="2">
                      <font>
                          <Font name="Times New Roman" size="36.0" />
                      </font>
                   </Button>
-                  <Button fx:id="SecurityStaff" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="Security Staff" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="2" onAction="#makeRequest">
+                  <Button fx:id="SecurityStaff" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#makeRequest" text="Security Staff" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="2">
                      <font>
                          <Font name="Times New Roman" size="36.0" />
                      </font>
                   </Button>
                </children>
                <padding>
-                  <Insets bottom="100.0" left="250.0" right="250.0" top="100.0" />
+                  <Insets bottom="120.0" left="250.0" right="250.0" top="70.0" />
                </padding>
             </GridPane>
          </children>
