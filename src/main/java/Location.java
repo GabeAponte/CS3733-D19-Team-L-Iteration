@@ -180,9 +180,9 @@ public class Location implements Comparable<Location>{
     }
 
     //Nathan - calcualte this location's score
-    //h is total edge length to this node, end node is ending node
-    public double calculateScore(double h, Location endNode){
-        double thisScore = h + findDistance(endNode);
+    //g is total edge length to this node, end node is ending node
+    public double calculateScore(double g, Location endNode){
+        double thisScore = g + findDistance(endNode);
         this.setScore(thisScore);
         return thisScore;
     }
