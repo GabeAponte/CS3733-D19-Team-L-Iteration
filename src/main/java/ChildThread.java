@@ -12,10 +12,9 @@ class ChildThread extends Thread {
         this.comment = comment;
     }
 
+    //Nathan - sends email with given type and comment
     @Override
     public void run() {
-        //TODO: Uncomment next line
-
         // RECIPIENT EMAIL
         // Note: while you DO need sender username and password you do NOT need recipients (obviously)
         String to = "nwalzer007@gmail.com";
@@ -69,7 +68,5 @@ class ChildThread extends Thread {
             ie.printStackTrace();
             System.out.println("Failed to send: Interrupted Exception");
         }
-
-        //TODO: Uncomment previous line
     }
 } 

@@ -1,23 +1,12 @@
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.control.TextArea;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
-
 import java.io.IOException;
-import java.util.*;
-//TODO: Uncomment the following import statements
-
-import javax.mail.*;
-import javax.mail.internet.*;
-import javax.activation.*;
-
 
 public class Cancel {
 
@@ -40,7 +29,7 @@ public class Cancel {
     //Nathan - stores information passed from another controller
     void init(String service){
         typeOfService = service;
-        comment = "";
+        comment = "No comment added";
     }
 
     //Nathan - stores information passed from another controller
@@ -59,7 +48,7 @@ public class Cancel {
 
         ServiceSubController controller = loader.<ServiceSubController>getController();
 
-        if(comment == null || comment.equals("")){
+        if(comment == null || comment.equals("No comment added")){
             controller.init(typeOfService);
         } else {
             controller.init(typeOfService, comment);
@@ -74,9 +63,11 @@ public class Cancel {
     //TODO: Store request in Database
     @FXML
     private void yesClicked() throws IOException, InterruptedException{
+        //IF THERE ARE ISSUES WITH THE EMAIL COMMENT THE NEXT TWO LINES AS WELL AS IMPORT STATEMENTS AND run() IN ChildThread.java
+
         ChildThread ct = new ChildThread(typeOfService, comment);
         ct.start();
-
+        //*/
         noClicked();
     }
 
