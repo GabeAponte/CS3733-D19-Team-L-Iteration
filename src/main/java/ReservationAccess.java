@@ -25,7 +25,7 @@ public class ReservationAccess extends DBAccess {
      * @param startTime
      * @param endTime
      */
-    public void makeReservation(String rID, String eID, int startTime, int endTime){
+    public void makeReservation(String rID, String eID, String startTime, String endTime){
         String sql = "insert into reservation(" +
                 "rID, eID, startTime, endTime)" +
                 "values (?, ?, ?, ?)";
@@ -35,8 +35,8 @@ public class ReservationAccess extends DBAccess {
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
             pstmt.setString(1, rID);
             pstmt.setString(2, eID);
-            pstmt.setInt(3, startTime);
-            pstmt.setInt(4, endTime);
+            pstmt.setString(3, startTime);
+            pstmt.setString(4, endTime);
             pstmt.executeUpdate();
         } catch (SQLException e) {
             System.out.println(e.getMessage());
@@ -45,7 +45,7 @@ public class ReservationAccess extends DBAccess {
 
     public static void main(String[] args) {
         ReservationAccess ra = new ReservationAccess();
-        ra.makeReservation("1", "1", 1400, 1500);
+        ra.makeReservation("1", "1", "1400", "1500");
     }
 
 }
