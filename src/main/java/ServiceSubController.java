@@ -14,7 +14,7 @@ import java.io.IOException;
 
 public class ServiceSubController {
 
-    public Stage thestage;
+    private Stage thestage;
     private String typeOfService;
 
     @FXML
@@ -31,13 +31,13 @@ public class ServiceSubController {
 
 
     //Nathan - sets values passed from another controller
-    public void init(String type){
+    void init(String type){
         typeOfService = type;
         typeLabel.setText(typeOfService + " Services");
     }
 
     //Nathan - sets values passed from another controller
-    public void init(String type, String comment){
+    void init(String type, String comment){
         typeOfService = type;
         typeLabel.setText(typeOfService + " Services");
         ServiceComments.setText(comment);
@@ -66,7 +66,6 @@ public class ServiceSubController {
             controller.init(typeOfService);
         } else {
             controller.init(typeOfService, ServiceComments.getText());
-            System.out.println("Comment Found");
         }
         thestage = (Stage) SubmitRequest.getScene().getWindow();
 
