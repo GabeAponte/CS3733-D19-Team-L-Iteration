@@ -1,22 +1,17 @@
-import javafx.event.ActionEvent;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.MenuButton;
-import javafx.scene.control.RadioButton;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
+import javafx.scene.shape.Circle;
 import javafx.stage.Stage;
 
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.PriorityQueue;
@@ -50,13 +45,18 @@ public class PathFindingController {
     private RadioButton PathFindBrPOI;
 
     @FXML
-    private MenuButton PathFindEndDrop;
+    private ComboBox<String> PathFindEndDrop;
 
     @FXML
-    private MenuButton PathFindStartDrop;
+    private ComboBox<String> PathFindStartDrop;
 
+    @FXML
+    private AnchorPane anchorPaneWindow;
 
+    private NodesAccess na;
+    private EdgesAccess ea;
     final ObservableList<Location> data = FXCollections.observableArrayList();
+    final ObservableList<String> LongNames = FXCollections.observableArrayList();
     HashMap<String, Location> lookup = new HashMap<String, Location>();
 
     @FXML
@@ -71,25 +71,59 @@ public class PathFindingController {
     @SuppressWarnings("Convert2Diamond")
     @FXML
     public void initialize() {
-
-        NodesAccess na = new NodesAccess();
-        EdgesAccess ea = new EdgesAccess();
+        na = new NodesAccess();
+        ea = new EdgesAccess();
         initializeTable(na, ea);
         // AT THIS POINT:
         // Lookup contains all nodes, you can look them up with their keys
         // Each node contains a list of edges properly
 
-        Location testLoc = lookup.get("DHALL01102");
-        System.out.println(testLoc.getXcoord());
-        System.out.println(testLoc.getEdges().get(1).getEndNode().getLocID());
+        for (int count = 0; count < na.countRecords(); count++) {
+            ArrayList<String> arr= na.getNodes(count);
+            LongNames.add(arr.get(6));
+        }
+        PathFindStartDrop.setItems(LongNames);
+        PathFindEndDrop.setItems(LongNames);
 
         //TODO: allow user to specify start and end location
-        Location start = new Location("FIX", 5, 5, 5, "FIX", "FIX", "FIX", "FIX");
-        Location end = new Location("FIX", 5, 5, 5, "FIX", "FIX", "FIX", "FIX");
+//        Location start = new Location("FIX", 5, 5, 5, "FIX", "FIX", "FIX", "FIX");
+//        Location end = new Location("FIX", 5, 5, 5, "FIX", "FIX", "FIX", "FIX");
         //generatePath(start, end);
 
     }
 
+
+    @FXML
+    private void submitPressed(){
+        ArrayList<String> arr1 = na.getNodes(60);
+        Location startNode = new Location(arr1.get(0),Integer.parseInt(arr1.get(1)),Integer.parseInt(arr1.get(2)),Integer.parseInt(arr1.get(3)),arr1.get(4),arr1.get(5),arr1.get(6),arr1.get(7));
+
+        ArrayList<String> arr2 = na.getNodes(70);
+        Location endNode = new Location(arr2.get(0),Integer.parseInt(arr2.get(1)),Integer.parseInt(arr2.get(2)),Integer.parseInt(arr2.get(3)),arr2.get(4),arr2.get(5),arr2.get(6),arr2.get(7));
+
+
+        Circle StartCircle = new Circle();
+
+        anchorPaneWindow.getChildren().add(StartCircle);
+
+        //Setting the properties of the circle
+        StartCircle.setCenterX(27f + startNode.getXcoord()/5.0);
+        StartCircle.setCenterY(213f + startNode.getYcoord()/5.0);
+        StartCircle.setRadius(6.0f);
+
+        Circle EndCircle = new Circle();
+
+        anchorPaneWindow.getChildren().add(EndCircle);
+
+        //Setting the properties of the circle
+        EndCircle.setCenterX(27f + endNode.getXcoord()/5.0);
+        EndCircle.setCenterY(213f + endNode.getYcoord()/5.0);
+        EndCircle.setRadius(6.0f);
+
+        System.out.println(startNode.getLocID() + "   " + endNode.getLocID());
+
+        //TODO Get node information from ID's, Then call Pallfinding on them.
+    }
 
     //Nathan - function that will be called when user pressed ENTER button, will do pathfinding
     public void generatePath(Location start, Location end){
