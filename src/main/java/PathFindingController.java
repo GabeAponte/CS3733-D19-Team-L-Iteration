@@ -8,10 +8,10 @@ import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.shape.Circle;
+import javafx.scene.shape.Line;
 import javafx.stage.Stage;
 
 import java.io.IOException;
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.PriorityQueue;
@@ -81,10 +81,10 @@ public class PathFindingController {
         Location start = lookup.get("DHALL01202");
         Location end = lookup.get("DHALL00102");
         System.out.println("TEST 1:");
-
+//
         Path p = findPath(start, end);
         System.out.println(p.toString());
-
+//
         Location startb = lookup.get("DHALL00102");
         Location endb = lookup.get("DHALL01202");
         System.out.println("TEST BACK:");
@@ -141,6 +141,7 @@ public class PathFindingController {
         ArrayList<String> arr2 = na.getNodes(70);
         Location endNode = new Location(arr2.get(0),Integer.parseInt(arr2.get(1)),Integer.parseInt(arr2.get(2)),Integer.parseInt(arr2.get(3)),arr2.get(4),arr2.get(5),arr2.get(6),arr2.get(7));
 
+        System.out.println(startNode.getLocID() + "    " + endNode.getLocID());
 
         Circle StartCircle = new Circle();
 
@@ -160,7 +161,22 @@ public class PathFindingController {
         EndCircle.setCenterY(213f + endNode.getYcoord()/5.0);
         EndCircle.setRadius(6.0f);
 
-        System.out.println(startNode.getLocID() + "   " + endNode.getLocID());
+        Path path = findPath(startNode, endNode);
+
+        ArrayList<Line> lines = new ArrayList<Line>();
+
+        for (int i = 0; i < path.getPath().size()-1; i++) {
+            Line line = new Line();
+
+            line.setStartX(27f + path.getPath().get(i).getXcoord()/5.0);
+            line.setStartY(213f + path.getPath().get(i).getYcoord()/5.0);
+            line.setEndX(27f + path.getPath().get(i+1).getXcoord()/5.0);
+            line.setEndY(213f + path.getPath().get(i+1).getYcoord()/5.0);
+
+            anchorPaneWindow.getChildren().add(line);
+
+            lines.add(line);
+        }
 
         //TODO Get node information from ID's, Then call Pallfinding on them.
     }
@@ -239,6 +255,7 @@ public class PathFindingController {
             l = lookup.get(l.getParentID());
         }
         cleanup();
+        System.out.println("Returning Path");
         return p;
     }
 
