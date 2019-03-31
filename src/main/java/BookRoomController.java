@@ -54,8 +54,6 @@ public class BookRoomController {
 
     @FXML
     private void findRoom(ActionEvent event) {
-
-
         LocalTime startTimeValue = startTime.getValue();
         LocalTime endTimeValue = endTime.getValue();
         LocalDate roomDate = datePicker.getValue();
