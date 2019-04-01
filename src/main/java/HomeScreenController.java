@@ -38,7 +38,11 @@ public class HomeScreenController {
             long second = LocalDateTime.now().getSecond();
             long minute = LocalDateTime.now().getMinute();
             long hour = LocalDateTime.now().getHour();
-            timeLabel.setText(hour + ":" + (minute) + ":" + second);
+            if(second > 9) {
+                timeLabel.setText(hour + ":" + (minute) + ":" + second);
+            } else {
+                timeLabel.setText(hour + ":" + (minute) + ":0" + second);
+            }
         }),
                 new KeyFrame(Duration.seconds(1))
         );
