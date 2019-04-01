@@ -45,7 +45,7 @@ public class BookRoomController {
     private void backPressed() throws IOException {
         thestage = (Stage) bookRoomBack.getScene().getWindow();
         AnchorPane root;
-        root = FXMLLoader.load(getClass().getResource("HospitalHome.fxml"));
+        root = FXMLLoader.load(getClass().getResource("LoggedInHome.fxml"));
         Scene scene = new Scene(root);
         thestage.setScene(scene);
     }
