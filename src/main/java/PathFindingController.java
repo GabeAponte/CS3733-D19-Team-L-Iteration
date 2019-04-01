@@ -264,7 +264,7 @@ public class PathFindingController {
 
     public Path returnPath(Location obj) {
         Location l = obj;
-        System.out.println("RUNNING RETURN PATH");
+        //System.out.println("RUNNING RETURN PATH");
         ArrayList<Location> path = new ArrayList<Location>();
         Path p = new Path(path);
         while (!(l.getParentID().equals("START"))) {
