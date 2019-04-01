@@ -1,14 +1,14 @@
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
+import java.io.IOException;
 
 public class HomeScreenController {
-
-    private Stage stage;
 
     @FXML
     Button HomeFindPath;
@@ -38,15 +38,19 @@ public class HomeScreenController {
     }
 
     @FXML
-    private void SwitchToPathfindScreen(ActionEvent event) {
-        try {
-            Stage thestage = (Stage) HomeFindPath.getScene().getWindow();
-            AnchorPane root;
-            root = FXMLLoader.load(getClass().getResource("HospitalPathFinding.fxml"));
-            Scene scene = new Scene(root);
-            thestage.setScene(scene);
-        } catch (Exception e) {
-        }
+    private void SwitchToPathfindScreen() throws IOException{
+        boolean signedIn = false;
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("HospitalPathFinding.fxml"));
+
+        Parent sceneMain = loader.load();
+
+        PathFindingController controller = loader.<PathFindingController>getController();
+        controller.initialize(signedIn);
+
+        Stage theStage = (Stage) HomeServiceRequest.getScene().getWindow();
+
+        Scene scene = new Scene(sceneMain);
+        theStage.setScene(scene);
     }
 ////
     @FXML
@@ -63,15 +67,19 @@ public class HomeScreenController {
     }
 
     @FXML
-    private void SwitchToServiceScreen(ActionEvent event){
-        try {
-            Stage thestage = (Stage) HomeServiceRequest.getScene().getWindow();
-            AnchorPane root;
-            root = FXMLLoader.load(getClass().getResource("ServiceRequest.fxml"));
-            Scene scene = new Scene(root);
-            thestage.setScene(scene);
-        } catch (Exception e){
-        }
+    private void SwitchToServiceScreen() throws IOException{
+        boolean signedIn = false;
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("ServiceRequest.fxml"));
+
+        Parent sceneMain = loader.load();
+
+        ServiceRequestController controller = loader.<ServiceRequestController>getController();
+        controller.init(signedIn);
+
+        Stage theStage = (Stage) HomeServiceRequest.getScene().getWindow();
+
+        Scene scene = new Scene(sceneMain);
+        theStage.setScene(scene);
     }
 
     @FXML

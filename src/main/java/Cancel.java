@@ -9,10 +9,9 @@ import javafx.stage.Stage;
 import java.io.IOException;
 
 public class Cancel {
-
-    private Stage theStage;
     private String typeOfService;
     private String comment;
+    private boolean signedIn;
 
     @FXML
     Button Back;
@@ -27,15 +26,17 @@ public class Cancel {
     public Label typeLabel;
 
     //Nathan - stores information passed from another controller
-    void init(String service){
+    void init(String service, boolean loggedIn){
         typeOfService = service;
         comment = "No comment added";
+        signedIn = loggedIn;
     }
 
     //Nathan - stores information passed from another controller
-    void init(String service, String description){
+    void init(String service, String description, boolean loggedIn){
         typeOfService = service;
         comment = description;
+        signedIn = loggedIn;
     }
 
     //Nathan - takes user back to ServiceSubController (and fills in proper info)
@@ -49,11 +50,11 @@ public class Cancel {
         ServiceSubController controller = loader.<ServiceSubController>getController();
 
         if(comment == null || comment.equals("No comment added")){
-            controller.init(typeOfService);
+            controller.init(typeOfService, signedIn);
         } else {
-            controller.init(typeOfService, comment);
+            controller.init(typeOfService, comment, signedIn);
         }
-        theStage = (Stage) yes.getScene().getWindow();
+        Stage theStage = (Stage) yes.getScene().getWindow();
 
         Scene scene = new Scene(sceneMain);
         theStage.setScene(scene);
@@ -71,13 +72,17 @@ public class Cancel {
         noClicked();
     }
 
-    //Nathan - return the user to the home screen
+    //Nathan - return the user to the home screen or signed in screen
     @SuppressWarnings("Duplicates")
     @FXML
     private void noClicked() throws IOException {
-        theStage = (Stage) no.getScene().getWindow();
+        Stage theStage = (Stage) no.getScene().getWindow();
         AnchorPane root;
-        root = FXMLLoader.load(getClass().getResource("HospitalHome.fxml"));
+        if(signedIn){
+            root = FXMLLoader.load(getClass().getResource("LoggedInHome.fxml"));
+        } else {
+            root = FXMLLoader.load(getClass().getResource("HospitalHome.fxml"));
+        }
         Scene scene = new Scene(root);
         theStage.setScene(scene);
     }
