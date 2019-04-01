@@ -16,6 +16,7 @@ import java.util.PriorityQueue;
 
 public class PathFindingController {
 
+
     private boolean signedIn;
 
     @FXML
