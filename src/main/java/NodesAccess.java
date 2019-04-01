@@ -20,11 +20,26 @@ public class NodesAccess extends DBAccess{
         }
     }
 
+    /**ANDREW MADE THIS
+     * deletes all the records from the nodes table
+     */
+    public void deleteRecords() {
+        String sql = "Delete from nodes;";
+
+        try (Connection conn = this.connect();
+             Statement stmt = conn.createStatement()) {
+            stmt.executeUpdate(sql);
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
     /** ANDREW MADE THIS
      * reads the csvFile given and adds it to given table
      */
     public void readCSVintoTable() {
         //todo need csv file
+        this.deleteRecords();
         String line;
         String cvsSplitBy = ",";
         int count = 0;
