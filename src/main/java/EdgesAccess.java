@@ -1,11 +1,5 @@
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.io.*;
+import java.sql.*;
 import java.util.ArrayList;
 
 // Refer to DJ or Andrew for questions or concerns with this class
@@ -48,6 +42,60 @@ public class EdgesAccess extends DBAccess
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    /** ANDREW MADE THIS
+     * takes the information in the database table and writes it to a CSV
+     */
+    public void writeTableIntoCSV(String path) {
+        File file;
+        if (path.equals("")) {
+            file = new File("output" + Long.toString(System.currentTimeMillis()) + ".csv");
+        } else {
+            file = new File(path + "\\output" + Long.toString(System.currentTimeMillis()) + ".csv");
+        }
+        BufferedWriter writer = null;
+        try {
+            writer = new BufferedWriter(new FileWriter(file, true));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        String sql = "select * from edges;";
+
+        try (Connection conn = this.connect();
+             Statement stmt = conn.createStatement();
+             ResultSet rs = stmt.executeQuery(sql)) {
+            try {
+                //noinspection ConstantConditions
+                writer.append("edgeID," +
+                        "startNode," +
+                        "endNode");
+                writer.newLine();
+            } catch (IOException o) {
+                System.out.println(o.getMessage());
+            }
+            // loop through the result set
+            while (rs.next()) {
+                try {
+                    //noinspection StringConcatenationInsideStringBufferAppend
+                    writer.append(rs.getString("edgeID") +
+                            "," + rs.getString("startNode") +
+                            "," + rs.getString("endNode"));
+                    writer.newLine();
+                } catch (IOException o) {
+                    System.out.println(o.getMessage());
+                }
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        try {
+            //noinspection ConstantConditions
+            writer.close();
+        } catch (IOException o) {
+            System.out.println(o.getMessage());
+        }
+
     }
 
     @SuppressWarnings("Duplicates")
@@ -107,6 +155,28 @@ public class EdgesAccess extends DBAccess
         pstmt.setString(2, data[1]);
         pstmt.setString(3, data[2]);
         return pstmt;
+    }
+
+    /**ANDREW MADE THIS
+     * adds an edge to the database from the two given nodeIDs
+     * @param node1
+     * @param node2
+     */
+    public void addEdge(String node1, String node2){
+        String sql = "insert into edges(" +
+                "edgeID, startNode, endNode)" +
+                "values (?, ?, ?)";
+
+
+        try (Connection conn = this.connect();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            pstmt.setString(1, node1 + "_" + node2);
+            pstmt.setString(2, node1);
+            pstmt.setString(3, node2);
+            pstmt.executeUpdate();
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
     }
 
 

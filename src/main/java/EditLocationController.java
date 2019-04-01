@@ -125,30 +125,6 @@ public class EditLocationController {
     public void setNextEdge(Edge proto) {
         this.focusEdge = proto;
     }
-    /*
-    @FXML
-    private void openEdit() {
-        try {
-            //Load second scene
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("editScreen.fxml"));
-            Parent roots = loader.load();
-
-            //Get controller of scene2
-            EditTableController scene2Controller = loader.getController();
-
-            Scene scene = new Scene(roots);
-            scene2Controller.fillTable(this.focusNode);
-            thestage = (Stage) makeEditable.getScene().getWindow();
-            //Show scene 2 in new window
-            thestage.setScene(scene);
-
-        } catch (IOException ex) {
-            //noinspection ThrowablePrintedToSystemOut
-            System.err.println(ex);
-        }
-    }
-    */
-
 
     @FXML
     private void deleteEdgePress() {
@@ -193,6 +169,17 @@ public class EditLocationController {
     @FXML
     private void addNodePress() {}
 
+    @FXML
+    private void downloadNodes() {
+        NodesAccess na = new NodesAccess();
+        na.writeTableIntoCSV("");
+    }
+
+    @FXML
+    private void downloadEdges() {
+        EdgesAccess ea = new EdgesAccess();
+        ea.writeTableIntoCSV("");
+    }
 
     private void initializeTable(NodesAccess na, EdgesAccess ea) {
         ArrayList<String> edgeList;
