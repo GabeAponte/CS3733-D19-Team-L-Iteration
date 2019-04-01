@@ -117,7 +117,7 @@ public class BookRoomController {
             System.out.println(endTimeMil);
             System.out.println(date);
 
-            rooms = ra.getAvailRooms(date, 1300, 1400);
+            rooms = ra.getAvailRooms(date, startTimeMil, endTimeMil);
 
             for(int i = 1; i < rooms.size(); i+=2){
                 System.out.println(rooms.get(i));
