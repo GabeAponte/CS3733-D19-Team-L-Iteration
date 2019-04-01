@@ -116,6 +116,8 @@ public class BookRoomController {
             System.out.println(startTimeMil);
             System.out.println(endTimeMil);
             System.out.println(date);
+            avaliableRooms.getSelectionModel().clearSelection();
+            listOfRooms.clear();
 
             rooms = ra.getAvailRooms(date, startTimeMil, endTimeMil);
 
@@ -124,7 +126,6 @@ public class BookRoomController {
                 listOfRooms.add(rooms.get(i));
             }
 
-            avaliableRooms.getSelectionModel().clearSelection();
             avaliableRooms.setItems(listOfRooms);
         }
 
