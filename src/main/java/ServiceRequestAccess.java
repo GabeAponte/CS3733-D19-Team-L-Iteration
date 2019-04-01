@@ -83,11 +83,12 @@ public class ServiceRequestAccess extends DBAccess{
                     data.add(rs.getString("requestDepartment"));
                     if(rs.getString("assignedEmployee") != null){
                         data.add(rs.getString("assignedEmployee"));
+                        data.add("Fulfilled");
                     }
                     else{
                         data.add("none assigned");
+                        data.add("not Fulfilled");
                     }
-                    data.add(Boolean.toString(rs.getBoolean("fulfilled")));
                 }
                 count++;
             }

@@ -223,7 +223,7 @@ public class NodesAccess extends DBAccess{
      * @param field, the column of the table you want to edit
      * @param data, the data you want to put in
      */
-    public void updateNodes(String nodeID, String field, int data) {
+    public void updateNode(String nodeID, String field, int data) {
         String sql = "update nodes set " + field + "= ? where nodeID= ?;";
 
         try (Connection conn = this.connect();
@@ -249,6 +249,21 @@ public class NodesAccess extends DBAccess{
         try (Connection conn = this.connect();
              PreparedStatement pstmt = createPreparedStatement(conn, sql, data)) {
             pstmt.executeUpdate();
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    /**ANDREW MADE THIS
+     * deletes the node with the given nodeID
+     */
+    public void deleteNode(String nodeID) {
+        String sql = "Delete from nodes where nodeID = ?;";
+
+        try (Connection conn = this.connect();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            pstmt.setString(1, nodeID);
+            pstmt.executeUpdate(sql);
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
