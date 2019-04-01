@@ -12,7 +12,6 @@ import javafx.stage.Stage;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.PriorityQueue;
 
 public class PathFindingController {
 
@@ -55,6 +54,7 @@ public class PathFindingController {
     @FXML
     private AnchorPane anchorPaneWindow;
 
+
     private NodesAccess na;
     private EdgesAccess ea;
     private final ObservableList<Location> data = FXCollections.observableArrayList();
@@ -62,6 +62,7 @@ public class PathFindingController {
 
     private ArrayList<Circle> circles = new ArrayList<Circle>();
     private ArrayList<Line> lines = new ArrayList<Line>();
+
 
     @FXML
     private void backPressed() throws IOException {
@@ -159,12 +160,12 @@ public class PathFindingController {
         displayPath(path.getPath(), startNode, endNode);
     }
 
-    //Nathan - function that will be called when user pressed ENTER button, will do pathfinding
-    public void generatePath(Location start, Location end){
-        PriorityQueue<Location> open = new PriorityQueue<Location>();
-        ArrayList<Location> closed = new ArrayList<Location>();
-//        displayPath(start.findPath(end, open, closed));
-    }
+//    //Nathan - function that will be called when user pressed ENTER button, will do pathfinding
+//    public void generatePath(Location start, Location end){
+//        PriorityQueue<Location> open = new PriorityQueue<Location>();
+//        ArrayList<Location> closed = new ArrayList<Location>();
+////        displayPath(start.findPath(end, open, closed));
+//    }
 
     public void displayPath(ArrayList<Location> path, Location startNode, Location endNode){
         path.add(startNode);
@@ -181,8 +182,8 @@ public class PathFindingController {
         anchorPaneWindow.getChildren().add(StartCircle);
 
         //Setting the properties of the circle
-        StartCircle.setCenterX(27f + startNode.getXcoord()/5.0);
-        StartCircle.setCenterY(213f + startNode.getYcoord()/5.0);
+        StartCircle.setCenterX(79f + startNode.getXcoord()*0.137);
+        StartCircle.setCenterY(189f + startNode.getYcoord()*0.137);
         StartCircle.setRadius(3.0f);
 
         Circle EndCircle = new Circle();
@@ -190,9 +191,10 @@ public class PathFindingController {
         anchorPaneWindow.getChildren().add(EndCircle);
 
         //Setting the properties of the circle
-        EndCircle.setCenterX(27f + endNode.getXcoord()/5.0);
-        EndCircle.setCenterY(213f + endNode.getYcoord()/5.0);
+        EndCircle.setCenterX(79f + endNode.getXcoord()*0.137);
+        EndCircle.setCenterY(189f + endNode.getYcoord()*0.137);
         EndCircle.setRadius(3.0f);
+        EndCircle.setVisible(true);
 
         circles.add(StartCircle);
         circles.add(EndCircle);
@@ -200,15 +202,19 @@ public class PathFindingController {
         for (int i = 0; i < path.size()-1; i++) {
             Line line = new Line();
 
-            line.setStartX(27f + path.get(i).getXcoord()/5.0);
-            line.setStartY(213f + path.get(i).getYcoord()/5.0);
-            line.setEndX(27f + path.get(i+1).getXcoord()/5.0);
-            line.setEndY(213f + path.get(i+1).getYcoord()/5.0);
+            line.setStartX(79f + path.get(i).getXcoord()*0.137);
+            line.setStartY(189f + path.get(i).getYcoord()*0.137);
+            line.setEndX(79f + path.get(i+1).getXcoord()*0.137);
+            line.setEndY(189f + path.get(i+1).getYcoord()*0.137);
 
             anchorPaneWindow.getChildren().add(line);
 
             lines.add(line);
         }
+
+//        HospitalMap.setVisible(false);
+        System.out.println(anchorPaneWindow.getChildren());
+        System.out.println(StartCircle.getCenterX());
     }
 
     ArrayList<Location> openList = new ArrayList<Location>();
