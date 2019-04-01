@@ -43,7 +43,7 @@
                     </items>
                 </ToolBar>
                 <ToolBar maxHeight="10.0" prefHeight="40.0" prefWidth="200.0" style="-fx-background-color: #092b60;" />
-                <Label alignment="CENTER" contentDisplay="CENTER" maxWidth="1.7976931348623157E308" prefHeight="42.0" prefWidth="1280.0" text="Choose a Service Requests" VBox.vgrow="NEVER">
+                <Label alignment="CENTER" contentDisplay="CENTER" maxWidth="1.7976931348623157E308" prefHeight="42.0" prefWidth="1280.0" text="Choose a Service Request" VBox.vgrow="NEVER">
                     <font>
                         <Font name="Times New Roman Bold" size="48.0" />
                     </font>
