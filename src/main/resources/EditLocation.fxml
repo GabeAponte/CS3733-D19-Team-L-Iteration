@@ -81,17 +81,17 @@
             </Label>
             <HBox prefHeight="100.0" prefWidth="200.0" GridPane.rowIndex="2">
                <children>
-                  <JFXButton buttonType="RAISED" ripplerFill="WHITE" text="Add" textFill="WHITE" HBox.hgrow="ALWAYS">
+                  <JFXButton fx:id="addNodeButton" buttonType="RAISED" onAction="#addNodePress" ripplerFill="WHITE" text="Add" textFill="WHITE" HBox.hgrow="ALWAYS">
                      <font>
                         <Font name="Times New Roman" size="20.0" />
                      </font>
                   </JFXButton>
-                  <JFXButton buttonType="RAISED" ripplerFill="WHITE" text="Delete" textFill="WHITE" HBox.hgrow="ALWAYS">
+                  <JFXButton fx:id="delNodeButton" buttonType="RAISED" onAction="#deleteNodePress" ripplerFill="WHITE" text="Delete" textFill="WHITE" HBox.hgrow="ALWAYS">
                      <font>
                         <Font name="Times New Roman" size="20.0" />
                      </font>
                   </JFXButton>
-                  <JFXButton buttonType="RAISED" ripplerFill="WHITE" text="Modify" textFill="WHITE" HBox.hgrow="ALWAYS">
+                  <JFXButton fx:id="modNodeButton" buttonType="RAISED" onAction="#modifyNodePress" ripplerFill="WHITE" text="Modify" textFill="WHITE" HBox.hgrow="ALWAYS">
                      <font>
                         <Font name="Times New Roman" size="20.0" />
                      </font>
@@ -100,30 +100,30 @@
             </HBox>
             <HBox prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
                <children>
-                  <JFXButton buttonType="RAISED" ripplerFill="WHITE" text="Add" textFill="WHITE" HBox.hgrow="ALWAYS">
+                  <JFXButton fx:id="addEdgeButton" buttonType="RAISED" onAction="#addEdgePress" ripplerFill="WHITE" text="Add" textFill="WHITE" HBox.hgrow="ALWAYS">
                      <font>
                         <Font name="Times New Roman" size="20.0" />
                      </font>
                   </JFXButton>
-                  <JFXButton buttonType="RAISED" ripplerFill="WHITE" text="Delete" textFill="WHITE" HBox.hgrow="ALWAYS">
+                  <JFXButton fx:id="delEdgeButton" buttonType="RAISED" onAction="#deleteEdgePress" ripplerFill="WHITE" text="Delete" textFill="WHITE" HBox.hgrow="ALWAYS">
                      <font>
                         <Font name="Times New Roman" size="20.0" />
                      </font>
                   </JFXButton>
-                  <JFXButton buttonType="RAISED" ripplerFill="WHITE" text="Modify" textFill="WHITE" HBox.hgrow="ALWAYS">
+                  <JFXButton fx:id="modEdgeButton" buttonType="RAISED" onAction="#modifyEdgePress" ripplerFill="WHITE" text="Modify" textFill="WHITE" HBox.hgrow="ALWAYS">
                      <font>
                         <Font name="Times New Roman" size="20.0" />
                      </font>
                   </JFXButton>
                </children>
             </HBox>
-            <TableView prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="1">
+            <TableView fx:id="nodeTable" prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="1">
               <columns>
                 <TableColumn prefWidth="75.0" text="C1" />
                 <TableColumn prefWidth="75.0" text="C2" />
               </columns>
             </TableView>
-            <TableView prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
+            <TableView fx:id="edgeTable" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
               <columns>
                 <TableColumn prefWidth="75.0" text="C1" />
                 <TableColumn prefWidth="75.0" text="C2" />
