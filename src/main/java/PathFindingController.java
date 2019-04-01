@@ -67,7 +67,7 @@ public class PathFindingController {
         thestage = (Stage) PathFindBack.getScene().getWindow();
         AnchorPane root;
         if(signedIn) {
-            root = FXMLLoader.load(getClass().getResource("HospitalHome.fxml"));
+            root = FXMLLoader.load(getClass().getResource("LoggedInHome.fxml"));
         } else {
             root = FXMLLoader.load(getClass().getResource("HospitalHome.fxml"));
         }

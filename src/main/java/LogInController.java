@@ -51,7 +51,7 @@ public class LogInController {
     }
 
     @FXML
-    private void LogIn(){
+    private void LogIn() throws IOException{
         String uname = username.getText();
         String pass = password.getText();
 
@@ -67,21 +67,18 @@ public class LogInController {
         }
     }
 
-    private void SwitchToSignedIn() {
-        try {
-            //TODO: Change BookRoom.fxml to signed in screen
-            Stage thestage = (Stage) username.getScene().getWindow();
-            AnchorPane root;
-            root = FXMLLoader.load(getClass().getResource("LoggedInHome.fxml"));
-            Scene scene = new Scene(root);
-            thestage.setScene(scene);
-        } catch (Exception e) {
-
-        }
+    private void SwitchToSignedIn() throws IOException{
+        Stage thestage = (Stage) username.getScene().getWindow();
+        AnchorPane root;
+        root = FXMLLoader.load(getClass().getResource("LoggedInHome.fxml"));
+        Scene scene = new Scene(root);
+        thestage.setScene(scene);
     }
 
     private void displayError(){
         errorLabel.setText("Username or Password is incorrect");
     }
+
+
 
 }

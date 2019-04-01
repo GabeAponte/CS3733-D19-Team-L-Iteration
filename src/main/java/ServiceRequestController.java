@@ -44,7 +44,7 @@ public class ServiceRequestController {
         theStage = (Stage) Back.getScene().getWindow();
         AnchorPane root;
         if(signedIn){
-            root = FXMLLoader.load(getClass().getResource("LogIn.fxml"));
+            root = FXMLLoader.load(getClass().getResource("LoggedInHome.fxml"));
         } else {
             root = FXMLLoader.load(getClass().getResource("HospitalHome.fxml"));
         }

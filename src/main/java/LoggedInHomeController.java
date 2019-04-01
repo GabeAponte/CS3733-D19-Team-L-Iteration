@@ -1,6 +1,7 @@
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.layout.AnchorPane;
@@ -46,6 +47,38 @@ public class LoggedInHomeController {
         root = FXMLLoader.load(getClass().getResource("BookRoom.fxml"));
         Scene scene = new Scene(root);
         thestage.setScene(scene);
+    }
+
+    @FXML
+    private void SwitchToPathfindScreen() throws IOException{
+        boolean signedIn = true;
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("HospitalPathFinding.fxml"));
+
+        Parent sceneMain = loader.load();
+
+        PathFindingController controller = loader.<PathFindingController>getController();
+        controller.initialize(signedIn);
+
+        Stage theStage = (Stage) findPath.getScene().getWindow();
+
+        Scene scene = new Scene(sceneMain);
+        theStage.setScene(scene);
+    }
+
+    @FXML
+    private void SwitchToServiceScreen() throws IOException{
+        boolean signedIn = true;
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("ServiceRequest.fxml"));
+
+        Parent sceneMain = loader.load();
+
+        ServiceRequestController controller = loader.<ServiceRequestController>getController();
+        controller.init(signedIn);
+
+        Stage theStage = (Stage) findPath.getScene().getWindow();
+
+        Scene scene = new Scene(sceneMain);
+        theStage.setScene(scene);
     }
 
 }
