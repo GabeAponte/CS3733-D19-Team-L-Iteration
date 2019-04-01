@@ -1,8 +1,8 @@
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
@@ -21,6 +21,9 @@ public class SuggestionBoxController {
     private Stage thestage;
 
     @FXML
+    private Label error;
+
+    @FXML
     private Button SuggestionBack;
 
     @FXML
@@ -32,4 +35,17 @@ public class SuggestionBoxController {
         thestage.setScene(scene);
     }
 
+    @FXML
+    private void submitPressed() {
+        SuggestionBasicAccess sga = new SuggestionBasicAccess();
+
+        if (feedbackComments.getText().trim().isEmpty() || feedbackComments.getText().equals("Type suggestions here")) {
+            error.setText("Please enter your feedback");
+
+        } else {
+            sga.addSuggestion(feedbackComments.getText());
+            error.setText("Thank you for your feedback");
+            feedbackComments.setText("");
+        }
+    }
 }

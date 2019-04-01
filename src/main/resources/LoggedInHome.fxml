@@ -34,12 +34,12 @@
         </Button>
       <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#092b60" height="131.0" layoutX="575.0" layoutY="195.0" stroke="#092b60" strokeType="INSIDE" width="583.0" />
       <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#092b60" height="566.0" layoutX="464.0" layoutY="159.0" stroke="#092b60" strokeType="INSIDE" width="12.0" />
-      <JFXButton fx:id="findPath" buttonType="RAISED" layoutX="75.0" layoutY="246.0" prefHeight="150.0" prefWidth="300.0" style="-fx-background-color: fff;" text="Find Path">
+      <JFXButton fx:id="findPath" onAction="#SwitchToPathfindScreen" buttonType="RAISED" layoutX="75.0" layoutY="246.0" prefHeight="150.0" prefWidth="300.0" style="-fx-background-color: fff;" text="Find Path">
          <font>
             <Font name="Times New Roman" size="36.0" />
          </font>
       </JFXButton>
-      <JFXButton fx:id="serviceRequest" buttonType="RAISED" layoutX="75.0" layoutY="440.0" prefHeight="150.0" prefWidth="300.0" style="-fx-background-color: fff;" text="Service Request">
+      <JFXButton fx:id="serviceRequest" onAction="#SwitchToServiceScreen" buttonType="RAISED" layoutX="75.0" layoutY="440.0" prefHeight="150.0" prefWidth="300.0" style="-fx-background-color: fff;" text="Service Request">
          <font>
             <Font name="Times New Roman" size="36.0" />
          </font>

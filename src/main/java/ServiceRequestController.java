@@ -12,6 +12,7 @@ import java.io.IOException;
 public class ServiceRequestController {
 
     private Stage theStage;
+    private boolean signedIn;
 
     @FXML
     private Button SanitationServices;
@@ -34,11 +35,19 @@ public class ServiceRequestController {
     @FXML
     public Button Back;
 
+    void init(boolean loggedIn){
+        signedIn = loggedIn;
+    }
+
     @FXML
     protected void backPressed() throws IOException {
         theStage = (Stage) Back.getScene().getWindow();
         AnchorPane root;
-        root = FXMLLoader.load(getClass().getResource("HospitalHome.fxml"));
+        if(signedIn){
+            root = FXMLLoader.load(getClass().getResource("LoggedInHome.fxml"));
+        } else {
+            root = FXMLLoader.load(getClass().getResource("HospitalHome.fxml"));
+        }
         Scene scene = new Scene(root);
         theStage.setScene(scene);
     }
@@ -72,7 +81,7 @@ public class ServiceRequestController {
         Parent sceneMain = loader.load();
 
         ServiceSubController controller = loader.<ServiceSubController>getController();
-        controller.init(service);
+        controller.init(service, signedIn);
 
         theStage = (Stage) SanitationServices.getScene().getWindow();
 

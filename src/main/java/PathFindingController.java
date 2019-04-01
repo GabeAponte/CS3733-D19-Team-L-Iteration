@@ -1,5 +1,3 @@
-import com.jfoenix.controls.JFXButton;
-import javafx.event.ActionEvent;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -18,17 +16,20 @@ import java.util.PriorityQueue;
 
 public class PathFindingController {
 
+
+    private boolean signedIn;
+
     @FXML
     private Stage thestage;
 
     @FXML
-    private JFXButton PathFindBack;
+    private Button PathFindBack;
 
     @FXML
-    private JFXButton PathFindSubmit;
+    private Button PathFindSubmit;
 
     @FXML
-    private JFXButton PathFindLogOut;
+    private Button PathFindLogOut;
 
     @FXML
     private TextField PathFindEndSearch;
@@ -63,17 +64,22 @@ public class PathFindingController {
     private ArrayList<Line> lines = new ArrayList<Line>();
 
     @FXML
-    private void PathFindToHome() throws IOException {
+    private void backPressed() throws IOException {
         thestage = (Stage) PathFindBack.getScene().getWindow();
         AnchorPane root;
-        root = FXMLLoader.load(getClass().getResource("HospitalHome.fxml"));
+        if(signedIn) {
+            root = FXMLLoader.load(getClass().getResource("LoggedInHome.fxml"));
+        } else {
+            root = FXMLLoader.load(getClass().getResource("HospitalHome.fxml"));
+        }
         Scene scene = new Scene(root);
         thestage.setScene(scene);
     }
 
     @SuppressWarnings("Convert2Diamond")
     @FXML
-    public void initialize() {
+    public void initialize(boolean loggedIn) {
+        signedIn = loggedIn;
         na = new NodesAccess();
         ea = new EdgesAccess();
         initializeTable(na, ea);
