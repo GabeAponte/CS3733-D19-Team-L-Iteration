@@ -45,7 +45,7 @@
              </items>
          </ToolBar>
             <ToolBar maxHeight="5.0" prefHeight="40.0" prefWidth="200.0" style="-fx-background-color: #092b60;" />
-            <Label alignment="CENTER" contentDisplay="CENTER" maxWidth="1.7976931348623157E308" prefHeight="187.0" prefWidth="1280.0" text="SERVICE REQUEST">
+            <Label alignment="CENTER" contentDisplay="CENTER" maxWidth="1.7976931348623157E308" prefHeight="187.0" prefWidth="1280.0" text="Service Request">
                <font>
                   <Font name="Times New Roman Bold" size="48.0" />
                </font>
