@@ -92,6 +92,7 @@ public class ServiceRequestAccess extends DBAccess{
                 }
                 count++;
             }
+            return data;
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
