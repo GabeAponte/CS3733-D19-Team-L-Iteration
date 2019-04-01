@@ -52,10 +52,9 @@ public class ActiveServiceRequestsController {
         thestage.setScene(scene);
     }
 
-
+    //Gabe - Populates table
     public void initialize(){
         activeRequests.setEditable(false);
-       // this.makeEditable.setDisable(true);
         final ObservableList<ServiceRequestTable> data = FXCollections.observableArrayList();
         ServiceRequestAccess sr = new ServiceRequestAccess();
 
@@ -69,21 +68,19 @@ public class ActiveServiceRequestsController {
             data.add(testx);
         }
 
-
         requestDepartment.setCellValueFactory(new PropertyValueFactory<ServiceRequestTable,String>("requestDepartment"));
         comment.setCellValueFactory(new PropertyValueFactory<ServiceRequestTable, String>("comment"));
         assignedEmployee.setCellValueFactory(new PropertyValueFactory<ServiceRequestTable, String>("assignedEmployee"));
         fullfilled.setCellValueFactory(new PropertyValueFactory<ServiceRequestTable, String>("fullfilled"));
-        //noinspection CodeBlock2Expr
         activeRequests.setItems(data);
     }
 
-    //TODO: Add database functionality to populate service request table and select one to go to fulfill screen
+    //Gabe - Switches to fulfill screen when mouse double clicks a row in the table
+    //TODO: Bring over request information so that fulfill page can update a request
     @FXML
     private void SwitchToFulfillRequestScreen() throws IOException {
-
-            activeRequests.setOnMouseClicked(event -> {
-                if(event.getButton().equals(MouseButton.PRIMARY) && event.getClickCount() == 2) {
+        activeRequests.setOnMouseClicked(event -> {
+            if (event.getButton().equals(MouseButton.PRIMARY) && event.getClickCount() == 2) {
 
                 Stage thestage = (Stage) activeRequests.getScene().getWindow();
                 AnchorPane root = null;
