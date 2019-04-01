@@ -95,7 +95,7 @@ public class BookRoomController {
         String roomID = "RoomTest";
         String employeeID = "Test";
         ReservationAccess roomReq = new ReservationAccess();
-        roomReq.makeReservation(roomID, employeeID, reserveStart, reserveEnd);
+        roomReq.makeReservation(roomID, employeeID, "date", 9, 9);
     }
 
 }
