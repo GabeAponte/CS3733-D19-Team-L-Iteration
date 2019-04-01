@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.Button?>
+<?import com.jfoenix.controls.JFXButton?>
 <?import javafx.scene.control.ToolBar?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 
@@ -15,37 +16,38 @@
             <Image url="@SoftEng_UI_Mockup_Pics/Background.png" />
          </image>
       </ImageView>
-      <ToolBar prefHeight="150.0" prefWidth="1280.0" style="-fx-background-color: white;">
+      <ToolBar maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="125.0" prefWidth="1282.0" style="-fx-background-color: white;">
             <items>
-               <ImageView fitHeight="113.0" fitWidth="562.0" pickOnBounds="true" preserveRatio="true">
+               <ImageView fitHeight="91.0" fitWidth="395.0" pickOnBounds="true" preserveRatio="true">
                   <image>
                      <Image url="@BWHlogo.png" />
                   </image>
                </ImageView>
+            <HBox prefHeight="100.0" prefWidth="230.0" />
             </items>
       </ToolBar>
-      <ToolBar layoutY="150.0" prefHeight="10.0" prefWidth="1280.0" style="-fx-background-color: #092b60;" />
-      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#092b60" height="223.0" layoutX="119.0" layoutY="322.0" stroke="#092b60" strokeType="INSIDE" width="494.0" />
-      <Button fx:id="HomeSuggestions" mnemonicParsing="false" onAction="#SwitchToSuggestionBox" prefHeight="150.0" prefWidth="294.0" style="-fx-background-color: white;" text="Suggestions" AnchorPane.leftAnchor="700.0">
+      <ToolBar layoutY="125.0" prefHeight="9.0" prefWidth="1282.0" style="-fx-background-color: #092b60;" />
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#092b60" height="223.0" layoutX="119.0" layoutY="320.0" stroke="#092b60" strokeType="INSIDE" width="494.0" />
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#092b60" height="220.0" layoutX="675.0" layoutY="320.0" stroke="#092b60" strokeType="INSIDE" width="488.0" />
+      <JFXButton fx:id="HomeFindPath" buttonType="RAISED" layoutX="162.0" layoutY="350.0" onAction="#SwitchToPathfindScreen" prefHeight="165.0" prefWidth="409.0" ripplerFill="#f6bd37" style="-fx-background-color: white;" text="Find Path">
          <font>
-            <Font name="Times New Roman" size="40.0" />
+            <Font name="Times New Roman" size="48.0" />
          </font>
-      </Button>
-      <Button fx:id="HomeFindPath" mnemonicParsing="false" onAction="#SwitchToPathfindScreen" prefHeight="165.0" prefWidth="435.0" text="FIND PATH" AnchorPane.leftAnchor="150.0" AnchorPane.topAnchor="350.0">
+      </JFXButton>
+      <JFXButton fx:id="HomeServiceRequest" buttonType="RAISED" layoutX="715.0" layoutY="350.0" onAction="#SwitchToServiceScreen" prefHeight="165.0" prefWidth="409.0" ripplerFill="#f6bd37" style="-fx-background-color: white;" text="Request Service">
          <font>
-            <Font name="Times Bold" size="43.0" />
+            <Font name="Times New Roman" size="48.0" />
          </font>
-      </Button>
-      <Button fx:id="LogIn" mnemonicParsing="false" onAction="#SwitchToLoginScreen" prefHeight="150.0" prefWidth="281.0" style="-fx-background-color: white;" text="Log In" AnchorPane.leftAnchor="1000.0">
+      </JFXButton>
+      <JFXButton fx:id="LogIn" alignment="CENTER" buttonType="RAISED" layoutX="1084.0" layoutY="8.0" onAction="#SwitchToLoginScreen" prefHeight="115.0" prefWidth="159.0" ripplerFill="#f6bd37" text="Log In">
          <font>
-            <Font name="Times New Roman" size="40.0" />
+            <Font name="Times New Roman" size="36.0" />
          </font>
-      </Button>
-      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#092b60" height="220.0" layoutX="675.0" layoutY="325.0" stroke="#092b60" strokeType="INSIDE" width="488.0" />
-      <Button fx:id="HomeServiceRequest" mnemonicParsing="false" onAction="#SwitchToServiceScreen" prefHeight="165.0" prefWidth="435.0" text="REQUEST SERVICE" AnchorPane.leftAnchor="700.0" AnchorPane.topAnchor="350.0">
+      </JFXButton>
+      <JFXButton fx:id="HomeSuggestions" alignment="CENTER" buttonType="RAISED" layoutX="778.0" layoutY="3.0" onAction="#SwitchToSuggestionBox" prefHeight="125.0" prefWidth="282.0" ripplerFill="#f6bd38" text="Suggestions">
          <font>
-            <Font name="Times Bold" size="40.0" />
+            <Font name="Times New Roman" size="36.0" />
          </font>
-      </Button>
+      </JFXButton>
    </children>
 </AnchorPane>
