@@ -158,13 +158,6 @@ public class PathFindingController {
         displayPath(path.getPath(), startNode, endNode);
     }
 
-    //Nathan - function that will be called when user pressed ENTER button, will do pathfinding
-    public void generatePath(Location start, Location end){
-        PriorityQueue<Location> open = new PriorityQueue<Location>();
-        ArrayList<Location> closed = new ArrayList<Location>();
-//        displayPath(start.findPath(end, open, closed));
-    }
-
     public void displayPath(ArrayList<Location> path, Location startNode, Location endNode){
         path.add(startNode);
 
@@ -265,7 +258,7 @@ public class PathFindingController {
 
     public Path returnPath(Location obj) {
         Location l = obj;
-        System.out.println("RUNNING RETURN PATH");
+        //System.out.println("RUNNING RETURN PATH");
         ArrayList<Location> path = new ArrayList<Location>();
         Path p = new Path(path);
         while (!(l.getParentID().equals("START"))) {
