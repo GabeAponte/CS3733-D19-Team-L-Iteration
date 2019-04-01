@@ -66,7 +66,11 @@ public class PathFindingController {
     private void backPressed() throws IOException {
         thestage = (Stage) PathFindBack.getScene().getWindow();
         AnchorPane root;
-        root = FXMLLoader.load(getClass().getResource("HospitalHome.fxml"));
+        if(signedIn) {
+            root = FXMLLoader.load(getClass().getResource("HospitalHome.fxml"));
+        } else {
+            root = FXMLLoader.load(getClass().getResource("HospitalHome.fxml"));
+        }
         Scene scene = new Scene(root);
         thestage.setScene(scene);
     }
