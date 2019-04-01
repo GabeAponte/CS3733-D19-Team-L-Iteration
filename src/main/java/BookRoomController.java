@@ -99,9 +99,10 @@ public class BookRoomController {
         String roomID = "RoomTest";
         String employeeID = "Test";
         ReservationAccess roomReq = new ReservationAccess();
-        for(int i = 1; i < rooms.size(); i+=2){
-            if(rooms.get(i).equals(avaliableRooms.getValue()))
-                roomID = rooms.get(i-1);
+        for(int i = 1; i < rooms.size(); i+=2) {
+            if (rooms.get(i).equals(avaliableRooms.getValue())) {
+                roomID = rooms.get(i - 1);
+            }
         }
         roomReq.makeReservation(roomID, employeeID, date, startTimeMil, endTimeMil);
     }
@@ -117,16 +118,12 @@ public class BookRoomController {
             startTimeMil = startTime.getValue().getHour() * 100 + startTime.getValue().getMinute();
             endTimeMil = endTime.getValue().getHour() * 100 + endTime.getValue().getMinute();
             date = datePicker.getValue().toString();
-            System.out.println(startTimeMil);
-            System.out.println(endTimeMil);
-            System.out.println(date);
             avaliableRooms.getSelectionModel().clearSelection();
             listOfRooms.clear();
 
             rooms = ra.getAvailRooms(date, startTimeMil, endTimeMil);
 
             for(int i = 1; i < rooms.size(); i+=2){
-                System.out.println(rooms.get(i));
                 listOfRooms.add(rooms.get(i));
             }
 
