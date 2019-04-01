@@ -1,6 +1,7 @@
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.layout.AnchorPane;
@@ -40,11 +41,17 @@ public class HomeScreenController {
     @FXML
     private void SwitchToPathfindScreen(ActionEvent event) {
         try {
-            Stage thestage = (Stage) HomeFindPath.getScene().getWindow();
-            AnchorPane root;
-            root = FXMLLoader.load(getClass().getResource("HospitalPathFinding.fxml"));
-            Scene scene = new Scene(root);
-            thestage.setScene(scene);
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("ServiceSubController.fxml"));
+
+            Parent sceneMain = loader.load();
+
+            PathFindingController controller = loader.<PathFindingController>getController();
+            controller.initialize(false);
+
+            Stage theStage = (Stage) HomeFindPath.getScene().getWindow();
+
+            Scene scene = new Scene(sceneMain);
+            theStage.setScene(scene);
         } catch (Exception e) {
         }
     }
@@ -65,11 +72,17 @@ public class HomeScreenController {
     @FXML
     private void SwitchToServiceScreen(ActionEvent event){
         try {
-            Stage thestage = (Stage) HomeServiceRequest.getScene().getWindow();
-            AnchorPane root;
-            root = FXMLLoader.load(getClass().getResource("ServiceRequest.fxml"));
-            Scene scene = new Scene(root);
-            thestage.setScene(scene);
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("ServiceSubController.fxml"));
+
+            Parent sceneMain = loader.load();
+
+            ServiceRequestController controller = loader.<ServiceRequestController>getController();
+            controller.init(false);
+
+            Stage theStage = (Stage) HomeFindPath.getScene().getWindow();
+
+            Scene scene = new Scene(sceneMain);
+            theStage.setScene(scene);
         } catch (Exception e){
         }
     }

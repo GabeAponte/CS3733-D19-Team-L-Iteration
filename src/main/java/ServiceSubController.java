@@ -14,8 +14,9 @@ import java.io.IOException;
 
 public class ServiceSubController {
 
-    private Stage thestage;
+    private Stage theStage;
     private String typeOfService;
+    private boolean signedIn;
 
     @FXML
     private Button Back2;
@@ -31,26 +32,34 @@ public class ServiceSubController {
 
 
     //Nathan - sets values passed from another controller
-    void init(String type){
+    void init(String type, boolean loggedIn){
         typeOfService = type;
         typeLabel.setText(typeOfService + " Services");
+        signedIn = loggedIn;
     }
 
     //Nathan - sets values passed from another controller
-    void init(String type, String comment){
+    void init(String type, String comment, boolean loggedIn){
         typeOfService = type;
         typeLabel.setText(typeOfService + " Services");
         ServiceComments.setText(comment);
+        signedIn = loggedIn;
     }
 
-    //Nathan - takes you back to service request screen
+    //Nathan - changes screen to service sub screen, param "service" determines label on sub screen
     @FXML
-    private void backPressed() throws IOException {
-        thestage = (Stage) Back2.getScene().getWindow();
-        AnchorPane root;
-        root = FXMLLoader.load(getClass().getResource("ServiceRequest.fxml"));
-        Scene scene = new Scene(root);
-        thestage.setScene(scene);
+    private void backPressed() throws IOException{
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("ServiceRequestController.fxml"));
+
+        Parent sceneMain = loader.load();
+
+        ServiceRequestController controller = loader.<ServiceRequestController>getController();
+        controller.init(signedIn);
+
+        theStage = (Stage) SubmitRequest.getScene().getWindow();
+
+        Scene scene = new Scene(sceneMain);
+        theStage.setScene(scene);
     }
 
     //Nathan - Changes screen to cancel screen, passes along information
@@ -63,13 +72,13 @@ public class ServiceSubController {
         Cancel controller = loader.<Cancel>getController();
 
         if(ServiceComments == null || ServiceComments.getText() == null || ServiceComments.getText().trim().isEmpty()){
-            controller.init(typeOfService);
+            controller.init(typeOfService, signedIn);
         } else {
-            controller.init(typeOfService, ServiceComments.getText());
+            controller.init(typeOfService, ServiceComments.getText(), signedIn);
         }
-        thestage = (Stage) SubmitRequest.getScene().getWindow();
+        theStage = (Stage) SubmitRequest.getScene().getWindow();
 
         Scene scene = new Scene(sceneMain);
-        thestage.setScene(scene);
+        theStage.setScene(scene);
     }
 }

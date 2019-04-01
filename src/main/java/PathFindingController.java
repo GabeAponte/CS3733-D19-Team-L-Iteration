@@ -17,6 +17,9 @@ import java.util.HashMap;
 import java.util.PriorityQueue;
 
 public class PathFindingController {
+
+    private boolean signedIn;
+
     @FXML
     private Stage thestage;
 
@@ -70,7 +73,8 @@ public class PathFindingController {
 
     @SuppressWarnings("Convert2Diamond")
     @FXML
-    public void initialize() {
+    public void initialize(boolean loggedIn) {
+        signedIn = loggedIn;
         na = new NodesAccess();
         ea = new EdgesAccess();
         initializeTable(na, ea);
