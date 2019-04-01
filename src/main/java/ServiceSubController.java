@@ -60,7 +60,7 @@ public class ServiceSubController {
 
     //Nathan - Changes screen to cancel screen, passes along information
     @FXML
-    private void promptCancel(ActionEvent e) throws IOException{
+    private void promptCancel() throws IOException{
         FXMLLoader loader = new FXMLLoader(getClass().getResource("Cancel.fxml"));
 
         Parent sceneMain = loader.load();
