@@ -47,7 +47,7 @@ public class HomeScreenController {
         PathFindingController controller = loader.<PathFindingController>getController();
         controller.initialize(signedIn);
 
-        Stage theStage = (Stage) HomeServiceRequest.getScene().getWindow();
+        Stage theStage = (Stage) HomeFindPath.getScene().getWindow();
 
         Scene scene = new Scene(sceneMain);
         theStage.setScene(scene);
@@ -56,7 +56,7 @@ public class HomeScreenController {
     @FXML
     private void SwitchToSuggestionBox(ActionEvent event) {
         try {
-            Stage thestage = (Stage) HomeFindPath.getScene().getWindow();
+            Stage thestage = (Stage) HomeSuggestions.getScene().getWindow();
             AnchorPane root;
             root = FXMLLoader.load(getClass().getResource("SuggestionBox.fxml"));
             Scene scene = new Scene(root);
