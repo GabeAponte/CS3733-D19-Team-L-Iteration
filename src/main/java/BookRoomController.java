@@ -20,6 +20,7 @@ import java.time.LocalTime;
 import java.util.ArrayList;
 
 public class BookRoomController {
+    String uname;
 
     @FXML
     private JFXDatePicker datePicker;
@@ -47,6 +48,10 @@ public class BookRoomController {
 
     final ObservableList<String> listOfRooms = FXCollections.observableArrayList();
     ArrayList<String> rooms = new ArrayList<>();
+
+    public void init(String username){
+        uname = username;
+    }
 
     @FXML
     private void backPressed() throws IOException {
@@ -104,7 +109,9 @@ public class BookRoomController {
         int endTimeMil = endTime.getValue().getHour() * 100 + endTime.getValue().getMinute();
         String date = datePicker.getValue().toString();
         String roomID = "RoomTest";
-        String employeeID = "Test";
+        EmployeeAccess ea = new EmployeeAccess();
+        System.out.println(uname);
+        String employeeID = ea.getNodeInformation(uname).get(0);
         ReservationAccess roomReq = new ReservationAccess();
         for(int i = 1; i < rooms.size(); i+=2) {
             if (rooms.get(i).equals(avaliableRooms.getValue())) {
