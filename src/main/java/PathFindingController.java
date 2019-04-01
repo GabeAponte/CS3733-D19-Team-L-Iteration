@@ -1,17 +1,15 @@
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.GridPane;
 import javafx.scene.shape.Circle;
+import javafx.scene.shape.Line;
 import javafx.stage.Stage;
 
 import java.io.IOException;
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.PriorityQueue;
@@ -48,19 +46,21 @@ public class PathFindingController {
     private RadioButton PathFindBrPOI;
 
     @FXML
-    private ComboBox<String> PathFindEndDrop;
+    private ComboBox<Location> PathFindEndDrop;
 
     @FXML
-    private ComboBox<String> PathFindStartDrop;
+    private ComboBox<Location> PathFindStartDrop;
 
     @FXML
     private AnchorPane anchorPaneWindow;
 
     private NodesAccess na;
     private EdgesAccess ea;
-    final ObservableList<Location> data = FXCollections.observableArrayList();
-    final ObservableList<String> LongNames = FXCollections.observableArrayList();
-    HashMap<String, Location> lookup = new HashMap<String, Location>();
+    private final ObservableList<Location> data = FXCollections.observableArrayList();
+    private HashMap<String, Location> lookup = new HashMap<String, Location>();
+
+    private ArrayList<Circle> circles = new ArrayList<Circle>();
+    private ArrayList<Line> lines = new ArrayList<Line>();
 
     @FXML
     private void backPressed() throws IOException {
@@ -82,64 +82,62 @@ public class PathFindingController {
         na = new NodesAccess();
         ea = new EdgesAccess();
         initializeTable(na, ea);
+        PathFindStartDrop.setItems(data);
+        PathFindEndDrop.setItems(data);
+
+
         // AT THIS POINT:
         // Lookup contains all nodes, you can look them up with their keys
         // Each node contains a list of edges properly
 
-        for (int count = 0; count < na.countRecords(); count++) {
-            ArrayList<String> arr= na.getNodes(count);
-            LongNames.add(arr.get(6));
-        }
-        PathFindStartDrop.setItems(LongNames);
-        PathFindEndDrop.setItems(LongNames);
-        Location start = lookup.get("DHALL01202");
-        Location end = lookup.get("DHALL00102");
-        System.out.println("TEST 1:");
-
-        Path p = findPath(start, end);
-        System.out.println(p.toString());
-
-        Location startb = lookup.get("DHALL00102");
-        Location endb = lookup.get("DHALL01202");
-        System.out.println("TEST BACK:");
-
-        Path pb = findPath(startb, endb);
-        System.out.println(pb.toString());
-
-        Location start1 = lookup.get("DHALL05702");
-        Location end1 = lookup.get("DHALL00102");
-        System.out.println("TEST 2:");
-
-        Path p1 = findPath(start1, end1);
-        System.out.println(p1.toString());
-
-        Location start2 = lookup.get("DHALL01202");
-        Location end2 = lookup.get("DHALL02702");
-        System.out.println("TEST 3:");
-
-        Path p2 = findPath(start2, end2);
-        System.out.println(p2.toString());
-
-        Location start4 = lookup.get("DSTAI00202");
-        Location end4 = lookup.get("DHALL00602");
-        System.out.println("TEST 5:");
-
-        Path p4 = findPath(start4, end4);
-        System.out.println(p4.toString());
-
-        Location start5 = lookup.get("DHALL00602");
-        Location end5 = lookup.get("DHALL00602");
-        System.out.println("TEST SAME LOCAL:");
-
-        Path p5 = findPath(start5, end5);
-        System.out.println(p5.toString());
-
-        Location start6 = lookup.get("DHALL00102");
-        Location end6 = lookup.get("DSTAI00602");
-        System.out.println("TEST EDGE NODE:");
-
-        Path p6 = findPath(start6, end6);
-        System.out.println(p6.toString());
+//        Location start = lookup.get("DHALL03502");
+//        Location end = lookup.get("DHALL04502");
+//        System.out.println("TEST 1:");
+////
+//        Path p = findPath(start, end);
+//        System.out.println(p.toString());
+////
+//        Location startb = lookup.get("DHALL00102");
+//        Location endb = lookup.get("DHALL01202");
+//        System.out.println("TEST BACK:");
+//
+//        Path pb = findPath(startb, endb);
+//        System.out.println(pb.toString());
+//
+//        Location start1 = lookup.get("DHALL05702");
+//        Location end1 = lookup.get("DHALL00102");
+//        System.out.println("TEST 2:");
+//
+//        Path p1 = findPath(start1, end1);
+//        System.out.println(p1.toString());
+//
+//        Location start2 = lookup.get("DHALL01202");
+//        Location end2 = lookup.get("DHALL02702");
+//        System.out.println("TEST 3:");
+//
+//        Path p2 = findPath(start2, end2);
+//        System.out.println(p2.toString());
+//
+//        Location start4 = lookup.get("DSTAI00202");
+//        Location end4 = lookup.get("DHALL00602");
+//        System.out.println("TEST 5:");
+//
+//        Path p4 = findPath(start4, end4);
+//        System.out.println(p4.toString());
+//
+//        Location start5 = lookup.get("DHALL00602");
+//        Location end5 = lookup.get("DHALL00602");
+//        System.out.println("TEST SAME LOCAL:");
+//
+//        Path p5 = findPath(start5, end5);
+//        System.out.println(p5.toString());
+//
+//        Location start6 = lookup.get("DHALL00102");
+//        Location end6 = lookup.get("DSTAI00602");
+//        System.out.println("TEST EDGE NODE:");
+//
+//        Path p6 = findPath(start6, end6);
+//        System.out.println(p6.toString());
 
         //TODO: allow user to specify start and end location
 //        Location start = new Location("FIX", 5, 5, 5, "FIX", "FIX", "FIX", "FIX");
@@ -151,12 +149,31 @@ public class PathFindingController {
 
     @FXML
     private void submitPressed(){
-        ArrayList<String> arr1 = na.getNodes(60);
-        Location startNode = new Location(arr1.get(0),Integer.parseInt(arr1.get(1)),Integer.parseInt(arr1.get(2)),Integer.parseInt(arr1.get(3)),arr1.get(4),arr1.get(5),arr1.get(6),arr1.get(7));
+        Location startNode = lookup.get(PathFindStartDrop.getValue().getLocID());
+        Location endNode = lookup.get(PathFindEndDrop.getValue().getLocID());
 
-        ArrayList<String> arr2 = na.getNodes(70);
-        Location endNode = new Location(arr2.get(0),Integer.parseInt(arr2.get(1)),Integer.parseInt(arr2.get(2)),Integer.parseInt(arr2.get(3)),arr2.get(4),arr2.get(5),arr2.get(6),arr2.get(7));
+        System.out.println(startNode.getLocID() + "    " + endNode.getLocID());
 
+        Path path = findPath(startNode, endNode);
+        displayPath(path.getPath(), startNode, endNode);
+    }
+
+    //Nathan - function that will be called when user pressed ENTER button, will do pathfinding
+    public void generatePath(Location start, Location end){
+        PriorityQueue<Location> open = new PriorityQueue<Location>();
+        ArrayList<Location> closed = new ArrayList<Location>();
+//        displayPath(start.findPath(end, open, closed));
+    }
+
+    public void displayPath(ArrayList<Location> path, Location startNode, Location endNode){
+        path.add(startNode);
+
+        for (Circle c: circles) {
+            anchorPaneWindow.getChildren().remove(c);
+        }
+        for (Line l: lines) {
+            anchorPaneWindow.getChildren().remove(l);
+        }
 
         Circle StartCircle = new Circle();
 
@@ -165,7 +182,7 @@ public class PathFindingController {
         //Setting the properties of the circle
         StartCircle.setCenterX(27f + startNode.getXcoord()/5.0);
         StartCircle.setCenterY(213f + startNode.getYcoord()/5.0);
-        StartCircle.setRadius(6.0f);
+        StartCircle.setRadius(3.0f);
 
         Circle EndCircle = new Circle();
 
@@ -174,22 +191,23 @@ public class PathFindingController {
         //Setting the properties of the circle
         EndCircle.setCenterX(27f + endNode.getXcoord()/5.0);
         EndCircle.setCenterY(213f + endNode.getYcoord()/5.0);
-        EndCircle.setRadius(6.0f);
+        EndCircle.setRadius(3.0f);
 
-        System.out.println(startNode.getLocID() + "   " + endNode.getLocID());
+        circles.add(StartCircle);
+        circles.add(EndCircle);
 
-        //TODO Get node information from ID's, Then call Pallfinding on them.
-    }
+        for (int i = 0; i < path.size()-1; i++) {
+            Line line = new Line();
 
-    //Nathan - function that will be called when user pressed ENTER button, will do pathfinding
-    public void generatePath(Location start, Location end){
-        PriorityQueue<Location> open = new PriorityQueue<Location>();
-        ArrayList<Location> closed = new ArrayList<Location>();
-        displayPath(start.findPath(end, open, closed));
-    }
+            line.setStartX(27f + path.get(i).getXcoord()/5.0);
+            line.setStartY(213f + path.get(i).getYcoord()/5.0);
+            line.setEndX(27f + path.get(i+1).getXcoord()/5.0);
+            line.setEndY(213f + path.get(i+1).getYcoord()/5.0);
 
-    public void displayPath(ArrayList<Location> path){
+            anchorPaneWindow.getChildren().add(line);
 
+            lines.add(line);
+        }
     }
 
     ArrayList<Location> openList = new ArrayList<Location>();
