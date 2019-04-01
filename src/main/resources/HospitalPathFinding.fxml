@@ -25,7 +25,7 @@
             </ImageView>
          </items>
       </ToolBar>
-      <ToolBar layoutX="-1.0" layoutY="125.0" prefHeight="11.0" prefWidth="1280.0" style="-fx-background-color: #012D5A;" />
+      <ToolBar layoutX="-1.0" layoutY="125.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="10.0" prefWidth="1280.0" style="-fx-background-color: #012D5A;" />
       <RadioButton fx:id="PathFindElevatorPOI" layoutX="962.0" layoutY="429.0" mnemonicParsing="false" prefHeight="36.0" prefWidth="129.0" text="Elevator" textFill="WHITE">
          <font>
             <Font name="Times New Roman Bold" size="22.0" />
