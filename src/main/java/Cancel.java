@@ -61,14 +61,11 @@ public class Cancel {
     }
 
     //Nathan - make a new service request and store it in the database, and sends email
-    //TODO: Store request in Database
     @FXML
     private void yesClicked() throws IOException, InterruptedException{
         ServiceRequestAccess sra = new ServiceRequestAccess();
-
         ChildThread ct = new ChildThread(typeOfService, comment);
         ct.start();
-
         sra.makeRequest(comment, typeOfService);
         noClicked();
     }

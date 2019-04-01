@@ -1,6 +1,7 @@
 public class Edge {
 
     private Location startNode, endNode;
+    private String startID, endID;
     private String edgeID;
     private double length;
 
@@ -8,17 +9,30 @@ public class Edge {
         this.edgeID = edgeID;
     }
 
+    public String getStartID() {
+        return startID;
+    }
+
+    public String getEndID() {
+        return endID;
+    }
+
     //Two constructors- not sure if we really need ID, we can delete later
     public Edge(String edgeID, Location start, Location end) {
         this.edgeID = edgeID;
         this.startNode = start;
         this.endNode = end;
-        this.length = findDistance(start, end);
+        this.startID = start.getLocID();
+        this.endID = end.getLocID();
+
+       // this.length = findDistance(start, end);
     }
     public Edge(Location start, Location end) {
         this.startNode = start;
         this.endNode = end;
         this.edgeID = "";
+        this.startID = start.getLocID();
+        this.endID = end.getLocID();
        // this.length = findDistance(start, end);
     }
 
