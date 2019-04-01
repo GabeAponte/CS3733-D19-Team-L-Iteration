@@ -1,3 +1,4 @@
+import com.jfoenix.controls.JFXTextField;
 import javafx.fxml.FXML;
 
 import java.awt.*;
@@ -9,21 +10,21 @@ public class EditNodeController {
     private String tempNodeID; //for getting og id
 
     @FXML
-    private TextField nodeID;
+    private JFXTextField nodeID;
     @FXML
-    private TextField nodeXCoord;
+    private JFXTextField nodeXCoord;
     @FXML
-    private TextField nodeYCoord;
+    private JFXTextField nodeYCoord;
     @FXML
-    private TextField nodeFloor;
+    private JFXTextField nodeFloor;
     @FXML
-    private TextField nodeBuilding;
+    private JFXTextField nodeBuilding;
     @FXML
-    private TextField nodeType;
+    private JFXTextField nodeType;
     @FXML
-    private TextField nodeLongName;
+    private JFXTextField nodeLongName;
     @FXML
-    private TextField nodeShortName;
+    private JFXTextField nodeShortName;
 
 
     //end of getters and setters
