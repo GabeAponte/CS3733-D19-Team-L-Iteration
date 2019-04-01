@@ -11,7 +11,6 @@ import java.io.IOException;
 
 public class ServiceSubController {
 
-    private Stage theStage;
     private String typeOfService;
     private boolean signedIn;
 
@@ -53,7 +52,7 @@ public class ServiceSubController {
         ServiceRequestController controller = loader.<ServiceRequestController>getController();
         controller.init(signedIn);
 
-        theStage = (Stage) SubmitRequest.getScene().getWindow();
+        Stage theStage = (Stage) Back2.getScene().getWindow();
 
         Scene scene = new Scene(sceneMain);
         theStage.setScene(scene);
@@ -73,7 +72,7 @@ public class ServiceSubController {
         } else {
             controller.init(typeOfService, ServiceComments.getText(), signedIn);
         }
-        theStage = (Stage) SubmitRequest.getScene().getWindow();
+        Stage theStage = (Stage) SubmitRequest.getScene().getWindow();
 
         Scene scene = new Scene(sceneMain);
         theStage.setScene(scene);
