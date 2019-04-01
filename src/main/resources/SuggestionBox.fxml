@@ -18,14 +18,15 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="SuggestionBoxController">
     <children>
+        <VBox alignment="CENTER" layoutY="136.0" prefHeight="585.0" prefWidth="1280.0" style="-fx-background-color: #7fb1ff;" AnchorPane.bottomAnchor="-1.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="135.0" />
         <ImageView fitHeight="668.0" fitWidth="1282.0" layoutY="51.0" opacity="0.51" AnchorPane.bottomAnchor="1.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="-2.0" AnchorPane.topAnchor="51.0">
             <image>
                 <Image url="@SoftEng_UI_Mockup_Pics/Background.png" />
             </image>
         </ImageView>
       <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#012d5a" height="459.0" layoutY="196.0" stroke="BLACK" strokeType="INSIDE" width="880.0" AnchorPane.leftAnchor="200.0" AnchorPane.rightAnchor="200.0" AnchorPane.topAnchor="196.0" />
-      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#7fb1ff" height="94.0" layoutX="-220.0" stroke="BLACK" strokeType="INSIDE" width="865.0" AnchorPane.leftAnchor="207.0" AnchorPane.rightAnchor="208.0" AnchorPane.topAnchor="203.0" />
-          <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="143.0" prefWidth="842.0" text="  Give Us Feedback" AnchorPane.leftAnchor="205.0" AnchorPane.rightAnchor="205.0" AnchorPane.topAnchor="150.0">
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#7fb1ff" height="94.0" layoutX="-220.0" stroke="BLACK" strokeType="INSIDE" width="880.0" AnchorPane.leftAnchor="200.0" AnchorPane.rightAnchor="208.0" AnchorPane.topAnchor="195.0" />
+          <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="143.0" prefWidth="842.0" text="  Give Us Feedback" AnchorPane.leftAnchor="205.0" AnchorPane.rightAnchor="205.0" AnchorPane.topAnchor="140.0">
               <font>
                   <Font name="Times New Roman Bold" size="40.0" />
               </font>
@@ -33,65 +34,6 @@
                   <Insets bottom="10.0" top="75.0" />
               </padding>
           </Label>
-        <VBox alignment="CENTER" layoutY="159.0" prefHeight="562.0" prefWidth="1280.0" AnchorPane.bottomAnchor="-1.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="159.0">
-            <children>
-                <GridPane alignment="CENTER" hgap="30.0" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="562.0" prefWidth="891.0" VBox.vgrow="ALWAYS">
-                    <columnConstraints>
-                        <ColumnConstraints maxWidth="168.0" minWidth="0.0" prefWidth="0.0" />
-                        <ColumnConstraints hgrow="SOMETIMES" />
-                    </columnConstraints>
-                    <rowConstraints>
-                        <RowConstraints />
-                        <RowConstraints />
-                        <RowConstraints maxHeight="80.0" minHeight="10.0" prefHeight="40.0" vgrow="NEVER" />
-                  <RowConstraints maxHeight="80.0" minHeight="10.0" prefHeight="40.0" vgrow="SOMETIMES" />
-                  <RowConstraints maxHeight="90.0" minHeight="0.0" prefHeight="77.0" vgrow="SOMETIMES" />
-                  <RowConstraints maxHeight="90.0" minHeight="10.0" prefHeight="77.0" vgrow="SOMETIMES" />
-                  <RowConstraints />
-                  <RowConstraints />
-                  <RowConstraints />
-                  <RowConstraints />
-                  <RowConstraints />
-                  <RowConstraints maxHeight="59.0" minHeight="0.0" prefHeight="0.0" />
-                  <RowConstraints maxHeight="59.0" minHeight="10.0" prefHeight="30.0" />
-                  <RowConstraints maxHeight="59.0" minHeight="10.0" prefHeight="30.0" />
-                  <RowConstraints maxHeight="59.0" minHeight="10.0" prefHeight="30.0" />
-                  <RowConstraints maxHeight="60.0" minHeight="10.0" prefHeight="60.0" />
-                  <RowConstraints maxHeight="59.0" minHeight="0.0" prefHeight="0.0" />
-                  <RowConstraints maxHeight="59.0" minHeight="10.0" prefHeight="30.0" />
-                    </rowConstraints>
-                    <children>
-                  <TextArea fx:id="feedbackComments" minHeight="-Infinity" minWidth="-Infinity" prefHeight="195.0" prefWidth="740.0" promptText="Type suggestions here" GridPane.columnIndex="1" GridPane.rowIndex="4" GridPane.rowSpan="2">
-                     <GridPane.margin>
-                        <Insets bottom="10.0" left="100.0" right="125.0" top="40.0" />
-                     </GridPane.margin>
-                     <font>
-                        <Font name="Times New Roman" size="24.0" />
-                     </font>
-                  </TextArea>
-                  <JFXButton fx:id="submitFeedback" buttonType="RAISED" contentDisplay="CENTER" onAction="#submitPressed" prefHeight="47.0" prefWidth="131.0" ripplerFill="#f6bd38" style="-fx-background-color: white;" text="Submit" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="14" GridPane.valignment="CENTER">
-                     <font>
-                        <Font name="Times New Roman" size="25.0" />
-                     </font>
-                     <GridPane.margin>
-                        <Insets top="40.0" />
-                     </GridPane.margin>
-                  </JFXButton>
-                  <Label fx:id="error" alignment="CENTER" contentDisplay="CENTER" prefHeight="30.0" prefWidth="439.0" textFill="WHITE" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="13" GridPane.valignment="CENTER">
-                     <font>
-                        <Font name="Times New Roman" size="24.0" />
-                     </font>
-                  </Label>
-                    </children>
-                    <VBox.margin>
-                        <Insets />
-                    </VBox.margin>
-               <padding>
-                  <Insets top="10.0" />
-               </padding>
-                </GridPane>
-            </children>
-        </VBox>
         <ToolBar maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="125.0" prefWidth="1282.0" style="-fx-background-color: white;" AnchorPane.topAnchor="0.0">
             <items>
                 <ImageView fitHeight="91.0" fitWidth="395.0" pickOnBounds="true" preserveRatio="true">
@@ -110,6 +52,59 @@
             </HBox>
               </items>
           </ToolBar>
-          <ToolBar layoutY="124.0" maxHeight="153.0" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="10.0" prefWidth="1280.0" style="-fx-background-color: #092b60;" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="124.0" />
+          <ToolBar layoutX="-15.0" layoutY="131.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="10.0" prefWidth="1280.0" style="-fx-background-color: #092b60;" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="125.0" />
+          <GridPane alignment="CENTER" hgap="30.0" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="562.0" prefWidth="891.0" AnchorPane.leftAnchor="200.0" AnchorPane.rightAnchor="200.0" AnchorPane.topAnchor="145.0">
+              <columnConstraints>
+                  <ColumnConstraints maxWidth="168.0" minWidth="0.0" prefWidth="0.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" />
+              </columnConstraints>
+              <rowConstraints>
+                  <RowConstraints />
+                  <RowConstraints />
+                  <RowConstraints maxHeight="80.0" minHeight="10.0" prefHeight="40.0" vgrow="NEVER" />
+            <RowConstraints maxHeight="80.0" minHeight="10.0" prefHeight="40.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="90.0" minHeight="0.0" prefHeight="77.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="90.0" minHeight="10.0" prefHeight="77.0" vgrow="SOMETIMES" />
+            <RowConstraints />
+            <RowConstraints />
+            <RowConstraints />
+            <RowConstraints />
+            <RowConstraints />
+            <RowConstraints maxHeight="59.0" minHeight="0.0" prefHeight="0.0" />
+            <RowConstraints maxHeight="59.0" minHeight="10.0" prefHeight="30.0" />
+            <RowConstraints maxHeight="59.0" minHeight="10.0" prefHeight="30.0" />
+            <RowConstraints maxHeight="59.0" minHeight="10.0" prefHeight="30.0" />
+            <RowConstraints maxHeight="59.0" minHeight="10.0" prefHeight="30.0" />
+            <RowConstraints maxHeight="60.0" minHeight="10.0" prefHeight="60.0" />
+            <RowConstraints maxHeight="59.0" minHeight="0.0" prefHeight="0.0" />
+            <RowConstraints maxHeight="59.0" minHeight="10.0" prefHeight="30.0" />
+              </rowConstraints>
+              <children>
+            <TextArea fx:id="feedbackComments" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="197.0" prefWidth="740.0" promptText="Type suggestions here" GridPane.columnIndex="1" GridPane.rowIndex="4" GridPane.rowSpan="2">
+               <GridPane.margin>
+                  <Insets bottom="10.0" left="100.0" right="125.0" top="85.0" />
+               </GridPane.margin>
+               <font>
+                  <Font name="Times New Roman" size="24.0" />
+               </font>
+            </TextArea>
+            <JFXButton fx:id="submitFeedback" buttonType="RAISED" contentDisplay="CENTER" onAction="#submitPressed" prefHeight="47.0" prefWidth="131.0" ripplerFill="#f6bd38" style="-fx-background-color: white;" text="Submit" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="15" GridPane.valignment="CENTER">
+               <font>
+                  <Font name="Times New Roman" size="25.0" />
+               </font>
+               <GridPane.margin>
+                  <Insets top="40.0" />
+               </GridPane.margin>
+            </JFXButton>
+            <Label fx:id="error" alignment="CENTER" contentDisplay="CENTER" prefHeight="30.0" prefWidth="439.0" textFill="WHITE" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="14" GridPane.valignment="CENTER">
+               <font>
+                  <Font name="Times New Roman" size="24.0" />
+               </font>
+            </Label>
+              </children>
+         <padding>
+            <Insets top="10.0" />
+         </padding>
+          </GridPane>
     </children>
 </AnchorPane>
