@@ -234,6 +234,8 @@ public class Location implements Comparable<Location>{
 
     }
 
-
-
+    @Override
+    public String toString() {
+        return longName + " (" + locID +")";
+    }
 }
