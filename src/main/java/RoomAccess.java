@@ -16,8 +16,6 @@ public class RoomAccess extends DBAccess {
         }
     }
 
-
-
     /**ANDREW MADE THIS
      * returns the record fields for the given index in room
      * @param getNum
@@ -59,12 +57,8 @@ public class RoomAccess extends DBAccess {
      * @return
      */
     public ArrayList<String> getAvailRooms(String date, int startTime, int endTime){
-
-        String sql = "select roomID, name" +
-                "from room inner join reservation r on room.roomID = r.rID" +
-                "where rdate = ?" +
-                "and startTime not between ? and ?" +
-                "and endTime not between ? and ?;";
+        //TODO Should make this not ugly
+        String sql = "select roomID, name from room left outer join (select rID from reservation where rdate = ? and startTime between ? and ? and endTime between ? and ?) on roomID = rID where rID is null;";
         ArrayList<String> data = new ArrayList<String>();
         try (Connection conn = this.connect();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
@@ -77,12 +71,15 @@ public class RoomAccess extends DBAccess {
             while(rs.next()){
                 data.add(rs.getString("roomID"));
                 data.add(rs.getString("name"));
+                System.out.println(rs.getString("roomID"));
+                System.out.println("name");
             }
+
             return data;
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
-        return null;
+        return data;
 
     }
 

@@ -51,6 +51,7 @@
                 <Font name="Times New Roman Bold" size="40.0" />
             </font>
         </Label>
+        <ComboBox fx:id="avaliableRooms" layoutX="640.0" layoutY="474.0" prefWidth="300.0" />
         <JFXButton fx:id="requestRoom" buttonType="RAISED" layoutX="572.0" layoutY="569.0" onAction="#findRoom" ripplerFill="#f6bd38" style="-fx-background-color: WHITE;" text="Request">
             <font>
                 <Font name="Times New Roman" size="30.0" />
@@ -61,9 +62,9 @@
                 <Font name="Times New Roman" size="30.0" />
             </font>
         </Label>
-      <JFXDatePicker fx:id="datePicker" layoutX="810.0" layoutY="345.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="50.0" prefWidth="194.0" promptText=" Choose Date" style="-fx-background-color: white;" stylesheets="@size.css" />
-      <JFXTimePicker fx:id="startTime" layoutX="261.0" layoutY="346.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="50.0" prefWidth="199.0" promptText=" Start Time" style="-fx-background-color: white;" stylesheets="@size.css" />
-      <JFXTimePicker fx:id="endTime" layoutX="541.0" layoutY="346.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="50.0" prefWidth="199.0" promptText=" End Time" style="-fx-background-color: white;" stylesheets="@size.css" />
+      <JFXDatePicker fx:id="datePicker" layoutX="810.0" layoutY="345.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onAction="#fieldsEntered" prefHeight="50.0" prefWidth="194.0" promptText=" Choose Date" style="-fx-background-color: white;" stylesheets="@size.css" />
+      <JFXTimePicker fx:id="startTime" layoutX="261.0" layoutY="346.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onAction="#fieldsEntered" prefHeight="50.0" prefWidth="199.0" promptText=" Start Time" style="-fx-background-color: white;" stylesheets="@size.css" />
+      <JFXTimePicker fx:id="endTime" layoutX="541.0" layoutY="346.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onAction="#fieldsEntered" prefHeight="50.0" prefWidth="199.0" promptText=" End Time" style="-fx-background-color: white;" stylesheets="@size.css" />
       <Label fx:id="error" alignment="CENTER" contentDisplay="CENTER" layoutX="346.0" layoutY="417.0" prefHeight="45.0" prefWidth="409.0" textFill="RED" AnchorPane.leftAnchor="150.0" AnchorPane.rightAnchor="150.0">
          <font>
             <Font size="24.0" />

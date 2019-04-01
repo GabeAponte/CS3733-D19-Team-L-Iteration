@@ -1,6 +1,8 @@
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXDatePicker;
 import com.jfoenix.controls.JFXTimePicker;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -15,6 +17,7 @@ import javafx.stage.Stage;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.ArrayList;
 
 public class BookRoomController {
 
@@ -41,6 +44,8 @@ public class BookRoomController {
 
     @FXML
     private Button bookRoomBack;
+
+    final ObservableList<String> listOfRooms = FXCollections.observableArrayList();
 
     @FXML
     private void backPressed() throws IOException {
@@ -87,15 +92,47 @@ public class BookRoomController {
             error.setText("test");
         }
 
-        String startT = startTimeValue.toString();
-        String endT = endTimeValue.toString();
-        String date = roomDate.toString();
-        String reserveStart = date + " , T" + startT;
-        String reserveEnd = date + " , T" + endT;
+        int startTimeMil = startTime.getValue().getHour() * 100 + startTime.getValue().getMinute();
+        int endTimeMil = endTime.getValue().getHour() * 100 + endTime.getValue().getMinute();
+        String date = datePicker.getValue().toString();
         String roomID = "RoomTest";
         String employeeID = "Test";
         ReservationAccess roomReq = new ReservationAccess();
-        roomReq.makeReservation(roomID, employeeID, "date", 9, 9);
+        roomReq.makeReservation(roomID, employeeID, date, startTimeMil, endTimeMil);
+    }
+
+    @FXML
+    public void fieldsEntered(){
+        ArrayList<String> rooms = new ArrayList<>();
+        RoomAccess ra = new RoomAccess();
+        int startTimeMil = 0;
+        int endTimeMil = 0;
+        String date = "";
+
+        if(startTime.getValue() != null && endTime != null && datePicker.getValue() != null){
+            startTimeMil = startTime.getValue().getHour() * 100 + startTime.getValue().getMinute();
+            endTimeMil = endTime.getValue().getHour() * 100 + endTime.getValue().getMinute();
+            date = datePicker.getValue().toString();
+            System.out.println(startTimeMil);
+            System.out.println(endTimeMil);
+            System.out.println(date);
+
+            rooms = ra.getAvailRooms(date, 1300, 1400);
+
+            for(int i = 1; i < rooms.size(); i+=2){
+                System.out.println(rooms.get(i));
+                listOfRooms.add(rooms.get(i));
+            }
+
+            avaliableRooms.getSelectionModel().clearSelection();
+            avaliableRooms.setItems(listOfRooms);
+        }
+
+    }
+
+    @FXML
+    public void selectRoom() {
+
     }
 
 }
