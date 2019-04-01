@@ -21,8 +21,8 @@ public class EmployeeAccess extends DBAccess{
      * @param password
      * @return
      */
-    public boolean checkEmployee(String username, String password){
-        String sql = "select password from employee where username = ?";
+    public String checkEmployee(String username, String password){
+        String sql = "select employeeID, password from employee where username = ?";
         String check = "";
         try (Connection conn = this.connect();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
@@ -30,13 +30,13 @@ public class EmployeeAccess extends DBAccess{
             ResultSet rs = pstmt.executeQuery();
             while(rs.next()){
                 if(rs.getString("password").equals(password)){
-                    return true;
+                    return rs.getString("employeeID");
                 }
             }
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
-        return false;
+        return "";
     }
 
 
