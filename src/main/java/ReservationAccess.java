@@ -20,23 +20,25 @@ public class ReservationAccess extends DBAccess {
 
     /**ANDREW MADE THIS
      * creates a reservation with the given parameters
-     *
+     * @param rID
      * @param eID
      * @param startTime
      * @param endTime
+     * @param date
      */
-    public void makeReservation(String rID, String eID, String startTime, String endTime){
+    public void makeReservation(String rID, String eID, String date, int startTime, int endTime){
         String sql = "insert into reservation(" +
-                "rID, eID, startTime, endTime)" +
-                "values (?, ?, ?, ?)";
+                "rID, eID, startTime, endTime, rdate)" +
+                "values (?, ?, ?, ?, ?)";
 
 
         try (Connection conn = this.connect();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
             pstmt.setString(1, rID);
             pstmt.setString(2, eID);
-            pstmt.setString(3, startTime);
-            pstmt.setString(4, endTime);
+            pstmt.setInt(3, startTime);
+            pstmt.setInt(4, endTime);
+            pstmt.setString(5, date);
             pstmt.executeUpdate();
         } catch (SQLException e) {
             System.out.println(e.getMessage());
@@ -45,7 +47,7 @@ public class ReservationAccess extends DBAccess {
 
     public static void main(String[] args) {
         ReservationAccess ra = new ReservationAccess();
-        ra.makeReservation("1", "1", "1400", "1500");
+        //ra.makeReservation("1", "1", "2018-05-05T11:50:55", "2018-05-05T11:55:55");
     }
 
 }
