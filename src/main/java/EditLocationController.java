@@ -133,7 +133,24 @@ public class EditLocationController {
 
     @FXML
     private void modifyEdgePress() {
+        try {
+            //Load second scene
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("EditEdges.fxml"));
+            Parent roots = loader.load();
 
+            //Get controller of scene2
+            EditNodeController scene2Controller = loader.getController();
+
+            Scene scene = new Scene(roots);
+            scene2Controller.fillFields(this.focusNode);
+            thestage = (Stage) makeEditableNode.getScene().getWindow();
+            //Show scene 2 in new window
+            thestage.setScene(scene);
+
+        } catch (IOException ex) {
+            //noinspection ThrowablePrintedToSystemOut
+            System.err.println(ex);
+        }
     }
 
     @FXML
