@@ -6,6 +6,8 @@ import java.awt.*;
 public class EditNodeController {
     //grace
 
+    //need to add an array list to pass to editEdges
+
     private Location data;
     private String tempNodeID; //for getting og id
 
@@ -33,6 +35,7 @@ public class EditNodeController {
     public void fillFields(Location obj){
         this.data = obj;
         tempNodeID = data.getLocID();
+
         nodeID.setText(data.getLocID());
         nodeXCoord.setText(Integer.toString(data.getXcoord()));
         nodeYCoord.setText(Integer.toString(data.getYcoord()));
@@ -42,5 +45,7 @@ public class EditNodeController {
         nodeLongName.setText(data.getLongName());
         nodeShortName.setText(data.getShortName());
     }
+
+    //back/cancel button here
 
 }
