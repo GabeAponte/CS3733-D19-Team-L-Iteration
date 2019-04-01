@@ -46,6 +46,7 @@ public class BookRoomController {
     private Button bookRoomBack;
 
     final ObservableList<String> listOfRooms = FXCollections.observableArrayList();
+    ArrayList<String> rooms = new ArrayList<>();
 
     @FXML
     private void backPressed() throws IOException {
@@ -98,12 +99,15 @@ public class BookRoomController {
         String roomID = "RoomTest";
         String employeeID = "Test";
         ReservationAccess roomReq = new ReservationAccess();
+        for(int i = 1; i < rooms.size(); i+=2){
+            if(rooms.get(i).equals(avaliableRooms.getValue()))
+                roomID = rooms.get(i-1);
+        }
         roomReq.makeReservation(roomID, employeeID, date, startTimeMil, endTimeMil);
     }
 
     @FXML
     public void fieldsEntered(){
-        ArrayList<String> rooms = new ArrayList<>();
         RoomAccess ra = new RoomAccess();
         int startTimeMil = 0;
         int endTimeMil = 0;
@@ -131,9 +135,5 @@ public class BookRoomController {
 
     }
 
-    @FXML
-    public void selectRoom() {
-
-    }
 
 }
