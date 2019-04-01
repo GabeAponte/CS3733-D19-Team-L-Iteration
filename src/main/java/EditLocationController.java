@@ -58,7 +58,9 @@ public class EditLocationController {
     @SuppressWarnings("unchecked")
     @FXML
     private TableView<Location> nodeTable = new TableView();
+    @FXML
     private TableView<Edge> edgeTable = new TableView();
+
     private HashMap<String, Location> lookup = new HashMap<String, Location>();
     private final ObservableList<Location> nodeData = FXCollections.observableArrayList();
     private final ObservableList<Edge> edgeData = FXCollections.observableArrayList();
@@ -94,8 +96,8 @@ public class EditLocationController {
 
         //edge table setup
         edgeIDCol.setCellValueFactory(new PropertyValueFactory<Edge, String>("edgeID"));
-        startNodeCol.setCellValueFactory(new PropertyValueFactory<Edge, String>("startNode"));
-        endNodeCol.setCellValueFactory(new PropertyValueFactory<Edge, String>("endNode"));
+        startNodeCol.setCellValueFactory(new PropertyValueFactory<Edge, String>("startID"));
+        endNodeCol.setCellValueFactory(new PropertyValueFactory<Edge, String>("endID"));
         edgeTable.setOnMouseClicked(event -> {
             setNextEdge(edgeTable.getSelectionModel().getSelectedItem());});
         edgeTable.setItems(edgeData);
@@ -193,7 +195,8 @@ public class EditLocationController {
                         toAdd = e;
                     }
                     if (!(edgeData.contains(toAdd))){
-                        //System.out.println(j);
+                        toAdd.setEdgeID(toAdd.getStartID()+ "_" + toAdd.getEndID());
+                        System.out.println(j);
                         edgeData.add(toAdd);
                     }
                 }
