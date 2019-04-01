@@ -2,10 +2,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.ArrayList;
 
 // Refer to DJ or Andrew for questions or concerns with this class
@@ -126,6 +123,41 @@ public class EdgesAccess extends DBAccess
             pstmt.setString(2, node1);
             pstmt.setString(3, node2);
             pstmt.executeUpdate();
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    /** ANDREW MADE THIS
+     * Call this to update the database with the new nodes into an edge
+     *
+     * @param edgeID, the ID of the node you want to edit
+     * @param node1, the column of the table you want to edit
+     * @param node2, the data you want to put in
+     */
+    public void updateEdge(String edgeID, String node1, String node2) {
+        String sql = "update nodes set startNode = ?, set endNode = ? where edgeID= ?;";
+
+        try (Connection conn = this.connect();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            pstmt.setString(1, node1);
+            pstmt.setString(2, node2);
+            pstmt.executeUpdate();
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    /**ANDREW MADE THIS
+     * deletes the edge with the given edgeID
+     */
+    public void deleteEdge(String edgeID) {
+        String sql = "Delete from edges where edgeID = ?;";
+
+        try (Connection conn = this.connect();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            pstmt.setString(1, edgeID);
+            pstmt.executeUpdate(sql);
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }

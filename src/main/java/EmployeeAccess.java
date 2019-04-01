@@ -1,4 +1,5 @@
 import java.sql.*;
+import java.util.ArrayList;
 
 public class EmployeeAccess extends DBAccess{
     /**ANDREW MADE THIS
@@ -37,6 +38,33 @@ public class EmployeeAccess extends DBAccess{
             System.out.println(e.getMessage());
         }
         return false;
+    }
+
+    /**ANDREW MADE THIS
+     *  returns the fields of a particular employee in an arraylist
+     * @param username
+     * @return
+     */
+    public ArrayList<String> getNodeInformation(String username){
+        String sql = "SELECT * FROM employee where username = ?";
+        //noinspection Convert2Diamond
+        ArrayList<String> data = new ArrayList<String>();
+        try (Connection conn = this.connect();
+             PreparedStatement pstmt = conn.prepareStatement(sql)){
+            pstmt.setString(1, username);
+            ResultSet rs = pstmt.executeQuery();
+            while (rs.next()) {
+                data.add(rs.getString("employeeID"));
+                data.add(rs.getString("department"));
+                data.add(rs.getString("isAdmin"));
+            }
+
+
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+
+        return null;
     }
 
 
