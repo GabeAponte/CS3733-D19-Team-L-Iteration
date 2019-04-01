@@ -9,8 +9,6 @@ import javafx.stage.Stage;
 import java.io.IOException;
 
 public class Cancel {
-
-    private Stage theStage;
     private String typeOfService;
     private String comment;
     private boolean signedIn;
@@ -56,7 +54,7 @@ public class Cancel {
         } else {
             controller.init(typeOfService, comment, signedIn);
         }
-        theStage = (Stage) yes.getScene().getWindow();
+        Stage theStage = (Stage) yes.getScene().getWindow();
 
         Scene scene = new Scene(sceneMain);
         theStage.setScene(scene);
@@ -78,7 +76,7 @@ public class Cancel {
     @SuppressWarnings("Duplicates")
     @FXML
     private void noClicked() throws IOException {
-        theStage = (Stage) no.getScene().getWindow();
+        Stage theStage = (Stage) no.getScene().getWindow();
         AnchorPane root;
         if(signedIn){
             root = FXMLLoader.load(getClass().getResource("LoggedInHome.fxml"));
