@@ -41,17 +41,12 @@
             <Font name="Times New Roman Bold" size="22.0" />
          </font>
       </RadioButton>
-      <JFXButton fx:id="PathFindBack" buttonType="RAISED" layoutX="843.0" layoutY="19.0" onAction="#backPressed" prefHeight="88.0" prefWidth="154.0" ripplerFill="#f6bd38" text="Back">
+      <JFXButton fx:id="PathFindBack" buttonType="RAISED" layoutX="1100.0" layoutY="19.0" onAction="#backPressed" prefHeight="88.0" prefWidth="154.0" ripplerFill="#f6bd38" text="Back">
          <font>
             <Font name="Times New Roman" size="40.0" />
          </font>
       </JFXButton>
       <ComboBox fx:id="PathFindStartDrop" layoutX="867.0" layoutY="160.0" onAction="#locationsSelected" prefHeight="50.0" prefWidth="294.0" promptText="Select a Starting Location" stylesheets="@size.css" />
-      <JFXButton fx:id="PathFindLogOut" buttonType="RAISED" layoutX="1031.0" layoutY="14.0" prefHeight="98.0" prefWidth="211.0" ripplerFill="#f6bd38" text="Log Out">
-         <font>
-            <Font name="Times New Roman" size="40.0" />
-         </font>
-      </JFXButton>
       <ComboBox fx:id="PathFindEndDrop" layoutX="867.0" layoutY="229.0" onAction="#locationsSelected" prefHeight="50.0" prefWidth="294.0" promptText="Select a Ending Location" stylesheets="@size.css" />
       <ImageView fitHeight="464.0" fitWidth="685.0" layoutX="79.0" layoutY="189.0" pickOnBounds="true" preserveRatio="true">
          <image>
