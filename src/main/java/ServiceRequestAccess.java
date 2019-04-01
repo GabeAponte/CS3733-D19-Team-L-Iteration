@@ -83,19 +83,40 @@ public class ServiceRequestAccess extends DBAccess{
                     data.add(rs.getString("requestDepartment"));
                     if(rs.getString("assignedEmployee") != null){
                         data.add(rs.getString("assignedEmployee"));
+                        data.add("Fulfilled");
                     }
                     else{
                         data.add("none assigned");
+                        data.add("not Fulfilled");
                     }
-                    data.add(Boolean.toString(rs.getBoolean("fulfilled")));
                 }
                 count++;
             }
+            return data;
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
 
         return null;
+    }
+
+    /** ANDREW MADE THIS
+     * returns the number of records in serviceRequest
+     *
+     * @return int
+     */
+    public int countRecords() {
+        String sql = "select COUNT(*) from serviceRequest";
+        try (Connection conn = this.connect();
+             Statement stmt = conn.createStatement();
+             ResultSet rs = stmt.executeQuery(sql)) {
+
+            return rs.getInt(1);
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        return 0;
+
     }
 
     public static void main(String[] args) {

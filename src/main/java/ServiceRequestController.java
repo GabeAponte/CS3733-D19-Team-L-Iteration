@@ -10,8 +10,6 @@ import javafx.stage.Stage;
 import java.io.IOException;
 
 public class ServiceRequestController {
-
-    private Stage theStage;
     private boolean signedIn;
 
     @FXML
@@ -41,7 +39,7 @@ public class ServiceRequestController {
 
     @FXML
     protected void backPressed() throws IOException {
-        theStage = (Stage) Back.getScene().getWindow();
+        Stage theStage = (Stage) Back.getScene().getWindow();
         AnchorPane root;
         if(signedIn){
             root = FXMLLoader.load(getClass().getResource("LoggedInHome.fxml"));
@@ -83,7 +81,7 @@ public class ServiceRequestController {
         ServiceSubController controller = loader.<ServiceSubController>getController();
         controller.init(service, signedIn);
 
-        theStage = (Stage) SanitationServices.getScene().getWindow();
+        Stage theStage = (Stage) SanitationServices.getScene().getWindow();
 
         Scene scene = new Scene(sceneMain);
         theStage.setScene(scene);
