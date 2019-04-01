@@ -9,9 +9,7 @@
     -fx-font-size : 20 pt;
 }
 
-.jfx-text-field .prompt-text {
-    -fx-font-color : WHITE;
-}
-.jfx-text-field .text-field {
-    -fx-font-color : WHITE;
+.jfx-text-field {
+    -fx-prompt-text-fill: WHITE;
+    -fx-text-fill: WHITE;
 }
