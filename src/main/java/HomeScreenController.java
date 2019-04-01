@@ -9,6 +9,7 @@ import javafx.stage.Stage;
 import java.io.IOException;
 
 public class HomeScreenController {
+    TimeAndDate tad;
 
     @FXML
     Button HomeFindPath;
@@ -23,12 +24,14 @@ public class HomeScreenController {
     Button LogIn;
 
     public void initialize(){
-
+        tad = new TimeAndDate();
+        tad.start();
     }
 
     @FXML
     private void SwitchToPathfindScreen() throws IOException{
         boolean signedIn = false;
+        tad.end();
         FXMLLoader loader = new FXMLLoader(getClass().getResource("HospitalPathFinding.fxml"));
 
         Parent sceneMain = loader.load();
@@ -45,6 +48,7 @@ public class HomeScreenController {
     @FXML
     private void SwitchToSuggestionBox() {
         try {
+            tad.end();
             Stage thestage = (Stage) HomeFindPath.getScene().getWindow();
             AnchorPane root;
             root = FXMLLoader.load(getClass().getResource("SuggestionBox.fxml"));
@@ -58,6 +62,7 @@ public class HomeScreenController {
     @FXML
     private void SwitchToServiceScreen() throws IOException{
         boolean signedIn = false;
+        tad.end();
         FXMLLoader loader = new FXMLLoader(getClass().getResource("ServiceRequest.fxml"));
 
         Parent sceneMain = loader.load();
@@ -74,6 +79,7 @@ public class HomeScreenController {
     @FXML
     private void SwitchToLoginScreen(ActionEvent event){
         try {
+            tad.end();
             Stage thestage = (Stage) LogIn.getScene().getWindow();
             AnchorPane root;
             root = FXMLLoader.load(getClass().getResource("LogIn.fxml"));
