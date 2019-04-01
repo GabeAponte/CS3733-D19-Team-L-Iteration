@@ -1,54 +1,53 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.Button?>
+<?import com.jfoenix.controls.JFXButton?>
 <?import javafx.scene.control.ToolBar?>
+<?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #7fb1ff;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="HomeScreenController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" style="-fx-background-color: #7fb1ff;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="HomeScreenController">
    <children>
-      <ToolBar prefHeight="61.0" prefWidth="600.0" style="-fx-background-color: white;">
-         <items>
-            <ImageView fitHeight="49.0" fitWidth="261.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <!--Image url="@../../../../Desktop/SoftEng%20UI%20Mockup%20Pics/output-onlinepngtools%20(1).png" -->
-               </image>
-            </ImageView>
-         </items></ToolBar>
-      <ToolBar layoutY="55.0" prefHeight="12.0" prefWidth="600.0" style="-fx-background-color: #092b60;" />
-      <ImageView fitHeight="333.0" fitWidth="300.0" layoutX="303.0" layoutY="67.0" opacity="0.32" pickOnBounds="true" preserveRatio="true">
+      <ImageView fitHeight="668.0" fitWidth="1282.0" layoutY="51.0" opacity="0.51" AnchorPane.bottomAnchor="1.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="-2.0" AnchorPane.topAnchor="51.0">
          <image>
-            <!--Image url="@../../../../Desktop/SoftEng%20UI%20Mockup%20Pics/Screen%20Shot%202019-03-20%20at%2011.42.26%20PM.png" -->
+            <Image url="@SoftEng_UI_Mockup_Pics/Background.png" />
          </image>
       </ImageView>
-      <ImageView fitHeight="336.0" fitWidth="301.0" layoutY="67.0" opacity="0.64" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <!--Image url="@../../../../Desktop/SoftEng%20UI%20Mockup%20Pics/Screen%20Shot%202019-03-20%20at%2011.47.08%20PM.png" -->
-         </image>
-      </ImageView>
-      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#092b60" height="98.0" layoutX="52.0" layoutY="184.0" stroke="#092b60" strokeType="INSIDE" width="196.0" />
-      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#092b60" height="98.0" layoutX="354.0" layoutY="184.0" stroke="#092b60" strokeType="INSIDE" width="196.0" />
-      <Button fx:id="HomeSuggestions" layoutX="370.0" layoutY="8.0" mnemonicParsing="false" style="-fx-background-color: white;" text="Suggestions">
+      <ToolBar maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="125.0" prefWidth="1282.0" style="-fx-background-color: white;">
+            <items>
+               <ImageView fitHeight="91.0" fitWidth="395.0" pickOnBounds="true" preserveRatio="true">
+                  <image>
+                     <Image url="@BWHlogo.png" />
+                  </image>
+               </ImageView>
+            <HBox prefHeight="100.0" prefWidth="230.0" />
+            </items>
+      </ToolBar>
+      <ToolBar layoutY="125.0" prefHeight="9.0" prefWidth="1282.0" style="-fx-background-color: #092b60;" />
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#092b60" height="223.0" layoutX="119.0" layoutY="320.0" stroke="#092b60" strokeType="INSIDE" width="494.0" />
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#092b60" height="220.0" layoutX="675.0" layoutY="320.0" stroke="#092b60" strokeType="INSIDE" width="488.0" />
+      <JFXButton fx:id="HomeFindPath" buttonType="RAISED" layoutX="162.0" layoutY="350.0" onAction="#SwitchToPathfindScreen" prefHeight="165.0" prefWidth="409.0" ripplerFill="#f6bd37" style="-fx-background-color: white;" text="Find Path">
          <font>
-            <Font name="Times New Roman" size="22.0" />
+            <Font name="Times New Roman" size="48.0" />
          </font>
-      </Button>
-      <Button fx:id="HomeLogIn" layoutX="509.0" layoutY="8.0" mnemonicParsing="false" prefHeight="41.0" prefWidth="94.0" style="-fx-background-color: white;" text="Log In">
+      </JFXButton>
+      <JFXButton fx:id="HomeServiceRequest" buttonType="RAISED" layoutX="715.0" layoutY="350.0" onAction="#SwitchToServiceScreen" prefHeight="165.0" prefWidth="409.0" ripplerFill="#f6bd37" style="-fx-background-color: white;" text="Request Service">
          <font>
-            <Font name="Times New Roman" size="22.0" />
+            <Font name="Times New Roman" size="48.0" />
          </font>
-      </Button>
-      <Button fx:id="HomeFindPath" layoutX="69.0" layoutY="213.0" mnemonicParsing="false" onAction="#SwitchToPathfindScreen" prefHeight="43.0" prefWidth="163.0" text="FIND PATH">
+      </JFXButton>
+      <JFXButton fx:id="LogIn" alignment="CENTER" buttonType="RAISED" layoutX="1084.0" layoutY="8.0" onAction="#SwitchToLoginScreen" prefHeight="115.0" prefWidth="159.0" ripplerFill="#f6bd37" text="Log In">
          <font>
-            <Font name="Times Bold" size="15.0" />
+            <Font name="Times New Roman" size="36.0" />
          </font>
-      </Button>
-      <Button fx:id="HomeReqService" layoutX="370.0" layoutY="212.0" mnemonicParsing="false" prefHeight="43.0" prefWidth="163.0" text="REQUEST SERVICE">
+      </JFXButton>
+      <JFXButton fx:id="HomeSuggestions" alignment="CENTER" buttonType="RAISED" layoutX="778.0" layoutY="3.0" onAction="#SwitchToSuggestionBox" prefHeight="125.0" prefWidth="282.0" ripplerFill="#f6bd38" text="Suggestions">
          <font>
-            <Font name="Times Bold" size="15.0" />
+            <Font name="Times New Roman" size="36.0" />
          </font>
-      </Button>
+      </JFXButton>
    </children>
 </AnchorPane>

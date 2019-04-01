@@ -1,0 +1,10 @@
+.jfx-combo-box .prompt-text {
+    -fx-font-size: 15;
+}
+.jfx-time-picker .text-field {
+    -fx-font-size : 20 pt;
+}
+
+.jfx-date-picker .text-field {
+    -fx-font-size : 20 pt;
+}

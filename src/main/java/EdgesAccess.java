@@ -77,9 +77,9 @@ public class EdgesAccess extends DBAccess
 
         for(int i = 0; i < connectedNodes.size(); i++)
         {
-            System.out.println(connectedNodes.get(i));
+            //System.out.println(connectedNodes.get(i));
         }
-        return null;
+        return connectedNodes;
 
     }
 
@@ -107,6 +107,28 @@ public class EdgesAccess extends DBAccess
         pstmt.setString(2, data[1]);
         pstmt.setString(3, data[2]);
         return pstmt;
+    }
+
+    /**ANDREW MADE THIS
+     * adds an edge to the database from the two given nodeIDs
+     * @param node1
+     * @param node2
+     */
+    public void addEdge(String node1, String node2){
+        String sql = "insert into edges(" +
+                "edgeID, startNode, endNode)" +
+                "values (?, ?, ?)";
+
+
+        try (Connection conn = this.connect();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            pstmt.setString(1, node1 + "_" + node2);
+            pstmt.setString(2, node1);
+            pstmt.setString(3, node2);
+            pstmt.executeUpdate();
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
     }
 
 

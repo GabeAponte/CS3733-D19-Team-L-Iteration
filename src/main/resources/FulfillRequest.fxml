@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXTextField?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ToolBar?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" style="-fx-background-color: #7fb1ff;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="FulfillRequestController">
+    <children>
+        <ImageView fitHeight="668.0" fitWidth="1282.0" layoutY="51.0" opacity="0.51" AnchorPane.bottomAnchor="1.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="-2.0" AnchorPane.topAnchor="51.0">
+            <image>
+                <Image url="@SoftEng_UI_Mockup_Pics/Background.png" />
+            </image>
+        </ImageView>
+        <VBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <children>
+                <ToolBar maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="125.0" prefWidth="1282.0" style="-fx-background-color: white;" AnchorPane.topAnchor="0.0">
+                    <items>
+                        <ImageView fitHeight="91.0" fitWidth="395.0" pickOnBounds="true" preserveRatio="true">
+                            <image>
+                                <Image url="@BWHlogo.png" />
+                            </image>
+                        </ImageView>
+                        <HBox alignment="CENTER_RIGHT" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="115.0" prefWidth="826.0">
+                     <children>
+                        <JFXButton fx:id="back" buttonType="RAISED" onAction="#backPressed" prefHeight="100.0" prefWidth="168.0" ripplerFill="#f6bd38" text="Back">
+                           <font>
+                              <Font name="Times New Roman" size="40.0" />
+                           </font>
+                        </JFXButton>
+                     </children></HBox>
+                    </items>
+                </ToolBar>
+                <ToolBar maxHeight="10.0" prefHeight="40.0" prefWidth="200.0" style="-fx-background-color: #092b60;" />
+            </children>
+        </VBox>
+        <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#85aeeb" height="100.0" stroke="BLACK" strokeType="INSIDE" width="800.0" AnchorPane.leftAnchor="250.0" AnchorPane.topAnchor="225.0" />
+        <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#092b60" height="275.0" layoutX="50.0" layoutY="152.0" stroke="BLACK" strokeType="INSIDE" width="800.0" AnchorPane.leftAnchor="250.0" AnchorPane.topAnchor="325.0" />
+          <Label alignment="CENTER" contentDisplay="CENTER" layoutX="10.0" layoutY="137.0" maxWidth="1.7976931348623157E308" prefHeight="188.0" prefWidth="1280.0" text="Fulfill Request">
+              <font>
+                  <Font name="Times New Roman Bold" size="48.0" />
+              </font>
+              <padding>
+                  <Insets bottom="10.0" top="100.0" />
+              </padding>
+          </Label>
+      <Label alignment="CENTER" layoutX="439.0" layoutY="380.0" prefHeight="29.0" prefWidth="138.0" text="Assigned To:" textFill="WHITE">
+         <font>
+            <Font name="Times New Roman" size="25.0" />
+         </font>
+      </Label>
+      <JFXButton fx:id="fulfill" buttonType="RAISED" layoutX="565.0" layoutY="499.0" onAction="#SwitchToAdminServiceRequestTable" style="-fx-background-color: white;" text="Fulfill Request">
+         <font>
+            <Font size="20.0" />
+         </font>
+      </JFXButton>
+      <Label fx:id="errorLabel" alignment="CENTER" contentDisplay="CENTER" layoutX="382.0" layoutY="447.0" prefHeight="31.0" prefWidth="500.0" textAlignment="CENTER" textFill="WHITE">
+         <font>
+            <Font name="Times New Roman" size="28.0" />
+         </font>
+      </Label>
+      <JFXTextField fx:id="staffMember" layoutX="632.0" layoutY="373.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="44.0" prefWidth="278.0" promptText=" Staff Member" style="-fx-background-color: fff;">
+         <font>
+            <Font name="Times New Roman" size="24.0" />
+         </font>
+      </JFXTextField>
+    </children>
+</AnchorPane>
