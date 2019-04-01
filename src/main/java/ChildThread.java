@@ -13,6 +13,7 @@ class ChildThread extends Thread {
     }
 
     //Nathan - sends email with given type and comment
+    @SuppressWarnings("deprecation")
     @Override
     public void run() {
         // RECIPIENT EMAIL
@@ -60,13 +61,15 @@ class ChildThread extends Thread {
 
             // Send message
             Transport.send(message);
-            Thread.currentThread().join();
+            Thread.currentThread().stop();
+            //Thread.currentThread().join();
+
         } catch (MessagingException mex) {
             mex.printStackTrace();
             System.out.println("Failed to send: Messaging Exception");
-        } catch (InterruptedException ie){
+        } /*catch (InterruptedException ie){
             ie.printStackTrace();
             System.out.println("Failed to send: Interrupted Exception");
-        }
+        }*/
     }
 } 

@@ -77,4 +77,20 @@ public class LoggedInHomeController {
         theStage.setScene(scene);
     }
 
+    @FXML
+    private void SwitchToFullfillRequestScreen() throws IOException{
+        boolean signedIn = true;
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("ActiveServiceRequests.fxml"));
+
+        Parent sceneMain = loader.load();
+
+        ActiveServiceRequestsController controller = loader.<ActiveServiceRequestsController>getController();
+        controller.init(signedIn);
+
+        Stage theStage = (Stage) fufillServiceRequest.getScene().getWindow();
+
+        Scene scene = new Scene(sceneMain);
+        theStage.setScene(scene);
+    }
+
 }
