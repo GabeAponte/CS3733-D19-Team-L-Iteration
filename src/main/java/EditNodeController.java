@@ -46,4 +46,6 @@ public class EditNodeController {
         nodeShortName.setText(data.getShortName());
     }
 
+    //back/cancel button here
+
 }
