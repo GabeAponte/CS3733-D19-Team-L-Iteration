@@ -17,12 +17,13 @@ public class RoomAccess extends DBAccess {
     }
 
 
+
     /**ANDREW MADE THIS
      * returns the record fields for the given index in room
      * @param getNum
      * @return
      */
-    private ArrayList<String> getRooms(int getNum){
+    public ArrayList<String> getRooms(int getNum){
         String sql = "SELECT * FROM room";
         int count = 0;
         //noinspection Convert2Diamond
