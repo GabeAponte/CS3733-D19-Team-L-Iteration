@@ -1,6 +1,10 @@
 public class TimeAndDate extends Thread{
 
     private boolean exit;
+    public TimeAndDate(Runnable run){
+        exit = false;
+    }
+
     public TimeAndDate(){
         exit = false;
     }
