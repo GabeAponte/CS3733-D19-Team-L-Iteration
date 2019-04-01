@@ -24,8 +24,8 @@
                 <Image url="@SoftEng_UI_Mockup_Pics/Background.png" />
             </image>
         </ImageView>
-        <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#85aeeb" height="100.0" stroke="BLACK" strokeType="INSIDE" width="800.0" AnchorPane.leftAnchor="250.0" AnchorPane.topAnchor="225.0" />
-        <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#092b60" height="275.0" layoutX="50.0" layoutY="152.0" stroke="BLACK" strokeType="INSIDE" width="800.0" AnchorPane.leftAnchor="250.0" AnchorPane.topAnchor="325.0" />
+        <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#85aeeb" height="100.0" stroke="BLACK" strokeType="INSIDE" width="550.0" AnchorPane.leftAnchor="370.0" AnchorPane.topAnchor="225.0" />
+        <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#092b60" height="275.0" layoutX="50.0" layoutY="152.0" stroke="BLACK" strokeType="INSIDE" width="550.0" AnchorPane.leftAnchor="370.0" AnchorPane.topAnchor="325.0" />
         <VBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
             <children>
                 <ToolBar prefHeight="125.0" prefWidth="1280.0" style="-fx-background-color: white;">
