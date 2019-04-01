@@ -1,16 +1,26 @@
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 
 public class EditLocationController {
+
+    @FXML
+    Button downloadNode;
+
+    @FXML
+    Button downloadEdge;
 
     @FXML
     Button makeEditableNode;
@@ -160,7 +170,24 @@ public class EditLocationController {
 
     @FXML
     private void modifyNodePress() {
+        try {
+            //Load second scene
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("EditNode.fxml"));
+            Parent roots = loader.load();
 
+            //Get controller of scene2
+            EditNodeController scene2Controller = loader.getController();
+
+            Scene scene = new Scene(roots);
+            scene2Controller.fillFields(this.focusNode);
+            thestage = (Stage) makeEditableNode.getScene().getWindow();
+            //Show scene 2 in new window
+            thestage.setScene(scene);
+
+        } catch (IOException ex) {
+            //noinspection ThrowablePrintedToSystemOut
+            System.err.println(ex);
+        }
     }
 
     @FXML
@@ -196,7 +223,6 @@ public class EditLocationController {
                     }
                     if (!(edgeData.contains(toAdd))){
                         toAdd.setEdgeID(toAdd.getStartID()+ "_" + toAdd.getEndID());
-                        System.out.println(j);
                         edgeData.add(toAdd);
                     }
                 }
