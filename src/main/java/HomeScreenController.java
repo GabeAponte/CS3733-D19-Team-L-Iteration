@@ -22,6 +22,10 @@ public class HomeScreenController {
     @FXML
     Button LogIn;
 
+    public void initialize(){
+
+    }
+
     @FXML
     private void SwitchToPathfindScreen() throws IOException{
         boolean signedIn = false;
