@@ -23,6 +23,9 @@ public class HomeScreenController {
     Button HomeSuggestions;
 
     @FXML
+    Button LogIn;
+
+    @FXML
     private void SwitchToBookRoom(ActionEvent event) {
         try {
             Stage thestage = (Stage) BookRoom.getScene().getWindow();
@@ -65,6 +68,18 @@ public class HomeScreenController {
             Stage thestage = (Stage) HomeServiceRequest.getScene().getWindow();
             AnchorPane root;
             root = FXMLLoader.load(getClass().getResource("ServiceRequest.fxml"));
+            Scene scene = new Scene(root);
+            thestage.setScene(scene);
+        } catch (Exception e){
+        }
+    }
+
+    @FXML
+    private void SwitchToLoginScreen(ActionEvent event){
+        try {
+            Stage thestage = (Stage) LogIn.getScene().getWindow();
+            AnchorPane root;
+            root = FXMLLoader.load(getClass().getResource("LogIn.fxml"));
             Scene scene = new Scene(root);
             thestage.setScene(scene);
         } catch (Exception e){
