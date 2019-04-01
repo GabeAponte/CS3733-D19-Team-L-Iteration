@@ -52,7 +52,7 @@ public class HomeScreenController {
         Scene scene = new Scene(sceneMain);
         theStage.setScene(scene);
     }
-////
+
     @FXML
     private void SwitchToSuggestionBox(ActionEvent event) {
         try {
