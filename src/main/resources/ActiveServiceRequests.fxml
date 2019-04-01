@@ -25,25 +25,25 @@
         <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#85aeeb" height="100.0" stroke="BLACK" strokeType="INSIDE" width="800.0" AnchorPane.leftAnchor="250.0" AnchorPane.topAnchor="200.0" />
         <VBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
             <children>
-                <ToolBar prefHeight="125.0" prefWidth="1280.0" style="-fx-background-color: white;">
+                <ToolBar maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="125.0" prefWidth="1282.0" style="-fx-background-color: white;" AnchorPane.topAnchor="0.0">
                     <items>
-                        <ImageView fitHeight="80.0" fitWidth="450.0" pickOnBounds="true" preserveRatio="true">
+                        <ImageView fitHeight="91.0" fitWidth="395.0" pickOnBounds="true" preserveRatio="true">
                             <image>
                                 <Image url="@BWHlogo.png" />
                             </image>
                         </ImageView>
-                        <HBox alignment="CENTER_RIGHT" prefHeight="43.0" prefWidth="850.0">
+                        <HBox alignment="CENTER_RIGHT" prefHeight="115.0" prefWidth="842.0">
                             <children>
                                 <JFXButton fx:id="back" buttonType="RAISED" onAction="#backPressed" ripplerFill="#f6bd38" text="Back">
                                     <font>
-                                        <Font name="Times New Roman" size="48.0" />
+                                        <Font name="Times New Roman" size="40.0" />
                                     </font>
                                 </JFXButton>
                             </children></HBox>
                     </items>
                 </ToolBar>
                 <ToolBar maxHeight="10.0" prefHeight="40.0" prefWidth="200.0" style="-fx-background-color: #092b60;" />
-                <Label alignment="CENTER" contentDisplay="CENTER" maxWidth="1.7976931348623157E308" prefHeight="204.0" prefWidth="1280.0" text="Choose a Service Requests" VBox.vgrow="NEVER">
+                <Label alignment="CENTER" contentDisplay="CENTER" maxWidth="1.7976931348623157E308" prefHeight="42.0" prefWidth="1280.0" text="Choose a Service Requests" VBox.vgrow="NEVER">
                     <font>
                         <Font name="Times New Roman Bold" size="48.0" />
                     </font>

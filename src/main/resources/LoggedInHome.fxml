@@ -17,17 +17,17 @@
         </ImageView>
         <ToolBar maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="125.0" prefWidth="1282.0" style="-fx-background-color: white;" AnchorPane.topAnchor="0.0">
             <items>
-                <ImageView fitHeight="91.0" fitWidth="350.0" pickOnBounds="true" preserveRatio="true">
+                <ImageView fitHeight="91.0" fitWidth="395.0" pickOnBounds="true" preserveRatio="true">
                     <image>
                         <Image url="@BWHlogo.png" />
                     </image>
                 </ImageView>
             </items>
         </ToolBar>
-        <ToolBar layoutX="-8.0" layoutY="125.0" prefHeight="11.0" prefWidth="1289.0" style="-fx-background-color: #092b60;" />
+        <ToolBar layoutX="-8.0" layoutY="125.0" prefHeight="10.0" prefWidth="1289.0" style="-fx-background-color: #092b60;" />
         <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#092b60" height="205.0" layoutX="49.0" layoutY="445.0" stroke="#092b60" strokeType="INSIDE" width="350.0" />
       <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#092b60" height="131.0" layoutX="575.0" layoutY="195.0" stroke="#092b60" strokeType="INSIDE" width="583.0" />
-      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#092b60" height="591.0" layoutX="464.0" layoutY="134.0" stroke="#092b60" strokeType="INSIDE" width="12.0" />
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#092b60" height="591.0" layoutX="486.0" layoutY="130.0" stroke="#092b60" strokeType="INSIDE" width="10.0" />
       <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#092b60" height="205.0" layoutX="49.0" layoutY="206.0" stroke="#092b60" strokeType="INSIDE" width="350.0" />
       <JFXButton fx:id="findPath" buttonType="RAISED" layoutX="74.0" layoutY="234.0" onAction="#SwitchToPathfindScreen" prefHeight="150.0" prefWidth="300.0" style="-fx-background-color: fff;" text="Find Path">
          <font>
@@ -56,7 +56,7 @@
             <Font name="Times New Roman" size="36.0" />
          </font>
       </JFXButton>
-      <JFXButton fx:id="logOut" buttonType="RAISED" layoutX="1088.0" layoutY="4.0" onAction="#logOut" prefHeight="118.0" prefWidth="192.0" text="Log Out">
+      <JFXButton fx:id="logOut" buttonType="RAISED" layoutX="1044.0" layoutY="4.0" onAction="#logOut" prefHeight="118.0" prefWidth="192.0" text="Log Out">
          <font>
             <Font name="Times New Roman" size="40.0" />
          </font>
