@@ -48,4 +48,5 @@ public class SuggestionBoxController {
             feedbackComments.setText("");
         }
     }
+
 }
