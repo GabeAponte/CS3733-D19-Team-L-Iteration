@@ -45,12 +45,10 @@ public class BookRoomController {
     private void backPressed() throws IOException {
         thestage = (Stage) bookRoomBack.getScene().getWindow();
         AnchorPane root;
-        root = FXMLLoader.load(getClass().getResource("HospitalHome.fxml"));
+        root = FXMLLoader.load(getClass().getResource("LoggedInHome.fxml"));
         Scene scene = new Scene(root);
         thestage.setScene(scene);
     }
-
-    //LocalTime startTimeValue = null;
 
     @FXML
     private void findRoom(ActionEvent event) {
@@ -79,11 +77,11 @@ public class BookRoomController {
         else if (endTimeValue == null) {
             error.setText("Please select an end time");
 
-        }else if (startTimeValue == endTimeValue) {
+        }else if (startTimeValue.equals(endTimeValue)) {
             error.setText("Times cannot be the same");
 
         } else {
-            error.setText("test");
+            //TODO: find available rooms based on values
         }
     }
 
