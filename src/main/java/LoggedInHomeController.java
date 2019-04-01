@@ -9,9 +9,6 @@ import javafx.stage.Stage;
 import java.io.IOException;
 
 public class LoggedInHomeController {
-
-    private Stage thestage;
-
     @FXML
     private Button fufillServiceRequest;
 
@@ -32,7 +29,7 @@ public class LoggedInHomeController {
 
     @FXML
     private void logOut() throws IOException {
-        thestage = (Stage) logOut.getScene().getWindow();
+        Stage thestage = (Stage) logOut.getScene().getWindow();
         AnchorPane root;
         root = FXMLLoader.load(getClass().getResource("HospitalHome.fxml"));
         Scene scene = new Scene(root);
@@ -41,7 +38,7 @@ public class LoggedInHomeController {
 
     @FXML
     private void bookRoom() throws IOException {
-        thestage = (Stage) bookRoom.getScene().getWindow();
+        Stage thestage = (Stage) bookRoom.getScene().getWindow();
         AnchorPane root;
         root = FXMLLoader.load(getClass().getResource("BookRoom.fxml"));
         Scene scene = new Scene(root);
