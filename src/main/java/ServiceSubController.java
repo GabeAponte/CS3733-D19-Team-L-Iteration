@@ -46,7 +46,7 @@ public class ServiceSubController {
     //Nathan - changes screen to service sub screen, param "service" determines label on sub screen
     @FXML
     private void backPressed() throws IOException{
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("ServiceRequestController.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("ServiceRequest.fxml"));
 
         Parent sceneMain = loader.load();
 
