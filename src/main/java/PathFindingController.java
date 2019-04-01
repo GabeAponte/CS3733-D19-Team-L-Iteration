@@ -17,6 +17,7 @@ import java.util.PriorityQueue;
 @SuppressWarnings("Duplicates")
 public class PathFindingController {
 
+
     private boolean signedIn;
 
     @FXML
