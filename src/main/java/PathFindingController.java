@@ -140,14 +140,17 @@ public class PathFindingController {
 //
 //        Path p6 = findPath(start6, end6);
 //        System.out.println(p6.toString());
-
-        //TODO: allow user to specify start and end location
-//        Location start = new Location("FIX", 5, 5, 5, "FIX", "FIX", "FIX", "FIX");
-//        Location end = new Location("FIX", 5, 5, 5, "FIX", "FIX", "FIX", "FIX");
-        //generatePath(start, end);
-
     }
 
+    @FXML
+    private void locationsSelected(){
+        if(PathFindStartDrop.getValue() != null && PathFindEndDrop.getValue() != null){
+            PathFindSubmit.setDisable(false);
+        }
+        else{
+            PathFindSubmit.setDisable(true);
+        }
+    }
 
     @FXML
     private void submitPressed(){
@@ -159,13 +162,6 @@ public class PathFindingController {
         Path path = findPath(startNode, endNode);
         displayPath(path.getPath(), startNode, endNode);
     }
-
-//    //Nathan - function that will be called when user pressed ENTER button, will do pathfinding
-//    public void generatePath(Location start, Location end){
-//        PriorityQueue<Location> open = new PriorityQueue<Location>();
-//        ArrayList<Location> closed = new ArrayList<Location>();
-////        displayPath(start.findPath(end, open, closed));
-//    }
 
     public void displayPath(ArrayList<Location> path, Location startNode, Location endNode){
         path.add(startNode);
@@ -211,10 +207,6 @@ public class PathFindingController {
 
             lines.add(line);
         }
-
-//        HospitalMap.setVisible(false);
-        System.out.println(anchorPaneWindow.getChildren());
-        System.out.println(StartCircle.getCenterX());
     }
 
     ArrayList<Location> openList = new ArrayList<Location>();
