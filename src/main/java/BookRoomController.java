@@ -66,31 +66,38 @@ public class BookRoomController {
         LocalDate roomDate = datePicker.getValue();
 
         if (startTimeValue == null && endTimeValue == null && roomDate == null) {
-            error.setText("Please select start and end times and a date");
+            error.setText("Please select start and end times and a date.");
+        }
+
+        else if (roomDate == null) {
+            error.setText("Please select a date.");
         }
 
         else if (startTimeValue == null && endTimeValue == null) {
-            error.setText("Please select start and end times");
+            error.setText("Please select start and end times.");
         }
 
         else if (startTimeValue == null && roomDate == null) {
-            error.setText("Please select a start time and a date");
+            error.setText("Please select a start time and a date.");
         }
 
         else if (endTimeValue == null && roomDate == null) {
-            error.setText("Please select an end time and a date");}
+            error.setText("Please select an end time and a date.");}
 
         else if (startTimeValue == null) {
-            error.setText("Please select a start time");
+            error.setText("Please select a start time.");
         }
         else if (endTimeValue == null) {
-            error.setText("Please select an end time");
+            error.setText("Please select an end time.");
 
         }else if (startTimeValue.equals(endTimeValue)) {
-            error.setText("Times cannot be the same");
+            error.setText("Times cannot be the same.");
 
-        } else {
-            error.setText("test");
+        }else if (startTimeValue.compareTo(endTimeValue) > 0) {
+            error.setText("Start time cannot be ahead of end time.");
+        }
+        else {
+            error.setText("Submitted.");
         }
 
         int startTimeMil = startTime.getValue().getHour() * 100 + startTime.getValue().getMinute();
