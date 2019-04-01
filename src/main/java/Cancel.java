@@ -1,27 +1,16 @@
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.control.TextArea;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
-
 import java.io.IOException;
-import java.util.*;
-//TODO: Uncomment the following import statements
-/*
-import javax.mail.*;
-import javax.mail.internet.*;
-import javax.activation.*;
-*/
 
 public class Cancel {
 
-    Stage thestage;
+    private Stage theStage;
     private String typeOfService;
     private String comment;
 
@@ -38,13 +27,13 @@ public class Cancel {
     public Label typeLabel;
 
     //Nathan - stores information passed from another controller
-    public void init(String service){
+    void init(String service){
         typeOfService = service;
-        comment = "";
+        comment = "No comment added";
     }
 
     //Nathan - stores information passed from another controller
-    public void init(String service, String description){
+    void init(String service, String description){
         typeOfService = service;
         comment = description;
     }
@@ -59,83 +48,37 @@ public class Cancel {
 
         ServiceSubController controller = loader.<ServiceSubController>getController();
 
-        if(comment == null || comment == ""){
+        if(comment == null || comment.equals("No comment added")){
             controller.init(typeOfService);
         } else {
             controller.init(typeOfService, comment);
         }
-        thestage = (Stage) yes.getScene().getWindow();
+        theStage = (Stage) yes.getScene().getWindow();
 
         Scene scene = new Scene(sceneMain);
-        thestage.setScene(scene);
+        theStage.setScene(scene);
     }
 
     //Nathan - make a new service request and store it in the database, and sends email
     //TODO: Store request in Database
     @FXML
-    private void yesClicked() throws IOException{
-        //TODO: Uncomment next line
-        /*
-        // RECIPIENT EMAIL
-        // Note: while you DO need sender username and password you do NOT need recipients (obviously)
-        String to = "nwalzer007@gmail.com";
+    private void yesClicked() throws IOException, InterruptedException{
+        //IF THERE ARE ISSUES WITH THE EMAIL COMMENT THE NEXT TWO LINES AS WELL AS IMPORT STATEMENTS AND run() IN ChildThread.java
 
-        // SENDER EMAIL
-        String from = "lavenderloraxcs3733@gmail.com";
-
-        // SEND EMAIL USING GMAIL SERVERS
-        String host = "smtp.gmail.com";
-
-        // Get system properties
-        Properties properties = System.getProperties();
-
-        // SETUP : DO NOT TOUCH
-        properties.setProperty("mail.smtp.host", host);
-        properties.put("mail.smtp.socketFactory.port", "465"); //must be included, default 25
-        properties.put("mail.smtp.socketFactory.class",
-                "javax.net.ssl.SSLSocketFactory");
-        properties.put("mail.smtp.auth", "true"); //requires username and password (needed)
-        properties.put("mail.smtp.port", "465"); //must be included, default 25
-
-        // something something internet session who cares
-        Session session = Session.getDefaultInstance(properties,
-                new javax.mail.Authenticator() {
-                    protected PasswordAuthentication getPasswordAuthentication() {
-                        //PUT SENDER USERNAME AND PASSWORD HERE
-                        return new PasswordAuthentication("lavenderloraxcs3733","LavenderLorax2019");
-                    }
-                });
-
-        try {
-            // DONT TOUCH THESE LINES
-            MimeMessage message = new MimeMessage(session);
-            message.setFrom(new InternetAddress(from));
-            message.addRecipient(Message.RecipientType.TO, new InternetAddress(to));
-
-
-            // THIS STRING IS THE SUBJECT
-            message.setSubject("New " + typeOfService + " Service Request");
-
-            // THIS STRING IS THE BODY OF THE EMAIL
-            message.setText(comment);
-
-            // Send message
-            Transport.send(message);
-        } catch (MessagingException mex) {
-            mex.printStackTrace();
-        }
-        */
-        //TODO: Uncomment previous line
+        ChildThread ct = new ChildThread(typeOfService, comment);
+        ct.start();
+        //*/
         noClicked();
     }
 
     //Nathan - return the user to the home screen
+    @SuppressWarnings("Duplicates")
     @FXML
     private void noClicked() throws IOException {
-        thestage = (Stage) no.getScene().getWindow();
+        theStage = (Stage) no.getScene().getWindow();
         AnchorPane root;
         root = FXMLLoader.load(getClass().getResource("HospitalHome.fxml"));
         Scene scene = new Scene(root);
-        thestage.setScene(scene);
+        theStage.setScene(scene);
     }
 }

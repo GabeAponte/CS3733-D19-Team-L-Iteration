@@ -67,7 +67,7 @@
                         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                     </rowConstraints>
                     <children>
-                  <JFXTextField maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="44.0" prefWidth="295.0" promptText="Username" style="-fx-background-color: fff;" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+                  <JFXTextField fx:id="username" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onKeyReleased="#enableLogin" prefHeight="44.0" prefWidth="295.0" promptText="Username" style="-fx-background-color: fff;" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
                      <font>
                         <Font name="Times New Roman" size="24.0" />
                      </font>
@@ -75,7 +75,7 @@
                         <Insets />
                      </GridPane.margin>
                   </JFXTextField>
-                  <JFXButton fx:id="login" buttonType="RAISED" style="-fx-background-color: fff;" text="Log In" GridPane.halignment="CENTER" GridPane.rowIndex="2">
+                  <JFXButton fx:id="login" buttonType="RAISED" disable="true" onAction="#LogIn" style="-fx-background-color: fff;" text="Log In" GridPane.halignment="CENTER" GridPane.rowIndex="2">
                      <font>
                         <Font name="Times New Roman" size="24.0" />
                      </font>
@@ -83,7 +83,7 @@
                         <Insets />
                      </GridPane.margin>
                   </JFXButton>
-                  <JFXPasswordField maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="44.0" prefWidth="295.0" promptText="Password" style="-fx-background-color: fff;" GridPane.halignment="CENTER" GridPane.rowIndex="1">
+                  <JFXPasswordField fx:id="password" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onKeyReleased="#enableLogin" prefHeight="44.0" prefWidth="295.0" promptText="Password" style="-fx-background-color: fff;" GridPane.halignment="CENTER" GridPane.rowIndex="1">
                      <font>
                         <Font name="Times New Roman" size="24.0" />
                      </font>
@@ -96,6 +96,14 @@
                   <Insets left="100.0" right="100.0" />
                </VBox.margin>
                 </GridPane>
+            <Label fx:id="errorLabel" alignment="CENTER" contentDisplay="CENTER" prefHeight="31.0" prefWidth="500.0" textAlignment="CENTER" textFill="WHITE">
+               <VBox.margin>
+                  <Insets bottom="120.0" left="400.0" />
+               </VBox.margin>
+               <font>
+                  <Font name="Times New Roman" size="28.0" />
+               </font>
+            </Label>
             </children>
         </VBox>
     </children>
