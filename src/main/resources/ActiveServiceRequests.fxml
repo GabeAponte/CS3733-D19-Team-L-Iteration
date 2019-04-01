@@ -56,11 +56,14 @@
                 </Label>
             </children>
         </VBox>
-        <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" AnchorPane.bottomAnchor="72.0" AnchorPane.leftAnchor="200.0" AnchorPane.rightAnchor="200.0" AnchorPane.topAnchor="300.0">
+        <HBox alignment="CENTER" prefHeight="348.0" prefWidth="905.0" AnchorPane.bottomAnchor="72.0" AnchorPane.leftAnchor="200.0" AnchorPane.rightAnchor="175.0" AnchorPane.topAnchor="300.0">
             <children>
-                <TableView fx:id="activeRequests" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="323.0" prefWidth="507.0">
+                <TableView fx:id="activeRequests" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="323.0" prefWidth="753.0" HBox.hgrow="NEVER">
                     <columns>
-                        <TableColumn prefWidth="506.0" text="Active Requests" />
+                        <TableColumn fx:id="requestDepartment" maxWidth="150.0" minWidth="-Infinity" prefWidth="506.0" text="Department" />
+                  <TableColumn fx:id="comment" maxWidth="350.0" prefWidth="506.0" text="Comments" />
+                  <TableColumn fx:id="assignedEmployee" maxWidth="170.0" prefWidth="506.0" text="Assigned" />
+                  <TableColumn fx:id="fullfilled" maxWidth="82.0" prefWidth="506.0" text="Fullfilled?" />
                     </columns>
                 </TableView>
             </children>

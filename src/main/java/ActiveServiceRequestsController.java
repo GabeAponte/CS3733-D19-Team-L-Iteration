@@ -60,6 +60,7 @@ public class ActiveServiceRequestsController {
 
         int count;
         count  = 0;
+        System.out.println(sr.countRecords());
         while(count < sr.countRecords()){
             ArrayList<String> arr= sr.getRequests(count);
             ServiceRequestTable testx = new ServiceRequestTable(arr.get(0), arr.get(1),arr.get(2), arr.get(3), arr.get(4));
@@ -73,7 +74,7 @@ public class ActiveServiceRequestsController {
         assignedEmployee.setCellValueFactory(new PropertyValueFactory<ServiceRequestTable, String>("assignedEmployee"));
         fullfilled.setCellValueFactory(new PropertyValueFactory<ServiceRequestTable, String>("fullfilled"));
         //noinspection CodeBlock2Expr
-        //activeRequests.setItems(data);
+        activeRequests.setItems(data);
     }
 
 }
