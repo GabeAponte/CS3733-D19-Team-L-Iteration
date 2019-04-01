@@ -23,9 +23,9 @@ public class EditEdgesController {
         /*thestage = (Stage) EditEdgeBack.getScene().getWindow();
         AnchorPane root;
         if(--) {
-            root = FXMLLoader.load(getClass().getResource("LoggedInHome.fxml"));
+            root = FXMLLoader.load(getClass().getResource("EditLocation.fxml"));
         } else {
-            root = FXMLLoader.load(getClass().getResource("HospitalHome.fxml"));
+            root = FXMLLoader.load(getClass().getResource("EditNode.fxml"));
         }
         Scene scene = new Scene(root);
         thestage.setScene(scene);*/
