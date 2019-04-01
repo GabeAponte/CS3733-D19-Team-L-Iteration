@@ -79,12 +79,22 @@ public class BookRoomController {
         else if (endTimeValue == null) {
             error.setText("Please select an end time");
 
-        }else if (startTimeValue == endTimeValue) {
+        }else if (startTimeValue.equals(endTimeValue)) {
             error.setText("Times cannot be the same");
 
         } else {
             error.setText("test");
         }
+
+        String startT = startTimeValue.toString();
+        String endT = endTimeValue.toString();
+        String date = roomDate.toString();
+        String reserveStart = date + " , T" + startT;
+        String reserveEnd = date + " , T" + endT;
+        String roomID = "RoomTest";
+        String employeeID = "Test";
+        ReservationAccess roomReq = new ReservationAccess();
+        roomReq.makeReservation(roomID, employeeID, reserveStart, reserveEnd);
     }
 
 }
