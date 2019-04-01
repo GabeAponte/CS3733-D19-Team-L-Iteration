@@ -7,6 +7,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.MouseButton;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
@@ -77,14 +78,24 @@ public class ActiveServiceRequestsController {
         activeRequests.setItems(data);
     }
 
+    //TODO: Add database functionality to populate service request table and select one to go to fulfill screen
+    @FXML
+    private void SwitchToFulfillRequestScreen() throws IOException {
+
+            activeRequests.setOnMouseClicked(event -> {
+                if(event.getButton().equals(MouseButton.PRIMARY) && event.getClickCount() == 2) {
+
+                Stage thestage = (Stage) activeRequests.getScene().getWindow();
+                AnchorPane root = null;
+                try {
+                    root = FXMLLoader.load(getClass().getResource("FulfillRequest.fxml"));
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                Scene scene = new Scene(root);
+                thestage.setScene(scene);
+            }
+        });
+    }
 }
-//TODO: Add database functionality to populate service request table and select one to go to fulfill screen
-       /* @FXML
-        private void SwitchToFulfillRequestScreen() throws IOException{
-            Stage thestage = (Stage) placeholder.getScene().getWindow();
-            AnchorPane root;
-            root = FXMLLoader.load(getClass().getResource("LoggedInHome.fxml"));
-            Scene scene = new Scene(root);
-            thestage.setScene(scene);
-        }
-    } */
+

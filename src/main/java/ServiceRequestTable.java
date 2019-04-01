@@ -1,4 +1,4 @@
-class ServiceRequestTable{
+public class ServiceRequestTable{
     String requestID;
     String requestDepartment;
     String assignedEmployee;
@@ -6,7 +6,7 @@ class ServiceRequestTable{
     String comment;
 
 
-    public ServiceRequestTable(String requestID, String requestDepartment, String assignedEmployee, String fulfullied, String comment) {
+    ServiceRequestTable(String requestID, String comment, String requestDepartment, String assignedEmployee, String fulfullied) {
         this.requestID = requestID;
         this.requestDepartment = requestDepartment;
         this.assignedEmployee = assignedEmployee;
