@@ -60,7 +60,7 @@ public class LogInController {
         //TODO: Query database
 
         EmployeeAccess ea = new EmployeeAccess();
-        //validLogin = ea.checkEmployee(uname, pass);
+        validLogin = ea.checkEmployee(uname, pass);
         if(validLogin){
             SwitchToSignedIn();
         } else {
