@@ -46,7 +46,7 @@
                     </items>
                 </ToolBar>
                 <ToolBar maxHeight="10.0" prefHeight="40.0" prefWidth="200.0" style="-fx-background-color: #092b60;" />
-                <Label alignment="CENTER" contentDisplay="CENTER" maxWidth="1.7976931348623157E308" prefHeight="188.0" prefWidth="1274.0" text="LOG IN">
+                <Label alignment="CENTER" contentDisplay="CENTER" maxWidth="1.7976931348623157E308" prefHeight="188.0" prefWidth="1274.0" text="Log In">
                     <font>
                         <Font name="Times New Roman Bold" size="48.0" />
                     </font>

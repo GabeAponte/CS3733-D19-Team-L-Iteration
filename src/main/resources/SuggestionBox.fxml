@@ -25,7 +25,7 @@
         </ImageView>
       <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#012d5a" height="459.0" layoutY="196.0" stroke="BLACK" strokeType="INSIDE" width="880.0" AnchorPane.leftAnchor="200.0" AnchorPane.rightAnchor="200.0" AnchorPane.topAnchor="196.0" />
       <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#7fb1ff" height="94.0" layoutX="-220.0" stroke="BLACK" strokeType="INSIDE" width="865.0" AnchorPane.leftAnchor="207.0" AnchorPane.rightAnchor="208.0" AnchorPane.topAnchor="203.0" />
-          <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="143.0" prefWidth="842.0" text="  GIVE US FEEDBACK" AnchorPane.leftAnchor="205.0" AnchorPane.rightAnchor="205.0" AnchorPane.topAnchor="150.0">
+          <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="143.0" prefWidth="842.0" text="  Give Us Feedback" AnchorPane.leftAnchor="205.0" AnchorPane.rightAnchor="205.0" AnchorPane.topAnchor="150.0">
               <font>
                   <Font name="Times New Roman Bold" size="40.0" />
               </font>
