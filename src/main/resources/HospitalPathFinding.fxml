@@ -1,16 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.paint.*?>
-<?import com.jfoenix.validation.*?>
-<?import com.jfoenix.controls.*?>
-<?import java.lang.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.image.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.shape.*?>
-<?import javafx.scene.text.*?>
+<?import com.jfoenix.controls.JFXButton?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.RadioButton?>
+<?import javafx.scene.control.ToolBar?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
 
-<AnchorPane fx:id="anchorPaneWindow" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" style="-fx-background-color: #0067B1;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="PathFindingController">
+<AnchorPane fx:id="anchorPaneWindow" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" style="-fx-background-color: #7fb1ff;" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="PathFindingController">
    <children>
       <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#012d5a" height="394.0" layoutX="843.0" layoutY="312.0" stroke="#0067b1" strokeType="INSIDE" width="343.0" />
       <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#012d5a" height="455.0" layoutX="99.0" layoutY="204.0" stroke="#0067b1" strokeType="INSIDE" width="652.0" />
@@ -57,13 +58,13 @@
             <Image url="@SoftEng_UI_Mockup_Pics/02_thesecondfloor.png" />
          </image>
       </ImageView>
-      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#012d5a" height="98.0" layoutX="846.0" layoutY="315.0" stroke="#0067b1" strokeType="INSIDE" strokeWidth="5.0" width="337.0" />
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#012d5a" height="98.0" layoutX="846.0" layoutY="315.0" stroke="#7fb1ff" strokeType="INSIDE" strokeWidth="5.0" width="337.0" />
       <Text fill="WHITE" layoutX="928.0" layoutY="377.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Other POI" wrappingWidth="179.7496337890625">
          <font>
             <Font name="Times New Roman Bold" size="37.0" />
          </font>
       </Text>
-      <JFXButton fx:id="PathFindSubmit" buttonType="RAISED" layoutX="933.0" layoutY="615.0" onAction="#submitPressed" prefHeight="66.0" prefWidth="180.0" ripplerFill="#f6bd38" style="-fx-background-color: #0067B1;" text="Submit" textFill="WHITE">
+      <JFXButton fx:id="PathFindSubmit" buttonType="RAISED" layoutX="933.0" layoutY="615.0" onAction="#submitPressed" prefHeight="66.0" prefWidth="180.0" ripplerFill="#f6bd38" style="-fx-background-color: #7fb1ff;" text="Submit" textFill="WHITE">
          <font>
             <Font name="Times New Roman" size="40.0" />
          </font>
