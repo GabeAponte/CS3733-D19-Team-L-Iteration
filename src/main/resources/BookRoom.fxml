@@ -3,7 +3,7 @@
 <?import com.jfoenix.controls.JFXButton?>
 <?import com.jfoenix.controls.JFXDatePicker?>
 <?import com.jfoenix.controls.JFXTimePicker?>
-<?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ToolBar?>
 <?import javafx.scene.image.Image?>
@@ -51,7 +51,6 @@
                 <Font name="Times New Roman Bold" size="40.0" />
             </font>
         </Label>
-        <ChoiceBox fx:id="avaliableRooms" layoutX="640.0" layoutY="474.0" prefWidth="300.0" />
         <JFXButton fx:id="requestRoom" buttonType="RAISED" layoutX="572.0" layoutY="569.0" onAction="#findRoom" ripplerFill="#f6bd38" style="-fx-background-color: WHITE;" text="Request">
             <font>
                 <Font name="Times New Roman" size="30.0" />
@@ -70,5 +69,6 @@
             <Font size="24.0" />
          </font>
       </Label>
+      <ComboBox fx:id="avaliableRooms" layoutX="686.0" layoutY="474.0" prefHeight="25.0" prefWidth="255.0" />
     </children>
 </AnchorPane>

@@ -7,6 +7,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
@@ -21,7 +22,7 @@ public class BookRoomController {
     private JFXDatePicker datePicker;
 
     @FXML
-    private ChoiceBox avaliableRooms;
+    private ComboBox<String> avaliableRooms;
 
     @FXML
     private Label error;
