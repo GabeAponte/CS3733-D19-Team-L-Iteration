@@ -55,11 +55,12 @@ public class LogInController {
         String uname = username.getText();
         String pass = password.getText();
 
-        Boolean validLogin = false;
-
+        boolean validLogin = false;
         if(uname.equals("YO")){ validLogin = true; }
         //TODO: Query database
 
+        EmployeeAccess ea = new EmployeeAccess();
+        //validLogin = ea.checkEmployee(uname, pass);
         if(validLogin){
             SwitchToSignedIn();
         } else {
