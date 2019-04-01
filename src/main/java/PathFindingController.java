@@ -1,13 +1,11 @@
+import com.jfoenix.controls.JFXButton;
 import javafx.event.ActionEvent;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.MenuButton;
-import javafx.scene.control.RadioButton;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
@@ -25,13 +23,13 @@ public class PathFindingController {
     private Stage thestage;
 
     @FXML
-    private Button PathFindBack;
+    private JFXButton PathFindBack;
 
     @FXML
-    private Button PathFindSubmit;
+    private JFXButton PathFindSubmit;
 
     @FXML
-    private Button PathFindLogOut;
+    private JFXButton PathFindLogOut;
 
     @FXML
     private TextField PathFindEndSearch;
@@ -49,17 +47,17 @@ public class PathFindingController {
     private RadioButton PathFindBrPOI;
 
     @FXML
-    private MenuButton PathFindEndDrop;
+    private ComboBox PathFindEndDrop;
 
     @FXML
-    private MenuButton PathFindStartDrop;
+    private ComboBox PathFindStartDrop;
 
 
     final ObservableList<Location> data = FXCollections.observableArrayList();
     HashMap<String, Location> lookup = new HashMap<String, Location>();
 
     @FXML
-    private void backPressed() throws IOException {
+    private void PathFindToHome() throws IOException {
         thestage = (Stage) PathFindBack.getScene().getWindow();
         AnchorPane root;
         root = FXMLLoader.load(getClass().getResource("HospitalHome.fxml"));

@@ -45,7 +45,7 @@ public class HomeScreenController {
         } catch (Exception e) {
         }
     }
-////
+
     @FXML
     private void SwitchToSuggestionBox(ActionEvent event) {
         try {
