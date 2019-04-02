@@ -38,10 +38,18 @@ public class HomeScreenController {
             long second = LocalDateTime.now().getSecond();
             long minute = LocalDateTime.now().getMinute();
             long hour = LocalDateTime.now().getHour();
-            if(second > 9) {
-                timeLabel.setText("The Time Is: " + hour + ":" + (minute) + ":" + second);
+            if(minute < 10) {
+                if(second > 9) {
+                    timeLabel.setText("The Time is: " + hour + ":0" + (minute) + ":" + second);
+                } else {
+                    timeLabel.setText("The Time is: " + hour + ":0" + (minute) + ":0" + second);
+                }
             } else {
-                timeLabel.setText("The Time Is: " + hour + ":" + (minute) + ":0" + second);
+                if(second > 9) {
+                    timeLabel.setText("The Time is: " + hour + ":" + (minute) + ":" + second);
+                } else {
+                    timeLabel.setText("The Time is: " + hour + ":" + (minute) + ":0" + second);
+                }
             }
         }),
                 new KeyFrame(Duration.seconds(1))
