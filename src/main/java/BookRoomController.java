@@ -70,45 +70,47 @@ public class BookRoomController {
         LocalTime endTimeValue = endTime.getValue();
         LocalDate roomDate = datePicker.getValue();
         LocalDate curDate = LocalDate.now();
+        LocalTime curTime = LocalTime.now();
 
         if (startTimeValue == null && endTimeValue == null && roomDate == null) {
             error.setText("Please select start and end times and a date.");
         }
-
         else if (startTimeValue == null && endTimeValue == null) {
             error.setText("Please select start and end times.");
         }
-
         else if (startTimeValue == null && roomDate == null) {
             error.setText("Please select a start time and a date.");
         }
-
         else if (endTimeValue == null && roomDate == null) {
-            error.setText("Please select an end time and a date.");
-        }
+            error.setText("Please select an end time and a date.");}
 
-        else if (roomDate == null) {
-            error.setText("Please select a date.");
-        }
         else if (startTimeValue == null) {
             error.setText("Please select a start time.");
         }
         else if (endTimeValue == null) {
             error.setText("Please select an end time.");
         }
-        else if (roomDate.compareTo(curDate) < 0) {
-            error.setText("Please select a time for today or a future day.");
+        else if (roomDate == null) {
+            error.setText("Please select a date.");
         }
-
-        else if (avaliableRooms.getValue() == null) {
-            error.setText("Please pick a room.");
-        }
-
         else if (startTimeValue.equals(endTimeValue)) {
             error.setText("Times cannot be the same.");
 
         }else if (startTimeValue.compareTo(endTimeValue) > 0) {
             error.setText("Start time cannot be after end time.");
+        }
+        else if (startTimeValue.compareTo(curTime) < 0 && roomDate.compareTo(curDate) < 0)
+        {
+            error.setText("Please select a current or future time for today and a current or future date.");
+        }
+        else if (startTimeValue.compareTo(curTime) < 0) {
+            error.setText("Please select a current or future time for today.");
+        }
+        else if (roomDate.compareTo(curDate) < 0) {
+            error.setText("Please select a time for today or a future day.");
+        }
+        else if (avaliableRooms.getValue() == null) {
+            error.setText("Please pick a room.");
         }
         else {
             error.setText("Submitted.");
@@ -127,8 +129,6 @@ public class BookRoomController {
             }
             roomReq.makeReservation(roomID, employeeID, date, startTimeMil, endTimeMil);
         }
-
-
     }
 
     @FXML
