@@ -6,11 +6,11 @@ public class ServiceRequestTable{
     String comment;
 
 
-    ServiceRequestTable(String requestID, String comment, String requestDepartment, String assignedEmployee, String fulfullied) {
+    ServiceRequestTable(String requestID, String comment, String requestDepartment, String assignedEmployee) {
         this.requestID = requestID;
         this.requestDepartment = requestDepartment;
         this.assignedEmployee = assignedEmployee;
-        this.fulfullied = fulfullied;
+        //this.fulfullied = fulfullied;
         this.comment = comment;
     }
 

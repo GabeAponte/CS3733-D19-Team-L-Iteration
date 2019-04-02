@@ -30,8 +30,8 @@ public class ActiveServiceRequestsController {
     @FXML
     TableColumn<ServiceRequestTable, String> assignedEmployee;
 
-    @FXML
-    TableColumn<ServiceRequestTable, String> fullfilled;
+    //@FXML
+    //TableColumn<ServiceRequestTable, String> fullfilled;
 
     @FXML
     TableColumn<ServiceRequestTable, String> comment;
@@ -61,19 +61,19 @@ public class ActiveServiceRequestsController {
         ServiceRequestAccess sr = new ServiceRequestAccess();
 
         int count;
-        count  = 0;
+        count = sr.countRecords()-1;
         System.out.println(sr.countRecords());
-        while(count < sr.countRecords()){
+        while(count >= 0){
             ArrayList<String> arr= sr.getRequests(count);
-            ServiceRequestTable testx = new ServiceRequestTable(arr.get(0), arr.get(1),arr.get(2), arr.get(3), arr.get(4));
-            count++;
+            ServiceRequestTable testx = new ServiceRequestTable(arr.get(0), arr.get(1),arr.get(2), arr.get(3));
+            count--;
             data.add(testx);
         }
 
         requestDepartment.setCellValueFactory(new PropertyValueFactory<ServiceRequestTable,String>("requestDepartment"));
         comment.setCellValueFactory(new PropertyValueFactory<ServiceRequestTable, String>("comment"));
         assignedEmployee.setCellValueFactory(new PropertyValueFactory<ServiceRequestTable, String>("assignedEmployee"));
-        fullfilled.setCellValueFactory(new PropertyValueFactory<ServiceRequestTable, String>("fullfilled"));
+        //fullfilled.setCellValueFactory(new PropertyValueFactory<ServiceRequestTable, String>("fullfilled"));
         activeRequests.setItems(data);
     }
 
