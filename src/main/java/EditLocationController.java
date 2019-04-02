@@ -140,16 +140,22 @@ public class EditLocationController {
 
     @FXML
     private void modifyEdgePress() {
+        ObservableList<String> toPass = FXCollections.observableArrayList();
+        for (Location l : nodeData) {
+            toPass.add(l.getLocID());
+            //System.out.println(l.getLocID());
+        }
         try {
             //Load second scene
             FXMLLoader loader = new FXMLLoader(getClass().getResource("EditEdges.fxml"));
             Parent roots = loader.load();
 
             //Get controller of scene2
-            EditNodeController scene2Controller = loader.getController();
+            EditEdgesController scene2Controller = loader.getController();
 
             Scene scene = new Scene(roots);
-            scene2Controller.fillFields(this.focusNode);
+            scene2Controller.setInitialValues(focusEdge.getStartID(), focusEdge.getEndID());
+            scene2Controller.populateNodeList(toPass);
             thestage = (Stage) makeEditableNode.getScene().getWindow();
             //Show scene 2 in new window
             thestage.setScene(scene);
@@ -161,7 +167,31 @@ public class EditLocationController {
     }
 
     @FXML
-    private void addEdgePress() {}
+    private void addEdgePress() {
+        ObservableList<String> toPass = FXCollections.observableArrayList();
+        for (Location l : nodeData) {
+            toPass.add(l.getLocID());
+            //System.out.println(l.getLocID());
+        }
+        try {
+            //Load second scene
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("EditEdges.fxml"));
+            Parent roots = loader.load();
+
+            //Get controller of scene2
+            EditEdgesController scene2Controller = loader.getController();
+
+            Scene scene = new Scene(roots);
+            scene2Controller.populateNodeList(toPass);
+            thestage = (Stage) makeEditableNode.getScene().getWindow();
+            //Show scene 2 in new window
+            thestage.setScene(scene);
+
+        } catch (IOException ex) {
+            //noinspection ThrowablePrintedToSystemOut
+            System.err.println(ex);
+        }
+    }
 
     @FXML
     private void deleteNodePress() {
@@ -192,11 +222,23 @@ public class EditLocationController {
 
     @FXML
     private void addNodePress() {
+        ObservableList<String> toPass = FXCollections.observableArrayList();
+        for (Location l : nodeData) {
+            toPass.add(l.getLocID());
+            //System.out.println(l.getLocID());
+        }
+
         try {
-            Stage thestage = (Stage) backButton.getScene().getWindow();
-            AnchorPane root;
-            root = FXMLLoader.load(getClass().getResource("EditNode.fxml"));
-            Scene scene = new Scene(root);
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("EditNode.fxml"));
+            Parent roots = loader.load();
+
+            //Get controller of scene2
+            EditNodeController scene2Controller = loader.getController();
+
+            Scene scene = new Scene(roots);
+            scene2Controller.populateNodeList(toPass);
+            thestage = (Stage) makeEditableNode.getScene().getWindow();
+            //Show scene 2 in new window
             thestage.setScene(scene);
         } catch (Exception e){
         }

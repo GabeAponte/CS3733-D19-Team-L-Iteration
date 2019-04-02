@@ -1,8 +1,11 @@
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXTextField;
 import com.sun.javafx.scene.NodeHelper;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
@@ -42,6 +45,9 @@ public class EditNodeController {
 
     private Stage thestage;
     private boolean isNew =true;
+    private ObservableList<String> locationIDS = FXCollections.observableArrayList();
+
+
     //end of getters and setters
 
     //if modify node, set texts to existing data
@@ -84,12 +90,27 @@ public class EditNodeController {
             newNode.add(nodeLongName.getText());
             newNode.add(nodeShortName.getText());
             na.addNode(newNode);
+            locationIDS.add(nodeID.getText());
         }
         thestage = (Stage) submitButton.getScene().getWindow();
-        AnchorPane root;
-        root =  FXMLLoader.load(getClass().getResource("EditLocation.fxml"));
-        Scene scene = new Scene(root);
+        Parent roots;
+        if (isNew) {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("EditEdges.fxml"));
+            roots = loader.load();
+            EditEdgesController scene2Controller = loader.getController();
+            scene2Controller.populateNodeList(locationIDS);
+            scene2Controller.setInitialValues(nodeID.getText(), "ADD EDGE");
+        }
+        else {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("EditLocation.fxml"));
+            roots = loader.load();
+        }
+        Scene scene = new Scene(roots);
         thestage.setScene(scene);
+    }
+
+    public void populateNodeList(ObservableList<String> nodes)  {
+        this.locationIDS = nodes;
     }
 
     //back/cancel button here

@@ -192,7 +192,7 @@ public class EdgesAccess extends DBAccess
      * @param node2, the data you want to put in
      */
     public void updateEdge(String edgeID, String node1, String node2) {
-        String sql = "update nodes set startNode = ?, set endNode = ? where edgeID= ?;";
+        String sql = "update edges set startNode = ?, endNode = ? where edgeID= ?;";
 
         try (Connection conn = this.connect();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
