@@ -75,10 +75,8 @@ public class EditLocationController {
     private final ObservableList<Location> nodeData = FXCollections.observableArrayList();
     private final ObservableList<Edge> edgeData = FXCollections.observableArrayList();
 
-    private Stage thestage;
     private  Location focusNode;
     private Edge focusEdge;
-
 
     @SuppressWarnings("Convert2Diamond")
     @FXML
@@ -156,7 +154,7 @@ public class EditLocationController {
 
             Scene scene = new Scene(roots);
             scene2Controller.fillFields(this.focusNode);
-            thestage = (Stage) makeEditableNode.getScene().getWindow();
+            Stage thestage = (Stage) makeEditableNode.getScene().getWindow();
             //Show scene 2 in new window
             thestage.setScene(scene);
 
