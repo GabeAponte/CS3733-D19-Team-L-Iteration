@@ -64,7 +64,7 @@ public class ServiceRequestAccess extends DBAccess{
      * @return
      */
     public ArrayList<String> getRequests(int getNum){
-        String sql = "SELECT * FROM serviceRequest";
+        String sql = "SELECT * FROM serviceRequest where assignedEmployee = NULL";
         int count = 0;
         //noinspection Convert2Diamond
         ArrayList<String> data = new ArrayList<String>();
