@@ -106,7 +106,7 @@ public class ServiceRequestAccess extends DBAccess{
      * @return int
      */
     public int countRecords() {
-        String sql = "select COUNT(*) from serviceRequest where assignedEmployee = null";
+        String sql = "select COUNT(*) from serviceRequest where not assignedEmployee = null";
         try (Connection conn = this.connect();
              Statement stmt = conn.createStatement();
              ResultSet rs = stmt.executeQuery(sql)) {
@@ -121,9 +121,6 @@ public class ServiceRequestAccess extends DBAccess{
 
     public static void main(String[] args) {
         ServiceRequestAccess sra = new ServiceRequestAccess();
-        sra.deleteRecords();
-        sra.makeRequest("test", "test");
-        sra.fulfillRequest(1, "bob");
-        sra.getRequests(1);
+        System.out.println(sra.countRecords());
     }
 }
