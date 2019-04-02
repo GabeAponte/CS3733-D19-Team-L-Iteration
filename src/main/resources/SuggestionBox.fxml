@@ -43,7 +43,7 @@
             </ImageView>
             <HBox alignment="CENTER_RIGHT" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="120.0" prefWidth="836.0">
                <children>
-                  <JFXButton fx:id="SuggestionBack" buttonType="RAISED" minHeight="-Infinity" minWidth="-Infinity" onAction="#backPressed" prefHeight="100.0" prefWidth="176.0" ripplerFill="#f6bd38" text="Back">
+                  <JFXButton fx:id="SuggestionBack" buttonType="RAISED" minHeight="-Infinity" minWidth="-Infinity" onAction="#backPressed" prefHeight="100.0" prefWidth="176.0" ripplerFill="#b0b0b0" text="Back">
                      <font>
                         <Font name="Times New Roman" size="40.0" />
                      </font>
@@ -88,7 +88,7 @@
                   <Font name="Times New Roman" size="24.0" />
                </font>
             </TextArea>
-            <JFXButton fx:id="submitFeedback" buttonType="RAISED" contentDisplay="CENTER" onAction="#submitPressed" prefHeight="47.0" prefWidth="131.0" ripplerFill="#f6bd38" style="-fx-background-color: white;" text="Submit" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="15" GridPane.valignment="CENTER">
+            <JFXButton fx:id="submitFeedback" buttonType="RAISED" contentDisplay="CENTER" onAction="#submitPressed" prefHeight="47.0" prefWidth="131.0" ripplerFill="#b0b0b0" style="-fx-background-color: white;" text="Submit" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="15" GridPane.valignment="CENTER">
                <font>
                   <Font name="Times New Roman" size="25.0" />
                </font>

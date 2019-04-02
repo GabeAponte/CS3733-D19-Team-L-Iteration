@@ -34,12 +34,12 @@
                         </ImageView>
                         <HBox alignment="CENTER_RIGHT" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="125.0" prefWidth="825.0">
                             <children>
-                                <JFXButton fx:id="backButton" buttonType="RAISED" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onAction="#backPressed" prefHeight="75.0" prefWidth="146.0" ripplerFill="BLACK" text="Back">
+                                <JFXButton fx:id="backButton" buttonType="RAISED" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onAction="#backPressed" prefHeight="75.0" prefWidth="146.0" ripplerFill="#b0b0b0" text="Back">
                                     <font>
                                         <Font name="Times New Roman" size="40.0" />
                                     </font>
                                 </JFXButton>
-                        <JFXButton buttonType="RAISED" ripplerFill="BLACK" text="Log Out">
+                        <JFXButton buttonType="RAISED" ripplerFill="#b0b0b0" text="Log Out">
                            <font>
                               <Font name="Times New Roman" size="40.0" />
                            </font>
@@ -52,7 +52,7 @@
             </children>
         </VBox>
         <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#012d5a" height="455.0" layoutX="50.0" stroke="BLACK" strokeType="INSIDE" width="1180.0" AnchorPane.bottomAnchor="60.0" AnchorPane.leftAnchor="50.0" AnchorPane.rightAnchor="50.0" AnchorPane.topAnchor="205.0" />
-        <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#61a0ff" height="107.0" layoutX="50.0" layoutY="206.0" stroke="BLACK" strokeType="INSIDE" width="1180.0" AnchorPane.leftAnchor="50.0" AnchorPane.rightAnchor="50.0" AnchorPane.topAnchor="206.0" />
+        <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#7fb1ff" height="107.0" layoutX="50.0" layoutY="206.0" stroke="BLACK" strokeType="INSIDE" width="1180.0" AnchorPane.leftAnchor="50.0" AnchorPane.rightAnchor="50.0" AnchorPane.topAnchor="206.0" />
         <Label layoutX="503.0" layoutY="237.0" prefHeight="45.0" prefWidth="275.0" text="Edit A Location" AnchorPane.leftAnchor="503.0" AnchorPane.rightAnchor="502.0" AnchorPane.topAnchor="237.0">
             <font>
                 <Font name="Times New Roman Bold" size="40.0" />
