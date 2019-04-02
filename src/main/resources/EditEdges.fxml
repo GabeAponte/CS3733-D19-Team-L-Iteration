@@ -1,27 +1,26 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.paint.*?>
-<?import com.jfoenix.controls.*?>
-<?import javafx.geometry.*?>
-<?import javafx.scene.image.*?>
-<?import javafx.scene.shape.*?>
-<?import javafx.scene.text.*?>
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
+<?import com.jfoenix.controls.JFXButton?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ToolBar?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" style="-fx-background-color: #7fb1ff;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="EditEdgesController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" style="-fx-background-color: #7fb1ff;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="EditEdgesController">
    <children>
       <ImageView fitHeight="665.0" fitWidth="1280.0" layoutY="56.0" opacity="0.51" AnchorPane.bottomAnchor="-1.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="56.0">
          <image>
             <Image url="@SoftEng_UI_Mockup_Pics/Background.png" />
          </image>
       </ImageView>
-      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#85aeeb" height="100.0" stroke="BLACK" strokeType="INSIDE" width="550.0" AnchorPane.leftAnchor="370.0" AnchorPane.topAnchor="225.0" />
-      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#092b60" height="275.0" layoutX="50.0" layoutY="152.0" stroke="BLACK" strokeType="INSIDE" width="550.0" AnchorPane.leftAnchor="370.0" AnchorPane.topAnchor="325.0" />
-      <ToolBar layoutY="127.0" maxHeight="10.0" prefHeight="40.0" prefWidth="1280.0" style="-fx-background-color: #092b60;" />
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#7fb1ff" height="100.0" stroke="BLACK" strokeType="INSIDE" width="550.0" AnchorPane.leftAnchor="370.0" AnchorPane.topAnchor="225.0" />
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#012d5a" height="275.0" layoutX="50.0" layoutY="152.0" stroke="BLACK" strokeType="INSIDE" width="550.0" AnchorPane.leftAnchor="370.0" AnchorPane.topAnchor="325.0" />
+      <ToolBar layoutY="127.0" maxHeight="10.0" prefHeight="40.0" prefWidth="1280.0" style="-fx-background-color: #012d5a;" />
       <ToolBar prefHeight="125.0" prefWidth="1280.0" style="-fx-background-color: white;">
          <items>
             <ImageView fitHeight="125.0" fitWidth="395.0" pickOnBounds="true" preserveRatio="true">
@@ -31,7 +30,7 @@
             </ImageView>
             <HBox alignment="CENTER_RIGHT" prefHeight="115.0" prefWidth="834.0">
                <children>
-                  <JFXButton fx:id="EditEdgeBack" buttonType="RAISED" onAction="#backPressed" ripplerFill="#f6bd38" text="Back">
+                  <JFXButton fx:id="EditEdgeBack" buttonType="RAISED" onAction="#backPressed" ripplerFill="#b0b0b0" text="Back">
                      <font>
                         <Font name="Times New Roman" size="40.0" />
                      </font>
@@ -45,9 +44,9 @@
             <Font name="Times New Roman Bold" size="48.0" />
          </font>
       </Label>
-      <ComboBox layoutX="424.0" layoutY="486.0" prefHeight="57.0" prefWidth="218.0" promptText="Endiing Node" />
-      <ComboBox layoutX="424.0" layoutY="381.0" prefHeight="57.0" prefWidth="218.0" promptText="Starting Node" />
-      <JFXButton fx:id="EditEdgeSubmit" layoutX="714.0" layoutY="435.0" prefHeight="56.0" prefWidth="134.0" ripplerFill="#f6bd38" style="-fx-background-color: #85aeeb;" text="Submit">
+      <ComboBox fx:id="PathFindEndDrop" layoutX="424.0" layoutY="486.0" onAction="#locationsSelected" prefHeight="57.0" prefWidth="218.0" promptText="Ending Node" />
+      <ComboBox fx:id="PathFindStartDrop" layoutX="424.0" layoutY="381.0" onAction="#locationsSelected" prefHeight="57.0" prefWidth="218.0" promptText="Starting Node" />
+      <JFXButton fx:id="EditEdgeSubmit" layoutX="714.0" layoutY="435.0" onAction="#submitButtonPressed" prefHeight="56.0" prefWidth="134.0" ripplerFill="#f6bd38" style="-fx-background-color: #85aeeb;" text="Submit">
          <font>
             <Font name="Times New Roman Bold" size="21.0" />
          </font>

@@ -21,6 +21,10 @@ public class Main extends Application {
     public static void main(String[] args) throws URISyntaxException {
         NodesAccess na = new NodesAccess();
         EdgesAccess ea = new EdgesAccess();
+        na.deleteRecords();
+        ea.deleteRecords();
+        na.readCSVintoTable();
+        ea.readCSVintoTable();
         ReservationAccess ra = new ReservationAccess();
         //ra.deleteRecords();
         //System.out.println("2");

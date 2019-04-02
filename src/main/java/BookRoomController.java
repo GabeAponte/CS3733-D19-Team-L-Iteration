@@ -74,10 +74,6 @@ public class BookRoomController {
             error.setText("Please select start and end times and a date.");
         }
 
-        else if (roomDate == null) {
-            error.setText("Please select a date.");
-        }
-
         else if (startTimeValue == null && endTimeValue == null) {
             error.setText("Please select start and end times.");
         }
@@ -87,38 +83,41 @@ public class BookRoomController {
         }
 
         else if (endTimeValue == null && roomDate == null) {
-            error.setText("Please select an end time and a date.");}
-
+            error.setText("Please select an end time and a date.");
+        }
         else if (startTimeValue == null) {
             error.setText("Please select a start time.");
         }
         else if (endTimeValue == null) {
             error.setText("Please select an end time.");
-
-        }else if (startTimeValue.equals(endTimeValue)) {
+        }
+        else if (roomDate == null) {
+            error.setText("Please select a date.");
+        }
+        else if (startTimeValue.equals(endTimeValue)) {
             error.setText("Times cannot be the same.");
 
         }else if (startTimeValue.compareTo(endTimeValue) > 0) {
             error.setText("Start time cannot be ahead of end time.");
         }
         else {
+            int startTimeMil = startTime.getValue().getHour() * 100 + startTime.getValue().getMinute();
+            int endTimeMil = endTime.getValue().getHour() * 100 + endTime.getValue().getMinute();
+            String date = datePicker.getValue().toString();
+            String roomID = "RoomTest";
+            EmployeeAccess ea = new EmployeeAccess();
+            System.out.println(uname);
+            String employeeID = ea.getNodeInformation(uname).get(0);
+            ReservationAccess roomReq = new ReservationAccess();
+            for(int i = 1; i < rooms.size(); i+=2) {
+                if (rooms.get(i).equals(avaliableRooms.getValue())) {
+                    roomID = rooms.get(i - 1);
+                }
+            }
+            roomReq.makeReservation(roomID, employeeID, date, startTimeMil, endTimeMil);
+
             error.setText("Submitted.");
         }
-
-        int startTimeMil = startTime.getValue().getHour() * 100 + startTime.getValue().getMinute();
-        int endTimeMil = endTime.getValue().getHour() * 100 + endTime.getValue().getMinute();
-        String date = datePicker.getValue().toString();
-        String roomID = "RoomTest";
-        EmployeeAccess ea = new EmployeeAccess();
-        System.out.println(uname);
-        String employeeID = ea.getNodeInformation(uname).get(0);
-        ReservationAccess roomReq = new ReservationAccess();
-        for(int i = 1; i < rooms.size(); i+=2) {
-            if (rooms.get(i).equals(avaliableRooms.getValue())) {
-                roomID = rooms.get(i - 1);
-            }
-        }
-        roomReq.makeReservation(roomID, employeeID, date, startTimeMil, endTimeMil);
     }
 
     @FXML
