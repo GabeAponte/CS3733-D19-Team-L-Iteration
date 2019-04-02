@@ -12,6 +12,7 @@ import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -72,6 +73,8 @@ public class BookRoomController {
         LocalDate curDate = LocalDate.now();
         LocalTime curTime = LocalTime.now();
 
+        error.setTextFill(Color.RED);
+
         if (startTimeValue == null && endTimeValue == null && roomDate == null) {
             error.setText("Please select start and end times and a date.");
         }
@@ -113,6 +116,7 @@ public class BookRoomController {
             error.setText("Please pick a room.");
         }
         else {
+            error.setTextFill(Color.WHITE);
             error.setText("Submitted.");
             int startTimeMil = startTime.getValue().getHour() * 100 + startTime.getValue().getMinute();
             int endTimeMil = endTime.getValue().getHour() * 100 + endTime.getValue().getMinute();
