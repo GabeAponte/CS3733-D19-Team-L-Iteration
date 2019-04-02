@@ -96,7 +96,7 @@ public class LoggedInHomeController {
         Parent sceneMain = loader.load();
 
         ActiveServiceRequestsController controller = loader.<ActiveServiceRequestsController>getController();
-        controller.init(signedIn);
+        controller.init(uname);
 
         Stage theStage = (Stage) fufillServiceRequest.getScene().getWindow();
 
@@ -111,6 +111,7 @@ public class LoggedInHomeController {
         Parent sceneMain = loader.load();
 
         EditLocationController controller = loader.<EditLocationController>getController();
+        controller.init(uname);
 
         Stage theStage = (Stage) fufillServiceRequest.getScene().getWindow();
 
