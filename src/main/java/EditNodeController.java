@@ -1,7 +1,14 @@
+import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXTextField;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
+import javafx.scene.layout.AnchorPane;
+import javafx.stage.Stage;
+
 
 import java.awt.*;
+import java.io.IOException;
 
 public class EditNodeController {
     //grace
@@ -28,6 +35,11 @@ public class EditNodeController {
     @FXML
     private JFXTextField nodeShortName;
 
+    @FXML
+    private JFXButton editNodeBackButton;
+    @FXML
+    private Stage thestage;
+
 
     //end of getters and setters
 
@@ -47,5 +59,13 @@ public class EditNodeController {
     }
 
     //back/cancel button here
+    @FXML
+    private void editNodeBackPress() throws IOException {
+        thestage = (Stage) editNodeBackButton.getScene().getWindow();
+        AnchorPane root;
+        root = FXMLLoader.load(getClass().getResource("EditLocation.fxml"));
+        Scene scene = new Scene(root);
+        thestage.setScene(scene);
+    }
 
 }

@@ -34,12 +34,7 @@
                         </ImageView>
                         <HBox alignment="CENTER_RIGHT" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="125.0" prefWidth="825.0">
                             <children>
-                                <JFXButton buttonType="RAISED" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="75.0" prefWidth="146.0" ripplerFill="BLACK" text="Back">
-                                    <font>
-                                        <Font name="Times New Roman" size="40.0" />
-                                    </font>
-                                </JFXButton>
-                                <JFXButton buttonType="RAISED" ripplerFill="BLACK" text="Log Out">
+                                <JFXButton fx:id="editNodeBackButton" buttonType="RAISED" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onAction="#editNodeBackPress" prefHeight="75.0" prefWidth="315.0" ripplerFill="BLACK" text="Back / Cancel">
                                     <font>
                                         <Font name="Times New Roman" size="40.0" />
                                     </font>
