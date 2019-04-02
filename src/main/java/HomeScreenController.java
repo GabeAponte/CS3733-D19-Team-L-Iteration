@@ -40,15 +40,15 @@ public class HomeScreenController {
             long hour = LocalDateTime.now().getHour();
             if(minute < 9) {
                 if(second > 9) {
-                    timeLabel.setText("The time is: " + hour + ":0" + (minute) + ":" + second);
+                    timeLabel.setText("The Time is: " + hour + ":0" + (minute) + ":" + second);
                 } else {
-                    timeLabel.setText("The time is: " + hour + ":0" + (minute) + ":0" + second);
+                    timeLabel.setText("The Time is: " + hour + ":0" + (minute) + ":0" + second);
                 }
             } else {
                 if(second > 9) {
-                    timeLabel.setText("The time is: " + hour + ":" + (minute) + ":" + second);
+                    timeLabel.setText("The Time is: " + hour + ":" + (minute) + ":" + second);
                 } else {
-                    timeLabel.setText("The time is: " + hour + ":" + (minute) + ":0" + second);
+                    timeLabel.setText("The Time is: " + hour + ":" + (minute) + ":0" + second);
                 }
             }
         }),
