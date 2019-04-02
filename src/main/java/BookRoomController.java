@@ -69,9 +69,14 @@ public class BookRoomController {
         LocalTime startTimeValue = startTime.getValue();
         LocalTime endTimeValue = endTime.getValue();
         LocalDate roomDate = datePicker.getValue();
+        LocalDate curDate = LocalDate.now();
 
         if (startTimeValue == null && endTimeValue == null && roomDate == null) {
             error.setText("Please select start and end times and a date.");
+        }
+
+        else if (roomDate.compareTo(curDate) < 0) {
+            error.setText("Please select a time for today or a future day.");
         }
 
         else if (roomDate == null) {
@@ -99,7 +104,7 @@ public class BookRoomController {
             error.setText("Times cannot be the same.");
 
         }else if (startTimeValue.compareTo(endTimeValue) > 0) {
-            error.setText("Start time cannot be ahead of end time.");
+            error.setText("Start time cannot be after end time.");
         }
         else {
             error.setText("Submitted.");
