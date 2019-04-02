@@ -1,6 +1,7 @@
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -13,6 +14,7 @@ import java.io.IOException;
 public class LogInController {
 
     private Stage thestage;
+    public String uname;
 
     @FXML
     private Button back;
@@ -52,27 +54,32 @@ public class LogInController {
 
     @FXML
     private void LogIn() throws IOException{
-        String uname = username.getText();
+        uname = username.getText();
         String pass = password.getText();
 
-        Boolean validLogin = false;
-
-        if(uname.equals("YO")){ validLogin = true; }
-        //TODO: Query database
-
+        boolean validLogin = false;
+        
+        EmployeeAccess ea = new EmployeeAccess();
+        validLogin = ea.checkEmployee(uname, pass);
         if(validLogin){
-            SwitchToSignedIn();
+            SwitchToSignedIn(uname);
         } else {
             displayError();
         }
     }
 
-    private void SwitchToSignedIn() throws IOException{
-        Stage thestage = (Stage) username.getScene().getWindow();
-        AnchorPane root;
-        root = FXMLLoader.load(getClass().getResource("LoggedInHome.fxml"));
-        Scene scene = new Scene(root);
-        thestage.setScene(scene);
+    private void SwitchToSignedIn(String un) throws IOException{
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("LoggedInHome.fxml"));
+
+        Parent sceneMain = loader.load();
+
+        LoggedInHomeController controller = loader.<LoggedInHomeController>getController();
+        controller.init(un);
+
+        Stage theStage = (Stage) login.getScene().getWindow();
+
+        Scene scene = new Scene(sceneMain);
+        theStage.setScene(scene);
     }
 
     private void displayError(){

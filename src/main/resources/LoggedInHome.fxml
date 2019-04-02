@@ -54,7 +54,7 @@
             <Font name="Times New Roman" size="36.0" />
          </font>
       </JFXButton>
-      <JFXButton fx:id="fufillServiceRequest" buttonType="RAISED" layoutX="612.0" layoutY="378.0" onAction="#SwitchToFullfillRequestScreen" prefHeight="95.0" prefWidth="510.0" ripplerFill="#f6bd38" style="-fx-background-color: fff;" text="Fufill Service Request">
+      <JFXButton fx:id="fufillServiceRequest" buttonType="RAISED" layoutX="612.0" layoutY="378.0" onAction="#SwitchToFullfillRequestScreen" prefHeight="95.0" prefWidth="510.0" ripplerFill="#f6bd38" style="-fx-background-color: fff;" text="Fulfill Service Request">
          <font>
             <Font name="Times New Roman" size="36.0" />
          </font>

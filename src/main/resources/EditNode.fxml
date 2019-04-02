@@ -48,11 +48,11 @@
                         </HBox>
                     </items>
                 </ToolBar>
-                <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#012d5a" height="20.0" stroke="BLACK" strokeType="INSIDE" width="1280.0" VBox.vgrow="ALWAYS" />
+                <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#012d5a" height="20.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="1280.0" VBox.vgrow="ALWAYS" />
             </children>
         </VBox>
         <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#012d5a" height="455.0" stroke="BLACK" strokeType="INSIDE" width="880.0" AnchorPane.bottomAnchor="100.0" AnchorPane.leftAnchor="200.0" AnchorPane.rightAnchor="200.0" AnchorPane.topAnchor="205.0" />
-        <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#61a0ff" height="107.0" layoutX="201.0" layoutY="206.0" stroke="BLACK" strokeType="INSIDE" width="878.0" AnchorPane.leftAnchor="201.0" AnchorPane.rightAnchor="201.0" AnchorPane.topAnchor="206.0" />
+        <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#7fb1ff" height="107.0" layoutX="201.0" layoutY="206.0" stroke="BLACK" strokeType="INSIDE" width="878.0" AnchorPane.leftAnchor="201.0" AnchorPane.rightAnchor="201.0" AnchorPane.topAnchor="206.0" />
         <Label layoutX="498.0" layoutY="237.0" prefHeight="45.0" prefWidth="285.0" text="Enter Node Info" AnchorPane.leftAnchor="498.0" AnchorPane.rightAnchor="497.0" AnchorPane.topAnchor="237.0">
             <font>
                 <Font name="Times New Roman Bold" size="40.0" />
@@ -71,42 +71,42 @@
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="ALWAYS" />
             </rowConstraints>
          <children>
-            <JFXTextField focusColor="#f6bd38" promptText="Node Info 1" unFocusColor="WHITE" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
+            <JFXTextField id="prompt-text" fx:id="nodeID" focusColor="#f6bd38" promptText="Enter Node ID" stylesheets="@size.css" unFocusColor="WHITE" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
                <GridPane.margin>
                   <Insets left="25.0" right="25.0" />
                </GridPane.margin>
             </JFXTextField>
-            <JFXTextField focusColor="#f6bd38" promptText="Node Info 2" unFocusColor="WHITE" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
+            <JFXTextField id="prompt-text" fx:id="nodeBuilding" focusColor="#f6bd38" promptText="Enter Node Building" stylesheets="@size.css" unFocusColor="WHITE" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
                <GridPane.margin>
                   <Insets left="25.0" right="25.0" />
                </GridPane.margin>
             </JFXTextField>
-            <JFXTextField focusColor="#f6bd38" promptText="Node Info 3" unFocusColor="WHITE" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
+            <JFXTextField id="prompt-text" fx:id="nodeXCoord" focusColor="#f6bd38" promptText="Enter Node X Coordinate" stylesheets="@size.css" unFocusColor="WHITE" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
                <GridPane.margin>
                   <Insets left="25.0" right="25.0" />
                </GridPane.margin>
             </JFXTextField>
-            <JFXTextField focusColor="#f6bd38" promptText="Node Info 4" unFocusColor="WHITE" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
+            <JFXTextField id="prompt-text" fx:id="nodeType" focusColor="#f6bd38" promptText="Enter Node Type" stylesheets="@size.css" unFocusColor="WHITE" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
                <GridPane.margin>
                   <Insets left="25.0" right="25.0" />
                </GridPane.margin>
             </JFXTextField>
-            <JFXTextField focusColor="#f6bd38" promptText="Node Info 5" unFocusColor="WHITE" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="2" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
+            <JFXTextField id="prompt-text" fx:id="nodeYCoord" focusColor="#f6bd38" promptText="Enter Node Y Coordinate" stylesheets="@size.css" unFocusColor="WHITE" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="2" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
                <GridPane.margin>
                   <Insets left="25.0" right="25.0" />
                </GridPane.margin>
             </JFXTextField>
-            <JFXTextField focusColor="#f6bd38" promptText="Node Info 6" unFocusColor="WHITE" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="2" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
+            <JFXTextField id="prompt-text" fx:id="nodeLongName" focusColor="#f6bd38" promptText="Enter A Long Name" stylesheets="@size.css" unFocusColor="WHITE" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="2" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
                <GridPane.margin>
                   <Insets left="25.0" right="25.0" />
                </GridPane.margin>
             </JFXTextField>
-            <JFXTextField focusColor="#f6bd38" promptText="Node Info 8" unFocusColor="WHITE" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="3" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
+            <JFXTextField id="prompt-text" fx:id="nodeShortName" focusColor="#f6bd38" promptText="Enter A Short Name" stylesheets="@size.css" unFocusColor="WHITE" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="3" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
                <GridPane.margin>
                   <Insets left="25.0" right="25.0" />
                </GridPane.margin>
             </JFXTextField>
-            <JFXTextField focusColor="#f6bd38" promptText="Node Info 7" unFocusColor="WHITE" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="3" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
+            <JFXTextField id="prompt-text" fx:id="nodeFloor" focusColor="#f6bd38" promptText="Enter Node Floor" stylesheets="@size.css" unFocusColor="WHITE" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="3" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
                <GridPane.margin>
                   <Insets left="25.0" right="25.0" />
                </GridPane.margin>

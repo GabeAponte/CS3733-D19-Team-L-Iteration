@@ -9,6 +9,7 @@ import javafx.stage.Stage;
 import java.io.IOException;
 
 public class LoggedInHomeController {
+    String uname;
     @FXML
     private Button fufillServiceRequest;
 
@@ -27,6 +28,9 @@ public class LoggedInHomeController {
     @FXML
     private Button serviceRequest;
 
+    public void init(String username){
+        uname = username;
+    }
     @FXML
     private void logOut() throws IOException {
         Stage thestage = (Stage) logOut.getScene().getWindow();
@@ -38,22 +42,28 @@ public class LoggedInHomeController {
 
     @FXML
     private void bookRoom() throws IOException {
-        Stage thestage = (Stage) bookRoom.getScene().getWindow();
-        AnchorPane root;
-        root = FXMLLoader.load(getClass().getResource("BookRoom.fxml"));
-        Scene scene = new Scene(root);
-        thestage.setScene(scene);
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("BookRoom.fxml"));
+
+        Parent sceneMain = loader.load();
+
+        BookRoomController controller = loader.<BookRoomController>getController();
+        controller.init(uname);
+
+        Stage theStage = (Stage) bookRoom.getScene().getWindow();
+
+        Scene scene = new Scene(sceneMain);
+        theStage.setScene(scene);
     }
 
     @FXML
     private void SwitchToPathfindScreen() throws IOException{
         boolean signedIn = true;
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("HospitalPathFinding.fxml"));
+        FXMLLoader pLoader = new FXMLLoader(getClass().getResource("HospitalPathFinding.fxml"));
 
-        Parent sceneMain = loader.load();
+        Parent sceneMain = pLoader.load();
 
-        PathFindingController controller = loader.<PathFindingController>getController();
-        controller.initialize(signedIn);
+        PathFindingController pController = pLoader.<PathFindingController>getController();
+        pController.initialize(signedIn);
 
         Stage theStage = (Stage) findPath.getScene().getWindow();
 
@@ -64,12 +74,12 @@ public class LoggedInHomeController {
     @FXML
     private void SwitchToServiceScreen() throws IOException{
         boolean signedIn = true;
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("ServiceRequest.fxml"));
+        FXMLLoader sLoader = new FXMLLoader(getClass().getResource("ServiceRequest.fxml"));
 
-        Parent sceneMain = loader.load();
+        Parent sceneMain = sLoader.load();
 
-        ServiceRequestController controller = loader.<ServiceRequestController>getController();
-        controller.init(signedIn);
+        ServiceRequestController sController = sLoader.<ServiceRequestController>getController();
+        sController.init(signedIn);
 
         Stage theStage = (Stage) findPath.getScene().getWindow();
 
