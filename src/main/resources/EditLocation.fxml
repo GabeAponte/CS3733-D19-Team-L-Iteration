@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.ToolBar?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="EditLocationController">
+    <children>
+        <ImageView fitHeight="668.0" fitWidth="1282.0" layoutY="51.0" opacity="0.51" AnchorPane.bottomAnchor="1.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="-2.0" AnchorPane.topAnchor="51.0">
+            <image>
+                <Image url="@SoftEng_UI_Mockup_Pics/Background.png" />
+            </image>
+        </ImageView>
+        <VBox layoutX="150.0" layoutY="146.0" prefHeight="200.0" prefWidth="100.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <children>
+                <ToolBar maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="125.0" prefWidth="1280.0">
+                    <items>
+                        <ImageView fitHeight="99.0" fitWidth="415.0" preserveRatio="true">
+                            <image>
+                                <Image url="@BWHlogo.png" />
+                            </image>
+                        </ImageView>
+                        <HBox alignment="CENTER_RIGHT" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="125.0" prefWidth="825.0">
+                            <children>
+                                <JFXButton buttonType="RAISED" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="75.0" prefWidth="146.0" ripplerFill="BLACK" text="Back">
+                                    <font>
+                                        <Font name="Times New Roman" size="40.0" />
+                                    </font>
+                                </JFXButton>
+                        <JFXButton buttonType="RAISED" ripplerFill="BLACK" text="Log Out">
+                           <font>
+                              <Font name="Times New Roman" size="40.0" />
+                           </font>
+                        </JFXButton>
+                            </children>
+                        </HBox>
+                    </items>
+                </ToolBar>
+                <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#012d5a" height="20.0" stroke="BLACK" strokeType="INSIDE" width="1280.0" VBox.vgrow="ALWAYS" />
+            </children>
+        </VBox>
+        <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#012d5a" height="455.0" layoutX="50.0" stroke="BLACK" strokeType="INSIDE" width="1180.0" AnchorPane.bottomAnchor="60.0" AnchorPane.leftAnchor="50.0" AnchorPane.rightAnchor="50.0" AnchorPane.topAnchor="205.0" />
+        <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#61a0ff" height="107.0" layoutX="50.0" layoutY="206.0" stroke="BLACK" strokeType="INSIDE" width="1180.0" AnchorPane.leftAnchor="50.0" AnchorPane.rightAnchor="50.0" AnchorPane.topAnchor="206.0" />
+        <Label layoutX="503.0" layoutY="237.0" prefHeight="45.0" prefWidth="275.0" text="Edit A Location" AnchorPane.leftAnchor="503.0" AnchorPane.rightAnchor="502.0" AnchorPane.topAnchor="237.0">
+            <font>
+                <Font name="Times New Roman Bold" size="40.0" />
+            </font>
+        </Label>
+      <GridPane hgap="25.0" layoutX="235.0" layoutY="321.0" prefHeight="325.0" prefWidth="810.0" vgap="5.0" AnchorPane.leftAnchor="75.0" AnchorPane.rightAnchor="75.0">
+        <columnConstraints>
+          <ColumnConstraints hgrow="ALWAYS" maxWidth="755.0" minWidth="10.0" prefWidth="729.0" />
+          <ColumnConstraints hgrow="ALWAYS" maxWidth="535.0" minWidth="10.0" prefWidth="376.0" />
+        </columnConstraints>
+        <rowConstraints>
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="ALWAYS" />
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+        </rowConstraints>
+         <children>
+            <Label text="Select A Node:" textFill="WHITE">
+               <font>
+                  <Font name="Times New Roman" size="30.0" />
+               </font>
+            </Label>
+            <Label text="Select An Edge:" textFill="WHITE" GridPane.columnIndex="1">
+               <font>
+                  <Font name="Times New Roman" size="30.0" />
+               </font>
+            </Label>
+            <HBox prefHeight="100.0" prefWidth="200.0" GridPane.rowIndex="2">
+               <children>
+                  <JFXButton fx:id="addNode" buttonType="RAISED" onAction="#addNodePress" ripplerFill="WHITE" text="Add" textFill="WHITE" HBox.hgrow="ALWAYS">
+                     <font>
+                        <Font name="Times New Roman" size="20.0" />
+                     </font>
+                  </JFXButton>
+                  <JFXButton fx:id="deleteNode" buttonType="RAISED" onAction="#deleteNodePress" ripplerFill="WHITE" text="Delete" textFill="WHITE" HBox.hgrow="ALWAYS">
+                     <font>
+                        <Font name="Times New Roman" size="20.0" />
+                     </font>
+                  </JFXButton>
+                  <JFXButton fx:id="makeEditableNode" buttonType="RAISED" onAction="#modifyNodePress" ripplerFill="WHITE" text="Modify" textFill="WHITE" HBox.hgrow="ALWAYS">
+                     <font>
+                        <Font name="Times New Roman" size="20.0" />
+                     </font>
+                  </JFXButton>
+                  <JFXButton fx:id="downloadNode" buttonType="RAISED" layoutX="154.0" layoutY="10.0" onAction="#modifyNodePress" ripplerFill="WHITE" text="Download csv" textFill="WHITE">
+                     <font>
+                        <Font name="Times New Roman" size="20.0" />
+                     </font>
+                  </JFXButton>
+               </children>
+            </HBox>
+            <HBox prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
+               <children>
+                  <JFXButton fx:id="addEdge" buttonType="RAISED" onAction="#addEdgePress" ripplerFill="WHITE" text="Add" textFill="WHITE" HBox.hgrow="ALWAYS">
+                     <font>
+                        <Font name="Times New Roman" size="20.0" />
+                     </font>
+                  </JFXButton>
+                  <JFXButton fx:id="deleteEdge" buttonType="RAISED" onAction="#deleteEdgePress" ripplerFill="WHITE" text="Delete" textFill="WHITE" HBox.hgrow="ALWAYS">
+                     <font>
+                        <Font name="Times New Roman" size="20.0" />
+                     </font>
+                  </JFXButton>
+                  <JFXButton fx:id="makeEditableEdge" buttonType="RAISED" onAction="#modifyEdgePress" ripplerFill="WHITE" text="Modify" textFill="WHITE" HBox.hgrow="ALWAYS">
+                     <font>
+                        <Font name="Times New Roman" size="20.0" />
+                     </font>
+                  </JFXButton>
+                  <JFXButton fx:id="downloadEdge" buttonType="RAISED" layoutX="154.0" layoutY="10.0" onAction="#modifyEdgePress" ripplerFill="WHITE" text="Download csv" textFill="WHITE">
+                     <font>
+                        <Font name="Times New Roman" size="20.0" />
+                     </font>
+                  </JFXButton>
+               </children>
+            </HBox>
+            <TableView fx:id="nodeTable" prefHeight="200.0" prefWidth="714.0" GridPane.rowIndex="1">
+              <columns>
+                <TableColumn fx:id="idCol" prefWidth="105.0" text="ID" />
+                <TableColumn prefWidth="47.0" text="X" fx:id="xCol" />
+                  <TableColumn fx:id="yCol" prefWidth="46.0" text="Y" />
+                  <TableColumn fx:id="floorCol" prefWidth="45.0" text="Floor" />
+                  <TableColumn fx:id="buildingCol" prefWidth="98.0" text="Building" />
+                  <TableColumn fx:id="typeCol" prefWidth="62.0" text="Type" />
+                  <TableColumn fx:id="longCol" prefWidth="208.0" text="Long Name" />
+                  <TableColumn fx:id="shortCol" minWidth="0.0" prefWidth="108.0" text="Short Name" />
+              </columns>
+            </TableView>
+            <TableView fx:id="edgeTable" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
+              <columns>
+                <TableColumn fx:id="edgeIDCol" prefWidth="75.0" text="ID" />
+                <TableColumn fx:id="startNodeCol" prefWidth="75.0" text="Start Node" />
+                  <TableColumn fx:id="endNodeCol" prefWidth="75.0" text="End Node" />
+              </columns>
+               <columnResizePolicy>
+                  <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+               </columnResizePolicy>
+            </TableView>
+         </children>
+      </GridPane>
+    </children>
+</AnchorPane>
