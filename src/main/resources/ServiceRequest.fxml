@@ -22,7 +22,7 @@
            <Image url="@SoftEng_UI_Mockup_Pics/Background.png" />
          </image>
       </ImageView>
-      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#85aeeb" height="100.0" layoutY="174.0" stroke="BLACK" strokeType="INSIDE" width="950.0" AnchorPane.leftAnchor="165.0" AnchorPane.topAnchor="175.0" />
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#7fb1ff" height="100.0" layoutY="174.0" stroke="#012d5a" strokeType="INSIDE" strokeWidth="2.0" width="950.0" AnchorPane.leftAnchor="165.0" AnchorPane.topAnchor="175.0" />
       <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#092b60" height="402.0" layoutX="50.0" layoutY="274.0" stroke="BLACK" strokeType="INSIDE" width="950.0" AnchorPane.leftAnchor="165.0" AnchorPane.topAnchor="274.0" />
       <VBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
@@ -35,7 +35,7 @@
                  </ImageView>
                  <HBox alignment="CENTER_RIGHT" prefHeight="110.0" prefWidth="817.0">
                      <children>
-                         <JFXButton fx:id="Back" buttonType="RAISED" onAction="#backPressed" ripplerFill="#f6bd38" text="Back">
+                         <JFXButton fx:id="Back" buttonType="RAISED" onAction="#backPressed" ripplerFill="#b0b0b0" text="Back">
                              <font>
                                  <Font name="Times New Roman" size="40.0" />
                              </font>
@@ -66,32 +66,32 @@
                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
               </rowConstraints>
                <children>
-                  <JFXButton fx:id="SanitationServices" alignment="CENTER" buttonType="RAISED" contentDisplay="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" onAction="#makeRequest" ripplerFill="#f6bd38" style="-fx-background-color: fff;" text="Sanitation Services">
+                  <JFXButton fx:id="SanitationServices" alignment="CENTER" buttonType="RAISED" contentDisplay="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" onAction="#makeRequest" ripplerFill="#b0b0b0" style="-fx-background-color: fff;" text="Sanitation Services">
                      <font>
                         <Font name="Times New Roman" size="36.0" />
                      </font>
                   </JFXButton>
-                  <JFXButton fx:id="Transportation" alignment="CENTER" buttonType="RAISED" contentDisplay="CENTER" layoutX="260.0" layoutY="60.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" onAction="#makeRequest" ripplerFill="#f6bd38" style="-fx-background-color: fff;" text="Transportation" GridPane.rowIndex="1">
+                  <JFXButton fx:id="Transportation" alignment="CENTER" buttonType="RAISED" contentDisplay="CENTER" layoutX="260.0" layoutY="60.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" onAction="#makeRequest" ripplerFill="#b0b0b0" style="-fx-background-color: fff;" text="Transportation" GridPane.rowIndex="1">
                      <font>
                         <Font name="Times New Roman" size="36.0" />
                      </font>
                   </JFXButton>
-                  <JFXButton fx:id="ITServices" alignment="CENTER" buttonType="RAISED" contentDisplay="CENTER" layoutX="260.0" layoutY="183.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" onAction="#makeRequest" ripplerFill="#f5bc38" style="-fx-background-color: fff;" text="IT Services" GridPane.rowIndex="2">
+                  <JFXButton fx:id="ITServices" alignment="CENTER" buttonType="RAISED" contentDisplay="CENTER" layoutX="260.0" layoutY="183.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" onAction="#makeRequest" ripplerFill="#b0b0b0" style="-fx-background-color: fff;" text="IT Services" GridPane.rowIndex="2">
                      <font>
                         <Font name="Times New Roman" size="36.0" />
                      </font>
                   </JFXButton>
-                  <JFXButton fx:id="FacilitiesMaintenance" alignment="CENTER" buttonType="RAISED" contentDisplay="CENTER" layoutX="260.0" layoutY="306.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" onAction="#makeRequest" ripplerFill="#f6bd38" style="-fx-background-color: fff;" text="Facilities Maintenance" GridPane.columnIndex="1">
+                  <JFXButton fx:id="FacilitiesMaintenance" alignment="CENTER" buttonType="RAISED" contentDisplay="CENTER" layoutX="260.0" layoutY="306.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" onAction="#makeRequest" ripplerFill="#b0b0b0" style="-fx-background-color: fff;" text="Facilities Maintenance" GridPane.columnIndex="1">
                      <font>
                         <Font name="Times New Roman" size="36.0" />
                      </font>
                   </JFXButton>
-                  <JFXButton fx:id="LanguageInterpreter" alignment="CENTER" buttonType="RAISED" contentDisplay="CENTER" layoutX="688.0" layoutY="60.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" onAction="#makeRequest" ripplerFill="#f6bd38" style="-fx-background-color: fff;" text="Language Interpreter" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                  <JFXButton fx:id="LanguageInterpreter" alignment="CENTER" buttonType="RAISED" contentDisplay="CENTER" layoutX="688.0" layoutY="60.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" onAction="#makeRequest" ripplerFill="#b0b0b0" style="-fx-background-color: fff;" text="Language Interpreter" GridPane.columnIndex="1" GridPane.rowIndex="1">
                      <font>
                         <Font name="Times New Roman" size="36.0" />
                      </font>
                   </JFXButton>
-                  <JFXButton fx:id="SecurityStaff" alignment="CENTER" buttonType="RAISED" contentDisplay="CENTER" layoutX="688.0" layoutY="183.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" onAction="#makeRequest" ripplerFill="#f6bd38" style="-fx-background-color: fff;" text="Security Staff" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                  <JFXButton fx:id="SecurityStaff" alignment="CENTER" buttonType="RAISED" contentDisplay="CENTER" layoutX="688.0" layoutY="183.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" onAction="#makeRequest" ripplerFill="#b0b0b0" style="-fx-background-color: fff;" text="Security Staff" GridPane.columnIndex="1" GridPane.rowIndex="2">
                      <font>
                         <Font name="Times New Roman" size="36.0" />
                      </font>

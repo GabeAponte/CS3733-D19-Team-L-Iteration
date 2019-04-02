@@ -13,6 +13,8 @@ public class FulfillRequestController {
 
     private Stage thestage;
 
+    private ServiceRequestTable theRequest;
+
     @FXML
     private Button back;
 
@@ -37,25 +39,27 @@ public class FulfillRequestController {
     }
 
     @FXML
+    public void getRequestID(ServiceRequestTable request) {
+        theRequest = request;
+        System.out.println(theRequest.getRequestID());
+    }
+
+    @FXML
     //TODO: Add database functionality to mark request as fulfilled and update table of requests
     private void SwitchToAdminServiceRequestTable() throws IOException {
         if (staffMember.getText().trim().isEmpty() || staffMember.getText().equals("Staff Member")) {
             errorLabel.setText("Please enter a staff member name");
 
-        } else {
+        }
+        else{
+            ServiceRequestAccess sa = new ServiceRequestAccess();
+            sa.fulfillRequest(Integer.parseInt(theRequest.getRequestID()), staffMember.getText());
             errorLabel.setText("Request Fulfilled");
-
-            /*try {
-                if (errorLabel.getText().equals("Request Fulfilled")){
-                Thread.sleep(1000);
-                }
-
-                Stage thestage = (Stage) fulfill.getScene().getWindow();
-                AnchorPane root;
-                root = FXMLLoader.load(getClass().getResource("AdminServiceRequestTable.fxml"));
-                Scene scene = new Scene(root);
-                thestage.setScene(scene);
-            } catch (Exception e) {*/
+            thestage = (Stage) back.getScene().getWindow();
+            AnchorPane root;
+            root = FXMLLoader.load(getClass().getResource("ActiveServiceRequests.fxml"));
+            Scene scene = new Scene(root);
+            thestage.setScene(scene);
             }
         }
     }
