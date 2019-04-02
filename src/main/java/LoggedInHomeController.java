@@ -93,4 +93,18 @@ public class LoggedInHomeController {
         theStage.setScene(scene);
     }
 
+    @FXML
+    private void SwitchToEditLocationScreen() throws IOException{
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("EditLocation.fxml"));
+
+        Parent sceneMain = loader.load();
+
+        EditLocationController controller = loader.<EditLocationController>getController();
+
+        Stage theStage = (Stage) fufillServiceRequest.getScene().getWindow();
+
+        Scene scene = new Scene(sceneMain);
+        theStage.setScene(scene);
+    }
+
 }
