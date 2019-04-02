@@ -99,10 +99,10 @@ public class BookRoomController {
         }else if (startTimeValue.compareTo(endTimeValue) > 0) {
             error.setText("Start time cannot be after end time.");
         }
-        else if (startTimeValue.compareTo(curTime) < 0 && roomDate.compareTo(curDate) < 0)
+        /*else if (startTimeValue.compareTo(curTime) < 0 && roomDate.compareTo(curDate) < 0)
         {
             error.setText("Please select a current or future time for today and a current or future date.");
-        }
+        }*/
         else if (startTimeValue.compareTo(curTime) < 0 && roomDate.equals(curDate)) {
             error.setText("Please select a current or future time for today.");
         }
