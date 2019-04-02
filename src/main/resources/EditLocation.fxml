@@ -39,11 +39,6 @@
                                         <Font name="Times New Roman" size="40.0" />
                                     </font>
                                 </JFXButton>
-                        <JFXButton buttonType="RAISED" ripplerFill="#b0b0b0" text="Log Out">
-                           <font>
-                              <Font name="Times New Roman" size="40.0" />
-                           </font>
-                        </JFXButton>
                             </children>
                         </HBox>
                     </items>
