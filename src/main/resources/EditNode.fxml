@@ -111,7 +111,7 @@
                   <Insets left="25.0" right="25.0" />
                </GridPane.margin>
             </JFXTextField>
-            <JFXButton buttonType="RAISED" ripplerFill="WHITE" text="Submit" textAlignment="CENTER" textFill="WHITE" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="4">
+            <JFXButton fx:id="submitButton" buttonType="RAISED" onAction="#returnAndSave" ripplerFill="WHITE" text="Submit" textAlignment="CENTER" textFill="WHITE" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="4">
                <font>
                   <Font name="Times New Roman" size="20.0" />
                </font>

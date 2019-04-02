@@ -8,6 +8,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -15,6 +16,9 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 public class EditLocationController {
+
+    @FXML
+    Button backButton;
 
     @FXML
     Button downloadNode;
@@ -87,7 +91,8 @@ public class EditLocationController {
         edgeTable.setEditable(false);
         NodesAccess na = new NodesAccess();
         EdgesAccess ea = new EdgesAccess();
-
+        makeEditableNode.setDisable(true);
+        makeEditableEdge.setDisable(true);
         initializeTable(na, ea);
 
         //node table setup
@@ -111,18 +116,18 @@ public class EditLocationController {
         edgeTable.setOnMouseClicked(event -> {
             setNextEdge(edgeTable.getSelectionModel().getSelectedItem());});
         edgeTable.setItems(edgeData);
-        System.out.println(edgeData.get(1).getEdgeID());
 
 
 
     }
 
     public void setNextNode(Location proto) {
-        //this.makeEditable.setDisable(false);
+        this.makeEditableNode.setDisable(false);
         this.focusNode = proto;
     }
 
     public void setNextEdge(Edge proto) {
+        this.makeEditableEdge.setDisable(false);
         this.focusEdge = proto;
     }
 
@@ -184,7 +189,16 @@ public class EditLocationController {
     }
 
     @FXML
-    private void addNodePress() {}
+    private void addNodePress() {
+        try {
+            Stage thestage = (Stage) backButton.getScene().getWindow();
+            AnchorPane root;
+            root = FXMLLoader.load(getClass().getResource("EditNode.fxml"));
+            Scene scene = new Scene(root);
+            thestage.setScene(scene);
+        } catch (Exception e){
+        }
+    }
 
     @FXML
     private void downloadNodes() {
@@ -249,6 +263,20 @@ public class EditLocationController {
             count++;
         }
     }
+
+    @FXML
+    private void backPressed() {
+        try {
+            Stage thestage = (Stage) backButton.getScene().getWindow();
+            AnchorPane root;
+            root = FXMLLoader.load(getClass().getResource("LoggedInHome.fxml"));
+            Scene scene = new Scene(root);
+            thestage.setScene(scene);
+        } catch (Exception e){
+        }
+    }
+
+
 
 
 }
