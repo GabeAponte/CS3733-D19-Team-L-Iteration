@@ -214,7 +214,7 @@ public class EdgesAccess extends DBAccess
         try (Connection conn = this.connect();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
             pstmt.setString(1, edgeID);
-            pstmt.executeUpdate(sql);
+            pstmt.executeUpdate();
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }

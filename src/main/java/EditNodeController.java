@@ -13,6 +13,7 @@ import javafx.stage.Stage;
 import javax.xml.soap.Node;
 import java.awt.*;
 import java.io.IOException;
+import java.io.IOException;
 import java.util.ArrayList;
 
 public class EditNodeController {
@@ -40,6 +41,8 @@ public class EditNodeController {
     @FXML
     private JFXTextField nodeShortName;
 
+    @FXML
+    private JFXButton editNodeBackButton;
     @FXML
     private JFXButton submitButton;
 
@@ -114,5 +117,13 @@ public class EditNodeController {
     }
 
     //back/cancel button here
+    @FXML
+    private void editNodeBackPress() throws IOException {
+        thestage = (Stage) editNodeBackButton.getScene().getWindow();
+        AnchorPane root;
+        root = FXMLLoader.load(getClass().getResource("EditLocation.fxml"));
+        Scene scene = new Scene(root);
+        thestage.setScene(scene);
+    }
 
 }
