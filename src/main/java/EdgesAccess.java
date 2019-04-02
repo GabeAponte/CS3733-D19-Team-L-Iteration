@@ -1,3 +1,5 @@
+import java.io.*;
+import java.sql.*;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
@@ -47,20 +49,74 @@ public class EdgesAccess extends DBAccess
         }
     }
 
+    /** ANDREW MADE THIS
+     * takes the information in the database table and writes it to a CSV
+     */
+    public void writeTableIntoCSV(String path) {
+        File file;
+        if (path.equals("")) {
+            file = new File("output" + Long.toString(System.currentTimeMillis()) + ".csv");
+        } else {
+            file = new File(path + "\\output" + Long.toString(System.currentTimeMillis()) + ".csv");
+        }
+        BufferedWriter writer = null;
+        try {
+            writer = new BufferedWriter(new FileWriter(file, true));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        String sql = "select * from edges;";
+
+        try (Connection conn = this.connect();
+             Statement stmt = conn.createStatement();
+             ResultSet rs = stmt.executeQuery(sql)) {
+            try {
+                //noinspection ConstantConditions
+                writer.append("edgeID," +
+                        "startNode," +
+                        "endNode");
+                writer.newLine();
+            } catch (IOException o) {
+                System.out.println(o.getMessage());
+            }
+            // loop through the result set
+            while (rs.next()) {
+                try {
+                    //noinspection StringConcatenationInsideStringBufferAppend
+                    writer.append(rs.getString("edgeID") +
+                            "," + rs.getString("startNode") +
+                            "," + rs.getString("endNode"));
+                    writer.newLine();
+                } catch (IOException o) {
+                    System.out.println(o.getMessage());
+                }
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        try {
+            //noinspection ConstantConditions
+            writer.close();
+        } catch (IOException o) {
+            System.out.println(o.getMessage());
+        }
+
+    }
+
     @SuppressWarnings("Duplicates")
     public ArrayList<String> getConnectedNodes(String nodeID){
         String sql = "SELECT startNode, endNode FROM edges WHERE startNode= ? OR endNode= ?;";
 
         ArrayList<String> connectedNodes = new ArrayList<>();
         try (Connection conn = this.connect();
-            PreparedStatement pstmt = conn.prepareStatement(sql)){
+             PreparedStatement pstmt = conn.prepareStatement(sql)){
             pstmt.setString(1, nodeID);
             pstmt.setString(2, nodeID);
             ResultSet rs = pstmt.executeQuery();
             while (rs.next()) {
                 getFields(connectedNodes, rs);
             }
-    }
+        }
         catch (SQLException e) {
             System.out.println(e.getMessage());
             System.out.println("HERE");
@@ -74,9 +130,9 @@ public class EdgesAccess extends DBAccess
 
         for(int i = 0; i < connectedNodes.size(); i++)
         {
-            System.out.println(connectedNodes.get(i));
+            //System.out.println(connectedNodes.get(i));
         }
-        return null;
+        return connectedNodes;
 
     }
 
