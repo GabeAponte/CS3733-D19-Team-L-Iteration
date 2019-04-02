@@ -259,7 +259,6 @@ public class EdgesAccess extends DBAccess
         return null;
     }
 
-
     /**ANDREW MADE THIS
      *  returns the fields of a particular nodeID in an arraylist
      * @param edgeID
