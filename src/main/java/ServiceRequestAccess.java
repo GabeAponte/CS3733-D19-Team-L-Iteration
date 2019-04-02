@@ -64,7 +64,7 @@ public class ServiceRequestAccess extends DBAccess{
      * @return
      */
     public ArrayList<String> getRequests(int getNum){
-        String sql = "SELECT * FROM serviceRequest where assignedEmployee = NULL";
+        String sql = "SELECT * FROM serviceRequest where assignedEmployee is NULL";
         int count = 0;
         //noinspection Convert2Diamond
         ArrayList<String> data = new ArrayList<String>();
@@ -106,7 +106,7 @@ public class ServiceRequestAccess extends DBAccess{
      * @return int
      */
     public int countRecords() {
-        String sql = "select COUNT(*) from serviceRequest where not assignedEmployee = null";
+        String sql = "select COUNT(*) from serviceRequest where assignedEmployee is not null";
         try (Connection conn = this.connect();
              Statement stmt = conn.createStatement();
              ResultSet rs = stmt.executeQuery(sql)) {
