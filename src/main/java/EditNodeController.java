@@ -12,9 +12,6 @@ import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
-import javax.xml.soap.Node;
-import java.awt.*;
-import java.io.IOException;
 import java.io.IOException;
 import java.util.ArrayList;
 
@@ -25,6 +22,7 @@ public class EditNodeController {
 
     private Location data;
     private String tempNodeID; //for getting og id
+    private String uname;
 
     @FXML
     private JFXTextField nodeID;
@@ -53,8 +51,8 @@ public class EditNodeController {
     private ObservableList<String> locationIDS = FXCollections.observableArrayList();
 
     @FXML
-    public void initialize() {
-
+    public void init(String username) {
+        uname = username;
         nodeXCoord.textProperty().addListener(this::changedX);
         nodeYCoord.textProperty().addListener(this::changedY);
         nodeFloor.textProperty().addListener(this::changedFloor);
@@ -172,10 +170,16 @@ public class EditNodeController {
     //back/cancel button here
     @FXML
     private void editNodeBackPress() throws IOException {
-        thestage = (Stage) editNodeBackButton.getScene().getWindow();
-        AnchorPane root;
-        root = FXMLLoader.load(getClass().getResource("EditLocation.fxml"));
-        Scene scene = new Scene(root);
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("EditEdges.fxml"));
+        Parent roots = loader.load();
+
+        //Get controller of scene2
+        EditEdgesController scene2Controller = loader.getController();
+        scene2Controller.init(uname);
+
+        Scene scene = new Scene(roots);
+        Stage thestage = (Stage) nodeID.getScene().getWindow();
+        //Show scene 2 in new window
         thestage.setScene(scene);
     }
 

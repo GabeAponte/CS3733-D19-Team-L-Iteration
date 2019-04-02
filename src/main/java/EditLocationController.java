@@ -162,6 +162,7 @@ public class EditLocationController {
 
             //Get controller of scene2
             EditEdgesController scene2Controller = loader.getController();
+            scene2Controller.init(uname);
 
             Scene scene = new Scene(roots);
             scene2Controller.setInitialValues(focusEdge.getStartID(), focusEdge.getEndID());
@@ -190,6 +191,7 @@ public class EditLocationController {
 
             //Get controller of scene2
             EditEdgesController scene2Controller = loader.getController();
+            scene2Controller.init(uname);
 
             Scene scene = new Scene(roots);
             scene2Controller.populateNodeList(toPass);
@@ -244,6 +246,7 @@ public class EditLocationController {
 
             //Get controller of scene2
             EditNodeController scene2Controller = loader.getController();
+            scene2Controller.init(uname);
 
             Scene scene = new Scene(roots);
             scene2Controller.fillFields(this.focusNode);
@@ -271,6 +274,7 @@ public class EditLocationController {
 
             //Get controller of scene2
             EditNodeController scene2Controller = loader.getController();
+            scene2Controller.init(uname);
 
             Scene scene = new Scene(roots);
             scene2Controller.populateNodeList(toPass);
@@ -319,7 +323,7 @@ public class EditLocationController {
 
     @FXML
     private void backPressed() throws IOException{
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("BookRoom.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("LoggedInHome.fxml"));
 
         Parent sceneMain = loader.load();
 
