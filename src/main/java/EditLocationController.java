@@ -139,11 +139,11 @@ public class EditLocationController {
         alert.showAndWait();
 
         if (alert.getResult() == ButtonType.YES) {
-            //do stuff
             System.out.println("user deletes this edge");
+            EdgesAccess ea = new EdgesAccess();
+            ea.deleteEdge(focusEdge.getEdgeID());
         }
-        if (alert.getResult() == ButtonType.NO) {
-            //do stuff
+        else if (alert.getResult() == ButtonType.NO) {
             System.out.println("user does not delete edge");
         }
     }
@@ -175,17 +175,23 @@ public class EditLocationController {
 
     @FXML
     private void deleteNodePress() {
+        //this is the dialogue popup
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Delete selected node?", ButtonType.YES, ButtonType.NO);
         alert.showAndWait();
 
         if (alert.getResult() == ButtonType.YES) {
-            //do stuff
             System.out.println("user deletes this node");
+            //delete the node here
+            NodesAccess na = new NodesAccess();
+            na.deleteNode(focusNode.getLocID());
+
         }
-        if (alert.getResult() == ButtonType.NO) {
-            //do stuff
+        else if (alert.getResult() == ButtonType.NO) {
+            //do nothing
             System.out.println("user does not delete node");
         }
+
+
     }
 
     @FXML
