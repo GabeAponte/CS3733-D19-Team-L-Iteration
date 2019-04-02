@@ -4,16 +4,16 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Region;
 import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 public class EditLocationController {
 
@@ -135,7 +135,17 @@ public class EditLocationController {
 
     @FXML
     private void deleteEdgePress() {
-        
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Delete selected edge?", ButtonType.YES, ButtonType.NO);
+        alert.showAndWait();
+
+        if (alert.getResult() == ButtonType.YES) {
+            //do stuff
+            System.out.println("user deletes this edge");
+        }
+        if (alert.getResult() == ButtonType.NO) {
+            //do stuff
+            System.out.println("user does not delete edge");
+        }
     }
 
     @FXML
@@ -165,7 +175,17 @@ public class EditLocationController {
 
     @FXML
     private void deleteNodePress() {
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Delete selected node?", ButtonType.YES, ButtonType.NO);
+        alert.showAndWait();
 
+        if (alert.getResult() == ButtonType.YES) {
+            //do stuff
+            System.out.println("user deletes this node");
+        }
+        if (alert.getResult() == ButtonType.NO) {
+            //do stuff
+            System.out.println("user does not delete node");
+        }
     }
 
     @FXML
