@@ -54,8 +54,8 @@ public class EditEdgesController {
         this.initialStart = initialStart;
         this.initialEnd = initialEnd;
         this.initialID = initialStart + "_" + initialEnd;
-        PathFindStartDrop.setPromptText(initialStart);
-        PathFindEndDrop.setPromptText(initialEnd);
+        PathFindStartDrop.setValue(initialStart);
+        PathFindEndDrop.setValue(initialEnd);
         isNew = false;
     }
 
