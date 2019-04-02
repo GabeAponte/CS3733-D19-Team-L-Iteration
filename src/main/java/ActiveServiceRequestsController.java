@@ -2,6 +2,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
@@ -18,6 +19,7 @@ public class ActiveServiceRequestsController {
 
     private boolean signedIn;
     private Stage thestage;
+    private ServiceRequestTable selectedRequest;
 
     @FXML
     private Button back;
@@ -35,7 +37,7 @@ public class ActiveServiceRequestsController {
     TableColumn<ServiceRequestTable, String> comment;
 
     @FXML
-    private TableView activeRequests;
+    private TableView<ServiceRequestTable> activeRequests;
 
     @SuppressWarnings("Duplicates")
 
@@ -75,22 +77,34 @@ public class ActiveServiceRequestsController {
         activeRequests.setItems(data);
     }
 
+    public void setNext(ServiceRequestTable request){
+        this.selectedRequest = request;
+    }
+
     //Gabe - Switches to fulfill screen when mouse double clicks a row in the table
     //TODO: Bring over request information so that fulfill page can update a request
     @FXML
     private void SwitchToFulfillRequestScreen() throws IOException {
         activeRequests.setOnMouseClicked(event -> {
+            setNext(activeRequests.getSelectionModel().getSelectedItem());
             if (event.getButton().equals(MouseButton.PRIMARY) && event.getClickCount() == 2) {
-
-                Stage thestage = (Stage) activeRequests.getScene().getWindow();
-                AnchorPane root = null;
                 try {
-                    root = FXMLLoader.load(getClass().getResource("FulfillRequest.fxml"));
-                } catch (IOException e) {
-                    e.printStackTrace();
+                    //Load second scene
+                    FXMLLoader loader = new FXMLLoader(getClass().getResource("FulfillRequest.fxml"));
+                    Parent roots = loader.load();
+                    //Get controller of scene2
+                    FulfillRequestController scene2Controller = loader.getController();
+                    Scene scene = new Scene(roots);
+                    scene2Controller.getRequestID(selectedRequest);
+                    thestage = (Stage) back.getScene().getWindow();
+                    //Show scene 2 in new window
+                    thestage.setScene(scene);
+
+                } catch (IOException ex) {
+                    //noinspection ThrowablePrintedToSystemOut
+                    System.err.println(ex);
                 }
-                Scene scene = new Scene(root);
-                thestage.setScene(scene);
+
             }
         });
     }

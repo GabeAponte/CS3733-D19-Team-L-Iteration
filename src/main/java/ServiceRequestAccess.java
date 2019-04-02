@@ -45,7 +45,7 @@ public class ServiceRequestAccess extends DBAccess{
      * @param name
      */
     public void fulfillRequest(int rid, String name){
-        String sql = "update serviceRequest set assignedEmployee = ? where requestID = ?";
+        String sql = "update serviceRequest set assignedEmployee = ?, fulfilled = 1 where requestID = ?";
 
 
         try (Connection conn = this.connect();
