@@ -303,6 +303,17 @@ public class EdgesAccess extends DBAccess
 
     }
 
+    public boolean containsEdge(String edgeID) {
+        ArrayList<String> edges = new ArrayList<String>();
+        edges = getEdgeInformation(edgeID);
+        if(edges == null) {
+            return true;
+        }
+        else{
+            return false;
+        }
+    }
+
 
     public static void main(String[] args) {
         EdgesAccess test = new EdgesAccess();
