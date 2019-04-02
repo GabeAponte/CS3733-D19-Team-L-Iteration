@@ -106,7 +106,7 @@ public class ServiceRequestAccess extends DBAccess{
      * @return int
      */
     public int countRecords() {
-        String sql = "select COUNT(*) from serviceRequest";
+        String sql = "select COUNT(*) from serviceRequest where assignedEmployee = null";
         try (Connection conn = this.connect();
              Statement stmt = conn.createStatement();
              ResultSet rs = stmt.executeQuery(sql)) {
