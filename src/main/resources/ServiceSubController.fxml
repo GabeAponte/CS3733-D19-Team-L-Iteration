@@ -25,8 +25,8 @@
                 <Image url="@SoftEng_UI_Mockup_Pics/Background.png" />
             </image>
         </ImageView>
-        <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#85aeeb" height="100.0" stroke="BLACK" strokeType="INSIDE" width="950.0" AnchorPane.leftAnchor="165.0" AnchorPane.topAnchor="175.0" />
-        <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#092b60" height="400.0" layoutX="50.0" layoutY="275.0" stroke="BLACK" strokeType="INSIDE" width="950.0" AnchorPane.leftAnchor="165.0" AnchorPane.topAnchor="275.0" />
+        <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#7fb1ff" height="100.0" stroke="#012d5a" strokeType="INSIDE" strokeWidth="2.0" width="950.0" AnchorPane.leftAnchor="165.0" AnchorPane.topAnchor="175.0" />
+        <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#012d5a" height="400.0" layoutX="50.0" layoutY="275.0" stroke="#012d5a" strokeType="INSIDE" width="950.0" AnchorPane.leftAnchor="165.0" AnchorPane.topAnchor="275.0" />
         <VBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
             <children>
                 <ToolBar prefHeight="125.0" prefWidth="1280.0" style="-fx-background-color: white;">
@@ -46,7 +46,7 @@
                             </children></HBox>
                     </items>
                 </ToolBar>
-                <ToolBar maxHeight="10.0" prefHeight="40.0" prefWidth="200.0" style="-fx-background-color: #092b60;" />
+                <ToolBar maxHeight="10.0" prefHeight="40.0" prefWidth="200.0" style="-fx-background-color: #012d5a;" />
                 <Label fx:id="typeLabel" alignment="CENTER" contentDisplay="CENTER" maxWidth="1.7976931348623157E308" text="CHANGE">
                     <font>
                         <Font name="Times New Roman Bold" size="48.0" />

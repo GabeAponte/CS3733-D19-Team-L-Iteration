@@ -22,7 +22,7 @@
            <Image url="@SoftEng_UI_Mockup_Pics/Background.png" />
          </image>
       </ImageView>
-      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#85aeeb" height="100.0" layoutY="174.0" stroke="BLACK" strokeType="INSIDE" width="950.0" AnchorPane.leftAnchor="165.0" AnchorPane.topAnchor="175.0" />
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#7fb1ff" height="100.0" layoutY="174.0" stroke="#012d5a" strokeType="INSIDE" strokeWidth="2.0" width="950.0" AnchorPane.leftAnchor="165.0" AnchorPane.topAnchor="175.0" />
       <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#092b60" height="402.0" layoutX="50.0" layoutY="274.0" stroke="BLACK" strokeType="INSIDE" width="950.0" AnchorPane.leftAnchor="165.0" AnchorPane.topAnchor="274.0" />
       <VBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
