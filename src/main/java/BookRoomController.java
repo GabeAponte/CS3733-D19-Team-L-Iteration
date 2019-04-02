@@ -103,7 +103,7 @@ public class BookRoomController {
         {
             error.setText("Please select a current or future time for today and a current or future date.");
         }
-        else if (startTimeValue.compareTo(curTime) < 0) {
+        else if (startTimeValue.compareTo(curTime) < 0 && roomDate.equals(curDate)) {
             error.setText("Please select a current or future time for today.");
         }
         else if (roomDate.compareTo(curDate) < 0) {
