@@ -32,7 +32,7 @@
                         </ImageView>
                         <HBox alignment="CENTER_RIGHT" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="125.0" prefWidth="842.0">
                             <children>
-                                <JFXButton fx:id="bookRoomBack" buttonType="RAISED" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onAction="#backPressed" prefHeight="109.0" prefWidth="195.0" ripplerFill="#f6bd38" text="Back">
+                                <JFXButton fx:id="bookRoomBack" buttonType="RAISED" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onAction="#backPressed" prefHeight="109.0" prefWidth="195.0" ripplerFill="#b0b0b0" text="Back">
                                     <font>
                                         <Font name="Times New Roman" size="40.0" />
                                     </font>
@@ -45,14 +45,14 @@
             </children>
         </VBox>
         <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#012d5a" height="455.0" stroke="BLACK" strokeType="INSIDE" width="880.0" AnchorPane.bottomAnchor="100.0" AnchorPane.leftAnchor="200.0" AnchorPane.rightAnchor="200.0" AnchorPane.topAnchor="205.0" />
-        <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#85aeeb" height="107.0" layoutX="201.0" layoutY="206.0" stroke="BLACK" strokeType="INSIDE" width="878.0" AnchorPane.leftAnchor="201.0" AnchorPane.rightAnchor="201.0" AnchorPane.topAnchor="206.0" />
+        <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#7fb1ff" height="107.0" layoutX="201.0" layoutY="206.0" stroke="BLACK" strokeType="INSIDE" width="878.0" AnchorPane.leftAnchor="201.0" AnchorPane.rightAnchor="201.0" AnchorPane.topAnchor="206.0" />
         <Label layoutX="520.0" layoutY="239.0" text="Book A Room" AnchorPane.leftAnchor="520.0" AnchorPane.rightAnchor="519.0" AnchorPane.topAnchor="239.0">
             <font>
                 <Font name="Times New Roman Bold" size="40.0" />
             </font>
         </Label>
         <ComboBox fx:id="avaliableRooms" layoutX="616.0" layoutY="474.0" prefHeight="33.0" prefWidth="300.0" />
-        <JFXButton fx:id="requestRoom" buttonType="RAISED" layoutX="572.0" layoutY="569.0" onAction="#findRoom" ripplerFill="#f6bd38" style="-fx-background-color: WHITE;" text="Request">
+        <JFXButton fx:id="requestRoom" buttonType="RAISED" layoutX="572.0" layoutY="569.0" onAction="#findRoom" ripplerFill="#b0b0b0" style="-fx-background-color: WHITE;" text="Request">
             <font>
                 <Font name="Times New Roman" size="30.0" />
             </font>
