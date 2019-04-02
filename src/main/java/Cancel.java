@@ -14,7 +14,7 @@ public class Cancel {
     private boolean signedIn;
 
     @FXML
-    Button Back;
+    private Button Back;
 
     @FXML
     private Button yes;
@@ -61,14 +61,12 @@ public class Cancel {
     }
 
     //Nathan - make a new service request and store it in the database, and sends email
-    //TODO: Store request in Database
     @FXML
     private void yesClicked() throws IOException, InterruptedException{
-        //IF THERE ARE ISSUES WITH THE EMAIL COMMENT THE NEXT TWO LINES AS WELL AS IMPORT STATEMENTS AND run() IN ChildThread.java
-
+        ServiceRequestAccess sra = new ServiceRequestAccess();
         ChildThread ct = new ChildThread(typeOfService, comment);
         ct.start();
-        //*/
+        sra.makeRequest(comment, typeOfService);
         noClicked();
     }
 
