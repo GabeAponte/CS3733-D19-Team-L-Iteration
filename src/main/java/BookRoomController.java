@@ -83,6 +83,10 @@ public class BookRoomController {
             error.setText("Please select a date.");
         }
 
+        else if (avaliableRooms.getValue() == null) {
+            error.setText("Please pick a room.");
+        }
+
         else if (startTimeValue == null && endTimeValue == null) {
             error.setText("Please select start and end times.");
         }
