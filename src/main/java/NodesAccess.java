@@ -20,11 +20,26 @@ public class NodesAccess extends DBAccess{
         }
     }
 
+    /**ANDREW MADE THIS
+     * deletes all the records from the nodes table
+     */
+    public void deleteRecords() {
+        String sql = "Delete from nodes;";
+
+        try (Connection conn = this.connect();
+             Statement stmt = conn.createStatement()) {
+            stmt.executeUpdate(sql);
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
     /** ANDREW MADE THIS
      * reads the csvFile given and adds it to given table
      */
     public void readCSVintoTable() {
         //todo need csv file
+        this.deleteRecords();
         String line;
         String cvsSplitBy = ",";
         int count = 0;
@@ -223,12 +238,32 @@ public class NodesAccess extends DBAccess{
      * @param field, the column of the table you want to edit
      * @param data, the data you want to put in
      */
-    public void updateNodes(String nodeID, String field, int data) {
+    public void updateNode(String nodeID, String field, int data) {
         String sql = "update nodes set " + field + "= ? where nodeID= ?;";
 
         try (Connection conn = this.connect();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
             pstmt.setInt(1, data);
+            pstmt.setString(2, nodeID);
+            pstmt.executeUpdate();
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    /** DJ MADE THIS
+     * Call this to update the database with the required paramaters
+     *
+     * @param nodeID, the ID of the node you want to edit
+     * @param field, the column of the table you want to edit
+     * @param data, the data you want to put in
+     */
+    public void updateNode(String nodeID, String field, String data) {
+        String sql = "update nodes set " + field + "= ? where nodeID= ?;";
+
+        try (Connection conn = this.connect();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            pstmt.setString(1, data);
             pstmt.setString(2, nodeID);
             pstmt.executeUpdate();
         } catch (SQLException e) {
@@ -249,6 +284,21 @@ public class NodesAccess extends DBAccess{
         try (Connection conn = this.connect();
              PreparedStatement pstmt = createPreparedStatement(conn, sql, data)) {
             pstmt.executeUpdate();
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    /**ANDREW MADE THIS
+     * deletes the node with the given nodeID
+     */
+    public void deleteNode(String nodeID) {
+        String sql = "Delete from nodes where nodeID = ?;";
+
+        try (Connection conn = this.connect();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            pstmt.setString(1, nodeID);
+            pstmt.executeUpdate(sql);
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
