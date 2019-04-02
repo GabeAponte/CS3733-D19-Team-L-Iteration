@@ -85,8 +85,9 @@ public class PathFindingController {
         na = new NodesAccess();
         ea = new EdgesAccess();
         initializeTable(na, ea);
-        PathFindStartDrop.setItems(data);
-        PathFindEndDrop.setItems(data);
+       // System.out.println(data.get(0));
+//        PathFindStartDrop.setItems(data);
+//        PathFindEndDrop.setItems(data);
 
 
         // AT THIS POINT:
@@ -142,7 +143,9 @@ public class PathFindingController {
 //        Path p6 = findPath(start6, end6);
 //        System.out.println(p6.toString());
     }
-
+    public HashMap<String, Location> getLookup() {
+        return lookup;
+    }
     @FXML
     private void locationsSelected(){
         if(PathFindStartDrop.getValue() != null && PathFindEndDrop.getValue() != null){
@@ -215,7 +218,7 @@ public class PathFindingController {
     ArrayList<String> visited = new ArrayList<String>();
 
 
-    private Path findPath(Location start, Location end) {
+    public Path findPath(Location start, Location end) {
         openList.add(start);
         start.setParentID("START");
         ArrayList<Location> path = new ArrayList<Location>();
@@ -276,7 +279,7 @@ public class PathFindingController {
         return p;
     }
 
-    private void initializeTable(NodesAccess na, EdgesAccess ea) {
+    public void initializeTable(NodesAccess na, EdgesAccess ea) {
         ArrayList<String> edgeList;
         int count;
         count = 0;
