@@ -80,7 +80,7 @@ public class LoggedInHomeController {
         Parent sceneMain = sLoader.load();
 
         ServiceRequestController sController = sLoader.<ServiceRequestController>getController();
-        sController.init(signedIn);
+        sController.init(signedIn, uname);
 
         Stage theStage = (Stage) findPath.getScene().getWindow();
 

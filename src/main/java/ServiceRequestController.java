@@ -11,6 +11,7 @@ import java.io.IOException;
 
 public class ServiceRequestController {
     private boolean signedIn;
+    private String uname;
 
     @FXML
     private Button SanitationServices;
@@ -37,12 +38,28 @@ public class ServiceRequestController {
         signedIn = loggedIn;
     }
 
+    void init(boolean loggedIn, String username) {
+        uname = username;
+        init(loggedIn);
+    }
+
     @FXML
     protected void backPressed() throws IOException {
         Stage theStage = (Stage) Back.getScene().getWindow();
         AnchorPane root;
         if(signedIn){
-            root = FXMLLoader.load(getClass().getResource("LoggedInHome.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("LoggedInHome.fxml"));
+
+            Parent sceneMain = loader.load();
+
+            LoggedInHomeController controller = loader.<LoggedInHomeController>getController();
+            controller.init(uname);
+
+            theStage = (Stage) SanitationServices.getScene().getWindow();
+
+            Scene scene = new Scene(sceneMain);
+            theStage.setScene(scene);
+            return;
         } else {
             root = FXMLLoader.load(getClass().getResource("HospitalHome.fxml"));
         }
@@ -79,7 +96,11 @@ public class ServiceRequestController {
         Parent sceneMain = loader.load();
 
         ServiceSubController controller = loader.<ServiceSubController>getController();
-        controller.init(service, signedIn);
+        if(signedIn){
+            controller.init(service, signedIn, uname);
+        } else {
+            controller.init(service, signedIn);
+        }
 
         Stage theStage = (Stage) SanitationServices.getScene().getWindow();
 
