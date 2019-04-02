@@ -10,6 +10,21 @@ import java.util.ArrayList;
 // Refer to DJ or Andrew for questions or concerns with this class
 public class EdgesAccess extends DBAccess
 {
+
+    /**ANDREW MADE THIS
+     * deletes all the records from the nodes table
+     */
+    public void deleteRecords() {
+        String sql = "Delete from edges;";
+
+        try (Connection conn = this.connect();
+             Statement stmt = conn.createStatement()) {
+            stmt.executeUpdate(sql);
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
     /** DJ MADE THIS (Andrew also knows how this works)
      * reads the csvFile given and adds it to given table
      */
