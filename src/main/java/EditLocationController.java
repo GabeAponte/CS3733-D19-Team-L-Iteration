@@ -84,6 +84,8 @@ public class EditLocationController {
     private Edge focusEdge;
 
 
+
+
     @SuppressWarnings("Convert2Diamond")
     @FXML
     public void initialize(){
