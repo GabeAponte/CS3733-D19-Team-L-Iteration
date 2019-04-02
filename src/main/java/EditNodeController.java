@@ -1,8 +1,13 @@
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXTextField;
 import com.sun.javafx.scene.NodeHelper;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
@@ -45,6 +50,34 @@ public class EditNodeController {
 
     private Stage thestage;
     private boolean isNew =true;
+    private ObservableList<String> locationIDS = FXCollections.observableArrayList();
+
+    @FXML
+    public void initialize() {
+
+        nodeXCoord.textProperty().addListener(this::changedX);
+        nodeYCoord.textProperty().addListener(this::changedY);
+        nodeFloor.textProperty().addListener(this::changedFloor);
+    }
+
+
+    public void changedY(ObservableValue<? extends String> observable, String oldValue, String newValue) {
+        if (!newValue.matches("\\d{0,4}")) {
+            nodeYCoord.setText(oldValue);
+        }
+    }
+    public void changedX(ObservableValue<? extends String> observable, String oldValue, String newValue) {
+        if (!newValue.matches("\\d{0,4}")) {
+            nodeXCoord.setText(oldValue);
+        }
+    }
+    public void changedFloor(ObservableValue<? extends String> observable, String oldValue, String newValue) {
+        if (!newValue.matches("\\d{0,2}")) {
+            nodeFloor.setText(oldValue);
+        }
+    }
+
+
     //end of getters and setters
 
     //if modify node, set texts to existing data
@@ -65,35 +98,75 @@ public class EditNodeController {
 
     @FXML
     private void returnAndSave() throws IOException {
-        NodesAccess na = new NodesAccess();
-        if (!isNew) {
-            na.updateNode(tempNodeID, "xcoord", Integer.parseInt(nodeXCoord.getText()));
-            na.updateNode(tempNodeID, "ycoord", Integer.parseInt(nodeYCoord.getText()));
-            na.updateNode(tempNodeID, "floor", Integer.parseInt(nodeFloor.getText()));
-            na.updateNode(tempNodeID, "building", nodeBuilding.getText());
-            na.updateNode(tempNodeID, "nodeType", nodeType.getText());
-            na.updateNode(tempNodeID, "longName", nodeLongName.getText());
-            na.updateNode(tempNodeID, "shortName", nodeShortName.getText());
-            na.updateNode(tempNodeID, "nodeID", nodeID.getText());
+        if (checkFields()) {
+
+            NodesAccess na = new NodesAccess();
+            if (!isNew) {
+                na.updateNode(tempNodeID, "xcoord", Integer.parseInt(nodeXCoord.getText()));
+                na.updateNode(tempNodeID, "ycoord", Integer.parseInt(nodeYCoord.getText()));
+                na.updateNode(tempNodeID, "floor", Integer.parseInt(nodeFloor.getText()));
+                na.updateNode(tempNodeID, "building", nodeBuilding.getText());
+                na.updateNode(tempNodeID, "nodeType", nodeType.getText());
+                na.updateNode(tempNodeID, "longName", nodeLongName.getText());
+                na.updateNode(tempNodeID, "shortName", nodeShortName.getText());
+                na.updateNode(tempNodeID, "nodeID", nodeID.getText());
+            } else {
+                ArrayList<String> newNode = new ArrayList<String>();
+                newNode.add(nodeID.getText());
+                newNode.add(nodeXCoord.getText());
+                newNode.add(nodeYCoord.getText());
+                newNode.add(nodeFloor.getText());
+                newNode.add(nodeBuilding.getText());
+                newNode.add(nodeType.getText());
+                newNode.add(nodeLongName.getText());
+                newNode.add(nodeShortName.getText());
+                na.addNode(newNode);
+                locationIDS.add(nodeID.getText());
+            }
+            thestage = (Stage) submitButton.getScene().getWindow();
+            Parent roots;
+            if (isNew) {
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("EditEdges.fxml"));
+                roots = loader.load();
+                EditEdgesController scene2Controller = loader.getController();
+                scene2Controller.populateNodeList(locationIDS);
+                scene2Controller.setInitialValues(nodeID.getText(), "ADD EDGE");
+            } else {
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("EditLocation.fxml"));
+                roots = loader.load();
+            }
+            Scene scene = new Scene(roots);
+            thestage.setScene(scene);
         }
         else {
-            ArrayList<String> newNode = new ArrayList<String>();
-            newNode.add(nodeID.getText());
-            newNode.add(nodeXCoord.getText());
-            newNode.add(nodeYCoord.getText());
-            newNode.add(nodeFloor.getText());
-            newNode.add(nodeBuilding.getText());
-            newNode.add(nodeType.getText());
-            newNode.add(nodeLongName.getText());
-            newNode.add(nodeShortName.getText());
-            na.addNode(newNode);
+            System.out.println("INPROPER INPUT");
         }
-        thestage = (Stage) submitButton.getScene().getWindow();
-        AnchorPane root;
-        root =  FXMLLoader.load(getClass().getResource("EditLocation.fxml"));
-        Scene scene = new Scene(root);
-        thestage.setScene(scene);
     }
+
+    public void populateNodeList(ObservableList<String> nodes)  {
+        this.locationIDS = nodes;
+    }
+
+    public boolean checkFields() {
+        boolean checkid = nodeID.getText().equals("");
+        boolean checkx = nodeXCoord.getText().equals("");
+        boolean checky = nodeYCoord.getText().equals("");
+        boolean checkfloor = nodeFloor.getText().equals("");
+        boolean checkbuilding = nodeBuilding.getText().equals("");
+        boolean checktype = nodeType.getText().equals("");
+        boolean checklongname = nodeLongName.getText().equals("");
+        boolean checkshortname = nodeShortName.getText().equals("");
+
+        if (!checkid && !checkx && !checky && !checkfloor && !checkbuilding && !checktype &&
+                !checklongname && !checkshortname) {
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
+
+
 
     //back/cancel button here
     @FXML
