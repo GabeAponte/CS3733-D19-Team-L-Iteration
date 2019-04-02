@@ -251,6 +251,26 @@ public class NodesAccess extends DBAccess{
         }
     }
 
+    /** DJ MADE THIS
+     * Call this to update the database with the required paramaters
+     *
+     * @param nodeID, the ID of the node you want to edit
+     * @param field, the column of the table you want to edit
+     * @param data, the data you want to put in
+     */
+    public void updateNode(String nodeID, String field, String data) {
+        String sql = "update nodes set " + field + "= ? where nodeID= ?;";
+
+        try (Connection conn = this.connect();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            pstmt.setString(1, data);
+            pstmt.setString(2, nodeID);
+            pstmt.executeUpdate();
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
     /**ANDREW MADE THIS
      * adds a node to the database from an arraylist string of the fields
      * @param data

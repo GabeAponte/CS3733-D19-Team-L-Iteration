@@ -14,7 +14,7 @@ public class Cancel {
     private boolean signedIn;
 
     @FXML
-    Button Back;
+    private Button Back;
 
     @FXML
     private Button yes;
