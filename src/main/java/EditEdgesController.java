@@ -31,7 +31,7 @@ public class EditEdgesController {
     @FXML
     private Button EditEdgeSubmit;
 
-    private boolean isNew = true;
+    private boolean isNew = false;
     private String initialStart, initialEnd, initialID;
     private ObservableList<String> locationIDS = FXCollections.observableArrayList();
 
@@ -56,7 +56,10 @@ public class EditEdgesController {
         this.initialID = initialStart + "_" + initialEnd;
         PathFindStartDrop.setValue(initialStart);
         PathFindEndDrop.setValue(initialEnd);
-        isNew = false;
+    }
+
+    public void flipBool() {
+        isNew = true;
     }
 
     public void initialize() {
@@ -78,6 +81,7 @@ public class EditEdgesController {
         EdgesAccess ea = new EdgesAccess();
         if (isNew) {
             ea.addEdge(PathFindStartDrop.getValue(), PathFindEndDrop.getValue());
+            System.out.println("ADDING");
         }
         else {
             ea.updateEdge(initialID, PathFindStartDrop.getValue(), PathFindEndDrop.getValue());

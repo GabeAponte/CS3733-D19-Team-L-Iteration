@@ -130,6 +130,7 @@ public class EditNodeController {
                 roots = loader.load();
                 EditEdgesController scene2Controller = loader.getController();
                 scene2Controller.populateNodeList(locationIDS);
+                scene2Controller.flipBool();
                 scene2Controller.setInitialValues(nodeID.getText(), "ADD EDGE");
             } else {
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("EditLocation.fxml"));

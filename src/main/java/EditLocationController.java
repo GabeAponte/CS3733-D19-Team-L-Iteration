@@ -119,8 +119,6 @@ public class EditLocationController {
             setNextEdge(edgeTable.getSelectionModel().getSelectedItem());});
         edgeTable.setItems(edgeData);
 
-
-
     }
 
     public void setNextNode(Location proto) {
@@ -142,6 +140,7 @@ public class EditLocationController {
             System.out.println("user deletes this edge");
             EdgesAccess ea = new EdgesAccess();
             ea.deleteEdge(focusEdge.getEdgeID());
+            edgeTable.getItems().remove(focusEdge);
         }
         else if (alert.getResult() == ButtonType.NO) {
             System.out.println("user does not delete edge");
@@ -214,6 +213,17 @@ public class EditLocationController {
             //delete the node here
             NodesAccess na = new NodesAccess();
             na.deleteNode(focusNode.getLocID());
+
+            nodeTable.getItems().remove(focusNode);
+            EdgesAccess ea = new EdgesAccess();
+            ArrayList<Edge> edgeList = new ArrayList<Edge>();
+
+            for (Edge e: edgeData) {
+                if (!(ea.containsEdge(e.getEdgeID()))) {
+                    edgeList.add(e);
+                }
+            }
+            edgeTable.getItems().removeAll(edgeList);
 
         }
         else if (alert.getResult() == ButtonType.NO) {
@@ -288,50 +298,22 @@ public class EditLocationController {
         count = 0;
         while (count < na.countRecords()) {
             ArrayList<String> arr = na.getNodes(count);
-            ArrayList<String> arr2;
             Location testx = new Location(arr.get(0), Integer.parseInt(arr.get(1)), Integer.parseInt(arr.get(2)), Integer.parseInt(arr.get(3)), arr.get(4), arr.get(5), arr.get(6), arr.get(7));
             //only add the node if it hasn't been done yet
             if (!(lookup.containsKey(arr.get(0)))) {
                 lookup.put((arr.get(0)), testx);
                 nodeData.add(testx);
-                edgeList = ea.getConnectedNodes(arr.get(0));
-                for (int j = 0; j < edgeList.size(); j++) {
-                    Edge toAdd;
-                    String nodeID = edgeList.get(j);
-                    if (lookup.containsKey(na.getNodeInformation(nodeID).get(0))) {
-                        Edge e = new Edge(Integer.toString(j), testx, lookup.get(nodeID));
-                        testx.addEdge(e);
-                        toAdd = e;
-                    } else {
-                        arr2 = na.getNodeInformation(nodeID);
-                        Location testy = new Location(nodeID, Integer.parseInt(arr2.get(0)), Integer.parseInt(arr2.get(1)), Integer.parseInt(arr2.get(2)), arr2.get(3), arr2.get(4), arr2.get(5), arr2.get(6));
-                        Edge e = new Edge(Integer.toString(j), testx, testy);
-                        testx.addEdge(e);
-                        toAdd = e;
-                    }
-                    if (!(edgeData.contains(toAdd))){
-                        toAdd.setEdgeID(toAdd.getStartID()+ "_" + toAdd.getEndID());
-                        edgeData.add(toAdd);
-                    }
-                }
-            }
-            else {
-                edgeList = ea.getConnectedNodes(arr.get(0));
-                for (int j = 0; j < edgeList.size(); j++) {
-                    String nodeID = edgeList.get(j);
-                    if (lookup.containsKey(na.getNodeInformation(nodeID).get(0))) {
-                        Edge e = new Edge(Integer.toString(j), testx, lookup.get(nodeID));
-                        testx.addEdge(e);
-                    } else {
-                        arr2 = na.getNodeInformation(nodeID);
-                        Location testy = new Location(nodeID, Integer.parseInt(arr2.get(0)), Integer.parseInt(arr2.get(1)), Integer.parseInt(arr2.get(2)), arr2.get(3), arr2.get(4), arr2.get(5), arr2.get(6));
-                        Edge e = new Edge(Integer.toString(j), testx, testy);
-                        testx.addEdge(e);
-                    }
-                }
             }
             count++;
         }
+        count = 0;
+        while (count < ea.countRecords()) {
+            edgeList = ea.getEdges(count);
+            Edge testy = new Edge(edgeList.get(0), lookup.get(edgeList.get(1)), lookup.get(edgeList.get(2)));
+            edgeData.add(testy);
+            count ++;
+        }
+
     }
 
     @FXML

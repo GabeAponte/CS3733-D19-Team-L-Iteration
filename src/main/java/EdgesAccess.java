@@ -248,7 +248,7 @@ public class EdgesAccess extends DBAccess
              ResultSet rs = stmt.executeQuery(sql)) {
             while (rs.next()) {
                 if (count == getNum) {
-                    data.add(rs.getString("nodeID"));
+                    data.add(rs.getString("edgeID"));
                     return getFields(data, rs);
                 }
                 count++;
@@ -265,7 +265,7 @@ public class EdgesAccess extends DBAccess
      * @return
      */
     public ArrayList<String> getEdgeInformation(String edgeID){
-        String sql = "SELECT * FROM nodes where edgeID = ?";
+        String sql = "SELECT * FROM edges where edgeID = ?";
         //noinspection Convert2Diamond
         ArrayList<String> data = new ArrayList<String>();
         try (Connection conn = this.connect();
@@ -307,10 +307,10 @@ public class EdgesAccess extends DBAccess
         ArrayList<String> edges = new ArrayList<String>();
         edges = getEdgeInformation(edgeID);
         if(edges == null) {
-            return true;
+            return false;
         }
         else{
-            return false;
+            return true;
         }
     }
 
