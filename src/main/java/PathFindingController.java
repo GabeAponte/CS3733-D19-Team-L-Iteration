@@ -2,6 +2,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
@@ -17,6 +18,7 @@ public class PathFindingController {
 
 
     private boolean signedIn;
+    private String uname;
 
     @FXML
     private Stage thestage;
@@ -69,12 +71,28 @@ public class PathFindingController {
         thestage = (Stage) PathFindBack.getScene().getWindow();
         AnchorPane root;
         if(signedIn) {
-            root = FXMLLoader.load(getClass().getResource("LoggedInHome.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("LoggedInHome.fxml"));
+
+            Parent sceneMain = loader.load();
+
+            LoggedInHomeController controller = loader.<LoggedInHomeController>getController();
+            controller.init(uname);
+
+            Stage theStage = (Stage) PathFindBack.getScene().getWindow();
+
+            Scene scene = new Scene(sceneMain);
+            theStage.setScene(scene);
+            return;
         } else {
             root = FXMLLoader.load(getClass().getResource("HospitalHome.fxml"));
         }
         Scene scene = new Scene(root);
         thestage.setScene(scene);
+    }
+
+    public void initialize(boolean loggedIn, String username){
+        uname = username;
+        initialize(loggedIn);
     }
 
     @SuppressWarnings("Convert2Diamond")

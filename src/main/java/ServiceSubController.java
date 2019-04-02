@@ -13,6 +13,7 @@ public class ServiceSubController {
 
     private String typeOfService;
     private boolean signedIn;
+    private String uname;
 
     @FXML
     private Button Back2;
@@ -26,6 +27,16 @@ public class ServiceSubController {
     @FXML
     private TextArea ServiceComments;
 
+
+    void init(String type, boolean loggedIn, String username){
+        uname = username;
+        init(type, loggedIn);
+    }
+
+    void init(String type, String comment, boolean loggedIn, String username){
+        uname = username;
+        init(type, loggedIn);
+    }
 
     //Nathan - sets values passed from another controller
     void init(String type, boolean loggedIn){
@@ -50,7 +61,11 @@ public class ServiceSubController {
         Parent sceneMain = loader.load();
 
         ServiceRequestController controller = loader.<ServiceRequestController>getController();
-        controller.init(signedIn);
+        if(signedIn){
+            controller.init(signedIn, uname);
+        } else {
+            controller.init(signedIn);
+        }
 
         Stage theStage = (Stage) Back2.getScene().getWindow();
 

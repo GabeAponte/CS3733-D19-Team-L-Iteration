@@ -1,5 +1,6 @@
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -12,6 +13,7 @@ import java.io.IOException;
 public class FulfillRequestController {
 
     private Stage thestage;
+    private String uname;
 
     private ServiceRequestTable theRequest;
 
@@ -28,13 +30,22 @@ public class FulfillRequestController {
     @FXML
     private Label errorLabel;
 
+    public void init(String username){
+        uname = username;
+    }
     @SuppressWarnings("Duplicates")
     @FXML
     private void backPressed() throws IOException {
-        thestage = (Stage) back.getScene().getWindow();
-        AnchorPane root;
-        root = FXMLLoader.load(getClass().getResource("ActiveServiceRequests.fxml"));
-        Scene scene = new Scene(root);
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("ActiveServiceRequests.fxml"));
+        Parent roots = loader.load();
+
+        //Get controller of scene2
+        ActiveServiceRequestsController scene2Controller = loader.getController();
+        scene2Controller.init(uname);
+
+        Scene scene = new Scene(roots);
+        Stage thestage = (Stage) errorLabel.getScene().getWindow();
+        //Show scene 2 in new window
         thestage.setScene(scene);
     }
 

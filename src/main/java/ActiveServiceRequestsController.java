@@ -19,6 +19,7 @@ public class ActiveServiceRequestsController {
 
     private boolean signedIn;
     private Stage thestage;
+    private String uname;
     private ServiceRequestTable selectedRequest;
 
     @FXML
@@ -41,21 +42,28 @@ public class ActiveServiceRequestsController {
 
     @SuppressWarnings("Duplicates")
 
-    void init(boolean loggedIn){
-        signedIn = loggedIn;
+    void init(String username){
+        uname = username;
+        init();
     }
 
     @FXML
     private void backPressed() throws IOException {
-        thestage = (Stage) back.getScene().getWindow();
-        AnchorPane root;
-        root = FXMLLoader.load(getClass().getResource("LoggedInHome.fxml"));
-        Scene scene = new Scene(root);
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("LoggedInHome.fxml"));
+        Parent roots = loader.load();
+
+        //Get controller of scene2
+        LoggedInHomeController scene2Controller = loader.getController();
+        scene2Controller.init(uname);
+
+        Scene scene = new Scene(roots);
+        Stage thestage = (Stage) activeRequests.getScene().getWindow();
+        //Show scene 2 in new window
         thestage.setScene(scene);
     }
 
     //Gabe - Populates table
-    public void initialize(){
+    public void init(){
         activeRequests.setEditable(false);
         final ObservableList<ServiceRequestTable> data = FXCollections.observableArrayList();
         ServiceRequestAccess sr = new ServiceRequestAccess();
@@ -94,6 +102,7 @@ public class ActiveServiceRequestsController {
                     Parent roots = loader.load();
                     //Get controller of scene2
                     FulfillRequestController scene2Controller = loader.getController();
+                    scene2Controller.init(uname);
                     Scene scene = new Scene(roots);
                     scene2Controller.getRequestID(selectedRequest);
                     thestage = (Stage) back.getScene().getWindow();
