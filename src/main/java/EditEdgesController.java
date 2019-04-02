@@ -6,6 +6,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 public class EditEdgesController {
 
@@ -29,6 +30,10 @@ public class EditEdgesController {
         }
         Scene scene = new Scene(root);
         thestage.setScene(scene);*/
+    }
+
+    private void populateNodeList(ArrayList<String> nodes)  {
+
     }
 
 }
