@@ -67,7 +67,7 @@
                         <Font name="Times New Roman" size="55.0" />
                      </font>
                   </JFXButton>
-                  <JFXButton fx:id="no" onAction="#noClicked" prefHeight="155.0" prefWidth="365.0" ripplerFill="#b0b0b0" style="-fx-background-color: red;" text="NO" GridPane.columnIndex="1" GridPane.rowIndex="3">
+                  <JFXButton fx:id="no" onAction="#backPressed" prefHeight="155.0" prefWidth="365.0" ripplerFill="#b0b0b0" style="-fx-background-color: red;" text="NO" GridPane.columnIndex="1" GridPane.rowIndex="3">
                      <font>
                         <Font name="Times New Roman" size="55.0" />
                      </font>
