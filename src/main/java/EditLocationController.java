@@ -4,17 +4,21 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Region;
 import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 public class EditLocationController {
+
+    @FXML
+    Button backButton;
 
     @FXML
     Button downloadNode;
@@ -80,6 +84,8 @@ public class EditLocationController {
     private Edge focusEdge;
 
 
+
+
     @SuppressWarnings("Convert2Diamond")
     @FXML
     public void initialize(){
@@ -87,7 +93,8 @@ public class EditLocationController {
         edgeTable.setEditable(false);
         NodesAccess na = new NodesAccess();
         EdgesAccess ea = new EdgesAccess();
-
+        makeEditableNode.setDisable(true);
+        makeEditableEdge.setDisable(true);
         initializeTable(na, ea);
 
         //node table setup
@@ -111,36 +118,119 @@ public class EditLocationController {
         edgeTable.setOnMouseClicked(event -> {
             setNextEdge(edgeTable.getSelectionModel().getSelectedItem());});
         edgeTable.setItems(edgeData);
-        System.out.println(edgeData.get(1).getEdgeID());
-
-
 
     }
 
     public void setNextNode(Location proto) {
-        //this.makeEditable.setDisable(false);
+        this.makeEditableNode.setDisable(false);
         this.focusNode = proto;
     }
 
     public void setNextEdge(Edge proto) {
+        this.makeEditableEdge.setDisable(false);
         this.focusEdge = proto;
     }
 
     @FXML
     private void deleteEdgePress() {
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Delete selected edge?", ButtonType.YES, ButtonType.NO);
+        alert.showAndWait();
 
+        if (alert.getResult() == ButtonType.YES) {
+            System.out.println("user deletes this edge");
+            EdgesAccess ea = new EdgesAccess();
+            ea.deleteEdge(focusEdge.getEdgeID());
+            edgeTable.getItems().remove(focusEdge);
+        }
+        else if (alert.getResult() == ButtonType.NO) {
+            System.out.println("user does not delete edge");
+        }
     }
 
     @FXML
     private void modifyEdgePress() {
+        ObservableList<String> toPass = FXCollections.observableArrayList();
+        for (Location l : nodeData) {
+            toPass.add(l.getLocID());
+            //System.out.println(l.getLocID());
+        }
+        try {
+            //Load second scene
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("EditEdges.fxml"));
+            Parent roots = loader.load();
 
+            //Get controller of scene2
+            EditEdgesController scene2Controller = loader.getController();
+
+            Scene scene = new Scene(roots);
+            scene2Controller.setInitialValues(focusEdge.getStartID(), focusEdge.getEndID());
+            scene2Controller.populateNodeList(toPass);
+            thestage = (Stage) makeEditableNode.getScene().getWindow();
+            //Show scene 2 in new window
+            thestage.setScene(scene);
+
+        } catch (IOException ex) {
+            //noinspection ThrowablePrintedToSystemOut
+            System.err.println(ex);
+        }
     }
 
     @FXML
-    private void addEdgePress() {}
+    private void addEdgePress() {
+        ObservableList<String> toPass = FXCollections.observableArrayList();
+        for (Location l : nodeData) {
+            toPass.add(l.getLocID());
+            //System.out.println(l.getLocID());
+        }
+        try {
+            //Load second scene
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("EditEdges.fxml"));
+            Parent roots = loader.load();
+
+            //Get controller of scene2
+            EditEdgesController scene2Controller = loader.getController();
+
+            Scene scene = new Scene(roots);
+            scene2Controller.populateNodeList(toPass);
+            thestage = (Stage) makeEditableNode.getScene().getWindow();
+            //Show scene 2 in new window
+            thestage.setScene(scene);
+
+        } catch (IOException ex) {
+            //noinspection ThrowablePrintedToSystemOut
+            System.err.println(ex);
+        }
+    }
 
     @FXML
     private void deleteNodePress() {
+        //this is the dialogue popup
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Delete selected node?", ButtonType.YES, ButtonType.NO);
+        alert.showAndWait();
+
+        if (alert.getResult() == ButtonType.YES) {
+            System.out.println("user deletes this node");
+            //delete the node here
+            NodesAccess na = new NodesAccess();
+            na.deleteNode(focusNode.getLocID());
+
+            nodeTable.getItems().remove(focusNode);
+            EdgesAccess ea = new EdgesAccess();
+            ArrayList<Edge> edgeList = new ArrayList<Edge>();
+
+            for (Edge e: edgeData) {
+                if (!(ea.containsEdge(e.getEdgeID()))) {
+                    edgeList.add(e);
+                }
+            }
+            edgeTable.getItems().removeAll(edgeList);
+
+        }
+        else if (alert.getResult() == ButtonType.NO) {
+            //do nothing
+            System.out.println("user does not delete node");
+        }
+
 
     }
 
@@ -167,7 +257,28 @@ public class EditLocationController {
     }
 
     @FXML
-    private void addNodePress() {}
+    private void addNodePress() {
+        ObservableList<String> toPass = FXCollections.observableArrayList();
+        for (Location l : nodeData) {
+            toPass.add(l.getLocID());
+            //System.out.println(l.getLocID());
+        }
+
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("EditNode.fxml"));
+            Parent roots = loader.load();
+
+            //Get controller of scene2
+            EditNodeController scene2Controller = loader.getController();
+
+            Scene scene = new Scene(roots);
+            scene2Controller.populateNodeList(toPass);
+            thestage = (Stage) makeEditableNode.getScene().getWindow();
+            //Show scene 2 in new window
+            thestage.setScene(scene);
+        } catch (Exception e){
+        }
+    }
 
     @FXML
     private void downloadNodes() {
@@ -187,51 +298,37 @@ public class EditLocationController {
         count = 0;
         while (count < na.countRecords()) {
             ArrayList<String> arr = na.getNodes(count);
-            ArrayList<String> arr2;
             Location testx = new Location(arr.get(0), Integer.parseInt(arr.get(1)), Integer.parseInt(arr.get(2)), Integer.parseInt(arr.get(3)), arr.get(4), arr.get(5), arr.get(6), arr.get(7));
             //only add the node if it hasn't been done yet
             if (!(lookup.containsKey(arr.get(0)))) {
                 lookup.put((arr.get(0)), testx);
                 nodeData.add(testx);
-                edgeList = ea.getConnectedNodes(arr.get(0));
-                for (int j = 0; j < edgeList.size(); j++) {
-                    Edge toAdd;
-                    String nodeID = edgeList.get(j);
-                    if (lookup.containsKey(na.getNodeInformation(nodeID).get(0))) {
-                        Edge e = new Edge(Integer.toString(j), testx, lookup.get(nodeID));
-                        testx.addEdge(e);
-                        toAdd = e;
-                    } else {
-                        arr2 = na.getNodeInformation(nodeID);
-                        Location testy = new Location(nodeID, Integer.parseInt(arr2.get(0)), Integer.parseInt(arr2.get(1)), Integer.parseInt(arr2.get(2)), arr2.get(3), arr2.get(4), arr2.get(5), arr2.get(6));
-                        Edge e = new Edge(Integer.toString(j), testx, testy);
-                        testx.addEdge(e);
-                        toAdd = e;
-                    }
-                    if (!(edgeData.contains(toAdd))){
-                        toAdd.setEdgeID(toAdd.getStartID()+ "_" + toAdd.getEndID());
-                        edgeData.add(toAdd);
-                    }
-                }
-            }
-            else {
-                edgeList = ea.getConnectedNodes(arr.get(0));
-                for (int j = 0; j < edgeList.size(); j++) {
-                    String nodeID = edgeList.get(j);
-                    if (lookup.containsKey(na.getNodeInformation(nodeID).get(0))) {
-                        Edge e = new Edge(Integer.toString(j), testx, lookup.get(nodeID));
-                        testx.addEdge(e);
-                    } else {
-                        arr2 = na.getNodeInformation(nodeID);
-                        Location testy = new Location(nodeID, Integer.parseInt(arr2.get(0)), Integer.parseInt(arr2.get(1)), Integer.parseInt(arr2.get(2)), arr2.get(3), arr2.get(4), arr2.get(5), arr2.get(6));
-                        Edge e = new Edge(Integer.toString(j), testx, testy);
-                        testx.addEdge(e);
-                    }
-                }
             }
             count++;
         }
+        count = 0;
+        while (count < ea.countRecords()) {
+            edgeList = ea.getEdges(count);
+            Edge testy = new Edge(edgeList.get(0), lookup.get(edgeList.get(1)), lookup.get(edgeList.get(2)));
+            edgeData.add(testy);
+            count ++;
+        }
+
     }
+
+    @FXML
+    private void backPressed() {
+        try {
+            Stage thestage = (Stage) backButton.getScene().getWindow();
+            AnchorPane root;
+            root = FXMLLoader.load(getClass().getResource("LoggedInHome.fxml"));
+            Scene scene = new Scene(root);
+            thestage.setScene(scene);
+        } catch (Exception e){
+        }
+    }
+
+
 
 
 }

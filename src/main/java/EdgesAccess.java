@@ -10,6 +10,21 @@ import java.util.ArrayList;
 // Refer to DJ or Andrew for questions or concerns with this class
 public class EdgesAccess extends DBAccess
 {
+
+    /**ANDREW MADE THIS
+     * deletes all the records from the nodes table
+     */
+    public void deleteRecords() {
+        String sql = "Delete from edges;";
+
+        try (Connection conn = this.connect();
+             Statement stmt = conn.createStatement()) {
+            stmt.executeUpdate(sql);
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
     /** DJ MADE THIS (Andrew also knows how this works)
      * reads the csvFile given and adds it to given table
      */
@@ -192,12 +207,13 @@ public class EdgesAccess extends DBAccess
      * @param node2, the data you want to put in
      */
     public void updateEdge(String edgeID, String node1, String node2) {
-        String sql = "update nodes set startNode = ?, set endNode = ? where edgeID= ?;";
+        String sql = "update edges set startNode = ?, endNode = ? where edgeID= ?;";
 
         try (Connection conn = this.connect();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
             pstmt.setString(1, node1);
             pstmt.setString(2, node2);
+            pstmt.setString(3, edgeID);
             pstmt.executeUpdate();
         } catch (SQLException e) {
             System.out.println(e.getMessage());
@@ -213,12 +229,90 @@ public class EdgesAccess extends DBAccess
         try (Connection conn = this.connect();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
             pstmt.setString(1, edgeID);
-            pstmt.executeUpdate(sql);
+            pstmt.executeUpdate();
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
     }
 
+    /** ANDREW MADE THIS
+     * Queries the database for all fields of the protoNodes class and returns an arraylist
+     */
+    public ArrayList<String> getEdges(int getNum) {
+        String sql = "SELECT * FROM edges";
+        int count = 0;
+        //noinspection Convert2Diamond
+        ArrayList<String> data = new ArrayList<String>();
+        try (Connection conn = this.connect();
+             Statement stmt = conn.createStatement();
+             ResultSet rs = stmt.executeQuery(sql)) {
+            while (rs.next()) {
+                if (count == getNum) {
+                    data.add(rs.getString("edgeID"));
+                    return getFields(data, rs);
+                }
+                count++;
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        return null;
+    }
+
+    /**ANDREW MADE THIS
+     *  returns the fields of a particular nodeID in an arraylist
+     * @param edgeID
+     * @return
+     */
+    public ArrayList<String> getEdgeInformation(String edgeID){
+        String sql = "SELECT * FROM edges where edgeID = ?";
+        //noinspection Convert2Diamond
+        ArrayList<String> data = new ArrayList<String>();
+        try (Connection conn = this.connect();
+             PreparedStatement pstmt = conn.prepareStatement(sql)){
+            pstmt.setString(1, edgeID);
+            ResultSet rs = pstmt.executeQuery();
+            while (rs.next()) {
+                return getFields(data, rs);
+            }
+
+
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+
+        return null;
+    }
+
+    /** ANDREW MADE THIS
+     * returns the number of records in protoNodes
+     *
+     * @return int
+     */
+    public int countRecords() {
+        String sql = "select COUNT(*) from edges";
+        try (Connection conn = this.connect();
+             Statement stmt = conn.createStatement();
+             ResultSet rs = stmt.executeQuery(sql)) {
+
+            return rs.getInt(1);
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        return 0;
+
+    }
+
+    public boolean containsEdge(String edgeID) {
+        ArrayList<String> edges = new ArrayList<String>();
+        edges = getEdgeInformation(edgeID);
+        if(edges == null) {
+            return false;
+        }
+        else{
+            return true;
+        }
+    }
 
 
     public static void main(String[] args) {
