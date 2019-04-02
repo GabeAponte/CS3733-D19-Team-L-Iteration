@@ -235,6 +235,56 @@ public class EdgesAccess extends DBAccess
         }
     }
 
+    /** ANDREW MADE THIS
+     * Queries the database for all fields of the protoNodes class and returns an arraylist
+     */
+    public ArrayList<String> getEdges(int getNum) {
+        String sql = "SELECT * FROM edges";
+        int count = 0;
+        //noinspection Convert2Diamond
+        ArrayList<String> data = new ArrayList<String>();
+        try (Connection conn = this.connect();
+             Statement stmt = conn.createStatement();
+             ResultSet rs = stmt.executeQuery(sql)) {
+            while (rs.next()) {
+                if (count == getNum) {
+                    data.add(rs.getString("nodeID"));
+                    return getFields(data, rs);
+                }
+                count++;
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        return null;
+    }
+
+
+    /**ANDREW MADE THIS
+     *  returns the fields of a particular nodeID in an arraylist
+     * @param edgeID
+     * @return
+     */
+    public ArrayList<String> getEdgeInformation(String edgeID){
+        String sql = "SELECT * FROM nodes where edgeID = ?";
+        //noinspection Convert2Diamond
+        ArrayList<String> data = new ArrayList<String>();
+        try (Connection conn = this.connect();
+             PreparedStatement pstmt = conn.prepareStatement(sql)){
+            pstmt.setString(1, edgeID);
+            ResultSet rs = pstmt.executeQuery();
+            while (rs.next()) {
+                return getFields(data, rs);
+            }
+
+
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+
+        return null;
+    }
+
 
 
     public static void main(String[] args) {
