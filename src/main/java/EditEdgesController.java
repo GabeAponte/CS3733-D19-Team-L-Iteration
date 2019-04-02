@@ -74,14 +74,20 @@ public class EditEdgesController {
     }
 
     @FXML
-    private void submitButtonPressed() {
+    private void submitButtonPressed() throws IOException {
         EdgesAccess ea = new EdgesAccess();
         if (isNew) {
             ea.addEdge(PathFindStartDrop.getValue(), PathFindEndDrop.getValue());
         }
         else {
             ea.updateEdge(initialID, PathFindStartDrop.getValue(), PathFindEndDrop.getValue());
+            System.out.println(initialID);
         }
+        thestage = (Stage) EditEdgeBack.getScene().getWindow();
+        AnchorPane root;
+        root = FXMLLoader.load(getClass().getResource("EditLocation.fxml"));
+        Scene scene = new Scene(root);
+        thestage.setScene(scene);
     }
 
 }

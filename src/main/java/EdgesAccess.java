@@ -198,6 +198,7 @@ public class EdgesAccess extends DBAccess
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
             pstmt.setString(1, node1);
             pstmt.setString(2, node2);
+            pstmt.setString(3, edgeID);
             pstmt.executeUpdate();
         } catch (SQLException e) {
             System.out.println(e.getMessage());
