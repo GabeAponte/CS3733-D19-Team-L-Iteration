@@ -38,7 +38,7 @@ public class HomeScreenController {
             long second = LocalDateTime.now().getSecond();
             long minute = LocalDateTime.now().getMinute();
             long hour = LocalDateTime.now().getHour();
-            if(minute < 9) {
+            if(minute < 10) {
                 if(second > 9) {
                     timeLabel.setText("The Time is: " + hour + ":0" + (minute) + ":" + second);
                 } else {
