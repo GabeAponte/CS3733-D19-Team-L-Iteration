@@ -31,6 +31,7 @@ public class LoggedInHomeController {
     public void init(String username){
         uname = username;
     }
+
     @FXML
     private void logOut() throws IOException {
         Stage thestage = (Stage) logOut.getScene().getWindow();
@@ -63,7 +64,7 @@ public class LoggedInHomeController {
         Parent sceneMain = pLoader.load();
 
         PathFindingController pController = pLoader.<PathFindingController>getController();
-        pController.initialize(signedIn);
+        pController.initialize(signedIn, uname);
 
         Stage theStage = (Stage) findPath.getScene().getWindow();
 
