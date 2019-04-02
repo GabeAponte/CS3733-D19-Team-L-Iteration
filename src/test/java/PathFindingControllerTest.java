@@ -12,7 +12,7 @@ public class PathFindingControllerTest {
     public void findPathTest() {
 
         PathFindingController A = new PathFindingController();
-        A.initialize(false);
+        A.initialize(false,0);
         Location start = A.getLookup().get("DHALL00102");
         Location end = A.getLookup().get("DHALL00102");
 
@@ -29,7 +29,7 @@ public class PathFindingControllerTest {
     public void findPathTest1() {
 
         PathFindingController A = new PathFindingController();
-        A.initialize(false);
+        A.initialize(false,0);
         Location start = A.getLookup().get("DHALL00102");
         Location end = A.getLookup().get("DHALL01502");
 
@@ -74,7 +74,7 @@ public class PathFindingControllerTest {
     public void findPathTest2() {
 
         PathFindingController A = new PathFindingController();
-        A.initialize(false);
+        A.initialize(false,0);
         Location start = A.getLookup().get("DCONF00102");
         Location end = A.getLookup().get("DDEPT00202");
 
@@ -105,11 +105,11 @@ public class PathFindingControllerTest {
     }
 
     @Test
-    // test Conf to Dept
+    // test STAI to HALL
     public void findPathTest3() {
 
         PathFindingController A = new PathFindingController();
-        A.initialize(false);
+        A.initialize(false,0);
         Location start = A.getLookup().get("DSTAI00302");
         Location end = A.getLookup().get("DHALL04502");
 
@@ -157,11 +157,11 @@ public class PathFindingControllerTest {
     }
 
     @Test
-    // test Lah to Rest
+    // test Lab to Rest
     public void findPathTest4() {
 
         PathFindingController A = new PathFindingController();
-        A.initialize(false);
+        A.initialize(false,0);
         Location start = A.getLookup().get("DLABS00102");
         Location end = A.getLookup().get("DREST00302");
 
@@ -190,7 +190,7 @@ public class PathFindingControllerTest {
     public void findPathTest5() {
 
         PathFindingController A = new PathFindingController();
-        A.initialize(false);
+        A.initialize(false,0);
         Location start = A.getLookup().get("DINFO00202");
         Location end = A.getLookup().get("DDEPT00302");
 
@@ -231,7 +231,7 @@ public class PathFindingControllerTest {
     public void findPathTest6() {
 
         PathFindingController A = new PathFindingController();
-        A.initialize(false);
+        A.initialize(false,0);
         Location start = A.getLookup().get("DELEV00A02");
         Location end = A.getLookup().get("DCONF00102");
 
@@ -251,6 +251,86 @@ public class PathFindingControllerTest {
         b.addToPath(w);
         b.addToPath(e);
 
+
+        assertEquals(b.toString(),a.toString());
+
+    }
+
+    @Test
+    // test Test Back of (Elevator to Conf)
+    public void findPathTest7() {
+
+        PathFindingController A = new PathFindingController();
+        A.initialize(false,0);
+        Location start = A.getLookup().get("DCONF00102");
+        Location end = A.getLookup().get("DELEV00A02");
+
+
+        Path a = A.findPath(start,end);
+        ArrayList<Location> c = new ArrayList<Location>();
+        Path b = new Path(c);
+
+        Location r = A.getLookup().get("DHALL01502");
+        Location q = A.getLookup().get("DHALL01402");
+        Location w = A.getLookup().get("DHALL01302");
+        Location e = A.getLookup().get("DHALL01202");
+
+        b.addToPath(end);
+        b.addToPath(r);
+        b.addToPath(q);
+        b.addToPath(w);
+        b.addToPath(e);
+
+
+        assertEquals(b.toString(),a.toString());
+
+    }
+
+    @Test
+    // test EXIT to Hall
+    public void findPathTest8() {
+
+        PathFindingController A = new PathFindingController();
+        A.initialize(false,0);
+        Location start = A.getLookup().get("DEXIT00102");
+        Location end = A.getLookup().get("DHALL06002");
+
+
+        Path a = A.findPath(start,end);
+        ArrayList<Location> c = new ArrayList<Location>();
+        Path b = new Path(c);
+
+        Location r = A.getLookup().get("DHALL01902");
+        Location q = A.getLookup().get("DHALL02602");
+        Location w = A.getLookup().get("DHALL02702");
+
+
+        b.addToPath(end);
+        b.addToPath(r);
+        b.addToPath(q);
+        b.addToPath(w);
+
+
+        assertEquals(b.toString(),a.toString());
+
+    }
+
+    @Test
+    // test Nearby location
+    public void findPathTest9() {
+
+        PathFindingController A = new PathFindingController();
+        A.initialize(false,0);
+        Location start = A.getLookup().get("DHALL04602");
+        Location end = A.getLookup().get("DHALL04702");
+
+
+        Path a = A.findPath(start,end);
+        ArrayList<Location> c = new ArrayList<Location>();
+        Path b = new Path(c);
+
+
+        b.addToPath(end);
 
         assertEquals(b.toString(),a.toString());
 

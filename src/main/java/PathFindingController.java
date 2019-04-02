@@ -59,6 +59,7 @@ public class PathFindingController {
     private NodesAccess na;
     private EdgesAccess ea;
     private final ObservableList<Location> data = FXCollections.observableArrayList();
+
     private HashMap<String, Location> lookup = new HashMap<String, Location>();
 
     private ArrayList<Circle> circles = new ArrayList<Circle>();
@@ -80,14 +81,16 @@ public class PathFindingController {
 
     @SuppressWarnings("Convert2Diamond")
     @FXML
-    public void initialize(boolean loggedIn) {
+    public void initialize(boolean loggedIn, int num) {
         signedIn = loggedIn;
         na = new NodesAccess();
         ea = new EdgesAccess();
         initializeTable(na, ea);
-       // System.out.println(data.get(0));
-//        PathFindStartDrop.setItems(data);
-//        PathFindEndDrop.setItems(data);
+        if(num == 1){
+        PathFindStartDrop.setItems(data);
+        PathFindEndDrop.setItems(data);
+        }
+
 
 
         // AT THIS POINT:
@@ -143,9 +146,11 @@ public class PathFindingController {
 //        Path p6 = findPath(start6, end6);
 //        System.out.println(p6.toString());
     }
+
     public HashMap<String, Location> getLookup() {
         return lookup;
     }
+
     @FXML
     private void locationsSelected(){
         if(PathFindStartDrop.getValue() != null && PathFindEndDrop.getValue() != null){
@@ -279,7 +284,7 @@ public class PathFindingController {
         return p;
     }
 
-    public void initializeTable(NodesAccess na, EdgesAccess ea) {
+    private void initializeTable(NodesAccess na, EdgesAccess ea) {
         ArrayList<String> edgeList;
         int count;
         count = 0;
