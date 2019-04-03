@@ -119,26 +119,26 @@ public class EditNodeController {
 
             NodesAccess na = new NodesAccess();
             if (!isNew) {
-                na.updateNode(tempNodeID, "xcoord", Integer.parseInt(nodeXCoord.getText().trim()));
-                na.updateNode(tempNodeID, "ycoord", Integer.parseInt(nodeYCoord.getText().trim()));
-                na.updateNode(tempNodeID, "floor", Integer.parseInt(nodeFloor.getText().trim()));
-                na.updateNode(tempNodeID, "building", nodeBuilding.getText().trim());
-                na.updateNode(tempNodeID, "nodeType", nodeType.getText().trim());
-                na.updateNode(tempNodeID, "longName", nodeLongName.getText().trim());
-                na.updateNode(tempNodeID, "shortName", nodeShortName.getText().trim());
-                na.updateNode(tempNodeID, "nodeID", nodeID.getText().trim());
+                na.updateNode(tempNodeID, "xcoord", Integer.parseInt(nodeXCoord.getText()));
+                na.updateNode(tempNodeID, "ycoord", Integer.parseInt(nodeYCoord.getText()));
+                na.updateNode(tempNodeID, "floor", Integer.parseInt(nodeFloor.getText()));
+                na.updateNode(tempNodeID, "building", nodeBuilding.getText());
+                na.updateNode(tempNodeID, "nodeType", nodeType.getText());
+                na.updateNode(tempNodeID, "longName", nodeLongName.getText());
+                na.updateNode(tempNodeID, "shortName", nodeShortName.getText());
+                na.updateNode(tempNodeID, "nodeID", nodeID.getText());
             } else {
                 ArrayList<String> newNode = new ArrayList<String>();
-                newNode.add(nodeID.getText().trim());
-                newNode.add(nodeXCoord.getText().trim());
-                newNode.add(nodeYCoord.getText().trim());
-                newNode.add(nodeFloor.getText().trim());
-                newNode.add(nodeBuilding.getText().trim());
-                newNode.add(nodeType.getText().trim());
-                newNode.add(nodeLongName.getText().trim());
-                newNode.add(nodeShortName.getText().trim());
+                newNode.add(nodeID.getText());
+                newNode.add(nodeXCoord.getText());
+                newNode.add(nodeYCoord.getText());
+                newNode.add(nodeFloor.getText());
+                newNode.add(nodeBuilding.getText());
+                newNode.add(nodeType.getText());
+                newNode.add(nodeLongName.getText());
+                newNode.add(nodeShortName.getText());
                 na.addNode(newNode);
-                locationIDS.add(nodeID.getText().trim());
+                locationIDS.add(nodeID.getText());
             }
             thestage = (Stage) submitButton.getScene().getWindow();
             Parent roots;
