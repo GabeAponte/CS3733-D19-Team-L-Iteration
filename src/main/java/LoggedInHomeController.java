@@ -31,6 +31,7 @@ public class LoggedInHomeController {
     public void init(String username){
         uname = username;
     }
+
     @FXML
     private void logOut() throws IOException {
         Stage thestage = (Stage) logOut.getScene().getWindow();
@@ -79,7 +80,7 @@ public class LoggedInHomeController {
         Parent sceneMain = sLoader.load();
 
         ServiceRequestController sController = sLoader.<ServiceRequestController>getController();
-        sController.init(signedIn);
+        sController.init(signedIn, uname);
 
         Stage theStage = (Stage) findPath.getScene().getWindow();
 
@@ -95,7 +96,7 @@ public class LoggedInHomeController {
         Parent sceneMain = loader.load();
 
         ActiveServiceRequestsController controller = loader.<ActiveServiceRequestsController>getController();
-        controller.init(signedIn);
+        controller.init(uname);
 
         Stage theStage = (Stage) fufillServiceRequest.getScene().getWindow();
 
@@ -110,6 +111,7 @@ public class LoggedInHomeController {
         Parent sceneMain = loader.load();
 
         EditLocationController controller = loader.<EditLocationController>getController();
+        controller.init(uname);
 
         Stage theStage = (Stage) fufillServiceRequest.getScene().getWindow();
 

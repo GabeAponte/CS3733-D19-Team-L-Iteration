@@ -12,6 +12,7 @@ public class Cancel {
     private String typeOfService;
     private String comment;
     private boolean signedIn;
+    private String uname;
 
     @FXML
     private Button Back;
@@ -24,6 +25,16 @@ public class Cancel {
 
     @FXML
     public Label typeLabel;
+
+    void init(String service, String description, boolean loggedIn, String username){
+        uname = username;
+        init(service, description, loggedIn);
+    }
+
+    void init(String service, boolean loggedIn, String username){
+        uname = username;
+        init(service, loggedIn);
+    }
 
     //Nathan - stores information passed from another controller
     void init(String service, boolean loggedIn){
@@ -48,11 +59,18 @@ public class Cancel {
         Parent sceneMain = loader.load();
 
         ServiceSubController controller = loader.<ServiceSubController>getController();
-
-        if(comment == null || comment.equals("No comment added")){
-            controller.init(typeOfService, signedIn);
+        if(signedIn) {
+            if (comment == null || comment.equals("No comment added")) {
+                controller.init(typeOfService, signedIn, uname);
+            } else {
+                controller.init(typeOfService, comment, signedIn, uname);
+            }
         } else {
-            controller.init(typeOfService, comment, signedIn);
+            if (comment == null || comment.equals("No comment added")) {
+                controller.init(typeOfService, signedIn);
+            } else {
+                controller.init(typeOfService, comment, signedIn);
+            }
         }
         Stage theStage = (Stage) yes.getScene().getWindow();
 
@@ -77,7 +95,18 @@ public class Cancel {
         Stage theStage = (Stage) no.getScene().getWindow();
         AnchorPane root;
         if(signedIn){
-            root = FXMLLoader.load(getClass().getResource("LoggedInHome.fxml"));
+            FXMLLoader sLoader = new FXMLLoader(getClass().getResource("LoggedInHome.fxml"));
+
+            Parent sceneMain = sLoader.load();
+
+            LoggedInHomeController sController = sLoader.<LoggedInHomeController>getController();
+            sController.init(uname);
+
+            theStage = (Stage) yes.getScene().getWindow();
+
+            Scene scene = new Scene(sceneMain);
+            theStage.setScene(scene);
+            return;
         } else {
             root = FXMLLoader.load(getClass().getResource("HospitalHome.fxml"));
         }
