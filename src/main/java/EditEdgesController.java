@@ -82,11 +82,10 @@ public class EditEdgesController {
         EdgesAccess ea = new EdgesAccess();
         if (isNew) {
             ea.addEdge(PathFindStartDrop.getValue(), PathFindEndDrop.getValue());
-            System.out.println("ADDING");
         }
         else {
             ea.updateEdge(initialID, PathFindStartDrop.getValue(), PathFindEndDrop.getValue());
-            System.out.println(initialID);
+            ea.changeID(initialID, PathFindStartDrop.getValue() + "_" + PathFindEndDrop.getValue());
         }
         thestage = (Stage) EditEdgeBack.getScene().getWindow();
         AnchorPane root;

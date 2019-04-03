@@ -58,6 +58,8 @@ public class EditNodeController {
         nodeXCoord.textProperty().addListener(this::changedX);
         nodeYCoord.textProperty().addListener(this::changedY);
         nodeFloor.textProperty().addListener(this::changedFloor);
+
+        nodeID.setDisable(false);
     }
 
 
@@ -94,6 +96,7 @@ public class EditNodeController {
         nodeLongName.setText(data.getLongName());
         nodeShortName.setText(data.getShortName());
         isNew = false;
+        nodeID.setDisable(true);
     }
 
     @FXML
