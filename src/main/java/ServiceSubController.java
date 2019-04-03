@@ -92,4 +92,15 @@ public class ServiceSubController {
         Scene scene = new Scene(sceneMain);
         theStage.setScene(scene);
     }
+
+    @FXML
+    private void reenable(){
+        Boolean disable = (ServiceComments.getText().isEmpty() || ServiceComments.getText().trim().isEmpty());
+        if(!disable){
+            SubmitRequest.setDisable(false);
+        } else {
+            SubmitRequest.setDisable(true);
+        }
+    }
+
 }
