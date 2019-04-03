@@ -113,7 +113,7 @@ public class BookRoomController {
         }
         else {
             error.setTextFill(Color.WHITE);
-            error.setText("Submitted.");
+            error.setText("Room booked.");
             int startTimeMil = startTime.getValue().getHour() * 100 + startTime.getValue().getMinute();
             int endTimeMil = endTime.getValue().getHour() * 100 + endTime.getValue().getMinute();
             String date = datePicker.getValue().toString();
