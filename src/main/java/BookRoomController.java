@@ -106,7 +106,9 @@ public class BookRoomController {
         else if (startTimeValue.equals(endTimeValue)) {
             error.setText("Times cannot be the same.");
 
-        }else if (startTimeValue.compareTo(endTimeValue) > 0) {
+        }
+
+        else if (startTimeValue.compareTo(endTimeValue) > 0) {
             error.setText("Start time cannot be after end time.");
         }
         else if (startTimeValue.compareTo(curTime) < 0 && roomDate.equals(curDate)) {
