@@ -52,6 +52,7 @@ public class EditNodeController {
 
     @FXML
     public void init(String username) {
+        submitButton.setDisable(false);
         uname = username;
         nodeXCoord.textProperty().addListener(this::changedX);
         nodeYCoord.textProperty().addListener(this::changedY);
@@ -95,6 +96,15 @@ public class EditNodeController {
         nodeShortName.setText(data.getShortName());
         isNew = false;
         nodeID.setDisable(true);
+    }
+
+    @FXML
+    private void enableSubmit(){
+        boolean disable = nodeID.getText().trim().isEmpty() || nodeXCoord.getText().trim().isEmpty() || nodeYCoord.getText().trim().isEmpty();
+        disable = disable || nodeFloor.getText().trim().isEmpty() || nodeBuilding.getText().trim().isEmpty() || nodeType.getText().trim().isEmpty();
+        disable = disable || nodeLongName.getText().trim().isEmpty() || nodeShortName.getText().trim().isEmpty();
+
+        submitButton.setDisable(disable);
     }
 
     @FXML
