@@ -21,13 +21,19 @@ public class Main extends Application {
     public static void main(String[] args) throws URISyntaxException {
         NodesAccess na = new NodesAccess();
         EdgesAccess ea = new EdgesAccess();
+        ReservationAccess ra = new ReservationAccess();
+        ServiceRequestAccess sra = new ServiceRequestAccess();
+        SuggestionBasicAccess sba = new SuggestionBasicAccess();
+
         na.deleteRecords();
         ea.deleteRecords();
+        ra.deleteRecords();
+        sra.deleteRecords();
         na.readCSVintoTable();
         ea.readCSVintoTable();
         //System.out.println("2");
         //System.out.println("" + na.countRecords());
-        ea.getConnectedNodes("DHALL02702");
+        //ea.getConnectedNodes("DHALL02702");*/
         launch(args);
 
     }

@@ -24,8 +24,8 @@
                 <Image url="@SoftEng_UI_Mockup_Pics/Background.png" />
             </image>
         </ImageView>
-      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#012d5a" height="459.0" layoutY="196.0" stroke="BLACK" strokeType="INSIDE" width="880.0" AnchorPane.leftAnchor="200.0" AnchorPane.rightAnchor="200.0" AnchorPane.topAnchor="196.0" />
-      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#7fb1ff" height="94.0" layoutX="-220.0" stroke="BLACK" strokeType="INSIDE" width="880.0" AnchorPane.leftAnchor="200.0" AnchorPane.rightAnchor="208.0" AnchorPane.topAnchor="195.0" />
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#012d5a" height="459.0" layoutY="196.0" stroke="#012d5a" strokeType="INSIDE" width="880.0" AnchorPane.leftAnchor="200.0" AnchorPane.rightAnchor="200.0" AnchorPane.topAnchor="196.0" />
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#7fb1ff" height="94.0" layoutX="-220.0" stroke="#012d5a" strokeType="INSIDE" width="880.0" AnchorPane.leftAnchor="200.0" AnchorPane.rightAnchor="208.0" AnchorPane.topAnchor="195.0" />
           <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="143.0" prefWidth="842.0" text="  Give Us Feedback" AnchorPane.leftAnchor="205.0" AnchorPane.rightAnchor="205.0" AnchorPane.topAnchor="140.0">
               <font>
                   <Font name="Times New Roman Bold" size="40.0" />
@@ -43,7 +43,7 @@
             </ImageView>
             <HBox alignment="CENTER_RIGHT" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="120.0" prefWidth="836.0">
                <children>
-                  <JFXButton fx:id="SuggestionBack" buttonType="RAISED" minHeight="-Infinity" minWidth="-Infinity" onAction="#backPressed" prefHeight="100.0" prefWidth="176.0" ripplerFill="#f6bd38" text="Back">
+                  <JFXButton fx:id="SuggestionBack" buttonType="RAISED" minHeight="-Infinity" minWidth="-Infinity" onAction="#backPressed" prefHeight="100.0" prefWidth="176.0" ripplerFill="#b0b0b0" text="Back">
                      <font>
                         <Font name="Times New Roman" size="40.0" />
                      </font>
@@ -52,7 +52,7 @@
             </HBox>
               </items>
           </ToolBar>
-          <ToolBar layoutX="-15.0" layoutY="131.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="10.0" prefWidth="1280.0" style="-fx-background-color: #092b60;" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="125.0" />
+          <ToolBar layoutX="-15.0" layoutY="131.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="10.0" prefWidth="1280.0" style="-fx-background-color: #012d5a;" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="125.0" />
           <GridPane alignment="CENTER" hgap="30.0" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="562.0" prefWidth="891.0" AnchorPane.leftAnchor="200.0" AnchorPane.rightAnchor="200.0" AnchorPane.topAnchor="145.0">
               <columnConstraints>
                   <ColumnConstraints maxWidth="168.0" minWidth="0.0" prefWidth="0.0" />
@@ -80,7 +80,7 @@
             <RowConstraints maxHeight="59.0" minHeight="10.0" prefHeight="30.0" />
               </rowConstraints>
               <children>
-            <TextArea fx:id="feedbackComments" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="197.0" prefWidth="740.0" promptText="Type suggestions here" GridPane.columnIndex="1" GridPane.rowIndex="4" GridPane.rowSpan="2">
+            <TextArea fx:id="feedbackComments" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="197.0" prefWidth="740.0" promptText="Type suggestions here" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="4" GridPane.rowSpan="2">
                <GridPane.margin>
                   <Insets bottom="10.0" left="100.0" right="125.0" top="85.0" />
                </GridPane.margin>
@@ -88,7 +88,7 @@
                   <Font name="Times New Roman" size="24.0" />
                </font>
             </TextArea>
-            <JFXButton fx:id="submitFeedback" buttonType="RAISED" contentDisplay="CENTER" onAction="#submitPressed" prefHeight="47.0" prefWidth="131.0" ripplerFill="#f6bd38" style="-fx-background-color: white;" text="Submit" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="15" GridPane.valignment="CENTER">
+            <JFXButton fx:id="submitFeedback" buttonType="RAISED" contentDisplay="CENTER" onAction="#submitPressed" prefHeight="47.0" prefWidth="131.0" ripplerFill="#b0b0b0" style="-fx-background-color: white;" text="Submit" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="15" GridPane.valignment="CENTER">
                <font>
                   <Font name="Times New Roman" size="25.0" />
                </font>

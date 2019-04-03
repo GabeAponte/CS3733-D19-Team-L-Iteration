@@ -34,7 +34,7 @@
                         </ImageView>
                         <HBox alignment="CENTER_RIGHT" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="125.0" prefWidth="825.0">
                             <children>
-                                <JFXButton fx:id="editNodeBackButton" buttonType="RAISED" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onAction="#editNodeBackPress" prefHeight="75.0" prefWidth="315.0" ripplerFill="BLACK" text="Back / Cancel">
+                                <JFXButton fx:id="editNodeBackButton" buttonType="RAISED" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onAction="#editNodeBackPress" prefHeight="75.0" prefWidth="315.0" ripplerFill="#b0b0b0" text="Back / Cancel">
                                     <font>
                                         <Font name="Times New Roman" size="40.0" />
                                     </font>
@@ -66,7 +66,7 @@
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="ALWAYS" />
             </rowConstraints>
          <children>
-            <JFXTextField id="prompt-text" fx:id="nodeID" focusColor="#f6bd38" promptText="Enter Node ID" stylesheets="@size.css" unFocusColor="WHITE" GridPane.halignment="RIGHT" GridPane.hgrow="ALWAYS" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
+            <JFXTextField id="prompt-text" fx:id="nodeID" focusColor="#f6bd38" promptText="Enter Node ID" stylesheets="@modify-prompt-text.css" unFocusColor="WHITE" GridPane.halignment="RIGHT" GridPane.hgrow="ALWAYS" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
                <GridPane.margin>
                   <Insets left="50.0" right="25.0" />
                </GridPane.margin>
@@ -74,7 +74,7 @@
                   <Font name="Times New Roman" size="15.0" />
                </font>
             </JFXTextField>
-            <JFXTextField id="prompt-text" fx:id="nodeBuilding" focusColor="#f6bd38" promptText="Enter Node Building" stylesheets="@size.css" unFocusColor="WHITE" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.hgrow="ALWAYS" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
+            <JFXTextField id="prompt-text" fx:id="nodeBuilding" focusColor="#f6bd38" promptText="Enter Node Building" stylesheets="@modify-prompt-text.css" unFocusColor="WHITE" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.hgrow="ALWAYS" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
                <GridPane.margin>
                   <Insets left="50.0" right="25.0" />
                </GridPane.margin>
@@ -82,7 +82,7 @@
                   <Font name="Times New Roman" size="15.0" />
                </font>
             </JFXTextField>
-            <JFXTextField id="prompt-text" fx:id="nodeXCoord" focusColor="#f6bd38" promptText="Enter Node X Coordinate" stylesheets="@size.css" unFocusColor="WHITE" GridPane.halignment="RIGHT" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
+            <JFXTextField id="prompt-text" fx:id="nodeXCoord" focusColor="#f6bd38" promptText="Enter Node X Coordinate" stylesheets="@modify-prompt-text.css" unFocusColor="WHITE" GridPane.halignment="RIGHT" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
                <GridPane.margin>
                   <Insets left="50.0" right="25.0" />
                </GridPane.margin>
@@ -90,7 +90,7 @@
                   <Font name="Times New Roman" size="15.0" />
                </font>
             </JFXTextField>
-            <JFXTextField id="prompt-text" fx:id="nodeType" focusColor="#f6bd38" promptText="Enter Node Type" stylesheets="@size.css" unFocusColor="WHITE" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
+            <JFXTextField id="prompt-text" fx:id="nodeType" focusColor="#f6bd38" promptText="Enter Node Type" stylesheets="@modify-prompt-text.css" unFocusColor="WHITE" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
                <GridPane.margin>
                   <Insets left="50.0" right="25.0" />
                </GridPane.margin>
@@ -98,7 +98,7 @@
                   <Font name="Times New Roman" size="15.0" />
                </font>
             </JFXTextField>
-            <JFXTextField id="prompt-text" fx:id="nodeYCoord" focusColor="#f6bd38" promptText="Enter Node Y Coordinate" stylesheets="@size.css" unFocusColor="WHITE" GridPane.halignment="RIGHT" GridPane.hgrow="ALWAYS" GridPane.rowIndex="2" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
+            <JFXTextField id="prompt-text" fx:id="nodeYCoord" focusColor="#f6bd38" promptText="Enter Node Y Coordinate" stylesheets="@modify-prompt-text.css" unFocusColor="WHITE" GridPane.halignment="RIGHT" GridPane.hgrow="ALWAYS" GridPane.rowIndex="2" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
                <GridPane.margin>
                   <Insets left="50.0" right="25.0" />
                </GridPane.margin>
@@ -106,7 +106,7 @@
                   <Font name="Times New Roman" size="15.0" />
                </font>
             </JFXTextField>
-            <JFXTextField id="prompt-text" fx:id="nodeLongName" focusColor="#f6bd38" promptText="Enter A Long Name" stylesheets="@size.css" unFocusColor="WHITE" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.hgrow="ALWAYS" GridPane.rowIndex="2" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
+            <JFXTextField id="prompt-text" fx:id="nodeLongName" focusColor="#f6bd38" promptText="Enter A Long Name" stylesheets="@modify-prompt-text.css" unFocusColor="WHITE" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.hgrow="ALWAYS" GridPane.rowIndex="2" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
                <GridPane.margin>
                   <Insets left="50.0" right="25.0" />
                </GridPane.margin>
@@ -114,7 +114,7 @@
                   <Font name="Times New Roman" size="15.0" />
                </font>
             </JFXTextField>
-            <JFXTextField id="prompt-text" fx:id="nodeShortName" focusColor="#f6bd38" promptText="Enter A Short Name" stylesheets="@size.css" unFocusColor="WHITE" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.hgrow="ALWAYS" GridPane.rowIndex="3" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
+            <JFXTextField id="prompt-text" fx:id="nodeShortName" focusColor="#f6bd38" promptText="Enter A Short Name" stylesheets="@modify-prompt-text.css" unFocusColor="WHITE" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.hgrow="ALWAYS" GridPane.rowIndex="3" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
                <GridPane.margin>
                   <Insets left="50.0" right="25.0" />
                </GridPane.margin>
@@ -122,7 +122,7 @@
                   <Font name="Times New Roman" size="15.0" />
                </font>
             </JFXTextField>
-            <JFXTextField id="prompt-text" fx:id="nodeFloor" focusColor="#f6bd38" promptText="Enter Node Floor" stylesheets="@size.css" unFocusColor="WHITE" GridPane.halignment="RIGHT" GridPane.hgrow="ALWAYS" GridPane.rowIndex="3" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
+            <JFXTextField id="prompt-text" fx:id="nodeFloor" focusColor="#f6bd38" promptText="Enter Node Floor" stylesheets="@modify-prompt-text.css" unFocusColor="WHITE" GridPane.halignment="RIGHT" GridPane.hgrow="ALWAYS" GridPane.rowIndex="3" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
                <GridPane.margin>
                   <Insets left="50.0" right="25.0" />
                </GridPane.margin>

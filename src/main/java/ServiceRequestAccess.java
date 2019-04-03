@@ -45,7 +45,7 @@ public class ServiceRequestAccess extends DBAccess{
      * @param name
      */
     public void fulfillRequest(int rid, String name){
-        String sql = "update serviceRequest set assignedEmployee = ? where requestID = ?";
+        String sql = "update serviceRequest set assignedEmployee = ?, fulfilled = 1 where requestID = ?";
 
 
         try (Connection conn = this.connect();
@@ -64,7 +64,7 @@ public class ServiceRequestAccess extends DBAccess{
      * @return
      */
     public ArrayList<String> getRequests(int getNum){
-        String sql = "SELECT * FROM serviceRequest";
+        String sql = "SELECT * FROM serviceRequest where assignedEmployee is NULL";
         int count = 0;
         //noinspection Convert2Diamond
         ArrayList<String> data = new ArrayList<String>();
@@ -106,7 +106,7 @@ public class ServiceRequestAccess extends DBAccess{
      * @return int
      */
     public int countRecords() {
-        String sql = "select COUNT(*) from serviceRequest";
+        String sql = "select COUNT(*) from serviceRequest where assignedEmployee is null";
         try (Connection conn = this.connect();
              Statement stmt = conn.createStatement();
              ResultSet rs = stmt.executeQuery(sql)) {
@@ -121,9 +121,6 @@ public class ServiceRequestAccess extends DBAccess{
 
     public static void main(String[] args) {
         ServiceRequestAccess sra = new ServiceRequestAccess();
-        sra.deleteRecords();
-        sra.makeRequest("test", "test");
-        sra.fulfillRequest(1, "bob");
-        sra.getRequests(1);
+        System.out.println(sra.countRecords());
     }
 }

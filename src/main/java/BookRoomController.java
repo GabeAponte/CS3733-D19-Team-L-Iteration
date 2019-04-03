@@ -6,6 +6,7 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
@@ -20,6 +21,7 @@ import java.time.LocalTime;
 import java.util.ArrayList;
 
 public class BookRoomController {
+    String uname;
 
     @FXML
     private JFXDatePicker datePicker;
@@ -48,13 +50,23 @@ public class BookRoomController {
     final ObservableList<String> listOfRooms = FXCollections.observableArrayList();
     ArrayList<String> rooms = new ArrayList<>();
 
+    public void init(String username){
+        uname = username;
+    }
+
     @FXML
     private void backPressed() throws IOException {
-        thestage = (Stage) bookRoomBack.getScene().getWindow();
-        AnchorPane root;
-        root = FXMLLoader.load(getClass().getResource("LoggedInHome.fxml"));
-        Scene scene = new Scene(root);
-        thestage.setScene(scene);
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("LoggedInHome.fxml"));
+
+        Parent sceneMain = loader.load();
+
+        LoggedInHomeController controller = loader.<LoggedInHomeController>getController();
+        controller.init(uname);
+
+        Stage theStage = (Stage) bookRoomBack.getScene().getWindow();
+
+        Scene scene = new Scene(sceneMain);
+        theStage.setScene(scene);
     }
 
     //LocalTime startTimeValue = null;
@@ -66,45 +78,53 @@ public class BookRoomController {
         LocalDate roomDate = datePicker.getValue();
 
         if (startTimeValue == null && endTimeValue == null && roomDate == null) {
-            error.setText("Please select start and end times and a date");
+            error.setText("Please select start and end times and a date.");
         }
 
         else if (startTimeValue == null && endTimeValue == null) {
-            error.setText("Please select start and end times");
+            error.setText("Please select start and end times.");
         }
 
         else if (startTimeValue == null && roomDate == null) {
-            error.setText("Please select a start time and a date");
+            error.setText("Please select a start time and a date.");
         }
 
         else if (endTimeValue == null && roomDate == null) {
-            error.setText("Please select an end time and a date");}
-
+            error.setText("Please select an end time and a date.");
+        }
         else if (startTimeValue == null) {
-            error.setText("Please select a start time");
+            error.setText("Please select a start time.");
         }
         else if (endTimeValue == null) {
-            error.setText("Please select an end time");
-
-        }else if (startTimeValue.equals(endTimeValue)) {
-            error.setText("Times cannot be the same");
-
-        } else {
-            error.setText("test");
+            error.setText("Please select an end time.");
         }
+        else if (roomDate == null) {
+            error.setText("Please select a date.");
+        }
+        else if (startTimeValue.equals(endTimeValue)) {
+            error.setText("Times cannot be the same.");
 
-        int startTimeMil = startTime.getValue().getHour() * 100 + startTime.getValue().getMinute();
-        int endTimeMil = endTime.getValue().getHour() * 100 + endTime.getValue().getMinute();
-        String date = datePicker.getValue().toString();
-        String roomID = "RoomTest";
-        String employeeID = "Test";
-        ReservationAccess roomReq = new ReservationAccess();
-        for(int i = 1; i < rooms.size(); i+=2) {
-            if (rooms.get(i).equals(avaliableRooms.getValue())) {
-                roomID = rooms.get(i - 1);
+        }else if (startTimeValue.compareTo(endTimeValue) > 0) {
+            error.setText("Start time cannot be ahead of end time.");
+        }
+        else {
+            int startTimeMil = startTime.getValue().getHour() * 100 + startTime.getValue().getMinute();
+            int endTimeMil = endTime.getValue().getHour() * 100 + endTime.getValue().getMinute();
+            String date = datePicker.getValue().toString();
+            String roomID = "RoomTest";
+            EmployeeAccess ea = new EmployeeAccess();
+            //System.out.println(uname);
+            String employeeID = ea.getNodeInformation(uname).get(0);
+            ReservationAccess roomReq = new ReservationAccess();
+            for(int i = 1; i < rooms.size(); i+=2) {
+                if (rooms.get(i).equals(avaliableRooms.getValue())) {
+                    roomID = rooms.get(i - 1);
+                }
             }
+            roomReq.makeReservation(roomID, employeeID, date, startTimeMil, endTimeMil);
+
+            error.setText("Submitted.");
         }
-        roomReq.makeReservation(roomID, employeeID, date, startTimeMil, endTimeMil);
     }
 
     @FXML

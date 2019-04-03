@@ -58,7 +58,7 @@ public class EmployeeAccess extends DBAccess{
                 data.add(rs.getString("department"));
                 data.add(rs.getString("isAdmin"));
             }
-
+            return data;
 
         } catch (SQLException e) {
             System.out.println(e.getMessage());

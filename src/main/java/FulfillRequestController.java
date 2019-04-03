@@ -1,5 +1,6 @@
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -12,6 +13,9 @@ import java.io.IOException;
 public class FulfillRequestController {
 
     private Stage thestage;
+    private String uname;
+
+    private ServiceRequestTable theRequest;
 
     @FXML
     private Button back;
@@ -26,14 +30,29 @@ public class FulfillRequestController {
     @FXML
     private Label errorLabel;
 
+    public void init(String username){
+        uname = username;
+    }
     @SuppressWarnings("Duplicates")
     @FXML
     private void backPressed() throws IOException {
-        thestage = (Stage) back.getScene().getWindow();
-        AnchorPane root;
-        root = FXMLLoader.load(getClass().getResource("ActiveServiceRequests.fxml"));
-        Scene scene = new Scene(root);
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("ActiveServiceRequests.fxml"));
+        Parent roots = loader.load();
+
+        //Get controller of scene2
+        ActiveServiceRequestsController scene2Controller = loader.getController();
+        scene2Controller.init(uname);
+
+        Scene scene = new Scene(roots);
+        Stage thestage = (Stage) errorLabel.getScene().getWindow();
+        //Show scene 2 in new window
         thestage.setScene(scene);
+    }
+
+    @FXML
+    public void getRequestID(ServiceRequestTable request) {
+        theRequest = request;
+        System.out.println(theRequest.getRequestID());
     }
 
     @FXML
@@ -42,20 +61,23 @@ public class FulfillRequestController {
         if (staffMember.getText().trim().isEmpty() || staffMember.getText().equals("Staff Member")) {
             errorLabel.setText("Please enter a staff member name");
 
-        } else {
+        }
+        else{
+            ServiceRequestAccess sa = new ServiceRequestAccess();
+            sa.fulfillRequest(Integer.parseInt(theRequest.getRequestID()), staffMember.getText());
             errorLabel.setText("Request Fulfilled");
 
-            /*try {
-                if (errorLabel.getText().equals("Request Fulfilled")){
-                Thread.sleep(1000);
-                }
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("ActiveServiceRequests.fxml"));
+            Parent roots = loader.load();
 
-                Stage thestage = (Stage) fulfill.getScene().getWindow();
-                AnchorPane root;
-                root = FXMLLoader.load(getClass().getResource("AdminServiceRequestTable.fxml"));
-                Scene scene = new Scene(root);
-                thestage.setScene(scene);
-            } catch (Exception e) {*/
+            //Get controller of scene2
+            ActiveServiceRequestsController scene2Controller = loader.getController();
+            scene2Controller.init(uname);
+
+            Scene scene = new Scene(roots);
+            Stage thestage = (Stage) errorLabel.getScene().getWindow();
+            //Show scene 2 in new window
+            thestage.setScene(scene);
             }
         }
     }

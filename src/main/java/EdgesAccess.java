@@ -124,14 +124,14 @@ public class EdgesAccess extends DBAccess
 
         ArrayList<String> connectedNodes = new ArrayList<>();
         try (Connection conn = this.connect();
-            PreparedStatement pstmt = conn.prepareStatement(sql)){
+             PreparedStatement pstmt = conn.prepareStatement(sql)){
             pstmt.setString(1, nodeID);
             pstmt.setString(2, nodeID);
             ResultSet rs = pstmt.executeQuery();
             while (rs.next()) {
                 getFields(connectedNodes, rs);
             }
-    }
+        }
         catch (SQLException e) {
             System.out.println(e.getMessage());
             System.out.println("HERE");
