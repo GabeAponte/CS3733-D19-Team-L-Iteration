@@ -160,7 +160,6 @@ public class EditNodeController {
             thestage.setScene(scene);
         }
         else {
-            System.out.println("INPROPER INPUT");
            error.setText("Invalid Input");
         }
     }
