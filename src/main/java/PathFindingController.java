@@ -14,6 +14,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+@SuppressWarnings("Duplicates")
 public class PathFindingController {
 
 
@@ -104,6 +105,20 @@ public class PathFindingController {
         initializeTable(na, ea);
         PathFindStartDrop.setItems(data);
         PathFindEndDrop.setItems(data);
+    }
+
+        @SuppressWarnings("Convert2Diamond")
+    @FXML
+    public void init(boolean loggedIn, int num) {
+        signedIn = loggedIn;
+        na = new NodesAccess();
+        ea = new EdgesAccess();
+        initializeTable(na, ea);
+        if(num == 1){
+        PathFindStartDrop.setItems(data);
+        PathFindEndDrop.setItems(data);
+        }
+
 
 
         // AT THIS POINT:
@@ -158,6 +173,10 @@ public class PathFindingController {
 //
 //        Path p6 = findPath(start6, end6);
 //        System.out.println(p6.toString());
+    }
+
+    public HashMap<String, Location> getLookup() {
+        return lookup;
     }
 
     @FXML
@@ -232,7 +251,7 @@ public class PathFindingController {
     ArrayList<String> visited = new ArrayList<String>();
 
 
-    private Path findPath(Location start, Location end) {
+    public Path findPath(Location start, Location end) {
         openList.add(start);
         start.setParentID("START");
         ArrayList<Location> path = new ArrayList<Location>();
