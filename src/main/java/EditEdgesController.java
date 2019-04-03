@@ -71,6 +71,7 @@ public class EditEdgesController {
 
     public void flipBool() {
         isNew = true;
+        PathFindStartDrop.setDisable(true);
     }
 
     public void initialize() {

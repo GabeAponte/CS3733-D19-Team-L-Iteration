@@ -66,7 +66,7 @@ public class HomeScreenController {
         Parent sceneMain = loader.load();
 
         PathFindingController controller = loader.<PathFindingController>getController();
-        controller.initialize(signedIn);
+        controller.init(signedIn);
 
         Stage theStage = (Stage) HomeFindPath.getScene().getWindow();
 

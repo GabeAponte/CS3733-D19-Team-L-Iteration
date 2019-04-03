@@ -90,14 +90,14 @@ public class PathFindingController {
         thestage.setScene(scene);
     }
 
-    public void initialize(boolean loggedIn, String username){
-        uname = username;
-        initialize(loggedIn);
+    public void init(boolean loggeedIn, String username){
+            uname = username;
+            init(loggeedIn);
     }
 
     @SuppressWarnings("Convert2Diamond")
     @FXML
-    public void initialize(boolean loggedIn) {
+    public void init(boolean loggedIn) {
         signedIn = loggedIn;
         na = new NodesAccess();
         ea = new EdgesAccess();

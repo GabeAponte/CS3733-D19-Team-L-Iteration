@@ -64,7 +64,7 @@ public class LoggedInHomeController {
         Parent sceneMain = pLoader.load();
 
         PathFindingController pController = pLoader.<PathFindingController>getController();
-        pController.initialize(signedIn, uname);
+        pController.init(signedIn, uname);
 
         Stage theStage = (Stage) findPath.getScene().getWindow();
 

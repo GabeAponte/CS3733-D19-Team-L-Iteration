@@ -95,6 +95,9 @@ public class EditLocationController {
         makeEditableEdge.setDisable(true);
         initializeTable(na, ea);
 
+        deleteNode.setDisable(true);
+        deleteEdge.setDisable(true);
+
         //node table setup
         idCol.setCellValueFactory(new PropertyValueFactory<Location,String>("locID"));
         xCol.setCellValueFactory(new PropertyValueFactory<Location, Integer>("xcoord"));
@@ -122,11 +125,13 @@ public class EditLocationController {
     public void setNextNode(Location proto) {
         this.makeEditableNode.setDisable(false);
         this.focusNode = proto;
+        this.deleteNode.setDisable(false);
     }
 
     public void setNextEdge(Edge proto) {
         this.makeEditableEdge.setDisable(false);
         this.focusEdge = proto;
+        this.deleteEdge.setDisable(false);
     }
 
     @FXML
