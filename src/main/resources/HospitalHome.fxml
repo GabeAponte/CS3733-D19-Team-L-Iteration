@@ -52,9 +52,9 @@
       </JFXButton>
       <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#092b60" height="65.0" layoutX="1040.0" layoutY="636.0" stroke="#092b60" strokeType="INSIDE" width="222.0" />
       <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="45.0" layoutX="1050.0" layoutY="646.0" stroke="#092b60" strokeType="INSIDE" width="202.0" />
-      <Label fx:id="timeLabel" layoutX="1060.0" layoutY="654.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="185.0" text="The Time is: 19:20:21" textAlignment="CENTER">
+      <Label fx:id="timeLabel" layoutX="1059.0" layoutY="657.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="185.0" text="The Time is: 19:20:21" textAlignment="CENTER">
          <font>
-            <Font size="20.0" />
+            <Font name="Times New Roman" size="20.0" />
          </font>
       </Label>
    </children>

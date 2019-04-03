@@ -9,6 +9,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
@@ -42,6 +43,9 @@ public class EditNodeController {
     private JFXTextField nodeShortName;
 
     @FXML
+    private Label error;
+
+    @FXML
     private JFXButton editNodeBackButton;
     @FXML
     private JFXButton submitButton;
@@ -52,12 +56,15 @@ public class EditNodeController {
 
     @FXML
     public void init(String username) {
+        //submitButton.setDisable(true);
+        //enableSubmit();
         uname = username;
         nodeXCoord.textProperty().addListener(this::changedX);
         nodeYCoord.textProperty().addListener(this::changedY);
         nodeFloor.textProperty().addListener(this::changedFloor);
 
         nodeID.setDisable(false);
+        enableSubmit();
     }
 
 
@@ -95,6 +102,15 @@ public class EditNodeController {
         nodeShortName.setText(data.getShortName());
         isNew = false;
         nodeID.setDisable(true);
+    }
+
+    @FXML
+    private void enableSubmit(){
+        boolean disable = nodeID.getText().trim().isEmpty() || nodeXCoord.getText().trim().isEmpty() || nodeYCoord.getText().trim().isEmpty();
+        disable = disable || nodeFloor.getText().trim().isEmpty() || nodeBuilding.getText().trim().isEmpty() || nodeType.getText().trim().isEmpty();
+        disable = disable || nodeLongName.getText().trim().isEmpty() || nodeShortName.getText().trim().isEmpty();
+
+        submitButton.setDisable(disable);
     }
 
     @FXML
@@ -144,7 +160,7 @@ public class EditNodeController {
             thestage.setScene(scene);
         }
         else {
-            System.out.println("INPROPER INPUT");
+           error.setText("Invalid Input");
         }
     }
 
