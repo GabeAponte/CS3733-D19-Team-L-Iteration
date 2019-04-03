@@ -31,6 +31,7 @@ public class Main extends Application {
         sra.deleteRecords();
         na.readCSVintoTable();
         ea.readCSVintoTable();
+
         //System.out.println("2");
         //System.out.println("" + na.countRecords());
         //ea.getConnectedNodes("DHALL02702");*/
