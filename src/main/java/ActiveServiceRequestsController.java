@@ -31,9 +31,6 @@ public class ActiveServiceRequestsController {
     @FXML
     TableColumn<ServiceRequestTable, String> assignedEmployee;
 
-    //@FXML
-    //TableColumn<ServiceRequestTable, String> fullfilled;
-
     @FXML
     TableColumn<ServiceRequestTable, String> comment;
 
@@ -81,7 +78,6 @@ public class ActiveServiceRequestsController {
         requestDepartment.setCellValueFactory(new PropertyValueFactory<ServiceRequestTable,String>("requestDepartment"));
         comment.setCellValueFactory(new PropertyValueFactory<ServiceRequestTable, String>("comment"));
         assignedEmployee.setCellValueFactory(new PropertyValueFactory<ServiceRequestTable, String>("assignedEmployee"));
-        //fullfilled.setCellValueFactory(new PropertyValueFactory<ServiceRequestTable, String>("fullfilled"));
         activeRequests.setItems(data);
     }
 
