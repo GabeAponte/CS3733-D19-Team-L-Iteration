@@ -52,13 +52,15 @@ public class EditNodeController {
 
     @FXML
     public void init(String username) {
-        submitButton.setDisable(false);
+        //submitButton.setDisable(true);
+        //enableSubmit();
         uname = username;
         nodeXCoord.textProperty().addListener(this::changedX);
         nodeYCoord.textProperty().addListener(this::changedY);
         nodeFloor.textProperty().addListener(this::changedFloor);
 
         nodeID.setDisable(false);
+        enableSubmit();
     }
 
 
