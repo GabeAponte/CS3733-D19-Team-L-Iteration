@@ -69,7 +69,6 @@ class ChildThread extends Thread {
             System.out.println("Failed to send: Messaging Exception");
         } /*catch (InterruptedException ie){
             ie.printStackTrace();
-            System.out.println("Failed to send: Interrupted Exception");
         }*/
     }
 } 

@@ -121,6 +121,5 @@ public class ServiceRequestAccess extends DBAccess{
 
     public static void main(String[] args) {
         ServiceRequestAccess sra = new ServiceRequestAccess();
-        System.out.println(sra.countRecords());
     }
 }

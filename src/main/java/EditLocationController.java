@@ -140,7 +140,6 @@ public class EditLocationController {
         alert.showAndWait();
 
         if (alert.getResult() == ButtonType.YES) {
-            System.out.println("user deletes this edge");
             EdgesAccess ea = new EdgesAccess();
             ea.deleteEdge(focusEdge.getEdgeID());
             edgeTable.getItems().remove(focusEdge);
@@ -148,7 +147,6 @@ public class EditLocationController {
             deleteEdge.setDisable(true);
         }
         else if (alert.getResult() == ButtonType.NO) {
-            System.out.println("user does not delete edge");
         }
     }
 
@@ -157,7 +155,7 @@ public class EditLocationController {
         ObservableList<String> toPass = FXCollections.observableArrayList();
         for (Location l : nodeData) {
             toPass.add(l.getLocID());
-            //System.out.println(l.getLocID());
+
         }
         try {
             //Load second scene
@@ -186,7 +184,6 @@ public class EditLocationController {
         ObservableList<String> toPass = FXCollections.observableArrayList();
         for (Location l : nodeData) {
             toPass.add(l.getLocID());
-            //System.out.println(l.getLocID());
         }
         try {
             //Load second scene
@@ -216,7 +213,6 @@ public class EditLocationController {
         alert.showAndWait();
 
         if (alert.getResult() == ButtonType.YES) {
-            System.out.println("user deletes this node");
             //delete the node here
             NodesAccess na = new NodesAccess();
             na.deleteNode(focusNode.getLocID());
@@ -237,7 +233,6 @@ public class EditLocationController {
         }
         else if (alert.getResult() == ButtonType.NO) {
             //do nothing
-            System.out.println("user does not delete node");
         }
 
 
@@ -271,7 +266,6 @@ public class EditLocationController {
         ObservableList<String> toPass = FXCollections.observableArrayList();
         for (Location l : nodeData) {
             toPass.add(l.getLocID());
-            //System.out.println(l.getLocID());
         }
 
         try {

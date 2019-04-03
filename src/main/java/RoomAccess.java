@@ -70,8 +70,6 @@ public class RoomAccess extends DBAccess {
             while(rs.next()){
                 data.add(rs.getString("roomID"));
                 data.add(rs.getString("name"));
-                //System.out.println(rs.getString("roomID"));
-                //System.out.println("name");
             }
 
             return data;

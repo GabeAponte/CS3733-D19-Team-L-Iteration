@@ -67,7 +67,6 @@ public class ActiveServiceRequestsController {
 
         int count;
         count = sr.countRecords()-1;
-        System.out.println(sr.countRecords());
         while(count >= 0){
             ArrayList<String> arr= sr.getRequests(count);
             ServiceRequestTable testx = new ServiceRequestTable(arr.get(0), arr.get(1),arr.get(2), arr.get(3));

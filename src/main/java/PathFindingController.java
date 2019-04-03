@@ -119,60 +119,6 @@ public class PathFindingController {
         PathFindEndDrop.setItems(data);
         }
 
-
-
-        // AT THIS POINT:
-        // Lookup contains all nodes, you can look them up with their keys
-        // Each node contains a list of edges properly
-
-//        Location start = lookup.get("DHALL03502");
-//        Location end = lookup.get("DHALL04502");
-//        System.out.println("TEST 1:");
-////
-//        Path p = findPath(start, end);
-//        System.out.println(p.toString());
-////
-//        Location startb = lookup.get("DHALL00102");
-//        Location endb = lookup.get("DHALL01202");
-//        System.out.println("TEST BACK:");
-//
-//        Path pb = findPath(startb, endb);
-//        System.out.println(pb.toString());
-//
-//        Location start1 = lookup.get("DHALL05702");
-//        Location end1 = lookup.get("DHALL00102");
-//        System.out.println("TEST 2:");
-//
-//        Path p1 = findPath(start1, end1);
-//        System.out.println(p1.toString());
-//
-//        Location start2 = lookup.get("DHALL01202");
-//        Location end2 = lookup.get("DHALL02702");
-//        System.out.println("TEST 3:");
-//
-//        Path p2 = findPath(start2, end2);
-//        System.out.println(p2.toString());
-//
-//        Location start4 = lookup.get("DSTAI00202");
-//        Location end4 = lookup.get("DHALL00602");
-//        System.out.println("TEST 5:");
-//
-//        Path p4 = findPath(start4, end4);
-//        System.out.println(p4.toString());
-//
-//        Location start5 = lookup.get("DHALL00602");
-//        Location end5 = lookup.get("DHALL00602");
-//        System.out.println("TEST SAME LOCAL:");
-//
-//        Path p5 = findPath(start5, end5);
-//        System.out.println(p5.toString());
-//
-//        Location start6 = lookup.get("DHALL00102");
-//        Location end6 = lookup.get("DSTAI00602");
-//        System.out.println("TEST EDGE NODE:");
-//
-//        Path p6 = findPath(start6, end6);
-//        System.out.println(p6.toString());
     }
 
     public HashMap<String, Location> getLookup() {
@@ -193,8 +139,6 @@ public class PathFindingController {
     private void submitPressed(){
         Location startNode = lookup.get(PathFindStartDrop.getValue().getLocID());
         Location endNode = lookup.get(PathFindEndDrop.getValue().getLocID());
-
-        System.out.println(startNode.getLocID() + "    " + endNode.getLocID());
 
         Path path = findPath(startNode, endNode);
         displayPath(path.getPath(), startNode, endNode);
@@ -259,7 +203,6 @@ public class PathFindingController {
         if(start == end)
         {
             p.addToPath(start);
-            System.out.println("Same location entered for start and end.");
             cleanup();
             return p;
         }
@@ -267,7 +210,6 @@ public class PathFindingController {
         //while there are items in the open list
         while (!(openList.isEmpty())) {
             q = q.findBestF(openList);
-            //System.out.println(q.getLocID());
             openList.remove(q);
             closeList.add(q);
             q = lookup.get(q.getLocID());
@@ -301,7 +243,6 @@ public class PathFindingController {
 
     public Path returnPath(Location obj) {
         Location l = obj;
-        //System.out.println("RUNNING RETURN PATH");
         ArrayList<Location> path = new ArrayList<Location>();
         Path p = new Path(path);
         while (!(l.getParentID().equals("START"))) {

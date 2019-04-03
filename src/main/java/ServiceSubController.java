@@ -91,7 +91,6 @@ public class ServiceSubController {
                 controller.init(typeOfService, signedIn, uname);
             } else {
                 controller.init(typeOfService, ServiceComments.getText(), signedIn, uname);
-                System.out.println(ServiceComments.getText());
             }
         } else {
             if(ServiceComments == null || ServiceComments.getText() == null || ServiceComments.getText().trim().isEmpty()){

@@ -134,7 +134,6 @@ public class EdgesAccess extends DBAccess
         }
         catch (SQLException e) {
             System.out.println(e.getMessage());
-            System.out.println("HERE");
         }
 
         for (int i = connectedNodes.size() - 1; i >= 0; i--) {
@@ -335,6 +334,5 @@ public class EdgesAccess extends DBAccess
 
     public static void main(String[] args) {
         EdgesAccess test = new EdgesAccess();
-        //test.readCSVintoTable();
     }
 }

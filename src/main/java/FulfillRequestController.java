@@ -52,7 +52,6 @@ public class FulfillRequestController {
     @FXML
     public void getRequestID(ServiceRequestTable request) {
         theRequest = request;
-        System.out.println(theRequest.getRequestID());
     }
 
     @FXML
