@@ -93,11 +93,10 @@ public class EditEdgesController {
         EdgesAccess ea = new EdgesAccess();
         if (isNew) {
             ea.addEdge(PathFindStartDrop.getValue(), PathFindEndDrop.getValue());
-            System.out.println("ADDING");
         }
         else {
             ea.updateEdge(initialID, PathFindStartDrop.getValue(), PathFindEndDrop.getValue());
-            System.out.println(initialID);
+            ea.changeID(initialID, PathFindStartDrop.getValue() + "_" + PathFindEndDrop.getValue());
         }
         FXMLLoader loader = new FXMLLoader(getClass().getResource("EditLocation.fxml"));
         Parent roots = loader.load();
