@@ -173,7 +173,7 @@ public class EditNodeController {
     //back/cancel button here
     @FXML
     private void editNodeBackPress() throws IOException {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("EditEdges.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("EditLocation.fxml"));
         Parent roots = loader.load();
 
         //Get controller of scene2
