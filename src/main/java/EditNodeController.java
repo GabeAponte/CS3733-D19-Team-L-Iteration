@@ -9,6 +9,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
@@ -40,6 +41,9 @@ public class EditNodeController {
     private JFXTextField nodeLongName;
     @FXML
     private JFXTextField nodeShortName;
+
+    @FXML
+    private Label error;
 
     @FXML
     private JFXButton editNodeBackButton;
@@ -145,6 +149,7 @@ public class EditNodeController {
         }
         else {
             System.out.println("INPROPER INPUT");
+           error.setText("Invalid Input");
         }
     }
 
@@ -154,9 +159,9 @@ public class EditNodeController {
 
     public boolean checkFields() {
         boolean checkid = nodeID.getText().equals("");
-        boolean checkx = nodeXCoord.getText().equals("");
-        boolean checky = nodeYCoord.getText().equals("");
-        boolean checkfloor = nodeFloor.getText().equals("");
+        boolean checkx = nodeXCoord.toString().equals("");
+        boolean checky = nodeYCoord.toString().equals("");
+        boolean checkfloor = nodeFloor.toString().equals("");
         boolean checkbuilding = nodeBuilding.getText().equals("");
         boolean checktype = nodeType.getText().equals("");
         boolean checklongname = nodeLongName.getText().equals("");
