@@ -160,9 +160,11 @@ public class EditNodeController {
         boolean checktype = nodeType.getText().equals("");
         boolean checklongname = nodeLongName.getText().equals("");
         boolean checkshortname = nodeShortName.getText().equals("");
+        boolean checkcoords = Integer.parseInt(nodeYCoord.getText()) < 3300 && Integer.parseInt(nodeXCoord.getText()) < 4950
+                && Integer.parseInt(nodeYCoord.getText()) > 10 && Integer.parseInt(nodeYCoord.getText()) > 20;
 
         if (!checkid && !checkx && !checky && !checkfloor && !checkbuilding && !checktype &&
-                !checklongname && !checkshortname) {
+                !checklongname && !checkshortname && checkcoords) {
             return true;
         }
         else {
