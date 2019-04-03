@@ -24,39 +24,39 @@
                 </ImageView>
             </items>
         </ToolBar>
-        <ToolBar layoutX="-8.0" layoutY="125.0" prefHeight="10.0" prefWidth="1289.0" style="-fx-background-color: #092b60;" />
-        <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#092b60" height="205.0" layoutX="49.0" layoutY="445.0" stroke="#092b60" strokeType="INSIDE" width="350.0" />
-      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#092b60" height="131.0" layoutX="575.0" layoutY="195.0" stroke="#092b60" strokeType="INSIDE" width="583.0" />
-      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#092b60" height="591.0" layoutX="486.0" layoutY="130.0" stroke="#092b60" strokeType="INSIDE" width="10.0" />
-      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#092b60" height="205.0" layoutX="49.0" layoutY="206.0" stroke="#092b60" strokeType="INSIDE" width="350.0" />
-      <JFXButton fx:id="findPath" buttonType="RAISED" layoutX="74.0" layoutY="234.0" onAction="#SwitchToPathfindScreen" prefHeight="150.0" prefWidth="300.0" ripplerFill="#f6bd38" style="-fx-background-color: fff;" text="Find Path">
+        <ToolBar layoutX="-8.0" layoutY="125.0" prefHeight="10.0" prefWidth="1289.0" style="-fx-background-color: #012d5a;" />
+        <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#012d5a" height="205.0" layoutX="49.0" layoutY="445.0" stroke="#012d5a" strokeType="INSIDE" width="350.0" />
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#012d5a" height="131.0" layoutX="575.0" layoutY="195.0" stroke="#012d5a" strokeType="INSIDE" width="583.0" />
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#012d5a" height="591.0" layoutX="486.0" layoutY="130.0" stroke="#012d5a" strokeType="INSIDE" width="10.0" />
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#012d5a" height="205.0" layoutX="49.0" layoutY="206.0" stroke="#012d5a" strokeType="INSIDE" width="350.0" />
+      <JFXButton fx:id="findPath" buttonType="RAISED" layoutX="74.0" layoutY="234.0" onAction="#SwitchToPathfindScreen" prefHeight="150.0" prefWidth="300.0" ripplerFill="#b0b0b0" style="-fx-background-color: fff;" text="Find Path">
          <font>
             <Font name="Times New Roman" size="36.0" />
          </font>
       </JFXButton>
-      <JFXButton fx:id="serviceRequest" buttonType="RAISED" layoutX="74.0" layoutY="473.0" onAction="#SwitchToServiceScreen" prefHeight="150.0" prefWidth="300.0" ripplerFill="#f5bc38" style="-fx-background-color: fff;" text="Service Request">
+      <JFXButton fx:id="serviceRequest" buttonType="RAISED" layoutX="74.0" layoutY="473.0" onAction="#SwitchToServiceScreen" prefHeight="150.0" prefWidth="300.0" ripplerFill="#b0b0b0" style="-fx-background-color: fff;" text="Service Request">
          <font>
             <Font name="Times New Roman" size="36.0" />
          </font>
       </JFXButton>
-      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#092b60" height="131.0" layoutX="575.0" layoutY="360.0" stroke="#092b60" strokeType="INSIDE" width="583.0" />
-      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#092b60" height="131.0" layoutX="575.0" layoutY="533.0" stroke="#092b60" strokeType="INSIDE" width="583.0" />
-      <JFXButton fx:id="editLocations" buttonType="RAISED" layoutX="610.0" layoutY="213.0" onAction="#SwitchToEditLocationScreen" prefHeight="95.0" prefWidth="510.0" ripplerFill="#f6bd38" style="-fx-background-color: fff;" text="Edit Locations">
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#012d5a" height="131.0" layoutX="575.0" layoutY="360.0" stroke="#012d5a" strokeType="INSIDE" width="583.0" />
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#012d5a" height="131.0" layoutX="575.0" layoutY="533.0" stroke="#012d5a" strokeType="INSIDE" width="583.0" />
+      <JFXButton fx:id="editLocations" buttonType="RAISED" layoutX="610.0" layoutY="213.0" onAction="#SwitchToEditLocationScreen" prefHeight="95.0" prefWidth="510.0" ripplerFill="#b0b0b0" style="-fx-background-color: fff;" text="Edit Locations">
          <font>
             <Font name="Times New Roman" size="36.0" />
          </font>
       </JFXButton>
-      <JFXButton fx:id="fulfillServiceRequest" buttonType="RAISED" layoutX="612.0" layoutY="378.0" onAction="#SwitchToFullfillRequestScreen" prefHeight="95.0" prefWidth="510.0" ripplerFill="#f6bd38" style="-fx-background-color: fff;" text="Fulfill Service Request">
+      <JFXButton fx:id="fufillServiceRequest" buttonType="RAISED" layoutX="612.0" layoutY="378.0" onAction="#SwitchToFullfillRequestScreen" prefHeight="95.0" prefWidth="510.0" ripplerFill="#b0b0b0" style="-fx-background-color: fff;" text="Fulfill Service Request">
          <font>
             <Font name="Times New Roman" size="36.0" />
          </font>
       </JFXButton>
-      <JFXButton fx:id="bookRoom" buttonType="RAISED" layoutX="610.0" layoutY="548.0" onAction="#bookRoom" prefHeight="95.0" prefWidth="510.0" ripplerFill="#f6bd38" style="-fx-background-color: fff;" text="Book Room">
+      <JFXButton fx:id="bookRoom" buttonType="RAISED" layoutX="610.0" layoutY="548.0" onAction="#bookRoom" prefHeight="95.0" prefWidth="510.0" ripplerFill="#b0b0b0" style="-fx-background-color: fff;" text="Book Room">
          <font>
             <Font name="Times New Roman" size="36.0" />
          </font>
       </JFXButton>
-      <JFXButton fx:id="logOut" buttonType="RAISED" layoutX="1044.0" layoutY="4.0" onAction="#logOut" prefHeight="118.0" prefWidth="192.0" ripplerFill="#f5bc38" text="Log Out">
+      <JFXButton fx:id="logOut" buttonType="RAISED" layoutX="1044.0" layoutY="4.0" onAction="#logOut" prefHeight="118.0" prefWidth="192.0" ripplerFill="#b0b0b0" text="Log Out">
          <font>
             <Font name="Times New Roman" size="40.0" />
          </font>

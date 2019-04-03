@@ -3,6 +3,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
@@ -16,6 +17,7 @@ import java.util.HashMap;
 
 public class EditEdgesController {
 
+    private String uname;
     @FXML
     private Stage thestage;
 
@@ -35,12 +37,21 @@ public class EditEdgesController {
     private String initialStart, initialEnd, initialID;
     private ObservableList<String> locationIDS = FXCollections.observableArrayList();
 
+    public void init(String username){
+        uname = username;
+    }
     @FXML
     private void backPressed() throws IOException {
-        thestage = (Stage) EditEdgeBack.getScene().getWindow();
-        AnchorPane root;
-        root = FXMLLoader.load(getClass().getResource("EditLocation.fxml"));
-        Scene scene = new Scene(root);
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("EditLocation.fxml"));
+        Parent roots = loader.load();
+
+        //Get controller of scene2
+        EditLocationController scene2Controller = loader.getController();
+        scene2Controller.init(uname);
+
+        Scene scene = new Scene(roots);
+        Stage thestage = (Stage) EditEdgeBack.getScene().getWindow();
+        //Show scene 2 in new window
         thestage.setScene(scene);
     }
 
@@ -60,6 +71,7 @@ public class EditEdgesController {
 
     public void flipBool() {
         isNew = true;
+        PathFindStartDrop.setDisable(true);
     }
 
     public void initialize() {
@@ -87,10 +99,16 @@ public class EditEdgesController {
             ea.updateEdge(initialID, PathFindStartDrop.getValue(), PathFindEndDrop.getValue());
             System.out.println(initialID);
         }
-        thestage = (Stage) EditEdgeBack.getScene().getWindow();
-        AnchorPane root;
-        root = FXMLLoader.load(getClass().getResource("EditLocation.fxml"));
-        Scene scene = new Scene(root);
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("EditLocation.fxml"));
+        Parent roots = loader.load();
+
+        //Get controller of scene2
+        EditLocationController scene2Controller = loader.getController();
+        scene2Controller.init(uname);
+
+        Scene scene = new Scene(roots);
+        Stage thestage = (Stage) EditEdgeBack.getScene().getWindow();
+        //Show scene 2 in new window
         thestage.setScene(scene);
     }
 

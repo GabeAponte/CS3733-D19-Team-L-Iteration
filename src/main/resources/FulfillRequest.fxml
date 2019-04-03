@@ -31,7 +31,7 @@
                         </ImageView>
                         <HBox alignment="CENTER_RIGHT" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="115.0" prefWidth="826.0">
                      <children>
-                        <JFXButton fx:id="back" buttonType="RAISED" onAction="#backPressed" prefHeight="100.0" prefWidth="168.0" ripplerFill="#f6bd38" text="Back">
+                        <JFXButton fx:id="back" buttonType="RAISED" onAction="#backPressed" prefHeight="100.0" prefWidth="168.0" ripplerFill="#f1f1f1" text="Back">
                            <font>
                               <Font name="Times New Roman" size="40.0" />
                            </font>
@@ -39,11 +39,11 @@
                      </children></HBox>
                     </items>
                 </ToolBar>
-                <ToolBar maxHeight="10.0" prefHeight="40.0" prefWidth="200.0" style="-fx-background-color: #092b60;" />
+                <ToolBar maxHeight="10.0" prefHeight="40.0" prefWidth="200.0" style="-fx-background-color: #012d5a;" />
             </children>
         </VBox>
-        <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#85aeeb" height="100.0" stroke="BLACK" strokeType="INSIDE" width="800.0" AnchorPane.leftAnchor="250.0" AnchorPane.topAnchor="225.0" />
-        <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#092b60" height="275.0" layoutX="50.0" layoutY="152.0" stroke="BLACK" strokeType="INSIDE" width="800.0" AnchorPane.leftAnchor="250.0" AnchorPane.topAnchor="325.0" />
+        <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#7fb1ff" height="100.0" stroke="BLACK" strokeType="INSIDE" width="800.0" AnchorPane.leftAnchor="250.0" AnchorPane.topAnchor="225.0" />
+        <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#012d5a" height="275.0" layoutX="50.0" layoutY="152.0" stroke="BLACK" strokeType="INSIDE" width="800.0" AnchorPane.leftAnchor="250.0" AnchorPane.topAnchor="325.0" />
           <Label alignment="CENTER" contentDisplay="CENTER" layoutX="10.0" layoutY="137.0" maxWidth="1.7976931348623157E308" prefHeight="188.0" prefWidth="1280.0" text="Fulfill Request">
               <font>
                   <Font name="Times New Roman Bold" size="48.0" />

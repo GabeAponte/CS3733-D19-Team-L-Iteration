@@ -42,6 +42,13 @@ public class LogInController {
         thestage.setScene(scene);
     }
 
+    //grace
+    //
+    @FXML
+    public void enterKeyPressToLogin(ActionEvent ae) throws IOException {
+        LogIn();
+    }
+
     @FXML
     private void enableLogin(){
         Boolean disable = (username.getText().isEmpty() || username.getText().trim().isEmpty() || password.getText().isEmpty() || password.getText().trim().isEmpty());

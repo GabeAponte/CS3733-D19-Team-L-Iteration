@@ -13,6 +13,7 @@ public class ServiceSubController {
 
     private String typeOfService;
     private boolean signedIn;
+    private String uname;
 
     @FXML
     private Button Back2;
@@ -27,15 +28,25 @@ public class ServiceSubController {
     private TextArea ServiceComments;
 
 
+    public void init(String type, boolean loggedIn, String username){
+        uname = username;
+        init(type, loggedIn);
+    }
+
+    public void init(String type, String comment, boolean loggedIn, String username){
+        uname = username;
+        init(type, loggedIn);
+    }
+
     //Nathan - sets values passed from another controller
-    void init(String type, boolean loggedIn){
+    public void init(String type, boolean loggedIn){
         typeOfService = type;
         typeLabel.setText(typeOfService + " Services");
         signedIn = loggedIn;
     }
 
     //Nathan - sets values passed from another controller
-    void init(String type, String comment, boolean loggedIn){
+    public void init(String type, String comment, boolean loggedIn){
         typeOfService = type;
         typeLabel.setText(typeOfService + " Services");
         ServiceComments.setText(comment);
@@ -50,7 +61,11 @@ public class ServiceSubController {
         Parent sceneMain = loader.load();
 
         ServiceRequestController controller = loader.<ServiceRequestController>getController();
-        controller.init(signedIn);
+        if(signedIn){
+            controller.init(signedIn, uname);
+        } else {
+            controller.init(signedIn);
+        }
 
         Stage theStage = (Stage) Back2.getScene().getWindow();
 
@@ -68,9 +83,9 @@ public class ServiceSubController {
         Cancel controller = loader.<Cancel>getController();
 
         if(ServiceComments == null || ServiceComments.getText() == null || ServiceComments.getText().trim().isEmpty()){
-            controller.init(typeOfService, signedIn);
+            controller.init(typeOfService, signedIn, uname);
         } else {
-            controller.init(typeOfService, ServiceComments.getText(), signedIn);
+            controller.init(typeOfService, ServiceComments.getText(), signedIn, uname);
         }
         Stage theStage = (Stage) SubmitRequest.getScene().getWindow();
 

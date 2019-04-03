@@ -6,16 +6,14 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.Region;
 import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 
 public class EditLocationController {
+    private String uname;
 
     @FXML
     Button backButton;
@@ -79,7 +77,6 @@ public class EditLocationController {
     private final ObservableList<Location> nodeData = FXCollections.observableArrayList();
     private final ObservableList<Edge> edgeData = FXCollections.observableArrayList();
 
-    private Stage thestage;
     private  Location focusNode;
     private Edge focusEdge;
 
@@ -88,7 +85,8 @@ public class EditLocationController {
 
     @SuppressWarnings("Convert2Diamond")
     @FXML
-    public void initialize(){
+    public void init(String username){
+        uname = username;
         nodeTable.setEditable(false);
         edgeTable.setEditable(false);
         NodesAccess na = new NodesAccess();
@@ -96,6 +94,9 @@ public class EditLocationController {
         makeEditableNode.setDisable(true);
         makeEditableEdge.setDisable(true);
         initializeTable(na, ea);
+
+        deleteNode.setDisable(true);
+        deleteEdge.setDisable(true);
 
         //node table setup
         idCol.setCellValueFactory(new PropertyValueFactory<Location,String>("locID"));
@@ -124,11 +125,13 @@ public class EditLocationController {
     public void setNextNode(Location proto) {
         this.makeEditableNode.setDisable(false);
         this.focusNode = proto;
+        this.deleteNode.setDisable(false);
     }
 
     public void setNextEdge(Edge proto) {
         this.makeEditableEdge.setDisable(false);
         this.focusEdge = proto;
+        this.deleteEdge.setDisable(false);
     }
 
     @FXML
@@ -161,11 +164,12 @@ public class EditLocationController {
 
             //Get controller of scene2
             EditEdgesController scene2Controller = loader.getController();
+            scene2Controller.init(uname);
 
             Scene scene = new Scene(roots);
             scene2Controller.setInitialValues(focusEdge.getStartID(), focusEdge.getEndID());
             scene2Controller.populateNodeList(toPass);
-            thestage = (Stage) makeEditableNode.getScene().getWindow();
+            Stage thestage = (Stage) makeEditableNode.getScene().getWindow();
             //Show scene 2 in new window
             thestage.setScene(scene);
 
@@ -189,10 +193,11 @@ public class EditLocationController {
 
             //Get controller of scene2
             EditEdgesController scene2Controller = loader.getController();
+            scene2Controller.init(uname);
 
             Scene scene = new Scene(roots);
             scene2Controller.populateNodeList(toPass);
-            thestage = (Stage) makeEditableNode.getScene().getWindow();
+            Stage thestage = (Stage) makeEditableNode.getScene().getWindow();
             //Show scene 2 in new window
             thestage.setScene(scene);
 
@@ -243,10 +248,11 @@ public class EditLocationController {
 
             //Get controller of scene2
             EditNodeController scene2Controller = loader.getController();
+            scene2Controller.init(uname);
 
             Scene scene = new Scene(roots);
             scene2Controller.fillFields(this.focusNode);
-            thestage = (Stage) makeEditableNode.getScene().getWindow();
+            Stage thestage = (Stage) makeEditableNode.getScene().getWindow();
             //Show scene 2 in new window
             thestage.setScene(scene);
 
@@ -270,10 +276,11 @@ public class EditLocationController {
 
             //Get controller of scene2
             EditNodeController scene2Controller = loader.getController();
+            scene2Controller.init(uname);
 
             Scene scene = new Scene(roots);
             scene2Controller.populateNodeList(toPass);
-            thestage = (Stage) makeEditableNode.getScene().getWindow();
+            Stage thestage = (Stage) makeEditableNode.getScene().getWindow();
             //Show scene 2 in new window
             thestage.setScene(scene);
         } catch (Exception e){
@@ -317,15 +324,18 @@ public class EditLocationController {
     }
 
     @FXML
-    private void backPressed() {
-        try {
-            Stage thestage = (Stage) backButton.getScene().getWindow();
-            AnchorPane root;
-            root = FXMLLoader.load(getClass().getResource("LoggedInHome.fxml"));
-            Scene scene = new Scene(root);
-            thestage.setScene(scene);
-        } catch (Exception e){
-        }
+    private void backPressed() throws IOException{
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("LoggedInHome.fxml"));
+
+        Parent sceneMain = loader.load();
+
+        LoggedInHomeController controller = loader.<LoggedInHomeController>getController();
+        controller.init(uname);
+
+        Stage theStage = (Stage) addEdge.getScene().getWindow();
+
+        Scene scene = new Scene(sceneMain);
+        theStage.setScene(scene);
     }
 
 
