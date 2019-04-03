@@ -83,9 +83,9 @@ public class ServiceSubController {
         Cancel controller = loader.<Cancel>getController();
 
         if(ServiceComments == null || ServiceComments.getText() == null || ServiceComments.getText().trim().isEmpty()){
-            controller.init(typeOfService, signedIn);
+            controller.init(typeOfService, signedIn, uname);
         } else {
-            controller.init(typeOfService, ServiceComments.getText(), signedIn);
+            controller.init(typeOfService, ServiceComments.getText(), signedIn, uname);
         }
         Stage theStage = (Stage) SubmitRequest.getScene().getWindow();
 
