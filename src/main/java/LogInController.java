@@ -11,7 +11,6 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
-import sun.rmi.runtime.Log;
 
 import java.io.IOException;
 
