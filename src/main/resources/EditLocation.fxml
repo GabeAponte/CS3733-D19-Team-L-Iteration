@@ -34,7 +34,7 @@
                         </ImageView>
                         <HBox alignment="CENTER_RIGHT" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="125.0" prefWidth="825.0">
                             <children>
-                                <JFXButton buttonType="RAISED" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="75.0" prefWidth="146.0" ripplerFill="BLACK" text="Back">
+                                <JFXButton fx:id="backButton" buttonType="RAISED" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onAction="#backPressed" prefHeight="75.0" prefWidth="146.0" ripplerFill="BLACK" text="Back">
                                     <font>
                                         <Font name="Times New Roman" size="40.0" />
                                     </font>

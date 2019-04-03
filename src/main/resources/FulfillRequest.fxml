@@ -52,7 +52,7 @@
                   <Insets bottom="10.0" top="100.0" />
               </padding>
           </Label>
-      <Label alignment="CENTER" layoutX="439.0" layoutY="380.0" prefHeight="29.0" prefWidth="138.0" text="Assigned To:" textFill="WHITE">
+      <Label alignment="CENTER" layoutX="439.0" layoutY="380.0" prefHeight="29.0" prefWidth="138.0" text="Assign to:" textFill="WHITE">
          <font>
             <Font name="Times New Roman" size="25.0" />
          </font>
@@ -67,7 +67,7 @@
             <Font name="Times New Roman" size="28.0" />
          </font>
       </Label>
-      <JFXTextField fx:id="staffMember" layoutX="632.0" layoutY="373.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="44.0" prefWidth="278.0" promptText=" Staff Member" style="-fx-background-color: fff;">
+      <JFXTextField fx:id="staffMember" layoutX="632.0" layoutY="373.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="44.0" prefWidth="278.0" promptText="Enter Staff Member" style="-fx-background-color: fff;">
          <font>
             <Font name="Times New Roman" size="24.0" />
          </font>
