@@ -35,7 +35,7 @@ public class ServiceSubController {
 
     public void init(String type, String comment, boolean loggedIn, String username){
         uname = username;
-        init(type, loggedIn);
+        init(type, comment, loggedIn);
     }
 
     //Nathan - sets values passed from another controller
@@ -82,10 +82,19 @@ public class ServiceSubController {
 
         Cancel controller = loader.<Cancel>getController();
 
-        if(ServiceComments == null || ServiceComments.getText() == null || ServiceComments.getText().trim().isEmpty()){
-            controller.init(typeOfService, signedIn, uname);
+        if(signedIn){
+            if(ServiceComments == null || ServiceComments.getText() == null || ServiceComments.getText().trim().isEmpty()){
+                controller.init(typeOfService, signedIn, uname);
+            } else {
+                controller.init(typeOfService, ServiceComments.getText(), signedIn, uname);
+                System.out.println(ServiceComments.getText());
+            }
         } else {
-            controller.init(typeOfService, ServiceComments.getText(), signedIn, uname);
+            if(ServiceComments == null || ServiceComments.getText() == null || ServiceComments.getText().trim().isEmpty()){
+                controller.init(typeOfService, signedIn);
+            } else {
+                controller.init(typeOfService, ServiceComments.getText(), signedIn);
+            }
         }
         Stage theStage = (Stage) SubmitRequest.getScene().getWindow();
 
