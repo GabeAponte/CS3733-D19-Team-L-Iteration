@@ -127,12 +127,15 @@ public class EditNodeController {
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("EditEdges.fxml"));
                 roots = loader.load();
                 EditEdgesController scene2Controller = loader.getController();
+                scene2Controller.init(uname);
                 scene2Controller.populateNodeList(locationIDS);
                 scene2Controller.flipBool();
                 scene2Controller.setInitialValues(nodeID.getText(), "ADD EDGE");
             } else {
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("EditLocation.fxml"));
                 roots = loader.load();
+                EditLocationController scene2Controller = loader.getController();
+                scene2Controller.init(uname);
             }
             Scene scene = new Scene(roots);
             thestage.setScene(scene);
