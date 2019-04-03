@@ -31,11 +31,13 @@ public class ServiceSubController {
     public void init(String type, boolean loggedIn, String username){
         uname = username;
         init(type, loggedIn);
+        reenable();
     }
 
     public void init(String type, String comment, boolean loggedIn, String username){
         uname = username;
         init(type, comment, loggedIn);
+        reenable();
     }
 
     //Nathan - sets values passed from another controller
@@ -43,6 +45,7 @@ public class ServiceSubController {
         typeOfService = type;
         typeLabel.setText(typeOfService + " Services");
         signedIn = loggedIn;
+        reenable();
     }
 
     //Nathan - sets values passed from another controller
@@ -51,6 +54,7 @@ public class ServiceSubController {
         typeLabel.setText(typeOfService + " Services");
         ServiceComments.setText(comment);
         signedIn = loggedIn;
+        reenable();
     }
 
     //Nathan - changes screen to service sub screen, param "service" determines label on sub screen
