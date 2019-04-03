@@ -27,6 +27,10 @@ public class Main extends Application {
         ea.readCSVintoTable();
         ReservationAccess ra = new ReservationAccess();
         ra.deleteRecords();
+
+        //System.out.println("2");
+        //System.out.println("" + na.countRecords());
+        //ea.getConnectedNodes("DHALL02702");*/
         launch(args);
 
     }

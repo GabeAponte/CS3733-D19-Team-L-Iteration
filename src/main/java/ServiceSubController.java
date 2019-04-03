@@ -28,25 +28,25 @@ public class ServiceSubController {
     private TextArea ServiceComments;
 
 
-    void init(String type, boolean loggedIn, String username){
+    public void init(String type, boolean loggedIn, String username){
         uname = username;
         init(type, loggedIn);
     }
 
-    void init(String type, String comment, boolean loggedIn, String username){
+    public void init(String type, String comment, boolean loggedIn, String username){
         uname = username;
         init(type, loggedIn);
     }
 
     //Nathan - sets values passed from another controller
-    void init(String type, boolean loggedIn){
+    public void init(String type, boolean loggedIn){
         typeOfService = type;
         typeLabel.setText(typeOfService + " Services");
         signedIn = loggedIn;
     }
 
     //Nathan - sets values passed from another controller
-    void init(String type, String comment, boolean loggedIn){
+    public void init(String type, String comment, boolean loggedIn){
         typeOfService = type;
         typeLabel.setText(typeOfService + " Services");
         ServiceComments.setText(comment);
@@ -83,9 +83,9 @@ public class ServiceSubController {
         Cancel controller = loader.<Cancel>getController();
 
         if(ServiceComments == null || ServiceComments.getText() == null || ServiceComments.getText().trim().isEmpty()){
-            controller.init(typeOfService, signedIn);
+            controller.init(typeOfService, signedIn, uname);
         } else {
-            controller.init(typeOfService, ServiceComments.getText(), signedIn);
+            controller.init(typeOfService, ServiceComments.getText(), signedIn, uname);
         }
         Stage theStage = (Stage) SubmitRequest.getScene().getWindow();
 
