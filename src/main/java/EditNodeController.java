@@ -1,7 +1,5 @@
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXTextField;
-import com.sun.javafx.scene.NodeHelper;
-import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -9,6 +7,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Label;
 import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
@@ -170,9 +169,9 @@ public class EditNodeController {
 
     public boolean checkFields() {
         boolean checkid = nodeID.getText().equals("");
-        boolean checkx = nodeXCoord.toString().equals("");
-        boolean checky = nodeYCoord.toString().equals("");
-        boolean checkfloor = nodeFloor.toString().equals("");
+        boolean checkx = nodeXCoord.getText().equals("");
+        boolean checky = nodeYCoord.getText().equals("");
+        boolean checkfloor = nodeFloor.getText().equals("");
         boolean checkbuilding = nodeBuilding.getText().equals("");
         boolean checktype = nodeType.getText().equals("");
         boolean checklongname = nodeLongName.getText().equals("");
