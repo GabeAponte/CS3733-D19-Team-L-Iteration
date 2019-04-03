@@ -42,7 +42,7 @@ public class ActiveServiceRequestsController {
 
     @SuppressWarnings("Duplicates")
 
-    void init(String username){
+    public void init(String username){
         uname = username;
         init2();
     }
