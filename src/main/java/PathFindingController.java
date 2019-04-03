@@ -186,7 +186,7 @@ public class PathFindingController {
 
         Circle StartCircle = new Circle();
 
-        zoomPaneImage.getChildren().add(StartCircle);
+        zoomPaneImage.addChildren(StartCircle);
 
         //Setting the properties of the circle
         StartCircle.setCenterX(startNode.getXcoord()*0.137*zoomPaneImage.currentZoom);
@@ -195,7 +195,7 @@ public class PathFindingController {
 
         Circle EndCircle = new Circle();
 
-        zoomPaneImage.getChildren().add(EndCircle);
+        zoomPaneImage.addChildren(EndCircle);
 
         //Setting the properties of the circle
         EndCircle.setCenterX(endNode.getXcoord()*0.137*zoomPaneImage.currentZoom);
@@ -214,7 +214,7 @@ public class PathFindingController {
             line.setEndX(path.get(i+1).getXcoord()*0.137*zoomPaneImage.currentZoom);
             line.setEndY(path.get(i+1).getYcoord()*0.137*zoomPaneImage.currentZoom);
 
-            zoomPaneImage.getChildren().add(line);
+            zoomPaneImage.addChildren(line);
 
             lines.add(line);
         }

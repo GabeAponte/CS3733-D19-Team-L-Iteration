@@ -1,4 +1,5 @@
 import javafx.scene.Group;
+import javafx.scene.Node;
 import javafx.scene.input.ScrollEvent;
 import javafx.scene.layout.AnchorPane;
 
@@ -29,8 +30,14 @@ public class ZoomablePane extends AnchorPane {
             content.setScaleY(content.getScaleY() * scaleFactor);
             currentZoom = currentZoom * scaleFactor;
 
+            System.out.println(content.getChildren());
+
             System.out.println(currentZoom);
         });
     }
 
+
+    public void addChildren(Node n){
+        content.getChildren().add(n);
+    }
 }
