@@ -314,6 +314,24 @@ public class EdgesAccess extends DBAccess
         }
     }
 
+    /** ANDREW MADE THIS
+     * Call this to update the database with a new edgeID
+     *
+     * @param initEdgeID, the ID of the node you want to edit
+     * @param newEdgeID, the ID of the node you want to change it to
+     */
+    public void changeID(String initEdgeID, String newEdgeID) {
+        String sql = "update edges set edgeID = ? where edgeID= ?;";
+        try (Connection conn = this.connect();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            pstmt.setString(1, newEdgeID);
+            pstmt.setString(2, initEdgeID);
+            pstmt.executeUpdate();
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
 
     public static void main(String[] args) {
         EdgesAccess test = new EdgesAccess();

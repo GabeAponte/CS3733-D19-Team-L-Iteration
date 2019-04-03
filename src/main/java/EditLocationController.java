@@ -144,6 +144,8 @@ public class EditLocationController {
             EdgesAccess ea = new EdgesAccess();
             ea.deleteEdge(focusEdge.getEdgeID());
             edgeTable.getItems().remove(focusEdge);
+            makeEditableEdge.setDisable(true);
+            deleteEdge.setDisable(true);
         }
         else if (alert.getResult() == ButtonType.NO) {
             System.out.println("user does not delete edge");
@@ -229,6 +231,8 @@ public class EditLocationController {
                 }
             }
             edgeTable.getItems().removeAll(edgeList);
+            makeEditableNode.setDisable(true);
+            deleteNode.setDisable(true);
 
         }
         else if (alert.getResult() == ButtonType.NO) {
