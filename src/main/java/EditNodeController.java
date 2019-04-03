@@ -177,7 +177,7 @@ public class EditNodeController {
         Parent roots = loader.load();
 
         //Get controller of scene2
-        EditEdgesController scene2Controller = loader.getController();
+        EditLocationController scene2Controller = loader.getController();
         scene2Controller.init(uname);
 
         Scene scene = new Scene(roots);
