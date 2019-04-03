@@ -13,6 +13,7 @@ import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -76,22 +77,23 @@ public class BookRoomController {
         LocalTime startTimeValue = startTime.getValue();
         LocalTime endTimeValue = endTime.getValue();
         LocalDate roomDate = datePicker.getValue();
+        LocalDate curDate = LocalDate.now();
+        LocalTime curTime = LocalTime.now();
+
+        error.setTextFill(Color.RED);
 
         if (startTimeValue == null && endTimeValue == null && roomDate == null) {
             error.setText("Please select start and end times and a date.");
         }
-
         else if (startTimeValue == null && endTimeValue == null) {
             error.setText("Please select start and end times.");
         }
-
         else if (startTimeValue == null && roomDate == null) {
             error.setText("Please select a start time and a date.");
         }
-
         else if (endTimeValue == null && roomDate == null) {
-            error.setText("Please select an end time and a date.");
-        }
+            error.setText("Please select an end time and a date.");}
+
         else if (startTimeValue == null) {
             error.setText("Please select a start time.");
         }
@@ -105,9 +107,20 @@ public class BookRoomController {
             error.setText("Times cannot be the same.");
 
         }else if (startTimeValue.compareTo(endTimeValue) > 0) {
-            error.setText("Start time cannot be ahead of end time.");
+            error.setText("Start time cannot be after end time.");
+        }
+        else if (startTimeValue.compareTo(curTime) < 0 && roomDate.equals(curDate)) {
+            error.setText("Please select a current or future time for today.");
+        }
+        else if (roomDate.compareTo(curDate) < 0) {
+            error.setText("Please select a time for today or a future day.");
+        }
+        else if (avaliableRooms.getValue() == null) {
+            error.setText("Please pick a room.");
         }
         else {
+            error.setTextFill(Color.WHITE);
+            error.setText("Submitted.");
             int startTimeMil = startTime.getValue().getHour() * 100 + startTime.getValue().getMinute();
             int endTimeMil = endTime.getValue().getHour() * 100 + endTime.getValue().getMinute();
             String date = datePicker.getValue().toString();
@@ -122,8 +135,6 @@ public class BookRoomController {
                 }
             }
             roomReq.makeReservation(roomID, employeeID, date, startTimeMil, endTimeMil);
-
-            error.setText("Submitted.");
         }
     }
 
