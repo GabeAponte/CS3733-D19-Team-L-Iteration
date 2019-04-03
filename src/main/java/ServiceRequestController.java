@@ -34,11 +34,11 @@ public class ServiceRequestController {
     @FXML
     public Button Back;
 
-    void init(boolean loggedIn){
+    public void init(boolean loggedIn){
         signedIn = loggedIn;
     }
 
-    void init(boolean loggedIn, String username) {
+    public void init(boolean loggedIn, String username) {
         uname = username;
         init(loggedIn);
     }

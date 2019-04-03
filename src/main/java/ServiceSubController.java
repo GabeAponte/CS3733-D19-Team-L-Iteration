@@ -28,25 +28,25 @@ public class ServiceSubController {
     private TextArea ServiceComments;
 
 
-    void init(String type, boolean loggedIn, String username){
+    public void init(String type, boolean loggedIn, String username){
         uname = username;
         init(type, loggedIn);
     }
 
-    void init(String type, String comment, boolean loggedIn, String username){
+    public void init(String type, String comment, boolean loggedIn, String username){
         uname = username;
         init(type, loggedIn);
     }
 
     //Nathan - sets values passed from another controller
-    void init(String type, boolean loggedIn){
+    public void init(String type, boolean loggedIn){
         typeOfService = type;
         typeLabel.setText(typeOfService + " Services");
         signedIn = loggedIn;
     }
 
     //Nathan - sets values passed from another controller
-    void init(String type, String comment, boolean loggedIn){
+    public void init(String type, String comment, boolean loggedIn){
         typeOfService = type;
         typeLabel.setText(typeOfService + " Services");
         ServiceComments.setText(comment);

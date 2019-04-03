@@ -26,25 +26,25 @@ public class Cancel {
     @FXML
     public Label typeLabel;
 
-    void init(String service, String description, boolean loggedIn, String username){
+    public void init(String service, String description, boolean loggedIn, String username){
         uname = username;
         init(service, description, loggedIn);
     }
 
-    void init(String service, boolean loggedIn, String username){
+    public void init(String service, boolean loggedIn, String username){
         uname = username;
         init(service, loggedIn);
     }
 
     //Nathan - stores information passed from another controller
-    void init(String service, boolean loggedIn){
+    public void init(String service, boolean loggedIn){
         typeOfService = service;
         comment = "No comment added";
         signedIn = loggedIn;
     }
 
     //Nathan - stores information passed from another controller
-    void init(String service, String description, boolean loggedIn){
+    public void init(String service, String description, boolean loggedIn){
         typeOfService = service;
         comment = description;
         signedIn = loggedIn;
