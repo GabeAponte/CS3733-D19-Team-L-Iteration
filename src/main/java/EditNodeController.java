@@ -1,5 +1,7 @@
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXTextField;
+import com.sun.javafx.scene.NodeHelper;
+import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -7,6 +9,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.control.Label;
 import javafx.stage.Stage;
 
@@ -38,6 +41,9 @@ public class EditNodeController {
     private JFXTextField nodeLongName;
     @FXML
     private JFXTextField nodeShortName;
+
+    @FXML
+    private Label error;
 
     @FXML
     private JFXButton editNodeBackButton;
@@ -154,7 +160,7 @@ public class EditNodeController {
             thestage.setScene(scene);
         }
         else {
-            System.out.println("INPROPER INPUT");
+           error.setText("Invalid Input");
         }
     }
 

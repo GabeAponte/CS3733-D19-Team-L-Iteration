@@ -1,3 +1,6 @@
+.jfx-text-field {
+    -fx-prompt-text-font-size: 15 pt;
+}
 .jfx-combo-box .prompt-text {
     -fx-font-size: 15;
 }
