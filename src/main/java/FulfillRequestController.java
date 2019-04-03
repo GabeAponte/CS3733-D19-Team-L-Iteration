@@ -66,10 +66,17 @@ public class FulfillRequestController {
             ServiceRequestAccess sa = new ServiceRequestAccess();
             sa.fulfillRequest(Integer.parseInt(theRequest.getRequestID()), staffMember.getText());
             errorLabel.setText("Request Fulfilled");
-            thestage = (Stage) back.getScene().getWindow();
-            AnchorPane root;
-            root = FXMLLoader.load(getClass().getResource("ActiveServiceRequests.fxml"));
-            Scene scene = new Scene(root);
+
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("ActiveServiceRequests.fxml"));
+            Parent roots = loader.load();
+
+            //Get controller of scene2
+            ActiveServiceRequestsController scene2Controller = loader.getController();
+            scene2Controller.init(uname);
+
+            Scene scene = new Scene(roots);
+            Stage thestage = (Stage) errorLabel.getScene().getWindow();
+            //Show scene 2 in new window
             thestage.setScene(scene);
             }
         }

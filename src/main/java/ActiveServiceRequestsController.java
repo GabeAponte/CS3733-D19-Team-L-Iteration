@@ -42,9 +42,9 @@ public class ActiveServiceRequestsController {
 
     @SuppressWarnings("Duplicates")
 
-    void init(String username){
+    public void init(String username){
         uname = username;
-        init();
+        init2();
     }
 
     @FXML
@@ -63,7 +63,7 @@ public class ActiveServiceRequestsController {
     }
 
     //Gabe - Populates table
-    public void init(){
+    public void init2(){
         activeRequests.setEditable(false);
         final ObservableList<ServiceRequestTable> data = FXCollections.observableArrayList();
         ServiceRequestAccess sr = new ServiceRequestAccess();

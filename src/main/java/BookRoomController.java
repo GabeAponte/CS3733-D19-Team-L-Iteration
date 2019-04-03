@@ -113,7 +113,7 @@ public class BookRoomController {
             String date = datePicker.getValue().toString();
             String roomID = "RoomTest";
             EmployeeAccess ea = new EmployeeAccess();
-            System.out.println(uname);
+            //System.out.println(uname);
             String employeeID = ea.getNodeInformation(uname).get(0);
             ReservationAccess roomReq = new ReservationAccess();
             for(int i = 1; i < rooms.size(); i+=2) {
