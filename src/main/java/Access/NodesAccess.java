@@ -93,7 +93,7 @@ public class NodesAccess extends DBAccess{
         pstmt.setString(1, data[0]);
         pstmt.setInt(2, Integer.parseInt(data[1]));
         pstmt.setInt(3, Integer.parseInt(data[2]));
-        pstmt.setInt(4, Integer.parseInt(data[3]));
+        pstmt.setString(4, data[3]);
         pstmt.setString(5, data[4]);
         pstmt.setString(6, data[5]);
         pstmt.setString(7, data[6]);
