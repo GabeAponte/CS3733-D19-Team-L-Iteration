@@ -6,11 +6,14 @@ import javafx.beans.property.DoubleProperty;
 import javafx.event.EventHandler;
 import javafx.geometry.Bounds;
 import javafx.geometry.Insets;
+import javafx.geometry.Orientation;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
+import javafx.scene.control.ScrollBar;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.input.ScrollEvent;
+import javafx.scene.input.ZoomEvent;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
@@ -18,6 +21,7 @@ import javafx.scene.transform.Scale;
 import javafx.scene.transform.Transform;
 import javafx.util.Duration;
 
+import java.util.Set;
 import java.util.function.Function;
 
 /**
@@ -48,6 +52,7 @@ public class JFXScrollPane extends StackPane {
 
     private final StackPane midBar;
     private final StackPane topBar;
+    private final ScrollPane scrollPane = new ScrollPane();
 
     public JFXScrollPane() {
         this.getStyleClass().add(DEFAULT_STYLE_CLASS);
@@ -102,9 +107,17 @@ public class JFXScrollPane extends StackPane {
         contentContainer.getChildren().setAll(headerSpace);
 
         contentContainer.localToSceneTransformProperty().addListener((o, oldVal, newVal) -> oldSceneTransform = oldVal);
-        final ScrollPane scrollPane = new ScrollPane();
         scrollPane.setContent(contentContainer);
         scrollPane.setFitToWidth(true);
+        scrollPane.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
+        scrollPane.setVbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
+        scrollPane.setPrefViewportWidth(685);
+        scrollPane.setPrefViewportHeight(464);
+
+        scrollPane.setOnScroll((ScrollEvent event) -> {
+
+        });
+
         scrollPane.vvalueProperty().addListener((o, oldVal, newVal) -> {
             if (minHeight == -1) {
                 minHeight = bottomBar.getBoundsInParent().getMinY();
@@ -265,4 +278,32 @@ public class JFXScrollPane extends StackPane {
         customScrolling(scrollPane, scrollPane.hvalueProperty(), bounds -> bounds.getWidth());
     }
 
+    public void setScrollBarSize(double scaleFactor){
+//        scrollPane.setHmax(scrollPane.getHmax()*scaleFactor);
+//        scrollPane.setVmax(scrollPane.getVmax()*scaleFactor);
+//        scrollPane.setHmin(-scrollPane.getHmax());
+//        scrollPane.setVmin(-scrollPane.getVmax());
+
+
+        Set<Node> nodes = scrollPane.lookupAll(".scroll-bar");
+        for (final Node node : nodes) {
+            if (node instanceof ScrollBar) {
+                ScrollBar sb = (ScrollBar) node;
+                System.out.println(sb.getUnitIncrement());
+                System.out.println(sb.getBlockIncrement());
+
+                sb.setUnitIncrement(sb.getUnitIncrement() / scaleFactor);
+                sb.setMax(sb.getMax()*scaleFactor);
+                sb.setMin(-sb.getMax());
+            }
+        }
+
+        System.out.println(scrollPane.getHmax());
+        System.out.println(scrollPane.getHmin());
+        System.out.println();
+    }
+
+    public ScrollPane getScrollPane() {
+        return scrollPane;
+    }
 }
