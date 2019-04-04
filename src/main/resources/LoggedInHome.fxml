@@ -8,7 +8,7 @@
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" style="-fx-background-color: #7fb1ff;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="LoggedInHomeController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" style="-fx-background-color: #7fb1ff;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.LoggedInHomeController">
     <children>
         <ImageView fitHeight="668.0" fitWidth="1282.0" layoutY="51.0" opacity="0.51" AnchorPane.bottomAnchor="1.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="-2.0" AnchorPane.topAnchor="51.0">
             <image>
@@ -19,7 +19,7 @@
             <items>
                 <ImageView fitHeight="91.0" fitWidth="395.0" pickOnBounds="true" preserveRatio="true">
                     <image>
-                        <Image url="@BWHlogo.png" />
+                        <Image url="@SoftEng_UI_Mockup_Pics/BWHlogo.png" />
                     </image>
                 </ImageView>
             </items>
@@ -29,7 +29,7 @@
       <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#012d5a" height="131.0" layoutX="597.0" layoutY="195.0" stroke="#012d5a" strokeType="INSIDE" width="583.0" />
       <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#012d5a" height="591.0" layoutX="486.0" layoutY="130.0" stroke="#012d5a" strokeType="INSIDE" width="10.0" />
       <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#012d5a" height="205.0" layoutX="66.0" layoutY="195.0" stroke="#012d5a" strokeType="INSIDE" width="350.0" />
-      <JFXButton fx:id="findPath" buttonType="RAISED" layoutX="91.0" layoutY="223.0" onAction="#SwitchToPathfindScreen" prefHeight="150.0" prefWidth="300.0" ripplerFill="#b0b0b0" style="-fx-background-color: fff;" text="Find Path">
+      <JFXButton fx:id="findPath" buttonType="RAISED" layoutX="91.0" layoutY="223.0" onAction="#SwitchToPathfindScreen" prefHeight="150.0" prefWidth="300.0" ripplerFill="#b0b0b0" style="-fx-background-color: fff;" text="Find Object">
          <font>
             <Font name="Times New Roman" size="36.0" />
          </font>

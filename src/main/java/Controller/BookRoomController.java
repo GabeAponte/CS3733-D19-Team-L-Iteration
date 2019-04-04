@@ -1,3 +1,8 @@
+package Controller;
+
+import Access.EmployeeAccess;
+import Access.ReservationAccess;
+import Access.RoomAccess;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXDatePicker;
 import com.jfoenix.controls.JFXTimePicker;
@@ -9,10 +14,8 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
@@ -59,7 +62,7 @@ public class BookRoomController {
 
     @FXML
     private void backPressed() throws IOException {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("LoggedInHome.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("LoggedInHome.fxml"));
 
         Parent sceneMain = loader.load();
 

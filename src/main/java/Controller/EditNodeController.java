@@ -1,7 +1,10 @@
+package Controller;
+
+import Access.NodesAccess;
+import Object.*;
+
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXTextField;
-import com.sun.javafx.scene.NodeHelper;
-import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -10,7 +13,6 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
-import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -143,7 +145,7 @@ public class EditNodeController {
             thestage = (Stage) submitButton.getScene().getWindow();
             Parent roots;
             if (isNew) {
-                FXMLLoader loader = new FXMLLoader(getClass().getResource("EditEdges.fxml"));
+                FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("EditEdges.fxml"));
                 roots = loader.load();
                 EditEdgesController scene2Controller = loader.getController();
                 scene2Controller.init(uname);
@@ -151,7 +153,7 @@ public class EditNodeController {
                 scene2Controller.flipBool();
                 scene2Controller.setInitialValues(nodeID.getText(), "ADD EDGE");
             } else {
-                FXMLLoader loader = new FXMLLoader(getClass().getResource("EditLocation.fxml"));
+                FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("EditLocation.fxml"));
                 roots = loader.load();
                 EditLocationController scene2Controller = loader.getController();
                 scene2Controller.init(uname);
@@ -194,7 +196,7 @@ public class EditNodeController {
     //back/cancel button here
     @FXML
     private void editNodeBackPress() throws IOException {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("EditLocation.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("EditLocation.fxml"));
         Parent roots = loader.load();
 
         //Get controller of scene2

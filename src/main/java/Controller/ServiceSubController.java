@@ -1,4 +1,5 @@
-import javafx.event.ActionEvent;
+package Controller;
+
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -60,7 +61,7 @@ public class ServiceSubController {
     //Nathan - changes screen to service sub screen, param "service" determines label on sub screen
     @FXML
     private void backPressed() throws IOException{
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("ServiceRequest.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("ServiceRequest.fxml"));
 
         Parent sceneMain = loader.load();
 
@@ -80,11 +81,10 @@ public class ServiceSubController {
     //Nathan - Changes screen to cancel screen, passes along information
     @FXML
     private void promptCancel() throws IOException{
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("Cancel.fxml"));
-
+        FXMLLoader loader = new FXMLLoader((getClass().getClassLoader().getResource("Cancel.fxml")));
         Parent sceneMain = loader.load();
 
-        Cancel controller = loader.<Cancel>getController();
+        CancelController controller = loader.<CancelController>getController();
 
         if(signedIn){
             if(ServiceComments == null || ServiceComments.getText() == null || ServiceComments.getText().trim().isEmpty()){

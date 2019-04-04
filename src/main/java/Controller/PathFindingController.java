@@ -1,3 +1,8 @@
+package Controller;
+
+import Access.EdgesAccess;
+import Access.NodesAccess;
+import Object.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -72,7 +77,7 @@ public class PathFindingController {
         thestage = (Stage) PathFindBack.getScene().getWindow();
         AnchorPane root;
         if(signedIn) {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("LoggedInHome.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("LoggedInHome.fxml"));
 
             Parent sceneMain = loader.load();
 
@@ -85,7 +90,7 @@ public class PathFindingController {
             theStage.setScene(scene);
             return;
         } else {
-            root = FXMLLoader.load(getClass().getResource("HospitalHome.fxml"));
+            root = FXMLLoader.load(getClass().getClassLoader().getResource("HospitalHome.fxml"));
         }
         Scene scene = new Scene(root);
         thestage.setScene(scene);

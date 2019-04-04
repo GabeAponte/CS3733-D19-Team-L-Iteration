@@ -1,3 +1,5 @@
+import Controller.PathFindingController;
+import Object.*;
 import org.junit.Test;
 import java.util.ArrayList;
 

@@ -1,3 +1,5 @@
+package Controller;
+
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
@@ -61,7 +63,7 @@ public class HomeScreenController {
     @FXML
     private void SwitchToPathfindScreen() throws IOException{
         boolean signedIn = false;
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("HospitalPathFinding.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("HospitalPathFinding.fxml"));
 
         Parent sceneMain = loader.load();
 
@@ -79,7 +81,7 @@ public class HomeScreenController {
         try {
             Stage thestage = (Stage) HomeSuggestions.getScene().getWindow();
             AnchorPane root;
-            root = FXMLLoader.load(getClass().getResource("SuggestionBox.fxml"));
+            root = FXMLLoader.load(getClass().getClassLoader().getResource("SuggestionBox.fxml"));
             Scene scene = new Scene(root);
             thestage.setScene(scene);
         } catch (Exception e){
@@ -90,7 +92,7 @@ public class HomeScreenController {
     @FXML
     private void SwitchToServiceScreen() throws IOException{
         boolean signedIn = false;
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("ServiceRequest.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("ServiceRequest.fxml"));
 
         Parent sceneMain = loader.load();
 
@@ -108,7 +110,7 @@ public class HomeScreenController {
         try {
             Stage thestage = (Stage) LogIn.getScene().getWindow();
             AnchorPane root;
-            root = FXMLLoader.load(getClass().getResource("LogIn.fxml"));
+            root = FXMLLoader.load(getClass().getClassLoader().getResource("LogIn.fxml"));
             Scene scene = new Scene(root);
             thestage.setScene(scene);
         } catch (Exception e){

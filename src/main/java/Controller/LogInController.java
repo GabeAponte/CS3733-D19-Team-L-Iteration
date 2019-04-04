@@ -1,3 +1,6 @@
+package Controller;
+
+import Access.EmployeeAccess;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -37,7 +40,7 @@ public class LogInController {
     private void backPressed() throws IOException {
         thestage = (Stage) back.getScene().getWindow();
         AnchorPane root;
-        root = FXMLLoader.load(getClass().getResource("HospitalHome.fxml"));
+        root = FXMLLoader.load(getClass().getClassLoader().getResource("HospitalHome.fxml"));
         Scene scene = new Scene(root);
         thestage.setScene(scene);
     }
@@ -76,7 +79,7 @@ public class LogInController {
     }
 
     private void SwitchToSignedIn(String un) throws IOException{
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("LoggedInHome.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("LoggedInHome.fxml"));
 
         Parent sceneMain = loader.load();
 

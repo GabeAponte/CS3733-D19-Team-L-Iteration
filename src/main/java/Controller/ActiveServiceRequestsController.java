@@ -1,3 +1,8 @@
+package Controller;
+
+import Access.ServiceRequestAccess;
+import Object.*;
+
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -9,7 +14,6 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseButton;
-import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -49,7 +53,7 @@ public class ActiveServiceRequestsController {
      * Returns user to the Logged In Home screen when the back button is pressed
      */
     private void backPressed() throws IOException {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("LoggedInHome.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("LoggedInHome.fxml"));
         Parent roots = loader.load();
 
         //Get controller of scene2
@@ -101,7 +105,7 @@ public class ActiveServiceRequestsController {
             if (event.getButton().equals(MouseButton.PRIMARY) && event.getClickCount() == 2) {
                 try {
                     //Load second scene
-                    FXMLLoader loader = new FXMLLoader(getClass().getResource("FulfillRequest.fxml"));
+                    FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("FulfillRequest.fxml"));
                     Parent roots = loader.load();
                     //Get controller of scene2
                     FulfillRequestController scene2Controller = loader.getController();

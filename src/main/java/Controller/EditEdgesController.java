@@ -1,3 +1,6 @@
+package Controller;
+
+import Access.EdgesAccess;
 import com.jfoenix.controls.JFXButton;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -6,14 +9,9 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.shape.Circle;
-import javafx.scene.shape.Line;
 import javafx.stage.Stage;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.HashMap;
 
 public class EditEdgesController {
 
@@ -42,7 +40,7 @@ public class EditEdgesController {
     }
     @FXML
     private void backPressed() throws IOException {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("EditLocation.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("EditLocation.fxml"));
         Parent roots = loader.load();
 
         //Get controller of scene2
@@ -98,7 +96,7 @@ public class EditEdgesController {
             ea.updateEdge(initialID, PathFindStartDrop.getValue(), PathFindEndDrop.getValue());
             ea.changeID(initialID, PathFindStartDrop.getValue() + "_" + PathFindEndDrop.getValue());
         }
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("EditLocation.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("EditLocation.fxml"));
         Parent roots = loader.load();
 
         //Get controller of scene2

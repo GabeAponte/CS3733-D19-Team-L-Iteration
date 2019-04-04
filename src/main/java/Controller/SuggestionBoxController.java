@@ -1,3 +1,6 @@
+package Controller;
+
+import Access.SuggestionBasicAccess;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -33,7 +36,7 @@ public class SuggestionBoxController {
     private void backPressed() throws IOException {
         thestage = (Stage) SuggestionBack.getScene().getWindow();
         AnchorPane root;
-        root = FXMLLoader.load(getClass().getResource("HospitalHome.fxml"));
+        root = FXMLLoader.load(getClass().getClassLoader().getResource("HospitalHome.fxml"));
         Scene scene = new Scene(root);
         thestage.setScene(scene);
     }

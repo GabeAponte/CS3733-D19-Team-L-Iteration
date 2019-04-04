@@ -1,3 +1,5 @@
+package Controller;
+
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -48,7 +50,7 @@ public class ServiceRequestController {
         Stage theStage = (Stage) Back.getScene().getWindow();
         AnchorPane root;
         if(signedIn){
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("LoggedInHome.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("LoggedInHome.fxml"));
 
             Parent sceneMain = loader.load();
 
@@ -61,7 +63,7 @@ public class ServiceRequestController {
             theStage.setScene(scene);
             return;
         } else {
-            root = FXMLLoader.load(getClass().getResource("HospitalHome.fxml"));
+            root = FXMLLoader.load(getClass().getClassLoader().getResource("HospitalHome.fxml"));
         }
         Scene scene = new Scene(root);
         theStage.setScene(scene);
@@ -91,7 +93,7 @@ public class ServiceRequestController {
 
     //Nathan - changes screen to service sub screen, param "service" determines label on sub screen
     private void changeToSub(String service) throws IOException{
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("ServiceSubController.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("ServiceSubController.fxml"));
 
         Parent sceneMain = loader.load();
 

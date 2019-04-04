@@ -1,3 +1,5 @@
+package Object;
+
 public class ServiceRequestTable{
     String requestID;
     String requestDepartment;
@@ -6,7 +8,7 @@ public class ServiceRequestTable{
     String comment;
 
 
-    ServiceRequestTable(String requestID, String comment, String requestDepartment, String assignedEmployee) {
+    public ServiceRequestTable(String requestID, String comment, String requestDepartment, String assignedEmployee) {
         this.requestID = requestID;
         this.requestDepartment = requestDepartment;
         this.assignedEmployee = assignedEmployee;
