@@ -13,6 +13,7 @@ import java.io.IOException;
 public class FulfillRequestController {
 
     private Stage thestage;
+
     private String uname;
 
     private ServiceRequestTable theRequest;
@@ -26,15 +27,19 @@ public class FulfillRequestController {
     @FXML
     private TextField staffMember;
 
-    //TODO: Format Error Label
     @FXML
     private Label errorLabel;
 
     public void init(String username){
         uname = username;
     }
+
     @SuppressWarnings("Duplicates")
+
     @FXML
+    /**@author Gabe
+     * Returns user to the Logged In Home screen when the back button is pressed
+     */
     private void backPressed() throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("ActiveServiceRequests.fxml"));
         Parent roots = loader.load();
@@ -55,11 +60,15 @@ public class FulfillRequestController {
     }
 
     @FXML
-    //TODO: Add database functionality to mark request as fulfilled and update table of requests
+    @SuppressWarnings("Duplicates")
+    /**@author Gabe, DJ
+     * Once a staff members name is inputed into the text field and the submit button is pressed,
+     * the user is brough back to the active service requests screen and the inputed information
+     * is updated in the database
+     */
     private void SwitchToAdminServiceRequestTable() throws IOException {
         if (staffMember.getText().trim().isEmpty() || staffMember.getText().equals("Staff Member")) {
             errorLabel.setText("Please enter a staff member name");
-
         }
         else{
             ServiceRequestAccess sa = new ServiceRequestAccess();
@@ -75,6 +84,7 @@ public class FulfillRequestController {
 
             Scene scene = new Scene(roots);
             Stage thestage = (Stage) errorLabel.getScene().getWindow();
+
             //Show scene 2 in new window
             thestage.setScene(scene);
             }
