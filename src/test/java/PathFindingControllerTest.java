@@ -8,7 +8,7 @@ import static org.junit.Assert.assertThat;
 public class PathFindingControllerTest {
 
     @Test
-    // test Conf to Dept
+    //Larry - Test for finding path form Conference room to Department
     public void findPathTest2() {
 
         PathFindingController A = new PathFindingController();
@@ -43,7 +43,7 @@ public class PathFindingControllerTest {
     }
 
     @Test
-    // test STAI to HALL
+    //Larry - Test for finding path from STAIR to HALLWAY
     public void findPathTest3() {
 
         PathFindingController A = new PathFindingController();
@@ -95,7 +95,7 @@ public class PathFindingControllerTest {
     }
 
     @Test
-    // test Lab to Rest
+    //Larry - Test for finding path from Lab to Restroom
     public void findPathTest4() {
 
         PathFindingController A = new PathFindingController();
@@ -124,7 +124,7 @@ public class PathFindingControllerTest {
     }
 
     @Test
-    // test Security to Brigham Health
+    //Larry - Test for finding path from Security desk to Brigham Health department
     public void findPathTest5() {
 
         PathFindingController A = new PathFindingController();
@@ -165,7 +165,7 @@ public class PathFindingControllerTest {
     }
 
     @Test
-    // test Elevator to Conf
+    //Larry - Test for finding path from Elevator to Conference room
     public void findPathTest6() {
 
         PathFindingController A = new PathFindingController();
@@ -195,7 +195,7 @@ public class PathFindingControllerTest {
     }
 
     @Test
-    // test Test Back of (Elevator to Conf)
+    //Larry - Test for finding path that is Back way of (Elevator to Conf)
     public void findPathTest7() {
 
         PathFindingController A = new PathFindingController();
@@ -225,7 +225,7 @@ public class PathFindingControllerTest {
     }
 
     @Test
-    // test EXIT to Hall
+    //Larry - Test for finding path from EXIT to HALLWAY
     public void findPathTest8() {
 
         PathFindingController A = new PathFindingController();
@@ -254,7 +254,7 @@ public class PathFindingControllerTest {
     }
 
     @Test
-    // test Nearby location
+    //Larry - Test for finding path between two neighbor location
     public void findPathTest9() {
 
         PathFindingController A = new PathFindingController();
