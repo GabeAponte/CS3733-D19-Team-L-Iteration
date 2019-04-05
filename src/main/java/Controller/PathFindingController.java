@@ -4,6 +4,7 @@ import Access.EdgesAccess;
 import Access.NodesAccess;
 import Object.*;
 import SearchingAlgorithms.AStarStrategy;
+import SearchingAlgorithms.BreadthFirstStrategy;
 import SearchingAlgorithms.PathfindingStrategy;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -72,6 +73,8 @@ public class PathFindingController {
 
     private ArrayList<Circle> circles = new ArrayList<Circle>();
     private ArrayList<Line> lines = new ArrayList<Line>();
+
+    private PathfindingStrategy x;
 
 
     @FXML
@@ -148,7 +151,9 @@ public class PathFindingController {
         Location endNode = lookup.get(PathFindEndDrop.getValue().getLocID());
 
         AStarStrategy astar = new AStarStrategy(lookup);
-        Path path = findAbstractPath(astar, startNode, endNode);
+        BreadthFirstStrategy bfirst = new BreadthFirstStrategy(lookup);
+        Path path = findAbstractPath(bfirst, startNode, endNode);
+        //Path path = findAbstractPath(astar, startNode, endNode);
         //Path path = findPath(startNode, endNode);
         displayPath(path.getPath(), startNode, endNode);
     }
@@ -201,7 +206,6 @@ public class PathFindingController {
 
     ArrayList<Location> openList = new ArrayList<Location>();
     ArrayList<Location> closeList = new ArrayList<Location>();
-    ArrayList<String> visited = new ArrayList<String>();
 
     private Path findAbstractPath(PathfindingStrategy strategy, Location start, Location end) {
         Path p = strategy.findPath(start, end);

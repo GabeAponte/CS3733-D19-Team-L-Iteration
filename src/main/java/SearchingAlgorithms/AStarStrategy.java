@@ -66,6 +66,7 @@ public class AStarStrategy implements PathfindingStrategy {
         }
         return p;
     }
+
     private void cleanup() {
         for (Location x : lookup.values()) {
             x.setParentID("RESET");
