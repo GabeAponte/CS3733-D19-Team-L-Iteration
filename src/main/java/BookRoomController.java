@@ -22,8 +22,6 @@ import java.time.LocalTime;
 import java.util.ArrayList;
 
 public class BookRoomController {
-    String uname;
-
     @FXML
     private JFXDatePicker datePicker;
 
@@ -51,10 +49,6 @@ public class BookRoomController {
     final ObservableList<String> listOfRooms = FXCollections.observableArrayList();
     ArrayList<String> rooms = new ArrayList<>();
 
-    public void init(String username){
-        uname = username;
-    }
-
     @FXML
     private void backPressed() throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("LoggedInHome.fxml"));
@@ -62,7 +56,6 @@ public class BookRoomController {
         Parent sceneMain = loader.load();
 
         LoggedInHomeController controller = loader.<LoggedInHomeController>getController();
-        controller.init(uname);
 
         Stage theStage = (Stage) bookRoomBack.getScene().getWindow();
 
@@ -128,7 +121,8 @@ public class BookRoomController {
             String date = datePicker.getValue().toString();
             String roomID = "RoomTest";
             EmployeeAccess ea = new EmployeeAccess();
-            String employeeID = ea.getNodeInformation(uname).get(0);
+            Singleton single = Singleton.getInstance();
+            String employeeID = ea.getNodeInformation(single.getUsername()).get(0);
             ReservationAccess roomReq = new ReservationAccess();
             for(int i = 1; i < rooms.size(); i+=2) {
                 if (rooms.get(i).equals(avaliableRooms.getValue())) {

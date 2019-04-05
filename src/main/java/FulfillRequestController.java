@@ -13,7 +13,6 @@ import java.io.IOException;
 public class FulfillRequestController {
 
     private Stage thestage;
-    private String uname;
 
     private ServiceRequestTable theRequest;
 
@@ -29,10 +28,6 @@ public class FulfillRequestController {
     //TODO: Format Error Label
     @FXML
     private Label errorLabel;
-
-    public void init(String username){
-        uname = username;
-    }
     @SuppressWarnings("Duplicates")
     @FXML
     private void backPressed() throws IOException {
@@ -41,7 +36,6 @@ public class FulfillRequestController {
 
         //Get controller of scene2
         ActiveServiceRequestsController scene2Controller = loader.getController();
-        scene2Controller.init(uname);
 
         Scene scene = new Scene(roots);
         Stage thestage = (Stage) errorLabel.getScene().getWindow();
@@ -71,7 +65,6 @@ public class FulfillRequestController {
 
             //Get controller of scene2
             ActiveServiceRequestsController scene2Controller = loader.getController();
-            scene2Controller.init(uname);
 
             Scene scene = new Scene(roots);
             Stage thestage = (Stage) errorLabel.getScene().getWindow();
