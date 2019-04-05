@@ -74,7 +74,7 @@ public class PathFindingController {
     private ArrayList<Circle> circles = new ArrayList<Circle>();
     private ArrayList<Line> lines = new ArrayList<Line>();
 
-    private PathfindingStrategy x;
+    private PathfindingStrategy pathAlgorithm;
 
 
     @FXML
