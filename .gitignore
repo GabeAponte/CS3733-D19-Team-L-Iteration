@@ -1,6 +1,7 @@
 .gradle/
 .idea/
 .myDB/
+MasterDB
 classes/
 build/
 out/
