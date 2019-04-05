@@ -126,10 +126,10 @@ public class PathFindingController {
         scrollPane.setPannable(true);
         scrollPane.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
         scrollPane.setVbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
-        AnchorPane.setTopAnchor(scrollPane, 10.0d);
-        AnchorPane.setRightAnchor(scrollPane, 10.0d);
-        AnchorPane.setBottomAnchor(scrollPane, 10.0d);
-        AnchorPane.setLeftAnchor(scrollPane, 10.0d);
+        AnchorPane.setTopAnchor(scrollPane, 0.0d);
+        AnchorPane.setRightAnchor(scrollPane, 0.0d);
+        AnchorPane.setBottomAnchor(scrollPane, 0.0d);
+        AnchorPane.setLeftAnchor(scrollPane, 0.0d);
 
         // create canvas
         zoomProperty.bind(zoomPaneImage.myScale);
@@ -146,7 +146,6 @@ public class PathFindingController {
         scrollPane.addEventFilter( ScrollEvent.ANY, sceneGestures.getOnScrollEventHandler());
 
         anchorPaneWindow.getChildren().add(scrollPanePleaseWork);
-
 
         scrollPanePleaseWork.setContent(zoomPaneImage);
         scrollPanePleaseWork.setMaxSize(685, 464);

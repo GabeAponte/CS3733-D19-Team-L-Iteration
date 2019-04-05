@@ -109,8 +109,8 @@ public class JFXScrollPane extends StackPane {
         contentContainer.localToSceneTransformProperty().addListener((o, oldVal, newVal) -> oldSceneTransform = oldVal);
         scrollPane.setContent(contentContainer);
         scrollPane.setFitToWidth(true);
-        scrollPane.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
-        scrollPane.setVbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
+//        scrollPane.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
+//        scrollPane.setVbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
         scrollPane.setPrefViewportWidth(685);
         scrollPane.setPrefViewportHeight(464);
 
@@ -278,23 +278,28 @@ public class JFXScrollPane extends StackPane {
         customScrolling(scrollPane, scrollPane.hvalueProperty(), bounds -> bounds.getWidth());
     }
 
-    public void setScrollBarSize(double scaleFactor){
-//        scrollPane.setHmax(scrollPane.getHmax()*scaleFactor);
-//        scrollPane.setVmax(scrollPane.getVmax()*scaleFactor);
-//        scrollPane.setHmin(-scrollPane.getHmax());
-//        scrollPane.setVmin(-scrollPane.getVmax());
+    public void setScrollBarSize(double xSize, double ySize){
+//        System.out.println("TEST");
+
+//        System.out.println(xSize);
+
+        scrollPane.setHmax(xSize);
+        scrollPane.setVmax(ySize);
+        scrollPane.setHmin(0);
+        scrollPane.setVmin(0);
 
 
+//        System.out.println("TEST2");
+//
+//
         Set<Node> nodes = scrollPane.lookupAll(".scroll-bar");
         for (final Node node : nodes) {
             if (node instanceof ScrollBar) {
                 ScrollBar sb = (ScrollBar) node;
-                System.out.println(sb.getUnitIncrement());
-                System.out.println(sb.getBlockIncrement());
 
-                sb.setUnitIncrement(sb.getUnitIncrement() / scaleFactor);
-                sb.setMax(sb.getMax()*scaleFactor);
-                sb.setMin(-sb.getMax());
+                sb.setUnitIncrement(1);
+                sb.setMax(xSize);
+                sb.setMin(ySize);
             }
         }
 

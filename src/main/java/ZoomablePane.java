@@ -1,5 +1,6 @@
 import javafx.scene.Group;
 import javafx.scene.Node;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.ScrollEvent;
 import javafx.scene.layout.AnchorPane;
 
@@ -30,9 +31,19 @@ public class ZoomablePane extends AnchorPane {
             content.setScaleY(content.getScaleY() * scaleFactor);
             currentZoom = currentZoom * scaleFactor;
 
-            System.out.println(content.getChildren());
+            System.out.println(content.getChildren().get(0));
 
-            System.out.println(currentZoom);
+            System.out.println(this.getParent().getParent().getParent().getParent().getParent());
+            if(this.getParent().getParent().getParent().getParent().getParent() instanceof JFXScrollPane){
+                if(content.getChildren().get(0) instanceof ImageView) {
+                    ImageView map = (ImageView) content.getChildren().get(0);
+                    JFXScrollPane parent = (JFXScrollPane) this.getParent().getParent().getParent().getParent().getParent();
+                    parent.setScrollBarSize((content.getScaleX()-1)*685, currentZoom*464);
+                }
+            }
+
+
+//            System.out.println(currentZoom);
         });
     }
 

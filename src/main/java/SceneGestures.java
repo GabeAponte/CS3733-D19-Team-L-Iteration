@@ -49,15 +49,11 @@ public class SceneGestures {
 
             boolean movingRight = (event.getX() - sceneDragContext.mouseAnchorX) > 0;
             boolean movingDown = (event.getY() - sceneDragContext.mouseAnchorY) > 0;
-            if((panAndZoomPane.getTranslateX() >= 0 && movingRight)) { // Window moving right
-                if((panAndZoomPane.getTranslateX() <= -685*(panAndZoomPane.getScale()-1) && !movingRight)) { // Window Moving Left
-                    panAndZoomPane.setTranslateX(sceneDragContext.translateAnchorX + event.getX() - sceneDragContext.mouseAnchorX);
-                }
+            if((panAndZoomPane.getTranslateX() >= 0 && movingRight) || panAndZoomPane.getTranslateX() <= -685*(panAndZoomPane.getScale()-1) && !movingRight) { // Window moving right
+                panAndZoomPane.setTranslateX(sceneDragContext.translateAnchorX + event.getX() - sceneDragContext.mouseAnchorX);
             }
-            if((panAndZoomPane.getTranslateY() >= 0 && event.getY() - sceneDragContext.mouseAnchorY > 0)) { //Window Moving Down
-                if((panAndZoomPane.getTranslateY() <= -464*(panAndZoomPane.getScale()-1) && event.getY() - sceneDragContext.mouseAnchorY < 0)){ // Window Moving Up
-                    panAndZoomPane.setTranslateY(sceneDragContext.translateAnchorY + event.getY() - sceneDragContext.mouseAnchorY);
-                }
+            if((panAndZoomPane.getTranslateY() >= 0 && event.getY() - sceneDragContext.mouseAnchorY > 0) || (panAndZoomPane.getTranslateY() <= -464*(panAndZoomPane.getScale()-1) && event.getY() - sceneDragContext.mouseAnchorY < 0)) { //Window Moving Down
+                panAndZoomPane.setTranslateY(sceneDragContext.translateAnchorY + event.getY() - sceneDragContext.mouseAnchorY);
             }
 
             event.consume();
