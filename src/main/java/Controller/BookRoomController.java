@@ -1,3 +1,8 @@
+package Controller;
+
+import Access.EmployeeAccess;
+import Access.ReservationAccess;
+import Access.RoomAccess;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXDatePicker;
 import com.jfoenix.controls.JFXTimePicker;
@@ -51,11 +56,12 @@ public class BookRoomController {
 
     @FXML
     private void backPressed() throws IOException {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("LoggedInHome.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("LoggedInHome.fxml"));
 
         Parent sceneMain = loader.load();
 
         LoggedInHomeController controller = loader.<LoggedInHomeController>getController();
+        controller.init(uname);
 
         Stage theStage = (Stage) bookRoomBack.getScene().getWindow();
 
@@ -66,6 +72,10 @@ public class BookRoomController {
     //LocalTime startTimeValue = null;
 
     @FXML
+    /** @author Gabe, Nikhil
+     * When a user selcts a valid start and end time and a date, they are given the option
+     * to book any avaliable rooms
+     */
     private void findRoom(ActionEvent event) {
         LocalTime startTimeValue = startTime.getValue();
         LocalTime endTimeValue = endTime.getValue();
@@ -75,32 +85,42 @@ public class BookRoomController {
 
         error.setTextFill(Color.RED);
 
+        //Gabe - error when start time, end time, and date are blank
         if (startTimeValue == null && endTimeValue == null && roomDate == null) {
             error.setText("Please select start and end times and a date.");
         }
+
+        //Gabe - error when start time and end time are blank
         else if (startTimeValue == null && endTimeValue == null) {
             error.setText("Please select start and end times.");
         }
+
+        //Gabe - error when start time and date are blank
         else if (startTimeValue == null && roomDate == null) {
             error.setText("Please select a start time and a date.");
         }
+
+        //Gabe - error when end time and date are blank
         else if (endTimeValue == null && roomDate == null) {
             error.setText("Please select an end time and a date.");}
 
+        //Gabe - error when start time is blank
         else if (startTimeValue == null) {
             error.setText("Please select a start time.");
         }
+
+        //Gabe - error when end time is blank
         else if (endTimeValue == null) {
             error.setText("Please select an end time.");
         }
+
+        //Gabe - error when date is blank
         else if (roomDate == null) {
             error.setText("Please select a date.");
         }
         else if (startTimeValue.equals(endTimeValue)) {
             error.setText("Times cannot be the same.");
-
         }
-
         else if (startTimeValue.compareTo(endTimeValue) > 0) {
             error.setText("Start time cannot be after end time.");
         }
@@ -155,8 +175,5 @@ public class BookRoomController {
 
             avaliableRooms.setItems(listOfRooms);
         }
-
     }
-
-
 }

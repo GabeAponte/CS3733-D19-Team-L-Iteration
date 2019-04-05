@@ -1,3 +1,9 @@
+package Controller;
+
+import Access.EdgesAccess;
+import Access.NodesAccess;
+import Object.*;
+
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -76,7 +82,7 @@ public class EditLocationController {
     private final ObservableList<Location> nodeData = FXCollections.observableArrayList();
     private final ObservableList<Edge> edgeData = FXCollections.observableArrayList();
 
-    private  Location focusNode;
+    private Location focusNode;
     private Edge focusEdge;
 
 
@@ -157,7 +163,7 @@ public class EditLocationController {
         }
         try {
             //Load second scene
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("EditEdges.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("EditEdges.fxml"));
             Parent roots = loader.load();
 
             //Get controller of scene2
@@ -184,7 +190,7 @@ public class EditLocationController {
         }
         try {
             //Load second scene
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("EditEdges.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("EditEdges.fxml"));
             Parent roots = loader.load();
 
             //Get controller of scene2
@@ -238,7 +244,7 @@ public class EditLocationController {
     private void modifyNodePress() {
         try {
             //Load second scene
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("EditNode.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("EditNode.fxml"));
             Parent roots = loader.load();
 
             //Get controller of scene2
@@ -264,7 +270,7 @@ public class EditLocationController {
         }
 
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("EditNode.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("EditNode.fxml"));
             Parent roots = loader.load();
 
             //Get controller of scene2
@@ -317,7 +323,7 @@ public class EditLocationController {
 
     @FXML
     private void backPressed() throws IOException{
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("LoggedInHome.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("LoggedInHome.fxml"));
 
         Parent sceneMain = loader.load();
 

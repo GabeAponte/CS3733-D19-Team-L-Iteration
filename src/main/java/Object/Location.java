@@ -1,6 +1,7 @@
+package Object;
+
 import java.util.ArrayList;
 import java.util.PriorityQueue;
-import java.util.Queue;
 
 @SuppressWarnings("unused")
 public class Location implements Comparable<Location>{
@@ -201,7 +202,8 @@ public class Location implements Comparable<Location>{
         return Math.sqrt(xDiff);
     }
 
-    //Larry - find the node in the Array list that has the lowest F value
+    //Larry - Given a list of locations
+    //This function will find the node in the Array list that has the lowest F value
     public Location findBestF(ArrayList<Location> locations){
         Location bestF = locations.get(0);
         for(int i = 1; i < locations.size(); i++){
@@ -215,7 +217,8 @@ public class Location implements Comparable<Location>{
         return  bestF;
 
     }
-    //Larry - add element to the open list if it is not in it before
+    //Larry - Given a list of location and a location
+    //This function will add element to the open list if it is not in it before
     public void addToOpen(Location A, ArrayList<Location> openList){
         int count = 0;
         for(int i = 0; i< openList.size(); i++){

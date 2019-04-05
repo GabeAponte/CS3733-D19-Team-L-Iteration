@@ -1,10 +1,12 @@
+package Access;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.sql.Statement;
 
 public class SuggestionBasicAccess extends DBAccess{
-    /**GABE MADE THIS
+    /**@author Gabe
      * deletes all the records from the SuggestionBasic table
      */
     public void deleteRecords() {
@@ -18,6 +20,11 @@ public class SuggestionBasicAccess extends DBAccess{
         }
     }
 
+    /** @author Gabe
+     * Adds an inputed suggestion into the databse in the format of a string
+     *
+     * @param suggestion
+     */
     public void addSuggestion (String suggestion) {
         String sql = "insert into suggestionBasic(" +
                 "ID, body)" +
@@ -31,14 +38,6 @@ public class SuggestionBasicAccess extends DBAccess{
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
-    }
-
-    public static void main(String[] args) {
-        SuggestionBasicAccess sga = new SuggestionBasicAccess();
-
-        sga.addSuggestion("uhfbdfibwerifnwrif");
-
-        sga.deleteRecords();
     }
 }
 

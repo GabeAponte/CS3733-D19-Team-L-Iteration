@@ -1,3 +1,5 @@
+package Controller;
+
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -31,16 +33,16 @@ public class LoggedInHomeController {
     private void logOut() throws IOException {
         Stage thestage = (Stage) logOut.getScene().getWindow();
         AnchorPane root;
-        root = FXMLLoader.load(getClass().getResource("HospitalHome.fxml"));
         Singleton.setLoggedIn(false);
         Singleton.setUsername("");
+        root = FXMLLoader.load(getClass().getClassLoader().getResource("HospitalHome.fxml"));
         Scene scene = new Scene(root);
         thestage.setScene(scene);
     }
 
     @FXML
     private void bookRoom() throws IOException {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("BookRoom.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("BookRoom.fxml"));
 
         Parent sceneMain = loader.load();
 
@@ -55,7 +57,7 @@ public class LoggedInHomeController {
     @FXML
     private void SwitchToPathfindScreen() throws IOException{
         boolean signedIn = true;
-        FXMLLoader pLoader = new FXMLLoader(getClass().getResource("HospitalPathFinding.fxml"));
+        FXMLLoader pLoader = new FXMLLoader(getClass().getClassLoader().getResource("HospitalPathFinding.fxml"));
 
         Parent sceneMain = pLoader.load();
 
@@ -70,7 +72,7 @@ public class LoggedInHomeController {
     @FXML
     private void SwitchToServiceScreen() throws IOException{
         boolean signedIn = true;
-        FXMLLoader sLoader = new FXMLLoader(getClass().getResource("ServiceRequest.fxml"));
+        FXMLLoader sLoader = new FXMLLoader(getClass().getClassLoader().getResource("ServiceRequest.fxml"));
 
         Parent sceneMain = sLoader.load();
 
@@ -85,7 +87,7 @@ public class LoggedInHomeController {
     @FXML
     private void SwitchToFullfillRequestScreen() throws IOException{
         boolean signedIn = true;
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("ActiveServiceRequests.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("ActiveServiceRequests.fxml"));
 
         Parent sceneMain = loader.load();
 
@@ -99,7 +101,7 @@ public class LoggedInHomeController {
 
     @FXML
     private void SwitchToEditLocationScreen() throws IOException{
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("EditLocation.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("EditLocation.fxml"));
 
         Parent sceneMain = loader.load();
 

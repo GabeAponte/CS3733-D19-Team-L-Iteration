@@ -1,3 +1,4 @@
+import Access.*;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -25,11 +26,7 @@ public class Main extends Application {
         ReservationAccess ra = new ReservationAccess();
         ServiceRequestAccess sra = new ServiceRequestAccess();
         SuggestionBasicAccess sba = new SuggestionBasicAccess();
-        na.deleteRecords();
         ea.deleteRecords();
-        ra.deleteRecords();
-        sra.deleteRecords();
-        sba.deleteRecords();
 
         na.readCSVintoTable();
         ea.readCSVintoTable();

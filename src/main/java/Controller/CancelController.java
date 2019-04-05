@@ -1,3 +1,7 @@
+package Controller;
+
+import API.ChildThread;
+import Access.ServiceRequestAccess;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -8,7 +12,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import java.io.IOException;
 
-public class Cancel {
+public class CancelController {
     private String typeOfService;
     private String comment;
 
@@ -30,10 +34,11 @@ public class Cancel {
         comment = description;
     }
 
-    //Nathan - takes user back to ServiceSubController (and fills in proper info)
+    //Nathan - takes user back to Controller.ServiceSubController (and fills in proper info)
     @SuppressWarnings("Duplicates")
     @FXML
     private void backPressed() throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("ServiceSubController.fxml"));
         Singleton single = Singleton.getInstance();
         FXMLLoader loader = new FXMLLoader(getClass().getResource("ServiceSubController.fxml"));
 
@@ -67,7 +72,7 @@ public class Cancel {
         Stage theStage = (Stage) no.getScene().getWindow();
         AnchorPane root;
         if(single.isLoggedIn()){
-            FXMLLoader sLoader = new FXMLLoader(getClass().getResource("LoggedInHome.fxml"));
+            FXMLLoader sLoader = new FXMLLoader(getClass().getClassLoader().getResource("LoggedInHome.fxml"));
 
             Parent sceneMain = sLoader.load();
 
@@ -79,7 +84,7 @@ public class Cancel {
             theStage.setScene(scene);
             return;
         } else {
-            root = FXMLLoader.load(getClass().getResource("HospitalHome.fxml"));
+            root = FXMLLoader.load(getClass().getClassLoader().getResource("HospitalHome.fxml"));
         }
         Scene scene = new Scene(root);
         theStage.setScene(scene);

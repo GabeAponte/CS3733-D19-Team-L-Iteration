@@ -16,7 +16,7 @@
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="EditLocationController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.EditLocationController">
     <children>
         <ImageView fitHeight="668.0" fitWidth="1282.0" layoutY="51.0" opacity="0.51" AnchorPane.bottomAnchor="1.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="-2.0" AnchorPane.topAnchor="51.0">
             <image>
@@ -29,7 +29,7 @@
                     <items>
                         <ImageView fitHeight="99.0" fitWidth="415.0" preserveRatio="true">
                             <image>
-                                <Image url="@BWHlogo.png" />
+                                <Image url="@SoftEng_UI_Mockup_Pics/BWHlogo.png" />
                             </image>
                         </ImageView>
                         <HBox alignment="CENTER_RIGHT" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="125.0" prefWidth="825.0">
@@ -48,7 +48,7 @@
         </VBox>
         <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#012d5a" height="455.0" layoutX="50.0" stroke="BLACK" strokeType="INSIDE" width="1180.0" AnchorPane.bottomAnchor="60.0" AnchorPane.leftAnchor="50.0" AnchorPane.rightAnchor="50.0" AnchorPane.topAnchor="205.0" />
         <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#7fb1ff" height="107.0" layoutX="50.0" layoutY="206.0" stroke="BLACK" strokeType="INSIDE" width="1180.0" AnchorPane.leftAnchor="50.0" AnchorPane.rightAnchor="50.0" AnchorPane.topAnchor="206.0" />
-        <Label layoutX="503.0" layoutY="237.0" prefHeight="45.0" prefWidth="275.0" text="Edit A Location" AnchorPane.leftAnchor="503.0" AnchorPane.rightAnchor="502.0" AnchorPane.topAnchor="237.0">
+        <Label layoutX="503.0" layoutY="237.0" prefHeight="45.0" prefWidth="275.0" text="Edit A Object.Location" AnchorPane.leftAnchor="503.0" AnchorPane.rightAnchor="502.0" AnchorPane.topAnchor="237.0">
             <font>
                 <Font name="Times New Roman Bold" size="40.0" />
             </font>
@@ -69,7 +69,7 @@
                   <Font name="Times New Roman" size="30.0" />
                </font>
             </Label>
-            <Label text="Select An Edge:" textFill="WHITE" GridPane.columnIndex="1">
+            <Label text="Select An Object.Edge:" textFill="WHITE" GridPane.columnIndex="1">
                <font>
                   <Font name="Times New Roman" size="30.0" />
                </font>
