@@ -254,8 +254,15 @@ public class PathFindingController {
             p.addToPath(l);
             l = lookup.get(l.getParentID());
         }
-        cleanup();
+        cleanup(); //resets the parents for future runs
+        printPath(p);
         return p;
+    }
+
+    private void printPath(Path p) {
+        for (Location place : p.getPath()) {
+            System.out.println("Next, go to " + place.getLongName());
+        }
     }
 
     private void initializeTable(NodesAccess na, EdgesAccess ea) {
