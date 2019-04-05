@@ -12,8 +12,6 @@ import java.io.IOException;
 public class ServiceSubController {
 
     private String typeOfService;
-    private boolean signedIn;
-    private String uname;
 
     @FXML
     private Button Back2;
@@ -27,49 +25,22 @@ public class ServiceSubController {
     @FXML
     private TextArea ServiceComments;
 
-
-    public void init(String type, boolean loggedIn, String username){
-        uname = username;
-        init(type, loggedIn);
-        reenable();
-    }
-
-    public void init(String type, String comment, boolean loggedIn, String username){
-        uname = username;
-        init(type, comment, loggedIn);
-        reenable();
-    }
-
-    //Nathan - sets values passed from another controller
-    public void init(String type, boolean loggedIn){
+    public void init(String type, String comment){
         typeOfService = type;
-        typeLabel.setText(typeOfService + " Services");
-        signedIn = loggedIn;
-        reenable();
-    }
-
-    //Nathan - sets values passed from another controller
-    public void init(String type, String comment, boolean loggedIn){
-        typeOfService = type;
-        typeLabel.setText(typeOfService + " Services");
+        typeLabel.setText(type + " Services");
         ServiceComments.setText(comment);
-        signedIn = loggedIn;
         reenable();
     }
 
     //Nathan - changes screen to service sub screen, param "service" determines label on sub screen
     @FXML
     private void backPressed() throws IOException{
+        Singleton single = Singleton.getInstance();
         FXMLLoader loader = new FXMLLoader(getClass().getResource("ServiceRequest.fxml"));
 
         Parent sceneMain = loader.load();
 
         ServiceRequestController controller = loader.<ServiceRequestController>getController();
-        if(signedIn){
-            controller.init(signedIn, uname);
-        } else {
-            controller.init(signedIn);
-        }
 
         Stage theStage = (Stage) Back2.getScene().getWindow();
 
@@ -85,19 +56,11 @@ public class ServiceSubController {
         Parent sceneMain = loader.load();
 
         Cancel controller = loader.<Cancel>getController();
-
-        if(signedIn){
-            if(ServiceComments == null || ServiceComments.getText() == null || ServiceComments.getText().trim().isEmpty()){
-                controller.init(typeOfService, signedIn, uname);
-            } else {
-                controller.init(typeOfService, ServiceComments.getText(), signedIn, uname);
-            }
+        String comm = ServiceComments.getText();
+        if(comm == null || comm.trim().isEmpty()) {
+            controller.init(typeOfService, "");
         } else {
-            if(ServiceComments == null || ServiceComments.getText() == null || ServiceComments.getText().trim().isEmpty()){
-                controller.init(typeOfService, signedIn);
-            } else {
-                controller.init(typeOfService, ServiceComments.getText(), signedIn);
-            }
+            controller.init(typeOfService, ServiceComments.getText());
         }
         Stage theStage = (Stage) SubmitRequest.getScene().getWindow();
 

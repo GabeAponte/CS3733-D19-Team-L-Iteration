@@ -93,7 +93,6 @@ public class HomeScreenController {
         Parent sceneMain = loader.load();
 
         ServiceRequestController controller = loader.<ServiceRequestController>getController();
-        controller.init(signedIn);
 
         Stage theStage = (Stage) HomeServiceRequest.getScene().getWindow();
 

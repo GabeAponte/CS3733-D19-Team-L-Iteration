@@ -17,10 +17,6 @@ import java.util.HashMap;
 @SuppressWarnings("Duplicates")
 public class PathFindingController {
 
-
-    private boolean signedIn;
-    private String uname;
-
     @FXML
     private Stage thestage;
 
@@ -69,15 +65,15 @@ public class PathFindingController {
 
     @FXML
     private void backPressed() throws IOException {
+        Singleton single = Singleton.getInstance();
         thestage = (Stage) PathFindBack.getScene().getWindow();
         AnchorPane root;
-        if(signedIn) {
+        if(single.isLoggedIn()) {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("LoggedInHome.fxml"));
 
             Parent sceneMain = loader.load();
 
             LoggedInHomeController controller = loader.<LoggedInHomeController>getController();
-            controller.init(uname);
 
             Stage theStage = (Stage) PathFindBack.getScene().getWindow();
 
