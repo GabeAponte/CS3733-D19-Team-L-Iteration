@@ -3,6 +3,8 @@ package Controller;
 import Access.EdgesAccess;
 import Access.NodesAccess;
 import Object.*;
+import SearchingAlgorithms.AStarStrategy;
+import SearchingAlgorithms.PathfindingStrategy;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;

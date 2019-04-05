@@ -1,4 +1,5 @@
-package Object;
+package SearchingAlgorithms;
+import Object.*;
 
 public interface PathfindingStrategy {
 

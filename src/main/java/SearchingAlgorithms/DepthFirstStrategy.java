@@ -1,4 +1,4 @@
-package Object;
+package SearchingAlgorithms;
 
 public class DepthFirstStrategy {
 }

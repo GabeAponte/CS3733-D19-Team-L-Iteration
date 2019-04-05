@@ -1,9 +1,11 @@
-package Object;
+package SearchingAlgorithms;
 
+import SearchingAlgorithms.PathfindingStrategy;
+import Object.*;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-public class AStarStrategy implements PathfindingStrategy{
+public class AStarStrategy implements PathfindingStrategy {
 
     private HashMap<String, Location> lookup;
     private Location start, end;
