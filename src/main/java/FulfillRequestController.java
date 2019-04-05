@@ -49,7 +49,6 @@ public class FulfillRequestController {
     }
 
     @FXML
-    //TODO: Add database functionality to mark request as fulfilled and update table of requests
     private void SwitchToAdminServiceRequestTable() throws IOException {
         if (staffMember.getText().trim().isEmpty() || staffMember.getText().equals("Staff Member")) {
             errorLabel.setText("Please enter a staff member name");

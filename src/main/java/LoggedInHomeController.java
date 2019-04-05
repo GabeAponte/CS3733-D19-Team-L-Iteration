@@ -50,7 +50,6 @@ public class LoggedInHomeController {
         Parent sceneMain = loader.load();
 
         BookRoomController controller = loader.<BookRoomController>getController();
-        controller.init(uname);
 
         Stage theStage = (Stage) bookRoom.getScene().getWindow();
 
