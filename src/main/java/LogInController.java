@@ -82,7 +82,9 @@ public class LogInController {
 
         LoggedInHomeController controller = loader.<LoggedInHomeController>getController();
         controller.init(un);
-
+        Singleton single = Singleton.getInstance();
+        single.setLoggedIn(true);
+        single.setUsername(un);
         Stage theStage = (Stage) login.getScene().getWindow();
 
         Scene scene = new Scene(sceneMain);

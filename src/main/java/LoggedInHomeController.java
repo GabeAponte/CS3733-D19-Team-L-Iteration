@@ -37,6 +37,8 @@ public class LoggedInHomeController {
         Stage thestage = (Stage) logOut.getScene().getWindow();
         AnchorPane root;
         root = FXMLLoader.load(getClass().getResource("HospitalHome.fxml"));
+        Singleton.setLoggedIn(false);
+        Singleton.setUsername("");
         Scene scene = new Scene(root);
         thestage.setScene(scene);
     }
