@@ -13,9 +13,15 @@ public class DepthFirstStrategy implements PathfindingStrategy{
         //this.end = end;
     }
 
+    //Larry - Using Depth First Search (DFS) to find the path from given start position to end position
     public Path findPath(Location start, Location end) {
         ArrayList<Location> path = new ArrayList<Location>();
+        path.add(start);
+        
+
+
         Path p = new Path(path);
+
         return p;
     }
 }
