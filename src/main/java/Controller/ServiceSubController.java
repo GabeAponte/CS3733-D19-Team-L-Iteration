@@ -1,5 +1,6 @@
 package Controller;
 
+import Object.*;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -55,7 +56,7 @@ public class ServiceSubController {
         FXMLLoader loader = new FXMLLoader((getClass().getClassLoader().getResource("Cancel.fxml")));
         Parent sceneMain = loader.load();
 
-        Cancel controller = loader.<CancelController>getController();
+        CancelController controller = loader.<CancelController>getController();
         String comm = ServiceComments.getText();
         if(comm == null || comm.trim().isEmpty()) {
             controller.init(typeOfService, "");

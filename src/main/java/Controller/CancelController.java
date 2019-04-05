@@ -1,6 +1,7 @@
 package Controller;
 
 import API.ChildThread;
+import Object.*;
 import Access.ServiceRequestAccess;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -40,7 +41,6 @@ public class CancelController {
     private void backPressed() throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("ServiceSubController.fxml"));
         Singleton single = Singleton.getInstance();
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("ServiceSubController.fxml"));
 
         Parent sceneMain = loader.load();
 

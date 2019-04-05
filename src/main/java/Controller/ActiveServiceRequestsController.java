@@ -39,13 +39,6 @@ public class ActiveServiceRequestsController {
     @FXML
     private TableView<ServiceRequestTable> activeRequests;
 
-    @SuppressWarnings("Duplicates")
-
-    public void init(String username){
-        uname = username;
-        init2();
-    }
-
     @FXML
     /**@author Gabe
      * Returns user to the Logged In Home screen when the back button is pressed
@@ -56,7 +49,6 @@ public class ActiveServiceRequestsController {
 
         //Get controller of scene2
         LoggedInHomeController scene2Controller = loader.getController();
-        scene2Controller.init(uname);
 
         Scene scene = new Scene(roots);
         Stage thestage = (Stage) activeRequests.getScene().getWindow();
@@ -110,7 +102,6 @@ public class ActiveServiceRequestsController {
                     Parent roots = loader.load();
                     //Get controller of scene2
                     FulfillRequestController scene2Controller = loader.getController();
-                    scene2Controller.init(uname);
                     Scene scene = new Scene(roots);
                     scene2Controller.getRequestID(selectedRequest);
                     thestage = (Stage) back.getScene().getWindow();

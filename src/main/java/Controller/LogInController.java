@@ -1,5 +1,6 @@
 package Controller;
 
+import Object.*;
 import Access.EmployeeAccess;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -17,7 +18,6 @@ import java.io.IOException;
 public class LogInController {
 
     private Stage thestage;
-    public String uname;
 
     @FXML
     private Button back;
@@ -31,7 +31,6 @@ public class LogInController {
     @FXML
     private TextField password;
 
-    //TODO: Format Error Label
     @FXML
     private Label errorLabel;
 
@@ -64,7 +63,7 @@ public class LogInController {
 
     @FXML
     private void LogIn() throws IOException{
-        uname = username.getText();
+        String uname = username.getText();
         String pass = password.getText();
 
         boolean validLogin = false;

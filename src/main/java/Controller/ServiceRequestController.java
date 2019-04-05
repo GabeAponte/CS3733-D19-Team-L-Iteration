@@ -1,5 +1,6 @@
 package Controller;
 
+import Object.*;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;

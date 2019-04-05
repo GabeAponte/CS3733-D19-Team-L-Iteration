@@ -14,10 +14,8 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
@@ -25,6 +23,7 @@ import java.io.IOException;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
+import Object.*;
 
 public class BookRoomController {
     @FXML
@@ -61,7 +60,6 @@ public class BookRoomController {
         Parent sceneMain = loader.load();
 
         LoggedInHomeController controller = loader.<LoggedInHomeController>getController();
-        controller.init(uname);
 
         Stage theStage = (Stage) bookRoomBack.getScene().getWindow();
 

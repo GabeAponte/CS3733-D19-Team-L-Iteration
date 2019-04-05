@@ -90,7 +90,7 @@ public class EditLocationController {
 
     @SuppressWarnings("Convert2Diamond")
     @FXML
-    public void init(String username){
+    public void initialize(){
         nodeTable.setEditable(false);
         edgeTable.setEditable(false);
         NodesAccess na = new NodesAccess();

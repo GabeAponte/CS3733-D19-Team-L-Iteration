@@ -1,8 +1,10 @@
+package Object;
+
 /*Nikhil and Nathan
   Class created to allow for easy access to common fields ie. loggedIn, username
   Only use at the moment you need the class' information
-  ***Example of how to use Singleton Class***
-  Singleton single = Singleton.getInstance();
+  ***Example of how to use Object.Singleton Class***
+  Object.Singleton single = Object.Singleton.getInstance();
   int check = single.getNum();
  */
 public class Singleton {
