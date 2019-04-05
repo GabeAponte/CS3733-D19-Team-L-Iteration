@@ -17,7 +17,7 @@ public class Singleton {
     private Singleton(){
         loggedIn = false;
         username = "";
-        num = 0;
+        num = 1;
     }
 
     public static Singleton getInstance() {

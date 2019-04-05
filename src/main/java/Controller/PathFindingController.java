@@ -67,6 +67,16 @@ public class PathFindingController {
     private ArrayList<Circle> circles = new ArrayList<Circle>();
     private ArrayList<Line> lines = new ArrayList<Line>();
 
+    public void initialize() {
+        Singleton single = Singleton.getInstance();
+        na = new NodesAccess();
+        ea = new EdgesAccess();
+        initializeTable(na, ea);
+        if(single.getNum() == 1){
+            PathFindStartDrop.setItems(data);
+            PathFindEndDrop.setItems(data);
+        }
+    }
 
     @FXML
     private void backPressed() throws IOException {
@@ -90,20 +100,6 @@ public class PathFindingController {
         }
         Scene scene = new Scene(root);
         thestage.setScene(scene);
-    }
-
-
-    @FXML
-    public void initialize() {
-        Singleton single = Singleton.getInstance();
-        na = new NodesAccess();
-        ea = new EdgesAccess();
-        initializeTable(na, ea);
-        if(single.getNum() == 1){
-        PathFindStartDrop.setItems(data);
-        PathFindEndDrop.setItems(data);
-        }
-
     }
 
     public HashMap<String, Location> getLookup() {
