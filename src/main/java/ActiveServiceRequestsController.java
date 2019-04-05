@@ -17,9 +17,7 @@ import java.util.ArrayList;
 
 public class ActiveServiceRequestsController {
 
-    private boolean signedIn;
     private Stage thestage;
-    private String uname;
     private ServiceRequestTable selectedRequest;
 
     @FXML
@@ -37,12 +35,6 @@ public class ActiveServiceRequestsController {
     @FXML
     private TableView<ServiceRequestTable> activeRequests;
 
-    @SuppressWarnings("Duplicates")
-
-    public void init(String username){
-        uname = username;
-        init2();
-    }
 
     @FXML
     private void backPressed() throws IOException {
@@ -51,7 +43,6 @@ public class ActiveServiceRequestsController {
 
         //Get controller of scene2
         LoggedInHomeController scene2Controller = loader.getController();
-        scene2Controller.init(uname);
 
         Scene scene = new Scene(roots);
         Stage thestage = (Stage) activeRequests.getScene().getWindow();
@@ -60,7 +51,7 @@ public class ActiveServiceRequestsController {
     }
 
     //Gabe - Populates table
-    public void init2(){
+    public void initialize(){
         activeRequests.setEditable(false);
         final ObservableList<ServiceRequestTable> data = FXCollections.observableArrayList();
         ServiceRequestAccess sr = new ServiceRequestAccess();
@@ -97,7 +88,6 @@ public class ActiveServiceRequestsController {
                     Parent roots = loader.load();
                     //Get controller of scene2
                     FulfillRequestController scene2Controller = loader.getController();
-                    scene2Controller.init(uname);
                     Scene scene = new Scene(roots);
                     scene2Controller.getRequestID(selectedRequest);
                     thestage = (Stage) back.getScene().getWindow();

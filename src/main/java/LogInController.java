@@ -81,7 +81,6 @@ public class LogInController {
         Parent sceneMain = loader.load();
 
         LoggedInHomeController controller = loader.<LoggedInHomeController>getController();
-        controller.init(un);
         Singleton single = Singleton.getInstance();
         single.setLoggedIn(true);
         single.setUsername(un);

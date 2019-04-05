@@ -91,30 +91,14 @@ public class PathFindingController {
         thestage.setScene(scene);
     }
 
-    public void init(boolean loggeedIn, String username){
-            uname = username;
-            init(loggeedIn);
-    }
 
-    @SuppressWarnings("Convert2Diamond")
     @FXML
-    public void init(boolean loggedIn) {
-        signedIn = loggedIn;
+    public void initialize() {
+        Singleton single = Singleton.getInstance();
         na = new NodesAccess();
         ea = new EdgesAccess();
         initializeTable(na, ea);
-        PathFindStartDrop.setItems(data);
-        PathFindEndDrop.setItems(data);
-    }
-
-        @SuppressWarnings("Convert2Diamond")
-    @FXML
-    public void init(boolean loggedIn, int num) {
-        signedIn = loggedIn;
-        na = new NodesAccess();
-        ea = new EdgesAccess();
-        initializeTable(na, ea);
-        if(num == 1){
+        if(single.getNum() == 1){
         PathFindStartDrop.setItems(data);
         PathFindEndDrop.setItems(data);
         }
