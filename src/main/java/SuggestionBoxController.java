@@ -9,6 +9,7 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 
+@SuppressWarnings("ALL")
 public class SuggestionBoxController {
 
     @FXML
