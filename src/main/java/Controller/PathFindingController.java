@@ -145,7 +145,9 @@ public class PathFindingController {
         Location startNode = lookup.get(PathFindStartDrop.getValue().getLocID());
         Location endNode = lookup.get(PathFindEndDrop.getValue().getLocID());
 
-        Path path = findPath(startNode, endNode);
+        AStarStrategy astar = new AStarStrategy(lookup);
+        Path path = findAbstractPath(astar, startNode, endNode);
+        //Path path = findPath(startNode, endNode);
         displayPath(path.getPath(), startNode, endNode);
     }
 
@@ -199,6 +201,10 @@ public class PathFindingController {
     ArrayList<Location> closeList = new ArrayList<Location>();
     ArrayList<String> visited = new ArrayList<String>();
 
+    private Path findAbstractPath(PathfindingStrategy strategy, Location start, Location end) {
+        Path p = strategy.findPath(start, end);
+        return p;
+    }
 
     public Path findPath(Location start, Location end) {
         openList.add(start);
