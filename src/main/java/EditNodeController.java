@@ -23,7 +23,6 @@ public class EditNodeController {
 
     private Location data;
     private String tempNodeID; //for getting og id
-    private String uname;
 
     @FXML
     private JFXTextField nodeID;
@@ -54,11 +53,10 @@ public class EditNodeController {
     private boolean isNew =true;
     private ObservableList<String> locationIDS = FXCollections.observableArrayList();
 
-    @FXML
-    public void init(String username) {
+
+    public void initialize() {
         //submitButton.setDisable(true);
         //enableSubmit();
-        uname = username;
         nodeXCoord.textProperty().addListener(this::changedX);
         nodeYCoord.textProperty().addListener(this::changedY);
         nodeFloor.textProperty().addListener(this::changedFloor);
@@ -146,7 +144,6 @@ public class EditNodeController {
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("EditEdges.fxml"));
                 roots = loader.load();
                 EditEdgesController scene2Controller = loader.getController();
-                scene2Controller.init(uname);
                 scene2Controller.populateNodeList(locationIDS);
                 scene2Controller.flipBool();
                 scene2Controller.setInitialValues(nodeID.getText(), "ADD EDGE");
@@ -154,7 +151,6 @@ public class EditNodeController {
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("EditLocation.fxml"));
                 roots = loader.load();
                 EditLocationController scene2Controller = loader.getController();
-                scene2Controller.init(uname);
             }
             Scene scene = new Scene(roots);
             thestage.setScene(scene);
@@ -199,7 +195,6 @@ public class EditNodeController {
 
         //Get controller of scene2
         EditLocationController scene2Controller = loader.getController();
-        scene2Controller.init(uname);
 
         Scene scene = new Scene(roots);
         Stage thestage = (Stage) nodeID.getScene().getWindow();
