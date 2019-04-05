@@ -18,7 +18,7 @@
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" style="-fx-background-color: #7fb1ff;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ServiceSubController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" style="-fx-background-color: #7fb1ff;" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.ServiceSubController">
     <children>
         <ImageView fitHeight="668.0" fitWidth="1282.0" layoutY="51.0" opacity="0.51" AnchorPane.bottomAnchor="1.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="-2.0" AnchorPane.topAnchor="51.0">
             <image>
@@ -33,7 +33,7 @@
                     <items>
                         <ImageView fitHeight="91.0" fitWidth="395.0" pickOnBounds="true" preserveRatio="true">
                             <image>
-                                <Image url="@BWHlogo.png" />
+                                <Image url="@SoftEng_UI_Mockup_Pics/BWHlogo.png" />
                             </image>
                         </ImageView>
                         <HBox alignment="CENTER_RIGHT" prefHeight="43.0" prefWidth="810.0">
@@ -69,7 +69,7 @@
                         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                     </rowConstraints>
                     <children>
-                        <Button fx:id="SubmitRequest" mnemonicParsing="false" onAction="#promptCancel" style="-fx-background-color: fff;" text="Submit Request" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="2">
+                        <Button fx:id="SubmitRequest" disable="true" mnemonicParsing="false" onAction="#promptCancel" style="-fx-background-color: fff;" text="Submit Request" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="2">
                             <font>
                                 <Font name="Times New Roman" size="36.0" />
                             </font>
@@ -77,7 +77,7 @@
                                 <DropShadow />
                             </effect>
                         </Button>
-                        <TextArea fx:id="ServiceComments" prefHeight="200.0" prefWidth="200.0" promptText="Type Comments Here" wrapText="true" GridPane.columnSpan="2" GridPane.rowSpan="2">
+                        <TextArea fx:id="ServiceComments" onKeyReleased="#reenable" prefHeight="200.0" prefWidth="200.0" promptText="Type Comments Here" wrapText="true" GridPane.columnSpan="2" GridPane.rowSpan="2">
                             <font>
                                 <Font name="Times New Roman" size="30.0" />
                             </font>
