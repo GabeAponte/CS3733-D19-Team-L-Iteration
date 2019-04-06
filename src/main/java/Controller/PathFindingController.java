@@ -14,6 +14,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.input.ScrollEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Line;
 import javafx.scene.shape.Rectangle;
@@ -231,27 +232,6 @@ public class PathFindingController {
 
         Point2D point = sceneGestures.getImageLocation();
 
-        Circle StartCircle = new Circle();
-
-        anchorPanePath.getChildren().add(StartCircle);
-
-        //Setting the properties of the circle
-        StartCircle.setCenterX((startNode.getXcoord()-point.getX())*0.137*sceneGestures.getImageScale());
-        StartCircle.setCenterY((startNode.getYcoord()-point.getY())*0.137*sceneGestures.getImageScale());
-        StartCircle.setRadius(Math.max(2.5,2.5f*(sceneGestures.getImageScale()/4)));
-
-        Circle EndCircle = new Circle();
-
-        anchorPanePath.getChildren().add(EndCircle);
-
-        //Setting the properties of the circle
-        EndCircle.setCenterX((endNode.getXcoord()-point.getX())*0.137*sceneGestures.getImageScale());
-        EndCircle.setCenterY((endNode.getYcoord()-point.getY())*0.137*sceneGestures.getImageScale());
-        EndCircle.setRadius(Math.max(2.5,2.5f*(sceneGestures.getImageScale()/4)));
-
-        circles.add(StartCircle);
-        circles.add(EndCircle);
-
         for (int i = 0; i < path.size()-1; i++) {
             Line line = new Line();
 
@@ -264,6 +244,33 @@ public class PathFindingController {
 
             anchorPanePath.getChildren().add(line);
         }
+
+        Circle StartCircle = new Circle();
+
+        anchorPanePath.getChildren().add(StartCircle);
+
+        //Setting the properties of the circle
+        StartCircle.setCenterX((startNode.getXcoord()-point.getX())*0.137*sceneGestures.getImageScale());
+        StartCircle.setCenterY((startNode.getYcoord()-point.getY())*0.137*sceneGestures.getImageScale());
+        StartCircle.setRadius(Math.max(2.5,2.5f*(sceneGestures.getImageScale()/5)));
+        StartCircle.setStroke(Color.GREEN);
+        StartCircle.setFill(Color.GREEN);
+
+
+        Circle EndCircle = new Circle();
+
+        anchorPanePath.getChildren().add(EndCircle);
+
+        //Setting the properties of the circle
+        EndCircle.setCenterX((endNode.getXcoord()-point.getX())*0.137*sceneGestures.getImageScale());
+        EndCircle.setCenterY((endNode.getYcoord()-point.getY())*0.137*sceneGestures.getImageScale());
+        EndCircle.setRadius(Math.max(2.5,2.5f*(sceneGestures.getImageScale()/5)));
+        EndCircle.setStroke(Color.RED);
+        EndCircle.setFill(Color.RED);
+
+
+        circles.add(StartCircle);
+        circles.add(EndCircle);
 
         sceneGestures.setDrawPath(StartCircle, EndCircle, lines);
     }

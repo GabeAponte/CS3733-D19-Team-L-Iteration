@@ -8,6 +8,7 @@ import javafx.geometry.Rectangle2D;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.input.ScrollEvent;
+import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Line;
 
@@ -215,23 +216,26 @@ public class SceneGestures {
             double diffY2 =  getBottomCorner().getY() - oldPointBottom.getY();
             double diffScale = getImageScale()/oldScale;
 
-            System.out.println(diffX + "   " + diffX2 + "   " + diffScale);
+            System.out.println(diffX + "   " + diffX2 + "   " + diffScale + "   " + oldPointUpper.getX());
+            System.out.println(((startCircle.getCenterX()/(0.137*getImageScale())+oldPointUpper.getX())-getImageLocation().getX())*0.137*getImageScale());
 
-            startCircle.setCenterX((startCircle.getCenterX() - (diffX-diffX2)/2));
-            startCircle.setCenterY((startCircle.getCenterY() - (diffY-diffY2)/2));
-            startCircle.setRadius(Math.max(2.5,2.5f*getImageScale()/4));
+            startCircle.setCenterX(((startCircle.getCenterX()/(0.137*oldScale)+oldPointUpper.getX())-getImageLocation().getX())*0.137*getImageScale());
+            startCircle.setCenterY(((startCircle.getCenterY()/(0.137*oldScale)+oldPointUpper.getY())-getImageLocation().getY())*0.137*getImageScale());
+            startCircle.setRadius(Math.max(2.5,2.5f*getImageScale()/5));
 
-            endCircle.setCenterX((endCircle.getCenterX() - (diffX-diffX2)/2));
-            endCircle.setCenterY((endCircle.getCenterY() - (diffY-diffY2)/2));
-            endCircle.setRadius(Math.max(2.5,2.5f*getImageScale()/4));
+            endCircle.setCenterX(((endCircle.getCenterX()/(0.137*oldScale)+oldPointUpper.getX())-getImageLocation().getX())*0.137*getImageScale());
+            endCircle.setCenterY(((endCircle.getCenterY()/(0.137*oldScale)+oldPointUpper.getY())-getImageLocation().getY())*0.137*getImageScale());
+            endCircle.setRadius(Math.max(2.5,2.5f*getImageScale()/5));
 
             for (int i = 0; i < lines.size(); i++) {
                 Line line = lines.get(i);
 
-                line.setStartX((line.getStartX() - (diffX-diffX2)/2));
-                line.setStartY((line.getStartY() - (diffY-diffY2)/2));
-                line.setEndX((line.getEndX() - (diffX-diffX2)/2));
-                line.setEndY((line.getEndY() - (diffY-diffY2)/2));
+                line.setStartX(((line.getStartX()/(0.137*oldScale)+oldPointUpper.getX())-getImageLocation().getX())*0.137*getImageScale());
+                line.setStartY(((line.getStartY()/(0.137*oldScale)+oldPointUpper.getY())-getImageLocation().getY())*0.137*getImageScale());
+                line.setEndX(((line.getEndX()/(0.137*oldScale)+oldPointUpper.getX())-getImageLocation().getX())*0.137*getImageScale());
+                line.setEndY(((line.getEndY()/(0.137*oldScale)+oldPointUpper.getY())-getImageLocation().getY())*0.137*getImageScale());
+
+                line.setStrokeWidth(Math.max(1,getImageScale()/8));
             }
         }
     }
