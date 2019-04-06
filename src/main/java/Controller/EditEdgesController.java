@@ -15,7 +15,6 @@ import java.io.IOException;
 
 public class EditEdgesController {
 
-    private String uname;
     @FXML
     private Stage thestage;
 
@@ -35,9 +34,6 @@ public class EditEdgesController {
     private String initialStart, initialEnd, initialID;
     private ObservableList<String> locationIDS = FXCollections.observableArrayList();
 
-    public void init(String username){
-        uname = username;
-    }
     @FXML
     private void backPressed() throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("EditLocation.fxml"));
@@ -45,7 +41,6 @@ public class EditEdgesController {
 
         //Get controller of scene2
         EditLocationController scene2Controller = loader.getController();
-        scene2Controller.init(uname);
 
         Scene scene = new Scene(roots);
         Stage thestage = (Stage) EditEdgeBack.getScene().getWindow();
@@ -101,7 +96,6 @@ public class EditEdgesController {
 
         //Get controller of scene2
         EditLocationController scene2Controller = loader.getController();
-        scene2Controller.init(uname);
 
         Scene scene = new Scene(roots);
         Stage thestage = (Stage) EditEdgeBack.getScene().getWindow();
