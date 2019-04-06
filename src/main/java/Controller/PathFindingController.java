@@ -304,7 +304,7 @@ public class PathFindingController {
         openList.clear();
         closeList.clear();
     }
-    // To calculate the angele of turning
+    //Larry - To calculate the angele of turning
     private double calculateAngle(Location a, Location b, Location c){
         double distanceA, distanceB,distanceC;
         double angleTurning;
@@ -328,6 +328,14 @@ public class PathFindingController {
         return  angleTurning;
 
     }
+    //Larry - convert pixel distance to exact distance
+    //147 pixel distance = 52 ft
+    private int convertToExact(double pixelDistance){
+        double actualLength = pixelDistance / 147 * 52;
+
+        return  (int)actualLength;
+    }
+
     // Print the textual direction
     private void printPath(ArrayList<Location> A){
 
