@@ -197,17 +197,21 @@ public class PathFindingController {
             line.setEndX(79f + path.get(i + 1).getXcoord() * 0.137);
             line.setEndY(189f + path.get(i + 1).getYcoord() * 0.137);
 
+            if(path.get(i).getFloor() != currFloor || path.get(i+1).getFloor() != currFloor){
+                line.setVisible(false);
+            }
             //if switching floors
             if(path.get(i).getFloor() != path.get(i+1).getFloor()){
-                //set this line to not visible
-                line.setVisible(false);
+                //create a circle to signify a connection
                 Circle midCircle = new Circle();
 
                 //Setting the properties of the circle
                 midCircle.setCenterX(79f + path.get(i).getXcoord() * 0.137);
                 midCircle.setCenterY(189f + path.get(i).getYcoord() * 0.137);
                 midCircle.setRadius(3.0f);
+                //default to not showing this circle
                 midCircle.setVisible(false);
+                //if either this node or the connecting node are on the currently displayed floor, display this circle
                 if(path.get(i).getFloor() == currFloor || path.get(i+1).getFloor() == currFloor){
                     midCircle.setVisible(true);
                 }
