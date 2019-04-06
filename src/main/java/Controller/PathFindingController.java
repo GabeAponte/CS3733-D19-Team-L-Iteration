@@ -6,6 +6,7 @@ import Object.*;
 import SearchingAlgorithms.AStarStrategy;
 import SearchingAlgorithms.BreadthFirstStrategy;
 import SearchingAlgorithms.PathfindingStrategy;
+import SearchingAlgorithms.DepthFirstStrategy;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -76,18 +77,28 @@ public class PathFindingController {
 
     private PathfindingStrategy pathAlgorithm;
 
+    public void initialize() {
+        Singleton single = Singleton.getInstance();
+        na = new NodesAccess();
+        ea = new EdgesAccess();
+        initializeTable(na, ea);
+        if(single.getNum() == 1){
+            PathFindStartDrop.setItems(data);
+            PathFindEndDrop.setItems(data);
+        }
+    }
 
     @FXML
     private void backPressed() throws IOException {
+        Singleton single = Singleton.getInstance();
         thestage = (Stage) PathFindBack.getScene().getWindow();
         AnchorPane root;
-        if(signedIn) {
+        if(single.isLoggedIn()) {
             FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("LoggedInHome.fxml"));
 
             Parent sceneMain = loader.load();
 
             LoggedInHomeController controller = loader.<LoggedInHomeController>getController();
-            controller.init(uname);
 
             Stage theStage = (Stage) PathFindBack.getScene().getWindow();
 
@@ -99,36 +110,6 @@ public class PathFindingController {
         }
         Scene scene = new Scene(root);
         thestage.setScene(scene);
-    }
-
-    public void init(boolean loggeedIn, String username){
-            uname = username;
-            init(loggeedIn);
-    }
-
-    @SuppressWarnings("Convert2Diamond")
-    @FXML
-    public void init(boolean loggedIn) {
-        signedIn = loggedIn;
-        na = new NodesAccess();
-        ea = new EdgesAccess();
-        initializeTable(na, ea);
-        PathFindStartDrop.setItems(data);
-        PathFindEndDrop.setItems(data);
-    }
-
-        @SuppressWarnings("Convert2Diamond")
-    @FXML
-    public void init(boolean loggedIn, int num) {
-        signedIn = loggedIn;
-        na = new NodesAccess();
-        ea = new EdgesAccess();
-        initializeTable(na, ea);
-        if(num == 1){
-        PathFindStartDrop.setItems(data);
-        PathFindEndDrop.setItems(data);
-        }
-
     }
 
     public HashMap<String, Location> getLookup() {
@@ -156,7 +137,7 @@ public class PathFindingController {
         //Path path = findAbstractPath(astar, startNode, endNode);
         //Path path = findPath(startNode, endNode);
         displayPath(path.getPath(), startNode, endNode);
-        printPath(path);
+        //printPath(path);
 
     }
 
@@ -206,20 +187,70 @@ public class PathFindingController {
         }
     }
 
+    ArrayList<Location> openList = new ArrayList<Location>();
+    ArrayList<Location> closeList = new ArrayList<Location>();
 
     private Path findAbstractPath(PathfindingStrategy strategy, Location start, Location end) {
         Path p = strategy.findPath(start, end);
         return p;
     }
 
-    private void printPath(Path p) {
-        for (int i = 0; i < p.getPath().size() - 1; i ++) {
-            double pls = calculateSlope(p.getPath().get(i), p.getPath().get(i+1));
-            System.out.println(pls);
+    public Path findPath(Location start, Location end) {
+        openList.add(start);
+        start.setParentID("START");
+        ArrayList<Location> path = new ArrayList<Location>();
+        Path p = new Path(path);
+        if(start == end)
+        {
+            p.addToPath(start);
+            cleanup();
+            return p;
         }
-       // for (Location place : p.getPath()) {
-            //System.out.println("Next, go to " + place.getLongName());
-       // }
+        Location q = new Location();
+        //while there are items in the open list
+        while (!(openList.isEmpty())) {
+            q = q.findBestF(openList);
+            openList.remove(q);
+            closeList.add(q);
+            q = lookup.get(q.getLocID());
+            ArrayList<Edge> edge = q.getEdges();
+            ArrayList<Location> children = new ArrayList<Location>();
+            for (Edge e : edge) {
+                if (!(closeList.contains(e.getEndNode())) && !(openList.contains(e.getEndNode()))) {
+                    children.add(e.getEndNode());
+                    e.getEndNode().setGScore(e.findDistance(q, e.getEndNode()));
+                }
+            }
+            for (Location l : children) {
+                //condition for found node
+                if (l.getLocID().equals(end.getLocID())) {
+                    lookup.get(l.getLocID()).setParentID(q.getLocID());
+                    l.setParentID(q.getLocID());
+                    return returnPath(l);
+                } else {
+                    double gScore = q.getGScore() + l.getGScore(); //calculate base G score
+                    l.setScore(l.calculateScore(gScore, end)); //add in H score
+                    l.setParentID(q.getLocID());
+                    lookup.get(l.getLocID()).setParentID(q.getLocID());
+                    if (!openList.contains(l) && !closeList.contains(l)) {
+                        openList.add(l);
+                    }
+                }
+            }
+        }
+        return p;
+    }
+
+    public Path returnPath(Location obj) {
+        Location l = obj;
+        ArrayList<Location> path = new ArrayList<Location>();
+        Path p = new Path(path);
+        while (!(l.getParentID().equals("START"))) {
+            p.addToPath(l);
+            l = lookup.get(l.getParentID());
+        }
+        cleanup();
+        return p;
     }
 
     private void initializeTable(NodesAccess na, EdgesAccess ea) {
@@ -267,9 +298,11 @@ public class PathFindingController {
         }
     }
 
-    private double calculateSlope(Location start, Location end) {
-        double xDiff = end.getXcoord() - start.getXcoord();
-        double yDiff = end.getYcoord() - start.getYcoord();
-        return yDiff/xDiff;
+    private void cleanup() {
+        for (Location x : lookup.values()) {
+            x.setParentID("RESET");
+        }
+        openList.clear();
+        closeList.clear();
     }
 }
