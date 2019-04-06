@@ -194,8 +194,8 @@ public class Location implements Comparable<Location>{
 
         xDiff = this.getXcoord() - endNode.getXcoord();
         yDiff = this.getYcoord() - endNode.getYcoord();
-        zDiff = 3 * Math.abs(this.getFloor() - endNode.getFloor());
-
+        zDiff = 100 * (this.getFloor() - endNode.getFloor());
+        System.out.println(xDiff + ", " + zDiff + ", " + yDiff);
         xDiff = Math.pow(xDiff, 2);
         yDiff = Math.pow(yDiff, 2);
         zDiff = Math.pow(zDiff, 2);
