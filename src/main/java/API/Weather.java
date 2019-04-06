@@ -62,9 +62,20 @@ public class Weather {
             return "weatherIcons/thunderImage.jpg";
         }
     }
-    //Nathan - returns the current weather
-    public String getActTemp() {
 
+    /**@author Nathan
+     *
+     * @return the "actual" temp
+     */
+    public String getActTemp() {
         return currently.get().getByKey("temperature");
+    }
+
+    /**@author Nathan
+     *
+     * @return the "feel" temp
+     */
+    public String getFeelTemp() {
+        return currently.get().getByKey("apparentTemperature");
     }
 }
