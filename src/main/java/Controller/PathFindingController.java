@@ -218,6 +218,7 @@ public class PathFindingController {
                 circles.add(midCircle);
                 anchorPaneWindow.getChildren().add(midCircle);
             }
+            System.out.println(path.toString());
             anchorPaneWindow.getChildren().add(line);
             lines.add(line);
         }
@@ -228,6 +229,7 @@ public class PathFindingController {
     ArrayList<String> visited = new ArrayList<String>();
 
 
+    //Edited by Nikhil, now accounts for the z-axis during path finding.
     public Path findPath(Location start, Location end) {
         openList.add(start);
         start.setParentID("START");
@@ -262,7 +264,13 @@ public class PathFindingController {
                     return returnPath(l);
                 } else {
                     double gScore = q.getGScore() + l.getGScore(); //calculate base G score
-                    l.setScore(l.calculateScore(gScore, end)); //add in H score
+                    double mult; //mult used to account for z-distance
+                    //Nikhil- We want to prioritize getting onto the same floor.
+                    if(start.getFloor() == end.getFloor())
+                        mult = 10000;
+                    else
+                        mult = 100;
+                    l.setScore(l.calculateScore(gScore, mult, end)); //add in H score
                     l.setParentID(q.getLocID());
                     lookup.get(l.getLocID()).setParentID(q.getLocID());
                     if (!openList.contains(l) && !closeList.contains(l)) {

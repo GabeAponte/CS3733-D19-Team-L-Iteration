@@ -182,20 +182,21 @@ public class Location implements Comparable<Location>{
 
     //Nathan - calcualte this location's score
     //g is total edge length to this node, end node is ending node
-    public double calculateScore(double g, Location endNode){
-        double thisScore = g + findDistance(endNode);
+    public double calculateScore(double g, double mult, Location endNode){
+        double thisScore = g + findDistance(mult, endNode);
         this.setScore(thisScore);
         return thisScore;
     }
 
+    //Edited by Nikhil- Accounts for z-axis now
     //Nathan - finds DIRECT distance between two nodes
-    public double findDistance(Location endNode){
+    public double findDistance(Double mult, Location endNode){
         double xDiff, yDiff, zDiff;
 
         xDiff = this.getXcoord() - endNode.getXcoord();
         yDiff = this.getYcoord() - endNode.getYcoord();
-        zDiff = 100 * (this.getFloor() - endNode.getFloor());
-        System.out.println(xDiff + ", " + zDiff + ", " + yDiff);
+        //Nikhil- We want to prioritize getting onto the same floor to ensure we travel as fast as possible.
+        zDiff = mult * (this.getFloor() - endNode.getFloor());
         xDiff = Math.pow(xDiff, 2);
         yDiff = Math.pow(yDiff, 2);
         zDiff = Math.pow(zDiff, 2);
