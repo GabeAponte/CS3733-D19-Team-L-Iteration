@@ -3,6 +3,9 @@ package Controller;
 import Access.EdgesAccess;
 import Access.NodesAccess;
 import Object.*;
+import SearchingAlgorithms.AStarStrategy;
+import SearchingAlgorithms.BreadthFirstStrategy;
+import SearchingAlgorithms.PathfindingStrategy;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -70,6 +73,8 @@ public class PathFindingController {
 
     private ArrayList<Circle> circles = new ArrayList<Circle>();
     private ArrayList<Line> lines = new ArrayList<Line>();
+
+    private PathfindingStrategy pathAlgorithm;
 
 
     @FXML
@@ -145,12 +150,18 @@ public class PathFindingController {
         Location startNode = lookup.get(PathFindStartDrop.getValue().getLocID());
         Location endNode = lookup.get(PathFindEndDrop.getValue().getLocID());
 
-        Path path = findPath(startNode, endNode);
+        AStarStrategy astar = new AStarStrategy(lookup);
+        BreadthFirstStrategy bfirst = new BreadthFirstStrategy(lookup);
+        Path path = findAbstractPath(bfirst, startNode, endNode);
+        //Path path = findAbstractPath(astar, startNode, endNode);
+        //Path path = findPath(startNode, endNode);
         displayPath(path.getPath(), startNode, endNode);
+        printPath(path);
+
     }
 
     public void displayPath(ArrayList<Location> path, Location startNode, Location endNode){
-        path.add(startNode);
+        //path.add(startNode);
 
         for (Circle c: circles) {
             anchorPaneWindow.getChildren().remove(c);
@@ -195,74 +206,20 @@ public class PathFindingController {
         }
     }
 
-    ArrayList<Location> openList = new ArrayList<Location>();
-    ArrayList<Location> closeList = new ArrayList<Location>();
-    ArrayList<String> visited = new ArrayList<String>();
 
-
-    public Path findPath(Location start, Location end) {
-        openList.add(start);
-        start.setParentID("START");
-        ArrayList<Location> path = new ArrayList<Location>();
-        Path p = new Path(path);
-        if(start == end)
-        {
-            p.addToPath(start);
-            cleanup();
-            return p;
-        }
-        Location q = new Location();
-        //while there are items in the open list
-        while (!(openList.isEmpty())) {
-            q = q.findBestF(openList);
-            openList.remove(q);
-            closeList.add(q);
-            q = lookup.get(q.getLocID());
-            ArrayList<Edge> edge = q.getEdges();
-            ArrayList<Location> children = new ArrayList<Location>();
-            for (Edge e : edge) {
-                if (!(closeList.contains(e.getEndNode())) && !(openList.contains(e.getEndNode()))) {
-                    children.add(e.getEndNode());
-                    e.getEndNode().setGScore(e.findDistance(q, e.getEndNode()));
-                }
-            }
-            for (Location l : children) {
-                //condition for found node
-                if (l.getLocID().equals(end.getLocID())) {
-                    lookup.get(l.getLocID()).setParentID(q.getLocID());
-                    l.setParentID(q.getLocID());
-                    return returnPath(l);
-                } else {
-                    double gScore = q.getGScore() + l.getGScore(); //calculate base G score
-                    l.setScore(l.calculateScore(gScore, end)); //add in H score
-                    l.setParentID(q.getLocID());
-                    lookup.get(l.getLocID()).setParentID(q.getLocID());
-                    if (!openList.contains(l) && !closeList.contains(l)) {
-                        openList.add(l);
-                    }
-                }
-            }
-        }
-        return p;
-    }
-
-    public Path returnPath(Location obj) {
-        Location l = obj;
-        ArrayList<Location> path = new ArrayList<Location>();
-        Path p = new Path(path);
-        while (!(l.getParentID().equals("START"))) {
-            p.addToPath(l);
-            l = lookup.get(l.getParentID());
-        }
-        cleanup(); //resets the parents for future runs
-        printPath(p);
+    private Path findAbstractPath(PathfindingStrategy strategy, Location start, Location end) {
+        Path p = strategy.findPath(start, end);
         return p;
     }
 
     private void printPath(Path p) {
-        for (Location place : p.getPath()) {
-            System.out.println("Next, go to " + place.getLongName());
+        for (int i = 0; i < p.getPath().size() - 1; i ++) {
+            double pls = calculateSlope(p.getPath().get(i), p.getPath().get(i+1));
+            System.out.println(pls);
         }
+       // for (Location place : p.getPath()) {
+            //System.out.println("Next, go to " + place.getLongName());
+       // }
     }
 
     private void initializeTable(NodesAccess na, EdgesAccess ea) {
@@ -310,11 +267,9 @@ public class PathFindingController {
         }
     }
 
-    private void cleanup() {
-        for (Location x : lookup.values()) {
-            x.setParentID("RESET");
-        }
-        openList.clear();
-        closeList.clear();
+    private double calculateSlope(Location start, Location end) {
+        double xDiff = end.getXcoord() - start.getXcoord();
+        double yDiff = end.getYcoord() - start.getYcoord();
+        return yDiff/xDiff;
     }
 }
