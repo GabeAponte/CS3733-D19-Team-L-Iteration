@@ -54,6 +54,9 @@ public class PathFindingController {
     private RadioButton PathFindBrPOI;
 
     @FXML
+    private ComboBox<String> Filter;
+
+    @FXML
     private ComboBox<Location> PathFindEndDrop;
 
     @FXML
@@ -67,6 +70,8 @@ public class PathFindingController {
     private EdgesAccess ea;
     private final ObservableList<Location> data = FXCollections.observableArrayList();
     private HashMap<String, Location> lookup = new HashMap<String, Location>();
+    private final ObservableList<Location> noHall = FXCollections.observableArrayList();
+    private final ObservableList<String> filterList = FXCollections.observableArrayList();
 
     private ArrayList<Circle> circles = new ArrayList<Circle>();
     private ArrayList<Line> lines = new ArrayList<Line>();
@@ -76,7 +81,7 @@ public class PathFindingController {
     private void backPressed() throws IOException {
         thestage = (Stage) PathFindBack.getScene().getWindow();
         AnchorPane root;
-        if(signedIn) {
+        if (signedIn) {
             FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("LoggedInHome.fxml"));
 
             Parent sceneMain = loader.load();
@@ -96,9 +101,24 @@ public class PathFindingController {
         thestage.setScene(scene);
     }
 
-    public void init(boolean loggeedIn, String username){
-            uname = username;
-            init(loggeedIn);
+    public void init(boolean loggeedIn, String username) {
+        uname = username;
+        init(loggeedIn);
+    }
+
+    @FXML
+    public void filter() {
+        filterList.add("All");
+        filterList.add("Food and Retail");
+        filterList.add("Restrooms");
+        filterList.add("Conference Rooms");
+        filterList.add("Stairs");
+        filterList.add("Elevators");
+        filterList.add("Departments");
+        filterList.add("Exits");
+        filterList.add("Services");
+        filterList.add("Labs");
+        filterList.add("Information");
     }
 
     @SuppressWarnings("Convert2Diamond")
@@ -108,20 +128,27 @@ public class PathFindingController {
         na = new NodesAccess();
         ea = new EdgesAccess();
         initializeTable(na, ea);
-        PathFindStartDrop.setItems(data);
-        PathFindEndDrop.setItems(data);
+        filter();
+        noHall();
+        PathFindStartDrop.setItems(noHall);
+        PathFindEndDrop.setItems(noHall);
+        Filter.setItems(filterList);
     }
 
-        @SuppressWarnings("Convert2Diamond")
+    @SuppressWarnings("Convert2Diamond")
     @FXML
     public void init(boolean loggedIn, int num) {
         signedIn = loggedIn;
         na = new NodesAccess();
         ea = new EdgesAccess();
+        filter();
         initializeTable(na, ea);
-        if(num == 1){
-        PathFindStartDrop.setItems(data);
-        PathFindEndDrop.setItems(data);
+        if (num == 1) {
+            noHall();
+
+            PathFindStartDrop.setItems(noHall);
+            PathFindEndDrop.setItems(noHall);
+            Filter.setItems(filterList);
         }
 
     }
@@ -131,17 +158,16 @@ public class PathFindingController {
     }
 
     @FXML
-    private void locationsSelected(){
-        if(PathFindStartDrop.getValue() != null && PathFindEndDrop.getValue() != null){
+    private void locationsSelected() {
+        if (PathFindStartDrop.getValue() != null && PathFindEndDrop.getValue() != null) {
             PathFindSubmit.setDisable(false);
-        }
-        else{
+        } else {
             PathFindSubmit.setDisable(true);
         }
     }
 
     @FXML
-    private void submitPressed(){
+    private void submitPressed() {
         Location startNode = lookup.get(PathFindStartDrop.getValue().getLocID());
         Location endNode = lookup.get(PathFindEndDrop.getValue().getLocID());
 
@@ -149,13 +175,13 @@ public class PathFindingController {
         displayPath(path.getPath(), startNode, endNode);
     }
 
-    public void displayPath(ArrayList<Location> path, Location startNode, Location endNode){
+    public void displayPath(ArrayList<Location> path, Location startNode, Location endNode) {
         path.add(startNode);
 
-        for (Circle c: circles) {
+        for (Circle c : circles) {
             anchorPaneWindow.getChildren().remove(c);
         }
-        for (Line l: lines) {
+        for (Line l : lines) {
             anchorPaneWindow.getChildren().remove(l);
         }
 
@@ -164,8 +190,8 @@ public class PathFindingController {
         anchorPaneWindow.getChildren().add(StartCircle);
 
         //Setting the properties of the circle
-        StartCircle.setCenterX(79f + startNode.getXcoord()*0.137);
-        StartCircle.setCenterY(189f + startNode.getYcoord()*0.137);
+        StartCircle.setCenterX(79f + startNode.getXcoord() * 0.137);
+        StartCircle.setCenterY(189f + startNode.getYcoord() * 0.137);
         StartCircle.setRadius(3.0f);
 
         Circle EndCircle = new Circle();
@@ -173,21 +199,21 @@ public class PathFindingController {
         anchorPaneWindow.getChildren().add(EndCircle);
 
         //Setting the properties of the circle
-        EndCircle.setCenterX(79f + endNode.getXcoord()*0.137);
-        EndCircle.setCenterY(189f + endNode.getYcoord()*0.137);
+        EndCircle.setCenterX(79f + endNode.getXcoord() * 0.137);
+        EndCircle.setCenterY(189f + endNode.getYcoord() * 0.137);
         EndCircle.setRadius(3.0f);
         EndCircle.setVisible(true);
 
         circles.add(StartCircle);
         circles.add(EndCircle);
 
-        for (int i = 0; i < path.size()-1; i++) {
+        for (int i = 0; i < path.size() - 1; i++) {
             Line line = new Line();
 
-            line.setStartX(79f + path.get(i).getXcoord()*0.137);
-            line.setStartY(189f + path.get(i).getYcoord()*0.137);
-            line.setEndX(79f + path.get(i+1).getXcoord()*0.137);
-            line.setEndY(189f + path.get(i+1).getYcoord()*0.137);
+            line.setStartX(79f + path.get(i).getXcoord() * 0.137);
+            line.setStartY(189f + path.get(i).getYcoord() * 0.137);
+            line.setEndX(79f + path.get(i + 1).getXcoord() * 0.137);
+            line.setEndY(189f + path.get(i + 1).getYcoord() * 0.137);
 
             anchorPaneWindow.getChildren().add(line);
 
@@ -205,8 +231,7 @@ public class PathFindingController {
         start.setParentID("START");
         ArrayList<Location> path = new ArrayList<Location>();
         Path p = new Path(path);
-        if(start == end)
-        {
+        if (start == end) {
             p.addToPath(start);
             cleanup();
             return p;
@@ -283,8 +308,7 @@ public class PathFindingController {
                         testx.addEdge(e);
                     }
                 }
-            }
-            else {
+            } else {
                 edgeList = ea.getConnectedNodes(arr.get(0));
                 for (int j = 0; j < edgeList.size(); j++) {
                     String nodeID = edgeList.get(j);
@@ -300,6 +324,84 @@ public class PathFindingController {
                 }
             }
             count++;
+        }
+    }
+
+    @FXML
+    private void noHall() {
+        String filter = "";
+        String filter2 = "";
+
+        for (int j = 0; j < data.size(); j++) {
+            if (!(data.get(j).getNodeType().contains("HALL"))) {
+                noHall.add(data.get(j));
+            }
+        }
+        PathFindStartDrop.setItems(noHall);
+        PathFindEndDrop.setItems(noHall);
+
+        if (Filter.getValue() == ("Restrooms")) {
+            filter = "REST";
+            filter2 = "BATH";
+        }
+        if (Filter.getValue() == ("All")) {
+            noHall.clear();
+            for (int j = 0; j < data.size(); j++) {
+                if (!(data.get(j).getNodeType().contains("HALL"))) {
+                    noHall.add(data.get(j));
+                }
+            }
+            PathFindStartDrop.setItems(noHall);
+            PathFindEndDrop.setItems(noHall);
+        }
+        if (Filter.getValue() == ("Conference Rooms")) {
+            filter = "CONF";
+        }
+        if (Filter.getValue() == ("Exits")) {
+            filter = "EXIT";
+        }
+        if (Filter.getValue() == ("Departments")) {
+            filter = "DEPT";
+        }
+        if (Filter.getValue() == ("Stairs")) {
+            filter = "STAI";
+        }
+        if (Filter.getValue() == ("Elevators")) {
+            filter = "ELEV";
+        }
+        if (Filter.getValue() == ("Labs")) {
+            filter = "LABS";
+        }
+        if (Filter.getValue() == ("Information")) {
+            filter = "INFO";
+        }
+        if (Filter.getValue() == ("Services")) {
+            filter = "SERV";
+        }
+        if (Filter.getValue() == ("Food and Retail")) {
+            filter = "RETL";
+        }
+
+        if (Filter.getValue() != null && Filter.getValue() != "All") {
+            noHall.clear();
+            for (int j = 0; j < data.size(); j++) {
+                if ((data.get(j).getNodeType().contains(filter))) {
+                    noHall.add(data.get(j));
+                }
+            }
+            PathFindStartDrop.setItems(noHall);
+            PathFindEndDrop.setItems(noHall);
+        }
+
+        if (Filter.getValue() != null && Filter.getValue() == "Restrooms") {
+            noHall.clear();
+            for (int j = 0; j < data.size(); j++) {
+                if ((data.get(j).getNodeType().contains(filter))|| (data.get(j).getNodeType().contains(filter2))) {
+                    noHall.add(data.get(j));
+                }
+            }
+            PathFindStartDrop.setItems(noHall);
+            PathFindEndDrop.setItems(noHall);
         }
     }
 

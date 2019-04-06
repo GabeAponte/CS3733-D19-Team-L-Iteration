@@ -233,12 +233,10 @@ public class Location implements Comparable<Location>{
         if(count == openList.size()-1){
             openList.add(A);
         }
-
-
     }
 
     @Override
     public String toString() {
-        return longName + " (" + locID +")";
+        return longName;
     }
 }
