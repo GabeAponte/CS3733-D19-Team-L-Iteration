@@ -26,10 +26,6 @@ import java.util.HashMap;
 @SuppressWarnings("Duplicates")
 public class PathFindingController {
 
-
-    private boolean signedIn;
-    private String uname;
-
     @FXML
     private Stage thestage;
 
@@ -75,20 +71,28 @@ public class PathFindingController {
     private ArrayList<Circle> circles = new ArrayList<Circle>();
     private ArrayList<Line> lines = new ArrayList<Line>();
 
-    private PathfindingStrategy x;
-
+    public void initialize() {
+        Singleton single = Singleton.getInstance();
+        na = new NodesAccess();
+        ea = new EdgesAccess();
+        initializeTable(na, ea);
+        if(single.getNum() == 1){
+            PathFindStartDrop.setItems(data);
+            PathFindEndDrop.setItems(data);
+        }
+    }
 
     @FXML
     private void backPressed() throws IOException {
+        Singleton single = Singleton.getInstance();
         thestage = (Stage) PathFindBack.getScene().getWindow();
         AnchorPane root;
-        if(signedIn) {
+        if(single.isLoggedIn()) {
             FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("LoggedInHome.fxml"));
 
             Parent sceneMain = loader.load();
 
             LoggedInHomeController controller = loader.<LoggedInHomeController>getController();
-            controller.init(uname);
 
             Stage theStage = (Stage) PathFindBack.getScene().getWindow();
 
@@ -100,36 +104,6 @@ public class PathFindingController {
         }
         Scene scene = new Scene(root);
         thestage.setScene(scene);
-    }
-
-    public void init(boolean loggeedIn, String username){
-            uname = username;
-            init(loggeedIn);
-    }
-
-    @SuppressWarnings("Convert2Diamond")
-    @FXML
-    public void init(boolean loggedIn) {
-        signedIn = loggedIn;
-        na = new NodesAccess();
-        ea = new EdgesAccess();
-        initializeTable(na, ea);
-        PathFindStartDrop.setItems(data);
-        PathFindEndDrop.setItems(data);
-    }
-
-        @SuppressWarnings("Convert2Diamond")
-    @FXML
-    public void init(boolean loggedIn, int num) {
-        signedIn = loggedIn;
-        na = new NodesAccess();
-        ea = new EdgesAccess();
-        initializeTable(na, ea);
-        if(num == 1){
-        PathFindStartDrop.setItems(data);
-        PathFindEndDrop.setItems(data);
-        }
-
     }
 
     public HashMap<String, Location> getLookup() {

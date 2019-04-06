@@ -14,7 +14,9 @@ public class PathFindingControllerTest {
     public void findPathTest2() {
 
         PathFindingController A = new PathFindingController();
-        A.init(false,0);
+
+
+        A.initialize();
         Location start = A.getLookup().get("DCONF00102");
         Location end = A.getLookup().get("DDEPT00202");
 
@@ -49,7 +51,7 @@ public class PathFindingControllerTest {
     public void findPathTest3() {
 
         PathFindingController A = new PathFindingController();
-        A.init(false,0);
+        A.initialize();
         Location start = A.getLookup().get("DSTAI00302");
         Location end = A.getLookup().get("DHALL04502");
 
@@ -101,7 +103,7 @@ public class PathFindingControllerTest {
     public void findPathTest4() {
 
         PathFindingController A = new PathFindingController();
-        A.init(false,0);
+        A.initialize();
         Location start = A.getLookup().get("DLABS00102");
         Location end = A.getLookup().get("DREST00302");
 
@@ -130,7 +132,7 @@ public class PathFindingControllerTest {
     public void findPathTest5() {
 
         PathFindingController A = new PathFindingController();
-        A.init(false,0);
+        A.initialize();
         Location start = A.getLookup().get("DINFO00202");
         Location end = A.getLookup().get("DDEPT00302");
 
@@ -171,7 +173,7 @@ public class PathFindingControllerTest {
     public void findPathTest6() {
 
         PathFindingController A = new PathFindingController();
-        A.init(false,0);
+        A.initialize();
         Location start = A.getLookup().get("DELEV00A02");
         Location end = A.getLookup().get("DCONF00102");
 
@@ -201,7 +203,7 @@ public class PathFindingControllerTest {
     public void findPathTest7() {
 
         PathFindingController A = new PathFindingController();
-        A.init(false,0);
+        A.initialize();
         Location start = A.getLookup().get("DCONF00102");
         Location end = A.getLookup().get("DELEV00A02");
 
@@ -231,7 +233,7 @@ public class PathFindingControllerTest {
     public void findPathTest8() {
 
         PathFindingController A = new PathFindingController();
-        A.init(false,0);
+        A.initialize();
         Location start = A.getLookup().get("DEXIT00102");
         Location end = A.getLookup().get("DHALL06002");
 
@@ -260,7 +262,7 @@ public class PathFindingControllerTest {
     public void findPathTest9() {
 
         PathFindingController A = new PathFindingController();
-        A.init(false,0);
+        A.initialize();
         Location start = A.getLookup().get("DHALL04602");
         Location end = A.getLookup().get("DHALL04702");
 

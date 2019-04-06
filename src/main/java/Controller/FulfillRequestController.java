@@ -17,8 +17,6 @@ public class FulfillRequestController {
 
     private Stage thestage;
 
-    private String uname;
-
     private ServiceRequestTable theRequest;
 
     @FXML
@@ -32,11 +30,6 @@ public class FulfillRequestController {
 
     @FXML
     private Label errorLabel;
-
-    public void init(String username){
-        uname = username;
-    }
-
     @SuppressWarnings("Duplicates")
 
     @FXML
@@ -49,7 +42,6 @@ public class FulfillRequestController {
 
         //Get controller of scene2
         ActiveServiceRequestsController scene2Controller = loader.getController();
-        scene2Controller.init(uname);
 
         Scene scene = new Scene(roots);
         Stage thestage = (Stage) errorLabel.getScene().getWindow();
@@ -83,7 +75,6 @@ public class FulfillRequestController {
 
             //Get controller of scene2
             ActiveServiceRequestsController scene2Controller = loader.getController();
-            scene2Controller.init(uname);
 
             Scene scene = new Scene(roots);
             Stage thestage = (Stage) errorLabel.getScene().getWindow();
