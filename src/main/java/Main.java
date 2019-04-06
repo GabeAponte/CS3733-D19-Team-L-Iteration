@@ -25,7 +25,7 @@ public class Main extends Application {
         ReservationAccess ra = new ReservationAccess();
         ServiceRequestAccess sra = new ServiceRequestAccess();
         SuggestionBasicAccess sba = new SuggestionBasicAccess();
-        //ea.deleteRecords();
+        ea.deleteRecords();
 
         na.readCSVintoTable();
         ea.readCSVintoTable();

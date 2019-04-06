@@ -170,7 +170,10 @@ public class PathFindingController {
         StartCircle.setCenterX(79f + startNode.getXcoord()*0.137);
         StartCircle.setCenterY(189f + startNode.getYcoord()*0.137);
         StartCircle.setRadius(3.0f);
-        currFloor = startNode.getFloor();
+        if(startNode.getFloor() != 2){
+            StartCircle.setVisible(false);
+        }
+        currFloor = 2;
 
 
         Circle EndCircle = new Circle();
@@ -180,62 +183,39 @@ public class PathFindingController {
         EndCircle.setCenterX(79f + endNode.getXcoord() * 0.137);
         EndCircle.setCenterY(189f + endNode.getYcoord() * 0.137);
         EndCircle.setRadius(3.0f);
-
-        if(endNode.getFloor() == currFloor) {
-            EndCircle.setVisible(true);
-
-            circles.add(StartCircle);
-            circles.add(EndCircle);
-
-            for (int i = 0; i < path.size() - 1; i++) {
-                Line line = new Line();
-
-
-                line.setStartX(79f + path.get(i).getXcoord() * 0.137);
-                line.setStartY(189f + path.get(i).getYcoord() * 0.137);
-                line.setEndX(79f + path.get(i + 1).getXcoord() * 0.137);
-                line.setEndY(189f + path.get(i + 1).getYcoord() * 0.137);
-                line.setVisible(true);
-
-
-                anchorPaneWindow.getChildren().add(line);
-
-                lines.add(line);
-            }
-        } else {
+        if(endNode.getFloor() != 2){
             EndCircle.setVisible(false);
+        }
 
-            circles.add(StartCircle);
-            circles.add(EndCircle);
+        circles.add(StartCircle);
+        circles.add(EndCircle);
 
-            for (int i = 0; i < path.size() - 1; i++) {
-                Line line = new Line();
-                line.setStartX(79f + path.get(i).getXcoord() * 0.137);
-                line.setStartY(189f + path.get(i).getYcoord() * 0.137);
-                line.setEndX(79f + path.get(i + 1).getXcoord() * 0.137);
-                line.setEndY(189f + path.get(i + 1).getYcoord() * 0.137);
+        for (int i = 0; i < path.size() - 1; i++) {
+            Line line = new Line();
+            line.setStartX(79f + path.get(i).getXcoord() * 0.137);
+            line.setStartY(189f + path.get(i).getYcoord() * 0.137);
+            line.setEndX(79f + path.get(i + 1).getXcoord() * 0.137);
+            line.setEndY(189f + path.get(i + 1).getYcoord() * 0.137);
 
-                if(path.get(i).getFloor() != path.get(i+1).getFloor()){
-                    line.setVisible(false);
-                    Circle midCircle = new Circle();
+            //if switching floors
+            if(path.get(i).getFloor() != path.get(i+1).getFloor()){
+                //set this line to not visible
+                line.setVisible(false);
+                Circle midCircle = new Circle();
 
-                    //Setting the properties of the circle
-                    midCircle.setCenterX(79f + path.get(i).getXcoord() * 0.137);
-                    midCircle.setCenterY(189f + path.get(i).getYcoord() * 0.137);
-                    midCircle.setRadius(3.0f);
-                    midCircle.setVisible(false);
-                    if(path.get(i).getFloor() == currFloor || path.get(i+1).getFloor() == currFloor){
-                        midCircle.setVisible(true);
-                    }
-                    circles.add(midCircle);
-                    anchorPaneWindow.getChildren().add(midCircle);
+                //Setting the properties of the circle
+                midCircle.setCenterX(79f + path.get(i).getXcoord() * 0.137);
+                midCircle.setCenterY(189f + path.get(i).getYcoord() * 0.137);
+                midCircle.setRadius(3.0f);
+                midCircle.setVisible(false);
+                if(path.get(i).getFloor() == currFloor || path.get(i+1).getFloor() == currFloor){
+                    midCircle.setVisible(true);
                 }
-
-
-                anchorPaneWindow.getChildren().add(line);
-
-                lines.add(line);
+                circles.add(midCircle);
+                anchorPaneWindow.getChildren().add(midCircle);
             }
+            anchorPaneWindow.getChildren().add(line);
+            lines.add(line);
         }
     }
 
