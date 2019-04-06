@@ -7,12 +7,14 @@ package Object;
   Object.Singleton single = Object.Singleton.getInstance();
   int check = single.getNum();
  */
+
 public class Singleton {
 
     private static boolean loggedIn;
     private static String username;
     private static int num;
     private static String kioskID;
+    private static int typePathfind;
 
     private static Singleton single = new Singleton();
     private Singleton(){
