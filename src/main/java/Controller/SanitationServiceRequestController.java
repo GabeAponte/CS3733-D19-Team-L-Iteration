@@ -49,16 +49,14 @@ public class SanitationServiceRequestController {
         location1.setItems(data);
         typeBox1.getItems().addAll(
                 "Vomit",
-                "spill",
-                "blood",
-                "filthy object",
-                "chemicals"
+                "Spill",
+                "Rodent Found",
+                "Bio Hazard"
         );
         urgencyLevel1.getItems().addAll(
                 "Utmost Urgency",
-                "do soon",
-                "small thing",
-                "complete at your leisure"
+                "Complete Quickly",
+                "Complete Within Week"
         );
         submit1.setDisable(true);
     }
