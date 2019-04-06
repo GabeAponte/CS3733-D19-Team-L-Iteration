@@ -190,15 +190,18 @@ public class Location implements Comparable<Location>{
 
     //Nathan - finds DIRECT distance between two nodes
     public double findDistance(Location endNode){
-        double xDiff, yDiff;
+        double xDiff, yDiff, zDiff;
 
         xDiff = this.getXcoord() - endNode.getXcoord();
         yDiff = this.getYcoord() - endNode.getYcoord();
+        zDiff = 3 * Math.abs(this.getFloor() - endNode.getFloor());
 
         xDiff = Math.pow(xDiff, 2);
         yDiff = Math.pow(yDiff, 2);
+        zDiff = Math.pow(zDiff, 2);
 
         xDiff += yDiff;
+        xDiff += zDiff;
         return Math.sqrt(xDiff);
     }
 
