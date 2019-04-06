@@ -1,4 +1,5 @@
 import Access.*;
+import Object.*;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -20,15 +21,23 @@ public class Main extends Application {
 
     @SuppressWarnings("RedundantThrows")
     public static void main(String[] args) throws URISyntaxException {
-//        NodesAccess na = new NodesAccess();
-//        EdgesAccess ea = new EdgesAccess();
-//        ReservationAccess ra = new ReservationAccess();
-//        ServiceRequestAccess sra = new ServiceRequestAccess();
-//        SuggestionBasicAccess sba = new SuggestionBasicAccess();
-//        ea.deleteRecords();
-//
-//        na.readCSVintoTable();
-//        ea.readCSVintoTable();
+        //Singleton single = Singleton.getInstance();
+        NodesAccess na = new NodesAccess();
+        System.out.println("NA");
+        EdgesAccess ea = new EdgesAccess();
+        System.out.println("EA");
+        ReservationAccess ra = new ReservationAccess();
+        System.out.println("RA");
+        ServiceRequestAccess sra = new ServiceRequestAccess();
+        System.out.println("SRA");
+        SuggestionBasicAccess sba = new SuggestionBasicAccess();
+        System.out.println("SBA");
+        //ea.deleteRecords();
+
+        //na.readCSVintoTable();
+        System.out.println("CSV1");
+        //ea.readCSVintoTable();
+        System.out.println("CSV2");
         launch(args);
     }
 }

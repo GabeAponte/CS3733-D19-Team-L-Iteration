@@ -1,5 +1,6 @@
 package Controller;
 
+import Object.*;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -11,7 +12,6 @@ import javafx.stage.Stage;
 import java.io.IOException;
 
 public class LoggedInHomeController {
-    String uname;
     @FXML
     private Button fufillServiceRequest;
 
@@ -30,14 +30,12 @@ public class LoggedInHomeController {
     @FXML
     private Button serviceRequest;
 
-    public void init(String username){
-        uname = username;
-    }
-
     @FXML
     private void logOut() throws IOException {
         Stage thestage = (Stage) logOut.getScene().getWindow();
         AnchorPane root;
+        Singleton.setLoggedIn(false);
+        Singleton.setUsername("");
         root = FXMLLoader.load(getClass().getClassLoader().getResource("HospitalHome.fxml"));
         Scene scene = new Scene(root);
         thestage.setScene(scene);
@@ -50,7 +48,6 @@ public class LoggedInHomeController {
         Parent sceneMain = loader.load();
 
         BookRoomController controller = loader.<BookRoomController>getController();
-        controller.init(uname);
 
         Stage theStage = (Stage) bookRoom.getScene().getWindow();
 
@@ -66,7 +63,6 @@ public class LoggedInHomeController {
         Parent sceneMain = pLoader.load();
 
         PathFindingController pController = pLoader.<PathFindingController>getController();
-        pController.init(signedIn, uname);
 
         Stage theStage = (Stage) findPath.getScene().getWindow();
 
@@ -82,7 +78,6 @@ public class LoggedInHomeController {
         Parent sceneMain = sLoader.load();
 
         ServiceRequestController sController = sLoader.<ServiceRequestController>getController();
-        sController.init(signedIn, uname);
 
         Stage theStage = (Stage) findPath.getScene().getWindow();
 
@@ -98,7 +93,6 @@ public class LoggedInHomeController {
         Parent sceneMain = loader.load();
 
         ActiveServiceRequestsController controller = loader.<ActiveServiceRequestsController>getController();
-        controller.init(uname);
 
         Stage theStage = (Stage) fufillServiceRequest.getScene().getWindow();
 
@@ -113,7 +107,6 @@ public class LoggedInHomeController {
         Parent sceneMain = loader.load();
 
         EditLocationController controller = loader.<EditLocationController>getController();
-        controller.init(uname);
 
         Stage theStage = (Stage) fufillServiceRequest.getScene().getWindow();
 

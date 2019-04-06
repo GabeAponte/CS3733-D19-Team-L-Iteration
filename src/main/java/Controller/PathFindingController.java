@@ -21,12 +21,9 @@ import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 
 import Access.EdgesAccess;
-import Object.Edge;
 import Access.NodesAccess;
-import Object.Location;
-import Object.Path;
-import Object.PanAndZoomPane;
-import Object.SceneGestures;
+import Object.*;
+
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -36,10 +33,6 @@ import java.util.HashMap;
 
 @SuppressWarnings("Duplicates")
 public class PathFindingController {
-
-
-    private boolean signedIn;
-    private String uname;
 
     @FXML
     private Stage thestage;
@@ -94,48 +87,15 @@ public class PathFindingController {
     private ArrayList<Circle> circles = new ArrayList<Circle>();
     private ArrayList<Line> lines = new ArrayList<Line>();
 
-
-    @FXML
-    private void backPressed() throws IOException {
-        thestage = (Stage) PathFindBack.getScene().getWindow();
-        AnchorPane root;
-        if(signedIn) {
-            FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("LoggedInHome.fxml"));
-
-            Parent sceneMain = loader.load();
-
-            LoggedInHomeController controller = loader.<LoggedInHomeController>getController();
-            controller.init(uname);
-
-            Stage theStage = (Stage) PathFindBack.getScene().getWindow();
-
-            Scene scene = new Scene(sceneMain);
-            theStage.setScene(scene);
-            return;
-        } else {
-            root = FXMLLoader.load(getClass().getClassLoader().getResource("HospitalHome.fxml"));
-        }
-        Scene scene = new Scene(root);
-        thestage.setScene(scene);
-    }
-
-    public void init(boolean loggedIn, String username){
-        uname = username;
-        init(loggedIn, 1);
-    }
-
-    @SuppressWarnings("Convert2Diamond")
-    @FXML
-    public void init(boolean loggedIn, int num) {
-        signedIn = loggedIn;
+    public void initialize() {
+        Singleton single = Singleton.getInstance();
         na = new NodesAccess();
         ea = new EdgesAccess();
         initializeTable(na, ea);
-        if(num == 1){
+        if(single.getNum() == 1){
             PathFindStartDrop.setItems(data);
             PathFindEndDrop.setItems(data);
         }
-
         anchorPanePath = new AnchorPane();
         anchorPanePath.setLayoutX(79);
         anchorPanePath.setLayoutY(189);
@@ -196,6 +156,34 @@ public class PathFindingController {
         anchorPaneWindow.getChildren().add(anchorPanePath);
 
         sceneGestures.reset(hospitalFloorMap, hospitalFloorMap.getImage().getWidth(), hospitalFloorMap.getImage().getHeight());
+    }
+
+    @FXML
+    private void backPressed() throws IOException {
+        Singleton single = Singleton.getInstance();
+        thestage = (Stage) PathFindBack.getScene().getWindow();
+        AnchorPane root;
+        if(single.isLoggedIn()) {
+            FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("LoggedInHome.fxml"));
+
+            Parent sceneMain = loader.load();
+
+            LoggedInHomeController controller = loader.<LoggedInHomeController>getController();
+
+            Stage theStage = (Stage) PathFindBack.getScene().getWindow();
+
+            Scene scene = new Scene(sceneMain);
+            theStage.setScene(scene);
+            return;
+        } else {
+            root = FXMLLoader.load(getClass().getClassLoader().getResource("HospitalHome.fxml"));
+        }
+        Scene scene = new Scene(root);
+        thestage.setScene(scene);
+    }
+
+    public HashMap<String, Location> getLookup() {
+        return lookup;
     }
 
     @FXML
