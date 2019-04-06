@@ -173,7 +173,7 @@ public class PathFindingController {
         if(startNode.getFloor() != 2){
             StartCircle.setVisible(false);
         }
-        currFloor = 2;
+        currFloor = 2; //Since we currently only display floor 2, this is set to 2.
 
 
         Circle EndCircle = new Circle();
