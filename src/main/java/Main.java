@@ -20,15 +20,15 @@ public class Main extends Application {
 
     @SuppressWarnings("RedundantThrows")
     public static void main(String[] args) throws URISyntaxException {
-        NodesAccess na = new NodesAccess();
-        EdgesAccess ea = new EdgesAccess();
-        ReservationAccess ra = new ReservationAccess();
-        ServiceRequestAccess sra = new ServiceRequestAccess();
-        SuggestionBasicAccess sba = new SuggestionBasicAccess();
-        ea.deleteRecords();
-
-        na.readCSVintoTable();
-        ea.readCSVintoTable();
+//        NodesAccess na = new NodesAccess();
+//        EdgesAccess ea = new EdgesAccess();
+//        ReservationAccess ra = new ReservationAccess();
+//        ServiceRequestAccess sra = new ServiceRequestAccess();
+//        SuggestionBasicAccess sba = new SuggestionBasicAccess();
+//        ea.deleteRecords();
+//
+//        na.readCSVintoTable();
+//        ea.readCSVintoTable();
         launch(args);
     }
 }

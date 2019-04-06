@@ -1,3 +1,5 @@
+package Object;
+
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
@@ -118,64 +120,64 @@ public class JFXScrollPane extends StackPane {
 
         });
 
-        scrollPane.vvalueProperty().addListener((o, oldVal, newVal) -> {
-            if (minHeight == -1) {
-                minHeight = bottomBar.getBoundsInParent().getMinY();
-                maxHeight = header.getHeight();
-            }
-            if (initY == -1) {
-                initY = oldSceneTransform.getTy();
-            }
-
-            // translation
-            double ty = contentContainer.getLocalToSceneTransform().getTy();
-            double opacity = Math.abs(ty - initY) / minHeight;
-            opacity = opacity > 1 ? 1 : (opacity < 0) ? 0 : opacity;
-            // update properties according to the scroll value
-            // opacity
-            headerBackground.setOpacity(1 - opacity);
-            condensedHeaderBackground.setOpacity(opacity);
-
-            if (newVal.doubleValue() == 0) {
-                header.setTranslateY(0);
-                topBar.setTranslateY(0);
-//            } else if (newVal.doubleValue() == 1) {
-//                topBar.setTranslateY(minHeight);
-//                header.setStyle("-fx-border-color: RED");
-//                header.setTranslateY(-maxHeight);
-            } else {
-                double dy = ty - initY;
-                topBar.setTranslateY(-dy <= minHeight ? -dy : minHeight);
-
-                double oldTy = oldSceneTransform.getTy();
-                double diff = oldTy - ty;
-
-                if (-dy > minHeight && newVal.doubleValue() < oldVal.doubleValue()) {
-                    if (-(header.getTranslateY() - diff) > minHeight) {
-                        header.setTranslateY(header.getTranslateY() - diff);
-                    } else {
-                        header.setTranslateY(-minHeight);
-                    }
-                } else {
-                    if (-dy > maxHeight) {
-                        if (-(header.getTranslateY() - diff) < maxHeight) {
-                            header.setTranslateY(header.getTranslateY() - diff);
-                        } else {
-                            header.setTranslateY(-maxHeight);
-                        }
-                    } else {
-                        if (diff > maxHeight) {
-                            header.setTranslateY(-maxHeight);
-                        } else {
-                            header.setTranslateY(dy);
-                        }
-                    }
-                }
-            }
-            // scale
-            scale.setX(map(opacity, 0, 1, 1, 0.75));
-            scale.setY(map(opacity, 0, 1, 1, 0.75));
-        });
+//        scrollPane.vvalueProperty().addListener((o, oldVal, newVal) -> {
+//            if (minHeight == -1) {
+//                minHeight = bottomBar.getBoundsInParent().getMinY();
+//                maxHeight = header.getHeight();
+//            }
+////            if (initY == -1) {
+////                initY = oldSceneTransform.getTy();
+////            }
+//
+//            // translation
+//            double ty = contentContainer.getLocalToSceneTransform().getTy();
+//            double opacity = Math.abs(ty - initY) / minHeight;
+//            opacity = opacity > 1 ? 1 : (opacity < 0) ? 0 : opacity;
+//            // update properties according to the scroll value
+//            // opacity
+//            headerBackground.setOpacity(1 - opacity);
+//            condensedHeaderBackground.setOpacity(opacity);
+//
+//            if (newVal.doubleValue() == 0) {
+//                header.setTranslateY(0);
+//                topBar.setTranslateY(0);
+////            } else if (newVal.doubleValue() == 1) {
+////                topBar.setTranslateY(minHeight);
+////                header.setStyle("-fx-border-color: RED");
+////                header.setTranslateY(-maxHeight);
+//            } else {
+//                double dy = ty - initY;
+//                topBar.setTranslateY(-dy <= minHeight ? -dy : minHeight);
+//
+//                double oldTy = oldSceneTransform.getTy();
+//                double diff = oldTy - ty;
+//
+//                if (-dy > minHeight && newVal.doubleValue() < oldVal.doubleValue()) {
+//                    if (-(header.getTranslateY() - diff) > minHeight) {
+//                        header.setTranslateY(header.getTranslateY() - diff);
+//                    } else {
+//                        header.setTranslateY(-minHeight);
+//                    }
+//                } else {
+//                    if (-dy > maxHeight) {
+//                        if (-(header.getTranslateY() - diff) < maxHeight) {
+//                            header.setTranslateY(header.getTranslateY() - diff);
+//                        } else {
+//                            header.setTranslateY(-maxHeight);
+//                        }
+//                    } else {
+//                        if (diff > maxHeight) {
+//                            header.setTranslateY(-maxHeight);
+//                        } else {
+//                            header.setTranslateY(dy);
+//                        }
+//                    }
+//                }
+//            }
+//            // scale
+//            scale.setX(map(opacity, 0, 1, 1, 0.75));
+//            scale.setY(map(opacity, 0, 1, 1, 0.75));
+//        });
         scrollPane.setPannable(true);
         getChildren().setAll(scrollPane, header);
     }

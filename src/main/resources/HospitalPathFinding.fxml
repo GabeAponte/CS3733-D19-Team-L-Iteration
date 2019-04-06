@@ -31,7 +31,7 @@
       </JFXButton>
       <ComboBox fx:id="PathFindStartDrop" layoutX="867.0" layoutY="269.0" onAction="#locationsSelected" prefHeight="50.0" prefWidth="294.0" promptText="Select a Start Location" stylesheets="@size.css" />
       <ComboBox fx:id="PathFindEndDrop" layoutX="867.0" layoutY="333.0" onAction="#locationsSelected" prefHeight="50.0" prefWidth="294.0" promptText="Select an End Location" stylesheets="@size.css" />
-      <ImageView fx:id="hospitalFloorMap" fitHeight="464.0" fitWidth="685.0" layoutX="79.0" layoutY="189.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="hospitalFloorMap" fitHeight="464.0" fitWidth="685.0" layoutX="0.0" layoutY="0.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@SoftEng_UI_Mockup_Pics/02_thesecondfloor.png" />
          </image>

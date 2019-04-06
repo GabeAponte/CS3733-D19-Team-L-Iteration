@@ -1,3 +1,7 @@
+package Controller;
+
+import javafx.beans.property.DoubleProperty;
+import javafx.beans.property.SimpleDoubleProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -13,9 +17,20 @@ import javafx.scene.shape.Circle;
 import javafx.scene.shape.Line;
 import javafx.stage.Stage;
 
+import Access.EdgesAccess;
+import Object.Edge;
+import Access.NodesAccess;
+import Object.Location;
+import Object.Path;
+import Object.JFXScrollPane;
+import Object.PanAndZoomPane;
+import Object.SceneGestures;
+
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
+
+
 
 @SuppressWarnings("Duplicates")
 public class PathFindingController {
@@ -104,21 +119,10 @@ public class PathFindingController {
 
     public void init(boolean loggedIn, String username){
         uname = username;
-        init(loggedIn);
+        init(loggedIn, 1);
     }
 
     @SuppressWarnings("Convert2Diamond")
-    @FXML
-    public void init(boolean loggedIn) {
-        signedIn = loggedIn;
-        na = new NodesAccess();
-        ea = new EdgesAccess();
-        initializeTable(na, ea);
-        PathFindStartDrop.setItems(data);
-        PathFindEndDrop.setItems(data);
-    }
-
-        @SuppressWarnings("Convert2Diamond")
     @FXML
     public void init(boolean loggedIn, int num) {
         signedIn = loggedIn;
@@ -126,12 +130,11 @@ public class PathFindingController {
         ea = new EdgesAccess();
         initializeTable(na, ea);
         if(num == 1){
-        PathFindStartDrop.setItems(data);
-        PathFindEndDrop.setItems(data);
+            PathFindStartDrop.setItems(data);
+            PathFindEndDrop.setItems(data);
         }
 
         zoomPaneImage = new PanAndZoomPane();
-
         scrollPanePleaseWork = new JFXScrollPane();
         ScrollPane scrollPane = scrollPanePleaseWork.getScrollPane();
 
@@ -148,7 +151,9 @@ public class PathFindingController {
         deltaY.bind(zoomPaneImage.deltaY);
         zoomPaneImage.getChildren().add(hospitalFloorMap);
 
-        SceneGestures sceneGestures = new SceneGestures(zoomPaneImage);
+        SceneGestures sceneGestures = new SceneGestures(zoomPaneImage, hospitalFloorMap);
+
+        sceneGestures.setImage(hospitalFloorMap);
 
         scrollPane.setContent(zoomPaneImage);
         zoomPaneImage.toBack();
@@ -171,6 +176,8 @@ public class PathFindingController {
         zoomPaneImage.setLayoutY(0);
 
         anchorPaneWindow.getChildren().add(zoomPaneImage);
+
+        sceneGestures.reset(hospitalFloorMap, hospitalFloorMap.getImage().getWidth(), hospitalFloorMap.getImage().getHeight());
     }
 
     @FXML

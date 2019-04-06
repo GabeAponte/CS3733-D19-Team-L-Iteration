@@ -1,3 +1,5 @@
+package Object;
+
 import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
 import javafx.animation.Timeline;
@@ -9,7 +11,7 @@ import javafx.util.Duration;
 public class PanAndZoomPane extends Pane {
 
     public static final double DEFAULT_DELTA = 1.2d;
-    DoubleProperty myScale = new SimpleDoubleProperty(1.0);
+    public DoubleProperty myScale = new SimpleDoubleProperty(1.0);
     public DoubleProperty deltaY = new SimpleDoubleProperty(0.0);
     private Timeline timeline;
 
