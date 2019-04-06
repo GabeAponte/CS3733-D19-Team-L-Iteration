@@ -32,11 +32,11 @@ public class Main extends Application {
         System.out.println("SRA");
         SuggestionBasicAccess sba = new SuggestionBasicAccess();
         System.out.println("SBA");
-        ea.deleteRecords();
+        //ea.deleteRecords();
 
-        na.readCSVintoTable();
+        //na.readCSVintoTable();
         System.out.println("CSV1");
-        ea.readCSVintoTable();
+        //ea.readCSVintoTable();
         System.out.println("CSV2");
         launch(args);
     }

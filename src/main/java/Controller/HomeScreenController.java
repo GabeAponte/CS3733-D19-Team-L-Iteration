@@ -1,5 +1,6 @@
 package Controller;
 
+import API.Weather;
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
@@ -10,6 +11,8 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import javafx.util.Duration;
@@ -34,8 +37,20 @@ public class HomeScreenController {
     @FXML
     Label timeLabel;
 
+    @FXML
+    ImageView weatherIcon;
+
+    @FXML
+    Label tempDisplay;
+
 
     public void initialize(){
+        Weather weatherBoy = new Weather();
+        String icon = weatherBoy.getIcon();
+        Image img = new Image(icon);
+        weatherIcon.setImage(img);
+        tempDisplay.setText(weatherBoy.getActTemp());
+
         Timeline clock = new Timeline(new KeyFrame(Duration.ZERO, e -> {
             long second = LocalDateTime.now().getSecond();
             long minute = LocalDateTime.now().getMinute();
