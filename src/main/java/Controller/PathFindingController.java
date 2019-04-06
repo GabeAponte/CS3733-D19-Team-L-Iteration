@@ -218,9 +218,6 @@ public class PathFindingController {
     }
 
     public void displayPath(ArrayList<Location> path, Location startNode, Location endNode){
-        System.out.println(sceneGestures.getImageScale());
-        System.out.println(sceneGestures.getImageLocation());
-
         path.add(startNode);
 
         for (Circle c: circles) {
@@ -239,6 +236,8 @@ public class PathFindingController {
             line.setStartY((path.get(i).getYcoord()-point.getY())*0.137*sceneGestures.getImageScale());
             line.setEndX((path.get(i+1).getXcoord()-point.getX())*0.137*sceneGestures.getImageScale());
             line.setEndY((path.get(i+1).getYcoord()-point.getY())*0.137*sceneGestures.getImageScale());
+
+            line.setStrokeWidth(Math.max(1,sceneGestures.getImageScale()/8));
 
             lines.add(line);
 
