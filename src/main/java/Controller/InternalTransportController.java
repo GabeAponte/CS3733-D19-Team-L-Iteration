@@ -1,6 +1,7 @@
 package Controller;
 
 import Access.EdgesAccess;
+import Access.InternalTransportAccess;
 import Access.NodesAccess;
 import Object.*;
 import com.jfoenix.controls.JFXButton;
@@ -38,7 +39,7 @@ public class InternalTransportController {
     private HashMap<String, Location> lookup = new HashMap<String, Location>();
 
     public void initialize(){
-        submitbtn.setDisable(true);
+        //submitbtn.setDisable(true);
         na = new NodesAccess();
         initializeTable(na);
         startBox.setItems(data);
@@ -64,7 +65,27 @@ public class InternalTransportController {
     private void submitPressed(){
         Location startNode = lookup.get(startBox.getValue().getLocID());
         Location endNode = lookup.get(endBox.getValue().getLocID());
+        if(startNode == null || endNode == null || startNode.equals(endNode)){
+            System.out.println("EQUAL");
+            return;
+        }
         String comment = commentBox.getText();
+        if(comment.trim().isEmpty()){
+            System.out.println("EMPTY");
+            return;
+        }
+        String type = typeField.getText();
+        if(comment.trim().isEmpty()){
+            System.out.println("type");
+            return;
+        }
+        String phone = phoneField.getText();
+        if(comment.trim().isEmpty()){
+            System.out.println("phone");
+            return;
+        }
+        InternalTransportAccess ita = new InternalTransportAccess();
+        ita.makeRequest(comment, startNode, endNode, type, phone);
     }
 
 
