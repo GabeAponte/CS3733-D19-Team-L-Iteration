@@ -71,6 +71,8 @@ public class PathFindingController {
     private ArrayList<Circle> circles = new ArrayList<Circle>();
     private ArrayList<Line> lines = new ArrayList<Line>();
 
+    private PathfindingStrategy pathAlgorithm;
+
     public void initialize() {
         Singleton single = Singleton.getInstance();
         na = new NodesAccess();
