@@ -19,7 +19,7 @@ public class ServiceRequestController {
     private Button SanitationServices;
 
     @FXML
-    private Button Transportation;
+    private Button ExternalTransportation;
 
     @FXML
     private Button ITServices;
@@ -32,6 +32,24 @@ public class ServiceRequestController {
 
     @FXML
     private Button SecurityStaff;
+
+    @FXML
+    private Button Florist;
+
+    @FXML
+    private Button InternalTransportation;
+
+    @FXML
+    private Button ReligiousServices;
+
+    @FXML
+    private Button AudioVisual;
+
+    @FXML
+    private Button PrescriptionServices;
+
+    @FXML
+    private Button GiftStoreServices;
 
     @FXML
     public Button Back;
@@ -71,12 +89,12 @@ public class ServiceRequestController {
 
     //passes off type of button
     @FXML
-    private void makeRequest(ActionEvent e) throws IOException{
+    /*private void makeRequest(ActionEvent e) throws IOException{
         //source button determines type for service request object, text for label
         String typeOfService = "";
         if(e.getSource() == SanitationServices) {
             typeOfService = "Sanitation";
-        } else if(e.getSource() == Transportation) {
+        } else if(e.getSource() == ExternalTransportation) {
             typeOfService = "Transportation";
         } else if(e.getSource() == ITServices) {
             typeOfService = "IT";
@@ -90,21 +108,46 @@ public class ServiceRequestController {
 
         changeToSub(typeOfService);
     }
-
+*/
     //Nathan - changes screen to service sub screen, param "service" determines label on sub screen
-    private void changeToSub(String service) throws IOException{
-        FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("ServiceSubController.fxml"));
+    private void changeToSub(ActionEvent e) throws IOException{
+        String fxml;
+
+        if(e.getSource() == SanitationServices) {
+            fxml = "HospitalHome.fxml";
+        } else if(e.getSource() == ExternalTransportation) {
+            fxml = "HospitalHome.fxml";
+        } else if(e.getSource() == ITServices) {
+            fxml = "HospitalHome.fxml";
+        } else if(e.getSource() == FacilitiesMaintenance) {
+            fxml = "HospitalHome.fxml";
+        } else if(e.getSource() == LanguageInterpreter) {
+            fxml = "HospitalHome.fxml";
+        } else if(e.getSource() == Florist) {
+            fxml = "HospitalHome.fxml";
+        } else if(e.getSource() == InternalTransportation) {
+            fxml = "HospitalHome.fxml";
+        } else if(e.getSource() == ReligiousServices) {
+            fxml = "ReligiousServiceRequest.fxml";
+        } else if(e.getSource() == AudioVisual) {
+            fxml = "HospitalHome.fxml";
+        } else if(e.getSource() == PrescriptionServices) {
+            fxml = "HospitalHome.fxml";
+        } else if(e.getSource() == GiftStoreServices) {
+            fxml = "HospitalHome.fxml";
+        } else if(e.getSource() == SecurityStaff) {
+            fxml = "HospitalHome.fxml";
+
+        } else {
+            fxml = "HospitalHome.fxml";
+        }
+        FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource(fxml));
 
         Parent sceneMain = loader.load();
 
-        ServiceSubController controller = loader.<ServiceSubController>getController();
-        if(signedIn){
-            controller.init(service, signedIn, uname);
-        } else {
-            controller.init(service, signedIn);
-        }
+        //ServiceSubController controller = loader.<ServiceSubController>getController();
 
-        Stage theStage = (Stage) SanitationServices.getScene().getWindow();
+        Stage theStage = (Stage) ReligiousServices.getScene().getWindow();
 
         Scene scene = new Scene(sceneMain);
         theStage.setScene(scene);
