@@ -12,6 +12,7 @@ public class Singleton {
     private static boolean loggedIn;
     private static String username;
     private static int num;
+    private static String kioskID;
 
     private static Singleton single = new Singleton();
     private Singleton(){
@@ -46,5 +47,13 @@ public class Singleton {
 
     public static void setNum(int num) {
         Singleton.num = num;
+    }
+
+    public static String getKioskID() {
+        return kioskID;
+    }
+
+    public static void setKioskID(String kioskID) {
+        Singleton.kioskID = kioskID;
     }
 }
