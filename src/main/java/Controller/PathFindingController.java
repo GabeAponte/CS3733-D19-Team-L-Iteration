@@ -6,6 +6,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Point2D;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
@@ -15,6 +16,7 @@ import javafx.scene.input.ScrollEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Line;
+import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 
 import Access.EdgesAccess;
@@ -22,7 +24,6 @@ import Object.Edge;
 import Access.NodesAccess;
 import Object.Location;
 import Object.Path;
-import Object.JFXScrollPane;
 import Object.PanAndZoomPane;
 import Object.SceneGestures;
 
@@ -79,8 +80,8 @@ public class PathFindingController {
     private ImageView hospitalFloorMap;
 
     private PanAndZoomPane zoomPaneImage;
-
-    private JFXScrollPane scrollPanePleaseWork;
+    private SceneGestures sceneGestures;
+    private AnchorPane anchorPanePath;
     private final DoubleProperty zoomProperty = new SimpleDoubleProperty(1.0d);
     private final DoubleProperty deltaY = new SimpleDoubleProperty(0.0d);
 
@@ -134,48 +135,64 @@ public class PathFindingController {
             PathFindEndDrop.setItems(data);
         }
 
-        zoomPaneImage = new PanAndZoomPane();
-        scrollPanePleaseWork = new JFXScrollPane();
-        ScrollPane scrollPane = scrollPanePleaseWork.getScrollPane();
+        anchorPanePath = new AnchorPane();
+        anchorPanePath.setLayoutX(79);
+        anchorPanePath.setLayoutY(189);
+//        anchorPanePath.setMaxSize(685,464);
+        anchorPanePath.setPrefSize(685,464);
+        Rectangle clip = new Rectangle();
+        clip.widthProperty().bind(hospitalFloorMap.fitWidthProperty());
+        clip.heightProperty().bind(hospitalFloorMap.fitHeightProperty());
+        anchorPanePath.setClip(clip);
 
-        scrollPane.setPannable(true);
-        scrollPane.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
-        scrollPane.setVbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
-        AnchorPane.setTopAnchor(scrollPane, 0.0d);
-        AnchorPane.setRightAnchor(scrollPane, 0.0d);
-        AnchorPane.setBottomAnchor(scrollPane, 0.0d);
-        AnchorPane.setLeftAnchor(scrollPane, 0.0d);
+
+
+        zoomPaneImage = new PanAndZoomPane();
+//        scrollPanePleaseWork = new JFXScrollPane();
+//        ScrollPane scrollPane = scrollPanePleaseWork.getScrollPane();
+
+//        scrollPane.setPannable(true);
+//        scrollPane.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
+//        scrollPane.setVbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
+//        AnchorPane.setTopAnchor(scrollPane, 0.0d);
+//        AnchorPane.setRightAnchor(scrollPane, 0.0d);
+//        AnchorPane.setBottomAnchor(scrollPane, 0.0d);
+//        AnchorPane.setLeftAnchor(scrollPane, 0.0d);
 
         // create canvas
         zoomProperty.bind(zoomPaneImage.myScale);
         deltaY.bind(zoomPaneImage.deltaY);
         zoomPaneImage.getChildren().add(hospitalFloorMap);
 
-        SceneGestures sceneGestures = new SceneGestures(zoomPaneImage, hospitalFloorMap);
+        sceneGestures = new SceneGestures(zoomPaneImage, hospitalFloorMap);
 
-        sceneGestures.setImage(hospitalFloorMap);
+//        scrollPane.setContent(zoomPaneImage);
+//        zoomPaneImage.toBack();
+        anchorPanePath.addEventFilter( MouseEvent.MOUSE_CLICKED, sceneGestures.getOnMouseClickedEventHandler());
+        anchorPanePath.addEventFilter( MouseEvent.MOUSE_PRESSED, sceneGestures.getOnMousePressedEventHandler());
+        anchorPanePath.addEventFilter( MouseEvent.MOUSE_DRAGGED, sceneGestures.getOnMouseDraggedEventHandler());
+        anchorPanePath.addEventFilter( ScrollEvent.ANY, sceneGestures.getOnScrollEventHandler());
 
-        scrollPane.setContent(zoomPaneImage);
-        zoomPaneImage.toBack();
-        scrollPane.addEventFilter( MouseEvent.MOUSE_CLICKED, sceneGestures.getOnMouseClickedEventHandler());
-        scrollPane.addEventFilter( MouseEvent.MOUSE_PRESSED, sceneGestures.getOnMousePressedEventHandler());
-        scrollPane.addEventFilter( MouseEvent.MOUSE_DRAGGED, sceneGestures.getOnMouseDraggedEventHandler());
-        scrollPane.addEventFilter( ScrollEvent.ANY, sceneGestures.getOnScrollEventHandler());
+//        zoomPaneImage.addEventFilter( MouseEvent.MOUSE_CLICKED, sceneGestures.getOnMouseClickedEventHandler());
+//        zoomPaneImage.addEventFilter( MouseEvent.MOUSE_PRESSED, sceneGestures.getOnMousePressedEventHandler());
+//        zoomPaneImage.addEventFilter( MouseEvent.MOUSE_DRAGGED, sceneGestures.getOnMouseDraggedEventHandler());
+//        zoomPaneImage.addEventFilter( ScrollEvent.ANY, sceneGestures.getOnScrollEventHandler());
 
-        anchorPaneWindow.getChildren().add(scrollPanePleaseWork);
+//        anchorPaneWindow.getChildren().add(scrollPanePleaseWork);
 
-        scrollPanePleaseWork.setContent(zoomPaneImage);
-        scrollPanePleaseWork.setMaxSize(685, 464);
-        scrollPanePleaseWork.setMinSize(685, 464);
-        scrollPanePleaseWork.setLayoutX(79);
-        scrollPanePleaseWork.setLayoutY(189);
-        scrollPane.setLayoutX(0);
-        scrollPane.setLayoutX(0);
+//        scrollPanePleaseWork.setContent(zoomPaneImage);
+//        scrollPanePleaseWork.setMaxSize(685, 464);
+//        scrollPanePleaseWork.setMinSize(685, 464);
+//        scrollPanePleaseWork.setLayoutX(79);
+//        scrollPanePleaseWork.setLayoutY(189);
+//        scrollPane.setLayoutX(0);
+//        scrollPane.setLayoutX(0);
 
-        zoomPaneImage.setLayoutX(0);
-        zoomPaneImage.setLayoutY(0);
+        zoomPaneImage.setLayoutX(79);
+        zoomPaneImage.setLayoutY(189);
 
         anchorPaneWindow.getChildren().add(zoomPaneImage);
+        anchorPaneWindow.getChildren().add(anchorPanePath);
 
         sceneGestures.reset(hospitalFloorMap, hospitalFloorMap.getImage().getWidth(), hospitalFloorMap.getImage().getHeight());
     }
@@ -200,33 +217,37 @@ public class PathFindingController {
     }
 
     public void displayPath(ArrayList<Location> path, Location startNode, Location endNode){
+        System.out.println(sceneGestures.getImageScale());
+        System.out.println(sceneGestures.getImageLocation());
+
         path.add(startNode);
 
         for (Circle c: circles) {
-            zoomPaneImage.getChildren().remove(c);
+            anchorPanePath.getChildren().remove(c);
         }
         for (Line l: lines) {
-            zoomPaneImage.getChildren().remove(l);
+            anchorPanePath.getChildren().remove(l);
         }
+
+        Point2D point = sceneGestures.getImageLocation();
 
         Circle StartCircle = new Circle();
 
-        zoomPaneImage.getChildren().add(StartCircle);
+        anchorPanePath.getChildren().add(StartCircle);
 
         //Setting the properties of the circle
-        StartCircle.setCenterX(startNode.getXcoord()*0.137*zoomPaneImage.getScale());
-        StartCircle.setCenterY(startNode.getYcoord()*0.137*zoomPaneImage.getScale());
-        StartCircle.setRadius(3.0f);
+        StartCircle.setCenterX((startNode.getXcoord()-point.getX())*0.137*sceneGestures.getImageScale());
+        StartCircle.setCenterY((startNode.getYcoord()-point.getY())*0.137*sceneGestures.getImageScale());
+        StartCircle.setRadius(Math.max(2.5,2.5f*(sceneGestures.getImageScale()/4)));
 
         Circle EndCircle = new Circle();
 
-        zoomPaneImage.getChildren().add(EndCircle);
+        anchorPanePath.getChildren().add(EndCircle);
 
         //Setting the properties of the circle
-        EndCircle.setCenterX(endNode.getXcoord()*0.137*zoomPaneImage.getScale());
-        EndCircle.setCenterY(endNode.getYcoord()*0.137*zoomPaneImage.getScale());
-        EndCircle.setRadius(3.0f);
-        EndCircle.setVisible(true);
+        EndCircle.setCenterX((endNode.getXcoord()-point.getX())*0.137*sceneGestures.getImageScale());
+        EndCircle.setCenterY((endNode.getYcoord()-point.getY())*0.137*sceneGestures.getImageScale());
+        EndCircle.setRadius(Math.max(2.5,2.5f*(sceneGestures.getImageScale()/4)));
 
         circles.add(StartCircle);
         circles.add(EndCircle);
@@ -234,15 +255,17 @@ public class PathFindingController {
         for (int i = 0; i < path.size()-1; i++) {
             Line line = new Line();
 
-            line.setStartX(path.get(i).getXcoord()*0.137*zoomPaneImage.getScale());
-            line.setStartY(path.get(i).getYcoord()*0.137*zoomPaneImage.getScale());
-            line.setEndX(path.get(i+1).getXcoord()*0.137*zoomPaneImage.getScale());
-            line.setEndY(path.get(i+1).getYcoord()*0.137*zoomPaneImage.getScale());
-
-            zoomPaneImage.getChildren().add(line);
+            line.setStartX((path.get(i).getXcoord()-point.getX())*0.137*sceneGestures.getImageScale());
+            line.setStartY((path.get(i).getYcoord()-point.getY())*0.137*sceneGestures.getImageScale());
+            line.setEndX((path.get(i+1).getXcoord()-point.getX())*0.137*sceneGestures.getImageScale());
+            line.setEndY((path.get(i+1).getYcoord()-point.getY())*0.137*sceneGestures.getImageScale());
 
             lines.add(line);
+
+            anchorPanePath.getChildren().add(line);
         }
+
+        sceneGestures.setDrawPath(StartCircle, EndCircle, lines);
     }
 
     ArrayList<Location> openList = new ArrayList<Location>();

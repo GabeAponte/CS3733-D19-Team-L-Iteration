@@ -8,6 +8,10 @@ import javafx.geometry.Rectangle2D;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.input.ScrollEvent;
+import javafx.scene.shape.Circle;
+import javafx.scene.shape.Line;
+
+import java.util.ArrayList;
 
 public class SceneGestures {
 
@@ -17,9 +21,13 @@ public class SceneGestures {
     double width;
     double height;
 
+    private Circle startCircle;
+    private Circle endCircle;
+    private ArrayList<Line> lines;
+
     ObjectProperty<Point2D> mouseDown = new SimpleObjectProperty<>();
 
-    private static final int MIN_PIXELS = 10;
+    private static final int MIN_PIXELS = 235;
 
 
     public SceneGestures( PanAndZoomPane canvas, ImageView i) {
@@ -29,7 +37,7 @@ public class SceneGestures {
         width = imageView.getImage().getWidth();
 
         imageView.setPreserveRatio(true);
-        reset(imageView, width / 2, height / 2);
+        reset(imageView, width, height);
     }
 
     public EventHandler<MouseEvent> getOnMouseClickedEventHandler() {
@@ -51,19 +59,22 @@ public class SceneGestures {
     private EventHandler<MouseEvent> onMousePressedEventHandler = new EventHandler<MouseEvent>() {
 
         public void handle(MouseEvent event) {
-
             Point2D mousePress = imageViewToImage(imageView, new Point2D(event.getX(), event.getY()));
             mouseDown.set(mousePress);
-
         }
 
     };
 
     private EventHandler<MouseEvent> onMouseDraggedEventHandler = new EventHandler<MouseEvent>() {
         public void handle(MouseEvent event) {
+            Point2D oldPoint = getImageLocation();
+            Point2D oldPointBottom = getBottomCorner();
+
+
             Point2D dragPoint = imageViewToImage(imageView, new Point2D(event.getX(), event.getY()));
             shift(imageView, dragPoint.subtract(mouseDown.get()));
             mouseDown.set(imageViewToImage(imageView, new Point2D(event.getX(), event.getY())));
+            redrawPath(oldPoint, oldPointBottom, getImageScale());
         }
     };
 
@@ -115,6 +126,9 @@ public class SceneGestures {
     private EventHandler<ScrollEvent> onScrollEventHandler = new EventHandler<ScrollEvent>() {
         @Override
         public void handle(ScrollEvent event) {
+            double oldScale = getImageScale();
+            Point2D oldPoint = getImageLocation();
+            Point2D oldPointBottom = getBottomCorner();
 
             double delta = -event.getDeltaY();
             Rectangle2D viewport = imageView.getViewport();
@@ -151,6 +165,7 @@ public class SceneGestures {
 
             imageView.setViewport(new Rectangle2D(newMinX, newMinY, newWidth, newHeight));
 
+            redrawPath(oldPoint, oldPointBottom, oldScale);
         }
     };
 
@@ -164,12 +179,60 @@ public class SceneGestures {
         @Override
         public void handle(MouseEvent event) {
             if (event.getClickCount() == 2) {
+                Point2D oldPoint = getImageLocation();
+                Point2D oldPointBottom = getBottomCorner();
+                double oldScale = getImageScale();
                 reset(imageView, width, height);
+                redrawPath(oldPoint, oldPointBottom, oldScale);
             }
         }
     };
 
-    public void setImage(ImageView i){
+    public double getImageScale(){
+        return imageView.getImage().getWidth()/imageView.getViewport().getWidth();
+    }
 
+    public Point2D getImageLocation(){
+        return new Point2D(imageView.getViewport().getMinX(), imageView.getViewport().getMinY());
+    }
+
+    private Point2D getBottomCorner(){
+        return new Point2D(imageView.getViewport().getMaxX(), imageView.getViewport().getMaxY());
+    }
+
+
+    public void setDrawPath(Circle sCircle, Circle eCircle, ArrayList<Line> l){
+        startCircle = sCircle;
+        endCircle = eCircle;
+        lines = l;
+    }
+
+    private void redrawPath(Point2D oldPointUpper, Point2D oldPointBottom, double oldScale){
+        if(startCircle != null) {
+            double diffX = getImageLocation().getX() - oldPointUpper.getX();
+            double diffY = getImageLocation().getY() - oldPointUpper.getY();
+            double diffX2 =  getBottomCorner().getX() - oldPointBottom.getX();
+            double diffY2 =  getBottomCorner().getY() - oldPointBottom.getY();
+            double diffScale = getImageScale()/oldScale;
+
+            System.out.println(diffX + "   " + diffX2 + "   " + diffScale);
+
+            startCircle.setCenterX((startCircle.getCenterX() - (diffX-diffX2)/2));
+            startCircle.setCenterY((startCircle.getCenterY() - (diffY-diffY2)/2));
+            startCircle.setRadius(Math.max(2.5,2.5f*getImageScale()/4));
+
+            endCircle.setCenterX((endCircle.getCenterX() - (diffX-diffX2)/2));
+            endCircle.setCenterY((endCircle.getCenterY() - (diffY-diffY2)/2));
+            endCircle.setRadius(Math.max(2.5,2.5f*getImageScale()/4));
+
+            for (int i = 0; i < lines.size(); i++) {
+                Line line = lines.get(i);
+
+                line.setStartX((line.getStartX() - (diffX-diffX2)/2));
+                line.setStartY((line.getStartY() - (diffY-diffY2)/2));
+                line.setEndX((line.getEndX() - (diffX-diffX2)/2));
+                line.setEndY((line.getEndY() - (diffY-diffY2)/2));
+            }
+        }
     }
 }
