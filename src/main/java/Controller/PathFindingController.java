@@ -25,6 +25,7 @@ public class PathFindingController {
 
     private boolean signedIn;
     private String uname;
+    private int currFloor;
 
     @FXML
     private Stage thestage;
@@ -70,6 +71,7 @@ public class PathFindingController {
 
     private ArrayList<Circle> circles = new ArrayList<Circle>();
     private ArrayList<Line> lines = new ArrayList<Line>();
+    private ArrayList<Location> pathLocations = new ArrayList<Location>();
 
 
     @FXML
@@ -167,31 +169,70 @@ public class PathFindingController {
         StartCircle.setCenterX(79f + startNode.getXcoord()*0.137);
         StartCircle.setCenterY(189f + startNode.getYcoord()*0.137);
         StartCircle.setRadius(3.0f);
+        currFloor = startNode.getFloor();
+
 
         Circle EndCircle = new Circle();
-
         anchorPaneWindow.getChildren().add(EndCircle);
 
         //Setting the properties of the circle
-        EndCircle.setCenterX(79f + endNode.getXcoord()*0.137);
-        EndCircle.setCenterY(189f + endNode.getYcoord()*0.137);
+        EndCircle.setCenterX(79f + endNode.getXcoord() * 0.137);
+        EndCircle.setCenterY(189f + endNode.getYcoord() * 0.137);
         EndCircle.setRadius(3.0f);
-        EndCircle.setVisible(true);
 
-        circles.add(StartCircle);
-        circles.add(EndCircle);
+        if(endNode.getFloor() == currFloor) {
+            EndCircle.setVisible(true);
 
-        for (int i = 0; i < path.size()-1; i++) {
-            Line line = new Line();
+            circles.add(StartCircle);
+            circles.add(EndCircle);
 
-            line.setStartX(79f + path.get(i).getXcoord()*0.137);
-            line.setStartY(189f + path.get(i).getYcoord()*0.137);
-            line.setEndX(79f + path.get(i+1).getXcoord()*0.137);
-            line.setEndY(189f + path.get(i+1).getYcoord()*0.137);
+            for (int i = 0; i < path.size() - 1; i++) {
+                Line line = new Line();
 
-            anchorPaneWindow.getChildren().add(line);
 
-            lines.add(line);
+                line.setStartX(79f + path.get(i).getXcoord() * 0.137);
+                line.setStartY(189f + path.get(i).getYcoord() * 0.137);
+                line.setEndX(79f + path.get(i + 1).getXcoord() * 0.137);
+                line.setEndY(189f + path.get(i + 1).getYcoord() * 0.137);
+
+
+                anchorPaneWindow.getChildren().add(line);
+
+                lines.add(line);
+            }
+        } else {
+            EndCircle.setVisible(false);
+
+            circles.add(StartCircle);
+            circles.add(EndCircle);
+
+            for (int i = 0; i < path.size() - 1; i++) {
+                Line line = new Line();
+                line.setStartX(79f + path.get(i).getXcoord() * 0.137);
+                line.setStartY(189f + path.get(i).getYcoord() * 0.137);
+                line.setEndX(79f + path.get(i + 1).getXcoord() * 0.137);
+                line.setEndY(189f + path.get(i + 1).getYcoord() * 0.137);
+
+                if(path.get(i+1).getFloor() != currFloor){
+                    line.setVisible(false);
+                    Circle midCircle = new Circle();
+
+
+                    anchorPaneWindow.getChildren().add(midCircle);
+
+                    //Setting the properties of the circle
+                    midCircle.setCenterX(79f + path.get(i).getXcoord() * 0.137);
+                    midCircle.setCenterY(189f + path.get(i).getYcoord() * 0.137);
+                    midCircle.setRadius(3.0f);
+                    midCircle.setVisible(true);
+                    circles.add(midCircle);
+                }
+
+
+                anchorPaneWindow.getChildren().add(line);
+
+                lines.add(line);
+            }
         }
     }
 
