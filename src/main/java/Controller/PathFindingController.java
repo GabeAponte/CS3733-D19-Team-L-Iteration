@@ -137,6 +137,7 @@ public class PathFindingController {
         //Path path = findAbstractPath(astar, startNode, endNode);
         //Path path = findPath(startNode, endNode);
         displayPath(Dpath.getPath(), startNode, endNode);
+        System.out.println(calculateAngle(startNode,lookup.get("DHALL01002"),endNode));
     }
 
     public void displayPath(ArrayList<Location> path, Location startNode, Location endNode){
@@ -302,5 +303,35 @@ public class PathFindingController {
         }
         openList.clear();
         closeList.clear();
+    }
+    // To calculate the angele of turning
+    private double calculateAngle(Location a, Location b, Location c){
+        double distanceA, distanceB,distanceC;
+        double angleTurning;
+        //distance A
+        distanceA = a.findDistance(b);
+        //distance B
+        distanceB = b.findDistance(c);
+        //distance C
+        distanceC = a.findDistance(c);
+
+        angleTurning = Math.acos((distanceA*distanceA + distanceB*distanceB - distanceC*distanceC)
+                / (2*distanceA*distanceB));
+        //angleTurning = Math.acos(1);
+        angleTurning = angleTurning /(2*Math.PI) * 360;
+        System.out.println("Da " + distanceA);
+        System.out.println("Db " + distanceB);
+        System.out.println("Dc " + distanceC);
+        System.out.println("Angle " + angleTurning);
+
+
+        return  angleTurning;
+
+    }
+    // Print the textual direction
+    private void printPath(ArrayList<Location> A){
+
+
+
     }
 }
