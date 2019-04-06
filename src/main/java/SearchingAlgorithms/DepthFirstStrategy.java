@@ -3,13 +3,18 @@ import Access.EdgesAccess;
 import Object.*;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.LinkedList;
 
 public class DepthFirstStrategy implements PathfindingStrategy{
 
     private HashMap<String, Location> lookup;
+    private ArrayList<Location> visited;
+    private LinkedList<Location> stack;
 
     public DepthFirstStrategy(HashMap<String, Location> hash) {
         this.lookup = hash;
+        this.visited = new ArrayList<Location>();
+        this.stack = new LinkedList<Location>();
         //this.start = start;
         //this.end = end;
     }
@@ -18,26 +23,55 @@ public class DepthFirstStrategy implements PathfindingStrategy{
     public Path findPath(Location start, Location end) {
         EdgesAccess ea = new EdgesAccess();
         ArrayList<Location> path = new ArrayList<Location>();
+        stack.push(start);
+        start.setParentID("START");
         Path p = new Path(path);
-        if(start == end)
-        {
-            p.addToPath(start);
-            return p;
+
+        while(!stack.isEmpty()){
+            Location A = stack.pop();
+            if (A.equals(end)) {
+                return returnPath(A);
+            }
+            else{
+                visited.add(A);
+                ArrayList<String> neighboursID = ea.getConnectedNodes(A.getLocID());
+
+                for(int i = 0; i < neighboursID.size(); i++ ){
+                    Location l = lookup.get(neighboursID.get(i));
+                    if(l != null && !(visited.contains(l))){
+                        stack.add(l);
+                        visited.add(l);
+                        l.setParentID(A.getLocID());
+
+                    }
+                }
+            }
+
         }
 
-        path.add(start);
-        start.setParentID("START");
-        ArrayList<String> tempList = new ArrayList<String>();
-        tempList = (ea.getConnectedNodes(start.getLocID()));
-        
-
-
-
-
-
-
-        Path p = new Path(path);
 
         return p;
     }
+    //Larry - revise the return path for DFS; return the path given a location
+    public Path returnPath(Location obj) {
+        Location l = obj;
+        ArrayList<Location> path = new ArrayList<Location>();
+        Path p = new Path(path);
+        while (!(l.getParentID().equals("START"))) {
+            p.addToPath(l);
+            l = lookup.get(l.getParentID());
+        }
+        cleanup();
+        return p;
+    }
+
+    //Larry - clean up the list
+    private void cleanup() {
+        for (Location x : lookup.values()) {
+            x.setParentID("RESET");
+        }
+        visited.clear();
+        stack.clear();
+    }
+
 }

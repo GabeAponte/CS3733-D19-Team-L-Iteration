@@ -6,6 +6,7 @@ import Object.*;
 import SearchingAlgorithms.AStarStrategy;
 import SearchingAlgorithms.BreadthFirstStrategy;
 import SearchingAlgorithms.PathfindingStrategy;
+import SearchingAlgorithms.DepthFirstStrategy;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -150,12 +151,16 @@ public class PathFindingController {
         Location startNode = lookup.get(PathFindStartDrop.getValue().getLocID());
         Location endNode = lookup.get(PathFindEndDrop.getValue().getLocID());
 
-        AStarStrategy astar = new AStarStrategy(lookup);
-        BreadthFirstStrategy bfirst = new BreadthFirstStrategy(lookup);
-        Path path = findAbstractPath(bfirst, startNode, endNode);
+       // AStarStrategy astar = new AStarStrategy(lookup);
+        //BreadthFirstStrategy bfirst = new BreadthFirstStrategy(lookup);
+        //Path Bpath = findAbstractPath(bfirst, startNode, endNode);
+
+        DepthFirstStrategy dfirst = new DepthFirstStrategy(lookup);
+        Path Dpath = findAbstractPath(dfirst, startNode, endNode);
+
         //Path path = findAbstractPath(astar, startNode, endNode);
         //Path path = findPath(startNode, endNode);
-        displayPath(path.getPath(), startNode, endNode);
+        displayPath(Dpath.getPath(), startNode, endNode);
     }
 
     public void displayPath(ArrayList<Location> path, Location startNode, Location endNode){
