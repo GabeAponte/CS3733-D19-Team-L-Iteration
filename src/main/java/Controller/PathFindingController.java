@@ -1,33 +1,38 @@
 package Controller;
 
-import Access.EdgesAccess;
-import Access.NodesAccess;
-import Object.*;
-import SearchingAlgorithms.AStarStrategy;
-import SearchingAlgorithms.BreadthFirstStrategy;
-import SearchingAlgorithms.PathfindingStrategy;
+import javafx.beans.property.DoubleProperty;
+import javafx.beans.property.SimpleDoubleProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Point2D;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.input.ScrollEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Line;
+import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
+
+import Access.EdgesAccess;
+import Access.NodesAccess;
+import Object.*;
+
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+
+
 @SuppressWarnings("Duplicates")
 public class PathFindingController {
-
-
-    private boolean signedIn;
-    private String uname;
 
     @FXML
     private Stage thestage;
@@ -65,6 +70,14 @@ public class PathFindingController {
     @FXML
     private AnchorPane anchorPaneWindow;
 
+    @FXML
+    private ImageView hospitalFloorMap;
+
+    private PanAndZoomPane zoomPaneImage;
+    private SceneGestures sceneGestures;
+    private AnchorPane anchorPanePath;
+    private final DoubleProperty zoomProperty = new SimpleDoubleProperty(1.0d);
+    private final DoubleProperty deltaY = new SimpleDoubleProperty(0.0d);
 
     private NodesAccess na;
     private EdgesAccess ea;
@@ -74,20 +87,88 @@ public class PathFindingController {
     private ArrayList<Circle> circles = new ArrayList<Circle>();
     private ArrayList<Line> lines = new ArrayList<Line>();
 
-    private PathfindingStrategy pathAlgorithm;
+    public void initialize() {
+        Singleton single = Singleton.getInstance();
+        na = new NodesAccess();
+        ea = new EdgesAccess();
+        initializeTable(na, ea);
+        if(single.getNum() == 1){
+            PathFindStartDrop.setItems(data);
+            PathFindEndDrop.setItems(data);
+        }
+        anchorPanePath = new AnchorPane();
+        anchorPanePath.setLayoutX(79);
+        anchorPanePath.setLayoutY(189);
+//        anchorPanePath.setMaxSize(685,464);
+        anchorPanePath.setPrefSize(685,464);
+        Rectangle clip = new Rectangle();
+        clip.widthProperty().bind(hospitalFloorMap.fitWidthProperty());
+        clip.heightProperty().bind(hospitalFloorMap.fitHeightProperty());
+        anchorPanePath.setClip(clip);
 
+
+
+        zoomPaneImage = new PanAndZoomPane();
+//        scrollPanePleaseWork = new JFXScrollPane();
+//        ScrollPane scrollPane = scrollPanePleaseWork.getScrollPane();
+
+//        scrollPane.setPannable(true);
+//        scrollPane.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
+//        scrollPane.setVbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
+//        AnchorPane.setTopAnchor(scrollPane, 0.0d);
+//        AnchorPane.setRightAnchor(scrollPane, 0.0d);
+//        AnchorPane.setBottomAnchor(scrollPane, 0.0d);
+//        AnchorPane.setLeftAnchor(scrollPane, 0.0d);
+
+        // create canvas
+        zoomProperty.bind(zoomPaneImage.myScale);
+        deltaY.bind(zoomPaneImage.deltaY);
+        zoomPaneImage.getChildren().add(hospitalFloorMap);
+
+        sceneGestures = new SceneGestures(zoomPaneImage, hospitalFloorMap);
+
+//        scrollPane.setContent(zoomPaneImage);
+//        zoomPaneImage.toBack();
+        anchorPanePath.addEventFilter( MouseEvent.MOUSE_CLICKED, sceneGestures.getOnMouseClickedEventHandler());
+        anchorPanePath.addEventFilter( MouseEvent.MOUSE_PRESSED, sceneGestures.getOnMousePressedEventHandler());
+        anchorPanePath.addEventFilter( MouseEvent.MOUSE_DRAGGED, sceneGestures.getOnMouseDraggedEventHandler());
+        anchorPanePath.addEventFilter( ScrollEvent.ANY, sceneGestures.getOnScrollEventHandler());
+
+//        zoomPaneImage.addEventFilter( MouseEvent.MOUSE_CLICKED, sceneGestures.getOnMouseClickedEventHandler());
+//        zoomPaneImage.addEventFilter( MouseEvent.MOUSE_PRESSED, sceneGestures.getOnMousePressedEventHandler());
+//        zoomPaneImage.addEventFilter( MouseEvent.MOUSE_DRAGGED, sceneGestures.getOnMouseDraggedEventHandler());
+//        zoomPaneImage.addEventFilter( ScrollEvent.ANY, sceneGestures.getOnScrollEventHandler());
+
+//        anchorPaneWindow.getChildren().add(scrollPanePleaseWork);
+
+//        scrollPanePleaseWork.setContent(zoomPaneImage);
+//        scrollPanePleaseWork.setMaxSize(685, 464);
+//        scrollPanePleaseWork.setMinSize(685, 464);
+//        scrollPanePleaseWork.setLayoutX(79);
+//        scrollPanePleaseWork.setLayoutY(189);
+//        scrollPane.setLayoutX(0);
+//        scrollPane.setLayoutX(0);
+
+        zoomPaneImage.setLayoutX(79);
+        zoomPaneImage.setLayoutY(189);
+
+        anchorPaneWindow.getChildren().add(zoomPaneImage);
+        anchorPaneWindow.getChildren().add(anchorPanePath);
+
+        sceneGestures.reset(hospitalFloorMap, hospitalFloorMap.getImage().getWidth(), hospitalFloorMap.getImage().getHeight());
+    }
 
     @FXML
     private void backPressed() throws IOException {
+        Singleton single = Singleton.getInstance();
         thestage = (Stage) PathFindBack.getScene().getWindow();
         AnchorPane root;
-        if(signedIn) {
+        if(single.isLoggedIn()) {
             FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("LoggedInHome.fxml"));
 
             Parent sceneMain = loader.load();
 
             LoggedInHomeController controller = loader.<LoggedInHomeController>getController();
-            controller.init(uname);
 
             Stage theStage = (Stage) PathFindBack.getScene().getWindow();
 
@@ -99,36 +180,6 @@ public class PathFindingController {
         }
         Scene scene = new Scene(root);
         thestage.setScene(scene);
-    }
-
-    public void init(boolean loggeedIn, String username){
-            uname = username;
-            init(loggeedIn);
-    }
-
-    @SuppressWarnings("Convert2Diamond")
-    @FXML
-    public void init(boolean loggedIn) {
-        signedIn = loggedIn;
-        na = new NodesAccess();
-        ea = new EdgesAccess();
-        initializeTable(na, ea);
-        PathFindStartDrop.setItems(data);
-        PathFindEndDrop.setItems(data);
-    }
-
-        @SuppressWarnings("Convert2Diamond")
-    @FXML
-    public void init(boolean loggedIn, int num) {
-        signedIn = loggedIn;
-        na = new NodesAccess();
-        ea = new EdgesAccess();
-        initializeTable(na, ea);
-        if(num == 1){
-        PathFindStartDrop.setItems(data);
-        PathFindEndDrop.setItems(data);
-        }
-
     }
 
     public HashMap<String, Location> getLookup() {
@@ -150,76 +201,128 @@ public class PathFindingController {
         Location startNode = lookup.get(PathFindStartDrop.getValue().getLocID());
         Location endNode = lookup.get(PathFindEndDrop.getValue().getLocID());
 
-        AStarStrategy astar = new AStarStrategy(lookup);
-        BreadthFirstStrategy bfirst = new BreadthFirstStrategy(lookup);
-        Path path = findAbstractPath(bfirst, startNode, endNode);
-        //Path path = findAbstractPath(astar, startNode, endNode);
-        //Path path = findPath(startNode, endNode);
+        Path path = findPath(startNode, endNode);
         displayPath(path.getPath(), startNode, endNode);
-        printPath(path);
-
     }
 
     public void displayPath(ArrayList<Location> path, Location startNode, Location endNode){
-        //path.add(startNode);
+        path.add(startNode);
 
         for (Circle c: circles) {
-            anchorPaneWindow.getChildren().remove(c);
+            anchorPanePath.getChildren().remove(c);
         }
         for (Line l: lines) {
-            anchorPaneWindow.getChildren().remove(l);
+            anchorPanePath.getChildren().remove(l);
         }
 
-        Circle StartCircle = new Circle();
-
-        anchorPaneWindow.getChildren().add(StartCircle);
-
-        //Setting the properties of the circle
-        StartCircle.setCenterX(79f + startNode.getXcoord()*0.137);
-        StartCircle.setCenterY(189f + startNode.getYcoord()*0.137);
-        StartCircle.setRadius(3.0f);
-
-        Circle EndCircle = new Circle();
-
-        anchorPaneWindow.getChildren().add(EndCircle);
-
-        //Setting the properties of the circle
-        EndCircle.setCenterX(79f + endNode.getXcoord()*0.137);
-        EndCircle.setCenterY(189f + endNode.getYcoord()*0.137);
-        EndCircle.setRadius(3.0f);
-        EndCircle.setVisible(true);
-
-        circles.add(StartCircle);
-        circles.add(EndCircle);
+        Point2D point = sceneGestures.getImageLocation();
 
         for (int i = 0; i < path.size()-1; i++) {
             Line line = new Line();
 
-            line.setStartX(79f + path.get(i).getXcoord()*0.137);
-            line.setStartY(189f + path.get(i).getYcoord()*0.137);
-            line.setEndX(79f + path.get(i+1).getXcoord()*0.137);
-            line.setEndY(189f + path.get(i+1).getYcoord()*0.137);
+            line.setStartX((path.get(i).getXcoord()-point.getX())*0.137*sceneGestures.getImageScale());
+            line.setStartY((path.get(i).getYcoord()-point.getY())*0.137*sceneGestures.getImageScale());
+            line.setEndX((path.get(i+1).getXcoord()-point.getX())*0.137*sceneGestures.getImageScale());
+            line.setEndY((path.get(i+1).getYcoord()-point.getY())*0.137*sceneGestures.getImageScale());
 
-            anchorPaneWindow.getChildren().add(line);
+            line.setStrokeWidth(Math.max(1,sceneGestures.getImageScale()/8));
 
             lines.add(line);
+
+            anchorPanePath.getChildren().add(line);
         }
+
+        Circle StartCircle = new Circle();
+
+        anchorPanePath.getChildren().add(StartCircle);
+
+        //Setting the properties of the circle
+        StartCircle.setCenterX((startNode.getXcoord()-point.getX())*0.137*sceneGestures.getImageScale());
+        StartCircle.setCenterY((startNode.getYcoord()-point.getY())*0.137*sceneGestures.getImageScale());
+        StartCircle.setRadius(Math.max(2.5,2.5f*(sceneGestures.getImageScale()/5)));
+        StartCircle.setStroke(Color.GREEN);
+        StartCircle.setFill(Color.GREEN);
+
+
+        Circle EndCircle = new Circle();
+
+        anchorPanePath.getChildren().add(EndCircle);
+
+        //Setting the properties of the circle
+        EndCircle.setCenterX((endNode.getXcoord()-point.getX())*0.137*sceneGestures.getImageScale());
+        EndCircle.setCenterY((endNode.getYcoord()-point.getY())*0.137*sceneGestures.getImageScale());
+        EndCircle.setRadius(Math.max(2.5,2.5f*(sceneGestures.getImageScale()/5)));
+        EndCircle.setStroke(Color.RED);
+        EndCircle.setFill(Color.RED);
+
+
+        circles.add(StartCircle);
+        circles.add(EndCircle);
+
+        sceneGestures.setDrawPath(StartCircle, EndCircle, lines);
     }
 
+    ArrayList<Location> openList = new ArrayList<Location>();
+    ArrayList<Location> closeList = new ArrayList<Location>();
+    ArrayList<String> visited = new ArrayList<String>();
 
-    private Path findAbstractPath(PathfindingStrategy strategy, Location start, Location end) {
-        Path p = strategy.findPath(start, end);
+
+    public Path findPath(Location start, Location end) {
+        openList.add(start);
+        start.setParentID("START");
+        ArrayList<Location> path = new ArrayList<Location>();
+        Path p = new Path(path);
+        if(start == end)
+        {
+            p.addToPath(start);
+            cleanup();
+            return p;
+        }
+        Location q = new Location();
+        //while there are items in the open list
+        while (!(openList.isEmpty())) {
+            q = q.findBestF(openList);
+            openList.remove(q);
+            closeList.add(q);
+            q = lookup.get(q.getLocID());
+            ArrayList<Edge> edge = q.getEdges();
+            ArrayList<Location> children = new ArrayList<Location>();
+            for (Edge e : edge) {
+                if (!(closeList.contains(e.getEndNode())) && !(openList.contains(e.getEndNode()))) {
+                    children.add(e.getEndNode());
+                    e.getEndNode().setGScore(e.findDistance(q, e.getEndNode()));
+                }
+            }
+            for (Location l : children) {
+                //condition for found node
+                if (l.getLocID().equals(end.getLocID())) {
+                    lookup.get(l.getLocID()).setParentID(q.getLocID());
+                    l.setParentID(q.getLocID());
+                    return returnPath(l);
+                } else {
+                    double gScore = q.getGScore() + l.getGScore(); //calculate base G score
+                    l.setScore(l.calculateScore(gScore, end)); //add in H score
+                    l.setParentID(q.getLocID());
+                    lookup.get(l.getLocID()).setParentID(q.getLocID());
+                    if (!openList.contains(l) && !closeList.contains(l)) {
+                        openList.add(l);
+                    }
+                }
+            }
+        }
         return p;
     }
 
-    private void printPath(Path p) {
-        for (int i = 0; i < p.getPath().size() - 1; i ++) {
-            double pls = calculateSlope(p.getPath().get(i), p.getPath().get(i+1));
-            System.out.println(pls);
+    public Path returnPath(Location obj) {
+        Location l = obj;
+        ArrayList<Location> path = new ArrayList<Location>();
+        Path p = new Path(path);
+        while (!(l.getParentID().equals("START"))) {
+            p.addToPath(l);
+            l = lookup.get(l.getParentID());
         }
-       // for (Location place : p.getPath()) {
-            //System.out.println("Next, go to " + place.getLongName());
-       // }
+        cleanup();
+        return p;
     }
 
     private void initializeTable(NodesAccess na, EdgesAccess ea) {
@@ -266,6 +369,15 @@ public class PathFindingController {
             count++;
         }
     }
+
+    private void cleanup() {
+        for (Location x : lookup.values()) {
+            x.setParentID("RESET");
+        }
+        openList.clear();
+        closeList.clear();
+    }
+
 
     private double calculateSlope(Location start, Location end) {
         double xDiff = end.getXcoord() - start.getXcoord();
