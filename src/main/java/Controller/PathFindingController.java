@@ -148,6 +148,7 @@ public class PathFindingController {
         Location endNode = lookup.get(PathFindEndDrop.getValue().getLocID());
 
         Path path = findPath(startNode, endNode);
+        pathLocations = path.getPath();
         displayPath(path.getPath(), startNode, endNode);
     }
 
@@ -194,6 +195,7 @@ public class PathFindingController {
                 line.setStartY(189f + path.get(i).getYcoord() * 0.137);
                 line.setEndX(79f + path.get(i + 1).getXcoord() * 0.137);
                 line.setEndY(189f + path.get(i + 1).getYcoord() * 0.137);
+                line.setVisible(true);
 
 
                 anchorPaneWindow.getChildren().add(line);
@@ -213,19 +215,20 @@ public class PathFindingController {
                 line.setEndX(79f + path.get(i + 1).getXcoord() * 0.137);
                 line.setEndY(189f + path.get(i + 1).getYcoord() * 0.137);
 
-                if(path.get(i+1).getFloor() != currFloor){
+                if(path.get(i).getFloor() != path.get(i+1).getFloor()){
                     line.setVisible(false);
                     Circle midCircle = new Circle();
-
-
-                    anchorPaneWindow.getChildren().add(midCircle);
 
                     //Setting the properties of the circle
                     midCircle.setCenterX(79f + path.get(i).getXcoord() * 0.137);
                     midCircle.setCenterY(189f + path.get(i).getYcoord() * 0.137);
                     midCircle.setRadius(3.0f);
-                    midCircle.setVisible(true);
+                    midCircle.setVisible(false);
+                    if(path.get(i).getFloor() == currFloor || path.get(i+1).getFloor() == currFloor){
+                        midCircle.setVisible(true);
+                    }
                     circles.add(midCircle);
+                    anchorPaneWindow.getChildren().add(midCircle);
                 }
 
 
