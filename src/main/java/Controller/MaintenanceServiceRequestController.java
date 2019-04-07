@@ -30,6 +30,9 @@ public class MaintenanceServiceRequestController {
     public Button Back;
 
 
+    public void initialize() {
+
+    }
 
     protected void backPressed() throws IOException {
         Singleton single = Singleton.getInstance();
