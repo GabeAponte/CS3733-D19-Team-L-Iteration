@@ -1,11 +1,9 @@
 package Access;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 
 public class SanitationAccess extends DBAccess {
@@ -48,5 +46,40 @@ public class SanitationAccess extends DBAccess {
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
+    }
+
+    /** ANDREW MADE THIS
+     * Queries the database for all fields of the sanitation request table and returns an arraylist of arraylist string
+     */
+    public ArrayList<ArrayList<String>> getRequests() {
+        String sql = "SELECT * FROM sanitationRequest";
+        //noinspection Convert2Diamond
+        ArrayList<ArrayList<String>> list = new ArrayList<ArrayList<String>>();
+        try (Connection conn = this.connect();
+             PreparedStatement pstmt = conn.prepareStatement(sql)){
+            ResultSet rs = pstmt.executeQuery();
+            while (rs.next()) {
+                ArrayList<String> data = new ArrayList<String>();
+                data.add(Integer.toString(rs.getInt("requestID")));
+                data.add(rs.getString("assignedEmployee"));
+                if(rs.getBoolean("fulfilled")){
+                    data.add("true");
+                } else {
+                    data.add("false");
+                }
+                data.add(rs.getString("location"));
+                data.add(rs.getString("comment"));
+                data.add(rs.getString("type"));
+                data.add(rs.getString("urgencyLevel"));
+                data.add(rs.getString("creationDate"));
+                data.add(rs.getString("completionDate"));
+                list.add(data);
+            }
+            return list;
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+
+        return null;
     }
 }
