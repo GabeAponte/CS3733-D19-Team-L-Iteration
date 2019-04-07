@@ -259,19 +259,29 @@ public class PathFindingController {
         upclickedLast = false;
         downclickedLast = true;
     }
-
+    
+    public void initialize() {
+        Singleton single = Singleton.getInstance();
+        na = new NodesAccess();
+        ea = new EdgesAccess();
+        initializeTable(na, ea);
+        if(single.getNum() == 1){
+            PathFindStartDrop.setItems(data);
+            PathFindEndDrop.setItems(data);
+        }
+    }
 
     @FXML
     private void backPressed() throws IOException {
+        Singleton single = Singleton.getInstance();
         thestage = (Stage) PathFindBack.getScene().getWindow();
         AnchorPane root;
-        if (signedIn) {
+        if(single.isLoggedIn()) {
             FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("LoggedInHome.fxml"));
 
             Parent sceneMain = loader.load();
 
             LoggedInHomeController controller = loader.<LoggedInHomeController>getController();
-            controller.init(uname);
 
             Stage theStage = (Stage) PathFindBack.getScene().getWindow();
 
@@ -285,10 +295,6 @@ public class PathFindingController {
         thestage.setScene(scene);
     }
 
-    public void init(boolean loggeedIn, String username) {
-        uname = username;
-        init(loggeedIn);
-    }
 
     @FXML
     /**

@@ -21,9 +21,7 @@ import java.util.ArrayList;
 
 public class ActiveServiceRequestsController {
 
-    private boolean signedIn;
     private Stage thestage;
-    private String uname;
     private ServiceRequestTable selectedRequest;
 
     @FXML
@@ -41,13 +39,6 @@ public class ActiveServiceRequestsController {
     @FXML
     private TableView<ServiceRequestTable> activeRequests;
 
-    @SuppressWarnings("Duplicates")
-
-    public void init(String username){
-        uname = username;
-        init2();
-    }
-
     @FXML
     /**@author Gabe
      * Returns user to the Logged In Home screen when the back button is pressed
@@ -58,7 +49,6 @@ public class ActiveServiceRequestsController {
 
         //Get controller of scene2
         LoggedInHomeController scene2Controller = loader.getController();
-        scene2Controller.init(uname);
 
         Scene scene = new Scene(roots);
         Stage thestage = (Stage) activeRequests.getScene().getWindow();
@@ -67,10 +57,11 @@ public class ActiveServiceRequestsController {
         thestage.setScene(scene);
     }
 
+    //Gabe - Populates table
+    public void initialize(){
     /**@author Gabe
      * Populates the table on the screen with any active service rquests in the database
      */
-    public void init2(){
         activeRequests.setEditable(false);
         final ObservableList<ServiceRequestTable> data = FXCollections.observableArrayList();
         ServiceRequestAccess sr = new ServiceRequestAccess();
@@ -94,6 +85,8 @@ public class ActiveServiceRequestsController {
         this.selectedRequest = request;
     }
 
+    //Gabe - Switches to fulfill screen when mouse double clicks a row in the table
+    //TODO: Bring over request information so that fulfill page can update a request
     @FXML
     /**@author Gabe, DJ
      * When double clicking on a row in the table, user is sent to the fulfill request screen
@@ -109,7 +102,6 @@ public class ActiveServiceRequestsController {
                     Parent roots = loader.load();
                     //Get controller of scene2
                     FulfillRequestController scene2Controller = loader.getController();
-                    scene2Controller.init(uname);
                     Scene scene = new Scene(roots);
                     scene2Controller.getRequestID(selectedRequest);
                     thestage = (Stage) back.getScene().getWindow();
@@ -120,6 +112,7 @@ public class ActiveServiceRequestsController {
                     //noinspection ThrowablePrintedToSystemOut
                     System.err.println(ex);
                 }
+
             }
         });
     }

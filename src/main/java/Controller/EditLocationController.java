@@ -19,7 +19,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 public class EditLocationController {
-    private String uname;
 
     @FXML
     Button backButton;
@@ -91,8 +90,7 @@ public class EditLocationController {
 
     @SuppressWarnings("Convert2Diamond")
     @FXML
-    public void init(String username){
-        uname = username;
+    public void initialize(){
         nodeTable.setEditable(false);
         edgeTable.setEditable(false);
         NodesAccess na = new NodesAccess();
@@ -170,7 +168,6 @@ public class EditLocationController {
 
             //Get controller of scene2
             EditEdgesController scene2Controller = loader.getController();
-            scene2Controller.init(uname);
 
             Scene scene = new Scene(roots);
             scene2Controller.setInitialValues(focusEdge.getStartID(), focusEdge.getEndID());
@@ -198,7 +195,6 @@ public class EditLocationController {
 
             //Get controller of scene2
             EditEdgesController scene2Controller = loader.getController();
-            scene2Controller.init(uname);
 
             Scene scene = new Scene(roots);
             scene2Controller.populateNodeList(toPass);
@@ -253,7 +249,6 @@ public class EditLocationController {
 
             //Get controller of scene2
             EditNodeController scene2Controller = loader.getController();
-            scene2Controller.init(uname);
 
             Scene scene = new Scene(roots);
             scene2Controller.fillFields(this.focusNode);
@@ -280,7 +275,6 @@ public class EditLocationController {
 
             //Get controller of scene2
             EditNodeController scene2Controller = loader.getController();
-            scene2Controller.init(uname);
 
             Scene scene = new Scene(roots);
             scene2Controller.populateNodeList(toPass);
@@ -334,7 +328,6 @@ public class EditLocationController {
         Parent sceneMain = loader.load();
 
         LoggedInHomeController controller = loader.<LoggedInHomeController>getController();
-        controller.init(uname);
 
         Stage theStage = (Stage) addEdge.getScene().getWindow();
 
