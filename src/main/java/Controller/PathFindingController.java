@@ -102,7 +102,8 @@ public class PathFindingController {
     private EdgesAccess ea;
     private final ObservableList<Location> data = FXCollections.observableArrayList();
     private HashMap<String, Location> lookup = new HashMap<String, Location>();
-    private final ObservableList<Location> noHall = FXCollections.observableArrayList();
+    private final ObservableList<Location> noHallStart = FXCollections.observableArrayList();
+    private final ObservableList<Location> noHallEnd = FXCollections.observableArrayList();
     private final ObservableList<String> filterList = FXCollections.observableArrayList();
     private final ObservableList<String> floorList = FXCollections.observableArrayList();
 
@@ -332,8 +333,6 @@ public class PathFindingController {
         filter();
         floor();
         noHall();
-        PathFindStartDrop.setItems(noHall);
-        PathFindEndDrop.setItems(noHall);
         Filter.setItems(filterList);
         Floor.setItems(floorList);
     }
@@ -349,8 +348,6 @@ public class PathFindingController {
         if (num == 1) {
             noHall();
 
-            PathFindStartDrop.setItems(noHall);
-            PathFindEndDrop.setItems(noHall);
             Filter.setItems(filterList);
         }
 
@@ -557,6 +554,19 @@ public class PathFindingController {
     }
 
     @FXML
+    private void clearStart(){
+        PathFindStartDrop.getSelectionModel().clearSelection();
+        PathFindStartDrop.setValue(null);
+        noHall();
+    }
+
+    @FXML
+    private void clearEnd(){
+        PathFindEndDrop.getSelectionModel().clearSelection();
+        PathFindEndDrop.setValue(null);
+        noHall();
+    }
+    @FXML
     /**
      * @author Gabe
      * reads the input for the room type combo box
@@ -604,124 +614,297 @@ public class PathFindingController {
      */
     private void noHall() {
         filterFloor();
-        System.out.println(pickedFloor);
         filterType();
-        System.out.println(type);
-        System.out.println(type2);
 
         if (Filter.getValue() == null && Floor.getValue() == null) {
-            noHall.clear();
-            for (int j = 0; j < data.size(); j++) {
-                if (!(data.get(j).getNodeType().contains("HALL"))) {
-                    noHall.add(data.get(j));
+            if (PathFindStartDrop.getValue() == null) {
+                noHallStart.clear();
+                for (int j = 0; j < data.size(); j++) {
+                    if (!(data.get(j).getNodeType().contains("HALL"))) {
+                        noHallStart.add(data.get(j));
+                    }
                 }
             }
-            PathFindStartDrop.setItems(noHall);
-            PathFindEndDrop.setItems(noHall);
+            if (PathFindEndDrop.getValue() == null) {
+                PathFindEndDrop.setItems(noHallEnd);
+                noHallEnd.clear();
+                for (int j = 0; j < data.size(); j++) {
+                    if (!(data.get(j).getNodeType().contains("HALL"))) {
+                        noHallEnd.add(data.get(j));
+                    }
+                }
+            }
+
+            if (PathFindStartDrop.getValue() == null) {
+                PathFindStartDrop.setItems(noHallStart);
+            }
+            if (PathFindEndDrop.getValue() == null) {
+                PathFindEndDrop.setItems(noHallEnd);
+            }
 
         } else if (Filter.getValue() == ("All") && Floor.getValue() == null) {
-            noHall.clear();
-            for (int j = 0; j < data.size(); j++) {
-                if (!(data.get(j).getNodeType().contains("HALL"))) {
-                    noHall.add(data.get(j));
+            if (PathFindStartDrop.getValue() == null) {
+                noHallStart.clear();
+                for (int j = 0; j < data.size(); j++) {
+                    if (!(data.get(j).getNodeType().contains("HALL"))) {
+                        noHallStart.add(data.get(j));
+                    }
                 }
             }
-            PathFindStartDrop.setItems(noHall);
-            PathFindEndDrop.setItems(noHall);
+            if (PathFindEndDrop.getValue() == null) {
+                PathFindEndDrop.setItems(noHallEnd);
+                noHallEnd.clear();
+                for (int j = 0; j < data.size(); j++) {
+                    if (!(data.get(j).getNodeType().contains("HALL"))) {
+                        noHallEnd.add(data.get(j));
+                    }
+                }
+            }
 
+            if (PathFindStartDrop.getValue() == null) {
+                PathFindStartDrop.setItems(noHallStart);
+            }
+            if (PathFindEndDrop.getValue() == null) {
+                PathFindEndDrop.setItems(noHallEnd);
+            }
         } else if (Filter.getValue() == ("All") && Floor.getValue() == "All") {
-            noHall.clear();
-            for (int j = 0; j < data.size(); j++) {
-                if (!(data.get(j).getNodeType().contains("HALL"))) {
-                    noHall.add(data.get(j));
+            if (PathFindStartDrop.getValue() == null) {
+                noHallStart.clear();
+                for (int j = 0; j < data.size(); j++) {
+                    if (!(data.get(j).getNodeType().contains("HALL"))) {
+                        noHallStart.add(data.get(j));
+                    }
                 }
             }
-            PathFindStartDrop.setItems(noHall);
-            PathFindEndDrop.setItems(noHall);
+            if (PathFindEndDrop.getValue() == null) {
+                PathFindEndDrop.setItems(noHallEnd);
+                noHallEnd.clear();
+                for (int j = 0; j < data.size(); j++) {
+                    if (!(data.get(j).getNodeType().contains("HALL"))) {
+                        noHallEnd.add(data.get(j));
+                    }
+                }
+            }
+
+            if (PathFindStartDrop.getValue() == null) {
+                PathFindStartDrop.setItems(noHallStart);
+            }
+            if (PathFindEndDrop.getValue() == null) {
+                PathFindEndDrop.setItems(noHallEnd);
+            }
 
         } else if (Filter.getValue() == ("All") && Floor.getValue() != null) {
-            noHall.clear();
-            for (int j = 0; j < data.size(); j++) {
-                if (!(data.get(j).getNodeType().contains("HALL")) && (data.get(j).getFloor().contains(pickedFloor))) {
-                    noHall.add(data.get(j));
+            if (PathFindStartDrop.getValue() == null) {
+                noHallStart.clear();
+                for (int j = 0; j < data.size(); j++) {
+                    if (!(data.get(j).getNodeType().contains("HALL")) && (data.get(j).getFloor().equals(pickedFloor))) {
+                        noHallStart.add(data.get(j));
+                    }
                 }
             }
-            PathFindStartDrop.setItems(noHall);
-            PathFindEndDrop.setItems(noHall);
+            if (PathFindEndDrop.getValue() == null) {
+                PathFindEndDrop.setItems(noHallEnd);
+                noHallEnd.clear();
+                for (int j = 0; j < data.size(); j++) {
+                    if (!(data.get(j).getNodeType().contains("HALL")) && (data.get(j).getFloor().equals(pickedFloor))) {
+                        noHallEnd.add(data.get(j));
+                    }
+                }
+            }
+
+            if (PathFindStartDrop.getValue() == null) {
+                PathFindStartDrop.setItems(noHallStart);
+            }
+            if (PathFindEndDrop.getValue() == null) {
+                PathFindEndDrop.setItems(noHallEnd);
+            }
 
         } else if (Filter.getValue() != (null) && Floor.getValue() == "All") {
-            noHall.clear();
-            for (int j = 0; j < data.size(); j++) {
-                if ((data.get(j).getNodeType().contains(type))) {
-                    noHall.add(data.get(j));
+            if (PathFindStartDrop.getValue() == null) {
+                noHallStart.clear();
+                for (int j = 0; j < data.size(); j++) {
+                    if ((data.get(j).getNodeType().contains(type))) {
+                        noHallStart.add(data.get(j));
+                    }
                 }
             }
-            PathFindStartDrop.setItems(noHall);
-            PathFindEndDrop.setItems(noHall);
+            if (PathFindEndDrop.getValue() == null) {
+                PathFindEndDrop.setItems(noHallEnd);
+                noHallEnd.clear();
+                for (int j = 0; j < data.size(); j++) {
+                    if ((data.get(j).getNodeType().contains(type))) {
+                        noHallEnd.add(data.get(j));
+                    }
+                }
+            }
+
+            if (PathFindStartDrop.getValue() == null) {
+                PathFindStartDrop.setItems(noHallStart);
+            }
+            if (PathFindEndDrop.getValue() == null) {
+                PathFindEndDrop.setItems(noHallEnd);
+            }
+
 
         } else if (Filter.getValue() == null && Floor.getValue() == "All") {
-            noHall.clear();
-            for (int j = 0; j < data.size(); j++) {
-                if (!(data.get(j).getNodeType().contains("HALL"))) {
-                    noHall.add(data.get(j));
+            if (PathFindStartDrop.getValue() == null) {
+                noHallStart.clear();
+                for (int j = 0; j < data.size(); j++) {
+                    if (!(data.get(j).getNodeType().contains("HALL"))) {
+                        noHallStart.add(data.get(j));
+                    }
                 }
             }
-            PathFindStartDrop.setItems(noHall);
-            PathFindEndDrop.setItems(noHall);
+            if (PathFindEndDrop.getValue() == null) {
+                PathFindEndDrop.setItems(noHallEnd);
+                noHallEnd.clear();
+                for (int j = 0; j < data.size(); j++) {
+                    if (!(data.get(j).getNodeType().contains("HALL"))) {
+                        noHallEnd.add(data.get(j));
+                    }
+                }
+            }
+
+            if (PathFindStartDrop.getValue() == null) {
+                PathFindStartDrop.setItems(noHallStart);
+            }
+            if (PathFindEndDrop.getValue() == null) {
+                PathFindEndDrop.setItems(noHallEnd);
+            }
+
 
         } else if (Filter.getValue() == "Restrooms" && Floor.getValue() == null) {
-            noHall.clear();
-            for (int j = 0; j < data.size(); j++) {
-                if ((data.get(j).getNodeType().contains(type)) || (data.get(j).getNodeType().contains(type2))) {
-                    System.out.println("this ran");
-                    noHall.add(data.get(j));
+            if (PathFindStartDrop.getValue() == null) {
+                noHallStart.clear();
+                for (int j = 0; j < data.size(); j++) {
+                    if ((data.get(j).getNodeType().contains(type)) || (data.get(j).getNodeType().contains(type2))) {
+                        noHallStart.add(data.get(j));
+                    }
                 }
             }
-            PathFindStartDrop.setItems(noHall);
-            PathFindEndDrop.setItems(noHall);
+            if (PathFindEndDrop.getValue() == null) {
+                PathFindEndDrop.setItems(noHallEnd);
+                noHallEnd.clear();
+                for (int j = 0; j < data.size(); j++) {
+                    if ((data.get(j).getNodeType().contains(type)) || (data.get(j).getNodeType().contains(type2))) {
+                        noHallEnd.add(data.get(j));
+                    }
+                }
+            }
+
+            if (PathFindStartDrop.getValue() == null) {
+                PathFindStartDrop.setItems(noHallStart);
+            }
+            if (PathFindEndDrop.getValue() == null) {
+                PathFindEndDrop.setItems(noHallEnd);
+            }
+
 
         } else if (Filter.getValue() == "Restrooms" && Floor.getValue() == "All") {
-            noHall.clear();
-            for (int j = 0; j < data.size(); j++) {
-                if ((data.get(j).getNodeType().contains(type)) || (data.get(j).getNodeType().contains(type2))) {
-                    System.out.println("this ran");
-                    noHall.add(data.get(j));
+            if (PathFindStartDrop.getValue() == null) {
+                noHallStart.clear();
+                for (int j = 0; j < data.size(); j++) {
+                    if ((data.get(j).getNodeType().contains(type)) || (data.get(j).getNodeType().contains(type2))) {
+                        noHallStart.add(data.get(j));
+                    }
                 }
             }
-            PathFindStartDrop.setItems(noHall);
-            PathFindEndDrop.setItems(noHall);
+            if (PathFindEndDrop.getValue() == null) {
+                PathFindEndDrop.setItems(noHallEnd);
+                noHallEnd.clear();
+                for (int j = 0; j < data.size(); j++) {
+                    if ((data.get(j).getNodeType().contains(type)) || (data.get(j).getNodeType().contains(type2))) {
+                        noHallEnd.add(data.get(j));
+                    }
+                }
+            }
+
+            if (PathFindStartDrop.getValue() == null) {
+                PathFindStartDrop.setItems(noHallStart);
+            }
+            if (PathFindEndDrop.getValue() == null) {
+                PathFindEndDrop.setItems(noHallEnd);
+            }
+
 
         } else if (Filter.getValue() != null && Filter.getValue() == "Restrooms" && Floor.getValue() != null) {
-            noHall.clear();
-            for (int j = 0; j < data.size(); j++) {
-                if (((data.get(j).getNodeType().contains(type)) && (data.get(j).getFloor().contains(pickedFloor))) || ((data.get(j).getNodeType().contains(type2)) && (data.get(j).getFloor().contains(pickedFloor)))) {
-                    noHall.add(data.get(j));
+            if (PathFindStartDrop.getValue() == null) {
+                noHallStart.clear();
+                for (int j = 0; j < data.size(); j++) {
+                    if ((data.get(j).getNodeType().contains(type)) && (data.get(j).getFloor().equals(pickedFloor)) || ((data.get(j).getNodeType().contains(type2)) && (data.get(j).getFloor().equals(pickedFloor)))) {
+                        noHallStart.add(data.get(j));
+                    }
                 }
             }
-            PathFindStartDrop.setItems(noHall);
-            PathFindEndDrop.setItems(noHall);
+            if (PathFindEndDrop.getValue() == null) {
+                PathFindEndDrop.setItems(noHallEnd);
+                noHallEnd.clear();
+                for (int j = 0; j < data.size(); j++) {
+                    if ((data.get(j).getNodeType().contains(type)) && (data.get(j).getFloor().equals(pickedFloor)) || ((data.get(j).getNodeType().contains(type2)) && (data.get(j).getFloor().equals(pickedFloor)))) {
+                        noHallEnd.add(data.get(j));
+                    }
+                }
+            }
+
+            if (PathFindStartDrop.getValue() == null) {
+                PathFindStartDrop.setItems(noHallStart);
+            }
+            if (PathFindEndDrop.getValue() == null) {
+                PathFindEndDrop.setItems(noHallEnd);
+            }
+
 
         } else if (Filter.getValue() != null && Filter.getValue() != "All" && Floor.getValue() == null) {
-            noHall.clear();
-            for (int j = 0; j < data.size(); j++) {
-                if ((data.get(j).getNodeType().contains(type))) {
-                    System.out.println(Floor.getValue());
-                    noHall.add(data.get(j));
+            if (PathFindStartDrop.getValue() == null) {
+                noHallStart.clear();
+                for (int j = 0; j < data.size(); j++) {
+                    if ((data.get(j).getNodeType().contains(type))) {
+                        noHallStart.add(data.get(j));
+                    }
                 }
             }
-            PathFindStartDrop.setItems(noHall);
-            PathFindEndDrop.setItems(noHall);
+            if (PathFindEndDrop.getValue() == null) {
+                PathFindEndDrop.setItems(noHallEnd);
+                noHallEnd.clear();
+                for (int j = 0; j < data.size(); j++) {
+                    if ((data.get(j).getNodeType().contains(type))) {
+                        noHallEnd.add(data.get(j));
+                    }
+                }
+            }
+
+            if (PathFindStartDrop.getValue() == null) {
+                PathFindStartDrop.setItems(noHallStart);
+            }
+            if (PathFindEndDrop.getValue() == null) {
+                PathFindEndDrop.setItems(noHallEnd);
+            }
 
         } else if (Filter.getValue() != null && Filter.getValue() != "All" && Floor.getValue() != null) {
-            noHall.clear();
-            for (int j = 0; j < data.size(); j++) {
-                if ((data.get(j).getNodeType().contains(type)) && (data.get(j).getFloor().contains(pickedFloor))) {
-                    System.out.println(Floor.getValue() + "test");
-                    noHall.add(data.get(j));
+            if (PathFindStartDrop.getValue() == null) {
+                noHallStart.clear();
+                for (int j = 0; j < data.size(); j++) {
+                    if ((data.get(j).getNodeType().contains(type)) && (data.get(j).getFloor().equals(pickedFloor))) {
+                        noHallStart.add(data.get(j));
+                    }
                 }
             }
-            PathFindStartDrop.setItems(noHall);
-            PathFindEndDrop.setItems(noHall);
+            if (PathFindEndDrop.getValue() == null) {
+                PathFindEndDrop.setItems(noHallEnd);
+                noHallEnd.clear();
+                for (int j = 0; j < data.size(); j++) {
+                    if ((data.get(j).getNodeType().contains(type)) && (data.get(j).getFloor().equals(pickedFloor))) {
+                        noHallEnd.add(data.get(j));
+                    }
+                }
+            }
+
+            if (PathFindStartDrop.getValue() == null) {
+                PathFindStartDrop.setItems(noHallStart);
+            }
+            if (PathFindEndDrop.getValue() == null) {
+                PathFindEndDrop.setItems(noHallEnd);
+            }
         }
     }
 

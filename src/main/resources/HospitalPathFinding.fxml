@@ -66,5 +66,7 @@
       <JFXButton fx:id="F3" layoutX="1090.0" layoutY="624.0" onAction="#clicked3" prefHeight="43.0" prefWidth="48.0" text="3" />
       <JFXButton fx:id="Up" layoutX="799.0" layoutY="309.0" onAction="#upClicked" text="UP" />
       <JFXButton fx:id="Down" layoutX="791.0" layoutY="348.0" onAction="#downClicked" text="Down" />
+      <JFXButton layoutX="1202.0" layoutY="287.0" onAction="#clearStart" text="Clear" />
+      <JFXButton layoutX="1202.0" layoutY="348.0" onAction="#clearEnd" text="Clear" />
    </children>
 </AnchorPane>
