@@ -203,6 +203,8 @@ public class PathFindingController {
 
         Path path = findPath(startNode, endNode);
         displayPath(path.getPath(), startNode, endNode);
+
+        System.out.println(path);
     }
 
     public void displayPath(ArrayList<Location> path, Location startNode, Location endNode){
