@@ -34,7 +34,7 @@ public class Main extends Application {
         System.out.println("SBA");
         //ea.deleteRecords();
 
-        //na.readCSVintoTable();
+      //  na.readCSVintoTable();
         System.out.println("CSV1");
         //ea.readCSVintoTable();
         System.out.println("CSV2");

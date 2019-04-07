@@ -83,6 +83,7 @@ public class AStarStrategy implements PathfindingStrategy {
             p.addToPath(l);
             l = lookup.get(l.getParentID());
         }
+        p.reversePath();
         cleanup();
         return p;
     }
