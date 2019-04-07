@@ -402,11 +402,9 @@ public class PathFindingController {
 
         for (Circle c: circles) {
             anchorPaneWindow.getChildren().remove(c);
-            System.out.println("Remove circle.");
         }
         for (Line l: lines) {
             anchorPaneWindow.getChildren().remove(l);
-            System.out.println("Remove line.");
         }
 
         Circle StartCircle = new Circle();

@@ -59,24 +59,7 @@ public class Edge {
     //Edited by Nikhil- Accounts for z-axis now
     //Nathan - finds distance between two nodes, used in constructors
     public double findDistance(Location startNode, Location endNode){
-        double xDiff, yDiff, zDiff;
-
-        xDiff = startNode.getXcoord() - endNode.getXcoord();
-        yDiff = startNode.getYcoord() - endNode.getYcoord();
-        //Nikhil- We want to prioritize getting onto the same floor to ensure we travel as fast as possible.
-        if(startNode.getFloor().equals(endNode.getFloor())) {
-            zDiff = 10000 * (startNode.convertToNum() - endNode.convertToNum());
-        }
-        else {
-            zDiff = 100 * (startNode.convertToNum() - endNode.convertToNum());
-        }
-        xDiff = Math.pow(xDiff, 2);
-        yDiff = Math.pow(yDiff, 2);
-        zDiff = Math.pow(zDiff, 2);
-
-        xDiff += yDiff;
-        xDiff += zDiff;
-        return Math.sqrt(xDiff);
+        return startNode.findDistance(endNode);
     }
 
 }
