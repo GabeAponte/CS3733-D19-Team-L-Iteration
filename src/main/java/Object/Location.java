@@ -6,12 +6,12 @@ import java.util.PriorityQueue;
 @SuppressWarnings("unused")
 public class Location implements Comparable<Location>{
 
-    private int xcoord, ycoord, floor;
-    private String locID, building, nodeType, longName, shortName, parentID;
+    private int xcoord, ycoord;
+    private String locID, building, nodeType, longName, shortName, parentID, floor;
     private ArrayList<Edge> connectedEdges;
     private double score, gScore;
 
-    public Location(String idIn, int xcoordIn, int ycoordIn, int floorIn, String buildingIn, String nodeTypeIn,
+    public Location(String idIn, int xcoordIn, int ycoordIn, String floorIn, String buildingIn, String nodeTypeIn,
                     String longNameIn, String shortNameIn) {
         locID = idIn;
         xcoord = xcoordIn;
@@ -76,11 +76,11 @@ public class Location implements Comparable<Location>{
         this.ycoord = ycoord;
     }
 
-    public int getFloor() {
+    public String getFloor() {
         return floor;
     }
 
-    public void setFloor(int floor) {
+    public void setFloor(String floor) {
         this.floor = floor;
     }
 
@@ -196,7 +196,7 @@ public class Location implements Comparable<Location>{
         xDiff = this.getXcoord() - endNode.getXcoord();
         yDiff = this.getYcoord() - endNode.getYcoord();
         //Nikhil- We want to prioritize getting onto the same floor to ensure we travel as fast as possible.
-        zDiff = mult * (this.getFloor() - endNode.getFloor());
+        zDiff = mult * (this.convertToNum() - endNode.convertToNum());
         xDiff = Math.pow(xDiff, 2);
         yDiff = Math.pow(yDiff, 2);
         zDiff = Math.pow(zDiff, 2);
@@ -237,12 +237,39 @@ public class Location implements Comparable<Location>{
         if(count == openList.size()-1){
             openList.add(A);
         }
+    }
 
-
+    public int convertToNum() {
+        int fl;
+        if(floor.equals("G")){
+            fl = 0;
+            return fl;
+        }
+        if(floor.equals("L1")){
+            fl = 1;
+            return fl;
+        }
+        if(floor.equals("L2")){
+            fl = 2;
+            return fl;
+        }
+        if(floor.equals("1")){
+            fl = 3;
+            return fl;
+        }
+        if(floor.equals("2")){
+            fl = 4;
+            return fl;
+        }
+        if(floor.equals("3")){
+            fl = 5;
+            return fl;
+        }
+        return 0;
     }
 
     @Override
     public String toString() {
-        return longName + " (" + locID +")";
+        return longName + "(" + floor + ")";
     }
 }

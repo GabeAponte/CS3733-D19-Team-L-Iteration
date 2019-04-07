@@ -64,11 +64,11 @@ public class Edge {
         xDiff = startNode.getXcoord() - endNode.getXcoord();
         yDiff = startNode.getYcoord() - endNode.getYcoord();
         //Nikhil- We want to prioritize getting onto the same floor to ensure we travel as fast as possible.
-        if(startNode.getFloor() == endNode.getFloor()) {
-            zDiff = 10000 * (startNode.getFloor() - endNode.getFloor());
+        if(startNode.getFloor().equals(endNode.getFloor())) {
+            zDiff = 10000 * (startNode.convertToNum() - endNode.convertToNum());
         }
         else {
-            zDiff = 100 * (startNode.getFloor() - endNode.getFloor());
+            zDiff = 100 * (startNode.convertToNum() - endNode.convertToNum());
         }
         xDiff = Math.pow(xDiff, 2);
         yDiff = Math.pow(yDiff, 2);
