@@ -1,6 +1,7 @@
 package Object;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 public class Path {
 
@@ -16,6 +17,10 @@ public class Path {
 
     public void addToPath(Location l) {
         path.add(l);
+    }
+
+    public void reversePath() {
+        Collections.reverse(path);
     }
 
     public String toString() {

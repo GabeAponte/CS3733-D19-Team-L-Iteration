@@ -1,21 +1,32 @@
 package Controller;
 
-import Access.EdgesAccess;
-import Access.NodesAccess;
-import Object.*;
+import SearchingAlgorithms.AStarStrategy;
+import SearchingAlgorithms.PathfindingStrategy;
+import javafx.beans.property.DoubleProperty;
+import javafx.beans.property.SimpleDoubleProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Point2D;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.input.ScrollEvent;
+import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Line;
+import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
+
+import Access.EdgesAccess;
+import Access.NodesAccess;
+import Object.*;
+
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -24,9 +35,6 @@ import java.util.ListIterator;
 
 @SuppressWarnings("Duplicates")
 public class PathFindingController {
-
-    private boolean signedIn;
-    private String uname;
 
     @FXML
     private Stage thestage;
@@ -91,12 +99,18 @@ public class PathFindingController {
     @FXML
     private ComboBox<Location> PathFindStartDrop;
 
-    @FXML
-    private ImageView Map;
 
     @FXML
     private AnchorPane anchorPaneWindow;
 
+    @FXML
+    private ImageView Map;
+
+    private PanAndZoomPane zoomPaneImage;
+    private SceneGestures sceneGestures;
+    private AnchorPane anchorPanePath;
+    private final DoubleProperty zoomProperty = new SimpleDoubleProperty(1.0d);
+    private final DoubleProperty deltaY = new SimpleDoubleProperty(0.0d);
 
     private NodesAccess na;
     private EdgesAccess ea;
@@ -259,16 +273,49 @@ public class PathFindingController {
         upclickedLast = false;
         downclickedLast = true;
     }
-    
+
     public void initialize() {
         Singleton single = Singleton.getInstance();
         na = new NodesAccess();
         ea = new EdgesAccess();
+        filter();
+        floor();
+        noHall();
+        Filter.setItems(filterList);
+        Floor.setItems(floorList);
         initializeTable(na, ea);
         if(single.getNum() == 1){
             PathFindStartDrop.setItems(data);
             PathFindEndDrop.setItems(data);
         }
+        anchorPanePath = new AnchorPane();
+        anchorPanePath.setLayoutX(0);
+        anchorPanePath.setLayoutY(0);
+        anchorPanePath.setPrefSize(685,464);
+        Rectangle clip = new Rectangle();
+        clip.widthProperty().bind(Map.fitWidthProperty());
+        clip.heightProperty().bind(Map.fitHeightProperty());
+        anchorPanePath.setClip(clip);
+
+        zoomPaneImage = new PanAndZoomPane();
+
+        zoomProperty.bind(zoomPaneImage.myScale);
+        deltaY.bind(zoomPaneImage.deltaY);
+        zoomPaneImage.getChildren().add(Map);
+
+        sceneGestures = new SceneGestures(zoomPaneImage, Map);
+        anchorPanePath.addEventFilter( MouseEvent.MOUSE_CLICKED, sceneGestures.getOnMouseClickedEventHandler());
+        anchorPanePath.addEventFilter( MouseEvent.MOUSE_PRESSED, sceneGestures.getOnMousePressedEventHandler());
+        anchorPanePath.addEventFilter( MouseEvent.MOUSE_DRAGGED, sceneGestures.getOnMouseDraggedEventHandler());
+        anchorPanePath.addEventFilter( ScrollEvent.ANY, sceneGestures.getOnScrollEventHandler());
+        zoomPaneImage.setLayoutX(0);
+        zoomPaneImage.setLayoutY(0);
+
+        anchorPaneWindow.getChildren().add(zoomPaneImage);
+        anchorPaneWindow.getChildren().add(anchorPanePath);
+
+        sceneGestures.reset(Map, Map.getImage().getWidth(), Map.getImage().getHeight());
+
     }
 
     @FXML
@@ -295,100 +342,56 @@ public class PathFindingController {
         thestage.setScene(scene);
     }
 
-
-    @FXML
-    /**
-     * @author Gabe
-     * Adds the fields that can be used to filter locations by floor
-     */
-    private void floor() {
-        floorList.add("All");
-        floorList.add("Ground");
-        floorList.add("L1");
-        floorList.add("L2");
-        floorList.add("1");
-        floorList.add("2");
-        floorList.add("3");
-    }
-    @FXML
-    /**
-     * @author Gabe
-     * Adds the fields that can be used to filter locations by type
-     */
-    private void filter() {
-        filterList.add("All");
-        filterList.add("Food and Retail");
-        filterList.add("Restrooms");
-        filterList.add("Conference Rooms");
-        filterList.add("Stairs");
-        filterList.add("Elevators");
-        filterList.add("Departments");
-        filterList.add("Exits");
-        filterList.add("Services");
-        filterList.add("Labs");
-        filterList.add("Information");
-    }
-
-    @SuppressWarnings("Convert2Diamond")
-    @FXML
-    public void init(boolean loggedIn) {
-        signedIn = loggedIn;
-        na = new NodesAccess();
-        ea = new EdgesAccess();
-        initializeTable(na, ea);
-        filter();
-        floor();
-        noHall();
-        Filter.setItems(filterList);
-        Floor.setItems(floorList);
-    }
-
-    @SuppressWarnings("Convert2Diamond")
-    @FXML
-    public void init(boolean loggedIn, int num) {
-        signedIn = loggedIn;
-        na = new NodesAccess();
-        ea = new EdgesAccess();
-        filter();
-        initializeTable(na, ea);
-        if (num == 1) {
-            noHall();
-
-            Filter.setItems(filterList);
-        }
-
-    }
-
     public HashMap<String, Location> getLookup() {
         return lookup;
     }
 
     @FXML
-    private void locationsSelected() {
-        if (PathFindStartDrop.getValue() != null && PathFindEndDrop.getValue() != null) {
+    private void locationsSelected(){
+        if(PathFindStartDrop.getValue() != null && PathFindEndDrop.getValue() != null){
             PathFindSubmit.setDisable(false);
-        } else {
+        }
+        else{
             PathFindSubmit.setDisable(true);
         }
     }
 
     @FXML
-    private void submitPressed() {
+    private void submitPressed(){
         Location startNode = lookup.get(PathFindStartDrop.getValue().getLocID());
         Location endNode = lookup.get(PathFindEndDrop.getValue().getLocID());
 
-        Path path = findPath(startNode, endNode);
+        AStarStrategy astar = new AStarStrategy(lookup);
+        Path path = findAbstractPath(astar, startNode, endNode);
+
         displayPath(path.getPath(), startNode, endNode);
     }
 
-    public void displayPath(ArrayList<Location> path, Location startNode, Location endNode) {
-        path.add(startNode);
+    public void displayPath(ArrayList<Location> path, Location startNode, Location endNode){
+        path.add(0,startNode);
 
-        for (Circle c : circles) {
-            anchorPaneWindow.getChildren().remove(c);
+        for (Circle c: circles) {
+            anchorPanePath.getChildren().remove(c);
         }
-        for (Line l : lines) {
-            anchorPaneWindow.getChildren().remove(l);
+        for (Line l: lines) {
+            anchorPanePath.getChildren().remove(l);
+        }
+
+        Point2D point = sceneGestures.getImageLocation();
+
+        for (int i = 0; i < path.size()-1; i++) {
+            Line line = new Line();
+
+            line.setStartX((path.get(i).getXcoord()-point.getX())*0.137*sceneGestures.getImageScale());
+            line.setStartY((path.get(i).getYcoord()-point.getY())*0.137*sceneGestures.getImageScale());
+            line.setEndX((path.get(i+1).getXcoord()-point.getX())*0.137*sceneGestures.getImageScale());
+            line.setEndY((path.get(i+1).getYcoord()-point.getY())*0.137*sceneGestures.getImageScale());
+
+            line.setStrokeWidth(Math.max(1,sceneGestures.getImageScale()/8));
+
+            lines.add(line);
+
+            anchorPanePath.getChildren().add(line);
         }
 
         Circle StartCircle = new Circle();
@@ -396,98 +399,35 @@ public class PathFindingController {
         anchorPaneWindow.getChildren().add(StartCircle);
 
         //Setting the properties of the circle
-        StartCircle.setCenterX(79f + startNode.getXcoord() * 0.137);
-        StartCircle.setCenterY(189f + startNode.getYcoord() * 0.137);
-        StartCircle.setRadius(3.0f);
+        StartCircle.setCenterX((startNode.getXcoord()-point.getX())*0.137*sceneGestures.getImageScale());
+        StartCircle.setCenterY((startNode.getYcoord()-point.getY())*0.137*sceneGestures.getImageScale());
+        StartCircle.setRadius(Math.max(2.5,2.5f*(sceneGestures.getImageScale()/5)));
+        StartCircle.setStroke(Color.GREEN);
+        StartCircle.setFill(Color.GREEN);
+
 
         Circle EndCircle = new Circle();
 
-        anchorPaneWindow.getChildren().add(EndCircle);
+        anchorPanePath.getChildren().add(EndCircle);
 
         //Setting the properties of the circle
-        EndCircle.setCenterX(79f + endNode.getXcoord() * 0.137);
-        EndCircle.setCenterY(189f + endNode.getYcoord() * 0.137);
-        EndCircle.setRadius(3.0f);
-        EndCircle.setVisible(true);
+        EndCircle.setCenterX((endNode.getXcoord()-point.getX())*0.137*sceneGestures.getImageScale());
+        EndCircle.setCenterY((endNode.getYcoord()-point.getY())*0.137*sceneGestures.getImageScale());
+        EndCircle.setRadius(Math.max(2.5,2.5f*(sceneGestures.getImageScale()/5)));
+        EndCircle.setStroke(Color.RED);
+        EndCircle.setFill(Color.RED);
+
 
         circles.add(StartCircle);
         circles.add(EndCircle);
 
-        for (int i = 0; i < path.size() - 1; i++) {
-            Line line = new Line();
-
-            line.setStartX(79f + path.get(i).getXcoord() * 0.137);
-            line.setStartY(189f + path.get(i).getYcoord() * 0.137);
-            line.setEndX(79f + path.get(i + 1).getXcoord() * 0.137);
-            line.setEndY(189f + path.get(i + 1).getYcoord() * 0.137);
-
-            anchorPaneWindow.getChildren().add(line);
-
-            lines.add(line);
-        }
+        sceneGestures.setDrawPath(StartCircle, EndCircle, lines);
     }
 
     ArrayList<Location> openList = new ArrayList<Location>();
     ArrayList<Location> closeList = new ArrayList<Location>();
     ArrayList<String> visited = new ArrayList<String>();
 
-
-    public Path findPath(Location start, Location end) {
-        openList.add(start);
-        start.setParentID("START");
-        ArrayList<Location> path = new ArrayList<Location>();
-        Path p = new Path(path);
-        if (start == end) {
-            p.addToPath(start);
-            cleanup();
-            return p;
-        }
-        Location q = new Location();
-        //while there are items in the open list
-        while (!(openList.isEmpty())) {
-            q = q.findBestF(openList);
-            openList.remove(q);
-            closeList.add(q);
-            q = lookup.get(q.getLocID());
-            ArrayList<Edge> edge = q.getEdges();
-            ArrayList<Location> children = new ArrayList<Location>();
-            for (Edge e : edge) {
-                if (!(closeList.contains(e.getEndNode())) && !(openList.contains(e.getEndNode()))) {
-                    children.add(e.getEndNode());
-                    e.getEndNode().setGScore(e.findDistance(q, e.getEndNode()));
-                }
-            }
-            for (Location l : children) {
-                //condition for found node
-                if (l.getLocID().equals(end.getLocID())) {
-                    lookup.get(l.getLocID()).setParentID(q.getLocID());
-                    l.setParentID(q.getLocID());
-                    return returnPath(l);
-                } else {
-                    double gScore = q.getGScore() + l.getGScore(); //calculate base G score
-                    l.setScore(l.calculateScore(gScore, end)); //add in H score
-                    l.setParentID(q.getLocID());
-                    lookup.get(l.getLocID()).setParentID(q.getLocID());
-                    if (!openList.contains(l) && !closeList.contains(l)) {
-                        openList.add(l);
-                    }
-                }
-            }
-        }
-        return p;
-    }
-
-    public Path returnPath(Location obj) {
-        Location l = obj;
-        ArrayList<Location> path = new ArrayList<Location>();
-        Path p = new Path(path);
-        while (!(l.getParentID().equals("START"))) {
-            p.addToPath(l);
-            l = lookup.get(l.getParentID());
-        }
-        cleanup();
-        return p;
-    }
 
     private void initializeTable(NodesAccess na, EdgesAccess ea) {
         ArrayList<String> edgeList;
@@ -496,7 +436,7 @@ public class PathFindingController {
         while (count < na.countRecords()) {
             ArrayList<String> arr = na.getNodes(count);
             ArrayList<String> arr2;
-            Location testx = new Location(arr.get(0), Integer.parseInt(arr.get(1)), Integer.parseInt(arr.get(2)), (arr.get(3)), arr.get(4), arr.get(5), arr.get(6), arr.get(7));
+            Location testx = new Location(arr.get(0), Integer.parseInt(arr.get(1)), Integer.parseInt(arr.get(2)), arr.get(3), arr.get(4), arr.get(5), arr.get(6), arr.get(7));
             //only add the node if it hasn't been done yet
             if (!(lookup.containsKey(arr.get(0)))) {
                 lookup.put((arr.get(0)), testx);
@@ -509,12 +449,13 @@ public class PathFindingController {
                         testx.addEdge(e);
                     } else {
                         arr2 = na.getNodeInformation(nodeID);
-                        Location testy = new Location(nodeID, Integer.parseInt(arr2.get(0)), Integer.parseInt(arr2.get(1)), (arr2.get(2)), arr2.get(3), arr2.get(4), arr2.get(5), arr2.get(6));
+                        Location testy = new Location(nodeID, Integer.parseInt(arr2.get(0)), Integer.parseInt(arr2.get(1)), arr2.get(2), arr2.get(3), arr2.get(4), arr2.get(5), arr2.get(6));
                         Edge e = new Edge(Integer.toString(j), testx, testy);
                         testx.addEdge(e);
                     }
                 }
-            } else {
+            }
+            else {
                 edgeList = ea.getConnectedNodes(arr.get(0));
                 for (int j = 0; j < edgeList.size(); j++) {
                     String nodeID = edgeList.get(j);
@@ -523,7 +464,7 @@ public class PathFindingController {
                         testx.addEdge(e);
                     } else {
                         arr2 = na.getNodeInformation(nodeID);
-                        Location testy = new Location(nodeID, Integer.parseInt(arr2.get(0)), Integer.parseInt(arr2.get(1)), (arr2.get(2)), arr2.get(3), arr2.get(4), arr2.get(5), arr2.get(6));
+                        Location testy = new Location(nodeID, Integer.parseInt(arr2.get(0)), Integer.parseInt(arr2.get(1)), arr2.get(2), arr2.get(3), arr2.get(4), arr2.get(5), arr2.get(6));
                         Edge e = new Edge(Integer.toString(j), testx, testy);
                         testx.addEdge(e);
                     }
@@ -920,5 +861,46 @@ public class PathFindingController {
         }
         openList.clear();
         closeList.clear();
+    }
+
+    public Path findAbstractPath(PathfindingStrategy strategy, Location start, Location end) {
+        Path p = strategy.findPath(start, end);
+        return p;
+    }
+
+    private double calculateSlope(Location start, Location end) {
+        double xDiff = end.getXcoord() - start.getXcoord();
+        double yDiff = end.getYcoord() - start.getYcoord();
+        return yDiff/xDiff;
+    }
+
+    @FXML
+    private void floor() {
+        floorList.add("All");
+        floorList.add("Ground");
+        floorList.add("L1");
+        floorList.add("L2");
+        floorList.add("1");
+        floorList.add("2");
+        floorList.add("3");
+    }
+
+    @FXML
+    /**
+     * @author Gabe
+     * Adds the fields that can be used to filter locations by type
+     */
+    private void filter() {
+        filterList.add("All");
+        filterList.add("Food and Retail");
+        filterList.add("Restrooms");
+        filterList.add("Conference Rooms");
+        filterList.add("Stairs");
+        filterList.add("Elevators");
+        filterList.add("Departments");
+        filterList.add("Exits");
+        filterList.add("Services");
+        filterList.add("Labs");
+        filterList.add("Information");
     }
 }
