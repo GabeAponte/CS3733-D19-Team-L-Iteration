@@ -122,35 +122,43 @@ public class PathFindingController {
     @FXML
     private void clickedG() throws IOException {
         Map.setImage(new Image("/SoftEng_UI_Mockup_Pics/00_thegroundfloor.png"));
-        getCurFloor();
-        currentMap;
+        currentMap = "G";
         Path path = findPath(startNode, endNode);
         displayPath(path.getPath(), startNode, endNode);
     }
     @FXML
-    private void clickedL1() throws IOException {
-        Map.setImage(new Image("/SoftEng_UI_Mockup_Pics/00_thelowerlevel1.png"));
-        getCurFloor();
+    private void clickedL1() throws IOException { Map.setImage(new Image("/SoftEng_UI_Mockup_Pics/00_thelowerlevel1.png"));
+        currentMap = "L1";
+        Path path = findPath(startNode, endNode);
+        displayPath(path.getPath(), startNode, endNode);
     }
 
     @FXML public void clickedL2() throws IOException {
         Map.setImage(new Image("/SoftEng_UI_Mockup_Pics/00_thelowerlevel2.png"));
-        getCurFloor();
+        currentMap = "L2";
+        Path path = findPath(startNode, endNode);
+        displayPath(path.getPath(), startNode, endNode);
     }
     @FXML
     private void clicked1() throws IOException {
         Map.setImage(new Image("/SoftEng_UI_Mockup_Pics/01_thefirstfloor.png"));
-        getCurFloor();
+        currentMap = "1";
+        Path path = findPath(startNode, endNode);
+        displayPath(path.getPath(), startNode, endNode);
     }
     @FXML
     private void clicked2() throws IOException {
         Map.setImage(new Image("/SoftEng_UI_Mockup_Pics/02_thesecondfloor.png"));
-        getCurFloor();
+        currentMap = "2";
+        Path path = findPath(startNode, endNode);
+        displayPath(path.getPath(), startNode, endNode);
     }
     @FXML
     private void clicked3() throws IOException {
         Map.setImage(new Image("/SoftEng_UI_Mockup_Pics/03_thethirdfloor.png"));
-        getCurFloor();
+        currentMap = "3";
+        Path path = findPath(startNode, endNode);
+        displayPath(path.getPath(), startNode, endNode);
     }
     ListIterator<String> listIterator = null;
 
@@ -187,26 +195,23 @@ public class PathFindingController {
             listIterator = mapURLs.listIterator();
             String next = listIterator.next();
             Map.setImage(new Image(next));
-            getCurFloor();
+
         }
         else if (listIterator.hasNext() == false) {
             listIterator = mapURLs.listIterator();
             String next = listIterator.next();
             Map.setImage(new Image(next));
-            getCurFloor();
         }
 
         else if (downclickedLast == true){
             String next = listIterator.next();
             Map.setImage(new Image(next));
             upAgain();
-            getCurFloor();
         }
 
         else if (downclickedLast == false){
             String next = listIterator.next();
             Map.setImage(new Image(next));
-            getCurFloor();
         }
         upclickedLast = true;
         downclickedLast = false;
@@ -221,11 +226,9 @@ public class PathFindingController {
             listIterator = mapURLs.listIterator();
             String next = listIterator.next();
             Map.setImage(new Image(next));
-            getCurFloor();
         } else {
             String next = listIterator.next();
             Map.setImage(new Image(next));
-            getCurFloor();
         }
     }
 
@@ -254,51 +257,28 @@ public class PathFindingController {
         if (mapURLs.isEmpty()) {
             map();
             listIterator = mapURLs.listIterator();
-            getCurFloor();
         }
         if (listIterator.hasPrevious() == false && upclickedLast == true) {
             listIterator = mapURLs.listIterator(mapURLs.size()-1);
             String previous = listIterator.previous();
             Map.setImage(new Image(previous));
-            getCurFloor();
         }
         else if (listIterator.hasPrevious() == false) {
             listIterator = mapURLs.listIterator(mapURLs.size()-1);
             String previous = listIterator.previous();
             Map.setImage(new Image(previous));
-            getCurFloor();
         }
         else if (upclickedLast == true){
             String previous = listIterator.previous();
             Map.setImage(new Image(previous));
             downAgain();//Due to the nature of listIterator, previous needs to be called twice inorder for the image to switch
-            getCurFloor();
         }
         else if (upclickedLast == false){
             String previous = listIterator.previous();
             Map.setImage(new Image(previous));
-            getCurFloor();
         }
         upclickedLast = false;
         downclickedLast = true;
-    }
-
-    private void getCurFloor() throws IOException {
-        for(int i = 0; i < mapURLs.size(); i++)
-        if(Map.getImage().equals(mapURLs.get(i))){
-            if(mapURLs.get(i).equals("/SoftEng_UI_Mockup_Pics/03_thethirdfloor.png"))
-                currentMap = "3";
-            if(mapURLs.get(i).equals("/SoftEng_UI_Mockup_Pics/00_thegroundfloor.png"))
-                currentMap = "Ground";
-            if(mapURLs.get(i).equals("/SoftEng_UI_Mockup_Pics/00_thelowerlevel1.png"))
-                currentMap = "L1";
-            if(mapURLs.get(i).equals("/SoftEng_UI_Mockup_Pics/00_thelowerlevel2.png"))
-                currentMap = "L2";
-            if(mapURLs.get(i).equals("/SoftEng_UI_Mockup_Pics/01_thefirstfloor.png"))
-                currentMap = "1";
-            if(mapURLs.get(i).equals("/SoftEng_UI_Mockup_Pics/02_thesecondfloor.png"))
-                currentMap = "2";
-        }
     }
 
 
@@ -450,7 +430,9 @@ public class PathFindingController {
         EndCircle.setCenterX(79f + endNode.getXcoord()*0.137);
         EndCircle.setCenterY(189f + endNode.getYcoord()*0.137);
         EndCircle.setRadius(3.0f);
-        EndCircle.setVisible(true);
+        if(!endNode.getFloor().equals(currentMap)){
+            EndCircle.setVisible(false);
+        }
 
         circles.add(StartCircle);
         circles.add(EndCircle);
@@ -536,7 +518,7 @@ public class PathFindingController {
                         mult = 10000;
                     else
                         mult = 100;
-                    l.setScore(l.calculateScore(gScore, mult, end)); //add in H score
+                    l.setScore(l.calculateScore(gScore, end)); //add in H score
                     l.setParentID(q.getLocID());
                     lookup.get(l.getLocID()).setParentID(q.getLocID());
                     if (!openList.contains(l) && !closeList.contains(l)) {
