@@ -62,7 +62,7 @@ public class PathFindingController {
 
     private NodesAccess na;
     private EdgesAccess ea;
-    private ObservableList<Location> data = FXCollections.observableArrayList();
+    //private ObservableList<Location> data = FXCollections.observableArrayList();
     private HashMap<String, Location> lookup = new HashMap<String, Location>();
 
     private ArrayList<Circle> circles = new ArrayList<Circle>();
@@ -120,7 +120,9 @@ public class PathFindingController {
     @FXML
     private void submitPressed(){
         Location startNode = lookup.get(PathFindStartDrop.getValue().getLocID());
+        System.out.println(PathFindStartDrop.getValue().getLocID());
         Location endNode = lookup.get(PathFindEndDrop.getValue().getLocID());
+        System.out.println(PathFindEndDrop.getValue().getLocID());
 
         Path path = findPath(startNode, endNode);
         displayPath(path.getPath(), startNode, endNode);
@@ -235,7 +237,7 @@ public class PathFindingController {
         return p;
     }
 
-    private void initializeTable(NodesAccess na, EdgesAccess ea) {
+    /*private void initializeTable(NodesAccess na, EdgesAccess ea) {
         ArrayList<String> edgeList;
         int count;
         count = 0;
@@ -278,7 +280,7 @@ public class PathFindingController {
             }
             count++;
         }
-    }
+    }*/
 
     private void cleanup() {
         for (Location x : lookup.values()) {
