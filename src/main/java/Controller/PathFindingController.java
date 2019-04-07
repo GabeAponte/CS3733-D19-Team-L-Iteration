@@ -20,6 +20,7 @@ import javafx.stage.Stage;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.ListIterator;
 
 @SuppressWarnings("Duplicates")
 public class PathFindingController {
@@ -38,6 +39,12 @@ public class PathFindingController {
 
     @FXML
     private Button G;
+
+    @FXML
+    private Button Up;
+
+    @FXML
+    private Button Down;
 
     @FXML
     private Button L1;
@@ -99,6 +106,8 @@ public class PathFindingController {
     private final ObservableList<String> filterList = FXCollections.observableArrayList();
     private final ObservableList<String> floorList = FXCollections.observableArrayList();
 
+
+    private ArrayList<String> mapURLs = new ArrayList<String>();
     private ArrayList<Circle> circles = new ArrayList<Circle>();
     private ArrayList<Line> lines = new ArrayList<Line>();
 
@@ -106,13 +115,13 @@ public class PathFindingController {
     String type = "test";
     String type2 = "";
 
+    String currentMap = "";
     @FXML
-    public void clickedG(){
+    private void clickedG(){
         Map.setImage(new Image("/SoftEng_UI_Mockup_Pics/00_thegroundfloor.png"));
     }
-
     @FXML
-    public void clickedL1(){
+    private void clickedL1(){
         Map.setImage(new Image("/SoftEng_UI_Mockup_Pics/00_thelowerlevel1.png"));
     }
 
@@ -120,17 +129,136 @@ public class PathFindingController {
         Map.setImage(new Image("/SoftEng_UI_Mockup_Pics/00_thelowerlevel2.png"));
     }
     @FXML
-    public void clicked1(){
+    private void clicked1(){
         Map.setImage(new Image("/SoftEng_UI_Mockup_Pics/01_thefirstfloor.png"));
     }
     @FXML
-    public void clicked2(){
+    private void clicked2(){
         Map.setImage(new Image("/SoftEng_UI_Mockup_Pics/02_thesecondfloor.png"));
     }
     @FXML
-    public void clicked3(){
+    private void clicked3(){
         Map.setImage(new Image("/SoftEng_UI_Mockup_Pics/03_thethirdfloor.png"));
     }
+    ListIterator<String> listIterator = null;
+
+    @FXML
+    /**
+     * @author Gabe
+     * adds all the URLs to the list, starts with 3rd floor since that is the next floor to come
+     */
+    public void map(){
+        mapURLs.add("/SoftEng_UI_Mockup_Pics/03_thethirdfloor.png");
+        mapURLs.add("/SoftEng_UI_Mockup_Pics/00_thegroundfloor.png");
+        mapURLs.add("/SoftEng_UI_Mockup_Pics/00_thelowerlevel1.png");
+        mapURLs.add("/SoftEng_UI_Mockup_Pics/00_thelowerlevel2.png");
+        mapURLs.add("/SoftEng_UI_Mockup_Pics/01_thefirstfloor.png");
+        mapURLs.add("/SoftEng_UI_Mockup_Pics/02_thesecondfloor.png");
+    }
+
+    boolean upclickedLast = false;
+    boolean downclickedLast = false;
+
+    @FXML
+    /**
+     * @author Gabe
+     * Replaces image URL with the next floor up when the UP button is pressed
+     */
+    private void upClicked() {
+        if (mapURLs.isEmpty()) {
+            map();
+            listIterator = mapURLs.listIterator();
+        }
+        if (listIterator.hasNext() == false && downclickedLast == true) {
+            listIterator = mapURLs.listIterator();
+            String next = listIterator.next();
+            Map.setImage(new Image(next));
+        }
+        else if (listIterator.hasNext() == false) {
+            listIterator = mapURLs.listIterator();
+            String next = listIterator.next();
+            Map.setImage(new Image(next));
+        }
+
+        else if (downclickedLast == true){
+            String next = listIterator.next();
+            Map.setImage(new Image(next));
+            upAgain();
+           // Map.setImage(new Image(next));
+        }
+
+        else if (downclickedLast == false){
+            String next = listIterator.next();
+            Map.setImage(new Image(next));
+        }
+        upclickedLast = true;
+        downclickedLast = false;
+    }
+    @FXML
+    /**
+     * @author Gabe
+     * allows the map to change when UP is pressed and the last button clicked was DOWN by calling next one more time.
+     */
+    private void upAgain() {
+        if (listIterator.hasNext() == false) {
+            listIterator = mapURLs.listIterator();
+            String next = listIterator.next();
+            Map.setImage(new Image(next));
+        } else {
+            String next = listIterator.next();
+            Map.setImage(new Image(next));
+        }
+    }
+
+    @FXML
+    /**
+     * @author Gabe
+     * allows the map to change when down is pressed and the last button clicked was UP by calling previous one more time.
+     */
+    private void downAgain() {
+        if (listIterator.hasPrevious() == false) {
+            listIterator = mapURLs.listIterator(mapURLs.size() - 1);
+            String previous = listIterator.previous();
+            Map.setImage(new Image(previous));
+        } else {
+            String previous = listIterator.previous();
+            Map.setImage(new Image(previous));
+        }
+    }
+
+    @FXML
+    /**
+     * @author Gabe
+     * Replaces image URL with the next floor down when the DOWN button is pressed
+     */
+    private void downClicked(){
+        if (mapURLs.isEmpty()) {
+            map();
+            listIterator = mapURLs.listIterator();
+        }
+        if (listIterator.hasPrevious() == false && upclickedLast == true) {
+            listIterator = mapURLs.listIterator(mapURLs.size()-1);
+            String previous = listIterator.previous();
+            Map.setImage(new Image(previous));
+        }
+        else if (listIterator.hasPrevious() == false) {
+            listIterator = mapURLs.listIterator(mapURLs.size()-1);
+            String previous = listIterator.previous();
+            Map.setImage(new Image(previous));
+        }
+        else if (upclickedLast == true){
+            String previous = listIterator.previous();
+            Map.setImage(new Image(previous));
+            downAgain();//Due to the nature of listIterator, previous needs to be called twice inorder for the image to switch
+        }
+        else if (upclickedLast == false){
+            String previous = listIterator.previous();
+            Map.setImage(new Image(previous));
+        }
+        upclickedLast = false;
+        downclickedLast = true;
+    }
+
 
     @FXML
     private void backPressed() throws IOException {
@@ -162,7 +290,11 @@ public class PathFindingController {
     }
 
     @FXML
-    public void floor() {
+    /**
+     * @author Gabe
+     * Adds the fields that can be used to filter locations by floor
+     */
+    private void floor() {
         floorList.add("All");
         floorList.add("Ground");
         floorList.add("L1");
@@ -172,7 +304,11 @@ public class PathFindingController {
         floorList.add("3");
     }
     @FXML
-    public void filter() {
+    /**
+     * @author Gabe
+     * Adds the fields that can be used to filter locations by type
+     */
+    private void filter() {
         filterList.add("All");
         filterList.add("Food and Retail");
         filterList.add("Restrooms");
