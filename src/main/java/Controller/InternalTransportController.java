@@ -26,7 +26,7 @@ public class InternalTransportController {
     JFXTextField phoneField;
 
     @FXML
-    JFXTextField typeField;
+    JFXComboBox<String> typeField;
 
     @FXML
     JFXTextArea commentBox;
@@ -39,11 +39,14 @@ public class InternalTransportController {
     private HashMap<String, Location> lookup = new HashMap<String, Location>();
 
     public void initialize(){
-        //submitbtn.setDisable(true);
+        submitbtn.setDisable(true);
         na = new NodesAccess();
         initializeTable(na);
         startBox.setItems(data);
         endBox.setItems(data);
+        typeField.getItems().addAll(
+            "Wheelchair", "Walker", "Escort", "Crutches", "Other"
+        );
     }
 
     private void initializeTable(NodesAccess na) {
@@ -62,6 +65,15 @@ public class InternalTransportController {
     }
 
     @FXML
+    private void reenableSubmit(){
+        if(commentBox.getText().trim().isEmpty() || typeField.getValue() == null || startBox.getValue() == null || endBox.getValue() == null || phoneField.getText().trim().isEmpty()){
+            submitbtn.setDisable(true);
+            return;
+        }
+        submitbtn.setDisable(false);
+    }
+
+    @FXML
     private void submitPressed(){
         Location startNode = lookup.get(startBox.getValue().getLocID());
         Location endNode = lookup.get(endBox.getValue().getLocID());
@@ -74,13 +86,13 @@ public class InternalTransportController {
             System.out.println("EMPTY");
             return;
         }
-        String type = typeField.getText();
-        if(comment.trim().isEmpty()){
+        String type = typeField.getValue();
+        if(type.trim().isEmpty()){
             System.out.println("type");
             return;
         }
         String phone = phoneField.getText();
-        if(comment.trim().isEmpty()){
+        if(phone.trim().isEmpty()){
             System.out.println("phone");
             return;
         }
