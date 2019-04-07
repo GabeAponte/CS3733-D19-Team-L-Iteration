@@ -57,6 +57,9 @@ public class PathFindingController {
     private ComboBox<String> Filter;
 
     @FXML
+    private ComboBox<String> Floor;
+
+    @FXML
     private ComboBox<Location> PathFindEndDrop;
 
     @FXML
@@ -72,9 +75,14 @@ public class PathFindingController {
     private HashMap<String, Location> lookup = new HashMap<String, Location>();
     private final ObservableList<Location> noHall = FXCollections.observableArrayList();
     private final ObservableList<String> filterList = FXCollections.observableArrayList();
+    private final ObservableList<String> floorList = FXCollections.observableArrayList();
 
     private ArrayList<Circle> circles = new ArrayList<Circle>();
     private ArrayList<Line> lines = new ArrayList<Line>();
+
+    String pickedFloor = "test";
+    String type = "test";
+    String type2 = "";
 
 
     @FXML
@@ -107,6 +115,16 @@ public class PathFindingController {
     }
 
     @FXML
+    public void floor() {
+        floorList.add("All");
+        floorList.add("Ground");
+        floorList.add("L1");
+        floorList.add("L2");
+        floorList.add("1");
+        floorList.add("2");
+        floorList.add("3");
+    }
+    @FXML
     public void filter() {
         filterList.add("All");
         filterList.add("Food and Retail");
@@ -129,10 +147,12 @@ public class PathFindingController {
         ea = new EdgesAccess();
         initializeTable(na, ea);
         filter();
+        floor();
         noHall();
         PathFindStartDrop.setItems(noHall);
         PathFindEndDrop.setItems(noHall);
         Filter.setItems(filterList);
+        Floor.setItems(floorList);
     }
 
     @SuppressWarnings("Convert2Diamond")
@@ -290,7 +310,7 @@ public class PathFindingController {
         while (count < na.countRecords()) {
             ArrayList<String> arr = na.getNodes(count);
             ArrayList<String> arr2;
-            Location testx = new Location(arr.get(0), Integer.parseInt(arr.get(1)), Integer.parseInt(arr.get(2)), Integer.parseInt(arr.get(3)), arr.get(4), arr.get(5), arr.get(6), arr.get(7));
+            Location testx = new Location(arr.get(0), Integer.parseInt(arr.get(1)), Integer.parseInt(arr.get(2)), (arr.get(3)), arr.get(4), arr.get(5), arr.get(6), arr.get(7));
             //only add the node if it hasn't been done yet
             if (!(lookup.containsKey(arr.get(0)))) {
                 lookup.put((arr.get(0)), testx);
@@ -303,7 +323,7 @@ public class PathFindingController {
                         testx.addEdge(e);
                     } else {
                         arr2 = na.getNodeInformation(nodeID);
-                        Location testy = new Location(nodeID, Integer.parseInt(arr2.get(0)), Integer.parseInt(arr2.get(1)), Integer.parseInt(arr2.get(2)), arr2.get(3), arr2.get(4), arr2.get(5), arr2.get(6));
+                        Location testy = new Location(nodeID, Integer.parseInt(arr2.get(0)), Integer.parseInt(arr2.get(1)), (arr2.get(2)), arr2.get(3), arr2.get(4), arr2.get(5), arr2.get(6));
                         Edge e = new Edge(Integer.toString(j), testx, testy);
                         testx.addEdge(e);
                     }
@@ -317,7 +337,7 @@ public class PathFindingController {
                         testx.addEdge(e);
                     } else {
                         arr2 = na.getNodeInformation(nodeID);
-                        Location testy = new Location(nodeID, Integer.parseInt(arr2.get(0)), Integer.parseInt(arr2.get(1)), Integer.parseInt(arr2.get(2)), arr2.get(3), arr2.get(4), arr2.get(5), arr2.get(6));
+                        Location testy = new Location(nodeID, Integer.parseInt(arr2.get(0)), Integer.parseInt(arr2.get(1)), (arr2.get(2)), arr2.get(3), arr2.get(4), arr2.get(5), arr2.get(6));
                         Edge e = new Edge(Integer.toString(j), testx, testy);
                         testx.addEdge(e);
                     }
@@ -328,23 +348,84 @@ public class PathFindingController {
     }
 
     @FXML
-    private void noHall() {
-        String filter = "";
-        String filter2 = "";
-
-        for (int j = 0; j < data.size(); j++) {
-            if (!(data.get(j).getNodeType().contains("HALL"))) {
-                noHall.add(data.get(j));
-            }
+    /**
+     * @author Gabe
+     * reads the input for the floor combo box
+     */
+    private void filterFloor() {
+        if (Floor.getValue() == "Ground") {
+            pickedFloor = "G";
         }
-        PathFindStartDrop.setItems(noHall);
-        PathFindEndDrop.setItems(noHall);
+        if (Floor.getValue() == "L1") {
+            pickedFloor = "L1";
+        }
+        if (Floor.getValue() == "L2") {
+            pickedFloor = "L2";
+        }
+        if (Floor.getValue() == "1") {
+            pickedFloor = "1";
+        }
+        if (Floor.getValue() == "2") {
+            pickedFloor = "2";
+        }
+        if (Floor.getValue() == "3") {
+            pickedFloor = "3";
+        }
+    }
 
+    @FXML
+    /**
+     * @author Gabe
+     * reads the input for the room type combo box
+     */
+    private void filterType() {
+        if (Filter.getValue() == ("Conference Rooms")) {
+            type = "CONF";
+        }
+        if (Filter.getValue() == ("Exits")) {
+            type = "EXIT";
+        }
+        if (Filter.getValue() == ("Departments")) {
+            type = "DEPT";
+        }
+        if (Filter.getValue() == ("Stairs")) {
+            type = "STAI";
+        }
+        if (Filter.getValue() == ("Elevators")) {
+            type = "ELEV";
+        }
+        if (Filter.getValue() == ("Labs")) {
+            type = "LABS";
+        }
+        if (Filter.getValue() == ("Information")) {
+            type = "INFO";
+        }
+        if (Filter.getValue() == ("Services")) {
+            type = "SERV";
+        }
+        if (Filter.getValue() == ("Food and Retail")) {
+            type = "RETL";
+        }
         if (Filter.getValue() == ("Restrooms")) {
-            filter = "REST";
-            filter2 = "BATH";
+            type = "REST";
+            type2 = "BATH";
         }
-        if (Filter.getValue() == ("All")) {
+
+    }
+    @FXML
+    /**
+     * @author Gabe
+     * populates the start and end drop downs with filtered locations based on type and floor number.
+     * No hallways are ever showed.
+     */
+    private void noHall() {
+        filterFloor();
+        System.out.println(pickedFloor);
+        filterType();
+        System.out.println(type);
+        System.out.println(type2);
+
+        if (Filter.getValue() == null && Floor.getValue() == null) {
             noHall.clear();
             for (int j = 0; j < data.size(); j++) {
                 if (!(data.get(j).getNodeType().contains("HALL"))) {
@@ -354,38 +435,11 @@ public class PathFindingController {
             PathFindStartDrop.setItems(noHall);
             PathFindEndDrop.setItems(noHall);
         }
-        if (Filter.getValue() == ("Conference Rooms")) {
-            filter = "CONF";
-        }
-        if (Filter.getValue() == ("Exits")) {
-            filter = "EXIT";
-        }
-        if (Filter.getValue() == ("Departments")) {
-            filter = "DEPT";
-        }
-        if (Filter.getValue() == ("Stairs")) {
-            filter = "STAI";
-        }
-        if (Filter.getValue() == ("Elevators")) {
-            filter = "ELEV";
-        }
-        if (Filter.getValue() == ("Labs")) {
-            filter = "LABS";
-        }
-        if (Filter.getValue() == ("Information")) {
-            filter = "INFO";
-        }
-        if (Filter.getValue() == ("Services")) {
-            filter = "SERV";
-        }
-        if (Filter.getValue() == ("Food and Retail")) {
-            filter = "RETL";
-        }
 
-        if (Filter.getValue() != null && Filter.getValue() != "All") {
+        else if (Filter.getValue() == ("All") && Floor.getValue() == null) {
             noHall.clear();
             for (int j = 0; j < data.size(); j++) {
-                if ((data.get(j).getNodeType().contains(filter))) {
+                if (!(data.get(j).getNodeType().contains("HALL"))) {
                     noHall.add(data.get(j));
                 }
             }
@@ -393,17 +447,88 @@ public class PathFindingController {
             PathFindEndDrop.setItems(noHall);
         }
 
-        if (Filter.getValue() != null && Filter.getValue() == "Restrooms") {
+        else if (Filter.getValue() == ("All") && Floor.getValue() == "All") {
             noHall.clear();
             for (int j = 0; j < data.size(); j++) {
-                if ((data.get(j).getNodeType().contains(filter))|| (data.get(j).getNodeType().contains(filter2))) {
+                if (!(data.get(j).getNodeType().contains("HALL"))) {
                     noHall.add(data.get(j));
                 }
             }
             PathFindStartDrop.setItems(noHall);
             PathFindEndDrop.setItems(noHall);
         }
-    }
+
+        else if (Filter.getValue() == null && Floor.getValue() == "All") {
+            noHall.clear();
+            for (int j = 0; j < data.size(); j++) {
+                if (!(data.get(j).getNodeType().contains("HALL"))) {
+                    noHall.add(data.get(j));
+                }
+            }
+            PathFindStartDrop.setItems(noHall);
+            PathFindEndDrop.setItems(noHall);
+        }
+
+        else if (Filter.getValue() == "Restrooms" && Floor.getValue() == null) {
+            noHall.clear();
+            for (int j = 0; j < data.size(); j++) {
+                if ((data.get(j).getNodeType().contains(type)) || (data.get(j).getNodeType().contains(type2))) {
+                    System.out.println("this ran");
+                    noHall.add(data.get(j));
+                }
+            }
+            PathFindStartDrop.setItems(noHall);
+            PathFindEndDrop.setItems(noHall);
+        }
+
+        else if (Filter.getValue() == "Restrooms" && Floor.getValue() == "All") {
+            noHall.clear();
+            for (int j = 0; j < data.size(); j++) {
+                if ((data.get(j).getNodeType().contains(type)) || (data.get(j).getNodeType().contains(type2))) {
+                    System.out.println("this ran");
+                    noHall.add(data.get(j));
+                }
+            }
+            PathFindStartDrop.setItems(noHall);
+            PathFindEndDrop.setItems(noHall);
+        }
+
+        else if (Filter.getValue() != null && Filter.getValue() == "Restrooms" && Floor.getValue() != null) {
+            noHall.clear();
+            for (int j = 0; j < data.size(); j++) {
+                if (((data.get(j).getNodeType().contains(type)) && (data.get(j).getFloor().contains(pickedFloor))) || ((data.get(j).getNodeType().contains(type2)) && (data.get(j).getFloor().contains(pickedFloor)))) {
+                    noHall.add(data.get(j));
+                }
+            }
+            PathFindStartDrop.setItems(noHall);
+            PathFindEndDrop.setItems(noHall);
+        }
+
+        else if (Filter.getValue() != null && Filter.getValue() != "All" && Floor.getValue() == null) {
+            noHall.clear();
+            for (int j = 0; j < data.size(); j++) {
+                if ((data.get(j).getNodeType().contains(type))) {
+                    System.out.println(Floor.getValue());
+                    noHall.add(data.get(j));
+                }
+            }
+            PathFindStartDrop.setItems(noHall);
+            PathFindEndDrop.setItems(noHall);
+        }
+
+        else if (Filter.getValue() != null && Filter.getValue() != "All" && Floor.getValue() != null) {
+            noHall.clear();
+            for (int j = 0; j < data.size(); j++) {
+                if ((data.get(j).getNodeType().contains(type)) && (data.get(j).getFloor().contains(pickedFloor))) {
+                    System.out.println(Floor.getValue() + "test");
+                    noHall.add(data.get(j));
+                }
+            }
+            PathFindStartDrop.setItems(noHall);
+            PathFindEndDrop.setItems(noHall);
+        }
+
+        }
 
     private void cleanup() {
         for (Location x : lookup.values()) {
@@ -411,5 +536,7 @@ public class PathFindingController {
         }
         openList.clear();
         closeList.clear();
+
+
     }
 }

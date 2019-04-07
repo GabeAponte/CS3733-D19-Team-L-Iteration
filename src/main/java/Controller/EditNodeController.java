@@ -97,7 +97,7 @@ public class EditNodeController {
         nodeID.setText(data.getLocID());
         nodeXCoord.setText(Integer.toString(data.getXcoord()));
         nodeYCoord.setText(Integer.toString(data.getYcoord()));
-        nodeFloor.setText(Integer.toString(data.getFloor()));
+        nodeFloor.setText(data.getFloor());
         nodeBuilding.setText(data.getBuilding());
         nodeType.setText(data.getNodeType());
         nodeLongName.setText(data.getLongName());
