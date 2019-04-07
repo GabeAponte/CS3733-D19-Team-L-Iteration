@@ -24,8 +24,8 @@ public class Main extends Application {
         NodesAccess na = new NodesAccess();
         EdgesAccess ea = new EdgesAccess();
         //ea.deleteRecords();
-        na.readCSVintoTable();
-        ea.readCSVintoTable();
+        //na.readCSVintoTable();
+        //ea.readCSVintoTable();
 
         launch(args);
     }
