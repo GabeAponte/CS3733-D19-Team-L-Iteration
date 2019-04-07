@@ -140,7 +140,7 @@ public class BookRoomController {
             String roomID = "RoomTest";
             EmployeeAccess ea = new EmployeeAccess();
             Singleton single = Singleton.getInstance();
-            String employeeID = ea.getNodeInformation(single.getUsername()).get(0);
+            String employeeID = ea.getEmployeeInformation(single.getUsername()).get(0);
             ReservationAccess roomReq = new ReservationAccess();
             for(int i = 1; i < rooms.size(); i+=2) {
                 if (rooms.get(i).equals(avaliableRooms.getValue())) {
