@@ -215,6 +215,7 @@ public class EditLocationController {
         alert.showAndWait();
 
         if (alert.getResult() == ButtonType.YES) {
+            //focusNode.restitch();
             //delete the node here
             NodesAccess na = new NodesAccess();
             na.deleteNode(focusNode.getLocID());
@@ -314,9 +315,11 @@ public class EditLocationController {
         count = 0;
         while (count < ea.countRecords()) {
             edgeList = ea.getEdges(count);
-            Edge testy = new Edge(edgeList.get(0), lookup.get(edgeList.get(1)), lookup.get(edgeList.get(2)));
-            edgeData.add(testy);
-            count ++;
+            if (!edgeList.get(0).equals("edgeID")) {
+                Edge testy = new Edge(edgeList.get(0), lookup.get(edgeList.get(1)), lookup.get(edgeList.get(2)));
+                edgeData.add(testy);
+            }
+            count++;
         }
 
     }

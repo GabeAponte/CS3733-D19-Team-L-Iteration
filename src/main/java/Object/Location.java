@@ -1,5 +1,8 @@
 package Object;
 
+import Access.EdgesAccess;
+
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.PriorityQueue;
 
@@ -239,4 +242,46 @@ public class Location implements Comparable<Location>{
     public String toString() {
         return longName + "(" + floor + ")";
     }
+
+    public void restitch() {
+        EdgesAccess ea = new EdgesAccess();
+        if (this.checkIfEasyHallway()) {
+            Location[] locs = new Location[2];
+            for (int i = 0; i < 2; i ++) {
+                if (!connectedEdges.get(i).getStartNode().equals(this)) {
+                   locs[i] = connectedEdges.get(i).getStartNode();
+                }
+                else {
+                    locs[i] = connectedEdges.get(i).getEndNode();
+                }
+            }
+            ea.addEdge(locs[0].getLocID(), locs[1].getLocID());
+            System.out.println("SUCCESS");
+        }
+    }
+
+    private boolean checkIfEasyHallway() {
+        int count = 0;
+        if (this.getNodeType().equals("HALL")) {
+            if (this.connectedEdges.isEmpty()) {
+                return false;
+            }
+            for (Edge e: connectedEdges) {
+                if (!e.getEndNode().getNodeType().equals("HALL") || !e.getStartNode().getNodeType().equals("HALL") || count >1) {
+                    if (count >1) {
+                        System.out.println("TOO MANY EDGES");
+                    }
+                    else {
+                        System.out.println("NOT HALLWAYS, TOO RISKY");
+                    }
+                    return false;
+                }
+            }
+        }
+        else {
+            return false;
+        }
+        return true;
+    }
+
 }
