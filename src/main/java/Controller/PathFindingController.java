@@ -639,6 +639,26 @@ public class PathFindingController {
             PathFindStartDrop.setItems(noHall);
             PathFindEndDrop.setItems(noHall);
 
+        } else if (Filter.getValue() == ("All") && Floor.getValue() != null) {
+            noHall.clear();
+            for (int j = 0; j < data.size(); j++) {
+                if (!(data.get(j).getNodeType().contains("HALL")) && (data.get(j).getFloor().contains(pickedFloor))) {
+                    noHall.add(data.get(j));
+                }
+            }
+            PathFindStartDrop.setItems(noHall);
+            PathFindEndDrop.setItems(noHall);
+
+        } else if (Filter.getValue() != (null) && Floor.getValue() == "All") {
+            noHall.clear();
+            for (int j = 0; j < data.size(); j++) {
+                if ((data.get(j).getNodeType().contains(type))) {
+                    noHall.add(data.get(j));
+                }
+            }
+            PathFindStartDrop.setItems(noHall);
+            PathFindEndDrop.setItems(noHall);
+
         } else if (Filter.getValue() == null && Floor.getValue() == "All") {
             noHall.clear();
             for (int j = 0; j < data.size(); j++) {

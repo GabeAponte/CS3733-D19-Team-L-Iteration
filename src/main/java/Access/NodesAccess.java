@@ -110,7 +110,7 @@ public class NodesAccess extends DBAccess{
                 "nodeID TEXT PRIMARY KEY, " +
                 "xcoord integer not null, " +
                 "ycoord integer not null," +
-                "floor integer not null," +
+                "floor TEXT not null," +
                 "building TEXT not null," +
                 "nodeType TEXT not null," +
                 "longName TEXT not null," +
@@ -211,7 +211,7 @@ public class NodesAccess extends DBAccess{
                     writer.append(rs.getString("nodeID") +
                             "," + Integer.toString(rs.getInt("xcoord")) +
                             "," + Integer.toString(rs.getInt("ycoord")) +
-                            "," + Integer.toString(rs.getInt("floor")) +
+                            "," + (rs.getString("floor")) +
                             "," + rs.getString("building") +
                             "," + rs.getString("nodeType") +
                             "," + rs.getString("longName") +
@@ -322,7 +322,7 @@ public class NodesAccess extends DBAccess{
         pstmt.setString(1, data.get(0));
         pstmt.setInt(2, Integer.parseInt(data.get(1)));
         pstmt.setInt(3, Integer.parseInt(data.get(2)));
-        pstmt.setInt(4, Integer.parseInt(data.get(3)));
+        pstmt.setString(4, data.get(3));
         pstmt.setString(5, data.get(4));
         pstmt.setString(6, data.get(5));
         pstmt.setString(7, data.get(6));
@@ -358,7 +358,7 @@ public class NodesAccess extends DBAccess{
     private ArrayList<String> getFields(ArrayList<String> data, ResultSet rs) throws SQLException {
         data.add(Integer.toString(rs.getInt("xcoord")));
         data.add(Integer.toString(rs.getInt("ycoord")));
-        data.add(Integer.toString(rs.getInt("floor")));
+        data.add(rs.getString("floor"));
         data.add(rs.getString("building"));
         data.add(rs.getString("nodeType"));
         data.add(rs.getString("longName"));
