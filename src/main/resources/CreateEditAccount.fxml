@@ -142,9 +142,9 @@
                         <Insets left="100.0" right="100.0" />
                      </GridPane.margin>
                   </JFXTextField>
-                  <JFXComboBox fx:id="position" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" promptText="Position" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="4" GridPane.vgrow="ALWAYS">
+                  <JFXComboBox fx:id="position" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="44.0" prefWidth="194.0" promptText="Department" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="4" GridPane.vgrow="ALWAYS">
                      <GridPane.margin>
-                        <Insets left="100.0" right="100.0" />
+                        <Insets left="350.0" right="100.0" />
                      </GridPane.margin>
                      <stylesheets>
                         <URL value="@modify-prompt-text.css" />
@@ -161,6 +161,14 @@
                         <Font size="20.0" />
                      </font>
                   </Label>
+                  <JFXTextField fx:id="firstName1" focusColor="#f6bd38" promptText="Position" style="-jfx-prompt-text: WHITE;" stylesheets="@modify-prompt-text.css" unFocusColor="WHITE" GridPane.rowIndex="4">
+                     <font>
+                        <Font size="20.0" />
+                     </font>
+                     <GridPane.margin>
+                        <Insets left="100.0" right="300.0" />
+                     </GridPane.margin>
+                  </JFXTextField>
                </children>
                <opaqueInsets>
                   <Insets />
