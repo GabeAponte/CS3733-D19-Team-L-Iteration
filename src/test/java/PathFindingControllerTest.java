@@ -1,5 +1,6 @@
 import Controller.PathFindingController;
 import Object.*;
+import SearchingAlgorithms.AStarStrategy;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -26,8 +27,8 @@ public class PathFindingControllerTest {
         Location start = A.getLookup().get("DCONF00102");
         Location end = A.getLookup().get("DDEPT00202");
 
-
-        Path a = A.findPath(start,end);
+        AStarStrategy astar = new AStarStrategy(A.getLookup());
+        Path a = A.findAbstractPath(astar,start,end);
         ArrayList<Location> c = new ArrayList<Location>();
         Path b = new Path(c);
         Location q = A.getLookup().get("DHALL02702");
@@ -65,7 +66,8 @@ public class PathFindingControllerTest {
         Location end = A.getLookup().get("DHALL04502");
 
 
-        Path a = A.findPath(start,end);
+        AStarStrategy astar = new AStarStrategy(A.getLookup());
+        Path a = A.findAbstractPath(astar,start,end);
         ArrayList<Location> c = new ArrayList<Location>();
         Path b = new Path(c);
         Location q = A.getLookup().get("DHALL04402");
@@ -120,7 +122,8 @@ public class PathFindingControllerTest {
         Location end = A.getLookup().get("DREST00302");
 
 
-        Path a = A.findPath(start,end);
+        AStarStrategy astar = new AStarStrategy(A.getLookup());
+        Path a = A.findAbstractPath(astar,start,end);
         ArrayList<Location> c = new ArrayList<Location>();
         Path b = new Path(c);
         Location q = A.getLookup().get("DHALL05002");
@@ -152,7 +155,8 @@ public class PathFindingControllerTest {
         Location end = A.getLookup().get("DDEPT00302");
 
 
-        Path a = A.findPath(start,end);
+        AStarStrategy astar = new AStarStrategy(A.getLookup());
+        Path a = A.findAbstractPath(astar,start,end);
         ArrayList<Location> c = new ArrayList<Location>();
         Path b = new Path(c);
         Location q = A.getLookup().get("DHALL04002");
@@ -196,7 +200,8 @@ public class PathFindingControllerTest {
         Location end = A.getLookup().get("DCONF00102");
 
 
-        Path a = A.findPath(start,end);
+        AStarStrategy astar = new AStarStrategy(A.getLookup());
+        Path a = A.findAbstractPath(astar,start,end);
         ArrayList<Location> c = new ArrayList<Location>();
         Path b = new Path(c);
 
@@ -229,7 +234,8 @@ public class PathFindingControllerTest {
         Location end = A.getLookup().get("DELEV00A02");
 
 
-        Path a = A.findPath(start,end);
+        AStarStrategy astar = new AStarStrategy(A.getLookup());
+        Path a = A.findAbstractPath(astar,start,end);
         ArrayList<Location> c = new ArrayList<Location>();
         Path b = new Path(c);
 
@@ -262,7 +268,8 @@ public class PathFindingControllerTest {
         Location end = A.getLookup().get("DHALL06002");
 
 
-        Path a = A.findPath(start,end);
+        AStarStrategy astar = new AStarStrategy(A.getLookup());
+        Path a = A.findAbstractPath(astar,start,end);
         ArrayList<Location> c = new ArrayList<Location>();
         Path b = new Path(c);
 
@@ -294,7 +301,8 @@ public class PathFindingControllerTest {
         Location end = A.getLookup().get("DHALL04702");
 
 
-        Path a = A.findPath(start,end);
+        AStarStrategy astar = new AStarStrategy(A.getLookup());
+        Path a = A.findAbstractPath(astar,start,end);
         ArrayList<Location> c = new ArrayList<Location>();
         Path b = new Path(c);
 

@@ -29,7 +29,7 @@ public class BreadthFirstStrategy implements PathfindingStrategy{
         while (!queue.isEmpty()) {
             Location p = queue.poll();
             if (p.equals(end)) {
-                System.out.println(p.getParentID());
+               // System.out.println(p.getParentID());
                 return returnPath(p);
             }
             else {
@@ -54,8 +54,8 @@ public class BreadthFirstStrategy implements PathfindingStrategy{
 
     public Path returnPath(Location obj) {
         Location l = obj;
-        ArrayList<Location> path = new ArrayList<Location>();
-        Path p = new Path(path);
+        ArrayList<Location> forwardsPath = new ArrayList<Location>();
+        Path p = new Path(forwardsPath);
         while (!(l.getParentID().equals("START"))) {
             p.addToPath(l);
             l = lookup.get(l.getParentID());

@@ -6,12 +6,12 @@ import java.util.PriorityQueue;
 @SuppressWarnings("unused")
 public class Location implements Comparable<Location>{
 
-    private int xcoord, ycoord, floor;
-    private String locID, building, nodeType, longName, shortName, parentID;
+    private int xcoord, ycoord;
+    private String locID, building, nodeType, longName, shortName, parentID, floor;
     private ArrayList<Edge> connectedEdges;
     private double score, gScore;
 
-    public Location(String idIn, int xcoordIn, int ycoordIn, int floorIn, String buildingIn, String nodeTypeIn,
+    public Location(String idIn, int xcoordIn, int ycoordIn, String floorIn, String buildingIn, String nodeTypeIn,
                     String longNameIn, String shortNameIn) {
         locID = idIn;
         xcoord = xcoordIn;
@@ -76,11 +76,11 @@ public class Location implements Comparable<Location>{
         this.ycoord = ycoord;
     }
 
-    public int getFloor() {
+    public String getFloor() {
         return floor;
     }
 
-    public void setFloor(int floor) {
+    public void setFloor(String floor) {
         this.floor = floor;
     }
 
@@ -233,12 +233,10 @@ public class Location implements Comparable<Location>{
         if(count == openList.size()-1){
             openList.add(A);
         }
-
-
     }
 
     @Override
     public String toString() {
-        return longName + " (" + locID +")";
+        return longName + "(" + floor + ")";
     }
 }
