@@ -21,7 +21,7 @@ public class Main extends Application {
 
     @SuppressWarnings("RedundantThrows")
     public static void main(String[] args) throws URISyntaxException {
-        //Singleton single = Singleton.getInstance();
+        Singleton single = Singleton.getInstance();
         NodesAccess na = new NodesAccess();
         System.out.println("NA");
         EdgesAccess ea = new EdgesAccess();
@@ -38,6 +38,8 @@ public class Main extends Application {
         System.out.println("CSV1");
         //ea.readCSVintoTable();
         System.out.println("CSV2");
+
+        single.setData();
         launch(args);
     }
 }

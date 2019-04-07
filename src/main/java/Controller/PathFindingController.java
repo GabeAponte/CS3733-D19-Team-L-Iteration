@@ -3,6 +3,7 @@ package Controller;
 import Access.EdgesAccess;
 import Access.NodesAccess;
 import Object.*;
+import com.sun.xml.internal.bind.v2.runtime.unmarshaller.XsiNilLoader;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -71,10 +72,10 @@ public class PathFindingController {
         Singleton single = Singleton.getInstance();
         na = new NodesAccess();
         ea = new EdgesAccess();
-        initializeTable(na, ea);
+        //initializeTable(na, ea);
         if(single.getNum() == 1){
-            PathFindStartDrop.setItems(data);
-            PathFindEndDrop.setItems(data);
+            PathFindStartDrop.setItems(single.getData());
+            PathFindEndDrop.setItems(single.getData());
         }
     }
 
