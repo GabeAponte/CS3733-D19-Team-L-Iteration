@@ -375,15 +375,16 @@ public class PathFindingController {
             Location b = A.get(i+1);
             Location c = A.get(i+2);
 
-            if(A.get(i).getXcoord()<A.get(i+1).getXcoord()){
-                direction = 2;
-            }
-            else{
-                direction = 1;
-            }
+
 
             double angle = calculateAngle(a,b,c);
             if(angle < 110 && angle > 70){
+                if(a.getXcoord()<c.getXcoord()){
+                    direction = 2;
+                }
+                else{
+                    direction = 1;
+                }
                 System.out.println("Go straight to " + b.getLongName()
                         + " (" + convertToExact(start.findDistance(b)) + " ft) " );
                 //- -> + , x+ : left
@@ -392,7 +393,7 @@ public class PathFindingController {
                 double slopeBC = calculateSlope(b,c);
 //                System.out.println("SlopeAB " + slopeAB);
 //                System.out.println("SlopeBC " + slopeBC);
-                if(slopeAB > slopeBC&& c.getXcoord() < b.getXcoord()){
+                if(slopeAB > slopeBC&& c.getXcoord() < a.getXcoord()){
                     if(direction == 1){
                         System.out.println("Turn left");
                     }
@@ -400,7 +401,7 @@ public class PathFindingController {
                         System.out.println("Turn right");
                     }
                 }
-                else if(slopeAB > slopeBC&& c.getXcoord() > b.getXcoord()){
+                else if(slopeAB > slopeBC&& c.getXcoord() > a.getXcoord()){
                     if(direction ==1){
                         System.out.println("Turn right");
                     }
@@ -409,7 +410,7 @@ public class PathFindingController {
                     }
 
                 }
-                else if(slopeAB < slopeBC&& c.getXcoord() < b.getXcoord()){
+                else if(slopeAB < slopeBC&& c.getXcoord() < a.getXcoord()){
                     if(direction == 1){
                         System.out.println("Turn right");
                     }
@@ -417,7 +418,7 @@ public class PathFindingController {
                         System.out.println("Turn left");
                     }
                 }
-                else if(slopeAB < slopeBC&& c.getXcoord() > b.getXcoord()){
+                else if(slopeAB < slopeBC&& c.getXcoord() > a.getXcoord()){
                     if (direction == 1){
                     System.out.println("Turn left");
                     }
@@ -425,6 +426,14 @@ public class PathFindingController {
                         System.out.println("Turn right");
                     }
                 }
+                else{
+                    System.out.println("Turn");
+                    System.out.println("AB " + slopeAB);
+                    System.out.println("BC " + slopeBC);
+                    System.out.println("c " + c.getXcoord());
+                    System.out.println("b " + b.getXcoord());
+                }
+
 
             }
             if(i == A.size() - 3){
