@@ -42,7 +42,7 @@
          </stylesheets>
       </JFXComboBox>
       <JFXComboBox fx:id="PathFindEndDrop" layoutX="858.0" layoutY="339.0" onAction="#locationsSelected" prefHeight="43.0" prefWidth="300.0" promptText="Select an End Location" stylesheets="@size.css" />
-      <ImageView fx:id="Map" fitHeight="464.0" fitWidth="685.0" layoutX="79.0" layoutY="189.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="Map" fitHeight="464.0" fitWidth="685.0" layoutX="0.0" layoutY="0.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@SoftEng_UI_Mockup_Pics/02_thesecondfloor.png" />
          </image>

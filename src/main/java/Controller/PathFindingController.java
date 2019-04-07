@@ -289,8 +289,8 @@ public class PathFindingController {
             PathFindEndDrop.setItems(data);
         }
         anchorPanePath = new AnchorPane();
-        anchorPanePath.setLayoutX(0);
-        anchorPanePath.setLayoutY(0);
+        anchorPanePath.setLayoutX(79);
+        anchorPanePath.setLayoutY(189);
         anchorPanePath.setPrefSize(685,464);
         Rectangle clip = new Rectangle();
         clip.widthProperty().bind(Map.fitWidthProperty());
@@ -308,8 +308,8 @@ public class PathFindingController {
         anchorPanePath.addEventFilter( MouseEvent.MOUSE_PRESSED, sceneGestures.getOnMousePressedEventHandler());
         anchorPanePath.addEventFilter( MouseEvent.MOUSE_DRAGGED, sceneGestures.getOnMouseDraggedEventHandler());
         anchorPanePath.addEventFilter( ScrollEvent.ANY, sceneGestures.getOnScrollEventHandler());
-        zoomPaneImage.setLayoutX(0);
-        zoomPaneImage.setLayoutY(0);
+        zoomPaneImage.setLayoutX(79);
+        zoomPaneImage.setLayoutY(189);
 
         anchorPaneWindow.getChildren().add(zoomPaneImage);
         anchorPaneWindow.getChildren().add(anchorPanePath);
@@ -396,8 +396,6 @@ public class PathFindingController {
 
         Circle StartCircle = new Circle();
 
-        anchorPaneWindow.getChildren().add(StartCircle);
-
         //Setting the properties of the circle
         StartCircle.setCenterX((startNode.getXcoord()-point.getX())*0.137*sceneGestures.getImageScale());
         StartCircle.setCenterY((startNode.getYcoord()-point.getY())*0.137*sceneGestures.getImageScale());
@@ -405,10 +403,9 @@ public class PathFindingController {
         StartCircle.setStroke(Color.GREEN);
         StartCircle.setFill(Color.GREEN);
 
+        anchorPanePath.getChildren().add(StartCircle);
 
         Circle EndCircle = new Circle();
-
-        anchorPanePath.getChildren().add(EndCircle);
 
         //Setting the properties of the circle
         EndCircle.setCenterX((endNode.getXcoord()-point.getX())*0.137*sceneGestures.getImageScale());
@@ -416,6 +413,8 @@ public class PathFindingController {
         EndCircle.setRadius(Math.max(2.5,2.5f*(sceneGestures.getImageScale()/5)));
         EndCircle.setStroke(Color.RED);
         EndCircle.setFill(Color.RED);
+
+        anchorPanePath.getChildren().add(EndCircle);
 
 
         circles.add(StartCircle);

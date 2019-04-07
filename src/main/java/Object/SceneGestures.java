@@ -203,7 +203,6 @@ public class SceneGestures {
     @SuppressWarnings("Duplicates")
     private void redrawPath(Point2D oldPointUpper, double oldScale){
         if(startCircle != null) {
-
             startCircle.setCenterX(((startCircle.getCenterX()/(0.137*oldScale)+oldPointUpper.getX())-getImageLocation().getX())*0.137*getImageScale());
             startCircle.setCenterY(((startCircle.getCenterY()/(0.137*oldScale)+oldPointUpper.getY())-getImageLocation().getY())*0.137*getImageScale());
             startCircle.setRadius(Math.max(2.5,2.5f*getImageScale()/5));
