@@ -16,6 +16,8 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
@@ -51,10 +53,22 @@ public class BookRoomController {
     private Stage thestage;
 
     @FXML
+    private Pane imagePane;
+
+    @FXML
+    private ImageView roomImage;
+
+    @FXML
     private Button bookRoomBack;
 
     final ObservableList<String> listOfRooms = FXCollections.observableArrayList();
     ArrayList<String> rooms = new ArrayList<>();
+
+    @FXML
+    private void initialize(){
+        roomImage.fitWidthProperty().bind(imagePane.widthProperty());
+        roomImage.fitHeightProperty().bind(imagePane.heightProperty());
+    }
 
     @FXML
     private void backPressed() throws IOException {
