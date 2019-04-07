@@ -26,7 +26,7 @@ public class Singleton {
     private static int typePathfind;
 
     private ObservableList<Location> data = FXCollections.observableArrayList();
-    private HashMap<String, Location> lookup = new HashMap<String, Location>();
+    public HashMap<String, Location> lookup = new HashMap<String, Location>();
 
     private static Singleton single = new Singleton();
     private Singleton(){
