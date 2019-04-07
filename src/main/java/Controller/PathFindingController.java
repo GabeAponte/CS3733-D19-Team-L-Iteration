@@ -61,7 +61,7 @@ public class PathFindingController {
 
     private NodesAccess na;
     private EdgesAccess ea;
-    private final ObservableList<Location> data = FXCollections.observableArrayList();
+    private ObservableList<Location> data = FXCollections.observableArrayList();
     private HashMap<String, Location> lookup = new HashMap<String, Location>();
 
     private ArrayList<Circle> circles = new ArrayList<Circle>();
