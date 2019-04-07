@@ -42,7 +42,7 @@
          </stylesheets>
       </JFXComboBox>
       <JFXComboBox fx:id="PathFindEndDrop" layoutX="858.0" layoutY="339.0" onAction="#locationsSelected" prefHeight="43.0" prefWidth="300.0" promptText="Select an End Location" stylesheets="@size.css" />
-      <ImageView fitHeight="464.0" fitWidth="685.0" layoutX="79.0" layoutY="189.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="Map" fitHeight="464.0" fitWidth="685.0" layoutX="79.0" layoutY="189.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@SoftEng_UI_Mockup_Pics/02_thesecondfloor.png" />
          </image>
@@ -58,5 +58,11 @@
             <URL value="@modify-prompt-text.css" />
          </stylesheets>
       </JFXComboBox>
+      <JFXButton fx:id="G" layoutX="843.0" layoutY="624.0" onAction="#clickedG" prefHeight="43.0" prefWidth="48.0" text="G" />
+      <JFXButton fx:id="L1" layoutX="892.0" layoutY="630.0" onAction="#clickedL1" prefHeight="31.0" prefWidth="48.0" text="L1" />
+      <JFXButton fx:id="L2" layoutX="940.0" layoutY="624.0" onAction="#clickedL2" prefHeight="43.0" prefWidth="48.0" text="L2" />
+      <JFXButton fx:id="F1" layoutX="991.0" layoutY="624.0" onAction="#clicked1" prefHeight="43.0" prefWidth="48.0" text="1" />
+      <JFXButton fx:id="F2" layoutX="1042.0" layoutY="624.0" onAction="#clicked2" prefHeight="43.0" prefWidth="48.0" text="2" />
+      <JFXButton fx:id="F3" layoutX="1090.0" layoutY="624.0" onAction="#clicked3" prefHeight="43.0" prefWidth="48.0" text="3" />
    </children>
 </AnchorPane>
