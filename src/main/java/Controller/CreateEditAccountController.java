@@ -51,7 +51,10 @@ public class CreateEditAccountController {
     private TextField nickname;
 
     @FXML
-    private JFXComboBox position;
+    private JFXComboBox department;
+
+    @FXML
+    private TextField position;
 
     @FXML
     private JFXRadioButton isAdmin;
