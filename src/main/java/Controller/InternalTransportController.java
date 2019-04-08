@@ -63,9 +63,9 @@ public class InternalTransportController {
         count = 0;
         while (count < na.countRecords()) {
             ArrayList<String> arr = na.getNodes(count);
-            Location testx = new Location(arr.get(0), Integer.parseInt(arr.get(1)), Integer.parseInt(arr.get(2)), Integer.parseInt(arr.get(3)), arr.get(4), arr.get(5), arr.get(6), arr.get(7));
+            Location testx = new Location(arr.get(0), Integer.parseInt(arr.get(1)), Integer.parseInt(arr.get(2)), arr.get(3), arr.get(4), arr.get(5), arr.get(6), arr.get(7));
             //only add the node if it hasn't been done yet
-            if (!(lookup.containsKey(arr.get(0))) && Integer.parseInt(arr.get(3)) == 2) {
+            if (!(lookup.containsKey(arr.get(0))) && arr.get(3).equals(2)) {
                 lookup.put((arr.get(0)), testx);
                 data.add(testx);
             }

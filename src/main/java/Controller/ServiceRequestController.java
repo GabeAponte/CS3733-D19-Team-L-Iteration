@@ -75,20 +75,7 @@ public class ServiceRequestController {
         } else if(e.getSource() == LanguageInterpreter) {
             typeOfService = "Language Interpreter";
         } else {
-            FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("InternalTransport.fxml"));
-
-            Parent sceneMain = loader.load();
-
-            InternalTransportController controller = loader.<InternalTransportController>getController();
-
-            //controller.init(service, "");
-
-            Stage theStage = (Stage) SanitationServices.getScene().getWindow();
-
-            Scene scene = new Scene(sceneMain);
-            theStage.setScene(scene);
-            return;
-            //typeOfService = "Security";
+            typeOfService = "Security";
         }
 
         changeToSub(typeOfService);
