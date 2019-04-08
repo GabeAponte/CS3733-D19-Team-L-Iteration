@@ -78,23 +78,26 @@ public class ServiceRequestController {
             typeOfService = "Security";
         }
 
-        changeToSub(typeOfService);
+       // changeToSub(typeOfService);
     }
 
-    //Nathan - changes screen to service sub screen, param "service" determines label on sub screen
-    private void changeToSub(String service) throws IOException{
-        FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("ServiceSubController.fxml"));
+    //Nathan - changes screen to service sub screen, param "service" determines label on sub scree
+    @FXML
+    private void changeToFlorist() throws IOException{
 
-        Parent sceneMain = loader.load();
+        Stage theStage = (Stage) Back.getScene().getWindow();
+        AnchorPane root;
+            FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("ServiceRequestFloristDelivery.fxml"));
 
-        ServiceSubController controller = loader.<ServiceSubController>getController();
+            Parent sceneMain = loader.load();
 
-        controller.init(service, "");
+            //LoggedInHomeController controller = loader.<LoggedInHomeController>getController();
 
-        Stage theStage = (Stage) SanitationServices.getScene().getWindow();
+            theStage = (Stage) SanitationServices.getScene().getWindow();
 
-        Scene scene = new Scene(sceneMain);
-        theStage.setScene(scene);
+            Scene scene = new Scene(sceneMain);
+            theStage.setScene(scene);
+
     }
 
 }
