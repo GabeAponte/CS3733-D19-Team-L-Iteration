@@ -64,13 +64,33 @@ public class InternalTransportController {
         }
     }
 
+    private boolean isDigit(char c){
+        if(c == '1' || c == '2' || c == '3' || c == '4' || c == '5' || c == '6' || c == '7' || c == '8' || c == '9'){
+            return true;
+        }
+        return false;
+    }
+
+    private boolean NotValidPhone(){
+        String num = phoneField.getText();
+        if(num.length() != 12){
+            return true;
+        }
+        boolean isValid = isDigit(num.charAt(0)) && isDigit(num.charAt(1)) && isDigit(num.charAt(2));
+        isValid = isValid && num.charAt(3) == '-' && isDigit(num.charAt(4)) && isDigit(num.charAt(5));
+        isValid = isValid && isDigit(num.charAt(6)) && num.charAt(7) == '-' && isDigit(num.charAt(8));
+        isValid = isValid && isDigit(num.charAt(9)) && isDigit(num.charAt(10)) && isDigit(num.charAt(11));
+        return !isValid;
+    }
+
     @FXML
     private void reenableSubmit(){
         if(commentBox.getText().trim().isEmpty() || typeField.getValue() == null || startBox.getValue() == null || endBox.getValue() == null || phoneField.getText().trim().isEmpty()){
             submitbtn.setDisable(true);
             return;
         }
-        submitbtn.setDisable(false);
+
+        submitbtn.setDisable(NotValidPhone());
     }
 
     @FXML
