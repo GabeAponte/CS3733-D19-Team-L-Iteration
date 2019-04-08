@@ -67,25 +67,26 @@ public class LogInController {
         String pass = password.getText();
 
         boolean validLogin = false;
-        
+        Singleton single = Singleton.getInstance();
+
         EmployeeAccess ea = new EmployeeAccess();
         validLogin = ea.checkEmployee(uname, pass);
         if(validLogin){
-            SwitchToSignedIn(uname);
+            single.setLoggedIn(true);
+            single.setUsername(uname);
+            //single.setIsAdmin((ea.getEmployeeInformation(uname).get(2));
+            SwitchToSignedIn();
         } else {
             displayError();
         }
     }
 
-    private void SwitchToSignedIn(String un) throws IOException{
+    private void SwitchToSignedIn() throws IOException{
         FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("LoggedInHome.fxml"));
 
         Parent sceneMain = loader.load();
 
         LoggedInHomeController controller = loader.<LoggedInHomeController>getController();
-        Singleton single = Singleton.getInstance();
-        single.setLoggedIn(true);
-        single.setUsername(un);
         //TODO: SET AND CHECK IF ADMIN AND SWITCH TO ADMIN SCREEN
         Stage theStage = (Stage) login.getScene().getWindow();
 

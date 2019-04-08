@@ -34,6 +34,9 @@ public class Singleton {
         loggedIn = false;
         username = "";
         num = 1;
+        kioskID = "";
+        typePathfind = 1;
+        isAdmin = false;
     }
     public void setData() {
         NodesAccess na = new NodesAccess();
@@ -80,6 +83,14 @@ public class Singleton {
             }
             count++;
         }
+    }
+
+    public static boolean isIsAdmin() {
+        return isAdmin;
+    }
+
+    public static void setIsAdmin(boolean isAdmin) {
+        Singleton.isAdmin = isAdmin;
     }
 
     public static int getTypePathfind() {

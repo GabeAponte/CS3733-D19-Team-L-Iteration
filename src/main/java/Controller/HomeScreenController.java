@@ -40,17 +40,20 @@ public class HomeScreenController {
             long second = LocalDateTime.now().getSecond();
             long minute = LocalDateTime.now().getMinute();
             long hour = LocalDateTime.now().getHour();
+            if((hour = hour%12) == 0){
+                hour = 12;
+            }
             if(minute < 10) {
                 if(second > 9) {
-                    timeLabel.setText("The Time is: " + hour % 12 + ":0" + (minute) + ":" + second);
+                    timeLabel.setText("The Time is: " + hour + ":0" + (minute) + ":" + second);
                 } else {
-                    timeLabel.setText("The Time is: " + hour % 12 + ":0" + (minute) + ":0" + second);
+                    timeLabel.setText("The Time is: " + hour + ":0" + (minute) + ":0" + second);
                 }
             } else {
                 if(second > 9) {
-                    timeLabel.setText("The Time is: " + hour % 12 + ":" + (minute) + ":" + second);
+                    timeLabel.setText("The Time is: " + hour + ":" + (minute) + ":" + second);
                 } else {
-                    timeLabel.setText("The Time is: " + hour % 12 + ":" + (minute) + ":0" + second);
+                    timeLabel.setText("The Time is: " + hour + ":" + (minute) + ":0" + second);
                 }
             }
         }),
@@ -75,21 +78,16 @@ public class HomeScreenController {
     }
 
     @FXML
-    private void SwitchToSuggestionBox() {
-        try {
+    private void SwitchToSuggestionBox() throws IOException{
             Stage thestage = (Stage) HomeSuggestions.getScene().getWindow();
             AnchorPane root;
             root = FXMLLoader.load(getClass().getClassLoader().getResource("SuggestionBox.fxml"));
             Scene scene = new Scene(root);
             thestage.setScene(scene);
-        } catch (Exception e){
-
-        }
     }
 
     @FXML
     private void SwitchToServiceScreen() throws IOException{
-        boolean signedIn = false;
         FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("ServiceRequest.fxml"));
 
         Parent sceneMain = loader.load();
