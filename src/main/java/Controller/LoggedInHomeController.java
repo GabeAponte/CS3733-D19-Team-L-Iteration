@@ -43,7 +43,7 @@ public class LoggedInHomeController {
 
     @FXML
     private void bookRoom() throws IOException {
-        FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("BookRoom.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("NewBookRoom.fxml"));
 
         Parent sceneMain = loader.load();
 

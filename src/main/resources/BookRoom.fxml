@@ -51,7 +51,7 @@
                 <Font name="Times New Roman Bold" size="40.0" />
             </font>
         </Label>
-        <ComboBox fx:id="avaliableRooms" layoutX="616.0" layoutY="474.0" prefHeight="33.0" prefWidth="300.0" />
+        <ComboBox layoutX="616.0" layoutY="474.0" prefHeight="33.0" prefWidth="300.0" />
         <JFXButton fx:id="requestRoom" buttonType="RAISED" layoutX="572.0" layoutY="569.0" onAction="#findRoom" ripplerFill="#b0b0b0" style="-fx-background-color: WHITE;" text="Request">
             <font>
                 <Font name="Times New Roman" size="30.0" />

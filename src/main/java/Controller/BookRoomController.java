@@ -4,6 +4,7 @@ import Access.EmployeeAccess;
 import Access.ReservationAccess;
 import Access.RoomAccess;
 import com.jfoenix.controls.JFXButton;
+import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXDatePicker;
 import com.jfoenix.controls.JFXTimePicker;
 import javafx.collections.FXCollections;
@@ -17,6 +18,8 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
@@ -35,7 +38,7 @@ public class BookRoomController {
     private JFXDatePicker datePicker1;
 
     @FXML
-    private ComboBox<String> avaliableRooms;
+    private JFXComboBox<String> avaliableRooms;
 
     @FXML
     private Label error;
@@ -53,6 +56,9 @@ public class BookRoomController {
     private Stage thestage;
 
     @FXML
+    private GridPane gridPane;
+
+    @FXML
     private Pane imagePane;
 
     @FXML
@@ -62,7 +68,7 @@ public class BookRoomController {
     private Button bookRoomBack;
 
     final ObservableList<String> listOfRooms = FXCollections.observableArrayList();
-    ArrayList<String> rooms = new ArrayList<>();
+   ArrayList<String> rooms = new ArrayList<>();
 
     @FXML
     private void initialize(){
@@ -73,13 +79,9 @@ public class BookRoomController {
     @FXML
     private void backPressed() throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("LoggedInHome.fxml"));
-
         Parent sceneMain = loader.load();
-
         LoggedInHomeController controller = loader.<LoggedInHomeController>getController();
-
         Stage theStage = (Stage) bookRoomBack.getScene().getWindow();
-
         Scene scene = new Scene(sceneMain);
         theStage.setScene(scene);
     }
