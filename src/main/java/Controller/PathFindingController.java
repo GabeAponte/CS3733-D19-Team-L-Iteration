@@ -131,30 +131,54 @@ public class PathFindingController {
     String type = "test";
     String type2 = "";
 
-    String currentMap = "";
+    String currentMap = "2"; //defaults to floor 2
     @FXML
     private void clickedG(){
         Map.setImage(new Image("/SoftEng_UI_Mockup_Pics/00_thegroundfloor.png"));
+        currentMap = "G";
+        if(PathFindStartDrop.getValue() != null && PathFindEndDrop.getValue() != null){
+            submitPressed();
+        }
     }
     @FXML
-    private void clickedL1(){
+    private void clickedL1() {
         Map.setImage(new Image("/SoftEng_UI_Mockup_Pics/00_thelowerlevel1.png"));
+        currentMap = "L1";
+        if(PathFindStartDrop.getValue() != null && PathFindEndDrop.getValue() != null){
+            submitPressed();
+        }
     }
 
     @FXML public void clickedL2(){
         Map.setImage(new Image("/SoftEng_UI_Mockup_Pics/00_thelowerlevel2.png"));
+        currentMap = "L2";
+        if(PathFindStartDrop.getValue() != null && PathFindEndDrop.getValue() != null){
+            submitPressed();
+        }
     }
     @FXML
     private void clicked1(){
         Map.setImage(new Image("/SoftEng_UI_Mockup_Pics/01_thefirstfloor.png"));
+        currentMap = "1";
+        if(PathFindStartDrop.getValue() != null && PathFindEndDrop.getValue() != null){
+            submitPressed();
+        }
     }
     @FXML
     private void clicked2(){
         Map.setImage(new Image("/SoftEng_UI_Mockup_Pics/02_thesecondfloor.png"));
+        currentMap = "2";
+        if(PathFindStartDrop.getValue() != null && PathFindEndDrop.getValue() != null){
+            submitPressed();
+        }
     }
     @FXML
     private void clicked3(){
         Map.setImage(new Image("/SoftEng_UI_Mockup_Pics/03_thethirdfloor.png"));
+        currentMap = "3";
+        if(PathFindStartDrop.getValue() != null && PathFindEndDrop.getValue() != null){
+            submitPressed();
+        }
     }
     ListIterator<String> listIterator = null;
 
@@ -174,6 +198,8 @@ public class PathFindingController {
 
     boolean upclickedLast = false;
     boolean downclickedLast = false;
+    Location startNode;
+    Location endNode;
 
     @FXML
     /**
@@ -359,8 +385,8 @@ public class PathFindingController {
 
     @FXML
     private void submitPressed(){
-        Location startNode = single.lookup.get(PathFindStartDrop.getValue().getLocID());
-        Location endNode = single.lookup.get(PathFindEndDrop.getValue().getLocID());
+        startNode = single.lookup.get(PathFindStartDrop.getValue().getLocID());
+        endNode = single.lookup.get(PathFindEndDrop.getValue().getLocID());
 
         AStarStrategy astar = new AStarStrategy(single.lookup);
         Path path = findAbstractPath(astar, startNode, endNode);
@@ -382,23 +408,45 @@ public class PathFindingController {
             anchorPanePath.getChildren().remove(l);
         }
 
+        circles.clear();
+        lines.clear();
+
         Point2D point = sceneGestures.getImageLocation();
+        double scaleRatio = Map.getFitWidth()/Map.getImage().getWidth();
 
-        for (int i = 0; i < path.size()-1; i++) {
+        for (int i = 0; i < path.size() - 1; i++) {
             Line line = new Line();
+            line.setStartX(path.get(i).getXcoord() *scaleRatio*sceneGestures.getImageScale());
+            line.setStartY(path.get(i).getYcoord() *scaleRatio*sceneGestures.getImageScale());
+            line.setEndX(path.get(i + 1).getXcoord() *scaleRatio*sceneGestures.getImageScale());
+            line.setEndY(path.get(i + 1).getYcoord() *scaleRatio*sceneGestures.getImageScale());
 
-            line.setStartX((path.get(i).getXcoord()-point.getX())*0.137*sceneGestures.getImageScale());
-            line.setStartY((path.get(i).getYcoord()-point.getY())*0.137*sceneGestures.getImageScale());
-            line.setEndX((path.get(i+1).getXcoord()-point.getX())*0.137*sceneGestures.getImageScale());
-            line.setEndY((path.get(i+1).getYcoord()-point.getY())*0.137*sceneGestures.getImageScale());
+            if(!(path.get(i).getFloor().equals(currentMap)) || !(path.get(i+1).getFloor().equals(currentMap))){
+                line.setVisible(false);
+            }
+            //if switching floors
+            if(!(path.get(i).getFloor().equals(path.get(i+1).getFloor()))){
+                //create a circle to signify a connection
+                Circle midCircle = new Circle();
 
-            line.setStrokeWidth(Math.max(1,sceneGestures.getImageScale()/8));
+                //Setting the properties of the circle
+                midCircle.setCenterX(path.get(i).getXcoord() *scaleRatio*sceneGestures.getImageScale());
+                midCircle.setCenterY(path.get(i).getYcoord() *scaleRatio*sceneGestures.getImageScale());
+                midCircle.setRadius(3.0f);
+                //default to not showing this circle
+                midCircle.setVisible(false);
+                //if either this node or the connecting node are on the currently displayed floor, display this circle
+                if(path.get(i).getFloor().equals(currentMap)|| path.get(i+1).getFloor().equals(currentMap)){
+                    midCircle.setVisible(true);
+                }
+                circles.add(midCircle);
+                anchorPanePath.getChildren().add(midCircle);
+            }
+            System.out.println(path.toString());
+            anchorPanePath.getChildren().add(line);
 
             lines.add(line);
-
-            anchorPanePath.getChildren().add(line);
         }
-
         Circle StartCircle = new Circle();
 
         //Setting the properties of the circle
@@ -407,6 +455,10 @@ public class PathFindingController {
         StartCircle.setRadius(Math.max(2.5,2.5f*(sceneGestures.getImageScale()/5)));
         StartCircle.setStroke(Color.GREEN);
         StartCircle.setFill(Color.GREEN);
+        if(!startNode.getFloor().equals(currentMap)){
+            StartCircle.setVisible(false);
+        }
+
 
         anchorPanePath.getChildren().add(StartCircle);
 
@@ -418,6 +470,9 @@ public class PathFindingController {
         EndCircle.setRadius(Math.max(2.5,2.5f*(sceneGestures.getImageScale()/5)));
         EndCircle.setStroke(Color.RED);
         EndCircle.setFill(Color.RED);
+        if(!endNode.getFloor().equals(currentMap)){
+            EndCircle.setVisible(false);
+        }
 
         anchorPanePath.getChildren().add(EndCircle);
 
