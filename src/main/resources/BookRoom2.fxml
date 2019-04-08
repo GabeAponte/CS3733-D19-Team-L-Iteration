@@ -18,7 +18,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="900.0" prefWidth="1440.0" style="-fx-background-color: #012d5a;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="900.0" prefWidth="1440.0" style="-fx-background-color: #012d5a;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.BookRoom2Controller">
     <children>
         <GridPane fx:id="gridPane" layoutX="8.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="8.0" AnchorPane.rightAnchor="-8.0" AnchorPane.topAnchor="0.0">
             <columnConstraints>
@@ -50,7 +50,7 @@
                         <JFXToolbar maxHeight="-Infinity" prefHeight="10.0" style="-fx-background-color: #f5d96b;" BorderPane.alignment="CENTER" />
                     </bottom>
                     <right>
-                        <JFXButton fx:id="bookRoom2Back" buttonType="RAISED" prefHeight="102.0" prefWidth="286.0" ripplerFill="#b0b0b0" text="Back" BorderPane.alignment="CENTER">
+                        <JFXButton fx:id="bookRoom2Back" onAction="#backPressed" buttonType="RAISED" prefHeight="102.0" prefWidth="286.0" ripplerFill="#b0b0b0" text="Back" BorderPane.alignment="CENTER">
                             <font>
                                 <Font name="Avenir Book" size="48.0" />
                             </font>
