@@ -86,6 +86,7 @@ public class LogInController {
         Singleton single = Singleton.getInstance();
         single.setLoggedIn(true);
         single.setUsername(un);
+        //TODO: SET AND CHECK IF ADMIN AND SWITCH TO ADMIN SCREEN
         Stage theStage = (Stage) login.getScene().getWindow();
 
         Scene scene = new Scene(sceneMain);

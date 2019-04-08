@@ -24,6 +24,7 @@ public class Singleton {
     private static int num;
     private static String kioskID;
     private static int typePathfind;
+    private static boolean isAdmin;
 
     private ObservableList<Location> data = FXCollections.observableArrayList();
     public HashMap<String, Location> lookup = new HashMap<String, Location>();
