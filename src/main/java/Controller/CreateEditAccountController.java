@@ -128,6 +128,7 @@ public class CreateEditAccountController {
         }
         submit.setDisable(true);
         errorLabel.setText("");
+        department.getItems().addAll("Sanitation", "Security", "IT");
     }
 
     /**ANDREW MADE THIS
@@ -189,9 +190,11 @@ public class CreateEditAccountController {
         submit.setDisable(false);
     }
 
+
     /**ANDREW MADE THIS
      * submit button functionality - does a lot of error checking
      */
+    @FXML
     private void submit(){
         EmployeeAccess ea = new EmployeeAccess();
         if(!isValidEmailAddress(email.getText())){
