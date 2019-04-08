@@ -22,6 +22,7 @@ public class AStarStrategy implements PathfindingStrategy {
     }
 
     public Path findPath(Location start, Location end) {
+        Singleton single = Singleton.getInstance();
         openList.add(start);
         start.setParentID("START");
         ArrayList<Location> path = new ArrayList<Location>();
@@ -54,7 +55,8 @@ public class AStarStrategy implements PathfindingStrategy {
                     l.setParentID(q.getLocID());
                     return returnPath(l);
                 } else {
-                    double gScore = q.getGScore() + l.getGScore(); //calculate base G score
+                    double gScore = q.getGScore() + l.calculateScore(0, q);
+                    //double gScore = q.getGScore() + l.getGScore(); //calculate base G score
                     l.setScore(l.calculateScore(gScore, end)); //add in H score
                     l.setParentID(q.getLocID());
                     lookup.get(l.getLocID()).setParentID(q.getLocID());

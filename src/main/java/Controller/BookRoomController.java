@@ -123,7 +123,7 @@ public class BookRoomController {
         else if (startTimeValue.equals(endTimeValue)) {
             error.setText("Times cannot be the same.");
         }
-        else if (startTimeValue.compareTo(endTimeValue) > 0 && roomDate.equals(endRoomDate)) {
+        else if (startTimeValue.compareTo(endTimeValue) > 0) {
             error.setText("Start time cannot be after end time.");
         }
         else if (startTimeValue.compareTo(curTime) < 0 && roomDate.equals(curDate)) {
@@ -141,13 +141,7 @@ public class BookRoomController {
             int startTimeMil = startTime.getValue().getHour() * 100 + startTime.getValue().getMinute();
             int endTimeMil = endTime.getValue().getHour() * 100 + endTime.getValue().getMinute();
             String date = datePicker.getValue().toString();
-            String endDate;
-            if(datePicker1.getValue() == null){
-                endDate = date;
-            }
-            else {
-                endDate = datePicker1.getValue().toString();
-            }
+            String endDate = datePicker1.getValue().toString();
             String roomID = "RoomTest";
             EmployeeAccess ea = new EmployeeAccess();
             Singleton single = Singleton.getInstance();
@@ -168,17 +162,15 @@ public class BookRoomController {
         int startTimeMil = 0;
         int endTimeMil = 0;
         String date = "";
-        String endDate = "";
 
         if(startTime.getValue() != null && endTime != null && datePicker.getValue() != null && datePicker1.getValue() != null){
             startTimeMil = startTime.getValue().getHour() * 100 + startTime.getValue().getMinute();
             endTimeMil = endTime.getValue().getHour() * 100 + endTime.getValue().getMinute();
             date = datePicker.getValue().toString();
-            endDate = datePicker1.getValue().toString();
             avaliableRooms.getSelectionModel().clearSelection();
             listOfRooms.clear();
 
-            rooms = ra.getAvailRooms(date, startTimeMil, endTimeMil); //We need to handle the endDate also, not sure if this is a
+            rooms = ra.getAvailRooms(date, startTimeMil, endTimeMil);
 
             for(int i = 1; i < rooms.size(); i+=2){
                 listOfRooms.add(rooms.get(i));
