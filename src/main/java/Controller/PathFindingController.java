@@ -35,6 +35,8 @@ import java.util.ListIterator;
 
 @SuppressWarnings("Duplicates")
 public class PathFindingController {
+    @FXML
+    private Label TextDirection;
 
     @FXML
     private Stage thestage;
@@ -366,6 +368,7 @@ public class PathFindingController {
 
         displayPath(path.getPath(), startNode, endNode);
         printPath(path.getPath());
+        TextDirection.setText(printPath(path.getPath()));
     }
 
     public void displayPath(ArrayList<Location> path, Location startNode, Location endNode){
@@ -973,14 +976,70 @@ public class PathFindingController {
         }
     }
 
+    //Larry - determine the direction of path
+    private int directionPath(Location a, Location b){
+        int xa = a.getXcoord();
+        int ya = a.getYcoord();
+        int xb = b.getXcoord();
+        int yb = b.getYcoord();
+
+        //           1
+        //      8         2
+        //   7               3
+        //      6         4
+        //           5
+
+        if(xb > xa){
+            if(ya > yb){
+                return 2;
+            }
+            else if(ya == yb){
+                return 3;
+            }
+            else{
+                return 4;
+            }
+        }
+        else if(xb < xa){
+            if(ya > yb){
+                return 8;
+            }
+            else if (ya == yb){
+                return 7;
+            }
+            else{
+                return 6;
+            }
+        }
+        else{
+             if(ya < yb){
+                 return 5;
+             }
+             else {
+                 return 1;
+             }
+        }
+
+    }
+
+
+
+
 
 
     //Larry - Print the textual direction based on the path return from algorithm
-    private void printPath(ArrayList<Location> A){
+    private String printPath(ArrayList<Location> A){
         System.out.println(A);
-        int direction = 0;
+        int curDirection = 0;
+        int nextDirection = 0;
+        String text = "";
 
         int d = 0; // count for the start location for exact location
+        if(A.get(0) == A.get(1)){
+            System.out.println("You are already at your destination");
+            text += "You are already at your destination \n";
+            return text;
+        }
         System.out.println("Exit " + A.get(0).getLongName());
 
         for(int i = 0; i<A.size() - 2; i++){
@@ -992,68 +1051,193 @@ public class PathFindingController {
 
             double angle = calculateAngle(a,b,c);
             if(angle < 110 && angle > 70){
-
-                if(a.getXcoord()<c.getXcoord()){
-                    direction = 2;
-                }
-                else{
-                    direction = 1;
-                }
+                curDirection = directionPath(a,b);
+                nextDirection = directionPath(b,c);
 
                 System.out.println("Go straight to " + b.getLongName()
                         + " (" + convertToExact(start.findDistance(b)) + " ft) " );
+                text += "Go straight to " + b.getLongName()
+                        + " (" + convertToExact(start.findDistance(b)) + " ft) \n";
+
                 //- -> + , x+ : left
                 d = i + 1;
-
+               // System.out.println("cur " + curDirection);
+               // System.out.println("next " + nextDirection);
                 double slopeAB = calculateSlope(a,b);
                 double slopeBC = calculateSlope(b,c);
-                System.out.println("SlopeAB " + slopeAB);
-                System.out.println("SlopeBC " + slopeBC);
-                System.out.println("Direction" + direction );
+                if(curDirection == nextDirection){
+                    if(curDirection == 2 || curDirection == 6){
+                        if(Math.abs(slopeBC)> Math.abs(slopeAB)){
+                            System.out.println("Turn left");
+                            text += "Turn left\n";
+                        }
+                        else{
+                            System.out.println("Turn right");
+                            text += "Turn right\n";
+                        }
+                    }
+                    else if(curDirection == 4 || curDirection ==8){
+                        if(Math.abs(slopeBC)> Math.abs(slopeAB)){
+                            System.out.println("Turn right");
+                            text += "Turn right\n";
+                        }
+                        else{
+                            System.out.println("Turn left");
+                            text += "Turn left\n";
+                        }
 
-                    if (slopeAB > slopeBC && c.getXcoord() < a.getXcoord()) {
-                        if (direction == 1) {
-                            System.out.println("Turn left");
-                        } else {
-                            System.out.println("Turn right");
-                        }
                     }
-                    else if (slopeAB > slopeBC && c.getXcoord() > a.getXcoord()) {
-                        if (direction == 1) {
-                            System.out.println("Turn right");
-                        } else {
-                            System.out.println("Turn left");
-                        }
 
-                    }
-                    else if (slopeAB < slopeBC && c.getXcoord() < a.getXcoord()) {
-                        if (direction == 1) {
-                            System.out.println("Turn right");
-                        } else {
-                            System.out.println("Turn left");
-                        }
-                    }
-                    else if (slopeAB < slopeBC && c.getXcoord() > a.getXcoord()) {
-                        if (direction == 1) {
-                            System.out.println("Turn left");
-                        } else {
-                            System.out.println("Turn right");
-                        }
+                }
+                else if(curDirection <= 5){
+                    if(nextDirection < curDirection + 4 && nextDirection > curDirection){
+                        System.out.println("Turn right");
+                        text += "Turn right\n";
                     }
                     else {
-                        System.out.println("Turn");
-                        System.out.println("AB " + slopeAB);
-                        System.out.println("BC " + slopeBC);
-                        System.out.println("c " + c.getXcoord());
-                        System.out.println("b " + b.getXcoord());
+                        System.out.println("Turn left");
+                        text += "Turn left\n";
                     }
+                }
+                else{
+                    if(curDirection == 6){
+                        if(nextDirection == 7 || nextDirection == 8 || nextDirection == 1){
+                            System.out.println("Turn right");
+                            text += "Turn right\n";
+                        }
+                        if(nextDirection == 5 || nextDirection == 4 || nextDirection == 3){
+                            System.out.println("Turn left");
+                            text += "Turn left\n";
+                        }
+
+
+                    }
+                    else if (curDirection ==7){
+                        if(nextDirection == 8 || nextDirection == 1 || nextDirection == 2){
+                            System.out.println("Turn right");
+                            text += "Turn right\n";
+                        }
+                        else if(nextDirection == 6 || nextDirection == 5 || nextDirection == 4){
+                            System.out.println("Turn left");
+                            text += "Turn left\n";
+                        }
+                        else {
+
+                        }
+
+                    }
+                    else if(curDirection ==8){
+                        if(nextDirection == 1 || nextDirection == 2 || nextDirection == 3){
+                            System.out.println("Turn right");
+                            text += "Turn right\n";
+                        }
+                        else if(nextDirection == 5 || nextDirection == 6 || nextDirection == 7){
+                            System.out.println("Turn left");
+                            text += "Turn left\n";
+                        }
+                        else {
+
+                        }
+                    }
+                    else{
+                        //nothing handle error in case
+                    }
+                }
+
+
+
+//                double slopeAB = calculateSlope(a,b);
+//                double slopeBC = calculateSlope(b,c);
+//                if(curDirection < 4){
+//                    if(nextDirection - curDirection < 4){
+//                        System.out.println("Turn right");
+//                    }
+//                    else {
+//                        System.out.println("Turn left");
+//                    }
+//                }
+//                else{
+//                    if(nextDirection - curDirection < 0){
+//                        System.out.println("Turn left");
+//                    }
+//                    else {
+//                        System.out.println("Turn right");
+//                    }
+//
+//                }
+
+
+//                if(curDirection == 2 && nextDirection ==1){
+//                    if(b.getYcoord() < a.getYcoord()){
+//                        if(b.getYcoord() > c.getYcoord()){
+//                            System.out.println("Turn left");
+//                        }
+//                        else{
+//                            System.out.println("Turn right");
+//                        }
+//                    }
+//                    else{
+//                        if(b.getYcoord() > c.getYcoord()){
+//                            System.out.println("Turn left");
+//                        }
+//                        else{
+//                            System.out.println("Turn right");
+//                        }
+//
+//                    }
+//
+//                }
+//                System.out.println("SlopeAB " + slopeAB);
+//                System.out.println("SlopeBC " + slopeBC);
+//                System.out.println("Direction" + direction );
+
+//                    if (slopeAB > slopeBC && c.getXcoord() < a.getXcoord()) {
+//                        if (direction == 1) {
+//                            System.out.println("Turn left");
+//                        } else {
+//                            System.out.println("Turn right");
+//                        }
+//                    }
+//                    else if (slopeAB > slopeBC && c.getXcoord() > a.getXcoord()) {
+//                        if (direction == 1) {
+//                            System.out.println("Turn right");
+//                        } else {
+//                            System.out.println("Turn left");
+//                        }
+//
+//                    }
+//                    else if (slopeAB < slopeBC && c.getXcoord() < a.getXcoord()) {
+//                        if (direction == 1) {
+//                            System.out.println("Turn right");
+//                        } else {
+//                            System.out.println("Turn left");
+//                        }
+//                    }
+//                    else if (slopeAB < slopeBC && c.getXcoord() > a.getXcoord()) {
+//                        if (direction == 1) {
+//                            System.out.println("Turn left");
+//                        } else {
+//                            System.out.println("Turn right");
+//                        }
+//                    }
+//                    else {
+//                        System.out.println("Turn");
+//                        System.out.println("AB " + slopeAB);
+//                        System.out.println("BC " + slopeBC);
+//                        System.out.println("c " + c.getXcoord());
+//                        System.out.println("b " + b.getXcoord());
+//                    }
 
 
                 }
                     if(i == A.size() - 3){
                          System.out.println("Go straight to your destination " + A.get(A.size()-1).getLongName() +
                         " (" + convertToExact(a.findDistance(c)) + " ft) " );
+                        text += "Go straight to your destination " + A.get(A.size()-1).getLongName() +
+                                " (" + convertToExact(a.findDistance(c)) + " ft) \n";
+                        return text;
             }
         }
+        return text;
     }
 }
