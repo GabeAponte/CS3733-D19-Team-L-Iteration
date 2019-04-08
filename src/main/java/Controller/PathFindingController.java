@@ -500,6 +500,7 @@ public class PathFindingController {
                 if (!(closeList.contains(e.getEndNode())) && !(openList.contains(e.getEndNode()))) {
                     children.add(e.getEndNode());
                     e.getEndNode().setGScore(e.findDistance(q, e.getEndNode()));
+                    System.out.println(e.getEndNode().getGScore());
                 }
             }
             for (Location l : children) {
