@@ -365,6 +365,7 @@ public class PathFindingController {
         Path path = findAbstractPath(astar, startNode, endNode);
 
         displayPath(path.getPath(), startNode, endNode);
+        printPath(path.getPath());
     }
 
     public void displayPath(ArrayList<Location> path, Location startNode, Location endNode){
@@ -952,6 +953,27 @@ public class PathFindingController {
         return direction;
     }
 
+    //Larry - to determine whether the path is go vertical or go horizontal
+    private  boolean isHorizontal(double A){
+        if(A == 0){
+            return true;
+        }
+        else{
+            return false;
+        }
+    }
+
+    //Larry - to determine whether the path is go vertical or go horizontal
+    private  boolean isVertical(double A){
+        if(A > 9999 || A < -9999){
+            return true;
+        }
+        else{
+            return false;
+        }
+    }
+
+
 
     //Larry - Print the textual direction based on the path return from algorithm
     private void printPath(ArrayList<Location> A){
@@ -959,6 +981,7 @@ public class PathFindingController {
         int direction = 0;
 
         int d = 0; // count for the start location for exact location
+        System.out.println("Exit " + A.get(0).getLongName());
 
         for(int i = 0; i<A.size() - 2; i++){
             Location start = A.get(d);
@@ -967,68 +990,68 @@ public class PathFindingController {
             Location c = A.get(i+2);
 
 
-
             double angle = calculateAngle(a,b,c);
             if(angle < 110 && angle > 70){
+
                 if(a.getXcoord()<c.getXcoord()){
                     direction = 2;
                 }
                 else{
                     direction = 1;
                 }
+
                 System.out.println("Go straight to " + b.getLongName()
                         + " (" + convertToExact(start.findDistance(b)) + " ft) " );
                 //- -> + , x+ : left
                 d = i + 1;
+
                 double slopeAB = calculateSlope(a,b);
                 double slopeBC = calculateSlope(b,c);
-//                System.out.println("SlopeAB " + slopeAB);
-//                System.out.println("SlopeBC " + slopeBC);
-                if(slopeAB > slopeBC&& c.getXcoord() < a.getXcoord()){
-                    if(direction == 1){
-                        System.out.println("Turn left");
+                System.out.println("SlopeAB " + slopeAB);
+                System.out.println("SlopeBC " + slopeBC);
+                System.out.println("Direction" + direction );
+
+                    if (slopeAB > slopeBC && c.getXcoord() < a.getXcoord()) {
+                        if (direction == 1) {
+                            System.out.println("Turn left");
+                        } else {
+                            System.out.println("Turn right");
+                        }
+                    }
+                    else if (slopeAB > slopeBC && c.getXcoord() > a.getXcoord()) {
+                        if (direction == 1) {
+                            System.out.println("Turn right");
+                        } else {
+                            System.out.println("Turn left");
+                        }
+
+                    }
+                    else if (slopeAB < slopeBC && c.getXcoord() < a.getXcoord()) {
+                        if (direction == 1) {
+                            System.out.println("Turn right");
+                        } else {
+                            System.out.println("Turn left");
+                        }
+                    }
+                    else if (slopeAB < slopeBC && c.getXcoord() > a.getXcoord()) {
+                        if (direction == 1) {
+                            System.out.println("Turn left");
+                        } else {
+                            System.out.println("Turn right");
+                        }
                     }
                     else {
-                        System.out.println("Turn right");
-                    }
-                }
-                else if(slopeAB > slopeBC&& c.getXcoord() > a.getXcoord()){
-                    if(direction ==1){
-                        System.out.println("Turn right");
-                    }
-                    else{
-                        System.out.println("Turn left");
+                        System.out.println("Turn");
+                        System.out.println("AB " + slopeAB);
+                        System.out.println("BC " + slopeBC);
+                        System.out.println("c " + c.getXcoord());
+                        System.out.println("b " + b.getXcoord());
                     }
 
-                }
-                else if(slopeAB < slopeBC&& c.getXcoord() < a.getXcoord()){
-                    if(direction == 1){
-                        System.out.println("Turn right");
-                    }
-                    else {
-                        System.out.println("Turn left");
-                    }
-                }
-                else if(slopeAB < slopeBC&& c.getXcoord() > a.getXcoord()){
-                    if (direction == 1){
-                    System.out.println("Turn left");
-                    }
-                    else{
-                        System.out.println("Turn right");
-                    }
-                }
-                else{
-                    System.out.println("Turn");
-                    System.out.println("AB " + slopeAB);
-                    System.out.println("BC " + slopeBC);
-                    System.out.println("c " + c.getXcoord());
-                    System.out.println("b " + b.getXcoord());
-                }
 
-
-            }
-            if(i == A.size() - 3){
-                System.out.println("Go straight to your destination " + A.get(A.size()-1).getLongName() +
+                }
+                    if(i == A.size() - 3){
+                         System.out.println("Go straight to your destination " + A.get(A.size()-1).getLongName() +
                         " (" + convertToExact(a.findDistance(c)) + " ft) " );
             }
         }

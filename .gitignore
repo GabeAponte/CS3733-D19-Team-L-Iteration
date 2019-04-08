@@ -1,6 +1,5 @@
 .gradle/
 .idea/
-myDB/MasterDB
 MasterDB
 classes/
 build/
