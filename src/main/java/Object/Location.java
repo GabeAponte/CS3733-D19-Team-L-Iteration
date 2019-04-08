@@ -258,12 +258,16 @@ public class Location implements Comparable<Location>{
             ea.addEdge(locs[0].getLocID(), locs[1].getLocID());
             System.out.println("SUCCESS");
         }
+        else {
+            System.out.println("NOT EASY ENOUGH");
+        }
     }
 
     private boolean checkIfEasyHallway() {
         int count = 0;
         if (this.getNodeType().equals("HALL")) {
             if (this.connectedEdges.isEmpty()) {
+                System.out.println("EMPTY EDGES");
                 return false;
             }
             for (Edge e: connectedEdges) {

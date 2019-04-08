@@ -213,9 +213,9 @@ public class EditLocationController {
         //this is the dialogue popup
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Delete selected node?", ButtonType.YES, ButtonType.NO);
         alert.showAndWait();
-
+        Singleton single = Singleton.getInstance();
         if (alert.getResult() == ButtonType.YES) {
-            //focusNode.restitch();
+            single.lookup.get(focusNode.getLocID()).restitch();
             //delete the node here
             NodesAccess na = new NodesAccess();
             na.deleteNode(focusNode.getLocID());
