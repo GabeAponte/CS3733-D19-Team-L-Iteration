@@ -136,49 +136,49 @@ public class PathFindingController {
     private void clickedG(){
         Map.setImage(new Image("/SoftEng_UI_Mockup_Pics/00_thegroundfloor.png"));
         currentMap = "G";
-        AStarStrategy astar = new AStarStrategy(single.lookup);
-        Path path = findAbstractPath(astar, startNode, endNode);
-        displayPath(path.getPath(), startNode, endNode);
+        if(PathFindStartDrop.getValue() != null && PathFindEndDrop.getValue() != null){
+            submitPressed();
+        }
     }
     @FXML
     private void clickedL1() {
         Map.setImage(new Image("/SoftEng_UI_Mockup_Pics/00_thelowerlevel1.png"));
         currentMap = "L1";
-        AStarStrategy astar = new AStarStrategy(single.lookup);
-        Path path = findAbstractPath(astar, startNode, endNode);
-        displayPath(path.getPath(), startNode, endNode);
+        if(PathFindStartDrop.getValue() != null && PathFindEndDrop.getValue() != null){
+            submitPressed();
+        }
     }
 
     @FXML public void clickedL2(){
         Map.setImage(new Image("/SoftEng_UI_Mockup_Pics/00_thelowerlevel2.png"));
         currentMap = "L2";
-        AStarStrategy astar = new AStarStrategy(single.lookup);
-        Path path = findAbstractPath(astar, startNode, endNode);
-        displayPath(path.getPath(), startNode, endNode);
+        if(PathFindStartDrop.getValue() != null && PathFindEndDrop.getValue() != null){
+            submitPressed();
+        }
     }
     @FXML
     private void clicked1(){
         Map.setImage(new Image("/SoftEng_UI_Mockup_Pics/01_thefirstfloor.png"));
         currentMap = "1";
-        AStarStrategy astar = new AStarStrategy(single.lookup);
-        Path path = findAbstractPath(astar, startNode, endNode);
-        displayPath(path.getPath(), startNode, endNode);
+        if(PathFindStartDrop.getValue() != null && PathFindEndDrop.getValue() != null){
+            submitPressed();
+        }
     }
     @FXML
     private void clicked2(){
         Map.setImage(new Image("/SoftEng_UI_Mockup_Pics/02_thesecondfloor.png"));
         currentMap = "2";
-        AStarStrategy astar = new AStarStrategy(single.lookup);
-        Path path = findAbstractPath(astar, startNode, endNode);
-        displayPath(path.getPath(), startNode, endNode);
+        if(PathFindStartDrop.getValue() != null && PathFindEndDrop.getValue() != null){
+            submitPressed();
+        }
     }
     @FXML
     private void clicked3(){
         Map.setImage(new Image("/SoftEng_UI_Mockup_Pics/03_thethirdfloor.png"));
         currentMap = "3";
-        AStarStrategy astar = new AStarStrategy(single.lookup);
-        Path path = findAbstractPath(astar, startNode, endNode);
-        displayPath(path.getPath(), startNode, endNode);
+        if(PathFindStartDrop.getValue() != null && PathFindEndDrop.getValue() != null){
+            submitPressed();
+        }
     }
     ListIterator<String> listIterator = null;
 
@@ -436,7 +436,7 @@ public class PathFindingController {
                 //default to not showing this circle
                 midCircle.setVisible(false);
                 //if either this node or the connecting node are on the currently displayed floor, display this circle
-                if(path.get(i).getFloor().equals(currentMap) || path.get(i+1).getFloor().equals(currentMap)){
+                if(path.get(i).getFloor().equals(currentMap)|| path.get(i+1).getFloor().equals(currentMap)){
                     midCircle.setVisible(true);
                 }
                 circles.add(midCircle);
