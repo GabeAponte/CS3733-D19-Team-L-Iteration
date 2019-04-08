@@ -902,4 +902,135 @@ public class PathFindingController {
         filterList.add("Labs");
         filterList.add("Information");
     }
+    //Larry - To calculate the angele of turning
+    private double calculateAngle(Location a, Location b, Location c){
+        double distanceA, distanceB,distanceC;
+        double angleTurning;
+        //distance A
+        distanceA = a.findDistance(b);
+        //distance B
+        distanceB = b.findDistance(c);
+        //distance C
+        distanceC = a.findDistance(c);
+
+        angleTurning = Math.acos((distanceA*distanceA + distanceB*distanceB - distanceC*distanceC)
+                / (2*distanceA*distanceB));
+        //angleTurning = Math.acos(1);
+        angleTurning = angleTurning /(2*Math.PI) * 360;
+//        System.out.println("Da " + distanceA);
+//        System.out.println("Db " + distanceB);
+//        System.out.println("Dc " + distanceC);
+//        System.out.println("Angle " + angleTurning);
+
+
+        return  angleTurning;
+
+    }
+    //Larry - convert pixel distance to exact distance
+    //147 pixel distance = 52 ft
+    private int convertToExact(double pixelDistance){
+        double actualLength = pixelDistance / 147 * 52;
+
+        return  (int)actualLength;
+    }
+    //Larry - face direction given two locations to retrun the direction you are facing
+    private int faceDicrection(Location a, Location b){
+        int direction = 0;
+        // 1 is right, 2 is left, 3 is up ,4 is down
+        if(calculateSlope(a,b) > 0 && calculateSlope(a,b) < 0.5 && b.getXcoord() > a.getXcoord() ){
+            direction = 1;
+        }
+        else if(calculateSlope(a,b) > 0.5 && calculateSlope(a,b) < 1 && b.getXcoord() > a.getXcoord() ){
+            direction = 3;
+        }
+        else if(calculateSlope(a,b) > 0 && calculateSlope(a,b) < 0.5 && b.getXcoord() < a.getXcoord() ){
+            direction = 2;
+        }
+        else if(calculateSlope(a,b) > 0.5 && calculateSlope(a,b) < 1 && b.getXcoord() > a.getXcoord() ){
+            direction = 4;
+        }
+        return direction;
+    }
+
+
+    //Larry - Print the textual direction based on the path return from algorithm
+    private void printPath(ArrayList<Location> A){
+        System.out.println(A);
+        int direction = 0;
+
+        int d = 0; // count for the start location for exact location
+
+        for(int i = 0; i<A.size() - 2; i++){
+            Location start = A.get(d);
+            Location a = A.get(i);
+            Location b = A.get(i+1);
+            Location c = A.get(i+2);
+
+
+
+            double angle = calculateAngle(a,b,c);
+            if(angle < 110 && angle > 70){
+                if(a.getXcoord()<c.getXcoord()){
+                    direction = 2;
+                }
+                else{
+                    direction = 1;
+                }
+                System.out.println("Go straight to " + b.getLongName()
+                        + " (" + convertToExact(start.findDistance(b)) + " ft) " );
+                //- -> + , x+ : left
+                d = i + 1;
+                double slopeAB = calculateSlope(a,b);
+                double slopeBC = calculateSlope(b,c);
+//                System.out.println("SlopeAB " + slopeAB);
+//                System.out.println("SlopeBC " + slopeBC);
+                if(slopeAB > slopeBC&& c.getXcoord() < a.getXcoord()){
+                    if(direction == 1){
+                        System.out.println("Turn left");
+                    }
+                    else {
+                        System.out.println("Turn right");
+                    }
+                }
+                else if(slopeAB > slopeBC&& c.getXcoord() > a.getXcoord()){
+                    if(direction ==1){
+                        System.out.println("Turn right");
+                    }
+                    else{
+                        System.out.println("Turn left");
+                    }
+
+                }
+                else if(slopeAB < slopeBC&& c.getXcoord() < a.getXcoord()){
+                    if(direction == 1){
+                        System.out.println("Turn right");
+                    }
+                    else {
+                        System.out.println("Turn left");
+                    }
+                }
+                else if(slopeAB < slopeBC&& c.getXcoord() > a.getXcoord()){
+                    if (direction == 1){
+                    System.out.println("Turn left");
+                    }
+                    else{
+                        System.out.println("Turn right");
+                    }
+                }
+                else{
+                    System.out.println("Turn");
+                    System.out.println("AB " + slopeAB);
+                    System.out.println("BC " + slopeBC);
+                    System.out.println("c " + c.getXcoord());
+                    System.out.println("b " + b.getXcoord());
+                }
+
+
+            }
+            if(i == A.size() - 3){
+                System.out.println("Go straight to your destination " + A.get(A.size()-1).getLongName() +
+                        " (" + convertToExact(a.findDistance(c)) + " ft) " );
+            }
+        }
+    }
 }
