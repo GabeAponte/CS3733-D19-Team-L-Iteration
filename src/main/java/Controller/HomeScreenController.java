@@ -37,19 +37,19 @@ public class HomeScreenController {
     @FXML
     Label timeLabel;
 
-    @FXML
-    ImageView weatherIcon;
+    //@FXML
+    //ImageView weatherIcon;
 
     @FXML
     Label tempDisplay;
 
 
     public void initialize(){
-        Weather weatherBoy = new Weather();
+        /*Weather weatherBoy = new Weather();
         String icon = weatherBoy.getIcon();
         Image img = new Image(icon);
         weatherIcon.setImage(img);
-        tempDisplay.setText(weatherBoy.getActTemp());
+        tempDisplay.setText(weatherBoy.getActTemp());*/
 
         Timeline clock = new Timeline(new KeyFrame(Duration.ZERO, e -> {
             long second = LocalDateTime.now().getSecond();
