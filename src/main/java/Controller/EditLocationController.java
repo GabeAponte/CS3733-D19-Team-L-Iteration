@@ -4,6 +4,7 @@ import Access.EdgesAccess;
 import Access.NodesAccess;
 import Object.*;
 
+import com.jfoenix.controls.JFXButton;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -12,11 +13,14 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.ListIterator;
 
 public class EditLocationController {
 
@@ -48,35 +52,38 @@ public class EditLocationController {
     Button deleteEdge;
 
     @FXML
-    TableColumn<Location, String> idCol;
-    @FXML
-    TableColumn<Location,Integer> xCol;
-    @FXML
-    TableColumn<Location, Integer> yCol;
-    @FXML
-    TableColumn<Location, Integer> floorCol;
-    @FXML
-    TableColumn<Location, String> buildingCol;
-    @FXML
-    TableColumn<Location, String> typeCol;
-    @FXML
-    TableColumn<Location, String> longCol;
-    @FXML
-    TableColumn<Location, String> shortCol;
+    private Button G;
 
     @FXML
-    TableColumn<Edge, String> edgeIDCol;
+    private Button Up;
+
     @FXML
-    TableColumn<Edge, String> startNodeCol;
+    private Button Down;
+
     @FXML
-    TableColumn<Edge, String> endNodeCol;
+    private Button L1;
+
+    @FXML
+    private Button L2;
+
+    @FXML
+    private Button F1;
+
+    @FXML
+    private Button F2;
+
+    @FXML
+    private Button F3;
+
+    @FXML
+    private JFXButton nodeDisplay; //nodeDisplayPress
+
+    @FXML
+    private ImageView Map;
 
 
     @SuppressWarnings("unchecked")
-    @FXML
-    private TableView<Location> nodeTable = new TableView();
-    @FXML
-    private TableView<Edge> edgeTable = new TableView();
+    private ArrayList<String> mapURLs = new ArrayList<String>();
 
     private HashMap<String, Location> lookup = new HashMap<String, Location>();
     private final ObservableList<Location> nodeData = FXCollections.observableArrayList();
@@ -85,77 +92,188 @@ public class EditLocationController {
     private Location focusNode;
     private Edge focusEdge;
 
+    @FXML
+    private void clickedG(){
+        Map.setImage(new Image("/SoftEng_UI_Mockup_Pics/00_thegroundfloor.png"));
+    }
+    @FXML
+    private void clickedL1(){
+        Map.setImage(new Image("/SoftEng_UI_Mockup_Pics/00_thelowerlevel1.png"));
+    }
+
+    @FXML public void clickedL2(){
+        Map.setImage(new Image("/SoftEng_UI_Mockup_Pics/00_thelowerlevel2.png"));
+    }
+    @FXML
+    private void clicked1(){
+        Map.setImage(new Image("/SoftEng_UI_Mockup_Pics/01_thefirstfloor.png"));
+    }
+    @FXML
+    private void clicked2(){
+        Map.setImage(new Image("/SoftEng_UI_Mockup_Pics/02_thesecondfloor.png"));
+    }
+    @FXML
+    private void clicked3(){
+        Map.setImage(new Image("/SoftEng_UI_Mockup_Pics/03_thethirdfloor.png"));
+    }
+
+    @FXML
+    /**
+     * Grace made this, but its from gabe's code
+     * adds all the URLs to the list, starts with 3rd floor since that is the next floor to come
+     */
+    public void map(){
+        mapURLs.add("/SoftEng_UI_Mockup_Pics/03_thethirdfloor.png");
+        mapURLs.add("/SoftEng_UI_Mockup_Pics/00_thegroundfloor.png");
+        mapURLs.add("/SoftEng_UI_Mockup_Pics/00_thelowerlevel1.png");
+        mapURLs.add("/SoftEng_UI_Mockup_Pics/00_thelowerlevel2.png");
+        mapURLs.add("/SoftEng_UI_Mockup_Pics/01_thefirstfloor.png");
+        mapURLs.add("/SoftEng_UI_Mockup_Pics/02_thesecondfloor.png");
+    }
+
+    ListIterator<String> listIterator = null;
+    boolean upclickedLast = false;
+    boolean downclickedLast = false;
+
+    @FXML
+    /**
+     * Grace made this, but its from gabe's code
+     * Replaces image URL with the next floor up when the UP button is pressed
+     */
+    private void upClicked() {
+        if (mapURLs.isEmpty()) {
+            map();
+            listIterator = mapURLs.listIterator();
+        }
+        if (listIterator.hasNext() == false && downclickedLast == true) {
+            listIterator = mapURLs.listIterator();
+            String next = listIterator.next();
+            Map.setImage(new Image(next));
+        }
+        else if (listIterator.hasNext() == false) {
+            listIterator = mapURLs.listIterator();
+            String next = listIterator.next();
+            Map.setImage(new Image(next));
+        }
+
+        else if (downclickedLast == true){
+            String next = listIterator.next();
+            Map.setImage(new Image(next));
+            upAgain();
+            // Map.setImage(new Image(next));
+        }
+
+        else if (downclickedLast == false){
+            String next = listIterator.next();
+            Map.setImage(new Image(next));
+        }
+        upclickedLast = true;
+        downclickedLast = false;
+    }
+    @FXML
+    /**
+     * Grace made this, but its from gabe's code
+     * allows the map to change when UP is pressed and the last button clicked was DOWN by calling next one more time.
+     */
+    private void upAgain() {
+        if (listIterator.hasNext() == false) {
+            listIterator = mapURLs.listIterator();
+            String next = listIterator.next();
+            Map.setImage(new Image(next));
+        } else {
+            String next = listIterator.next();
+            Map.setImage(new Image(next));
+        }
+    }
+
+    @FXML
+    /**
+     * Grace made this, but its from gabe's code
+     * allows the map to change when down is pressed and the last button clicked was UP by calling previous one more time.
+     */
+    private void downAgain() {
+        if (listIterator.hasPrevious() == false) {
+            listIterator = mapURLs.listIterator(mapURLs.size() - 1);
+            String previous = listIterator.previous();
+            Map.setImage(new Image(previous));
+        } else {
+            String previous = listIterator.previous();
+            Map.setImage(new Image(previous));
+        }
+    }
+
+    @FXML
+    /**
+     * Grace made this, but its from gabe's code
+     * Replaces image URL with the next floor down when the DOWN button is pressed
+     */
+    private void downClicked(){
+        if (mapURLs.isEmpty()) {
+            map();
+            listIterator = mapURLs.listIterator();
+        }
+        if (listIterator.hasPrevious() == false && upclickedLast == true) {
+            listIterator = mapURLs.listIterator(mapURLs.size()-1);
+            String previous = listIterator.previous();
+            Map.setImage(new Image(previous));
+        }
+        else if (listIterator.hasPrevious() == false) {
+            listIterator = mapURLs.listIterator(mapURLs.size()-1);
+            String previous = listIterator.previous();
+            Map.setImage(new Image(previous));
+        }
+        else if (upclickedLast == true){
+            String previous = listIterator.previous();
+            Map.setImage(new Image(previous));
+            downAgain();//Due to the nature of listIterator, previous needs to be called twice inorder for the image to switch
+        }
+        else if (upclickedLast == false){
+            String previous = listIterator.previous();
+            Map.setImage(new Image(previous));
+        }
+        upclickedLast = false;
+        downclickedLast = true;
+    }
 
 
 
     @SuppressWarnings("Convert2Diamond")
     @FXML
     public void initialize(){
-        nodeTable.setEditable(false);
-        edgeTable.setEditable(false);
-        NodesAccess na = new NodesAccess();
-        EdgesAccess ea = new EdgesAccess();
-        makeEditableNode.setDisable(true);
-        makeEditableEdge.setDisable(true);
-        initializeTable(na, ea);
-
-        deleteNode.setDisable(true);
-        deleteEdge.setDisable(true);
-
-        //node table setup
-        idCol.setCellValueFactory(new PropertyValueFactory<Location,String>("locID"));
-        xCol.setCellValueFactory(new PropertyValueFactory<Location, Integer>("xcoord"));
-        yCol.setCellValueFactory(new PropertyValueFactory<Location, Integer>("ycoord"));
-        floorCol.setCellValueFactory(new PropertyValueFactory<Location, Integer>("floor"));
-        buildingCol.setCellValueFactory(new PropertyValueFactory<Location, String >("building"));
-        typeCol.setCellValueFactory(new PropertyValueFactory<Location, String >("nodeType"));
-        longCol.setCellValueFactory(new PropertyValueFactory<Location,String>("longName"));
-        shortCol.setCellValueFactory(new PropertyValueFactory<Location, String>("shortName"));
-        //noinspection CodeBlock2Expr
-        nodeTable.setOnMouseClicked(event -> {
-            setNextNode(nodeTable.getSelectionModel().getSelectedItem());});
-        nodeTable.setItems(nodeData);
-
-        //edge table setup
-        edgeIDCol.setCellValueFactory(new PropertyValueFactory<Edge, String>("edgeID"));
-        startNodeCol.setCellValueFactory(new PropertyValueFactory<Edge, String>("startID"));
-        endNodeCol.setCellValueFactory(new PropertyValueFactory<Edge, String>("endID"));
-        edgeTable.setOnMouseClicked(event -> {
-            setNextEdge(edgeTable.getSelectionModel().getSelectedItem());});
-        edgeTable.setItems(edgeData);
 
     }
 
     public void setNextNode(Location proto) {
-        this.makeEditableNode.setDisable(false);
+
         this.focusNode = proto;
         this.deleteNode.setDisable(false);
     }
 
     public void setNextEdge(Edge proto) {
-        this.makeEditableEdge.setDisable(false);
+
         this.focusEdge = proto;
         this.deleteEdge.setDisable(false);
     }
 
     @FXML
     private void deleteEdgePress() {
+        /*
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Delete selected edge?", ButtonType.YES, ButtonType.NO);
         alert.showAndWait();
 
         if (alert.getResult() == ButtonType.YES) {
             EdgesAccess ea = new EdgesAccess();
-            ea.deleteEdge(focusEdge.getEdgeID());
-            edgeTable.getItems().remove(focusEdge);
-            makeEditableEdge.setDisable(true);
+
             deleteEdge.setDisable(true);
         }
         else if (alert.getResult() == ButtonType.NO) {
         }
+        */
     }
 
     @FXML
     private void modifyEdgePress() {
+        /*
         ObservableList<String> toPass = FXCollections.observableArrayList();
         for (Location l : nodeData) {
             toPass.add(l.getLocID());
@@ -180,10 +298,12 @@ public class EditLocationController {
             //noinspection ThrowablePrintedToSystemOut
             System.err.println(ex);
         }
+        */
     }
 
     @FXML
     private void addEdgePress() {
+        /*
         ObservableList<String> toPass = FXCollections.observableArrayList();
         for (Location l : nodeData) {
             toPass.add(l.getLocID());
@@ -206,10 +326,12 @@ public class EditLocationController {
             //noinspection ThrowablePrintedToSystemOut
             System.err.println(ex);
         }
+        */
     }
 
     @FXML
     private void deleteNodePress() {
+        /*
         //this is the dialogue popup
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Delete selected node?", ButtonType.YES, ButtonType.NO);
         alert.showAndWait();
@@ -219,7 +341,7 @@ public class EditLocationController {
             NodesAccess na = new NodesAccess();
             na.deleteNode(focusNode.getLocID());
 
-            nodeTable.getItems().remove(focusNode);
+
             EdgesAccess ea = new EdgesAccess();
             ArrayList<Edge> edgeList = new ArrayList<Edge>();
 
@@ -228,20 +350,17 @@ public class EditLocationController {
                     edgeList.add(e);
                 }
             }
-            edgeTable.getItems().removeAll(edgeList);
-            makeEditableNode.setDisable(true);
-            deleteNode.setDisable(true);
-
         }
         else if (alert.getResult() == ButtonType.NO) {
             //do nothing
         }
 
-
+*/
     }
 
     @FXML
     private void modifyNodePress() {
+        /*
         try {
             //Load second scene
             FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("EditNode.fxml"));
@@ -260,10 +379,12 @@ public class EditLocationController {
             //noinspection ThrowablePrintedToSystemOut
             System.err.println(ex);
         }
+        */
     }
 
     @FXML
     private void addNodePress() {
+        /*
         ObservableList<String> toPass = FXCollections.observableArrayList();
         for (Location l : nodeData) {
             toPass.add(l.getLocID());
@@ -283,6 +404,7 @@ public class EditLocationController {
             thestage.setScene(scene);
         } catch (Exception e){
         }
+        */
     }
 
     @FXML
@@ -297,29 +419,11 @@ public class EditLocationController {
         ea.writeTableIntoCSV("");
     }
 
-    private void initializeTable(NodesAccess na, EdgesAccess ea) {
-        ArrayList<String> edgeList;
-        int count;
-        count = 0;
-        while (count < na.countRecords()) {
-            ArrayList<String> arr = na.getNodes(count);
-            Location testx = new Location(arr.get(0), Integer.parseInt(arr.get(1)), Integer.parseInt(arr.get(2)), (arr.get(3)), arr.get(4), arr.get(5), arr.get(6), arr.get(7));
-            //only add the node if it hasn't been done yet
-            if (!(lookup.containsKey(arr.get(0)))) {
-                lookup.put((arr.get(0)), testx);
-                nodeData.add(testx);
-            }
-            count++;
-        }
-        count = 0;
-        while (count < ea.countRecords()) {
-            edgeList = ea.getEdges(count);
-            Edge testy = new Edge(edgeList.get(0), lookup.get(edgeList.get(1)), lookup.get(edgeList.get(2)));
-            edgeData.add(testy);
-            count ++;
-        }
-
+    @FXML
+    private void nodeDisplayPress(){
+        //display all nodes on that floor!!!
     }
+
 
     @FXML
     private void backPressed() throws IOException{
