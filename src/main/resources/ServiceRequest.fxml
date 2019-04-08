@@ -137,7 +137,7 @@
                                 <Insets left="100.0" right="100.0" />
                             </GridPane.margin>
                         </JFXButton>
-                        <JFXButton fx:id="PrescriptionServices" buttonType="RAISED" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" style="-fx-border-color: white; -fx-border-radius: 100; -fx-background-radius: 100;" text="Prescription Services" textFill="WHITE" GridPane.columnIndex="1" GridPane.rowIndex="5">
+                        <JFXButton fx:id="PrescriptionServices" onAction="#changeToPrescriptionRequest" buttonType="RAISED" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" style="-fx-border-color: white; -fx-border-radius: 100; -fx-background-radius: 100;" text="Prescription Services" textFill="WHITE" GridPane.columnIndex="1" GridPane.rowIndex="5">
                             <font>
                                 <Font size="25.0" />
                             </font>

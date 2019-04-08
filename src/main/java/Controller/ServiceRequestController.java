@@ -1,5 +1,6 @@
 package Controller;
 
+import Access.PrescriptionRequestAccess;
 import Object.*;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -31,6 +32,9 @@ public class ServiceRequestController {
 
     @FXML
     private Button SecurityStaff;
+
+    @FXML
+    private Button PrescriptionServices;
 
     @FXML
     public Button Back;
@@ -74,6 +78,8 @@ public class ServiceRequestController {
             typeOfService = "Maintenance";
         } else if(e.getSource() == LanguageInterpreter) {
             typeOfService = "Language Interpreter";
+        } else if(e.getSource() == PrescriptionServices){
+            typeOfService = "Prescription Service";
         } else {
             typeOfService = "Security";
         }
@@ -134,6 +140,22 @@ public class ServiceRequestController {
         Scene scene = new Scene(sceneMain);
         theStage.setScene(scene);
 
+    }
+
+    @FXML
+    private void changeToPrescriptionRequest() throws  IOException{
+        Stage theStage = (Stage) Back.getScene().getWindow();
+        AnchorPane root;
+        FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("PrescriptionServiceRequest.fxml"));
+
+        Parent sceneMain = loader.load();
+
+        //LoggedInHomeController controller = loader.<LoggedInHomeController>getController();
+
+        theStage = (Stage) SanitationServices.getScene().getWindow();
+
+        Scene scene = new Scene(sceneMain);
+        theStage.setScene(scene);
     }
 
 }

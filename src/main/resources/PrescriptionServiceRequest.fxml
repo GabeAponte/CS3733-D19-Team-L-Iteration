@@ -58,7 +58,7 @@
                   <RowConstraints maxHeight="59.111358642578125" minHeight="0.0" prefHeight="0.0" valignment="CENTER" vgrow="ALWAYS" />
               </rowConstraints>
                <children>
-                  <JFXTextField fx:id="destinationField" focusColor="#f6bd38" promptText="Location" style="-jfx-prompt-text: WHITE;" stylesheets="@CS3733-D19-Team-L-Iterations/src/main/resources/modify-prompt-text.css" text="Destination" unFocusColor="WHITE" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" GridPane.vgrow="ALWAYS">
+                  <JFXTextField fx:id="destinationField" focusColor="#f6bd38" onAction="#reenableSubmit" promptText="Location" style="-jfx-prompt-text: WHITE;" stylesheets="@CS3733-D19-Team-L-Iterations/src/main/resources/modify-prompt-text.css" text="Destination" unFocusColor="WHITE" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" GridPane.vgrow="ALWAYS">
                      <GridPane.margin>
                         <Insets left="100.0" right="100.0" />
                      </GridPane.margin>
@@ -66,7 +66,7 @@
                         <Font size="20.0" />
                      </font>
                   </JFXTextField>
-                  <JFXTextField fx:id="deliveryTimeField" focusColor="#f6bd38" promptText="Prompt Text" style="-jfx-prompt-text: WHITE;" stylesheets="@CS3733-D19-Team-L-Iterations/src/main/resources/modify-prompt-text.css" text="Medicine Type" unFocusColor="WHITE" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="2" GridPane.vgrow="ALWAYS">
+                  <JFXTextField fx:id="deliveryTimeField" focusColor="#f6bd38" onAction="#reenableSubmit" promptText="Prompt Text" style="-jfx-prompt-text: WHITE;" stylesheets="@CS3733-D19-Team-L-Iterations/src/main/resources/modify-prompt-text.css" text="Medicine Type" unFocusColor="WHITE" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="2" GridPane.vgrow="ALWAYS">
                      <GridPane.margin>
                         <Insets left="100.0" right="100.0" />
                      </GridPane.margin>
@@ -74,7 +74,7 @@
                         <Font size="20.0" />
                      </font>
                   </JFXTextField>
-                  <JFXTextField fx:id="medicineTypeFIeld" focusColor="#f6bd38" promptText="Denomination" style="-jfx-prompt-text: WHITE;" stylesheets="@CS3733-D19-Team-L-Iterations/src/main/resources/modify-prompt-text.css" text="Delivery Time" unFocusColor="WHITE" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" GridPane.vgrow="ALWAYS">
+                  <JFXTextField fx:id="medicineTypeField" focusColor="#f6bd38" onAction="#reenableSubmit" promptText="Denomination" style="-jfx-prompt-text: WHITE;" stylesheets="@CS3733-D19-Team-L-Iterations/src/main/resources/modify-prompt-text.css" text="Delivery Time" unFocusColor="WHITE" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" GridPane.vgrow="ALWAYS">
                      <GridPane.margin>
                         <Insets left="100.0" right="100.0" />
                      </GridPane.margin>
@@ -82,7 +82,7 @@
                         <Font size="20.0" />
                      </font>
                   </JFXTextField>
-                  <JFXTextField fx:id="amountField" focusColor="#f6bd38" promptText="Prompt Text" style="-jfx-prompt-text: WHITE;" stylesheets="@CS3733-D19-Team-L-Iterations/src/main/resources/modify-prompt-text.css" text="Amount" unFocusColor="WHITE" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="2" GridPane.vgrow="ALWAYS">
+                  <JFXTextField fx:id="amountField" focusColor="#f6bd38" onAction="#reenableSubmit" promptText="Prompt Text" style="-jfx-prompt-text: WHITE;" stylesheets="@CS3733-D19-Team-L-Iterations/src/main/resources/modify-prompt-text.css" text="Amount" unFocusColor="WHITE" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="2" GridPane.vgrow="ALWAYS">
                      <GridPane.margin>
                         <Insets left="100.0" right="100.0" />
                      </GridPane.margin>
