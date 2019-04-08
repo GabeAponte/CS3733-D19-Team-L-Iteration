@@ -5,6 +5,7 @@ import Access.NodesAccess;
 import Object.*;
 
 import com.jfoenix.controls.JFXButton;
+import com.jfoenix.controls.JFXTextField;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -77,6 +78,25 @@ public class EditLocationController {
 
     @FXML
     private JFXButton nodeDisplay; //nodeDisplayPress
+
+    @FXML
+    private JFXTextField nodeInfoID;
+    @FXML
+    private JFXTextField nodeInfoX;
+    @FXML
+    private JFXTextField nodeInfoY;
+    @FXML
+    private JFXTextField nodeInfoType;
+    @FXML
+    private JFXTextField nodeInfoBuilding;
+    @FXML
+    private JFXTextField nodeInfoFloor;
+    @FXML
+    private JFXTextField nodeInfoLong;
+    @FXML
+    private JFXTextField nodeInfoShort;
+
+
 
     @FXML
     private ImageView Map;
@@ -452,6 +472,38 @@ public class EditLocationController {
         //display all nodes on that floor!!!
     }
 
+    @FXML
+    private void nodeInfoIDPress(){
+        //be able to modify the selected nodeID
+    }
+    @FXML
+    private void nodeInfoFloorPress(){
+        //be able to modify the selected nodeID
+    }
+    @FXML
+    private void nodeInfoXPress(){
+        //be able to modify the selected nodeID
+    }
+    @FXML
+    private void nodeInfoYPress(){
+        //be able to modify the selected nodeID
+    }
+    @FXML
+    private void nodeInfoTypePress(){
+        //be able to modify the selected nodeID
+    }
+    @FXML
+    private void nodeInfoBuildingPress(){
+        //be able to modify the selected nodeID
+    }
+    @FXML
+    private void nodeInfoLongPress(){
+        //be able to modify the selected nodeID
+    }
+    @FXML
+    private void nodeInfoShortPress(){
+        //be able to modify the selected nodeID
+    }
 
     @FXML
     private void backPressed() throws IOException{
