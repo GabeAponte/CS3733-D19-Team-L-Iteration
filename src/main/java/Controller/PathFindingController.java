@@ -3,7 +3,6 @@ package Controller;
 import Access.EdgesAccess;
 import Access.NodesAccess;
 import Object.*;
-import com.sun.xml.internal.bind.v2.runtime.unmarshaller.XsiNilLoader;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
