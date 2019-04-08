@@ -1,5 +1,6 @@
 package Controller;
 
+import Access.EmployeeAccess;
 import Object.Singleton;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -37,11 +38,18 @@ public class EmployeeLoggedInHomeController {
     @FXML
     private Label welcome;
 
-    // TODO Make label display "Welcome, [nickname of employee signed in]"
-    //   myAccount() should switch to the create/edit account screen with the employee's info
-    //   filled in already. Also they should be able to change the changeable fields
+    // TODO 
     //   seeSuggestions should switch to the suggestions table screen
     //   switching to the fulfillRequest screen should only display any requests assigned to the employee who is signed in
+
+    /**ANDREW MADE THIS
+     * Initializes the screen
+     */
+    public void initialize(){
+        Singleton single = Singleton.getInstance();
+        EmployeeAccess ea = new EmployeeAccess();
+        welcome.setText("Welcome, " + ea.getEmployeeInformation(single.getUsername()).get(3));
+    }
 
     @FXML
     private void logOut() throws IOException {
@@ -106,6 +114,21 @@ public class EmployeeLoggedInHomeController {
         Parent sceneMain = loader.load();
 
         ActiveServiceRequestsController controller = loader.<ActiveServiceRequestsController>getController();
+
+        Stage theStage = (Stage) fufillServiceRequest.getScene().getWindow();
+
+        Scene scene = new Scene(sceneMain);
+        theStage.setScene(scene);
+    }
+
+    @FXML
+    private void SwitchToEditAccountScreen() throws IOException{
+        FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("CreateEditAccount.fxml"));
+
+        Parent sceneMain = loader.load();
+
+        CreateEditAccountController controller = loader.<CreateEditAccountController>getController();
+        controller.setType(2);
 
         Stage theStage = (Stage) fufillServiceRequest.getScene().getWindow();
 

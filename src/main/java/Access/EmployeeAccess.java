@@ -87,6 +87,11 @@ public class EmployeeAccess extends DBAccess{
                 data.add(rs.getString("department"));
                 data.add(Boolean.toString(rs.getBoolean("isAdmin")));
                 data.add(rs.getString("nickname"));
+                data.add(rs.getString("password"));
+                data.add(rs.getString("type"));
+                data.add(rs.getString("firstName"));
+                data.add(rs.getString("lastName"));
+                data.add(rs.getString("email"));
             }
             return data;
 

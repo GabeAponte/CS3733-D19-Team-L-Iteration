@@ -57,7 +57,7 @@ public class CreateEditAccountController {
     private TextField nickname;
 
     @FXML
-    private JFXComboBox department;
+    private JFXComboBox<String> department;
 
     @FXML
     private TextField position;
@@ -67,6 +67,8 @@ public class CreateEditAccountController {
 
     @FXML
     private Label errorLabel;
+
+    private String pusername;
 
     private int type;
 
@@ -80,22 +82,14 @@ public class CreateEditAccountController {
         if(type == 1) {
             root = FXMLLoader.load(getClass().getClassLoader().getResource("AdminLoggedInHome.fxml"));
         } else if(type == 2){
-            root = FXMLLoader.load(getClass().getClassLoader().getResource("LoggedInHome.fxml"));
+            root = FXMLLoader.load(getClass().getClassLoader().getResource("EmployeeLoggedInHome.fxml"));
         } else {
             root = FXMLLoader.load(getClass().getClassLoader().getResource("EmployeeTable.fxml"));
         }
         Scene scene = new Scene(root);
         thestage.setScene(scene);
 
-        //TODO: Gray out submit button if not everything is filled in.
-        // If admin users select create account on previous page, have the title label reflect that
-        // If employee clicks on their account, have the title label reflect that
-        // employeeID can't be change
-        // Only admins can edit position, employee ID and isAdmin
-        // email must contain @ and .domain
-        // username must be unique
-        // add error cases for the error label
-        // have the new employee information be updated or created in the database when submit button is pressed
+
     }
 
 
@@ -110,6 +104,23 @@ public class CreateEditAccountController {
             title.setText("Create an Account");
         }else if(type == 2){
             title.setText("Edit your Account");
+            Singleton single = Singleton.getInstance();
+            EmployeeAccess ea = new EmployeeAccess();
+            ArrayList<String> data = ea.getEmployeeInformation(single.getUsername());
+            username.setText(single.getUsername());
+            employeeID.setText(data.get(0));
+            department.getSelectionModel().select(data.get(1));
+            if(data.get(2).equals("true")){
+                isAdmin.setSelected(true);
+            }
+            nickname.setText(data.get(3));
+            password.setText(data.get(4));
+            position.setText(data.get(5));
+            firstName.setText(data.get(6));
+            lastName.setText(data.get(7));
+            email.setText(data.get(8));
+            pusername = single.getUsername();
+
         }else if(type == 3){
             title.setText("Edit an Account");
         }
@@ -125,6 +136,7 @@ public class CreateEditAccountController {
             position.setDisable(true);
             employeeID.setDisable(true);
             isAdmin.setDisable(true);
+            department.setDisable(true);
         }
         submit.setDisable(true);
         errorLabel.setText("");
@@ -208,7 +220,7 @@ public class CreateEditAccountController {
             errorLabel.setText("Passwords do not match");
             return;
         }
-        if(nickname.getText().length() > 10){
+        if(nickname.getText().length() > 8){
             errorLabel.setText("The nickname is too long");
             return;
         }
@@ -234,13 +246,14 @@ public class CreateEditAccountController {
             list.add(email.getText());
             errorLabel.setText("");
             ea.addEmployee(list);
-        }else{
-            try{
-                ea.updateEmployee(employeeID.getText(), "employeeID", employeeID.getText());
-                ea.updateEmployee(employeeID.getText(), "username", username.getText());
-            } catch(SQLException e){
-                errorLabel.setText("The employee ID or Username are already in use");
-                return;
+        }else if(type == 2){
+            if(!pusername.equals(username.getText())) {
+                try {
+                    ea.updateEmployee(employeeID.getText(), "username", username.getText());
+                } catch (SQLException e) {
+                    errorLabel.setText("The Username is already in use");
+                    return;
+                }
             }
             ea.changeAdmin(employeeID.getText(), isAdmin.isSelected());
             try {
@@ -255,6 +268,8 @@ public class CreateEditAccountController {
                 System.out.println(e.getMessage());
             }
             errorLabel.setText("");
+        } else {
+
         }
     }
 }

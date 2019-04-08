@@ -140,7 +140,7 @@
                                     <Insets right="75.0" />
                                  </GridPane.margin>
                               </JFXButton>
-                              <JFXButton fx:id="myAccount" alignment="CENTER" buttonType="RAISED" prefHeight="95.0" prefWidth="510.0" ripplerFill="#b0b0b0" style="-fx-border-color: F5D96B; -fx-border-radius: 1000; -fx-border-width: 2; -fx-background-radius: 100;" text="My Account" textFill="#f5d96b" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.vgrow="ALWAYS">
+                              <JFXButton fx:id="myAccount" alignment="CENTER" buttonType="RAISED" onAction="#SwitchToEditAccountScreen" prefHeight="95.0" prefWidth="510.0" ripplerFill="#b0b0b0" style="-fx-border-color: F5D96B; -fx-border-radius: 1000; -fx-border-width: 2; -fx-background-radius: 100;" text="My Account" textFill="#f5d96b" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.vgrow="ALWAYS">
                                  <font>
                                     <Font name="Times New Roman" size="36.0" />
                                  </font>
