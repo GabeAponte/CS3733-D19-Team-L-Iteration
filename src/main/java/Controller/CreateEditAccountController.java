@@ -62,6 +62,8 @@ public class CreateEditAccountController {
     @FXML
     private Label errorLabel;
 
+    private boolean type;
+
     @SuppressWarnings("Duplicates")
     @FXML
     private void backPressed() throws IOException {
@@ -80,5 +82,14 @@ public class CreateEditAccountController {
         // username must be unique
         // add error cases for the error label
         // have the new employee information be updated or created in the database when submit button is pressed
+    }
+
+    public void setType(boolean check){
+        type = check;
+        if(check){
+            title.setText("Create an Account");
+        }else {
+            title.setText("Edit an Account");
+        }
     }
 }

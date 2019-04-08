@@ -77,19 +77,21 @@ public class LogInController {
             single.setIsAdmin(false);
             if(ea.getEmployeeInformation(uname).get(2).equals("true")){
                 single.setIsAdmin(true);
+                SwitchToSignedIn("AdminLoggedInHome.fxml");
+                return;
             }
-            SwitchToSignedIn();
+            SwitchToSignedIn("EmployeeLoggedInHome.fxml");
         } else {
             displayError();
         }
     }
 
-    private void SwitchToSignedIn() throws IOException{
-        FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("LoggedInHome.fxml"));
+    private void SwitchToSignedIn(String fxml) throws IOException{
+        FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource(fxml));
 
         Parent sceneMain = loader.load();
 
-        LoggedInHomeController controller = loader.<LoggedInHomeController>getController();
+
         Stage theStage = (Stage) login.getScene().getWindow();
 
         Scene scene = new Scene(sceneMain);

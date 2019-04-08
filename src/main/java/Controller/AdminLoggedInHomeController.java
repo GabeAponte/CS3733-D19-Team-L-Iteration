@@ -1,5 +1,6 @@
 package Controller;
 
+import Access.EmployeeAccess;
 import Object.Singleton;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -50,6 +51,15 @@ public class AdminLoggedInHomeController {
     //   As an admin, the user should be able to edit any field other than employee ID
     //   seeSuggestions should switch to the suggestions table screen
     //   switching to the fulfillRequest screen should display all active service requests for the admin
+
+    /**ANDREW MADE THIS
+     * Initializes the screen
+     */
+    public void initialize(){
+        Singleton single = Singleton.getInstance();
+        EmployeeAccess ea = new EmployeeAccess();
+        welcome.setText("Welcome, " + ea.getEmployeeInformation(single.getUsername()).get(3));
+    }
 
     @FXML
     private void logOut() throws IOException {
@@ -128,6 +138,34 @@ public class AdminLoggedInHomeController {
 
         EditLocationController controller = loader.<EditLocationController>getController();
 
+        Stage theStage = (Stage) fufillServiceRequest.getScene().getWindow();
+
+        Scene scene = new Scene(sceneMain);
+        theStage.setScene(scene);
+    }
+
+    @FXML
+    private void SwitchToAddAccountScreen() throws IOException{
+        FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("CreateEditAccount.fxml"));
+
+        Parent sceneMain = loader.load();
+
+        CreateEditAccountController controller = loader.<CreateEditAccountController>getController();
+        controller.setType(true);
+        Stage theStage = (Stage) fufillServiceRequest.getScene().getWindow();
+
+        Scene scene = new Scene(sceneMain);
+        theStage.setScene(scene);
+    }
+
+    @FXML
+    private void SwitchToEditAccountScreen() throws IOException{
+        FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("CreateEditAccount.fxml"));
+
+        Parent sceneMain = loader.load();
+
+        CreateEditAccountController controller = loader.<CreateEditAccountController>getController();
+        controller.setType(false);
         Stage theStage = (Stage) fufillServiceRequest.getScene().getWindow();
 
         Scene scene = new Scene(sceneMain);

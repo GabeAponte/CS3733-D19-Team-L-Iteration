@@ -149,7 +149,7 @@
                                     <Insets right="75.0" />
                                  </GridPane.margin>
                               </JFXButton>
-                              <JFXButton fx:id="newAccount" buttonType="RAISED" prefHeight="95.0" prefWidth="258.0" ripplerFill="#b0b0b0" style="-fx-border-radius: 1000; -fx-border-width: 2; -fx-border-color: F5D96B; -fx-background-radius: 100;" text="New Account" textFill="#f5d96b" GridPane.halignment="LEFT">
+                              <JFXButton fx:id="newAccount" buttonType="RAISED" onAction="#SwitchToAddAccountScreen" prefHeight="95.0" prefWidth="258.0" ripplerFill="#b0b0b0" style="-fx-border-radius: 1000; -fx-border-width: 2; -fx-border-color: F5D96B; -fx-background-radius: 100;" text="New Account" textFill="#f5d96b" GridPane.halignment="LEFT">
                                  <font>
                                     <Font name="Times New Roman" size="36.0" />
                                  </font>
@@ -157,7 +157,7 @@
                                     <Insets />
                                  </GridPane.margin>
                               </JFXButton>
-                              <JFXButton fx:id="editAccount" buttonType="RAISED" prefHeight="95.0" prefWidth="243.0" ripplerFill="#b0b0b0" style="-fx-border-color: F5D96B; -fx-border-radius: 1000; -fx-border-width: 2; -fx-background-radius: 100;" text="Edit Account" textFill="#f5d96b" GridPane.columnIndex="1" GridPane.halignment="CENTER">
+                              <JFXButton fx:id="editAccount" buttonType="RAISED" onAction="#SwitchToEditAccountScreen" prefHeight="95.0" prefWidth="243.0" ripplerFill="#b0b0b0" style="-fx-border-color: F5D96B; -fx-border-radius: 1000; -fx-border-width: 2; -fx-background-radius: 100;" text="Edit Account" textFill="#f5d96b" GridPane.columnIndex="1" GridPane.halignment="CENTER">
                                  <font>
                                     <Font name="Times New Roman" size="36.0" />
                                  </font>
