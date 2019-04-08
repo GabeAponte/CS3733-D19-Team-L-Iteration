@@ -26,12 +26,12 @@ public class ReservationAccess extends DBAccess {
      * @param eID
      * @param startTime
      * @param endTime
-     * @param date
+     * @param startDate
      */
-    public void makeReservation(String rID, String eID, String date, int startTime, int endTime){
+    public void makeReservation(String rID, String eID, String startDate, String endDate, int startTime, int endTime){
         String sql = "insert into reservation(" +
-                "rID, eID, startTime, endTime, rdate)" +
-                "values (?, ?, ?, ?, ?)";
+                "rID, eID, startTime, endTime, startDate, endDate)" +
+                "values (?, ?, ?, ?, ?, ?)";
 
 
         try (Connection conn = this.connect();
@@ -40,7 +40,8 @@ public class ReservationAccess extends DBAccess {
             pstmt.setString(2, eID);
             pstmt.setInt(3, startTime);
             pstmt.setInt(4, endTime);
-            pstmt.setString(5, date);
+            pstmt.setString(5, startDate);
+            pstmt.setString(6, endDate);
             pstmt.executeUpdate();
         } catch (SQLException e) {
             System.out.println(e.getMessage());

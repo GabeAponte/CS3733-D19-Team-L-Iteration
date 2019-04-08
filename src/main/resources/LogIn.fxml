@@ -3,108 +3,100 @@
 <?import com.jfoenix.controls.JFXButton?>
 <?import com.jfoenix.controls.JFXPasswordField?>
 <?import com.jfoenix.controls.JFXTextField?>
+<?import com.jfoenix.controls.JFXToolbar?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ToolBar?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
-<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
-<?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" style="-fx-background-color: #7fb1ff;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.LogInController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" style="-fx-background-color: #012D5A;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.LogInController">
     <children>
-        <ImageView fitHeight="668.0" fitWidth="1282.0" layoutY="51.0" opacity="0.51" AnchorPane.bottomAnchor="1.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="-2.0" AnchorPane.topAnchor="51.0">
-            <image>
-                <Image url="@SoftEng_UI_Mockup_Pics/Background.png" />
-            </image>
-        </ImageView>
-        <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#7fb1ff" height="100.0" stroke="#012d5a" strokeType="INSIDE" strokeWidth="2.0" width="550.0" AnchorPane.leftAnchor="370.0" AnchorPane.topAnchor="225.0" />
-        <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#012d5a" height="275.0" layoutX="50.0" layoutY="152.0" stroke="#012d5a" strokeType="INSIDE" width="550.0" AnchorPane.leftAnchor="370.0" AnchorPane.topAnchor="325.0" />
         <VBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
             <children>
-                <ToolBar prefHeight="125.0" prefWidth="1280.0" style="-fx-background-color: white;">
-                    <items>
-                        <ImageView fitHeight="125.0" fitWidth="395.0" pickOnBounds="true" preserveRatio="true">
+                <JFXToolbar maxHeight="100.0" minHeight="100.0" prefHeight="100.0" style="-fx-background-color: WHITE;">
+                    <left>
+                        <ImageView fitHeight="125.0" fitWidth="395.0" pickOnBounds="true" preserveRatio="true" BorderPane.alignment="CENTER">
                             <image>
                                 <Image url="@SoftEng_UI_Mockup_Pics/BWHlogo.png" />
                             </image>
                         </ImageView>
-                        <HBox alignment="CENTER_RIGHT" prefHeight="115.0" prefWidth="834.0">
-                     <children>
-                        <JFXButton fx:id="back" buttonType="RAISED" onAction="#backPressed" ripplerFill="#b0b0b0" text="Back">
-                           <font>
-                              <Font name="Times New Roman" size="40.0" />
-                           </font>
+                    </left>
+                    <right>
+                        <JFXButton fx:id="back" buttonType="RAISED" onAction="#backPressed" ripplerFill="#b0b0b0" text="Back" BorderPane.alignment="CENTER">
+                            <font>
+                                <Font name="Times New Roman" size="40.0" />
+                            </font>
                         </JFXButton>
-                     </children></HBox>
-                    </items>
-                </ToolBar>
-                <ToolBar maxHeight="10.0" prefHeight="40.0" prefWidth="200.0" style="-fx-background-color: #092b60;" />
-                <Label alignment="CENTER" contentDisplay="CENTER" maxWidth="1.7976931348623157E308" prefHeight="188.0" prefWidth="1274.0" text="Log In">
-                    <font>
-                        <Font name="Times New Roman Bold" size="48.0" />
-                    </font>
+                    </right>
                     <VBox.margin>
                         <Insets />
                     </VBox.margin>
                     <padding>
-                        <Insets bottom="10.0" top="100.0" />
+                        <Insets left="5.0" right="5.0" />
                     </padding>
-                </Label>
-                <GridPane alignment="CENTER" hgap="150.0" prefHeight="270.0" prefWidth="1082.0">
+                </JFXToolbar>
+                <ToolBar maxHeight="10.0" prefHeight="40.0" prefWidth="200.0" style="-fx-background-color: #f5d96b;" />
+                <GridPane alignment="CENTER" hgap="50.0" vgap="25.0" VBox.vgrow="NEVER">
                     <columnConstraints>
-                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                        <ColumnConstraints hgrow="NEVER" maxWidth="-Infinity" minWidth="-Infinity" />
                     </columnConstraints>
                     <rowConstraints>
-                  <RowConstraints maxHeight="83.0" minHeight="0.0" prefHeight="28.5" vgrow="SOMETIMES" />
-                        <RowConstraints maxHeight="109.0" minHeight="10.0" prefHeight="82.5" vgrow="SOMETIMES" />
-                        <RowConstraints maxHeight="97.0" minHeight="10.0" prefHeight="85.0" vgrow="SOMETIMES" />
-                        <RowConstraints maxHeight="72.5" minHeight="10.0" prefHeight="62.0" vgrow="SOMETIMES" />
+                        <RowConstraints vgrow="NEVER" />
+                        <RowConstraints valignment="CENTER" vgrow="NEVER" />
+                        <RowConstraints vgrow="NEVER" />
+                        <RowConstraints vgrow="NEVER" />
                     </rowConstraints>
                     <children>
-                  <JFXTextField fx:id="username" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onKeyReleased="#enableLogin" prefHeight="44.0" prefWidth="295.0" promptText="Username" style="-fx-background-color: fff;" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
-                     <font>
-                        <Font name="Times New Roman" size="24.0" />
-                     </font>
-                     <GridPane.margin>
-                        <Insets />
-                     </GridPane.margin>
-                  </JFXTextField>
-                  <JFXButton fx:id="login" buttonType="RAISED" disable="true" onAction="#LogIn" ripplerFill="WHITE" style="-fx-background-color: fff;" text="Log In" GridPane.halignment="CENTER" GridPane.rowIndex="3">
-                     <font>
-                        <Font name="Times New Roman" size="24.0" />
-                     </font>
-                     <GridPane.margin>
-                        <Insets />
-                     </GridPane.margin>
-                  </JFXButton>
-                  <JFXPasswordField fx:id="password" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onAction="#enterKeyPressToLogin" onKeyReleased="#enableLogin" prefHeight="44.0" prefWidth="295.0" promptText="Password" style="-fx-background-color: fff;" GridPane.halignment="CENTER" GridPane.rowIndex="2">
-                     <font>
-                        <Font name="Times New Roman" size="24.0" />
-                     </font>
-                  </JFXPasswordField>
+                        <JFXTextField fx:id="username" maxHeight="-Infinity" maxWidth="-Infinity" onKeyReleased="#enableLogin" promptText="Username" style="-fx-background-color: fff;" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
+                            <font>
+                                <Font name="Times New Roman" size="24.0" />
+                            </font>
+                            <GridPane.margin>
+                                <Insets />
+                            </GridPane.margin>
+                        </JFXTextField>
+                        <JFXButton fx:id="login" buttonType="RAISED" disable="true" onAction="#LogIn" ripplerFill="WHITE" style="-fx-background-color: fff;" text="Log In" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="3" GridPane.vgrow="ALWAYS">
+                            <font>
+                                <Font name="Times New Roman" size="24.0" />
+                            </font>
+                            <GridPane.margin>
+                                <Insets />
+                            </GridPane.margin>
+                        </JFXButton>
+                        <JFXPasswordField fx:id="password" maxHeight="-Infinity" maxWidth="-Infinity" onAction="#enterKeyPressToLogin" onKeyReleased="#enableLogin" promptText="Password" style="-fx-background-color: fff;" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="2" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
+                            <font>
+                                <Font name="Times New Roman" size="24.0" />
+                            </font>
+                        </JFXPasswordField>
+                        <Label alignment="CENTER" contentDisplay="CENTER" text="Log In" textFill="#f5d96b" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.vgrow="ALWAYS">
+                            <font>
+                                <Font name="Times New Roman Bold" size="48.0" />
+                            </font>
+                        </Label>
                     </children>
                     <padding>
                         <Insets left="250.0" right="250.0" />
                     </padding>
-               <VBox.margin>
-                  <Insets left="100.0" right="100.0" />
-               </VBox.margin>
+                    <VBox.margin>
+                        <Insets left="100.0" right="100.0" top="175.0" />
+                    </VBox.margin>
                 </GridPane>
-            <Label fx:id="errorLabel" alignment="CENTER" contentDisplay="CENTER" prefHeight="31.0" prefWidth="500.0" textAlignment="CENTER" textFill="WHITE">
-               <VBox.margin>
-                  <Insets bottom="120.0" left="400.0" />
-               </VBox.margin>
-               <font>
-                  <Font name="Times New Roman" size="28.0" />
-               </font>
-            </Label>
+                <Label fx:id="errorLabel" alignment="CENTER" contentDisplay="CENTER" prefHeight="31.0" prefWidth="500.0" textAlignment="CENTER" textFill="WHITE">
+                    <VBox.margin>
+                        <Insets bottom="120.0" left="400.0" />
+                    </VBox.margin>
+                    <font>
+                        <Font name="Times New Roman" size="28.0" />
+                    </font>
+                </Label>
             </children>
         </VBox>
     </children>
