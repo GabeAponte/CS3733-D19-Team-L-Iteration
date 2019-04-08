@@ -902,4 +902,220 @@ public class PathFindingController {
         filterList.add("Labs");
         filterList.add("Information");
     }
+
+
+
+    /** GRACE MADE THIS
+     * display all nodes whose nodeType contains("keyword") && nodeFloor = currentKioskFloor
+     */
+    public void displayPOINodes(String keyword){
+        ArrayList<Location> nodes = new ArrayList<Location>();
+        //want to fill nodes w/ floor = currrentKioskFloor && nodeLongName? or nodeType? .contains(keyword)
+        int temp = 0;
+        Point2D point = sceneGestures.getImageLocation();
+        for(int i=0; i<data.size(); i++){
+            //if nodetype contains keyword
+            if(data.get(i).getNodeType().contains(keyword)  && data.get(i).getFloor() == "2"/* && data.get(i).getFloor() == kioskNode.getFloor*/){
+                nodes.add(data.get(i));
+
+                Circle thisCircle = new Circle();
+
+                anchorPanePath.getChildren().add(thisCircle);
+
+                //Setting the properties of the circle
+                thisCircle.setCenterX((nodes.get(temp).getXcoord()-point.getX())*0.137*sceneGestures.getImageScale());
+                thisCircle.setCenterY((nodes.get(temp).getYcoord()-point.getY())*0.137*sceneGestures.getImageScale());
+                thisCircle.setRadius(Math.max(2.5,2.5f*(sceneGestures.getImageScale()/5)));
+                thisCircle.setStroke(Color.web("#f5d96b"));
+                thisCircle.setFill(Color.web("#f5d96b"));
+
+                circles.add(thisCircle);
+                temp++;
+            }
+        }
+        //System.out.println("displaying all "+ keyword +"s on this floor");
+
+    }
+
+    /** GRACE MADE THIS
+     * display path to nearest keyword
+     */
+    public void displayClosestPOI(String keyword){
+        ArrayList<Location> nodes = new ArrayList<Location>();
+        Location kioskTemp = data.get(0);
+        //want to fill nodes w/ relevent POI
+
+        for(int i=0; i<data.size(); i++) {
+            //if nodetype contains keyword
+            if (data.get(i).getNodeType().contains(keyword) && data.get(i).getFloor() == kioskTemp.getFloor()) {
+                nodes.add(data.get(i));
+            }
+        }
+
+        //TODO: FIX THIS & ACTUALLY GET THE CLOSEST ONE
+        long startTime;
+        long endTime;
+        long currentCountTime;
+
+        //just to initailize closestTime
+        startTime = System.nanoTime();
+        findPath(kioskTemp, nodes.get(0));
+        endTime = System.nanoTime();
+
+        long closestTime = (endTime - startTime);
+        Location closestLOC = nodes.get(0);
+        Path closestPath = findPath(kioskTemp, nodes.get(0)); //?
+        //finding closest POI
+        for(int i=0; i<nodes.size(); i++){
+            startTime = System.nanoTime();
+            findPath(kioskTemp, nodes.get(i));
+            endTime = System.nanoTime();
+
+            currentCountTime = (endTime - startTime);
+
+            if(closestTime > currentCountTime){
+                closestPath = findPath(kioskTemp, nodes.get(i));
+                closestLOC = nodes.get(i);
+            }
+
+        }
+
+
+        displayPath(closestPath.getPath(), kioskTemp, closestLOC);
+        //System.out.println("just pretend it prints out the path to closest");
+    }
+
+    /** GRACE MADE THIS
+     *display and find closest bathroom
+     */
+    @FXML
+    private void bathRadButtPressed(){
+        //when pressed, change color to #f5d96b (gold/yellow), to do later
+        //display and find closest bathroom
+        //System.out.println("find closest bathroom selected");
+        for (Circle c: circles) {
+            anchorPanePath.getChildren().remove(c);
+        }
+        for (Line l: lines) {
+            anchorPanePath.getChildren().remove(l);
+        }
+        if(bathroomRadButton.isSelected()) {
+            bathroomRadButton.setTextFill(Color.web("#f5d96b"));
+            cafeRadButton.setSelected(false);
+            cafeRadButton.setTextFill(Color.web("#ffffff"));
+            eleRadButton.setSelected(false);
+            eleRadButton.setTextFill(Color.web("#ffffff"));
+            stairsRadButton.setSelected(false);
+            stairsRadButton.setTextFill(Color.web("#ffffff"));
+
+            displayClosestPOI("REST");
+            displayPOINodes("REST");
+            // for some reason displaying poi nodes cannot go before displaying the closest path
+        }
+        else if(!bathroomRadButton.isSelected()){
+            bathroomRadButton.setTextFill(Color.web("#ffffff"));
+            for (Circle c: circles) {
+                anchorPanePath.getChildren().remove(c);
+            }
+        }
+    }
+    /** GRACE MADE THIS
+     *display and find closest cafe/vending/retail
+     */
+    @FXML
+    private void cafeRadButtPressed(){
+        //when pressed, change color to #f5d96b (gold/yellow)
+        //display and find closest cafe - nodeType is RETL
+        //System.out.println("find closest retail/food selected");
+        for (Circle c: circles) {
+            anchorPanePath.getChildren().remove(c);
+        }
+        for (Line l: lines) {
+            anchorPanePath.getChildren().remove(l);
+        }
+        if(cafeRadButton.isSelected()) {
+            cafeRadButton.setTextFill(Color.web("#f5d96b"));
+            bathroomRadButton.setSelected(false);
+            bathroomRadButton.setTextFill(Color.web("#ffffff"));
+            eleRadButton.setSelected(false);
+            eleRadButton.setTextFill(Color.web("#ffffff"));
+            stairsRadButton.setSelected(false);
+            stairsRadButton.setTextFill(Color.web("#ffffff"));
+
+            displayClosestPOI("RETL");
+            displayPOINodes("RETL");
+        }
+        if(!cafeRadButton.isSelected()){
+            cafeRadButton.setTextFill(Color.web("#ffffff"));
+            for (Circle c: circles) {
+                anchorPanePath.getChildren().remove(c);
+            }
+        }
+    }
+    /** GRACE MADE THIS
+     *display and find closest elevator
+     */
+    @FXML
+    private void eleRadButtPressed(){
+        //when pressed, change color to #f5d96b (gold/yellow)
+        //display and find closest elevator
+        //System.out.println("find closest elevator selected");
+        for (Circle c: circles) {
+            anchorPanePath.getChildren().remove(c);
+        }
+        for (Line l: lines) {
+            anchorPanePath.getChildren().remove(l);
+        }
+        if(eleRadButton.isSelected()) {
+            eleRadButton.setTextFill(Color.web("#f5d96b"));
+            cafeRadButton.setSelected(false);
+            cafeRadButton.setTextFill(Color.web("#ffffff"));
+            bathroomRadButton.setSelected(false);
+            bathroomRadButton.setTextFill(Color.web("#ffffff"));
+            stairsRadButton.setSelected(false);
+            stairsRadButton.setTextFill(Color.web("#ffffff"));
+
+            displayClosestPOI("ELEV");
+            displayPOINodes("ELEV");
+        }
+        if(!eleRadButton.isSelected()){
+            eleRadButton.setTextFill(Color.web("#ffffff"));
+            for (Circle c: circles) {
+                anchorPanePath.getChildren().remove(c);
+            }
+        }
+    }
+    /** GRACE MADE THIS
+     *display and find closest stairs
+     */
+    @FXML
+    private void stairsRadButtPressed(){
+        //when pressed, change color to #f5d96b (gold/yellow)
+        //display and find closest stairs
+        //System.out.println("find closest stairs selected");
+        for (Circle c: circles) {
+            anchorPanePath.getChildren().remove(c);
+        }
+        for (Line l: lines) {
+            anchorPanePath.getChildren().remove(l);
+        }
+        if(stairsRadButton.isSelected()) {
+            stairsRadButton.setTextFill(Color.web("#f5d96b"));
+            cafeRadButton.setSelected(false);
+            cafeRadButton.setTextFill(Color.web("#ffffff"));
+            eleRadButton.setSelected(false);
+            eleRadButton.setTextFill(Color.web("#ffffff"));
+            bathroomRadButton.setSelected(false);
+            bathroomRadButton.setTextFill(Color.web("#ffffff"));
+
+            displayClosestPOI("STAI");
+            displayPOINodes("STAI");
+        }
+        if(!stairsRadButton.isSelected()){
+            stairsRadButton.setTextFill(Color.web("#ffffff"));
+            for (Circle c: circles) {
+                anchorPanePath.getChildren().remove(c);
+            }
+        }
+    }
 }
