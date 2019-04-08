@@ -91,9 +91,9 @@
                         <Insets top="25.0" />
                      </GridPane.margin>
                   </JFXButton>
-                  <JFXComboBox fx:id="startBox" focusColor="#f6bd38" prefHeight="44.0" prefWidth="428.0" promptText="ilhlih" style="-jfx-focus-color: white;" stylesheets="@modify-prompt-text.css" unFocusColor="WHITE" GridPane.rowIndex="1" />
-                  <JFXComboBox fx:id="endBox" focusColor="#f6bd38" prefHeight="44.0" prefWidth="428.0" promptText="End Location" unFocusColor="WHITE" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                  <JFXComboBox fx:id="typeField" focusColor="#f6bd38" prefHeight="44.0" prefWidth="428.0" promptText="ilhlih" style="-jfx-focus-color: white;" stylesheets="@modify-prompt-text.css" unFocusColor="WHITE" GridPane.rowIndex="2" />
+                  <JFXComboBox fx:id="startBox" onAction="#reenableSubmit" focusColor="#f6bd38" prefHeight="44.0" prefWidth="428.0" promptText="ilhlih" style="-jfx-focus-color: white;" stylesheets="@modify-prompt-text.css" unFocusColor="WHITE" GridPane.rowIndex="1" />
+                  <JFXComboBox fx:id="endBox" onAction="#reenableSubmit" focusColor="#f6bd38" prefHeight="44.0" prefWidth="428.0" promptText="End Location" unFocusColor="WHITE" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                  <JFXComboBox fx:id="typeField" onAction="#reenableSubmit" focusColor="#f6bd38" prefHeight="44.0" prefWidth="428.0" promptText="ilhlih" style="-jfx-focus-color: white;" stylesheets="@modify-prompt-text.css" unFocusColor="WHITE" GridPane.rowIndex="2" />
                </children>
                <opaqueInsets>
                   <Insets />
