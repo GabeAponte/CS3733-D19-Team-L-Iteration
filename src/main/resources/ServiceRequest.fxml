@@ -65,7 +65,7 @@
                                 <Insets left="100.0" right="100.0" />
                             </GridPane.margin>
                         </JFXButton>
-                        <JFXButton fx:id="ReligiousServices" buttonType="RAISED" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" style="-fx-border-color: white; -fx-border-radius: 100; -fx-background-radius: 100;" text="Religious Services" textFill="WHITE" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="2" GridPane.valignment="CENTER">
+                        <JFXButton fx:id="ReligiousServices" buttonType="RAISED" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" onAction="#changeToReligiousRequest" style="-fx-border-color: white; -fx-border-radius: 100; -fx-background-radius: 100;" text="Religious Services" textFill="WHITE" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="2" GridPane.valignment="CENTER">
                             <font>
                                 <Font size="25.0" />
                             </font>

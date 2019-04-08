@@ -3,6 +3,7 @@ package Controller;
 import API.ChildThread;
 import Access.ReligiousRequestAccess;
 import Access.ServiceRequestAccess;
+import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXTextArea;
 import com.jfoenix.controls.JFXTextField;
 import javafx.event.ActionEvent;
@@ -38,7 +39,7 @@ public class ReligiousRequestController {
     public JFXTextField Denomination;
 
     @FXML
-    public JFXTextField Type;
+    public JFXComboBox<String> Type;
 
     @FXML
     public JFXTextArea Description;
@@ -52,10 +53,24 @@ public class ReligiousRequestController {
         init(loggedIn);
     }
 
+    public void initialize(){
+        Submit.setDisable(true);
+        Type.getItems().addAll(
+                "Priest", "Cohen", "Rabbi", "Last Rites", "Baptism", "Blessings/Prayer", "Other");
+    }
+
+    @FXML
+    private void reenableSubmit() {
+        if (Description.getText().trim().isEmpty() || Type.getValue() == null || Location.getText().trim().isEmpty() || Denomination.getText().trim().isEmpty() || Name.getText().trim().isEmpty()) {
+            Submit.setDisable(true);
+        } else {
+            Submit.setDisable(false);
+        }
+    }
     @FXML
     private void submitClicked() throws IOException {
         ReligiousRequestAccess rra = new ReligiousRequestAccess();
-        rra.makeRequest(Description.getText(), Denomination.getText(),Location.getText(), Name.getText(), Type.getText());
+        rra.makeRequest(Description.getText(), Denomination.getText(),Location.getText(), Name.getText(), Type.getValue());
         System.out.println("Submit Pressed");
         backPressed();
     }

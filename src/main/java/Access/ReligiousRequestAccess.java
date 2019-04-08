@@ -10,6 +10,7 @@ public class ReligiousRequestAccess extends DBAccess{
 
     private static final DateFormat sdf = new SimpleDateFormat("yyyy/MM/dd");
     private static final DateFormat tdf = new SimpleDateFormat("HHmm");
+    
     /**@author Gabe
      * deletes all the records from the serviceRequest table
      */
@@ -25,7 +26,7 @@ public class ReligiousRequestAccess extends DBAccess{
     }
 
     /**@author Gabe
-     * adds a new request to the database
+     * adds a new religious request to the database
      *
      */
     public void makeRequest(String desc, String denom, String location, String name, String type){
@@ -48,14 +49,13 @@ public class ReligiousRequestAccess extends DBAccess{
             System.out.println(e.getMessage());
         }
     }
-    //todo REMIND DJ TO MAKE REQUESTID A AUTOINCREMENTED FIELD also our database doesnt have dates for reservations
 
-
+/*
     /**ANDREW MADE THIS
      * assign an employee to fulfill a request
      * @param rid
      * @param name
-     */
+
     public void fulfillRequest(int rid, String name){
         String sql = "update serviceRequest set assignedEmployee = ?, fulfilled = 1 where requestID = ?";
 
@@ -74,7 +74,7 @@ public class ReligiousRequestAccess extends DBAccess{
      * returns the record fields for the given index in serviceRequest
      * @param getNum
      * @return
-     */
+
     public ArrayList<String> getRequests(int getNum){
         String sql = "SELECT * FROM serviceRequest where assignedEmployee is NULL";
         int count = 0;
@@ -117,7 +117,7 @@ public class ReligiousRequestAccess extends DBAccess{
      * returns the number of records in serviceRequest
      *
      * @return int
-     */
+
     public int countRecords() {
         String sql = "select COUNT(*) from serviceRequest where assignedEmployee is null";
         try (Connection conn = this.connect();
@@ -130,7 +130,7 @@ public class ReligiousRequestAccess extends DBAccess{
         }
         return 0;
 
-    }
+    } */
 
     public static void main(String[] args) {
         ReligiousRequestAccess sra = new ReligiousRequestAccess();
