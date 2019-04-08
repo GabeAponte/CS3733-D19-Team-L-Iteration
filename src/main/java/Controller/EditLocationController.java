@@ -335,8 +335,9 @@ public class EditLocationController {
         //this is the dialogue popup
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Delete selected node?", ButtonType.YES, ButtonType.NO);
         alert.showAndWait();
-
+        Singleton single = Singleton.getInstance();
         if (alert.getResult() == ButtonType.YES) {
+            single.lookup.get(focusNode.getLocID()).restitch();
             //delete the node here
             NodesAccess na = new NodesAccess();
             na.deleteNode(focusNode.getLocID());
@@ -417,6 +418,33 @@ public class EditLocationController {
     private void downloadEdges() {
         EdgesAccess ea = new EdgesAccess();
         ea.writeTableIntoCSV("");
+    }
+
+    private void initializeTable(NodesAccess na, EdgesAccess ea) {
+        /*
+        ArrayList<String> edgeList;
+        int count;
+        count = 0;
+        while (count < na.countRecords()) {
+            ArrayList<String> arr = na.getNodes(count);
+            Location testx = new Location(arr.get(0), Integer.parseInt(arr.get(1)), Integer.parseInt(arr.get(2)), (arr.get(3)), arr.get(4), arr.get(5), arr.get(6), arr.get(7));
+            //only add the node if it hasn't been done yet
+            if (!(lookup.containsKey(arr.get(0)))) {
+                lookup.put((arr.get(0)), testx);
+                nodeData.add(testx);
+            }
+            count++;
+        }
+        count = 0;
+        while (count < ea.countRecords()) {
+            edgeList = ea.getEdges(count);
+            if (!edgeList.get(0).equals("edgeID")) {
+                Edge testy = new Edge(edgeList.get(0), lookup.get(edgeList.get(1)), lookup.get(edgeList.get(2)));
+                edgeData.add(testy);
+            }
+            count++;
+        }
+        */
     }
 
     @FXML

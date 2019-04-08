@@ -24,6 +24,7 @@ public class Singleton {
     private static int num;
     private static String kioskID;
     private static int typePathfind;
+    private static boolean isAdmin;
 
     private ObservableList<Location> data = FXCollections.observableArrayList();
     public HashMap<String, Location> lookup = new HashMap<String, Location>();
@@ -33,6 +34,9 @@ public class Singleton {
         loggedIn = false;
         username = "";
         num = 1;
+        kioskID = "";
+        typePathfind = 1;
+        isAdmin = false;
     }
     public void setData() {
         NodesAccess na = new NodesAccess();
@@ -52,12 +56,12 @@ public class Singleton {
                 for (int j = 0; j < edgeList.size(); j++) {
                     String nodeID = edgeList.get(j);
                     if (lookup.containsKey(na.getNodeInformation(nodeID).get(0))) {
-                        Edge e = new Edge(Integer.toString(j), testx, lookup.get(nodeID));
+                        Edge e = new Edge(testx.getLocID()+"_"+nodeID, testx, lookup.get(nodeID));
                         testx.addEdge(e);
                     } else {
                         arr2 = na.getNodeInformation(nodeID);
                         Location testy = new Location(nodeID, Integer.parseInt(arr2.get(0)), Integer.parseInt(arr2.get(1)), arr2.get(2), arr2.get(3), arr2.get(4), arr2.get(5), arr2.get(6));
-                        Edge e = new Edge(Integer.toString(j), testx, testy);
+                        Edge e = new Edge(testx.getLocID()+"_"+nodeID, testx, testy);
                         testx.addEdge(e);
                     }
                 }
@@ -67,18 +71,26 @@ public class Singleton {
                 for (int j = 0; j < edgeList.size(); j++) {
                     String nodeID = edgeList.get(j);
                     if (lookup.containsKey(na.getNodeInformation(nodeID).get(0))) {
-                        Edge e = new Edge(Integer.toString(j), testx, lookup.get(nodeID));
+                        Edge e = new Edge(testx.getLocID()+"_"+nodeID, testx, lookup.get(nodeID));
                         testx.addEdge(e);
                     } else {
                         arr2 = na.getNodeInformation(nodeID);
                         Location testy = new Location(nodeID, Integer.parseInt(arr2.get(0)), Integer.parseInt(arr2.get(1)), arr2.get(2), arr2.get(3), arr2.get(4), arr2.get(5), arr2.get(6));
-                        Edge e = new Edge(Integer.toString(j), testx, testy);
+                        Edge e = new Edge(testx.getLocID()+"_"+nodeID, testx, testy);
                         testx.addEdge(e);
                     }
                 }
             }
             count++;
         }
+    }
+
+    public static boolean isIsAdmin() {
+        return isAdmin;
+    }
+
+    public static void setIsAdmin(boolean isAdmin) {
+        Singleton.isAdmin = isAdmin;
     }
 
     public static int getTypePathfind() {
