@@ -368,7 +368,7 @@ public class PathFindingController {
 
         displayPath(path.getPath(), startNode, endNode);
         printPath(path.getPath());
-        TextDirection.setText(printPath(path.getPath()));
+       // TextDirection.setText(printPath(path.getPath()));
     }
 
     public void displayPath(ArrayList<Location> path, Location startNode, Location endNode){
@@ -1047,6 +1047,25 @@ public class PathFindingController {
             Location a = A.get(i);
             Location b = A.get(i+1);
             Location c = A.get(i+2);
+            if(b.getNodeType().equals("STAI")||b.getNodeType().equals("ELEV")){
+                System.out.println("Go to floor "+ c.getFloor() + " by " + b.getNodeType());
+                text += "Go to " + c.getFloor() + " by " + b.getNodeType() + "\n";
+                i = i +2;
+                if(i == A.size()-1){
+                    System.out.println("You are at your destination");
+                    text += "You are at your destination \n";
+                }
+                else if(i == A.size() -2){
+                    System.out.println("Go straight to your destination" + A.get(i+1).getLongName());
+                }
+                else{
+                    a = A.get(i);
+                    b = A.get(i+1);
+                    c = A.get(i+2);
+
+                }
+
+            }
 
 
             double angle = calculateAngle(a,b,c);
@@ -1089,6 +1108,30 @@ public class PathFindingController {
                     }
 
                 }
+                else if((curDirection == 2 && nextDirection ==6) || (curDirection == 6 && nextDirection ==2)){
+                    if(Math.abs(slopeBC)>Math.abs(slopeAB)){
+                        System.out.println("Turn right");
+                        text += "Turn right\n";
+                    }
+                    else{
+                        System.out.println("Turn left");
+                        text += "Turn left\n";
+                    }
+
+                }
+
+                else if((curDirection == 8 && nextDirection ==4) || (curDirection == 6 && nextDirection ==2)){
+                    if(Math.abs(slopeBC)>Math.abs(slopeAB)){
+                        System.out.println("Turn left");
+                        text += "Turn left\n";
+                    }
+                    else{
+                        System.out.println("Turn right");
+                        text += "Turn right\n";
+                    }
+
+                }
+
                 else if(curDirection <= 5){
                     if(nextDirection < curDirection + 4 && nextDirection > curDirection){
                         System.out.println("Turn right");
