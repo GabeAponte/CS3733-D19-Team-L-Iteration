@@ -1,17 +1,20 @@
 package Object;
 
+import Access.EdgesAccess;
+
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.PriorityQueue;
 
 @SuppressWarnings("unused")
 public class Location implements Comparable<Location>{
 
-    private int xcoord, ycoord, floor;
-    private String locID, building, nodeType, longName, shortName, parentID;
+    private int xcoord, ycoord;
+    private String locID, building, nodeType, longName, shortName, parentID, floor;
     private ArrayList<Edge> connectedEdges;
     private double score, gScore;
 
-    public Location(String idIn, int xcoordIn, int ycoordIn, int floorIn, String buildingIn, String nodeTypeIn,
+    public Location(String idIn, int xcoordIn, int ycoordIn, String floorIn, String buildingIn, String nodeTypeIn,
                     String longNameIn, String shortNameIn) {
         locID = idIn;
         xcoord = xcoordIn;
@@ -76,11 +79,11 @@ public class Location implements Comparable<Location>{
         this.ycoord = ycoord;
     }
 
-    public int getFloor() {
+    public String getFloor() {
         return floor;
     }
 
-    public void setFloor(int floor) {
+    public void setFloor(String floor) {
         this.floor = floor;
     }
 
@@ -233,12 +236,56 @@ public class Location implements Comparable<Location>{
         if(count == openList.size()-1){
             openList.add(A);
         }
-
-
     }
 
     @Override
     public String toString() {
-        return longName + " (" + locID +")";
+        return longName + "(" + floor + ")";
     }
+
+    public void restitch() {
+        EdgesAccess ea = new EdgesAccess();
+        if (this.checkIfEasyHallway()) {
+            Location[] locs = new Location[2];
+            for (int i = 0; i < 2; i ++) {
+                if (!connectedEdges.get(i).getStartNode().equals(this)) {
+                   locs[i] = connectedEdges.get(i).getStartNode();
+                }
+                else {
+                    locs[i] = connectedEdges.get(i).getEndNode();
+                }
+            }
+            ea.addEdge(locs[0].getLocID(), locs[1].getLocID());
+            System.out.println("SUCCESS");
+        }
+        else {
+            System.out.println("NOT EASY ENOUGH");
+        }
+    }
+
+    private boolean checkIfEasyHallway() {
+        int count = 0;
+        if (this.getNodeType().equals("HALL")) {
+            if (this.connectedEdges.isEmpty()) {
+                System.out.println("EMPTY EDGES");
+                return false;
+            }
+            for (Edge e: connectedEdges) {
+                if (!e.getEndNode().getNodeType().equals("HALL") || !e.getStartNode().getNodeType().equals("HALL") || count >1) {
+                    if (count >1) {
+                        System.out.println("TOO MANY EDGES");
+                    }
+                    else {
+                        System.out.println("NOT HALLWAYS, TOO RISKY");
+                    }
+                    return false;
+                }
+            }
+        }
+        else {
+            return false;
+        }
+        return true;
+    }
+
 }

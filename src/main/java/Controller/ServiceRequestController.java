@@ -78,20 +78,73 @@ public class ServiceRequestController {
             typeOfService = "Security";
         }
 
-        changeToSub(typeOfService);
+       // changeToSub(typeOfService);
     }
 
-    //Nathan - changes screen to service sub screen, param "service" determines label on sub screen
-    private void changeToSub(String service) throws IOException{
-        FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("ServiceSubController.fxml"));
+    //Nathan - changes screen to service sub screen, param "service" determines label on sub scree
+    @FXML
+    private void changeToFlorist() throws IOException{
+
+        Stage theStage = (Stage) Back.getScene().getWindow();
+        AnchorPane root;
+            FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("ServiceRequestFloristDelivery.fxml"));
+
+            Parent sceneMain = loader.load();
+
+            //LoggedInHomeController controller = loader.<LoggedInHomeController>getController();
+
+            theStage = (Stage) SanitationServices.getScene().getWindow();
+
+            Scene scene = new Scene(sceneMain);
+            theStage.setScene(scene);
+
+    }
+
+    @FXML
+    private void changeToInternalTransport() throws IOException{
+
+        Stage theStage = (Stage) Back.getScene().getWindow();
+        AnchorPane root;
+        FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("InternalTransport.fxml"));
 
         Parent sceneMain = loader.load();
 
-        ServiceSubController controller = loader.<ServiceSubController>getController();
+        //LoggedInHomeController controller = loader.<LoggedInHomeController>getController();
 
-        controller.init(service, "");
+        theStage = (Stage) SanitationServices.getScene().getWindow();
 
-        Stage theStage = (Stage) SanitationServices.getScene().getWindow();
+        Scene scene = new Scene(sceneMain);
+        theStage.setScene(scene);
+
+    }
+
+    @FXML
+    private void changeToReligiousRequest() throws IOException{
+
+        Stage theStage = (Stage) Back.getScene().getWindow();
+        AnchorPane root;
+        FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("ReligiousServiceRequest.fxml"));
+
+        Parent sceneMain = loader.load();
+
+        //LoggedInHomeController controller = loader.<LoggedInHomeController>getController();
+
+        theStage = (Stage) SanitationServices.getScene().getWindow();
+
+        Scene scene = new Scene(sceneMain);
+        theStage.setScene(scene);
+
+    }
+
+    @FXML
+    private void changeToMaintenanceRequest() throws IOException {
+        Stage theStage = (Stage) Back.getScene().getWindow();
+        AnchorPane root;
+        FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("ServiceRequestMaintenance.fxml"));
+
+        Parent sceneMain = loader.load();
+
+        theStage = (Stage) SanitationServices.getScene().getWindow();
 
         Scene scene = new Scene(sceneMain);
         theStage.setScene(scene);

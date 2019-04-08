@@ -1,11 +1,13 @@
 package Controller;
 
+import Access.MaintenanceRequestAccess;
 import com.jfoenix.controls.JFXTextField;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.RadioButton;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import Object.*;
@@ -24,7 +26,10 @@ public class MaintenanceServiceRequestController {
     JFXTextField Location;
 
     @FXML
-    JFXTextField hazardLevel;
+    RadioButton hazardYes;
+
+    @FXML
+    RadioButton hazardNo;
 
     @FXML
     public Button Back;
@@ -32,9 +37,9 @@ public class MaintenanceServiceRequestController {
 
     public void initialize() {
         Singleton single = Singleton.getInstance();
-
     }
 
+    @FXML
     protected void backPressed() throws IOException {
         Singleton single = Singleton.getInstance();
         Stage theStage = (Stage) Back.getScene().getWindow();
@@ -58,4 +63,9 @@ public class MaintenanceServiceRequestController {
         theStage.setScene(scene);
     }
 
+    @FXML
+    protected void submitPressed() throws IOException {
+        MaintenanceRequestAccess mra = new MaintenanceRequestAccess();
+        mra.makeRequest(field1.getText(), field2.getText(), Location.getText(),  );
+    }
 }

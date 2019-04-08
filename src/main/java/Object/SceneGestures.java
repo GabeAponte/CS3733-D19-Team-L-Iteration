@@ -21,8 +21,7 @@ public class SceneGestures {
     double width;
     double height;
 
-    private Circle startCircle;
-    private Circle endCircle;
+    private ArrayList<Circle> circles;
     private ArrayList<Line> lines;
 
     ObjectProperty<Point2D> mouseDown = new SimpleObjectProperty<>();
@@ -194,23 +193,22 @@ public class SceneGestures {
     }
 
 
-    public void setDrawPath(Circle sCircle, Circle eCircle, ArrayList<Line> l){
-        startCircle = sCircle;
-        endCircle = eCircle;
+    public void setDrawPath(ArrayList<Circle> c, ArrayList<Line> l){
+        circles = c;
         lines = l;
     }
 
     @SuppressWarnings("Duplicates")
     private void redrawPath(Point2D oldPointUpper, double oldScale){
-        if(startCircle != null) {
+        if(circles != null && lines != null) {
 
-            startCircle.setCenterX(((startCircle.getCenterX()/(0.137*oldScale)+oldPointUpper.getX())-getImageLocation().getX())*0.137*getImageScale());
-            startCircle.setCenterY(((startCircle.getCenterY()/(0.137*oldScale)+oldPointUpper.getY())-getImageLocation().getY())*0.137*getImageScale());
-            startCircle.setRadius(Math.max(2.5,2.5f*getImageScale()/5));
+            for (int i = 0; i < circles.size(); i++) {
+                Circle c = circles.get(i);
 
-            endCircle.setCenterX(((endCircle.getCenterX()/(0.137*oldScale)+oldPointUpper.getX())-getImageLocation().getX())*0.137*getImageScale());
-            endCircle.setCenterY(((endCircle.getCenterY()/(0.137*oldScale)+oldPointUpper.getY())-getImageLocation().getY())*0.137*getImageScale());
-            endCircle.setRadius(Math.max(2.5,2.5f*getImageScale()/5));
+                c.setCenterX(((c.getCenterX()/(0.137*oldScale)+oldPointUpper.getX())-getImageLocation().getX())*0.137*getImageScale());
+                c.setCenterY(((c.getCenterY()/(0.137*oldScale)+oldPointUpper.getY())-getImageLocation().getY())*0.137*getImageScale());
+                c.setRadius(Math.max(2.5,2.5f*getImageScale()/5));
+            }
 
             for (int i = 0; i < lines.size(); i++) {
                 Line line = lines.get(i);
