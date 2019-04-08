@@ -970,6 +970,7 @@ public class PathFindingController {
         ArrayList<Location> nodes = new ArrayList<Location>();
         //want to fill nodes w/ floor = currrentKioskFloor && nodeLongName? or nodeType? .contains(keyword)
         int temp = 0;
+        double scaleRatio = Map.getFitWidth() / Map.getImage().getWidth();
         Point2D point = sceneGestures.getImageLocation();
         for(int i=0; i<single.getData().size(); i++){
             //if nodetype contains keyword
@@ -981,8 +982,8 @@ public class PathFindingController {
                 anchorPanePath.getChildren().add(thisCircle);
 
                 //Setting the properties of the circle
-                thisCircle.setCenterX((nodes.get(temp).getXcoord()-point.getX())*0.137*sceneGestures.getImageScale());
-                thisCircle.setCenterY((nodes.get(temp).getYcoord()-point.getY())*0.137*sceneGestures.getImageScale());
+                thisCircle.setCenterX((nodes.get(temp).getXcoord()-point.getX())*scaleRatio*sceneGestures.getImageScale());
+                thisCircle.setCenterY((nodes.get(temp).getYcoord()-point.getY())*scaleRatio*sceneGestures.getImageScale());
                 thisCircle.setRadius(Math.max(2.5,2.5f*(sceneGestures.getImageScale()/5)));
                 thisCircle.setStroke(Color.web("#f5d96b"));
                 thisCircle.setFill(Color.web("#f5d96b"));
