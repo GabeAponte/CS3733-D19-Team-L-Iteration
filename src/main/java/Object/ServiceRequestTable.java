@@ -1,6 +1,7 @@
 package Object;
 
-public class ServiceRequestTable{
+
+public class ServiceRequestTable {
     String requestID;
     String requestDepartment;
     String assignedEmployee;

@@ -39,12 +39,11 @@ public class EditEdgesController {
         FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("EditLocation.fxml"));
         Parent roots = loader.load();
 
-        //Get controller of scene2
         EditLocationController scene2Controller = loader.getController();
 
         Scene scene = new Scene(roots);
         Stage thestage = (Stage) EditEdgeBack.getScene().getWindow();
-        //Show scene 2 in new window
+
         thestage.setScene(scene);
     }
 
@@ -94,12 +93,11 @@ public class EditEdgesController {
         FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("EditLocation.fxml"));
         Parent roots = loader.load();
 
-        //Get controller of scene2
         EditLocationController scene2Controller = loader.getController();
 
         Scene scene = new Scene(roots);
         Stage thestage = (Stage) EditEdgeBack.getScene().getWindow();
-        //Show scene 2 in new window
+
         thestage.setScene(scene);
     }
 
