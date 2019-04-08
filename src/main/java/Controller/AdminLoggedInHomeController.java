@@ -151,7 +151,7 @@ public class AdminLoggedInHomeController {
         Parent sceneMain = loader.load();
 
         CreateEditAccountController controller = loader.<CreateEditAccountController>getController();
-        controller.setType(true);
+        controller.setType(1);
         Stage theStage = (Stage) fufillServiceRequest.getScene().getWindow();
 
         Scene scene = new Scene(sceneMain);
@@ -160,12 +160,12 @@ public class AdminLoggedInHomeController {
 
     @FXML
     private void SwitchToEditAccountScreen() throws IOException{
-        FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("CreateEditAccount.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("EmployeeTable.fxml"));
 
         Parent sceneMain = loader.load();
 
-        CreateEditAccountController controller = loader.<CreateEditAccountController>getController();
-        controller.setType(false);
+        EmployeeTableController controller = loader.<EmployeeTableController>getController();
+
         Stage theStage = (Stage) fufillServiceRequest.getScene().getWindow();
 
         Scene scene = new Scene(sceneMain);

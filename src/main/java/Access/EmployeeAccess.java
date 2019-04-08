@@ -43,6 +43,33 @@ public class EmployeeAccess extends DBAccess{
     }
 
     /**ANDREW MADE THIS
+     * checks if an employee username is already taken
+     * @param username
+     * @return
+     */
+    public boolean checkFields(String employeeID, String username){
+        String sql = "select employeeID, username from employee where username = ? or employeeID = ?";
+        String check = "";
+        try (Connection conn = this.connect();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            pstmt.setString(1, username);
+            pstmt.setString(2, employeeID);
+            ResultSet rs = pstmt.executeQuery();
+            while(rs.next()){
+                if(rs.getString("username").equals(username)){
+                    return true;
+                }
+                if(rs.getString("employeeID").equals(employeeID)){
+                    return true;
+                }
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        return false;
+    }
+
+    /**ANDREW MADE THIS
      *  returns the fields of a particular employee in an arraylist
      * @param username
      * @return
@@ -121,17 +148,15 @@ public class EmployeeAccess extends DBAccess{
      * @param field, the column of the table you want to edit
      * @param data, the data you want to put in
      */
-    public void updateEmployee(String employeeID, String field, String data) {
+    public void updateEmployee(String employeeID, String field, String data) throws SQLException{
         String sql = "update employee set " + field + "= ? where employeeID= ?;";
 
-        try (Connection conn = this.connect();
-             PreparedStatement pstmt = conn.prepareStatement(sql)) {
-            pstmt.setString(1, data);
-            pstmt.setString(2, employeeID);
-            pstmt.executeUpdate();
-        } catch (SQLException e) {
-            System.out.println(e.getMessage());
-        }
+        Connection conn = this.connect();
+        PreparedStatement pstmt = conn.prepareStatement(sql);
+        pstmt.setString(1, data);
+        pstmt.setString(2, employeeID);
+        pstmt.executeUpdate();
+
     }
 
     /** ANDREW MADE THIS
