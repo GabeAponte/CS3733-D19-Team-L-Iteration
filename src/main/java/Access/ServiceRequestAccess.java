@@ -45,27 +45,7 @@ public class ServiceRequestAccess extends DBAccess{
             System.out.println(e.getMessage());
         }
     }
-    //todo REMIND DJ TO MAKE REQUESTID A AUTOINCREMENTED FIELD also our database doesnt have dates for reservations
 
-
-    /**ANDREW MADE THIS
-     * assign an employee to fulfill a request
-     * @param rid
-     * @param name
-     */
-    public void fulfillRequest(int rid, String name){
-        String sql = "update serviceRequest set assignedEmployee = ?, fulfilled = 1 where requestID = ?";
-
-
-        try (Connection conn = this.connect();
-             PreparedStatement pstmt = conn.prepareStatement(sql)) {
-            pstmt.setString(1, name);
-            pstmt.setInt(2, rid);
-            pstmt.executeUpdate();
-        } catch (SQLException e) {
-            System.out.println(e.getMessage());
-        }
-    }
 
     /**ANDREW MADE THIS
      * returns the record fields for the given index in serviceRequest
@@ -130,17 +110,33 @@ public class ServiceRequestAccess extends DBAccess{
     /**ANDREW MADE THIS
      * assign an employee to fulfill a request
      */
-    public void fulfillRequest(int rid, String employeeID, String table){
-        String sql = "update " + table + " set assignedEmployee = ?, fulfilled = 1, completionTime = ?, completionDate = ? where requestID = ?";
+    public void assignEmployee(int rid, String employeeID, String table){
+        String sql = "update " + table + " set assignedEmployee = ? where requestID = ?";
+
+
+        try (Connection conn = this.connect();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            pstmt.setString(1, employeeID);
+            pstmt.setInt(2, rid);
+            pstmt.executeUpdate();
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    /**ANDREW MADE THIS
+     * fulfill a request
+     */
+    public void fulfillRequest(int rid, String table){
+        String sql = "update " + table + " set completionTime = ?, completionDate = ?, fulfilled = true where requestID = ?";
 
 
         try (Connection conn = this.connect();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
             Date date = new Date();
-            pstmt.setString(1, employeeID);
-            pstmt.setInt(2, Integer.parseInt(tdf.format(date.getTime())));
-            pstmt.setString(3, sdf.format(date));
-            pstmt.setInt(4, rid);
+            pstmt.setInt(1, Integer.parseInt(tdf.format(date.getTime())));
+            pstmt.setString(2, sdf.format(date));
+            pstmt.setInt(3, rid);
             pstmt.executeUpdate();
         } catch (SQLException e) {
             System.out.println(e.getMessage());
@@ -153,5 +149,7 @@ public class ServiceRequestAccess extends DBAccess{
 
     public static void main(String[] args) {
         ServiceRequestAccess sra = new ServiceRequestAccess();
+        //sra.assignEmployee(1, "wong", "sanitationRequest");
+        //sra.fulfillRequest(1, "sanitationRequest");
     }
 }
