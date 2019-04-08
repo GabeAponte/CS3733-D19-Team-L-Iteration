@@ -79,13 +79,13 @@ public class PathFindingController {
     private TextField PathFindStartSearch;
 
     @FXML
-    private RadioButton PathFindStairsPOI;
-
+    private RadioButton bathroomRadButton;
     @FXML
-    private RadioButton PathFindElevatorPOI;
-
+    private RadioButton cafeRadButton;
     @FXML
-    private RadioButton PathFindBrPOI;
+    private RadioButton eleRadButton;
+    @FXML
+    private RadioButton stairsRadButton;
 
     @FXML
     private ComboBox<String> Filter;
