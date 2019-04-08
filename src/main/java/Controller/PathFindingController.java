@@ -114,7 +114,6 @@ public class PathFindingController {
 
     private NodesAccess na;
     private EdgesAccess ea;
-    private final ObservableList<Location> data = FXCollections.observableArrayList();
     private HashMap<String, Location> lookup = new HashMap<String, Location>();
     private final ObservableList<Location> noHallStart = FXCollections.observableArrayList();
     private final ObservableList<Location> noHallEnd = FXCollections.observableArrayList();
@@ -199,7 +198,7 @@ public class PathFindingController {
             String next = listIterator.next();
             Map.setImage(new Image(next));
             upAgain();
-           // Map.setImage(new Image(next));
+            // Map.setImage(new Image(next));
         }
 
         else if (downclickedLast == false){
@@ -283,10 +282,10 @@ public class PathFindingController {
         noHall();
         Filter.setItems(filterList);
         Floor.setItems(floorList);
-        initializeTable(na, ea);
+        //initializeTable(na, ea);
         if(single.getNum() == 1){
-            PathFindStartDrop.setItems(data);
-            PathFindEndDrop.setItems(data);
+            PathFindStartDrop.setItems(single.getData());
+            PathFindEndDrop.setItems(single.getData());
         }
         anchorPanePath = new AnchorPane();
         anchorPanePath.setLayoutX(79);
@@ -358,10 +357,12 @@ public class PathFindingController {
 
     @FXML
     private void submitPressed(){
-        Location startNode = lookup.get(PathFindStartDrop.getValue().getLocID());
-        Location endNode = lookup.get(PathFindEndDrop.getValue().getLocID());
+        Singleton single = Singleton.getInstance();
 
-        AStarStrategy astar = new AStarStrategy(lookup);
+        Location startNode = single.lookup.get(PathFindStartDrop.getValue().getLocID());
+        Location endNode = single.lookup.get(PathFindEndDrop.getValue().getLocID());
+
+        AStarStrategy astar = new AStarStrategy(single.lookup);
         Path path = findAbstractPath(astar, startNode, endNode);
 
         displayPath(path.getPath(), startNode, endNode);
@@ -439,7 +440,6 @@ public class PathFindingController {
             //only add the node if it hasn't been done yet
             if (!(lookup.containsKey(arr.get(0)))) {
                 lookup.put((arr.get(0)), testx);
-                data.add(testx);
                 edgeList = ea.getConnectedNodes(arr.get(0));
                 for (int j = 0; j < edgeList.size(); j++) {
                     String nodeID = edgeList.get(j);
@@ -561,22 +561,22 @@ public class PathFindingController {
     private void noHall() {
         filterFloor();
         filterType();
-
+        Singleton single = Singleton.getInstance();
         if (Filter.getValue() == null && Floor.getValue() == null) {
             if (PathFindStartDrop.getValue() == null) {
                 noHallStart.clear();
-                for (int j = 0; j < data.size(); j++) {
-                    if (!(data.get(j).getNodeType().contains("HALL"))) {
-                        noHallStart.add(data.get(j));
+                for (int j = 0; j < single.getData().size(); j++) {
+                    if (!(single.getData().get(j).getNodeType().contains("HALL"))) {
+                        noHallStart.add(single.getData().get(j));
                     }
                 }
             }
             if (PathFindEndDrop.getValue() == null) {
                 PathFindEndDrop.setItems(noHallEnd);
                 noHallEnd.clear();
-                for (int j = 0; j < data.size(); j++) {
-                    if (!(data.get(j).getNodeType().contains("HALL"))) {
-                        noHallEnd.add(data.get(j));
+                for (int j = 0; j < single.getData().size(); j++) {
+                    if (!(single.getData().get(j).getNodeType().contains("HALL"))) {
+                        noHallEnd.add(single.getData().get(j));
                     }
                 }
             }
@@ -591,18 +591,18 @@ public class PathFindingController {
         } else if (Filter.getValue() == ("All") && Floor.getValue() == null) {
             if (PathFindStartDrop.getValue() == null) {
                 noHallStart.clear();
-                for (int j = 0; j < data.size(); j++) {
-                    if (!(data.get(j).getNodeType().contains("HALL"))) {
-                        noHallStart.add(data.get(j));
+                for (int j = 0; j < single.getData().size(); j++) {
+                    if (!(single.getData().get(j).getNodeType().contains("HALL"))) {
+                        noHallStart.add(single.getData().get(j));
                     }
                 }
             }
             if (PathFindEndDrop.getValue() == null) {
                 PathFindEndDrop.setItems(noHallEnd);
                 noHallEnd.clear();
-                for (int j = 0; j < data.size(); j++) {
-                    if (!(data.get(j).getNodeType().contains("HALL"))) {
-                        noHallEnd.add(data.get(j));
+                for (int j = 0; j < single.getData().size(); j++) {
+                    if (!(single.getData().get(j).getNodeType().contains("HALL"))) {
+                        noHallEnd.add(single.getData().get(j));
                     }
                 }
             }
@@ -616,18 +616,18 @@ public class PathFindingController {
         } else if (Filter.getValue() == ("All") && Floor.getValue() == "All") {
             if (PathFindStartDrop.getValue() == null) {
                 noHallStart.clear();
-                for (int j = 0; j < data.size(); j++) {
-                    if (!(data.get(j).getNodeType().contains("HALL"))) {
-                        noHallStart.add(data.get(j));
+                for (int j = 0; j < single.getData().size(); j++) {
+                    if (!(single.getData().get(j).getNodeType().contains("HALL"))) {
+                        noHallStart.add(single.getData().get(j));
                     }
                 }
             }
             if (PathFindEndDrop.getValue() == null) {
                 PathFindEndDrop.setItems(noHallEnd);
                 noHallEnd.clear();
-                for (int j = 0; j < data.size(); j++) {
-                    if (!(data.get(j).getNodeType().contains("HALL"))) {
-                        noHallEnd.add(data.get(j));
+                for (int j = 0; j < single.getData().size(); j++) {
+                    if (!(single.getData().get(j).getNodeType().contains("HALL"))) {
+                        noHallEnd.add(single.getData().get(j));
                     }
                 }
             }
@@ -642,18 +642,18 @@ public class PathFindingController {
         } else if (Filter.getValue() == ("All") && Floor.getValue() != null) {
             if (PathFindStartDrop.getValue() == null) {
                 noHallStart.clear();
-                for (int j = 0; j < data.size(); j++) {
-                    if (!(data.get(j).getNodeType().contains("HALL")) && (data.get(j).getFloor().equals(pickedFloor))) {
-                        noHallStart.add(data.get(j));
+                for (int j = 0; j < single.getData().size(); j++) {
+                    if (!(single.getData().get(j).getNodeType().contains("HALL")) && (single.getData().get(j).getFloor().equals(pickedFloor))) {
+                        noHallStart.add(single.getData().get(j));
                     }
                 }
             }
             if (PathFindEndDrop.getValue() == null) {
                 PathFindEndDrop.setItems(noHallEnd);
                 noHallEnd.clear();
-                for (int j = 0; j < data.size(); j++) {
-                    if (!(data.get(j).getNodeType().contains("HALL")) && (data.get(j).getFloor().equals(pickedFloor))) {
-                        noHallEnd.add(data.get(j));
+                for (int j = 0; j < single.getData().size(); j++) {
+                    if (!(single.getData().get(j).getNodeType().contains("HALL")) && (single.getData().get(j).getFloor().equals(pickedFloor))) {
+                        noHallEnd.add(single.getData().get(j));
                     }
                 }
             }
@@ -668,18 +668,18 @@ public class PathFindingController {
         } else if (Filter.getValue() != (null) && Floor.getValue() == "All") {
             if (PathFindStartDrop.getValue() == null) {
                 noHallStart.clear();
-                for (int j = 0; j < data.size(); j++) {
-                    if ((data.get(j).getNodeType().contains(type))) {
-                        noHallStart.add(data.get(j));
+                for (int j = 0; j < single.getData().size(); j++) {
+                    if ((single.getData().get(j).getNodeType().contains(type))) {
+                        noHallStart.add(single.getData().get(j));
                     }
                 }
             }
             if (PathFindEndDrop.getValue() == null) {
                 PathFindEndDrop.setItems(noHallEnd);
                 noHallEnd.clear();
-                for (int j = 0; j < data.size(); j++) {
-                    if ((data.get(j).getNodeType().contains(type))) {
-                        noHallEnd.add(data.get(j));
+                for (int j = 0; j < single.getData().size(); j++) {
+                    if ((single.getData().get(j).getNodeType().contains(type))) {
+                        noHallEnd.add(single.getData().get(j));
                     }
                 }
             }
@@ -695,18 +695,18 @@ public class PathFindingController {
         } else if (Filter.getValue() == null && Floor.getValue() == "All") {
             if (PathFindStartDrop.getValue() == null) {
                 noHallStart.clear();
-                for (int j = 0; j < data.size(); j++) {
-                    if (!(data.get(j).getNodeType().contains("HALL"))) {
-                        noHallStart.add(data.get(j));
+                for (int j = 0; j < single.getData().size(); j++) {
+                    if (!(single.getData().get(j).getNodeType().contains("HALL"))) {
+                        noHallStart.add(single.getData().get(j));
                     }
                 }
             }
             if (PathFindEndDrop.getValue() == null) {
                 PathFindEndDrop.setItems(noHallEnd);
                 noHallEnd.clear();
-                for (int j = 0; j < data.size(); j++) {
-                    if (!(data.get(j).getNodeType().contains("HALL"))) {
-                        noHallEnd.add(data.get(j));
+                for (int j = 0; j < single.getData().size(); j++) {
+                    if (!(single.getData().get(j).getNodeType().contains("HALL"))) {
+                        noHallEnd.add(single.getData().get(j));
                     }
                 }
             }
@@ -722,18 +722,18 @@ public class PathFindingController {
         } else if (Filter.getValue() == "Restrooms" && Floor.getValue() == null) {
             if (PathFindStartDrop.getValue() == null) {
                 noHallStart.clear();
-                for (int j = 0; j < data.size(); j++) {
-                    if ((data.get(j).getNodeType().contains(type)) || (data.get(j).getNodeType().contains(type2))) {
-                        noHallStart.add(data.get(j));
+                for (int j = 0; j < single.getData().size(); j++) {
+                    if ((single.getData().get(j).getNodeType().contains(type)) || (single.getData().get(j).getNodeType().contains(type2))) {
+                        noHallStart.add(single.getData().get(j));
                     }
                 }
             }
             if (PathFindEndDrop.getValue() == null) {
                 PathFindEndDrop.setItems(noHallEnd);
                 noHallEnd.clear();
-                for (int j = 0; j < data.size(); j++) {
-                    if ((data.get(j).getNodeType().contains(type)) || (data.get(j).getNodeType().contains(type2))) {
-                        noHallEnd.add(data.get(j));
+                for (int j = 0; j < single.getData().size(); j++) {
+                    if ((single.getData().get(j).getNodeType().contains(type)) || (single.getData().get(j).getNodeType().contains(type2))) {
+                        noHallEnd.add(single.getData().get(j));
                     }
                 }
             }
@@ -749,18 +749,18 @@ public class PathFindingController {
         } else if (Filter.getValue() == "Restrooms" && Floor.getValue() == "All") {
             if (PathFindStartDrop.getValue() == null) {
                 noHallStart.clear();
-                for (int j = 0; j < data.size(); j++) {
-                    if ((data.get(j).getNodeType().contains(type)) || (data.get(j).getNodeType().contains(type2))) {
-                        noHallStart.add(data.get(j));
+                for (int j = 0; j < single.getData().size(); j++) {
+                    if ((single.getData().get(j).getNodeType().contains(type)) || (single.getData().get(j).getNodeType().contains(type2))) {
+                        noHallStart.add(single.getData().get(j));
                     }
                 }
             }
             if (PathFindEndDrop.getValue() == null) {
                 PathFindEndDrop.setItems(noHallEnd);
                 noHallEnd.clear();
-                for (int j = 0; j < data.size(); j++) {
-                    if ((data.get(j).getNodeType().contains(type)) || (data.get(j).getNodeType().contains(type2))) {
-                        noHallEnd.add(data.get(j));
+                for (int j = 0; j < single.getData().size(); j++) {
+                    if ((single.getData().get(j).getNodeType().contains(type)) || (single.getData().get(j).getNodeType().contains(type2))) {
+                        noHallEnd.add(single.getData().get(j));
                     }
                 }
             }
@@ -776,18 +776,18 @@ public class PathFindingController {
         } else if (Filter.getValue() != null && Filter.getValue() == "Restrooms" && Floor.getValue() != null) {
             if (PathFindStartDrop.getValue() == null) {
                 noHallStart.clear();
-                for (int j = 0; j < data.size(); j++) {
-                    if ((data.get(j).getNodeType().contains(type)) && (data.get(j).getFloor().equals(pickedFloor)) || ((data.get(j).getNodeType().contains(type2)) && (data.get(j).getFloor().equals(pickedFloor)))) {
-                        noHallStart.add(data.get(j));
+                for (int j = 0; j < single.getData().size(); j++) {
+                    if ((single.getData().get(j).getNodeType().contains(type)) && (single.getData().get(j).getFloor().equals(pickedFloor)) || ((single.getData().get(j).getNodeType().contains(type2)) && (single.getData().get(j).getFloor().equals(pickedFloor)))) {
+                        noHallStart.add(single.getData().get(j));
                     }
                 }
             }
             if (PathFindEndDrop.getValue() == null) {
                 PathFindEndDrop.setItems(noHallEnd);
                 noHallEnd.clear();
-                for (int j = 0; j < data.size(); j++) {
-                    if ((data.get(j).getNodeType().contains(type)) && (data.get(j).getFloor().equals(pickedFloor)) || ((data.get(j).getNodeType().contains(type2)) && (data.get(j).getFloor().equals(pickedFloor)))) {
-                        noHallEnd.add(data.get(j));
+                for (int j = 0; j < single.getData().size(); j++) {
+                    if ((single.getData().get(j).getNodeType().contains(type)) && (single.getData().get(j).getFloor().equals(pickedFloor)) || ((single.getData().get(j).getNodeType().contains(type2)) && (single.getData().get(j).getFloor().equals(pickedFloor)))) {
+                        noHallEnd.add(single.getData().get(j));
                     }
                 }
             }
@@ -803,18 +803,18 @@ public class PathFindingController {
         } else if (Filter.getValue() != null && Filter.getValue() != "All" && Floor.getValue() == null) {
             if (PathFindStartDrop.getValue() == null) {
                 noHallStart.clear();
-                for (int j = 0; j < data.size(); j++) {
-                    if ((data.get(j).getNodeType().contains(type))) {
-                        noHallStart.add(data.get(j));
+                for (int j = 0; j < single.getData().size(); j++) {
+                    if ((single.getData().get(j).getNodeType().contains(type))) {
+                        noHallStart.add(single.getData().get(j));
                     }
                 }
             }
             if (PathFindEndDrop.getValue() == null) {
                 PathFindEndDrop.setItems(noHallEnd);
                 noHallEnd.clear();
-                for (int j = 0; j < data.size(); j++) {
-                    if ((data.get(j).getNodeType().contains(type))) {
-                        noHallEnd.add(data.get(j));
+                for (int j = 0; j < single.getData().size(); j++) {
+                    if ((single.getData().get(j).getNodeType().contains(type))) {
+                        noHallEnd.add(single.getData().get(j));
                     }
                 }
             }
@@ -829,18 +829,18 @@ public class PathFindingController {
         } else if (Filter.getValue() != null && Filter.getValue() != "All" && Floor.getValue() != null) {
             if (PathFindStartDrop.getValue() == null) {
                 noHallStart.clear();
-                for (int j = 0; j < data.size(); j++) {
-                    if ((data.get(j).getNodeType().contains(type)) && (data.get(j).getFloor().equals(pickedFloor))) {
-                        noHallStart.add(data.get(j));
+                for (int j = 0; j < single.getData().size(); j++) {
+                    if ((single.getData().get(j).getNodeType().contains(type)) && (single.getData().get(j).getFloor().equals(pickedFloor))) {
+                        noHallStart.add(single.getData().get(j));
                     }
                 }
             }
             if (PathFindEndDrop.getValue() == null) {
                 PathFindEndDrop.setItems(noHallEnd);
                 noHallEnd.clear();
-                for (int j = 0; j < data.size(); j++) {
-                    if ((data.get(j).getNodeType().contains(type)) && (data.get(j).getFloor().equals(pickedFloor))) {
-                        noHallEnd.add(data.get(j));
+                for (int j = 0; j < single.getData().size(); j++) {
+                    if ((single.getData().get(j).getNodeType().contains(type)) && (single.getData().get(j).getFloor().equals(pickedFloor))) {
+                        noHallEnd.add(single.getData().get(j));
                     }
                 }
             }
@@ -901,136 +901,5 @@ public class PathFindingController {
         filterList.add("Services");
         filterList.add("Labs");
         filterList.add("Information");
-    }
-    //Larry - To calculate the angele of turning
-    private double calculateAngle(Location a, Location b, Location c){
-        double distanceA, distanceB,distanceC;
-        double angleTurning;
-        //distance A
-        distanceA = a.findDistance(b);
-        //distance B
-        distanceB = b.findDistance(c);
-        //distance C
-        distanceC = a.findDistance(c);
-
-        angleTurning = Math.acos((distanceA*distanceA + distanceB*distanceB - distanceC*distanceC)
-                / (2*distanceA*distanceB));
-        //angleTurning = Math.acos(1);
-        angleTurning = angleTurning /(2*Math.PI) * 360;
-//        System.out.println("Da " + distanceA);
-//        System.out.println("Db " + distanceB);
-//        System.out.println("Dc " + distanceC);
-//        System.out.println("Angle " + angleTurning);
-
-
-        return  angleTurning;
-
-    }
-    //Larry - convert pixel distance to exact distance
-    //147 pixel distance = 52 ft
-    private int convertToExact(double pixelDistance){
-        double actualLength = pixelDistance / 147 * 52;
-
-        return  (int)actualLength;
-    }
-    //Larry - face direction given two locations to retrun the direction you are facing
-    private int faceDicrection(Location a, Location b){
-        int direction = 0;
-        // 1 is right, 2 is left, 3 is up ,4 is down
-        if(calculateSlope(a,b) > 0 && calculateSlope(a,b) < 0.5 && b.getXcoord() > a.getXcoord() ){
-            direction = 1;
-        }
-        else if(calculateSlope(a,b) > 0.5 && calculateSlope(a,b) < 1 && b.getXcoord() > a.getXcoord() ){
-            direction = 3;
-        }
-        else if(calculateSlope(a,b) > 0 && calculateSlope(a,b) < 0.5 && b.getXcoord() < a.getXcoord() ){
-            direction = 2;
-        }
-        else if(calculateSlope(a,b) > 0.5 && calculateSlope(a,b) < 1 && b.getXcoord() > a.getXcoord() ){
-            direction = 4;
-        }
-        return direction;
-    }
-
-
-    //Larry - Print the textual direction based on the path return from algorithm
-    private void printPath(ArrayList<Location> A){
-        System.out.println(A);
-        int direction = 0;
-
-        int d = 0; // count for the start location for exact location
-
-        for(int i = 0; i<A.size() - 2; i++){
-            Location start = A.get(d);
-            Location a = A.get(i);
-            Location b = A.get(i+1);
-            Location c = A.get(i+2);
-
-
-
-            double angle = calculateAngle(a,b,c);
-            if(angle < 110 && angle > 70){
-                if(a.getXcoord()<c.getXcoord()){
-                    direction = 2;
-                }
-                else{
-                    direction = 1;
-                }
-                System.out.println("Go straight to " + b.getLongName()
-                        + " (" + convertToExact(start.findDistance(b)) + " ft) " );
-                //- -> + , x+ : left
-                d = i + 1;
-                double slopeAB = calculateSlope(a,b);
-                double slopeBC = calculateSlope(b,c);
-//                System.out.println("SlopeAB " + slopeAB);
-//                System.out.println("SlopeBC " + slopeBC);
-                if(slopeAB > slopeBC&& c.getXcoord() < a.getXcoord()){
-                    if(direction == 1){
-                        System.out.println("Turn left");
-                    }
-                    else {
-                        System.out.println("Turn right");
-                    }
-                }
-                else if(slopeAB > slopeBC&& c.getXcoord() > a.getXcoord()){
-                    if(direction ==1){
-                        System.out.println("Turn right");
-                    }
-                    else{
-                        System.out.println("Turn left");
-                    }
-
-                }
-                else if(slopeAB < slopeBC&& c.getXcoord() < a.getXcoord()){
-                    if(direction == 1){
-                        System.out.println("Turn right");
-                    }
-                    else {
-                        System.out.println("Turn left");
-                    }
-                }
-                else if(slopeAB < slopeBC&& c.getXcoord() > a.getXcoord()){
-                    if (direction == 1){
-                    System.out.println("Turn left");
-                    }
-                    else{
-                        System.out.println("Turn right");
-                    }
-                }
-                else{
-                    System.out.println("Turn");
-                    System.out.println("AB " + slopeAB);
-                    System.out.println("BC " + slopeBC);
-                    System.out.println("c " + c.getXcoord());
-                    System.out.println("b " + b.getXcoord());
-                }
-
-
-            }
-            if(i == A.size() - 3){
-                System.out.println("Go straight to your destination " + A.get(A.size()-1).getLongName() +
-                        " (" + convertToExact(a.findDistance(c)) + " ft) " );
-            }
-        }
     }
 }
