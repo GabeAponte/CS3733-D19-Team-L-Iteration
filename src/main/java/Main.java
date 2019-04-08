@@ -1,3 +1,4 @@
+import API.TimeoutThread;
 import Access.*;
 import Object.*;
 import javafx.application.Application;
@@ -21,7 +22,10 @@ public class Main extends Application {
 
     @SuppressWarnings("RedundantThrows")
     public static void main(String[] args) throws URISyntaxException {
-        //Singleton single = Singleton.getInstance();
+        TimeoutThread tot = new TimeoutThread();
+        Singleton single = Singleton.getInstance();
+        single.setTOT(tot);
+
         NodesAccess na = new NodesAccess();
         System.out.println("NA");
         EdgesAccess ea = new EdgesAccess();

@@ -1,5 +1,7 @@
 package Object;
 
+import API.TimeoutThread;
+
 /*Nikhil and Nathan
   Class created to allow for easy access to common fields ie. loggedIn, username
   Only use at the moment you need the class' information
@@ -13,12 +15,21 @@ public class Singleton {
     private static String username;
     private static int num;
     private static String kioskID;
+    private static TimeoutThread tot;
 
     private static Singleton single = new Singleton();
     private Singleton(){
         loggedIn = false;
         username = "";
         num = 1;
+    }
+
+    public void setTOT(TimeoutThread t){
+        tot = t;
+    }
+
+    public void resetTOT(){
+        tot.resetTime();
     }
 
     public static Singleton getInstance() {
