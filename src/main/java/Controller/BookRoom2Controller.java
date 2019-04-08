@@ -3,10 +3,7 @@ package Controller;
 import Access.EmployeeAccess;
 import Access.ReservationAccess;
 import Access.RoomAccess;
-import com.jfoenix.controls.JFXButton;
-import com.jfoenix.controls.JFXComboBox;
-import com.jfoenix.controls.JFXDatePicker;
-import com.jfoenix.controls.JFXTimePicker;
+import com.jfoenix.controls.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -17,6 +14,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
@@ -41,7 +39,7 @@ public class BookRoom2Controller {
     private Label error;
 
     @FXML
-    private JFXButton viewSchedule;
+    private JFXButton goToBookRoom;
 
     @FXML
     private JFXButton requestRoom;
@@ -53,11 +51,14 @@ public class BookRoom2Controller {
     private GridPane gridPane;
 
     @FXML
+    private JFXScrollPane ScrollPane;
+
+    @FXML
     private Button bookRoom2Back;
 
     @FXML
     private void initialize() {
-
+        datePicker.setValue(LocalDate.now());
     }
 
     @FXML
@@ -70,6 +71,16 @@ public class BookRoom2Controller {
         theStage.setScene(scene);
     }
 
+    @FXML
+    private void switchToBookScreen() throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("BookRoom.fxml"));
+        Parent sceneMain = loader.load();
+        BookRoomController controller = loader.<BookRoomController>getController();
+        Stage theStage = (Stage) goToBookRoom.getScene().getWindow();
+        Scene scene = new Scene(sceneMain);
+        theStage.setScene(scene);
+    }
+
     private void findRooms(ActionEvent event) {
         LocalDate roomDate = datePicker.getValue();
         LocalDate curDate = LocalDate.now();
@@ -78,8 +89,6 @@ public class BookRoom2Controller {
         if (roomDate.compareTo(curDate) < 0) {
             error.setText("Please select a time for today or a future day.");
         }
-
-
 
     }
 

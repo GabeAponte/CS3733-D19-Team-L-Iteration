@@ -2,12 +2,12 @@
 
 <?import com.jfoenix.controls.JFXButton?>
 <?import com.jfoenix.controls.JFXDatePicker?>
+<?import com.jfoenix.controls.JFXScrollPane?>
 <?import com.jfoenix.controls.JFXToolbar?>
-<?import com.jfoenix.controls.JFXTreeTableView?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.TreeTableColumn?>
-<?import javafx.scene.control.TreeTableView?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -20,7 +20,7 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="900.0" prefWidth="1440.0" style="-fx-background-color: #012d5a;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.BookRoom2Controller">
     <children>
-        <GridPane fx:id="gridPane" layoutX="8.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="8.0" AnchorPane.rightAnchor="-8.0" AnchorPane.topAnchor="0.0">
+        <GridPane fx:id="gridPane" layoutX="8.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
             <columnConstraints>
                 <ColumnConstraints hgrow="ALWAYS" minWidth="10.0" percentWidth="30.0" prefWidth="483.0" />
                 <ColumnConstraints hgrow="ALWAYS" minWidth="10.0" percentWidth="30.0" prefWidth="376.0" />
@@ -50,7 +50,7 @@
                         <JFXToolbar maxHeight="-Infinity" prefHeight="10.0" style="-fx-background-color: #f5d96b;" BorderPane.alignment="CENTER" />
                     </bottom>
                     <right>
-                        <JFXButton fx:id="bookRoom2Back" onAction="#backPressed" buttonType="RAISED" prefHeight="102.0" prefWidth="286.0" ripplerFill="#b0b0b0" text="Back" BorderPane.alignment="CENTER">
+                        <JFXButton fx:id="bookRoom2Back" buttonType="RAISED" onAction="#backPressed" prefHeight="102.0" prefWidth="286.0" ripplerFill="#b0b0b0" text="Back" BorderPane.alignment="CENTER">
                             <font>
                                 <Font name="Avenir Book" size="48.0" />
                             </font>
@@ -75,31 +75,33 @@
                   </JFXButton>
                     </children>
                 </VBox>
-            <JFXButton fx:id="goToBookRoom" style="-fx-border-color: #f5d96b; -fx-border-radius: 50; -fx-background-radius: 50;" text="Go to Book Room" textFill="#f5d96b" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.rowIndex="5">
+            <JFXButton fx:id="goToBookRoom" onAction="#switchToBookScreen" style="-fx-border-color: #f5d96b; -fx-border-radius: 50; -fx-background-radius: 50;" text="Go to Book Room" textFill="#f5d96b" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.rowIndex="5">
                <font>
                   <Font name="Avenir Book" size="18.0" />
                </font>
             </JFXButton>
-            <JFXTreeTableView style="-fx-background-radius: 20; -fx-border-color: #f5d96b; -fx-border-radius: 20; -fx-border-width: 5;" GridPane.columnSpan="3" GridPane.rowIndex="2" GridPane.rowSpan="4">
+            <JFXScrollPane fx:id="ScrollPane" focusTraversable="true" GridPane.columnSpan="3" GridPane.hgrow="ALWAYS" GridPane.rowIndex="2" GridPane.rowSpan="4" GridPane.vgrow="ALWAYS">
                <GridPane.margin>
                   <Insets left="30.0" />
                </GridPane.margin>
-               <columns>
-                  <TreeTableColumn editable="false" prefWidth="75.0" text="Classroom 1" />
-                  <TreeTableColumn prefWidth="75.0" text="Classroom 2" />
-                  <TreeTableColumn editable="false" prefWidth="75.0" text="Classroom 3" />
-                  <TreeTableColumn editable="false" prefWidth="75.0" text="Classroom 4" />
-                  <TreeTableColumn editable="false" prefWidth="75.0" text="Classroom 5" />
-                  <TreeTableColumn editable="false" prefWidth="75.0" text="Classroom 6" />
-                  <TreeTableColumn editable="false" prefWidth="75.0" text="Classroom 7" />
-                  <TreeTableColumn editable="false" prefWidth="75.0" text="Classroom 8" />
-                  <TreeTableColumn editable="false" prefWidth="75.0" text="Auditorium" />
-                  <TreeTableColumn editable="false" prefWidth="75.0" text="Mission Hall Conference Room" />
-               </columns>
-               <columnResizePolicy>
-                  <TreeTableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
-               </columnResizePolicy>
-            </JFXTreeTableView>
+               <children>
+                  <TableView prefHeight="200.0" prefWidth="200.0">
+                    <columns>
+                      <TableColumn editable="false" minWidth="150.0" prefWidth="150.0" resizable="false" sortable="false" text="Classroom 1" />
+                      <TableColumn minWidth="150.0" prefWidth="150.0" resizable="false" text="Classroom 2" />
+                        <TableColumn editable="false" minWidth="150.0" prefWidth="150.0" resizable="false" sortable="false" text="Classroom 3" />
+                        <TableColumn editable="false" minWidth="150.0" prefWidth="150.0" resizable="false" sortable="false" text="Classroom 4" />
+                        <TableColumn editable="false" minWidth="150.0" prefWidth="150.0" resizable="false" sortable="false" text="Classroom 5" />
+                        <TableColumn editable="false" minWidth="150.0" prefWidth="150.0" resizable="false" sortable="false" text="Classroom 6" />
+                        <TableColumn editable="false" minWidth="150.0" prefWidth="150.0" resizable="false" sortable="false" text="Classroom 7" />
+                        <TableColumn editable="false" minWidth="150.0" prefWidth="150.0" resizable="false" sortable="false" text="Classroom 8" />
+                        <TableColumn editable="false" minWidth="150.0" prefWidth="150.0" resizable="false" sortable="false" text="Classroom 9" />
+                        <TableColumn editable="false" minWidth="150.0" prefWidth="150.0" resizable="false" sortable="false" text="Auditorium" />
+                        <TableColumn editable="false" minWidth="150.0" prefWidth="150.0" resizable="false" sortable="false" text="Conference Room" />
+                    </columns>
+                  </TableView>
+               </children>
+            </JFXScrollPane>
             </children>
         </GridPane>
     </children>

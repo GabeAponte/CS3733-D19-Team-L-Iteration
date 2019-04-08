@@ -24,6 +24,7 @@ import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
+import java.awt.print.Book;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -71,12 +72,16 @@ public class BookRoomController {
     private Button bookRoomBack;
 
     final ObservableList<String> listOfRooms = FXCollections.observableArrayList();
-   ArrayList<String> rooms = new ArrayList<>();
+    ArrayList<String> rooms = new ArrayList<>();
 
     @FXML
     private void initialize(){
         roomImage.fitWidthProperty().bind(imagePane.widthProperty());
         roomImage.fitHeightProperty().bind(imagePane.heightProperty());
+        startTime.setValue(LocalTime.now());
+        endTime.setValue(LocalTime.now().plusHours(1));
+        datePicker.setValue(LocalDate.now());
+        datePicker1.setValue(LocalDate.now());
     }
 
     @FXML
@@ -85,6 +90,16 @@ public class BookRoomController {
         Parent sceneMain = loader.load();
         LoggedInHomeController controller = loader.<LoggedInHomeController>getController();
         Stage theStage = (Stage) bookRoomBack.getScene().getWindow();
+        Scene scene = new Scene(sceneMain);
+        theStage.setScene(scene);
+    }
+
+    @FXML
+    private void switchToTable() throws IOException{
+        FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("BookRoom2.fxml"));
+        Parent sceneMain = loader.load();
+        BookRoom2Controller controller = loader.<BookRoom2Controller>getController();
+        Stage theStage = (Stage) viewSchedule.getScene().getWindow();
         Scene scene = new Scene(sceneMain);
         theStage.setScene(scene);
     }
