@@ -1035,15 +1035,35 @@ public class PathFindingController {
         String text = "";
 
         int d = 0; // count for the start location for exact location
-        if(A.get(0) == A.get(1)){
+        //same start and end location
+        if(A.get(0) == A.get(1) && A.size() ==2){
             System.out.println("You are already at your destination");
             text += "You are already at your destination \n";
             return text;
         }
-        System.out.println("Exit " + A.get(0).getLongName());
-        text += "Exit " + A.get(0).getLongName();
+        System.out.println("Begin from " + A.get(0).getLongName());
+        text += "Begin from " + A.get(0).getLongName();
+        //when size is two, but two location are different
+        if(A.size() == 2){
+            if(A.get(0).getNodeType() =="STAI" || A.get(0).getNodeType() == "ELEV"){
+                    if(A.get(1).getNodeType() == "STAI" ||A.get(1).getNodeType() == "ELEV" ){
+                        System.out.println("Go to floor " + A.get(1).getFloor() + " by " + A.get(1).getNodeType());
+                        text += "Go to floor " + A.get(1).getFloor() + " by " + A.get(1).getNodeType() + "\n";
+
+                            return text;
+                }
+                else{
+                        System.out.println("Go straight to " + A.get(1).getLongName() + " (" +
+                            convertToExact(A.get(0).findDistance(A.get(1))) + " ft) \n");
+                        text += "Go straight to " + A.get(1).getLongName() + " (" +
+                            convertToExact(A.get(0).findDistance(A.get(1))) + " ft) \n";
+                        return text;
+                }
+            }
+        }
 
 
+        //when the size of path is at least 3 locations
         for(int i = 0; i<A.size() - 2; i++){
             Location start = A.get(d);
             Location a = A.get(i);
@@ -1058,8 +1078,8 @@ public class PathFindingController {
                     text += "You are at your destination \n";
                 }
                 else if(i == A.size() -2){
-                    System.out.println("Go straight to your destination" + A.get(i+1).getLongName());
-                    text += "Go straight to your destination" + A.get(i+1).getLongName() + "\n";
+                    System.out.println("Go straight to your destination" + c.getLongName());
+                    text += "Go straight to your destination" + c.getLongName() + "\n";
                 }
                 else{
                     a = A.get(i);
@@ -1075,6 +1095,21 @@ public class PathFindingController {
             if(angle < 110 && angle > 70){
                 curDirection = directionPath(a,b);
                 nextDirection = directionPath(b,c);
+
+                Point2D point = sceneGestures.getImageLocation();
+                Circle TurningCircle = new Circle();
+
+                //Setting the properties of the circle
+                TurningCircle.setCenterX((b.getXcoord()-point.getX())*0.137*sceneGestures.getImageScale());
+                TurningCircle.setCenterY((b.getYcoord()-point.getY())*0.137*sceneGestures.getImageScale());
+                TurningCircle.setRadius(Math.max(2.5,2.5f*(sceneGestures.getImageScale()/5)));
+                TurningCircle.setStroke(Color.YELLOW);
+                TurningCircle.setFill(Color.YELLOW);
+
+                anchorPanePath.getChildren().add(TurningCircle);
+                circles.add(TurningCircle);
+
+
 
                 System.out.println("Go straight to " + b.getLongName()
                         + " (" + convertToExact(start.findDistance(b)) + " ft) " );
@@ -1278,9 +1313,9 @@ public class PathFindingController {
                 }
                     if(i == A.size() - 3){
                          System.out.println("Go straight to your destination " + A.get(A.size()-1).getLongName() +
-                        " (" + convertToExact(a.findDistance(c)) + " ft) " );
+                        " (" + convertToExact(b.findDistance(c)) + " ft) " );
                         text += "Go straight to your destination " + A.get(A.size()-1).getLongName() +
-                                " (" + convertToExact(a.findDistance(c)) + " ft) \n";
+                                " (" + convertToExact(b.findDistance(c)) + " ft) \n";
                         return text;
             }
         }
