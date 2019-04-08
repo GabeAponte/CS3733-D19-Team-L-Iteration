@@ -1015,7 +1015,7 @@ public class PathFindingController {
             stairsRadButton.setSelected(false);
             stairsRadButton.setTextFill(Color.web("#ffffff"));
 
-            displayClosestPOI("REST");
+            //displayClosestPOI("REST");
             displayPOINodes("REST");
             // for some reason displaying poi nodes cannot go before displaying the closest path
         }
