@@ -38,7 +38,7 @@ public class EmployeeLoggedInHomeController {
     @FXML
     private Label welcome;
 
-    // TODO 
+    // TODO
     //   seeSuggestions should switch to the suggestions table screen
     //   switching to the fulfillRequest screen should only display any requests assigned to the employee who is signed in
 
