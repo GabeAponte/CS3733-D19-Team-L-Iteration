@@ -168,15 +168,17 @@ public class BookRoomController {
         int startTimeMil = 0;
         int endTimeMil = 0;
         String date = "";
+        String endDate = "";
 
         if(startTime.getValue() != null && endTime != null && datePicker.getValue() != null && datePicker1.getValue() != null){
             startTimeMil = startTime.getValue().getHour() * 100 + startTime.getValue().getMinute();
             endTimeMil = endTime.getValue().getHour() * 100 + endTime.getValue().getMinute();
             date = datePicker.getValue().toString();
+            endDate = datePicker1.getValue().toString();
             avaliableRooms.getSelectionModel().clearSelection();
             listOfRooms.clear();
 
-            rooms = ra.getAvailRooms(date, startTimeMil, endTimeMil);
+            rooms = ra.getAvailRooms(date, startTimeMil, endTimeMil); //We need to handle the endDate also, not sure if this is a 
 
             for(int i = 1; i < rooms.size(); i+=2){
                 listOfRooms.add(rooms.get(i));
