@@ -58,7 +58,8 @@ public class EmployeeAccess extends DBAccess{
             while (rs.next()) {
                 data.add(rs.getString("employeeID"));
                 data.add(rs.getString("department"));
-                data.add(rs.getString("isAdmin"));
+                data.add(Boolean.toString(rs.getBoolean("isAdmin")));
+                data.add(rs.getString("nickname"));
             }
             return data;
 
@@ -211,6 +212,7 @@ public class EmployeeAccess extends DBAccess{
         EmployeeAccess ea = new EmployeeAccess();
         System.out.println(ea.getEmployees("","").get(0));
         System.out.println(ea.getEmployees("type","creator").get(0));
+        System.out.println(ea.getEmployeeInformation("Andrew").get(2));
     }
 
 }
