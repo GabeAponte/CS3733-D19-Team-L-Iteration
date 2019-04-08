@@ -10,7 +10,7 @@ public class ReligiousRequestAccess extends DBAccess{
 
     private static final DateFormat sdf = new SimpleDateFormat("yyyy/MM/dd");
     private static final DateFormat tdf = new SimpleDateFormat("HHmm");
-    
+
     /**@author Gabe
      * deletes all the records from the serviceRequest table
      */
