@@ -144,6 +144,9 @@ public class CreateEditAccountController {
         } catch (AddressException ex) {
             result = false;
         }
+        if(email.lastIndexOf('.') < email.lastIndexOf('@')){
+            result = false;
+        }
         return result;
     }
 
@@ -195,7 +198,7 @@ public class CreateEditAccountController {
      * submit button functionality - does a lot of error checking
      */
     @FXML
-    private void submit(){
+    private void submitPressed(){
         EmployeeAccess ea = new EmployeeAccess();
         if(!isValidEmailAddress(email.getText())){
             errorLabel.setText("Invalid Email Address");
@@ -203,6 +206,10 @@ public class CreateEditAccountController {
         }
         if(!password.getText().equals(confrimPassword.getText())){
             errorLabel.setText("Passwords do not match");
+            return;
+        }
+        if(nickname.getText().length() > 10){
+            errorLabel.setText("The nickname is too long");
             return;
         }
         if(type == 1){
@@ -225,6 +232,7 @@ public class CreateEditAccountController {
             list.add(lastName.getText());
             list.add(nickname.getText());
             list.add(email.getText());
+            errorLabel.setText("");
             ea.addEmployee(list);
         }else{
             try{
@@ -246,6 +254,7 @@ public class CreateEditAccountController {
             } catch (SQLException e){
                 System.out.println(e.getMessage());
             }
+            errorLabel.setText("");
         }
     }
 }
