@@ -31,7 +31,7 @@
                   </ImageView>
                </left>
                <right>
-                  <JFXButton buttonType="RAISED" prefHeight="75.0" prefWidth="150.0" style="-fx-background-radius: 50;" text="Back" BorderPane.alignment="CENTER">
+                  <JFXButton fx:id="backBtn" onAction="#backPressed" buttonType="RAISED" prefHeight="75.0" prefWidth="150.0" style="-fx-background-radius: 50;" text="Back" BorderPane.alignment="CENTER">
                      <font>
                         <Font size="40.0" />
                      </font>
@@ -59,7 +59,7 @@
                   <RowConstraints maxHeight="59.111358642578125" minHeight="0.0" prefHeight="0.0" valignment="CENTER" vgrow="ALWAYS" />
               </rowConstraints>
                <children>
-                  <JFXTextField fx:id="phoneField" onKeyReleased="#reenableSubmit" focusColor="#f6bd38" promptText="Enter Phone Number (555-555-5555)" style="-jfx-prompt-text: WHITE;" stylesheets="@modify-prompt-text.css" unFocusColor="WHITE" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="2" GridPane.vgrow="ALWAYS">
+                  <JFXTextField fx:id="phoneField" focusColor="#f6bd38" onKeyReleased="#reenableSubmit" promptText="Enter Phone Number (555-555-5555)" style="-jfx-prompt-text: WHITE;" stylesheets="@modify-prompt-text.css" unFocusColor="WHITE" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="2" GridPane.vgrow="ALWAYS">
                      <GridPane.margin>
                         <Insets left="100.0" right="100.0" />
                      </GridPane.margin>
@@ -75,7 +75,7 @@
                         <Blend />
                      </effect>
                   </Label>
-                  <JFXTextArea fx:id="commentBox" onKeyReleased="#reenableSubmit" focusColor="#f6bd38" promptText="Type a description here" style="-fx-background-color: WHITE;" unFocusColor="WHITE" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.hgrow="SOMETIMES" GridPane.rowIndex="3" GridPane.rowSpan="2" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
+                  <JFXTextArea fx:id="commentBox" focusColor="#f6bd38" onKeyReleased="#reenableSubmit" promptText="Type a description here" style="-fx-background-color: WHITE;" unFocusColor="WHITE" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.hgrow="SOMETIMES" GridPane.rowIndex="3" GridPane.rowSpan="2" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
                      <font>
                         <Font size="20.0" />
                      </font>
@@ -91,9 +91,9 @@
                         <Insets top="25.0" />
                      </GridPane.margin>
                   </JFXButton>
-                  <JFXComboBox fx:id="startBox" onAction="#reenableSubmit" focusColor="#f6bd38" prefHeight="44.0" prefWidth="428.0" promptText="ilhlih" style="-jfx-focus-color: white;" stylesheets="@modify-prompt-text.css" unFocusColor="WHITE" GridPane.rowIndex="1" />
-                  <JFXComboBox fx:id="endBox" onAction="#reenableSubmit" focusColor="#f6bd38" prefHeight="44.0" prefWidth="428.0" promptText="End Location" unFocusColor="WHITE" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                  <JFXComboBox fx:id="typeField" onAction="#reenableSubmit" focusColor="#f6bd38" prefHeight="44.0" prefWidth="428.0" promptText="ilhlih" style="-jfx-focus-color: white;" stylesheets="@modify-prompt-text.css" unFocusColor="WHITE" GridPane.rowIndex="2" />
+                  <JFXComboBox fx:id="startBox" focusColor="#f6bd38" onAction="#reenableSubmit" prefHeight="44.0" prefWidth="428.0" promptText="ilhlih" style="-jfx-focus-color: white;" stylesheets="@modify-prompt-text.css" unFocusColor="WHITE" GridPane.rowIndex="1" />
+                  <JFXComboBox fx:id="endBox" focusColor="#f6bd38" onAction="#reenableSubmit" prefHeight="44.0" prefWidth="428.0" promptText="End Location" unFocusColor="WHITE" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                  <JFXComboBox fx:id="typeField" focusColor="#f6bd38" onAction="#reenableSubmit" prefHeight="44.0" prefWidth="428.0" promptText="ilhlih" style="-jfx-focus-color: white;" stylesheets="@modify-prompt-text.css" unFocusColor="WHITE" GridPane.rowIndex="2" />
                </children>
                <opaqueInsets>
                   <Insets />

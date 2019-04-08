@@ -11,7 +11,13 @@ import com.jfoenix.controls.JFXTextField;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.stage.Stage;
 
+import java.awt.*;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -33,6 +39,9 @@ public class InternalTransportController {
 
     @FXML
     JFXButton submitbtn;
+
+    @FXML
+    JFXButton backBtn;
 
     private NodesAccess na;
     private final ObservableList<Location> data = FXCollections.observableArrayList();
@@ -94,7 +103,7 @@ public class InternalTransportController {
     }
 
     @FXML
-    private void submitPressed(){
+    private void submitPressed() throws IOException{
         Location startNode = lookup.get(startBox.getValue().getLocID());
         Location endNode = lookup.get(endBox.getValue().getLocID());
         String comment = commentBox.getText();
@@ -102,7 +111,36 @@ public class InternalTransportController {
         String phone = phoneField.getText();
         InternalTransportAccess ita = new InternalTransportAccess();
         ita.makeRequest(comment, startNode, endNode, type, phone);
+
+        Singleton single = Singleton.getInstance();
+        if(single.isLoggedIn()){
+            FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("LoggedInHome.fxml"));
+
+            Parent sceneMain = loader.load();
+            Stage theStage = (Stage) backBtn.getScene().getWindow();
+
+            Scene scene = new Scene(sceneMain);
+            theStage.setScene(scene);
+        } else {
+            FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("HospitalHome.fxml"));
+
+            Parent sceneMain = loader.load();
+            Stage theStage = (Stage) backBtn.getScene().getWindow();
+
+            Scene scene = new Scene(sceneMain);
+            theStage.setScene(scene);
+        }
+
     }
 
+    @FXML
+    private void backPressed() throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("ServiceRequest.fxml"));
 
+        Parent sceneMain = loader.load();
+        Stage theStage = (Stage) backBtn.getScene().getWindow();
+
+        Scene scene = new Scene(sceneMain);
+        theStage.setScene(scene);
+    }
 }
