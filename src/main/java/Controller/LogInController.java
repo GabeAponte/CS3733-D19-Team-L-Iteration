@@ -74,7 +74,10 @@ public class LogInController {
         if(validLogin){
             single.setLoggedIn(true);
             single.setUsername(uname);
-            //single.setIsAdmin((ea.getEmployeeInformation(uname).get(2));
+            single.setIsAdmin(false);
+            if(ea.getEmployeeInformation(uname).get(2).equals("true")){
+                single.setIsAdmin(true);
+            }
             SwitchToSignedIn();
         } else {
             displayError();
@@ -87,7 +90,6 @@ public class LogInController {
         Parent sceneMain = loader.load();
 
         LoggedInHomeController controller = loader.<LoggedInHomeController>getController();
-        //TODO: SET AND CHECK IF ADMIN AND SWITCH TO ADMIN SCREEN
         Stage theStage = (Stage) login.getScene().getWindow();
 
         Scene scene = new Scene(sceneMain);
