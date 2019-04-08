@@ -6,16 +6,23 @@ import Object.*;
 
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXTextField;
+import javafx.beans.property.DoubleProperty;
+import javafx.beans.property.SimpleDoubleProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Point2D;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Circle;
+import javafx.scene.shape.Line;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -104,6 +111,14 @@ public class EditLocationController {
 
     @SuppressWarnings("unchecked")
     private ArrayList<String> mapURLs = new ArrayList<String>();
+    private ArrayList<Circle> circles = new ArrayList<Circle>();
+    private ArrayList<Line> lines = new ArrayList<Line>();
+
+    private SceneGestures sceneGestures;
+    private AnchorPane anchorPanePath;
+    private final DoubleProperty zoomProperty = new SimpleDoubleProperty(1.0d);
+    private final DoubleProperty deltaY = new SimpleDoubleProperty(0.0d);
+    private Singleton single = Singleton.getInstance();
 
     private HashMap<String, Location> lookup = new HashMap<String, Location>();
     private final ObservableList<Location> nodeData = FXCollections.observableArrayList();
@@ -467,15 +482,70 @@ public class EditLocationController {
         */
     }
 
+    /**
+     * Grace made these
+     *
+     */
+    private int floorNum() {
+
+        if(Map.getImage().equals("/SoftEng_UI_Mockup_Pics/03_thethirdfloor.png")){
+            return 3;
+        }
+        else if(Map.getImage().equals("/SoftEng_UI_Mockup_Pics/00_thegroundfloor.png")){
+            return 0;
+        }
+        else if(Map.getImage().equals("/SoftEng_UI_Mockup_Pics/00_thelowerlevel1.png")){
+            return -1;
+        }
+        else if(Map.getImage().equals("/SoftEng_UI_Mockup_Pics/00_thelowerlevel2.png")){
+            return -2;
+        }
+        else if(Map.getImage().equals("/SoftEng_UI_Mockup_Pics/01_thefirstfloor.png")){
+            return 1;
+        }
+        else /*Map.getImage().equals("/SoftEng_UI_Mockup_Pics/02_thesecondfloor.png")*/{
+            return 2;
+        }
+    }
     @FXML
+
     private void nodeDisplayPress(){
         //display all nodes on that floor!!!
+        
+
     }
 
     @FXML
     private void nodeInfoIDPress(){
         //be able to modify the selected nodeID
-    }
+
+            ArrayList<Location> nodes = new ArrayList<Location>();
+            //want to fill nodes w/ floor = currrentFloor
+            int temp = 0;
+            Point2D point = sceneGestures.getImageLocation();
+            for(int i=0; i<single.getData().size(); i++){
+                //if nodetype contains keyword
+                if(single.getData().get(i).getFloor() == "2"/* current Map floor*/){
+                    nodes.add(single.getData().get(i));
+
+                    Circle thisCircle = new Circle();
+
+                    anchorPanePath.getChildren().add(thisCircle);
+
+                    //Setting the properties of the circle
+                    thisCircle.setCenterX((nodes.get(temp).getXcoord()-point.getX())*0.137*sceneGestures.getImageScale());
+                    thisCircle.setCenterY((nodes.get(temp).getYcoord()-point.getY())*0.137*sceneGestures.getImageScale());
+                    thisCircle.setRadius(Math.max(2.5,2.5f*(sceneGestures.getImageScale()/5)));
+                    thisCircle.setStroke(Color.web("#f5d96b"));
+                    thisCircle.setFill(Color.web("#f5d96b"));
+
+                    circles.add(thisCircle);
+                    temp++;
+                }
+            }
+
+        }
+
     @FXML
     private void nodeInfoFloorPress(){
         //be able to modify the selected nodeID
