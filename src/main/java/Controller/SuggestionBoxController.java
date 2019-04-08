@@ -1,6 +1,11 @@
 package Controller;
 
+import Object.*;
 import Access.SuggestionBasicAccess;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -9,6 +14,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 
 import java.io.IOException;
 
@@ -30,6 +36,25 @@ public class SuggestionBoxController {
     @FXML
     private Button SuggestionBack;
 
+    public void initialize(){
+        Singleton single = Singleton.getInstance();
+        Timeline timeout = new Timeline(new KeyFrame(Duration.seconds(2), new EventHandler<ActionEvent>() {
+
+            @Override
+            public void handle(ActionEvent event) {
+                if((System.currentTimeMillis() - single.getLastTime()) > 10000){
+                    try{
+                        single.setLastTime();
+                        backPressed();
+                    } catch (IOException io){
+                        System.out.println(io.getMessage());
+                    }
+                }
+            }
+        }));
+        timeout.setCycleCount(Timeline.INDEFINITE);
+        timeout.play();
+    }
     @FXML
     /**@author Gabe
      * Returns user to the Logged In Home screen when the back button is pressed

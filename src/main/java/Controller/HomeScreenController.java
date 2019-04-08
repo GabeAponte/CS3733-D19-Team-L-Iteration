@@ -32,7 +32,7 @@ public class HomeScreenController {
     Button HomeSuggestions;
 
     @FXML
-    Button LogIn;
+    public Button LogIn;
 
     @FXML
     Label timeLabel;

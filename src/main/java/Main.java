@@ -1,6 +1,4 @@
-import API.TimeoutThread;
 import Access.*;
-import Object.*;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -22,9 +20,6 @@ public class Main extends Application {
 
     @SuppressWarnings("RedundantThrows")
     public static void main(String[] args) throws URISyntaxException {
-        TimeoutThread tot = new TimeoutThread();
-        Singleton single = Singleton.getInstance();
-        single.setTOT(tot);
 
         NodesAccess na = new NodesAccess();
         System.out.println("NA");
