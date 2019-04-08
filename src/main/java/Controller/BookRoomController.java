@@ -44,6 +44,9 @@ public class BookRoomController {
     private Label error;
 
     @FXML
+    private JFXButton viewSchedule;
+
+    @FXML
     private JFXButton requestRoom;
 
     @FXML
