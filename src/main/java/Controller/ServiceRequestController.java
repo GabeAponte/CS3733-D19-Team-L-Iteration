@@ -100,4 +100,22 @@ public class ServiceRequestController {
 
     }
 
+    @FXML
+    private void changeToInternalTransport() throws IOException{
+
+        Stage theStage = (Stage) Back.getScene().getWindow();
+        AnchorPane root;
+        FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("InternalTransport.fxml"));
+
+        Parent sceneMain = loader.load();
+
+        //LoggedInHomeController controller = loader.<LoggedInHomeController>getController();
+
+        theStage = (Stage) SanitationServices.getScene().getWindow();
+
+        Scene scene = new Scene(sceneMain);
+        theStage.setScene(scene);
+
+    }
+
 }
