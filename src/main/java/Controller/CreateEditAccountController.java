@@ -149,6 +149,7 @@ public class CreateEditAccountController {
     /**ANDREW MADE THIS
      * disables submit button until all fields are entered
      */
+    @FXML
     private void checkSubmit(){
         if(employeeID == null || employeeID.getText().trim().isEmpty()) {
             submit.setDisable(true);
