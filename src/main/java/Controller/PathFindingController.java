@@ -368,6 +368,8 @@ public class PathFindingController {
 
         displayPath(path.getPath(), startNode, endNode);
         printPath(path.getPath());
+
+        sceneGestures.setDrawPath(circles,lines);
        // TextDirection.setText(printPath(path.getPath()));
     }
 
@@ -423,8 +425,6 @@ public class PathFindingController {
 
         circles.add(StartCircle);
         circles.add(EndCircle);
-
-        sceneGestures.setDrawPath(StartCircle, EndCircle, lines);
     }
 
     ArrayList<Location> openList = new ArrayList<Location>();
@@ -1036,7 +1036,7 @@ public class PathFindingController {
 
         int d = 0; // count for the start location for exact location
         //same start and end location
-        if(A.get(0) == A.get(1) && A.size() ==2){
+        if(A.size() == 2 && A.get(0) == A.get(1)){
             System.out.println("You are already at your destination");
             text += "You are already at your destination \n";
             return text;
@@ -1319,6 +1319,7 @@ public class PathFindingController {
                         return text;
             }
         }
+
         return text;
     }
 }
