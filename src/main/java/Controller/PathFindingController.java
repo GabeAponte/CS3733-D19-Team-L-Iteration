@@ -292,7 +292,6 @@ public class PathFindingController {
             Parent sceneMain = loader.load();
 
             LoggedInHomeController controller = loader.<LoggedInHomeController>getController();
-            controller.init(uname);
 
             Stage theStage = (Stage) PathFindBack.getScene().getWindow();
 

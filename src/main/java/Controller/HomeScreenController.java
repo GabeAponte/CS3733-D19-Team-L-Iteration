@@ -62,13 +62,11 @@ public class HomeScreenController {
 
     @FXML
     private void SwitchToPathfindScreen() throws IOException{
-        boolean signedIn = false;
         FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("HospitalPathFinding.fxml"));
 
         Parent sceneMain = loader.load();
 
         PathFindingController controller = loader.<PathFindingController>getController();
-        controller.init(signedIn);
 
         Stage theStage = (Stage) HomeFindPath.getScene().getWindow();
 
@@ -97,7 +95,6 @@ public class HomeScreenController {
         Parent sceneMain = loader.load();
 
         ServiceRequestController controller = loader.<ServiceRequestController>getController();
-        controller.init(signedIn);
 
         Stage theStage = (Stage) HomeServiceRequest.getScene().getWindow();
 

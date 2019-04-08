@@ -60,7 +60,7 @@ public class RoomAccess extends DBAccess {
      */
     public ArrayList<String> getAvailRooms(String date, int startTime, int endTime){
         //TODO Should make this not ugly
-        String sql = "select roomID, name from room left outer join (select rID from reservation where rdate = ? and not (endtime <= ? or starttime >= ?))  on roomID = rID where rID is null;";
+        String sql = "select roomID, name from room left outer join (select rID from reservation where startDate = ? and not (endtime <= ? or starttime >= ?))  on roomID = rID where rID is null;";
         ArrayList<String> data = new ArrayList<String>();
         try (Connection conn = this.connect();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {

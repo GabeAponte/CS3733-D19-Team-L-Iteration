@@ -1,5 +1,6 @@
 package Controller;
 
+import Object.*;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -12,8 +13,6 @@ import javafx.stage.Stage;
 import java.io.IOException;
 
 public class ServiceRequestController {
-    private boolean signedIn;
-    private String uname;
 
     @FXML
     private Button SanitationServices;
@@ -36,26 +35,17 @@ public class ServiceRequestController {
     @FXML
     public Button Back;
 
-    public void init(boolean loggedIn){
-        signedIn = loggedIn;
-    }
-
-    public void init(boolean loggedIn, String username) {
-        uname = username;
-        init(loggedIn);
-    }
-
     @FXML
     protected void backPressed() throws IOException {
+        Singleton single = Singleton.getInstance();
         Stage theStage = (Stage) Back.getScene().getWindow();
         AnchorPane root;
-        if(signedIn){
+        if(single.isLoggedIn()){
             FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("LoggedInHome.fxml"));
 
             Parent sceneMain = loader.load();
 
             LoggedInHomeController controller = loader.<LoggedInHomeController>getController();
-            controller.init(uname);
 
             theStage = (Stage) SanitationServices.getScene().getWindow();
 
@@ -98,11 +88,8 @@ public class ServiceRequestController {
         Parent sceneMain = loader.load();
 
         ServiceSubController controller = loader.<ServiceSubController>getController();
-        if(signedIn){
-            controller.init(service, signedIn, uname);
-        } else {
-            controller.init(service, signedIn);
-        }
+
+        controller.init(service, "");
 
         Stage theStage = (Stage) SanitationServices.getScene().getWindow();
 

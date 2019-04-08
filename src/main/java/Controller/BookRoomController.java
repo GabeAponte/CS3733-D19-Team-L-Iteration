@@ -23,12 +23,14 @@ import java.io.IOException;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
+import Object.*;
 
 public class BookRoomController {
-    String uname;
-
     @FXML
     private JFXDatePicker datePicker;
+
+    @FXML
+    private JFXDatePicker datePicker1;
 
     @FXML
     private ComboBox<String> avaliableRooms;
@@ -54,12 +56,6 @@ public class BookRoomController {
     final ObservableList<String> listOfRooms = FXCollections.observableArrayList();
     ArrayList<String> rooms = new ArrayList<>();
 
-    public void init(String username){
-        uname = username;
-    }
-
-    @SuppressWarnings("Duplicates")
-
     @FXML
     private void backPressed() throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("LoggedInHome.fxml"));
@@ -67,7 +63,6 @@ public class BookRoomController {
         Parent sceneMain = loader.load();
 
         LoggedInHomeController controller = loader.<LoggedInHomeController>getController();
-        controller.init(uname);
 
         Stage theStage = (Stage) bookRoomBack.getScene().getWindow();
 
@@ -86,6 +81,7 @@ public class BookRoomController {
         LocalTime startTimeValue = startTime.getValue();
         LocalTime endTimeValue = endTime.getValue();
         LocalDate roomDate = datePicker.getValue();
+        LocalDate endRoomDate = datePicker1.getValue();
         LocalDate curDate = LocalDate.now();
         LocalTime curTime = LocalTime.now();
 
@@ -145,16 +141,18 @@ public class BookRoomController {
             int startTimeMil = startTime.getValue().getHour() * 100 + startTime.getValue().getMinute();
             int endTimeMil = endTime.getValue().getHour() * 100 + endTime.getValue().getMinute();
             String date = datePicker.getValue().toString();
+            String endDate = datePicker1.getValue().toString();
             String roomID = "RoomTest";
             EmployeeAccess ea = new EmployeeAccess();
-            String employeeID = ea.getNodeInformation(uname).get(0);
+            Singleton single = Singleton.getInstance();
+            String employeeID = ea.getEmployeeInformation(single.getUsername()).get(0);
             ReservationAccess roomReq = new ReservationAccess();
             for(int i = 1; i < rooms.size(); i+=2) {
                 if (rooms.get(i).equals(avaliableRooms.getValue())) {
                     roomID = rooms.get(i - 1);
                 }
             }
-            roomReq.makeReservation(roomID, employeeID, date, startTimeMil, endTimeMil);
+            roomReq.makeReservation(roomID, employeeID, date, endDate, startTimeMil, endTimeMil);
         }
     }
 
@@ -165,7 +163,7 @@ public class BookRoomController {
         int endTimeMil = 0;
         String date = "";
 
-        if(startTime.getValue() != null && endTime != null && datePicker.getValue() != null){
+        if(startTime.getValue() != null && endTime != null && datePicker.getValue() != null && datePicker1.getValue() != null){
             startTimeMil = startTime.getValue().getHour() * 100 + startTime.getValue().getMinute();
             endTimeMil = endTime.getValue().getHour() * 100 + endTime.getValue().getMinute();
             date = datePicker.getValue().toString();
