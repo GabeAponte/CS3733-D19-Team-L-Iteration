@@ -141,7 +141,8 @@ public class PathFindingController {
         Map.setImage(new Image("/SoftEng_UI_Mockup_Pics/00_thelowerlevel1.png"));
     }
 
-    @FXML public void clickedL2(){
+    @FXML
+    public void clickedL2(){
         Map.setImage(new Image("/SoftEng_UI_Mockup_Pics/00_thelowerlevel2.png"));
     }
     @FXML
