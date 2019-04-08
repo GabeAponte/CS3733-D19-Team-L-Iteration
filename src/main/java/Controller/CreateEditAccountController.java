@@ -1,5 +1,6 @@
 package Controller;
 
+import Access.EmployeeAccess;
 import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXRadioButton;
 import javafx.fxml.FXML;
@@ -10,8 +11,10 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
+import Object.*;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 public class CreateEditAccountController {
 
@@ -64,6 +67,8 @@ public class CreateEditAccountController {
 
     private boolean type;
 
+    private boolean hasPrivelege;
+
     @SuppressWarnings("Duplicates")
     @FXML
     private void backPressed() throws IOException {
@@ -90,6 +95,36 @@ public class CreateEditAccountController {
             title.setText("Create an Account");
         }else {
             title.setText("Edit an Account");
+        }
+    }
+
+    public void initialize(){
+        Singleton single = Singleton.getInstance();
+        hasPrivelege = single.isIsAdmin();
+        if(!hasPrivelege){
+            position.setDisable(true);
+            employeeID.setDisable(true);
+            isAdmin.setDisable(true);
+        }
+    }
+
+    private void submit(){
+        EmployeeAccess ea = new EmployeeAccess();
+        if(type){
+            ArrayList<String> list = new ArrayList<String>();
+            list.add(employeeID.getText());
+            list.add(username.getText());
+            list.add(password.getText());
+            list.add(department.getValue().toString());
+            list.add(isAdmin.getText());
+            list.add(position.getText());
+            list.add(firstName.getText());
+            list.add(lastName.getText());
+            list.add(nickname.getText());
+            list.add(email.getText());
+            ea.addEmployee(list);
+        }else{
+            
         }
     }
 }
