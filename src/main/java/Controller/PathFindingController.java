@@ -1041,6 +1041,8 @@ public class PathFindingController {
             return text;
         }
         System.out.println("Exit " + A.get(0).getLongName());
+        text += "Exit " + A.get(0).getLongName();
+
 
         for(int i = 0; i<A.size() - 2; i++){
             Location start = A.get(d);
@@ -1057,6 +1059,7 @@ public class PathFindingController {
                 }
                 else if(i == A.size() -2){
                     System.out.println("Go straight to your destination" + A.get(i+1).getLongName());
+                    text += "Go straight to your destination" + A.get(i+1).getLongName() + "\n";
                 }
                 else{
                     a = A.get(i);
