@@ -5,11 +5,15 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import Object.*;
 
 public class ServiceRequestAccess extends DBAccess{
 
     private static final DateFormat sdf = new SimpleDateFormat("yyyy/MM/dd");
     private static final DateFormat tdf = new SimpleDateFormat("HHmm");
+    private SanitationAccess sa = new SanitationAccess();
+    private InternalTransportAccess ita = new InternalTransportAccess();
+    private ReligiousRequestAccess rra = new ReligiousRequestAccess();
 
     /**ANDREW MADE THIS
      * deletes all the records from the serviceRequest table
@@ -23,6 +27,66 @@ public class ServiceRequestAccess extends DBAccess{
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
+    }
+
+    /**Andrew Made this
+     * Facade method for getting ReligiousRequests
+     * @return
+     */
+    public void makeReligiousRequest(String desc, String denom, String location, String name, String type) {
+        rra.makeRequest(desc, denom, location, name, type);
+    }
+
+    /**Andrew Made this
+     * Facade method for getting religiousRequests
+     * @return
+     */
+    public void deleteReligiousRequests() {
+        rra.deleteRecords();
+    }
+
+    /**Andrew Made this
+     * Facade method for getting internalTransportRequests
+     * @return
+     */
+    /*
+    public void makeInternalTransportRequest(String desc, Object.Location startLocation, Object.Location endLocation, String type, String phoneNumber) {
+        ita.makeRequest(desc, startLocation, endLocation, type, phoneNumber);
+    }
+    */
+    /**Andrew Made this
+     * Facade method for getting internalTransportRequests
+     * @return
+     */
+    public void deleteInternalTransportRequests() {
+        ita.deleteRecords();
+    }
+
+    /**Andrew Made this
+     * Facade method for making sanitationRequest
+     * @param location
+     * @param comment
+     * @param type
+     * @param urgencyLevel
+     */
+    public void makeSanitationRequest(String location, String comment, String type, String urgencyLevel) {
+        sa.makeRequest(location, comment, type, urgencyLevel);
+    }
+
+    /**Andrew Made this
+     * Facade method for getting sanitationRequests
+     * @return
+     */
+    public ArrayList<ArrayList<String>> getSanitationRequests() {
+        return sa.getRequests();
+    }
+
+    /**Andrew Made this
+     * Facade method for getting sanitationRequests
+     * @return
+     */
+    public void deleteSanitationRequests() {
+        sa.deleteRecords();
     }
 
     /**ANDREW MADE THIS
