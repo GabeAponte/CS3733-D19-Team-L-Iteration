@@ -1021,6 +1021,18 @@ public class PathFindingController {
 
     }
 
+    //Larry - determine the location is stair or elevator or not
+    // This is a helper function in order to save a lot of space
+    private boolean isStairELe(Location A){
+        if(A.getNodeType().equals("STAI") || A.getNodeType().equals("ELEV")){
+            return true;
+        }
+        else {
+            return false;
+        }
+
+    }
+
 
 
 
@@ -1029,6 +1041,14 @@ public class PathFindingController {
     //Larry - Print the textual direction based on the path return from algorithm
     private String printPath(ArrayList<Location> A){
         System.out.println(A);
+        for(Location a: A){
+            System.out.print(a.getNodeType() + "  ");
+       }
+        System.out.println(" ");
+        String aType;
+        String bType;
+        String aFloor;
+        String bFloor;
         int curDirection = 0;
         int nextDirection = 0;
         String text = "";
@@ -1036,6 +1056,9 @@ public class PathFindingController {
         int d = 0; // count for the start location for exact location
         //same start and end location
         if(A.size() == 2 && A.get(0) == A.get(1)){
+            System.out.println(A.size());
+            System.out.println(A.size() == 2);
+
             System.out.println("You are already at your destination");
             text += "You are already at your destination \n";
             return text;
@@ -1044,10 +1067,14 @@ public class PathFindingController {
         text += "Begin from " + A.get(0).getLongName();
         //when size is two, but two location are different
         if(A.size() == 2){
-            if(A.get(0).getNodeType() =="STAI" || A.get(0).getNodeType() == "ELEV"){
+            aType = A.get(0).getNodeType();
+            bType = A.get(1).getNodeType();
+            aFloor = A.get(0).getFloor();
+            bFloor = A.get(1).getFloor();
+            if((aType=="STAI" || aType == "ELEV") && (bType == "STAI" || bType =="ELEV") && !aFloor.equals(bFloor) ){
                     if(A.get(1).getNodeType() == "STAI" ||A.get(1).getNodeType() == "ELEV" ){
-                        System.out.println("Go to floor " + A.get(1).getFloor() + " by " + A.get(1).getNodeType());
-                        text += "Go to floor " + A.get(1).getFloor() + " by " + A.get(1).getNodeType() + "\n";
+                        System.out.println("Go to floor " + bFloor + " by " + bType);
+                        text += "Go to floor " + bFloor + " by " + bType + "\n";
 
                             return text;
                 }
@@ -1068,30 +1095,9 @@ public class PathFindingController {
             Location a = A.get(i);
             Location b = A.get(i+1);
             Location c = A.get(i+2);
-            if(b.getNodeType().equals("STAI")||b.getNodeType().equals("ELEV")){
-                System.out.println("Go to floor "+ c.getFloor() + " by " + b.getNodeType());
-                text += "Go to " + c.getFloor() + " by " + b.getNodeType() + "\n";
-                i = i +2;
-                if(i == A.size()-1){
-                    System.out.println("You are at your destination");
-                    text += "You are at your destination \n";
-                }
-                else if(i == A.size() -2){
-                    System.out.println("Go straight to your destination" + c.getLongName());
-                    text += "Go straight to your destination" + c.getLongName() + "\n";
-                }
-                else{
-                    a = A.get(i);
-                    b = A.get(i+1);
-                    c = A.get(i+2);
-
-                }
-
-            }
-
 
             double angle = calculateAngle(a,b,c);
-            if(angle < 110 && angle > 70){
+            if(angle < 120 && angle > 60){
                 curDirection = directionPath(a,b);
                 nextDirection = directionPath(b,c);
 
@@ -1225,99 +1231,51 @@ public class PathFindingController {
                 }
 
 
-
-//                double slopeAB = calculateSlope(a,b);
-//                double slopeBC = calculateSlope(b,c);
-//                if(curDirection < 4){
-//                    if(nextDirection - curDirection < 4){
-//                        System.out.println("Turn right");
-//                    }
-//                    else {
-//                        System.out.println("Turn left");
-//                    }
-//                }
-//                else{
-//                    if(nextDirection - curDirection < 0){
-//                        System.out.println("Turn left");
-//                    }
-//                    else {
-//                        System.out.println("Turn right");
-//                    }
-//
-//                }
-
-
-//                if(curDirection == 2 && nextDirection ==1){
-//                    if(b.getYcoord() < a.getYcoord()){
-//                        if(b.getYcoord() > c.getYcoord()){
-//                            System.out.println("Turn left");
-//                        }
-//                        else{
-//                            System.out.println("Turn right");
-//                        }
-//                    }
-//                    else{
-//                        if(b.getYcoord() > c.getYcoord()){
-//                            System.out.println("Turn left");
-//                        }
-//                        else{
-//                            System.out.println("Turn right");
-//                        }
-//
-//                    }
-//
-//                }
-//                System.out.println("SlopeAB " + slopeAB);
-//                System.out.println("SlopeBC " + slopeBC);
-//                System.out.println("Direction" + direction );
-
-//                    if (slopeAB > slopeBC && c.getXcoord() < a.getXcoord()) {
-//                        if (direction == 1) {
-//                            System.out.println("Turn left");
-//                        } else {
-//                            System.out.println("Turn right");
-//                        }
-//                    }
-//                    else if (slopeAB > slopeBC && c.getXcoord() > a.getXcoord()) {
-//                        if (direction == 1) {
-//                            System.out.println("Turn right");
-//                        } else {
-//                            System.out.println("Turn left");
-//                        }
-//
-//                    }
-//                    else if (slopeAB < slopeBC && c.getXcoord() < a.getXcoord()) {
-//                        if (direction == 1) {
-//                            System.out.println("Turn right");
-//                        } else {
-//                            System.out.println("Turn left");
-//                        }
-//                    }
-//                    else if (slopeAB < slopeBC && c.getXcoord() > a.getXcoord()) {
-//                        if (direction == 1) {
-//                            System.out.println("Turn left");
-//                        } else {
-//                            System.out.println("Turn right");
-//                        }
-//                    }
-//                    else {
-//                        System.out.println("Turn");
-//                        System.out.println("AB " + slopeAB);
-//                        System.out.println("BC " + slopeBC);
-//                        System.out.println("c " + c.getXcoord());
-//                        System.out.println("b " + b.getXcoord());
-//                    }
-
-
-                }
-                    if(i == A.size() - 3){
-                         System.out.println("Go straight to your destination " + A.get(A.size()-1).getLongName() +
-                        " (" + convertToExact(b.findDistance(c)) + " ft) " );
-                        text += "Go straight to your destination " + A.get(A.size()-1).getLongName() +
-                                " (" + convertToExact(b.findDistance(c)) + " ft) \n";
-                        return text;
             }
-        }
+            if(i == A.size() - 3){
+                System.out.println("Go straight to your destination " + A.get(A.size()-1).getLongName() +
+                        " (" + convertToExact(b.findDistance(c)) + " ft) " );
+                text += "Go straight to your destination " + A.get(A.size()-1).getLongName() +
+                                " (" + convertToExact(b.findDistance(c)) + " ft) \n";
+                return text;
+            }
+            if(isStairELe(a) && isStairELe(b)){
+                System.out.println("Go to floor " + b.getFloor() + " by " + a.getLongName());
+                text += "Go to floor " + b.getFloor() + " by " + a.getLongName();
+
+            }
+//            if((b.getNodeType().equals("STAI")||b.getNodeType().equals("ELEV")) && !c.getFloor().equals(b.getFloor())){
+//                System.out.println("Go straight to " + b.getLongName() + " (" + convertToExact(start.findDistance(b)) + " ft)");
+//                System.out.println("Go to floor "+ c.getFloor() + " by " + b.getLongName());
+//                text += "Go straight to " + b.getLongName() + " (" + convertToExact(start.findDistance(b)) + " ft) \n";
+//                text += "Go to " + c.getFloor() + " by " + b.getLongName() + "\n";
+//                System.out.println(b.getFloor());
+//                System.out.println(c.getFloor());
+//                System.out.println(b.getFloor().equals(c.getFloor()));
+//                i = i +1;
+//                d = i;
+
+//                if(i == A.size()-1){
+//                    System.out.println("You are at your destination");
+//                    text += "You are at your destination \n";
+//                }
+//                else if(i == A.size() -2){
+//                    if(A.get(i).getFloor().equals(A.get(i+1).getFloor())){
+//                        System.out.println("Go straight to your destination" + c.getLongName());
+//                        text += "Go straight to your destination" + c.getLongName() + "\n";
+//                    }
+//                    if(!(A.get(i).getFloor().equals(A.get(i+1).getFloor()))){
+//                        System
+//                    }
+//                }
+//                if(i){
+//                    a = A.get(i);
+//                    b = A.get(i+1);
+//                    c = A.get(i+2);
+//
+//                }
+
+            }
 
         return text;
     }
