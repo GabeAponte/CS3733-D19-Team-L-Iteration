@@ -21,12 +21,13 @@ public class Main extends Application {
 
     @SuppressWarnings("RedundantThrows")
     public static void main(String[] args) throws URISyntaxException {
+        Singleton single = Singleton.getInstance();
         NodesAccess na = new NodesAccess();
         EdgesAccess ea = new EdgesAccess();
         //ea.deleteRecords();
         //na.readCSVintoTable();
         //ea.readCSVintoTable();
-
+        single.setData();
         launch(args);
     }
 }
