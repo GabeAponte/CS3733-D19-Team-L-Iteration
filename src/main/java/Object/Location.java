@@ -195,13 +195,10 @@ public class Location implements Comparable<Location>{
 
         xDiff = this.getXcoord() - endNode.getXcoord();
         yDiff = this.getYcoord() - endNode.getYcoord();
+
         //Nikhil- We want to prioritize getting onto the same floor to ensure we travel as fast as possible.
-        if(this.getFloor().equals(endNode.getFloor())) {
-            zDiff = 10000 * (this.convertToNum() - endNode.convertToNum());
-        }
-        else {
-            zDiff = 100 * (this.convertToNum() - endNode.convertToNum());
-        }
+        zDiff = 50 * (this.convertToNum() - endNode.convertToNum());
+        
         xDiff = Math.pow(xDiff, 2);
         yDiff = Math.pow(yDiff, 2);
         zDiff = Math.pow(zDiff, 2);
