@@ -32,7 +32,7 @@ public class HomeScreenController {
     Button HomeSuggestions;
 
     @FXML
-    public Button LogIn;
+    Button LogIn;
 
     @FXML
     Label timeLabel;
@@ -55,8 +55,7 @@ public class HomeScreenController {
             long second = LocalDateTime.now().getSecond();
             long minute = LocalDateTime.now().getMinute();
             long hour = LocalDateTime.now().getHour();
-            hour = hour % 12;
-            if(hour == 12){
+            if((hour = hour%12) == 0){
                 hour = 12;
             }
             if(minute < 10) {
@@ -94,21 +93,16 @@ public class HomeScreenController {
     }
 
     @FXML
-    private void SwitchToSuggestionBox() {
-        try {
+    private void SwitchToSuggestionBox() throws IOException{
             Stage thestage = (Stage) HomeSuggestions.getScene().getWindow();
             AnchorPane root;
             root = FXMLLoader.load(getClass().getClassLoader().getResource("SuggestionBox.fxml"));
             Scene scene = new Scene(root);
             thestage.setScene(scene);
-        } catch (Exception e){
-
-        }
     }
 
     @FXML
     private void SwitchToServiceScreen() throws IOException{
-        boolean signedIn = false;
         FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("ServiceRequest.fxml"));
 
         Parent sceneMain = loader.load();
