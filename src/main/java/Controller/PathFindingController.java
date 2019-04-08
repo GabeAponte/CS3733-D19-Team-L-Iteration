@@ -114,12 +114,13 @@ public class PathFindingController {
 
     private NodesAccess na;
     private EdgesAccess ea;
-    private final ObservableList<Location> data = FXCollections.observableArrayList();
-    private HashMap<String, Location> lookup = new HashMap<String, Location>();
+    //private final ObservableList<Location> data = FXCollections.observableArrayList();
+    //private HashMap<String, Location> lookup = new HashMap<String, Location>();
     private final ObservableList<Location> noHallStart = FXCollections.observableArrayList();
     private final ObservableList<Location> noHallEnd = FXCollections.observableArrayList();
     private final ObservableList<String> filterList = FXCollections.observableArrayList();
     private final ObservableList<String> floorList = FXCollections.observableArrayList();
+    private Singleton single = Singleton.getInstance();
 
 
     private ArrayList<String> mapURLs = new ArrayList<String>();
@@ -199,7 +200,7 @@ public class PathFindingController {
             String next = listIterator.next();
             Map.setImage(new Image(next));
             upAgain();
-           // Map.setImage(new Image(next));
+            // Map.setImage(new Image(next));
         }
 
         else if (downclickedLast == false){
@@ -283,10 +284,10 @@ public class PathFindingController {
         noHall();
         Filter.setItems(filterList);
         Floor.setItems(floorList);
-        initializeTable(na, ea);
+        //initializeTable(na, ea);
         if(single.getNum() == 1){
-            PathFindStartDrop.setItems(data);
-            PathFindEndDrop.setItems(data);
+            PathFindStartDrop.setItems(single.getData());
+            PathFindEndDrop.setItems(single.getData());
         }
         anchorPanePath = new AnchorPane();
         anchorPanePath.setLayoutX(79);
@@ -343,7 +344,7 @@ public class PathFindingController {
     }
 
     public HashMap<String, Location> getLookup() {
-        return lookup;
+        return single.lookup;
     }
 
     @FXML
@@ -358,13 +359,17 @@ public class PathFindingController {
 
     @FXML
     private void submitPressed(){
-        Location startNode = lookup.get(PathFindStartDrop.getValue().getLocID());
-        Location endNode = lookup.get(PathFindEndDrop.getValue().getLocID());
+        Location startNode = single.lookup.get(PathFindStartDrop.getValue().getLocID());
+        Location endNode = single.lookup.get(PathFindEndDrop.getValue().getLocID());
 
-        AStarStrategy astar = new AStarStrategy(lookup);
+        AStarStrategy astar = new AStarStrategy(single.lookup);
         Path path = findAbstractPath(astar, startNode, endNode);
 
         displayPath(path.getPath(), startNode, endNode);
+        printPath(path.getPath());
+
+        sceneGestures.setDrawPath(circles,lines);
+       // TextDirection.setText(printPath(path.getPath()));
     }
 
     public void displayPath(ArrayList<Location> path, Location startNode, Location endNode){
@@ -419,8 +424,6 @@ public class PathFindingController {
 
         circles.add(StartCircle);
         circles.add(EndCircle);
-
-        sceneGestures.setDrawPath(StartCircle, EndCircle, lines);
     }
 
     ArrayList<Location> openList = new ArrayList<Location>();
@@ -437,14 +440,14 @@ public class PathFindingController {
             ArrayList<String> arr2;
             Location testx = new Location(arr.get(0), Integer.parseInt(arr.get(1)), Integer.parseInt(arr.get(2)), arr.get(3), arr.get(4), arr.get(5), arr.get(6), arr.get(7));
             //only add the node if it hasn't been done yet
-            if (!(lookup.containsKey(arr.get(0)))) {
-                lookup.put((arr.get(0)), testx);
-                data.add(testx);
+            if (!(single.lookup.containsKey(arr.get(0)))) {
+                single.lookup.put((arr.get(0)), testx);
+                //single.getData().add(testx);
                 edgeList = ea.getConnectedNodes(arr.get(0));
                 for (int j = 0; j < edgeList.size(); j++) {
                     String nodeID = edgeList.get(j);
-                    if (lookup.containsKey(na.getNodeInformation(nodeID).get(0))) {
-                        Edge e = new Edge(Integer.toString(j), testx, lookup.get(nodeID));
+                    if (single.lookup.containsKey(na.getNodeInformation(nodeID).get(0))) {
+                        Edge e = new Edge(Integer.toString(j), testx, single.lookup.get(nodeID));
                         testx.addEdge(e);
                     } else {
                         arr2 = na.getNodeInformation(nodeID);
@@ -458,8 +461,8 @@ public class PathFindingController {
                 edgeList = ea.getConnectedNodes(arr.get(0));
                 for (int j = 0; j < edgeList.size(); j++) {
                     String nodeID = edgeList.get(j);
-                    if (lookup.containsKey(na.getNodeInformation(nodeID).get(0))) {
-                        Edge e = new Edge(Integer.toString(j), testx, lookup.get(nodeID));
+                    if (single.lookup.containsKey(na.getNodeInformation(nodeID).get(0))) {
+                        Edge e = new Edge(Integer.toString(j), testx, single.lookup.get(nodeID));
                         testx.addEdge(e);
                     } else {
                         arr2 = na.getNodeInformation(nodeID);
@@ -565,18 +568,18 @@ public class PathFindingController {
         if (Filter.getValue() == null && Floor.getValue() == null) {
             if (PathFindStartDrop.getValue() == null) {
                 noHallStart.clear();
-                for (int j = 0; j < data.size(); j++) {
-                    if (!(data.get(j).getNodeType().contains("HALL"))) {
-                        noHallStart.add(data.get(j));
+                for (int j = 0; j < single.getData().size(); j++) {
+                    if (!(single.getData().get(j).getNodeType().contains("HALL"))) {
+                        noHallStart.add(single.getData().get(j));
                     }
                 }
             }
             if (PathFindEndDrop.getValue() == null) {
                 PathFindEndDrop.setItems(noHallEnd);
                 noHallEnd.clear();
-                for (int j = 0; j < data.size(); j++) {
-                    if (!(data.get(j).getNodeType().contains("HALL"))) {
-                        noHallEnd.add(data.get(j));
+                for (int j = 0; j < single.getData().size(); j++) {
+                    if (!(single.getData().get(j).getNodeType().contains("HALL"))) {
+                        noHallEnd.add(single.getData().get(j));
                     }
                 }
             }
@@ -591,18 +594,18 @@ public class PathFindingController {
         } else if (Filter.getValue() == ("All") && Floor.getValue() == null) {
             if (PathFindStartDrop.getValue() == null) {
                 noHallStart.clear();
-                for (int j = 0; j < data.size(); j++) {
-                    if (!(data.get(j).getNodeType().contains("HALL"))) {
-                        noHallStart.add(data.get(j));
+                for (int j = 0; j < single.getData().size(); j++) {
+                    if (!(single.getData().get(j).getNodeType().contains("HALL"))) {
+                        noHallStart.add(single.getData().get(j));
                     }
                 }
             }
             if (PathFindEndDrop.getValue() == null) {
                 PathFindEndDrop.setItems(noHallEnd);
                 noHallEnd.clear();
-                for (int j = 0; j < data.size(); j++) {
-                    if (!(data.get(j).getNodeType().contains("HALL"))) {
-                        noHallEnd.add(data.get(j));
+                for (int j = 0; j < single.getData().size(); j++) {
+                    if (!(single.getData().get(j).getNodeType().contains("HALL"))) {
+                        noHallEnd.add(single.getData().get(j));
                     }
                 }
             }
@@ -616,18 +619,18 @@ public class PathFindingController {
         } else if (Filter.getValue() == ("All") && Floor.getValue() == "All") {
             if (PathFindStartDrop.getValue() == null) {
                 noHallStart.clear();
-                for (int j = 0; j < data.size(); j++) {
-                    if (!(data.get(j).getNodeType().contains("HALL"))) {
-                        noHallStart.add(data.get(j));
+                for (int j = 0; j < single.getData().size(); j++) {
+                    if (!(single.getData().get(j).getNodeType().contains("HALL"))) {
+                        noHallStart.add(single.getData().get(j));
                     }
                 }
             }
             if (PathFindEndDrop.getValue() == null) {
                 PathFindEndDrop.setItems(noHallEnd);
                 noHallEnd.clear();
-                for (int j = 0; j < data.size(); j++) {
-                    if (!(data.get(j).getNodeType().contains("HALL"))) {
-                        noHallEnd.add(data.get(j));
+                for (int j = 0; j < single.getData().size(); j++) {
+                    if (!(single.getData().get(j).getNodeType().contains("HALL"))) {
+                        noHallEnd.add(single.getData().get(j));
                     }
                 }
             }
@@ -642,18 +645,18 @@ public class PathFindingController {
         } else if (Filter.getValue() == ("All") && Floor.getValue() != null) {
             if (PathFindStartDrop.getValue() == null) {
                 noHallStart.clear();
-                for (int j = 0; j < data.size(); j++) {
-                    if (!(data.get(j).getNodeType().contains("HALL")) && (data.get(j).getFloor().equals(pickedFloor))) {
-                        noHallStart.add(data.get(j));
+                for (int j = 0; j < single.getData().size(); j++) {
+                    if (!(single.getData().get(j).getNodeType().contains("HALL")) && (single.getData().get(j).getFloor().equals(pickedFloor))) {
+                        noHallStart.add(single.getData().get(j));
                     }
                 }
             }
             if (PathFindEndDrop.getValue() == null) {
                 PathFindEndDrop.setItems(noHallEnd);
                 noHallEnd.clear();
-                for (int j = 0; j < data.size(); j++) {
-                    if (!(data.get(j).getNodeType().contains("HALL")) && (data.get(j).getFloor().equals(pickedFloor))) {
-                        noHallEnd.add(data.get(j));
+                for (int j = 0; j < single.getData().size(); j++) {
+                    if (!(single.getData().get(j).getNodeType().contains("HALL")) && (single.getData().get(j).getFloor().equals(pickedFloor))) {
+                        noHallEnd.add(single.getData().get(j));
                     }
                 }
             }
@@ -668,18 +671,18 @@ public class PathFindingController {
         } else if (Filter.getValue() != (null) && Floor.getValue() == "All") {
             if (PathFindStartDrop.getValue() == null) {
                 noHallStart.clear();
-                for (int j = 0; j < data.size(); j++) {
-                    if ((data.get(j).getNodeType().contains(type))) {
-                        noHallStart.add(data.get(j));
+                for (int j = 0; j < single.getData().size(); j++) {
+                    if ((single.getData().get(j).getNodeType().contains(type))) {
+                        noHallStart.add(single.getData().get(j));
                     }
                 }
             }
             if (PathFindEndDrop.getValue() == null) {
                 PathFindEndDrop.setItems(noHallEnd);
                 noHallEnd.clear();
-                for (int j = 0; j < data.size(); j++) {
-                    if ((data.get(j).getNodeType().contains(type))) {
-                        noHallEnd.add(data.get(j));
+                for (int j = 0; j < single.getData().size(); j++) {
+                    if ((single.getData().get(j).getNodeType().contains(type))) {
+                        noHallEnd.add(single.getData().get(j));
                     }
                 }
             }
@@ -695,18 +698,18 @@ public class PathFindingController {
         } else if (Filter.getValue() == null && Floor.getValue() == "All") {
             if (PathFindStartDrop.getValue() == null) {
                 noHallStart.clear();
-                for (int j = 0; j < data.size(); j++) {
-                    if (!(data.get(j).getNodeType().contains("HALL"))) {
-                        noHallStart.add(data.get(j));
+                for (int j = 0; j < single.getData().size(); j++) {
+                    if (!(single.getData().get(j).getNodeType().contains("HALL"))) {
+                        noHallStart.add(single.getData().get(j));
                     }
                 }
             }
             if (PathFindEndDrop.getValue() == null) {
                 PathFindEndDrop.setItems(noHallEnd);
                 noHallEnd.clear();
-                for (int j = 0; j < data.size(); j++) {
-                    if (!(data.get(j).getNodeType().contains("HALL"))) {
-                        noHallEnd.add(data.get(j));
+                for (int j = 0; j < single.getData().size(); j++) {
+                    if (!(single.getData().get(j).getNodeType().contains("HALL"))) {
+                        noHallEnd.add(single.getData().get(j));
                     }
                 }
             }
@@ -722,18 +725,18 @@ public class PathFindingController {
         } else if (Filter.getValue() == "Restrooms" && Floor.getValue() == null) {
             if (PathFindStartDrop.getValue() == null) {
                 noHallStart.clear();
-                for (int j = 0; j < data.size(); j++) {
-                    if ((data.get(j).getNodeType().contains(type)) || (data.get(j).getNodeType().contains(type2))) {
-                        noHallStart.add(data.get(j));
+                for (int j = 0; j < single.getData().size(); j++) {
+                    if ((single.getData().get(j).getNodeType().contains(type)) || (single.getData().get(j).getNodeType().contains(type2))) {
+                        noHallStart.add(single.getData().get(j));
                     }
                 }
             }
             if (PathFindEndDrop.getValue() == null) {
                 PathFindEndDrop.setItems(noHallEnd);
                 noHallEnd.clear();
-                for (int j = 0; j < data.size(); j++) {
-                    if ((data.get(j).getNodeType().contains(type)) || (data.get(j).getNodeType().contains(type2))) {
-                        noHallEnd.add(data.get(j));
+                for (int j = 0; j < single.getData().size(); j++) {
+                    if ((single.getData().get(j).getNodeType().contains(type)) || (single.getData().get(j).getNodeType().contains(type2))) {
+                        noHallEnd.add(single.getData().get(j));
                     }
                 }
             }
@@ -749,18 +752,18 @@ public class PathFindingController {
         } else if (Filter.getValue() == "Restrooms" && Floor.getValue() == "All") {
             if (PathFindStartDrop.getValue() == null) {
                 noHallStart.clear();
-                for (int j = 0; j < data.size(); j++) {
-                    if ((data.get(j).getNodeType().contains(type)) || (data.get(j).getNodeType().contains(type2))) {
-                        noHallStart.add(data.get(j));
+                for (int j = 0; j < single.getData().size(); j++) {
+                    if ((single.getData().get(j).getNodeType().contains(type)) || (single.getData().get(j).getNodeType().contains(type2))) {
+                        noHallStart.add(single.getData().get(j));
                     }
                 }
             }
             if (PathFindEndDrop.getValue() == null) {
                 PathFindEndDrop.setItems(noHallEnd);
                 noHallEnd.clear();
-                for (int j = 0; j < data.size(); j++) {
-                    if ((data.get(j).getNodeType().contains(type)) || (data.get(j).getNodeType().contains(type2))) {
-                        noHallEnd.add(data.get(j));
+                for (int j = 0; j < single.getData().size(); j++) {
+                    if ((single.getData().get(j).getNodeType().contains(type)) || (single.getData().get(j).getNodeType().contains(type2))) {
+                        noHallEnd.add(single.getData().get(j));
                     }
                 }
             }
@@ -776,18 +779,18 @@ public class PathFindingController {
         } else if (Filter.getValue() != null && Filter.getValue() == "Restrooms" && Floor.getValue() != null) {
             if (PathFindStartDrop.getValue() == null) {
                 noHallStart.clear();
-                for (int j = 0; j < data.size(); j++) {
-                    if ((data.get(j).getNodeType().contains(type)) && (data.get(j).getFloor().equals(pickedFloor)) || ((data.get(j).getNodeType().contains(type2)) && (data.get(j).getFloor().equals(pickedFloor)))) {
-                        noHallStart.add(data.get(j));
+                for (int j = 0; j < single.getData().size(); j++) {
+                    if ((single.getData().get(j).getNodeType().contains(type)) && (single.getData().get(j).getFloor().equals(pickedFloor)) || ((single.getData().get(j).getNodeType().contains(type2)) && (single.getData().get(j).getFloor().equals(pickedFloor)))) {
+                        noHallStart.add(single.getData().get(j));
                     }
                 }
             }
             if (PathFindEndDrop.getValue() == null) {
                 PathFindEndDrop.setItems(noHallEnd);
                 noHallEnd.clear();
-                for (int j = 0; j < data.size(); j++) {
-                    if ((data.get(j).getNodeType().contains(type)) && (data.get(j).getFloor().equals(pickedFloor)) || ((data.get(j).getNodeType().contains(type2)) && (data.get(j).getFloor().equals(pickedFloor)))) {
-                        noHallEnd.add(data.get(j));
+                for (int j = 0; j < single.getData().size(); j++) {
+                    if ((single.getData().get(j).getNodeType().contains(type)) && (single.getData().get(j).getFloor().equals(pickedFloor)) || ((single.getData().get(j).getNodeType().contains(type2)) && (single.getData().get(j).getFloor().equals(pickedFloor)))) {
+                        noHallEnd.add(single.getData().get(j));
                     }
                 }
             }
@@ -803,18 +806,18 @@ public class PathFindingController {
         } else if (Filter.getValue() != null && Filter.getValue() != "All" && Floor.getValue() == null) {
             if (PathFindStartDrop.getValue() == null) {
                 noHallStart.clear();
-                for (int j = 0; j < data.size(); j++) {
-                    if ((data.get(j).getNodeType().contains(type))) {
-                        noHallStart.add(data.get(j));
+                for (int j = 0; j < single.getData().size(); j++) {
+                    if ((single.getData().get(j).getNodeType().contains(type))) {
+                        noHallStart.add(single.getData().get(j));
                     }
                 }
             }
             if (PathFindEndDrop.getValue() == null) {
                 PathFindEndDrop.setItems(noHallEnd);
                 noHallEnd.clear();
-                for (int j = 0; j < data.size(); j++) {
-                    if ((data.get(j).getNodeType().contains(type))) {
-                        noHallEnd.add(data.get(j));
+                for (int j = 0; j < single.getData().size(); j++) {
+                    if ((single.getData().get(j).getNodeType().contains(type))) {
+                        noHallEnd.add(single.getData().get(j));
                     }
                 }
             }
@@ -829,18 +832,18 @@ public class PathFindingController {
         } else if (Filter.getValue() != null && Filter.getValue() != "All" && Floor.getValue() != null) {
             if (PathFindStartDrop.getValue() == null) {
                 noHallStart.clear();
-                for (int j = 0; j < data.size(); j++) {
-                    if ((data.get(j).getNodeType().contains(type)) && (data.get(j).getFloor().equals(pickedFloor))) {
-                        noHallStart.add(data.get(j));
+                for (int j = 0; j < single.getData().size(); j++) {
+                    if ((single.getData().get(j).getNodeType().contains(type)) && (single.getData().get(j).getFloor().equals(pickedFloor))) {
+                        noHallStart.add(single.getData().get(j));
                     }
                 }
             }
             if (PathFindEndDrop.getValue() == null) {
                 PathFindEndDrop.setItems(noHallEnd);
                 noHallEnd.clear();
-                for (int j = 0; j < data.size(); j++) {
-                    if ((data.get(j).getNodeType().contains(type)) && (data.get(j).getFloor().equals(pickedFloor))) {
-                        noHallEnd.add(data.get(j));
+                for (int j = 0; j < single.getData().size(); j++) {
+                    if ((single.getData().get(j).getNodeType().contains(type)) && (single.getData().get(j).getFloor().equals(pickedFloor))) {
+                        noHallEnd.add(single.getData().get(j));
                     }
                 }
             }
@@ -855,7 +858,7 @@ public class PathFindingController {
     }
 
     private void cleanup() {
-        for (Location x : lookup.values()) {
+        for (Location x : single.lookup.values()) {
             x.setParentID("RESET");
         }
         openList.clear();
@@ -913,10 +916,10 @@ public class PathFindingController {
         //want to fill nodes w/ floor = currrentKioskFloor && nodeLongName? or nodeType? .contains(keyword)
         int temp = 0;
         Point2D point = sceneGestures.getImageLocation();
-        for(int i=0; i<data.size(); i++){
+        for(int i=0; i<single.getData().size(); i++){
             //if nodetype contains keyword
-            if(data.get(i).getNodeType().contains(keyword)  && data.get(i).getFloor() == "2"/* && data.get(i).getFloor() == kioskNode.getFloor*/){
-                nodes.add(data.get(i));
+            if(single.getData().get(i).getNodeType().contains(keyword)  && single.getData().get(i).getFloor() == "2"/* && data.get(i).getFloor() == kioskNode.getFloor*/){
+                nodes.add(single.getData().get(i));
 
                 Circle thisCircle = new Circle();
 
@@ -942,39 +945,40 @@ public class PathFindingController {
      */
     public void displayClosestPOI(String keyword){
         ArrayList<Location> nodes = new ArrayList<Location>();
-        Location kioskTemp = data.get(0);
+        Location kioskTemp = single.getData().get(0);
         //want to fill nodes w/ relevent POI
 
-        for(int i=0; i<data.size(); i++) {
+        for(int i=0; i<single.getData().size(); i++) {
             //if nodetype contains keyword
-            if (data.get(i).getNodeType().contains(keyword) && data.get(i).getFloor() == kioskTemp.getFloor()) {
-                nodes.add(data.get(i));
+            if (single.getData().get(i).getNodeType().contains(keyword) && single.getData().get(i).getFloor() == kioskTemp.getFloor()) {
+                nodes.add(single.getData().get(i));
             }
         }
 
-        //TODO: FIX THIS & ACTUALLY GET THE CLOSEST ONE
+        AStarStrategy astar = new AStarStrategy(single.lookup);
+
         long startTime;
         long endTime;
         long currentCountTime;
 
         //just to initailize closestTime
         startTime = System.nanoTime();
-        findPath(kioskTemp, nodes.get(0));
+        Path thispath = findAbstractPath(astar,kioskTemp, nodes.get(0));
         endTime = System.nanoTime();
-
         long closestTime = (endTime - startTime);
+
         Location closestLOC = nodes.get(0);
-        Path closestPath = findPath(kioskTemp, nodes.get(0)); //?
+        Path closestPath = thispath; //?
         //finding closest POI
         for(int i=0; i<nodes.size(); i++){
             startTime = System.nanoTime();
-            findPath(kioskTemp, nodes.get(i));
+            findAbstractPath(astar,kioskTemp, nodes.get(i));
             endTime = System.nanoTime();
 
             currentCountTime = (endTime - startTime);
 
             if(closestTime > currentCountTime){
-                closestPath = findPath(kioskTemp, nodes.get(i));
+                closestPath = findAbstractPath(astar,kioskTemp, nodes.get(i));
                 closestLOC = nodes.get(i);
             }
 
@@ -982,6 +986,9 @@ public class PathFindingController {
 
 
         displayPath(closestPath.getPath(), kioskTemp, closestLOC);
+        printPath(thispath.getPath());
+
+        sceneGestures.setDrawPath(circles,lines);
         //System.out.println("just pretend it prints out the path to closest");
     }
 
@@ -1118,4 +1125,426 @@ public class PathFindingController {
             }
         }
     }
+
+
+
+
+
+    //Larry - To calculate the angele of turning
+    private double calculateAngle(Location a, Location b, Location c){
+        double distanceA, distanceB,distanceC;
+        double angleTurning;
+        //distance A
+        distanceA = a.findDistance(b);
+        //distance B
+        distanceB = b.findDistance(c);
+        //distance C
+        distanceC = a.findDistance(c);
+
+        angleTurning = Math.acos((distanceA*distanceA + distanceB*distanceB - distanceC*distanceC)
+                / (2*distanceA*distanceB));
+        //angleTurning = Math.acos(1);
+        angleTurning = angleTurning /(2*Math.PI) * 360;
+//        System.out.println("Da " + distanceA);
+//        System.out.println("Db " + distanceB);
+//        System.out.println("Dc " + distanceC);
+//        System.out.println("Angle " + angleTurning);
+
+
+        return  angleTurning;
+
+    }
+    //Larry - convert pixel distance to exact distance
+    //147 pixel distance = 52 ft
+    private int convertToExact(double pixelDistance){
+        double actualLength = pixelDistance / 147 * 52;
+
+        return  (int)actualLength;
+    }
+    //Larry - face direction given two locations to retrun the direction you are facing
+    private int faceDicrection(Location a, Location b){
+        int direction = 0;
+        // 1 is right, 2 is left, 3 is up ,4 is down
+        if(calculateSlope(a,b) > 0 && calculateSlope(a,b) < 0.5 && b.getXcoord() > a.getXcoord() ){
+            direction = 1;
+        }
+        else if(calculateSlope(a,b) > 0.5 && calculateSlope(a,b) < 1 && b.getXcoord() > a.getXcoord() ){
+            direction = 3;
+        }
+        else if(calculateSlope(a,b) > 0 && calculateSlope(a,b) < 0.5 && b.getXcoord() < a.getXcoord() ){
+            direction = 2;
+        }
+        else if(calculateSlope(a,b) > 0.5 && calculateSlope(a,b) < 1 && b.getXcoord() > a.getXcoord() ){
+            direction = 4;
+        }
+        return direction;
+    }
+
+    //Larry - to determine whether the path is go vertical or go horizontal
+    private  boolean isHorizontal(double A){
+        if(A == 0){
+            return true;
+        }
+        else{
+            return false;
+        }
+    }
+
+    //Larry - to determine whether the path is go vertical or go horizontal
+    private  boolean isVertical(double A){
+        if(A > 9999 || A < -9999){
+            return true;
+        }
+        else{
+            return false;
+        }
+    }
+
+    //Larry - determine the direction of path
+    private int directionPath(Location a, Location b){
+        int xa = a.getXcoord();
+        int ya = a.getYcoord();
+        int xb = b.getXcoord();
+        int yb = b.getYcoord();
+
+        //           1
+        //      8         2
+        //   7               3
+        //      6         4
+        //           5
+
+        if(xb > xa){
+            if(ya > yb){
+                return 2;
+            }
+            else if(ya == yb){
+                return 3;
+            }
+            else{
+                return 4;
+            }
+        }
+        else if(xb < xa){
+            if(ya > yb){
+                return 8;
+            }
+            else if (ya == yb){
+                return 7;
+            }
+            else{
+                return 6;
+            }
+        }
+        else{
+            if(ya < yb){
+                return 5;
+            }
+            else {
+                return 1;
+            }
+        }
+
+    }
+
+
+
+
+
+
+    //Larry - Print the textual direction based on the path return from algorithm
+    private String printPath(ArrayList<Location> A){
+        System.out.println(A);
+        int curDirection = 0;
+        int nextDirection = 0;
+        String text = "";
+
+        int d = 0; // count for the start location for exact location
+        //same start and end location
+        if(A.size() == 2 && A.get(0) == A.get(1)){
+            System.out.println("You are already at your destination");
+            text += "You are already at your destination \n";
+            return text;
+        }
+        System.out.println("Begin from " + A.get(0).getLongName());
+        text += "Begin from " + A.get(0).getLongName();
+        //when size is two, but two location are different
+        if(A.size() == 2){
+            if(A.get(0).getNodeType() =="STAI" || A.get(0).getNodeType() == "ELEV"){
+                if(A.get(1).getNodeType() == "STAI" ||A.get(1).getNodeType() == "ELEV" ){
+                    System.out.println("Go to floor " + A.get(1).getFloor() + " by " + A.get(1).getNodeType());
+                    text += "Go to floor " + A.get(1).getFloor() + " by " + A.get(1).getNodeType() + "\n";
+
+                    return text;
+                }
+                else{
+                    System.out.println("Go straight to " + A.get(1).getLongName() + " (" +
+                            convertToExact(A.get(0).findDistance(A.get(1))) + " ft) \n");
+                    text += "Go straight to " + A.get(1).getLongName() + " (" +
+                            convertToExact(A.get(0).findDistance(A.get(1))) + " ft) \n";
+                    return text;
+                }
+            }
+        }
+
+
+        //when the size of path is at least 3 locations
+        for(int i = 0; i<A.size() - 2; i++){
+            Location start = A.get(d);
+            Location a = A.get(i);
+            Location b = A.get(i+1);
+            Location c = A.get(i+2);
+            if(b.getNodeType().equals("STAI")||b.getNodeType().equals("ELEV")){
+                System.out.println("Go to floor "+ c.getFloor() + " by " + b.getNodeType());
+                text += "Go to " + c.getFloor() + " by " + b.getNodeType() + "\n";
+                i = i +2;
+                if(i == A.size()-1){
+                    System.out.println("You are at your destination");
+                    text += "You are at your destination \n";
+                }
+                else if(i == A.size() -2){
+                    System.out.println("Go straight to your destination" + c.getLongName());
+                    text += "Go straight to your destination" + c.getLongName() + "\n";
+                }
+                else{
+                    a = A.get(i);
+                    b = A.get(i+1);
+                    c = A.get(i+2);
+
+                }
+
+            }
+
+
+            double angle = calculateAngle(a,b,c);
+            if(angle < 110 && angle > 70){
+                curDirection = directionPath(a,b);
+                nextDirection = directionPath(b,c);
+
+                Point2D point = sceneGestures.getImageLocation();
+                Circle TurningCircle = new Circle();
+
+                //Setting the properties of the circle
+                TurningCircle.setCenterX((b.getXcoord()-point.getX())*0.137*sceneGestures.getImageScale());
+                TurningCircle.setCenterY((b.getYcoord()-point.getY())*0.137*sceneGestures.getImageScale());
+                TurningCircle.setRadius(Math.max(2.5,2.5f*(sceneGestures.getImageScale()/5)));
+                TurningCircle.setStroke(Color.YELLOW);
+                TurningCircle.setFill(Color.YELLOW);
+
+                anchorPanePath.getChildren().add(TurningCircle);
+                circles.add(TurningCircle);
+
+
+
+                System.out.println("Go straight to " + b.getLongName()
+                        + " (" + convertToExact(start.findDistance(b)) + " ft) " );
+                text += "Go straight to " + b.getLongName()
+                        + " (" + convertToExact(start.findDistance(b)) + " ft) \n";
+
+                //- -> + , x+ : left
+                d = i + 1;
+                // System.out.println("cur " + curDirection);
+                // System.out.println("next " + nextDirection);
+                double slopeAB = calculateSlope(a,b);
+                double slopeBC = calculateSlope(b,c);
+                if(curDirection == nextDirection){
+                    if(curDirection == 2 || curDirection == 6){
+                        if(Math.abs(slopeBC)> Math.abs(slopeAB)){
+                            System.out.println("Turn left");
+                            text += "Turn left\n";
+                        }
+                        else{
+                            System.out.println("Turn right");
+                            text += "Turn right\n";
+                        }
+                    }
+                    else if(curDirection == 4 || curDirection ==8){
+                        if(Math.abs(slopeBC)> Math.abs(slopeAB)){
+                            System.out.println("Turn right");
+                            text += "Turn right\n";
+                        }
+                        else{
+                            System.out.println("Turn left");
+                            text += "Turn left\n";
+                        }
+
+                    }
+
+                }
+                else if((curDirection == 2 && nextDirection ==6) || (curDirection == 6 && nextDirection ==2)){
+                    if(Math.abs(slopeBC)>Math.abs(slopeAB)){
+                        System.out.println("Turn right");
+                        text += "Turn right\n";
+                    }
+                    else{
+                        System.out.println("Turn left");
+                        text += "Turn left\n";
+                    }
+
+                }
+
+                else if((curDirection == 8 && nextDirection ==4) || (curDirection == 6 && nextDirection ==2)){
+                    if(Math.abs(slopeBC)>Math.abs(slopeAB)){
+                        System.out.println("Turn left");
+                        text += "Turn left\n";
+                    }
+                    else{
+                        System.out.println("Turn right");
+                        text += "Turn right\n";
+                    }
+
+                }
+
+                else if(curDirection <= 5){
+                    if(nextDirection < curDirection + 4 && nextDirection > curDirection){
+                        System.out.println("Turn right");
+                        text += "Turn right\n";
+                    }
+                    else {
+                        System.out.println("Turn left");
+                        text += "Turn left\n";
+                    }
+                }
+                else{
+                    if(curDirection == 6){
+                        if(nextDirection == 7 || nextDirection == 8 || nextDirection == 1){
+                            System.out.println("Turn right");
+                            text += "Turn right\n";
+                        }
+                        if(nextDirection == 5 || nextDirection == 4 || nextDirection == 3){
+                            System.out.println("Turn left");
+                            text += "Turn left\n";
+                        }
+
+
+                    }
+                    else if (curDirection ==7){
+                        if(nextDirection == 8 || nextDirection == 1 || nextDirection == 2){
+                            System.out.println("Turn right");
+                            text += "Turn right\n";
+                        }
+                        else if(nextDirection == 6 || nextDirection == 5 || nextDirection == 4){
+                            System.out.println("Turn left");
+                            text += "Turn left\n";
+                        }
+                        else {
+
+                        }
+
+                    }
+                    else if(curDirection ==8){
+                        if(nextDirection == 1 || nextDirection == 2 || nextDirection == 3){
+                            System.out.println("Turn right");
+                            text += "Turn right\n";
+                        }
+                        else if(nextDirection == 5 || nextDirection == 6 || nextDirection == 7){
+                            System.out.println("Turn left");
+                            text += "Turn left\n";
+                        }
+                        else {
+
+                        }
+                    }
+                    else{
+                        //nothing handle error in case
+                    }
+                }
+
+
+
+//                double slopeAB = calculateSlope(a,b);
+//                double slopeBC = calculateSlope(b,c);
+//                if(curDirection < 4){
+//                    if(nextDirection - curDirection < 4){
+//                        System.out.println("Turn right");
+//                    }
+//                    else {
+//                        System.out.println("Turn left");
+//                    }
+//                }
+//                else{
+//                    if(nextDirection - curDirection < 0){
+//                        System.out.println("Turn left");
+//                    }
+//                    else {
+//                        System.out.println("Turn right");
+//                    }
+//
+//                }
+
+
+//                if(curDirection == 2 && nextDirection ==1){
+//                    if(b.getYcoord() < a.getYcoord()){
+//                        if(b.getYcoord() > c.getYcoord()){
+//                            System.out.println("Turn left");
+//                        }
+//                        else{
+//                            System.out.println("Turn right");
+//                        }
+//                    }
+//                    else{
+//                        if(b.getYcoord() > c.getYcoord()){
+//                            System.out.println("Turn left");
+//                        }
+//                        else{
+//                            System.out.println("Turn right");
+//                        }
+//
+//                    }
+//
+//                }
+//                System.out.println("SlopeAB " + slopeAB);
+//                System.out.println("SlopeBC " + slopeBC);
+//                System.out.println("Direction" + direction );
+
+//                    if (slopeAB > slopeBC && c.getXcoord() < a.getXcoord()) {
+//                        if (direction == 1) {
+//                            System.out.println("Turn left");
+//                        } else {
+//                            System.out.println("Turn right");
+//                        }
+//                    }
+//                    else if (slopeAB > slopeBC && c.getXcoord() > a.getXcoord()) {
+//                        if (direction == 1) {
+//                            System.out.println("Turn right");
+//                        } else {
+//                            System.out.println("Turn left");
+//                        }
+//
+//                    }
+//                    else if (slopeAB < slopeBC && c.getXcoord() < a.getXcoord()) {
+//                        if (direction == 1) {
+//                            System.out.println("Turn right");
+//                        } else {
+//                            System.out.println("Turn left");
+//                        }
+//                    }
+//                    else if (slopeAB < slopeBC && c.getXcoord() > a.getXcoord()) {
+//                        if (direction == 1) {
+//                            System.out.println("Turn left");
+//                        } else {
+//                            System.out.println("Turn right");
+//                        }
+//                    }
+//                    else {
+//                        System.out.println("Turn");
+//                        System.out.println("AB " + slopeAB);
+//                        System.out.println("BC " + slopeBC);
+//                        System.out.println("c " + c.getXcoord());
+//                        System.out.println("b " + b.getXcoord());
+//                    }
+
+
+            }
+            if(i == A.size() - 3){
+                System.out.println("Go straight to your destination " + A.get(A.size()-1).getLongName() +
+                        " (" + convertToExact(b.findDistance(c)) + " ft) " );
+                text += "Go straight to your destination " + A.get(A.size()-1).getLongName() +
+                        " (" + convertToExact(b.findDistance(c)) + " ft) \n";
+                return text;
+            }
+        }
+
+        return text;
+    }
 }
+

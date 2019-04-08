@@ -15,18 +15,19 @@ public class Main extends Application {
     public void start(Stage primaryStage) throws Exception {
         Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getClassLoader().getResource("HospitalHome.fxml")));
         primaryStage.setTitle("Team L Iteration 1");
-        primaryStage.setScene(new Scene(root, 1280, 720));
+        primaryStage.setScene(new Scene(root));
         primaryStage.show();
     }
 
     @SuppressWarnings("RedundantThrows")
     public static void main(String[] args) throws URISyntaxException {
+        Singleton single = Singleton.getInstance();
         NodesAccess na = new NodesAccess();
         EdgesAccess ea = new EdgesAccess();
         //ea.deleteRecords();
         //na.readCSVintoTable();
         //ea.readCSVintoTable();
-
+        single.setData();
         launch(args);
     }
 }
