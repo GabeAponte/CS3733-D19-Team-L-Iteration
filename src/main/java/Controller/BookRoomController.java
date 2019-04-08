@@ -85,6 +85,15 @@ public class BookRoomController {
     }
 
     @FXML
+    public void adjustEndDate(){
+        if(startTime.getValue().isAfter(LocalTime.NOON)&&(endTime.getValue().isBefore(LocalTime.NOON))){
+                datePicker1.setValue(LocalDate.now().plusDays(1));
+        }else{
+            datePicker1.setValue(LocalDate.now());
+        }
+    }
+
+    @FXML
     private void backPressed() throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("LoggedInHome.fxml"));
         Parent sceneMain = loader.load();
