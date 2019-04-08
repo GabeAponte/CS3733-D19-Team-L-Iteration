@@ -49,11 +49,10 @@ public class ServiceRequestAccess extends DBAccess{
      * Facade method for getting internalTransportRequests
      * @return
      */
-    /*
-    public void makeInternalTransportRequest(String desc, Object.Location startLocation, Object.Location endLocation, String type, String phoneNumber) {
+    public void makeInternalTransportRequest(String desc, Location startLocation, Location endLocation, String type, String phoneNumber) {
         ita.makeRequest(desc, startLocation, endLocation, type, phoneNumber);
     }
-    */
+
     /**Andrew Made this
      * Facade method for getting internalTransportRequests
      * @return
