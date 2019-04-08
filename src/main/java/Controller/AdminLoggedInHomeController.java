@@ -67,6 +67,7 @@ public class AdminLoggedInHomeController {
         AnchorPane root;
         Singleton.setLoggedIn(false);
         Singleton.setUsername("");
+        Singleton.setIsAdmin(false);
         root = FXMLLoader.load(getClass().getClassLoader().getResource("HospitalHome.fxml"));
         Scene scene = new Scene(root);
         thestage.setScene(scene);

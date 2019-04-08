@@ -91,7 +91,6 @@ public class LogInController {
 
         Parent sceneMain = loader.load();
 
-
         Stage theStage = (Stage) login.getScene().getWindow();
 
         Scene scene = new Scene(sceneMain);
