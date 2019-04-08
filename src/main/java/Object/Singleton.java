@@ -52,12 +52,12 @@ public class Singleton {
                 for (int j = 0; j < edgeList.size(); j++) {
                     String nodeID = edgeList.get(j);
                     if (lookup.containsKey(na.getNodeInformation(nodeID).get(0))) {
-                        Edge e = new Edge(Integer.toString(j), testx, lookup.get(nodeID));
+                        Edge e = new Edge(testx.getLocID()+"_"+nodeID, testx, lookup.get(nodeID));
                         testx.addEdge(e);
                     } else {
                         arr2 = na.getNodeInformation(nodeID);
                         Location testy = new Location(nodeID, Integer.parseInt(arr2.get(0)), Integer.parseInt(arr2.get(1)), arr2.get(2), arr2.get(3), arr2.get(4), arr2.get(5), arr2.get(6));
-                        Edge e = new Edge(Integer.toString(j), testx, testy);
+                        Edge e = new Edge(testx.getLocID()+"_"+nodeID, testx, testy);
                         testx.addEdge(e);
                     }
                 }
@@ -67,12 +67,12 @@ public class Singleton {
                 for (int j = 0; j < edgeList.size(); j++) {
                     String nodeID = edgeList.get(j);
                     if (lookup.containsKey(na.getNodeInformation(nodeID).get(0))) {
-                        Edge e = new Edge(Integer.toString(j), testx, lookup.get(nodeID));
+                        Edge e = new Edge(testx.getLocID()+"_"+nodeID, testx, lookup.get(nodeID));
                         testx.addEdge(e);
                     } else {
                         arr2 = na.getNodeInformation(nodeID);
                         Location testy = new Location(nodeID, Integer.parseInt(arr2.get(0)), Integer.parseInt(arr2.get(1)), arr2.get(2), arr2.get(3), arr2.get(4), arr2.get(5), arr2.get(6));
-                        Edge e = new Edge(Integer.toString(j), testx, testy);
+                        Edge e = new Edge(testx.getLocID()+"_"+nodeID, testx, testy);
                         testx.addEdge(e);
                     }
                 }
