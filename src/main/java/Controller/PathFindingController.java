@@ -114,11 +114,13 @@ public class PathFindingController {
 
     private NodesAccess na;
     private EdgesAccess ea;
-    private HashMap<String, Location> lookup = new HashMap<String, Location>();
+    //private final ObservableList<Location> data = FXCollections.observableArrayList();
+    //private HashMap<String, Location> lookup = new HashMap<String, Location>();
     private final ObservableList<Location> noHallStart = FXCollections.observableArrayList();
     private final ObservableList<Location> noHallEnd = FXCollections.observableArrayList();
     private final ObservableList<String> filterList = FXCollections.observableArrayList();
     private final ObservableList<String> floorList = FXCollections.observableArrayList();
+    private Singleton single = Singleton.getInstance();
 
 
     private ArrayList<String> mapURLs = new ArrayList<String>();
@@ -342,7 +344,7 @@ public class PathFindingController {
     }
 
     public HashMap<String, Location> getLookup() {
-        return lookup;
+        return single.lookup;
     }
 
     @FXML
@@ -357,8 +359,6 @@ public class PathFindingController {
 
     @FXML
     private void submitPressed(){
-        Singleton single = Singleton.getInstance();
-
         Location startNode = single.lookup.get(PathFindStartDrop.getValue().getLocID());
         Location endNode = single.lookup.get(PathFindEndDrop.getValue().getLocID());
 
@@ -438,13 +438,14 @@ public class PathFindingController {
             ArrayList<String> arr2;
             Location testx = new Location(arr.get(0), Integer.parseInt(arr.get(1)), Integer.parseInt(arr.get(2)), arr.get(3), arr.get(4), arr.get(5), arr.get(6), arr.get(7));
             //only add the node if it hasn't been done yet
-            if (!(lookup.containsKey(arr.get(0)))) {
-                lookup.put((arr.get(0)), testx);
+            if (!(single.lookup.containsKey(arr.get(0)))) {
+                single.lookup.put((arr.get(0)), testx);
+                //single.getData().add(testx);
                 edgeList = ea.getConnectedNodes(arr.get(0));
                 for (int j = 0; j < edgeList.size(); j++) {
                     String nodeID = edgeList.get(j);
-                    if (lookup.containsKey(na.getNodeInformation(nodeID).get(0))) {
-                        Edge e = new Edge(Integer.toString(j), testx, lookup.get(nodeID));
+                    if (single.lookup.containsKey(na.getNodeInformation(nodeID).get(0))) {
+                        Edge e = new Edge(Integer.toString(j), testx, single.lookup.get(nodeID));
                         testx.addEdge(e);
                     } else {
                         arr2 = na.getNodeInformation(nodeID);
@@ -458,8 +459,8 @@ public class PathFindingController {
                 edgeList = ea.getConnectedNodes(arr.get(0));
                 for (int j = 0; j < edgeList.size(); j++) {
                     String nodeID = edgeList.get(j);
-                    if (lookup.containsKey(na.getNodeInformation(nodeID).get(0))) {
-                        Edge e = new Edge(Integer.toString(j), testx, lookup.get(nodeID));
+                    if (single.lookup.containsKey(na.getNodeInformation(nodeID).get(0))) {
+                        Edge e = new Edge(Integer.toString(j), testx, single.lookup.get(nodeID));
                         testx.addEdge(e);
                     } else {
                         arr2 = na.getNodeInformation(nodeID);
@@ -561,7 +562,7 @@ public class PathFindingController {
     private void noHall() {
         filterFloor();
         filterType();
-        Singleton single = Singleton.getInstance();
+
         if (Filter.getValue() == null && Floor.getValue() == null) {
             if (PathFindStartDrop.getValue() == null) {
                 noHallStart.clear();
@@ -855,7 +856,7 @@ public class PathFindingController {
     }
 
     private void cleanup() {
-        for (Location x : lookup.values()) {
+        for (Location x : single.lookup.values()) {
             x.setParentID("RESET");
         }
         openList.clear();
