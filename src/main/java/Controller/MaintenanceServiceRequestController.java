@@ -31,6 +31,7 @@ public class MaintenanceServiceRequestController {
 
 
     public void initialize() {
+        Singleton single = Singleton.getInstance();
 
     }
 
