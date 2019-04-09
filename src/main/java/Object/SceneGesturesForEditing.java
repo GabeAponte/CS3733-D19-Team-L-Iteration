@@ -204,7 +204,7 @@ public class SceneGesturesForEditing {
             
             double scaleRatio = imageView.getFitWidth()/imageView.getImage().getWidth();
 
-            System.out.println(circles);
+            //System.out.println(circles);
 
             for (int i = 0; i < circles.size(); i++) {
                 Circle c = circles.get(i);
