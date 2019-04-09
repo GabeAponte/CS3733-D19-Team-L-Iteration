@@ -43,6 +43,8 @@ public class HomeScreenController {
     @FXML
     Label tempDisplay;
 
+    Timeline clock;
+
 
     public void initialize(){
         /*Weather weatherBoy = new Weather();
@@ -51,13 +53,14 @@ public class HomeScreenController {
         weatherIcon.setImage(img);
         tempDisplay.setText(weatherBoy.getActTemp());*/
 
-        Timeline clock = new Timeline(new KeyFrame(Duration.ZERO, e -> {
+        clock = new Timeline(new KeyFrame(Duration.ZERO, e -> {
             long second = LocalDateTime.now().getSecond();
             long minute = LocalDateTime.now().getMinute();
             long hour = LocalDateTime.now().getHour();
             if((hour = hour%12) == 0){
                 hour = 12;
             }
+            System.out.println("yo");
             if(minute < 10) {
                 if(second > 9) {
                     timeLabel.setText("The Time is: " + hour + ":0" + (minute) + ":" + second);
@@ -80,6 +83,7 @@ public class HomeScreenController {
 
     @FXML
     private void SwitchToPathfindScreen() throws IOException{
+        clock.stop();
         FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("HospitalPathFinding.fxml"));
 
         Parent sceneMain = loader.load();
@@ -94,6 +98,7 @@ public class HomeScreenController {
 
     @FXML
     private void SwitchToSuggestionBox() throws IOException{
+        clock.stop();
             Stage thestage = (Stage) HomeSuggestions.getScene().getWindow();
             AnchorPane root;
             root = FXMLLoader.load(getClass().getClassLoader().getResource("SuggestionBox.fxml"));
@@ -103,6 +108,7 @@ public class HomeScreenController {
 
     @FXML
     private void SwitchToServiceScreen() throws IOException{
+        clock.stop();
         FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("ServiceRequest.fxml"));
 
         Parent sceneMain = loader.load();
@@ -117,6 +123,7 @@ public class HomeScreenController {
 
     @FXML
     private void SwitchToLoginScreen(ActionEvent event){
+        clock.stop();
         try {
             Stage thestage = (Stage) LogIn.getScene().getWindow();
             AnchorPane root;

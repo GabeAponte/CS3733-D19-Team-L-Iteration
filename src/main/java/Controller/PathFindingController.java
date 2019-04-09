@@ -2,10 +2,14 @@ package Controller;
 
 import SearchingAlgorithms.AStarStrategy;
 import SearchingAlgorithms.PathfindingStrategy;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Point2D;
@@ -26,6 +30,7 @@ import javafx.stage.Stage;
 import Access.EdgesAccess;
 import Access.NodesAccess;
 import Object.*;
+import javafx.util.Duration;
 
 
 import java.io.IOException;
@@ -127,6 +132,8 @@ public class PathFindingController {
     private ArrayList<Circle> circles = new ArrayList<Circle>();
     private ArrayList<Line> lines = new ArrayList<Line>();
 
+    Timeline timeout;
+
     String pickedFloor = "test";
     String type = "test";
     String type2 = "";
@@ -134,6 +141,7 @@ public class PathFindingController {
     String currentMap = "2"; //defaults to floor 2
     @FXML
     private void clickedG(){
+        single.setLastTime();
         Map.setImage(new Image("/SoftEng_UI_Mockup_Pics/00_thegroundfloor.png"));
         currentMap = "G";
         if(PathFindStartDrop.getValue() != null && PathFindEndDrop.getValue() != null){
@@ -142,6 +150,7 @@ public class PathFindingController {
     }
     @FXML
     private void clickedL1() {
+        single.setLastTime();
         Map.setImage(new Image("/SoftEng_UI_Mockup_Pics/00_thelowerlevel1.png"));
         currentMap = "L1";
         if(PathFindStartDrop.getValue() != null && PathFindEndDrop.getValue() != null){
@@ -150,6 +159,7 @@ public class PathFindingController {
     }
 
     @FXML public void clickedL2(){
+        single.setLastTime();
         Map.setImage(new Image("/SoftEng_UI_Mockup_Pics/00_thelowerlevel2.png"));
         currentMap = "L2";
         if(PathFindStartDrop.getValue() != null && PathFindEndDrop.getValue() != null){
@@ -158,6 +168,7 @@ public class PathFindingController {
     }
     @FXML
     private void clicked1(){
+        single.setLastTime();
         Map.setImage(new Image("/SoftEng_UI_Mockup_Pics/01_thefirstfloor.png"));
         currentMap = "1";
         if(PathFindStartDrop.getValue() != null && PathFindEndDrop.getValue() != null){
@@ -166,6 +177,7 @@ public class PathFindingController {
     }
     @FXML
     private void clicked2(){
+        single.setLastTime();
         Map.setImage(new Image("/SoftEng_UI_Mockup_Pics/02_thesecondfloor.png"));
         currentMap = "2";
         if(PathFindStartDrop.getValue() != null && PathFindEndDrop.getValue() != null){
@@ -174,6 +186,7 @@ public class PathFindingController {
     }
     @FXML
     private void clicked3(){
+        single.setLastTime();
         Map.setImage(new Image("/SoftEng_UI_Mockup_Pics/03_thethirdfloor.png"));
         currentMap = "3";
         if(PathFindStartDrop.getValue() != null && PathFindEndDrop.getValue() != null){
@@ -207,6 +220,7 @@ public class PathFindingController {
      * Replaces image URL with the next floor up when the UP button is pressed
      */
     private void upClicked() {
+        single.setData();
         if (mapURLs.isEmpty()) {
             map();
             listIterator = mapURLs.listIterator();
@@ -241,6 +255,7 @@ public class PathFindingController {
      * allows the map to change when UP is pressed and the last button clicked was DOWN by calling next one more time.
      */
     private void upAgain() {
+        single.setLastTime();
         if (listIterator.hasNext() == false) {
             listIterator = mapURLs.listIterator();
             String next = listIterator.next();
@@ -257,6 +272,7 @@ public class PathFindingController {
      * allows the map to change when down is pressed and the last button clicked was UP by calling previous one more time.
      */
     private void downAgain() {
+        single.setLastTime();
         if (listIterator.hasPrevious() == false) {
             listIterator = mapURLs.listIterator(mapURLs.size() - 1);
             String previous = listIterator.previous();
@@ -273,6 +289,7 @@ public class PathFindingController {
      * Replaces image URL with the next floor down when the DOWN button is pressed
      */
     private void downClicked(){
+        single.setLastTime();
         if (mapURLs.isEmpty()) {
             map();
             listIterator = mapURLs.listIterator();
@@ -302,6 +319,35 @@ public class PathFindingController {
 
     public void initialize() {
         Singleton single = Singleton.getInstance();
+        single.setLastTime();
+        timeout = new Timeline(new KeyFrame(Duration.seconds(2), new EventHandler<ActionEvent>() {
+
+            @Override
+            public void handle(ActionEvent event) {
+                if((System.currentTimeMillis() - single.getLastTime()) > single.getTimeoutSec()){
+                    try{
+                        single.setLastTime();
+                        single.setLoggedIn(false);
+                        single.setUsername("");
+                        single.setIsAdmin(false);
+                        FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("HospitalHome.fxml"));
+
+                        Parent sceneMain = loader.load();
+
+                        Stage thisStage = (Stage) Up.getScene().getWindow();
+
+                        Scene newScene = new Scene(sceneMain);
+                        thisStage.setScene(newScene);
+                        timeout.stop();
+                    } catch (IOException io){
+                        System.out.println(io.getMessage());
+                    }
+                }
+            }
+        }));
+        timeout.setCycleCount(Timeline.INDEFINITE);
+        timeout.play();
+
         na = new NodesAccess();
         ea = new EdgesAccess();
         filter();
@@ -343,6 +389,7 @@ public class PathFindingController {
 
     @FXML
     private void backPressed() throws IOException {
+        timeout.stop();
         Singleton single = Singleton.getInstance();
         thestage = (Stage) PathFindBack.getScene().getWindow();
         AnchorPane root;
@@ -371,6 +418,7 @@ public class PathFindingController {
 
     @FXML
     private void locationsSelected(){
+        single.setLastTime();
         if(PathFindStartDrop.getValue() != null && PathFindEndDrop.getValue() != null){
             PathFindSubmit.setDisable(false);
         }
@@ -381,6 +429,7 @@ public class PathFindingController {
 
     @FXML
     private void submitPressed(){
+        single.setLastTime();
         startNode = single.lookup.get(PathFindStartDrop.getValue().getLocID());
         endNode = single.lookup.get(PathFindEndDrop.getValue().getLocID());
 
@@ -395,6 +444,7 @@ public class PathFindingController {
     }
 
     public void displayPath(ArrayList<Location> path, Location startNode, Location endNode){
+        single.setLastTime();
         path.add(0,startNode);
 
         for (Circle c: circles) {
@@ -535,6 +585,7 @@ public class PathFindingController {
      * reads the input for the floor combo box
      */
     private void filterFloor() {
+        single.setLastTime();
         if (Floor.getValue() == "Ground") {
             pickedFloor = "G";
         }
@@ -557,6 +608,7 @@ public class PathFindingController {
 
     @FXML
     private void clearStart(){
+        single.setLastTime();
         PathFindStartDrop.getSelectionModel().clearSelection();
         PathFindStartDrop.setValue(null);
         noHall();
@@ -564,6 +616,7 @@ public class PathFindingController {
 
     @FXML
     private void clearEnd(){
+        single.setLastTime();
         PathFindEndDrop.getSelectionModel().clearSelection();
         PathFindEndDrop.setValue(null);
         noHall();
@@ -574,6 +627,7 @@ public class PathFindingController {
      * reads the input for the room type combo box
      */
     private void filterType() {
+        single.setLastTime();
         if (Filter.getValue() == ("Conference Rooms")) {
             type = "CONF";
         }
@@ -615,6 +669,7 @@ public class PathFindingController {
      * No hallways are ever showed.
      */
     private void noHall() {
+        single.setLastTime();
         filterFloor();
         filterType();
 
@@ -919,6 +974,7 @@ public class PathFindingController {
     }
 
     public Path findAbstractPath(PathfindingStrategy strategy, Location start, Location end) {
+        single.setLastTime();
         Path p = strategy.findPath(start, end);
         return p;
     }
