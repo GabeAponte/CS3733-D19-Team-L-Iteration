@@ -97,7 +97,7 @@ public class ReligiousRequestAccess extends DBAccess{
                     } else {
                         data.add("No");
                     }
-                    data.add(Integer.toString(rs.getInt("location")));
+                    data.add(rs.getString("location"));
                     data.add(Integer.toString(rs.getInt("creationTime")));
                     data.add(Integer.toString(rs.getInt("completionTime")));
                     data.add(rs.getString("comment"));

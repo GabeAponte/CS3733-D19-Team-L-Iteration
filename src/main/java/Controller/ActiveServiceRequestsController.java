@@ -1,5 +1,6 @@
 package Controller;
 
+import Access.InternalTransportAccess;
 import Access.ReligiousRequestAccess;
 import Access.ServiceRequestAccess;
 import Object.ServiceRequestTable;
@@ -107,7 +108,98 @@ public class ActiveServiceRequestsController {
          * Populates the table on the screen with any active service rquests in the database
          */
         activeRequests.setEditable(false);
+
+        if (filter.getValue() == "Internal Transportation") {
+            root.getChildren().clear();
+            activeRequests.setRoot(null);
+            InternalTransportAccess it = new InternalTransportAccess();
+
+            int count;
+            count = it.countRecords()-1;
+            while (count >= 0) {
+                TreeItem<ServiceRequestTable> itt = it.getRequests(count);
+                root.getChildren().add(itt);
+                count--;
+            }
+
+            field1.setText("Start Location");
+            field2.setText("End Location");
+            field3.setText("Phone Number");
+            activeRequests.getColumns().clear();
+            activeRequests.getColumns().add(timeRequested);
+            activeRequests.getColumns().add(dateRequested);
+            activeRequests.getColumns().add(field1);
+            activeRequests.getColumns().add(field2);
+            activeRequests.getColumns().add(type);
+            activeRequests.getColumns().add(field3);
+            activeRequests.getColumns().add(comment);
+            activeRequests.getColumns().add(assignedEmployee);
+            activeRequests.setRoot(root);
+            activeRequests.setShowRoot(false);
+
+            timeRequested.setCellValueFactory(cellData -> {
+                if (cellData.getValue().getValue() instanceof ServiceRequestTable) {
+                    return new ReadOnlyObjectWrapper(cellData.getValue().getValue().getCreationTime());
+                }
+                return new ReadOnlyObjectWrapper(cellData.getValue().getValue());
+            });
+
+
+            dateRequested.setCellValueFactory(cellData -> {
+                if (cellData.getValue().getValue() instanceof ServiceRequestTable) {
+                    return new ReadOnlyObjectWrapper(cellData.getValue().getValue().getCreationDate());
+                }
+                return new ReadOnlyObjectWrapper(cellData.getValue().getValue());
+            });
+
+
+            field1.setCellValueFactory(cellData -> {
+                if (cellData.getValue().getValue() instanceof ServiceRequestTable) {
+                    return new ReadOnlyObjectWrapper(cellData.getValue().getValue().getStartLocation());
+
+                }
+                return new ReadOnlyObjectWrapper(cellData.getValue().getValue());
+            });
+
+            field2.setCellValueFactory(cellData -> {
+                if (cellData.getValue().getValue() instanceof ServiceRequestTable) {
+                    return new ReadOnlyObjectWrapper(cellData.getValue().getValue().getEndLocation());
+                }
+                return new ReadOnlyObjectWrapper(cellData.getValue().getValue());
+            });
+
+            type.setCellValueFactory(cellData -> {
+                if (cellData.getValue().getValue() instanceof ServiceRequestTable) {
+                    return new ReadOnlyObjectWrapper(cellData.getValue().getValue().getType());
+                }
+                return new ReadOnlyObjectWrapper(cellData.getValue().getValue());
+            });
+
+            field3.setCellValueFactory(cellData -> {
+                if (cellData.getValue().getValue() instanceof ServiceRequestTable) {
+                    return new ReadOnlyObjectWrapper(cellData.getValue().getValue().getPhoneNumber());
+                }
+                return new ReadOnlyObjectWrapper(cellData.getValue().getValue());
+            });
+
+            comment.setCellValueFactory(cellData -> {
+                if (cellData.getValue().getValue() instanceof ServiceRequestTable) {
+                    return new ReadOnlyObjectWrapper(cellData.getValue().getValue().getComment());
+                }
+                return new ReadOnlyObjectWrapper(cellData.getValue().getValue());
+            });
+
+            assignedEmployee.setCellValueFactory(cellData -> {
+                if (cellData.getValue().getValue() instanceof ServiceRequestTable) {
+                    return new ReadOnlyObjectWrapper(cellData.getValue().getValue().getAssignedEmployee());
+                }
+                return new ReadOnlyObjectWrapper(cellData.getValue().getValue());
+            });
+
+        }
         if (filter.getValue() == "Religious") {
+            root.getChildren().clear();
+            activeRequests.setRoot(null);
 
             ReligiousRequestAccess rr = new ReligiousRequestAccess();
 
@@ -136,9 +228,7 @@ public class ActiveServiceRequestsController {
 
 
             name.setCellValueFactory(cellData -> {
-                System.out.println("nathan test");
                 if (cellData.getValue().getValue() instanceof ServiceRequestTable) {
-                    System.out.println("name");
                     return new ReadOnlyObjectWrapper(cellData.getValue().getValue().getName());
 
                 }
@@ -196,22 +286,10 @@ public class ActiveServiceRequestsController {
 
         }
 
-        if (filter.getValue() == "Internal Transportation") {
-            field1.setText("Start Location");
-            field2.setText("End Location");
-            field3.setText("Phone Number");
-            activeRequests.getColumns().clear();
-            activeRequests.getColumns().add(timeRequested);
-            activeRequests.getColumns().add(dateRequested);
-            activeRequests.getColumns().add(field1);
-            activeRequests.getColumns().add(field2);
-            activeRequests.getColumns().add(type);
-            activeRequests.getColumns().add(field3);
-            activeRequests.getColumns().add(comment);
-            activeRequests.getColumns().add(assignedEmployee);
-        }
-
         if (filter.getValue() == "Audio/Visual") {
+            root.getChildren().clear();
+            activeRequests.setRoot(null);
+
             activeRequests.getColumns().clear();
             activeRequests.getColumns().add(timeRequested);
             activeRequests.getColumns().add(dateRequested);
@@ -219,8 +297,13 @@ public class ActiveServiceRequestsController {
             activeRequests.getColumns().add(type);
             activeRequests.getColumns().add(comment);
             activeRequests.getColumns().add(assignedEmployee);
+            activeRequests.setRoot(root);
+            activeRequests.setShowRoot(false);
         }
         if (filter.getValue() == "External Transportation") {
+            root.getChildren().clear();
+            activeRequests.setRoot(null);
+
             field1.setText("Start Location");
             field2.setText("End Location");
             field3.setText("Phone Number");
@@ -233,8 +316,13 @@ public class ActiveServiceRequestsController {
             activeRequests.getColumns().add(field3);
             activeRequests.getColumns().add(comment);
             activeRequests.getColumns().add(assignedEmployee);
+            activeRequests.setRoot(root);
+            activeRequests.setShowRoot(false);
         }
         if (filter.getValue() == "Florist Delivery") {
+            root.getChildren().clear();
+            activeRequests.setRoot(null);
+
             field1.setText("Flower");
             activeRequests.getColumns().clear();
             activeRequests.getColumns().add(timeRequested);
@@ -244,8 +332,13 @@ public class ActiveServiceRequestsController {
             activeRequests.getColumns().add(hi);
             activeRequests.getColumns().add(comment);
             activeRequests.getColumns().add(assignedEmployee);
+            activeRequests.setRoot(root);
+            activeRequests.setShowRoot(false);
         }
         if (filter.getValue() == "IT") {
+            root.getChildren().clear();
+            activeRequests.setRoot(null);
+
             field1.setText("Device");
             field2.setText("Problem");
             activeRequests.getColumns().clear();
@@ -256,8 +349,13 @@ public class ActiveServiceRequestsController {
             activeRequests.getColumns().add(field2);
             activeRequests.getColumns().add(comment);
             activeRequests.getColumns().add(assignedEmployee);
+            activeRequests.setRoot(root);
+            activeRequests.setShowRoot(false);
         }
         if (filter.getValue() == "Language Assistance") {
+            root.getChildren().clear();
+            activeRequests.setRoot(null);
+
             field1.setText("Language");
             field2.setText("Their Proficiency");
             field3.setText("Interpreters Needed");
@@ -270,8 +368,13 @@ public class ActiveServiceRequestsController {
             activeRequests.getColumns().add(field3);
             activeRequests.getColumns().add(comment);
             activeRequests.getColumns().add(assignedEmployee);
+            activeRequests.setRoot(root);
+            activeRequests.setShowRoot(false);
         }
         if (filter.getValue() == "Maintenance") {
+            root.getChildren().clear();
+            activeRequests.setRoot(null);
+
             field1.setText("Hazardous?");
             activeRequests.getColumns().clear();
             activeRequests.getColumns().add(timeRequested);
@@ -281,8 +384,13 @@ public class ActiveServiceRequestsController {
             activeRequests.getColumns().add(field1);
             activeRequests.getColumns().add(comment);
             activeRequests.getColumns().add(assignedEmployee);
+            activeRequests.setRoot(root);
+            activeRequests.setShowRoot(false);
         }
         if (filter.getValue() == "Prescriptions") {
+            root.getChildren().clear();
+            activeRequests.setRoot(null);
+
             field1.setText("Medicine");
             field2.setText("Amount");
             field3.setText("Delivery Time");
@@ -295,8 +403,13 @@ public class ActiveServiceRequestsController {
             activeRequests.getColumns().add(field3);
             activeRequests.getColumns().add(comment);
             activeRequests.getColumns().add(assignedEmployee);
+            activeRequests.setRoot(root);
+            activeRequests.setShowRoot(false);
         }
         if (filter.getValue() == "Sanitation") {
+            root.getChildren().clear();
+            activeRequests.setRoot(null);
+
             field1.setText("Urgency");
             activeRequests.getColumns().clear();
             activeRequests.getColumns().add(timeRequested);
@@ -306,8 +419,13 @@ public class ActiveServiceRequestsController {
             activeRequests.getColumns().add(field1);
             activeRequests.getColumns().add(comment);
             activeRequests.getColumns().add(assignedEmployee);
+            activeRequests.setRoot(root);
+            activeRequests.setShowRoot(false);
         }
         if (filter.getValue() == "Security") {
+            root.getChildren().clear();
+            activeRequests.setRoot(null);
+
             field1.setText("Identifier");
             activeRequests.getColumns().clear();
             activeRequests.getColumns().add(timeRequested);
@@ -317,6 +435,8 @@ public class ActiveServiceRequestsController {
             activeRequests.getColumns().add(field1);
             activeRequests.getColumns().add(comment);
             activeRequests.getColumns().add(assignedEmployee);
+            activeRequests.setRoot(root);
+            activeRequests.setShowRoot(false);
         }
 
         }

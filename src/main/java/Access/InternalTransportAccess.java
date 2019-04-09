@@ -45,13 +45,13 @@ public class InternalTransportAccess extends DBAccess{
 
         try (Connection conn = this.connect();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
-            pstmt.setString(1, sdf.format(date));
+            pstmt.setInt(1, Integer.parseInt(tdf.format(date.getTime())));
             pstmt.setString(2, desc);
             pstmt.setString(3, startLocation.getLocID());
             pstmt.setString(4, endLocation.getLocID());
             pstmt.setString(5, type);
             pstmt.setString(6, phoneNumber);
-            pstmt.setInt(7, Integer.parseInt(tdf.format(date.getTime())));
+            pstmt.setString(7, sdf.format(date));
 
             pstmt.executeUpdate();
         } catch (SQLException e) {
@@ -85,7 +85,7 @@ public class InternalTransportAccess extends DBAccess{
      **/
     public TreeItem<ServiceRequestTable> getRequests(int getNum){
         TreeItem<ServiceRequestTable> nodeRoot = null;
-        String sql = "SELECT * FROM internalTransportationRequest where assignedEmployee is NULL";
+        String sql = "SELECT * FROM internalTransportationRequest where requestID is not NULL";
         int count = 0;
         //noinspection Convert2Diamond
         ArrayList<String> data = new ArrayList<String>();
@@ -94,29 +94,23 @@ public class InternalTransportAccess extends DBAccess{
              ResultSet rs = stmt.executeQuery(sql)) {
             while (rs.next()) {
                 if (count == getNum) {
-                    data.add(""+rs.getInt("requestID"));
-                    if(rs.getString("assignedEmployee") != null){
-                        data.add(rs.getString("assignedEmployee"));
+                    data.add(Integer.toString(rs.getInt("requestID")));
+                    data.add(rs.getString("assignedEmployee"));
+                    if (rs.getBoolean("fulfilled")){
+                        data.add("Yes");
+                    } else {
+                        data.add("No");
                     }
-                    else{
-                        data.add("");
-                    }
-                    data.add(rs.getString("requestDepartment"));
-                    data.add(Integer.toString(rs.getInt("fulfill")));
                     data.add(Integer.toString(rs.getInt("creationTime")));
                     data.add(Integer.toString(rs.getInt("completionTime")));
-                    if(rs.getString("comment") != null){
-                        data.add(rs.getString("comment"));
-                    } else {
-                        data.add("");
-                    }
+                    data.add(rs.getString("comment"));
                     data.add(rs.getString("startLocation"));
                     data.add(rs.getString("endLocation"));
                     data.add(rs.getString("type"));
                     data.add(rs.getString("phoneNumber"));
-                    data.add(Integer.toString(rs.getInt("creationDate")));
-                    data.add(Integer.toString(rs.getInt("creationTime")));
-                    nodeRoot = new TreeItem<>(new ServiceRequestTable(data.get(0), data.get(1), data.get(2), data.get(3), data.get(4), data.get(5), data.get(6), data.get(7), data.get(8), data.get(9), data.get(10), data.get(11)));
+                    data.add(rs.getString("creationDate"));
+                    data.add(rs.getString("creationTime"));
+                    nodeRoot = new TreeItem<>(new ServiceRequestTable(1, data.get(0), data.get(1), data.get(2), data.get(3), data.get(4), data.get(5), data.get(6), data.get(7), data.get(8), data.get(9), data.get(10), data.get(11)));
                 }
                 count++;
             }

@@ -48,11 +48,12 @@ public class InternalTransportController {
     private HashMap<String, Location> lookup = new HashMap<String, Location>();
 
     public void initialize(){
+        Singleton single = Singleton.getInstance();
         submitbtn.setDisable(true);
         na = new NodesAccess();
-        initializeTable(na);
-        startBox.setItems(data);
-        endBox.setItems(data);
+        //initializeTable(na);
+        startBox.setItems(single.getData());
+        endBox.setItems(single.getData());
         typeField.getItems().addAll(
             "Wheelchair", "Walker", "Escort", "Crutches", "Other"
         );
@@ -104,15 +105,15 @@ public class InternalTransportController {
 
     @FXML
     private void submitPressed() throws IOException{
-        Location startNode = lookup.get(startBox.getValue().getLocID());
-        Location endNode = lookup.get(endBox.getValue().getLocID());
+        Singleton single = Singleton.getInstance();
+        Location startNode = single.lookup.get(startBox.getValue().getLocID());
+        Location endNode = single.lookup.get(endBox.getValue().getLocID());
         String comment = commentBox.getText();
         String type = typeField.getValue();
         String phone = phoneField.getText();
         InternalTransportAccess ita = new InternalTransportAccess();
         ita.makeRequest(comment, startNode, endNode, type, phone);
 
-        Singleton single = Singleton.getInstance();
         if(single.isLoggedIn()){
             FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("LoggedInHome.fxml"));
 

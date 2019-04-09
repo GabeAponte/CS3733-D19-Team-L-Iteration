@@ -122,9 +122,8 @@ public class ServiceRequestTable  {
         this.location = location;
         this.device = device;
         this.problem = problem;
-    }
-    //InternalTrans
-    public ServiceRequestTable(String requestID, Boolean fulfilled, String assignedEmployee, String comment, int creationTime, int completionTime, String creationDate, String completionDate, String type, String startLocation, String endLocation, String phoneNumber) {
+    } */
+        public ServiceRequestTable(int k, String requestID, String assignedEmployee, String fulfilled, String creationTime, String completionTime,String comment, String startLocation, String endLocation, String type, String phoneNumber, String creationDate, String completionDate) {
         this.requestID = requestID;
         this.assignedEmployee = assignedEmployee;
         this.fulfilled = fulfilled;
@@ -138,6 +137,7 @@ public class ServiceRequestTable  {
         this.endLocation = endLocation;
         this.phoneNumber = phoneNumber;
     }
+    /*
     //florist
     public ServiceRequestTable(String requestID, String assignedEmployee, String comment, int creationTime, int completionTime, Boolean fulfilled, String creationDate, String completionDate, String location, String receiverName, String flowerName) {
         this.requestID = requestID;
@@ -198,7 +198,8 @@ public class ServiceRequestTable  {
         this.location = location;
         this.type = type;
         this.personDesc = personDesc;
-    } */
+    }
+    */
 
     public String getRequestID() {
         return requestID;
