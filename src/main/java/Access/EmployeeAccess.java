@@ -252,6 +252,7 @@ public class EmployeeAccess extends DBAccess{
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
             pstmt.setString(1, employeeID);
             pstmt.executeUpdate();
+            System.out.println(employeeID);
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }

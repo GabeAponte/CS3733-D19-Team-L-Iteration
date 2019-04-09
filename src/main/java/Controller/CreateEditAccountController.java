@@ -95,7 +95,7 @@ public class CreateEditAccountController {
     @SuppressWarnings("Duplicates")
     @FXML
     private void backPressed() throws IOException {
-        //thestage = (Stage) back.getScene().getWindow();
+        thestage = (Stage) back.getScene().getWindow();
         AnchorPane root;
         if(type == 1) {
             root = FXMLLoader.load(getClass().getClassLoader().getResource("AdminLoggedInHome.fxml"));
@@ -106,7 +106,6 @@ public class CreateEditAccountController {
         }
         Scene scene = new Scene(root);
         thestage.setScene(scene);
-        thestage = (Stage) back.getScene().getWindow();
 
     }
 
@@ -194,14 +193,16 @@ public class CreateEditAccountController {
         onScreen = false;
         Stage stage;
         Parent root;
-
+        employeeID ID = new employeeID(empID);
         stage = new Stage();
         root = FXMLLoader.load(getClass().getClassLoader().getResource("DeleteEmployee.fxml"));
         stage.setScene(new Scene(root));
       //  stage.setTitle("My modal window");
         stage.initModality(Modality.APPLICATION_MODAL);
         stage.initOwner(delete.getScene().getWindow());
+        stage.setUserData(ID);
         stage.showAndWait();
+        System.out.println(empID);
 
         /*EmployeeAccess ea = new EmployeeAccess();
         ea.deleteEmployee(empID);
@@ -213,7 +214,7 @@ public class CreateEditAccountController {
         Stage stage = (Stage) yes.getScene().getWindow();
         stage.close();
 
-        deleteEmployee();
+        deleteEmployee(stage);
     }
 
     @FXML
@@ -224,9 +225,9 @@ public class CreateEditAccountController {
 
 
     @FXML
-    public void deleteEmployee() throws IOException {
+    public void deleteEmployee(Stage stage) throws IOException {
         EmployeeAccess ea = new EmployeeAccess();
-        ea.deleteEmployee(empID);
+        ea.deleteEmployee(stage.getUserData().toString());
         backPressed();
 
     }

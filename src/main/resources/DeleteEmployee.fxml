@@ -92,5 +92,10 @@
             <URL value="@size.css" />
          </stylesheets>
       </JFXComboBox>
+      <JFXButton fx:id="back" buttonType="RAISED" layoutX="-323.0" layoutY="426.0" onAction="#backPressed" prefHeight="75.0" prefWidth="150.0" style="-fx-background-radius: 50;" text="Back">
+         <font>
+            <Font size="40.0" />
+         </font>
+      </JFXButton>
    </children>
 </AnchorPane>
