@@ -61,8 +61,6 @@ public class PathFindingController {
 
     private NodesAccess na;
     private EdgesAccess ea;
-    private final ObservableList<Location> data = FXCollections.observableArrayList();
-    private HashMap<String, Location> lookup = new HashMap<String, Location>();
 
     private ArrayList<Circle> circles = new ArrayList<Circle>();
     private ArrayList<Line> lines = new ArrayList<Line>();
@@ -71,10 +69,10 @@ public class PathFindingController {
         Singleton single = Singleton.getInstance();
         na = new NodesAccess();
         ea = new EdgesAccess();
-        initializeTable(na, ea);
+        //initializeTable(na, ea);
         if(single.getNum() == 1){
-            PathFindStartDrop.setItems(data);
-            PathFindEndDrop.setItems(data);
+            PathFindStartDrop.setItems(single.getData());
+            PathFindEndDrop.setItems(single.getData());
         }
     }
 
@@ -102,9 +100,9 @@ public class PathFindingController {
         thestage.setScene(scene);
     }
 
-    public HashMap<String, Location> getLookup() {
+    /*public HashMap<String, Location> getLookup() {
         return lookup;
-    }
+    }*/
 
     @FXML
     private void locationsSelected(){
@@ -118,8 +116,11 @@ public class PathFindingController {
 
     @FXML
     private void submitPressed(){
-        Location startNode = lookup.get(PathFindStartDrop.getValue().getLocID());
-        Location endNode = lookup.get(PathFindEndDrop.getValue().getLocID());
+        Singleton single = Singleton.getInstance();
+        Location startNode = single.lookup.get(PathFindStartDrop.getValue().getLocID());
+        System.out.println(startNode.getLocID());
+        Location endNode = single.lookup.get(PathFindEndDrop.getValue().getLocID());
+        System.out.println(endNode.getLocID());
 
         Path path = findPath(startNode, endNode);
         displayPath(path.getPath(), startNode, endNode);
@@ -177,6 +178,7 @@ public class PathFindingController {
 
 
     public Path findPath(Location start, Location end) {
+        Singleton single = Singleton.getInstance();
         openList.add(start);
         start.setParentID("START");
         ArrayList<Location> path = new ArrayList<Location>();
@@ -193,7 +195,7 @@ public class PathFindingController {
             q = q.findBestF(openList);
             openList.remove(q);
             closeList.add(q);
-            q = lookup.get(q.getLocID());
+            q = single.lookup.get(q.getLocID());
             ArrayList<Edge> edge = q.getEdges();
             ArrayList<Location> children = new ArrayList<Location>();
             for (Edge e : edge) {
@@ -205,14 +207,14 @@ public class PathFindingController {
             for (Location l : children) {
                 //condition for found node
                 if (l.getLocID().equals(end.getLocID())) {
-                    lookup.get(l.getLocID()).setParentID(q.getLocID());
+                    single.lookup.get(l.getLocID()).setParentID(q.getLocID());
                     l.setParentID(q.getLocID());
                     return returnPath(l);
                 } else {
                     double gScore = q.getGScore() + l.getGScore(); //calculate base G score
                     l.setScore(l.calculateScore(gScore, end)); //add in H score
                     l.setParentID(q.getLocID());
-                    lookup.get(l.getLocID()).setParentID(q.getLocID());
+                    single.lookup.get(l.getLocID()).setParentID(q.getLocID());
                     if (!openList.contains(l) && !closeList.contains(l)) {
                         openList.add(l);
                     }
@@ -223,18 +225,19 @@ public class PathFindingController {
     }
 
     public Path returnPath(Location obj) {
+        Singleton single = Singleton.getInstance();
         Location l = obj;
         ArrayList<Location> path = new ArrayList<Location>();
         Path p = new Path(path);
         while (!(l.getParentID().equals("START"))) {
             p.addToPath(l);
-            l = lookup.get(l.getParentID());
+            l = single.lookup.get(l.getParentID());
         }
         cleanup();
         return p;
     }
 
-    private void initializeTable(NodesAccess na, EdgesAccess ea) {
+    /*private void initializeTable(NodesAccess na, EdgesAccess ea) {
         ArrayList<String> edgeList;
         int count;
         count = 0;
@@ -277,10 +280,11 @@ public class PathFindingController {
             }
             count++;
         }
-    }
+    }*/
 
     private void cleanup() {
-        for (Location x : lookup.values()) {
+        Singleton single = Singleton.getInstance();
+        for (Location x : single.lookup.values()) {
             x.setParentID("RESET");
         }
         openList.clear();
