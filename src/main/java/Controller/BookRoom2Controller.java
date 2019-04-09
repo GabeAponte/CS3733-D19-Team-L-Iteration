@@ -61,34 +61,34 @@ public class BookRoom2Controller {
     private TreeTableColumn<Room, String> timeCol;
 
     @FXML
-    private TreeTableColumn<Room, Boolean> class1Col;
+    private TreeTableColumn<Room, String> class1Col;
 
     @FXML
-    private TreeTableColumn<Room, Boolean> class2Col;
+    private TreeTableColumn<Room, String> class2Col;
 
     @FXML
-    private TreeTableColumn<Room, Boolean> class3Col;
+    private TreeTableColumn<Room, String> class3Col;
 
     @FXML
-    private TreeTableColumn<Room, Boolean> class4Col;
+    private TreeTableColumn<Room, String> class4Col;
 
     @FXML
-    private TreeTableColumn<Room, Boolean> class5Col;
+    private TreeTableColumn<Room, String> class5Col;
 
     @FXML
-    private TreeTableColumn<Room, Boolean> class6Col;
+    private TreeTableColumn<Room, String> class6Col;
 
     @FXML
-    private TreeTableColumn<Room, Boolean> class7Col;
+    private TreeTableColumn<Room, String> class7Col;
 
     @FXML
-    private TreeTableColumn<Room, Boolean> class8Col;
+    private TreeTableColumn<Room, String> class8Col;
 
     @FXML
-    private TreeTableColumn<Room, Boolean> class9Col;
+    private TreeTableColumn<Room, String> class9Col;
 
     @FXML
-    private TreeTableColumn<Room, Boolean> auditorium;
+    private TreeTableColumn<Room, String> auditorium;
 
     private TreeItem Root = new TreeItem<>("rootxxx");
 
@@ -120,13 +120,14 @@ public class BookRoom2Controller {
 
     @FXML
     private void findRooms() {
-        Root.getChildren().removeAll();
-        //bookedTime = new TreeTableView<Room>();
+        bookedTime.setRoot(null);
+        Root.getChildren().clear();
         RoomAccess ra = new RoomAccess();
         String theDate = datePicker.getValue().toString();
         int startTime = 0;
         int endTime = 30;
         for(int i = 0; i < 48; i++){
+            System.out.println("Start Time: " + startTime + " End Time: " + endTime);
             TreeItem<Room> bookedRooms = new TreeItem<Room>(new Room(Integer.toString(startTime), ra.getAvailRooms(theDate, theDate, startTime, endTime)));
             Root.getChildren().add(bookedRooms);
             System.out.println(bookedRooms.getValue().getTime());
@@ -142,12 +143,14 @@ public class BookRoom2Controller {
                 startTime +=70;
                 endTime +=30;
             }
+            startTime %= 2400;
             endTime %= 2400;
         }
+        System.out.println("Start Time: " + startTime + " End Time: " + endTime);
         TreeItem<Room> bookedRooms2 = new TreeItem<Room>(new Room(Integer.toString(startTime), ra.getAvailRooms(theDate, theDate, startTime, endTime)));
         Root.getChildren().add(bookedRooms2);
 
-        timeCol = new TreeTableColumn<Room, String>("Time");
+        //timeCol = new TreeTableColumn<Room, String>("Time");
         timeCol.setCellValueFactory(cellData -> {
             if(cellData.getValue().getValue()instanceof Room) {
                 return new ReadOnlyObjectWrapper(cellData.getValue().getValue().getTime());
@@ -155,15 +158,19 @@ public class BookRoom2Controller {
             return new ReadOnlyObjectWrapper(cellData.getValue().getValue());
         });
 
-        class1Col = new TreeTableColumn<Room, Boolean>("Classroom 1");
+        //class1Col = new TreeTableColumn<Room, Boolean>("Classroom 1");
         class1Col.setCellValueFactory(cellData -> {
             if(cellData.getValue().getValue()instanceof Room) {
-                return new ReadOnlyObjectWrapper(cellData.getValue().getValue().isClass1());
+                if(cellData.getValue().getValue().isClass1()){
+                    //cellData.getValue().
+                    return new ReadOnlyObjectWrapper("Available");
+                }
+                return new ReadOnlyObjectWrapper("Occupied");
             }
             return new ReadOnlyObjectWrapper(cellData.getValue().getValue());
         });
 
-        class2Col = new TreeTableColumn<Room, Boolean>("Classroom 2");
+        //class2Col = new TreeTableColumn<Room, Boolean>("Classroom 2");
         class2Col.setCellValueFactory(cellData -> {
             if(cellData.getValue().getValue()instanceof Room) {
                 return new ReadOnlyObjectWrapper(cellData.getValue().getValue().isClass2());
@@ -171,7 +178,7 @@ public class BookRoom2Controller {
             return new ReadOnlyObjectWrapper(cellData.getValue().getValue());
         });
 
-        class3Col = new TreeTableColumn<Room, Boolean>("Classroom 3");
+        //class3Col = new TreeTableColumn<Room, Boolean>("Classroom 3");
         class3Col.setCellValueFactory(cellData -> {
             if(cellData.getValue().getValue()instanceof Room) {
                 return new ReadOnlyObjectWrapper(cellData.getValue().getValue().isClass3());
@@ -179,7 +186,7 @@ public class BookRoom2Controller {
             return new ReadOnlyObjectWrapper(cellData.getValue().getValue());
         });
 
-        class4Col = new TreeTableColumn<Room, Boolean>("Classroom 4");
+        //class4Col = new TreeTableColumn<Room, Boolean>("Classroom 4");
         class4Col.setCellValueFactory(cellData -> {
             if(cellData.getValue().getValue()instanceof Room) {
                 return new ReadOnlyObjectWrapper(cellData.getValue().getValue().isClass4());
@@ -187,7 +194,7 @@ public class BookRoom2Controller {
             return new ReadOnlyObjectWrapper(cellData.getValue().getValue());
         });
 
-        class5Col = new TreeTableColumn<Room, Boolean>("Classroom 5");
+        //class5Col = new TreeTableColumn<Room, Boolean>("Classroom 5");
         class5Col.setCellValueFactory(cellData -> {
             if(cellData.getValue().getValue()instanceof Room) {
                 return new ReadOnlyObjectWrapper(cellData.getValue().getValue().isClass5());
@@ -195,7 +202,7 @@ public class BookRoom2Controller {
             return new ReadOnlyObjectWrapper(cellData.getValue().getValue());
         });
 
-        class6Col = new TreeTableColumn<Room, Boolean>("Classroom 6");
+        //class6Col = new TreeTableColumn<Room, Boolean>("Classroom 6");
         class6Col.setCellValueFactory(cellData -> {
             if(cellData.getValue().getValue()instanceof Room) {
                 return new ReadOnlyObjectWrapper(cellData.getValue().getValue().isClass6());
@@ -203,7 +210,7 @@ public class BookRoom2Controller {
             return new ReadOnlyObjectWrapper(cellData.getValue().getValue());
         });
 
-        class7Col = new TreeTableColumn<Room, Boolean>("Classroom 7");
+        //class7Col = new TreeTableColumn<Room, Boolean>("Classroom 7");
         class7Col.setCellValueFactory(cellData -> {
             if(cellData.getValue().getValue()instanceof Room) {
                 return new ReadOnlyObjectWrapper(cellData.getValue().getValue().isClass7());
@@ -211,7 +218,7 @@ public class BookRoom2Controller {
             return new ReadOnlyObjectWrapper(cellData.getValue().getValue());
         });
 
-        class8Col = new TreeTableColumn<Room, Boolean>("Classroom 8");
+        //class8Col = new TreeTableColumn<Room, Boolean>("Classroom 8");
         class8Col.setCellValueFactory(cellData -> {
             if(cellData.getValue().getValue()instanceof Room) {
                 return new ReadOnlyObjectWrapper(cellData.getValue().getValue().isClass8());
@@ -219,7 +226,7 @@ public class BookRoom2Controller {
             return new ReadOnlyObjectWrapper(cellData.getValue().getValue());
         });
 
-        class9Col = new TreeTableColumn<Room, Boolean>("Classroom 9");
+        //class9Col = new TreeTableColumn<Room, Boolean>("Classroom 9");
         class9Col.setCellValueFactory(cellData -> {
             if(cellData.getValue().getValue()instanceof Room) {
                 return new ReadOnlyObjectWrapper(cellData.getValue().getValue().isClass9());
@@ -227,7 +234,7 @@ public class BookRoom2Controller {
             return new ReadOnlyObjectWrapper(cellData.getValue().getValue());
         });
 
-        auditorium = new TreeTableColumn<Room, Boolean>("Auditorium");
+        //auditorium = new TreeTableColumn<Room, Boolean>("Auditorium");
         auditorium.setCellValueFactory(cellData -> {
             if(cellData.getValue().getValue()instanceof Room) {
                 return new ReadOnlyObjectWrapper(cellData.getValue().getValue().isAuditorium());

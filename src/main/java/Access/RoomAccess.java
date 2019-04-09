@@ -61,7 +61,7 @@ public class RoomAccess extends DBAccess {
      */
     public ArrayList<String> getAvailRooms(String startDate, String endDate, int startTime, int endTime){
         //TODO Should make this not ugly
-        String sql = "select name from room left outer join (select rID from reservation where (? between startDate and endDate) or (? between startDate and endDate) and (endtime <= ? or starttime >= ?)) on roomID = rID where rID is null;";
+        String sql = "select name from room left outer join (select rID from reservation where ((? between startDate and endDate) or (? between startDate and endDate)) and ((? between startTime and endTime) and (? between startTime and endTime))) on roomID = rID where rID is null;";
         ArrayList<String> data = new ArrayList<String>();
         try (Connection conn = this.connect();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
@@ -110,7 +110,7 @@ public class RoomAccess extends DBAccess {
         ArrayList<String> temp = new ArrayList<>();
         ArrayList<String> temp1 = new ArrayList<>();
         RoomAccess ra = new RoomAccess();
-        temp = ra.getAvailRooms("2019-04-10", "2019-04-11", 1600, 1700);
+        temp = ra.getAvailRooms("2019-04-09", "2019-04-09", 1300, 1330);
         temp1 = ra.getRoomID();
         for(int i = 0; i < temp.size(); i++){
             System.out.println(temp.get(i));

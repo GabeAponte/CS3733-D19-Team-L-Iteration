@@ -63,6 +63,7 @@ public class Room{
         else
             class9 = false;
 
+
         if(theRooms.contains("Mission Hall Auditorium"))
             auditorium = true;
         else
