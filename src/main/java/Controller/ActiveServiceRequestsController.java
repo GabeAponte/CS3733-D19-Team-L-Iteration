@@ -22,6 +22,7 @@ import java.awt.event.MouseAdapter;
 import java.io.IOException;
 import java.util.ArrayList;
 
+
 public class ActiveServiceRequestsController {
 
     private Stage thestage;
@@ -90,7 +91,7 @@ public class ActiveServiceRequestsController {
     public void initialize() {
         filter.getItems().addAll(
                 "Religious", "Internal Transportation", "Audio/Visual",
-                "External Transportation", "Florist Delivery", "Internal Transportation", "IT",
+                "External Transportation", "Florist Delivery", "IT",
                 "Language Assistance", "Maintenance", "Prescriptions", "Sanitation", "Security");
         //filterTable();
         activeRequests.getColumns().clear();
@@ -460,27 +461,30 @@ public class ActiveServiceRequestsController {
         activeRequests.setOnMouseClicked(event -> {
             setNext(activeRequests.getSelectionModel().getSelectedItem());
             if (event.getButton().equals(MouseButton.PRIMARY) && event.getClickCount() == 2) {
-                try {
-
-                    FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("FulfillRequest.fxml"));
-
-                    Parent sceneMain = loader.load();
-
-                    FulfillRequestController controller = loader.<FulfillRequestController>getController();
-
-                    controller.getRequestID(selectedRequest);
-
-                    Stage theStage = (Stage) back.getScene().getWindow();
-
-                    Scene scene = new Scene(sceneMain);
-                    theStage.setScene(scene);
-
-                } catch (IOException ex) {
-                    //noinspection ThrowablePrintedToSystemOut
-                    System.err.println(ex);
-                }
+                yooo();
             }
         });
+    }
+
+    private void yooo(){
+        try {
+
+            FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("FulFillRequest.fxml"));
+
+            Parent sceneMain = loader.load();
+
+            FulfillRequestController controller = loader.<FulfillRequestController>getController();
+            controller.setRid(Integer.parseInt(selectedRequest.getValue().getRequestID()), filter.getValue().toString());
+
+            Stage theStage = (Stage) back.getScene().getWindow();
+
+            Scene scene = new Scene(sceneMain);
+            theStage.setScene(scene);
+
+        } catch (IOException ex) {
+            //noinspection ThrowablePrintedToSystemOut
+            System.err.println(ex);
+        }
     }
 }
 

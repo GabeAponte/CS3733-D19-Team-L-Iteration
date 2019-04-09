@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import com.jfoenix.controls.JFXButton?>
-<?import com.jfoenix.controls.JFXTextField?>
+<?import com.jfoenix.controls.JFXComboBox?>
 <?import com.jfoenix.controls.JFXToggleButton?>
 <?import com.jfoenix.controls.JFXToolbar?>
 <?import java.net.URL?>
@@ -65,7 +65,7 @@
                                 <Blend />
                             </effect>
                         </Label>
-                        <JFXButton buttonType="RAISED" prefHeight="7.0" prefWidth="138.0" style="-fx-border-color: F5D96B; -fx-border-width: 2; -fx-border-radius: 50; -fx-background-radius: 50;" text="Submit" textFill="WHITE" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="3" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
+                        <JFXButton fx:id="submit" buttonType="RAISED" onAction="#submitPressed" prefHeight="7.0" prefWidth="138.0" style="-fx-border-color: F5D96B; -fx-border-width: 2; -fx-border-radius: 50; -fx-background-radius: 50;" text="Submit" textFill="WHITE" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="3" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
                             <font>
                                 <Font size="30.0" />
                             </font>
@@ -73,14 +73,6 @@
                                 <Insets top="25.0" />
                             </GridPane.margin>
                         </JFXButton>
-                        <JFXTextField fx:id="staffMember" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="44.0" prefWidth="278.0" promptText="Enter Staff Member" style="-fx-background-color: fff;" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1">
-                            <font>
-                                <Font name="Times New Roman" size="24.0" />
-                            </font>
-                            <GridPane.margin>
-                                <Insets />
-                            </GridPane.margin>
-                        </JFXTextField>
                         <Label alignment="CENTER" prefHeight="29.0" prefWidth="138.0" text="Assign to:" textFill="WHITE" GridPane.halignment="RIGHT" GridPane.rowIndex="1">
                             <font>
                                 <Font name="Times New Roman" size="25.0" />
@@ -89,12 +81,13 @@
                                 <Insets right="100.0" />
                             </GridPane.margin>
                         </Label>
-                        <JFXToggleButton prefHeight="145.0" prefWidth="242.0" text="Fulfilled" GridPane.columnSpan="2147483647" GridPane.rowIndex="2">
+                        <JFXToggleButton fx:id="fulfill" prefHeight="145.0" prefWidth="242.0" text="Fulfilled" GridPane.columnSpan="2147483647" GridPane.rowIndex="2">
                             <stylesheets>
                                 <URL value="@size.css" />
                                 <URL value="@modify-prompt-text.css" />
                             </stylesheets>
                         </JFXToggleButton>
+                  <JFXComboBox fx:id="staffMember" prefHeight="40.0" prefWidth="275.0" promptText="EmployeeID" stylesheets="@size.css" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.rowIndex="1" />
                     </children>
                     <opaqueInsets>
                         <Insets />

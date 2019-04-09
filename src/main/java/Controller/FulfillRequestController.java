@@ -1,18 +1,18 @@
 package Controller;
 
+import Access.EmployeeAccess;
 import Access.ServiceRequestAccess;
 import Object.ServiceRequestTable;
+import com.jfoenix.controls.JFXComboBox;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
-import javafx.scene.control.TreeItem;
+import javafx.scene.control.*;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 public class FulfillRequestController {
 
@@ -23,15 +23,55 @@ public class FulfillRequestController {
     @FXML
     private Button back;
 
-    @FXML
-    private Button fulfill;
 
     @FXML
-    private TextField staffMember;
+    private ToggleButton fulfill;
 
     @FXML
-    private Label errorLabel;
+    private Button submit;
+
+    @FXML
+    private JFXComboBox<String> staffMember;
+
+    //@FXML
+    //private Label errorLabel;
+
+    private int rid;
+    private String table = "";
     @SuppressWarnings("Duplicates")
+
+    @FXML
+    public void init(){
+        EmployeeAccess ea = new EmployeeAccess();
+        String field = "";
+        if(this.table.equals("audioVisualRequest")){
+            field = "AudioVisual";
+        }else if(this.table.equals("externalTransportationRequest")){
+            field = "ExternalTransportation";
+        }else if(this.table.equals("floristDeliveryRequest")){
+            field = "FloristDelivery";
+        }else if(this.table.equals("internalTransportationRequest")){
+            field = "InternalTransportation";
+        }else if(this.table.equals("ITRequest")){
+            field = "IT";
+        }else if(this.table.equals("languageRequest")){
+            field = "Language";
+        }else if(this.table.equals("maintenanceRequest")){
+            field = "Maintenance";
+        }else if(this.table.equals("prescriptionRequest")){
+            field = "Prescription";
+        }else if(this.table.equals("religiousRequest")){
+            field = "Religious";
+        }else if(this.table.equals("sanitationRequest")){
+            field = "Sanitation";
+        }else if(this.table.equals("securityRequest")){
+            field = "Security";
+        }
+        ArrayList<ArrayList<String>> list = ea.getEmployees("department", field);
+        for(int i = 0; i < list.size(); i++){
+            staffMember.getItems().add(list.get(i).get(0));
+        }
+    }
 
     @FXML
     /**@author Gabe
@@ -45,7 +85,7 @@ public class FulfillRequestController {
         ActiveServiceRequestsController scene2Controller = loader.getController();
 
         Scene scene = new Scene(roots);
-        Stage thestage = (Stage) errorLabel.getScene().getWindow();
+        Stage thestage = (Stage) back.getScene().getWindow();
         //Show scene 2 in new window
         thestage.setScene(scene);
     }
@@ -53,6 +93,44 @@ public class FulfillRequestController {
     @FXML
     public void getRequestID(TreeItem<ServiceRequestTable> request) {
         theRequest = request;
+    }
+
+    public void setRid(int rid, String table){
+        this.rid = rid;
+        if(table.equals("Religious")){
+            this.table = "religiousRequest";
+        }else if(table.equals("Internal Transportation")){
+            this.table = "internalTransportationRequest";
+        }else if(table.equals("Audio/Visual")){
+            this.table = "audioVisualRequest";
+        }else if(table.equals("External Transportation")){
+            this.table = "externalTransportationRequest";
+        }else if(table.equals("Florist Delivery")){
+            this.table = "floristDelivery";
+        }else if(table.equals("IT")){
+            this.table = "ITRequest";
+        }else if(table.equals("Language Assistance")){
+            this.table = "languageRequest";
+        }else if(table.equals("Maintenance")){
+            this.table = "maintenanceRequest";
+        }else if(table.equals("Prescriptions")){
+            this.table = "prescriptionRequest";
+        }else if(table.equals("Sanitations")){
+            this.table = "sanitationRequest";
+        }else if(table.equals("Security")){
+            this.table = "securityRequest";
+        }
+        init();
+    }
+
+    @FXML
+    private void submitPressed(){
+        ServiceRequestAccess sra = new ServiceRequestAccess();
+        sra.assignEmployee(this.rid, staffMember.getValue().toString(), this.table);
+        if(fulfill.isSelected()){
+            System.out.println("we got here");
+            sra.fulfillRequest(this.rid,this.table);
+        }
     }
 
     @FXML
@@ -63,14 +141,6 @@ public class FulfillRequestController {
      * is updated in the database
      */
     private void SwitchToAdminServiceRequestTable() throws IOException {
-        if (staffMember.getText().trim().isEmpty() || staffMember.getText().equals("Staff Member")) {
-            errorLabel.setText("Please enter a staff member name");
-        }
-        else{
-            ServiceRequestAccess sa = new ServiceRequestAccess();
-            sa.fulfillRequest(Integer.parseInt(theRequest.getValue().getRequestID()), staffMember.getText());
-            errorLabel.setText("Request Fulfilled");
-
             FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("ActiveServiceRequests.fxml"));
             Parent roots = loader.load();
 
@@ -78,10 +148,10 @@ public class FulfillRequestController {
             ActiveServiceRequestsController scene2Controller = loader.getController();
 
             Scene scene = new Scene(roots);
-            Stage thestage = (Stage) errorLabel.getScene().getWindow();
+            Stage thestage = (Stage) back.getScene().getWindow();
 
             //Show scene 2 in new window
             thestage.setScene(scene);
-            }
-        }
     }
+
+}
