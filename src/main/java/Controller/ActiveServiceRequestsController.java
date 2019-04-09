@@ -3,8 +3,12 @@ package Controller;
 import Access.ServiceRequestAccess;
 import Object.*;
 
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -15,6 +19,7 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseButton;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -39,11 +44,14 @@ public class ActiveServiceRequestsController {
     @FXML
     private TableView<ServiceRequestTable> activeRequests;
 
+    Timeline timeout;
+
     @FXML
     /**@author Gabe
      * Returns user to the Logged In Home screen when the back button is pressed
      */
     private void backPressed() throws IOException {
+        timeout.stop();
         FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("LoggedInHome.fxml"));
         Parent roots = loader.load();
 
@@ -59,6 +67,38 @@ public class ActiveServiceRequestsController {
 
     //Gabe - Populates table
     public void initialize(){
+        Singleton single = Singleton.getInstance();
+        single.setLastTime();
+        timeout = new Timeline(new KeyFrame(Duration.seconds(2), new EventHandler<ActionEvent>() {
+
+            @Override
+            public void handle(ActionEvent event) {
+                System.out.println("checking if");
+                if((System.currentTimeMillis() - single.getLastTime()) > single.getTimeoutSec()){
+                    try{
+                        System.out.println("did it");
+                        single.setLastTime();
+                        single.setLoggedIn(false);
+                        single.setUsername("");
+                        single.setIsAdmin(false);
+                        FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("HospitalHome.fxml"));
+
+                        Parent sceneMain = loader.load();
+
+                        Stage thisStage = (Stage) activeRequests.getScene().getWindow();
+
+                        Scene newScene = new Scene(sceneMain);
+                        thisStage.setScene(newScene);
+                        timeout.stop();
+                    } catch (IOException io){
+                        System.out.println(io.getMessage());
+                    }
+                }
+            }
+        }));
+        timeout.setCycleCount(Timeline.INDEFINITE);
+        timeout.play();
+
     /**@author Gabe
      * Populates the table on the screen with any active service rquests in the database
      */
@@ -93,6 +133,7 @@ public class ActiveServiceRequestsController {
      * and all the information from that row is passed along so that a user can update it
      */
     private void SwitchToFulfillRequestScreen() throws IOException {
+        timeout.stop();
         activeRequests.setOnMouseClicked(event -> {
             setNext(activeRequests.getSelectionModel().getSelectedItem());
             if (event.getButton().equals(MouseButton.PRIMARY) && event.getClickCount() == 2) {
