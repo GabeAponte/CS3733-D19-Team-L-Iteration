@@ -58,28 +58,15 @@
             </JFXToolbar>
             <HBox prefHeight="100.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
                <children>
-                  <GridPane fx:id="gridPaneWindow" alignment="BOTTOM_LEFT" hgap="25.0" vgap="50.0" HBox.hgrow="ALWAYS">
-                    <columnConstraints>
-                      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                    </columnConstraints>
-                    <rowConstraints>
-                      <RowConstraints valignment="BOTTOM" vgrow="ALWAYS" />
-                        <RowConstraints minHeight="10.0" valignment="BOTTOM" vgrow="NEVER" />
-                    </rowConstraints>
+                  <VBox fx:id="vBox" prefHeight="200.0" prefWidth="100.0">
                      <children>
                         <ImageView fx:id="Map" fitHeight="412.0" fitWidth="631.0" preserveRatio="true">
                            <image>
                               <Image url="@SoftEng_UI_Mockup_Pics/00_thelowerlevel2.png" />
                            </image>
                         </ImageView>
-                        <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" GridPane.halignment="CENTER" GridPane.rowIndex="1">
+                        <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0">
                            <children>
-                  
-                                                    <JFXButton fx:id="G" alignment="CENTER" onAction="#clickedG" ripplerFill="WHITE" text="G" textFill="WHITE" HBox.hgrow="ALWAYS">
-                                 <HBox.margin>
-                                    <Insets right="10.0" />
-                                 </HBox.margin>
-                              </JFXButton>
                                   <JFXButton fx:id="L1" alignment="CENTER" onAction="#clickedL1" ripplerFill="WHITE" text="L1" textFill="WHITE" HBox.hgrow="ALWAYS">
                                  <HBox.margin>
                                     <Insets right="10.0" />
@@ -90,6 +77,8 @@
                                     <Insets right="10.0" />
                                  </HBox.margin>
                               </JFXButton>
+                  
+                                                                            <JFXButton fx:id="G" alignment="CENTER" onAction="#clickedG" ripplerFill="WHITE" text="G" textFill="WHITE" />
                                   <JFXButton fx:id="F1" alignment="CENTER" onAction="#clicked1" ripplerFill="WHITE" text="1" textFill="WHITE" HBox.hgrow="ALWAYS">
                                  <HBox.margin>
                                     <Insets right="10.0" />
@@ -118,10 +107,7 @@
                            </children>
                         </HBox>
                      </children>
-                     <HBox.margin>
-                        <Insets left="10.0" right="50.0" top="50.0" />
-                     </HBox.margin>
-                  </GridPane>
+                  </VBox>
       
                   <GridPane HBox.hgrow="ALWAYS">
                     <columnConstraints>

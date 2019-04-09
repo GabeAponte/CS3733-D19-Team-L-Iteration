@@ -24,6 +24,7 @@ import javafx.scene.input.ScrollEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Line;
@@ -110,8 +111,9 @@ public class EditLocationController {
 
     @FXML
     private ImageView Map;
+
     @FXML
-    private GridPane gridPaneWindow;
+    private VBox vBox;
 
     private int floorSelected;
     private boolean displayingNodes = false;
@@ -332,14 +334,15 @@ public class EditLocationController {
         anchorPanePath.addEventFilter( MouseEvent.MOUSE_DRAGGED, sceneGestures.getOnMouseDraggedEventHandler());
         anchorPanePath.addEventFilter( ScrollEvent.ANY, sceneGestures.getOnScrollEventHandler());
 
-        gridPaneWindow.getChildren().add(zoomPaneImage);
-        gridPaneWindow.getChildren().add(anchorPanePath);
+        vBox.getChildren().add(zoomPaneImage);
+        vBox.getChildren().add(anchorPanePath);
 
 
         thisCircle = new Circle();
         anchorPanePath.getChildren().add(thisCircle);
 
         sceneGestures.reset(Map, Map.getImage().getWidth(), Map.getImage().getHeight());
+        sceneGestures.setDrawPath(circles, lines);
     }
 
 
@@ -697,6 +700,8 @@ public class EditLocationController {
             thisCircle.setRadius(Math.max(2.5, 2.5f * (sceneGestures.getImageScale() / 5)));
             thisCircle.setStroke(Color.web("GREEN")); //#f5d96b
             thisCircle.setFill(Color.web("GREEN"));
+
+            circles.add(thisCircle);
 
         }
     };
