@@ -41,11 +41,11 @@ public class ServiceRequestController {
         Stage theStage = (Stage) Back.getScene().getWindow();
         AnchorPane root;
         if(single.isLoggedIn()){
-            FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("LoggedInHome.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("AdminLoggedInHome.fxml"));
 
             Parent sceneMain = loader.load();
 
-            LoggedInHomeController controller = loader.<LoggedInHomeController>getController();
+            AdminLoggedInHomeController controller = loader.<AdminLoggedInHomeController>getController();
 
             theStage = (Stage) SanitationServices.getScene().getWindow();
 

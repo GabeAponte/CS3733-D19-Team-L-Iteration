@@ -80,7 +80,7 @@ public class ReligiousRequestAccess extends DBAccess{
 */
     public TreeItem<ServiceRequestTable> getReligiousRequests(int getNum){
         TreeItem<ServiceRequestTable> nodeRoot = null;
-        String sql = "SELECT * FROM religiousRequest where requestID is not NULL";
+        String sql = "SELECT * FROM religiousRequest where requestID is not NULL and fulfilled = 0";
         int count = 0;
         //noinspection Convert2Diamond
         ArrayList<String> data = new ArrayList<String>();
@@ -124,7 +124,7 @@ public class ReligiousRequestAccess extends DBAccess{
      * @return int
 */
     public int countRecords() {
-        String sql = "select COUNT(*) from religiousRequest where requestID is not null";
+        String sql = "select COUNT(*) from religiousRequest where requestID is not null and fulfilled = false";
         try (Connection conn = this.connect();
              Statement stmt = conn.createStatement();
              ResultSet rs = stmt.executeQuery(sql)) {

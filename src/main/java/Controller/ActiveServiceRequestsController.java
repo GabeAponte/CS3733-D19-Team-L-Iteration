@@ -75,11 +75,11 @@ public class ActiveServiceRequestsController {
      * Returns user to the Logged In Home screen when the back button is pressed
      */
     private void backPressed() throws IOException {
-        FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("LoggedInHome.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("AdminLoggedInHome.fxml"));
         Parent roots = loader.load();
 
         //Get controller of scene2
-        LoggedInHomeController scene2Controller = loader.getController();
+        AdminLoggedInHomeController scene2Controller = loader.getController();
 
         Scene scene = new Scene(roots);
         Stage thestage = (Stage) activeRequests.getScene().getWindow();

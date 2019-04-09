@@ -45,13 +45,13 @@ public class FulfillRequestController {
         EmployeeAccess ea = new EmployeeAccess();
         String field = "";
         if(this.table.equals("audioVisualRequest")){
-            field = "AudioVisual";
+            field = "Audio Visual";
         }else if(this.table.equals("externalTransportationRequest")){
-            field = "ExternalTransportation";
+            field = "External Transportation";
         }else if(this.table.equals("floristDeliveryRequest")){
-            field = "FloristDelivery";
+            field = "Florist Delivery";
         }else if(this.table.equals("internalTransportationRequest")){
-            field = "InternalTransportation";
+            field = "Internal Transportation";
         }else if(this.table.equals("ITRequest")){
             field = "IT";
         }else if(this.table.equals("languageRequest")){
