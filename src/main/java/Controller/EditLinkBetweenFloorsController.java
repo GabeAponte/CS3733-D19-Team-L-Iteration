@@ -59,13 +59,18 @@ public class EditLinkBetweenFloorsController {
     @FXML
     private ImageView MapLower;
 
-
+    private AnchorPane anchorPaneMain = new AnchorPane();
+    private SceneGestures sceneGestureMain;
     private final DoubleProperty zoomPropertyMain = new SimpleDoubleProperty(1.0d);
     private final DoubleProperty deltaYMain = new SimpleDoubleProperty(0.0d);
 
+    private AnchorPane anchorPaneLower = new AnchorPane();
+    private SceneGestures sceneGestureLower;
     private final DoubleProperty zoomPropertyLower = new SimpleDoubleProperty(1.0d);
     private final DoubleProperty deltaYLower = new SimpleDoubleProperty(0.0d);
 
+    private AnchorPane anchorPaneUpper = new AnchorPane();
+    private SceneGestures sceneGestureUpper;
     private final DoubleProperty zoomPropertyUpper = new SimpleDoubleProperty(1.0d);
     private final DoubleProperty deltaYUpper = new SimpleDoubleProperty(0.0d);
 
@@ -101,9 +106,18 @@ public class EditLinkBetweenFloorsController {
         Floor.setItems(floorList);
         map();
         //initializeTable(na, ea);
-        setUpImage(Map, zoomPropertyMain, deltaYMain, 431, 115);
-        setUpImage(MapUpper, zoomPropertyUpper, deltaYUpper, 830, 417);
-        setUpImage(MapLower, zoomPropertyLower, deltaYLower, 25, 417);
+        sceneGestureMain = setUpImage(anchorPaneMain, sceneGestureMain, Map, zoomPropertyMain, deltaYMain, 431, 115);
+        sceneGestureUpper = setUpImage(anchorPaneUpper, sceneGestureUpper, MapUpper, zoomPropertyUpper, deltaYUpper, 830, 417);
+        sceneGestureLower = setUpImage(anchorPaneLower, sceneGestureLower, MapLower, zoomPropertyLower, deltaYLower, 25, 417);
+
+
+        sceneGestureMain.setDrawPath(circles, lines);
+
+        anchorPaneMain.addEventFilter( MouseEvent.MOUSE_CLICKED, sceneGestureMain.getOnMouseClickedEventHandler());
+        anchorPaneMain.addEventFilter( MouseEvent.MOUSE_PRESSED, sceneGestureMain.getOnMousePressedEventHandler());
+        anchorPaneMain.addEventFilter( MouseEvent.MOUSE_DRAGGED, sceneGestureMain.getOnMouseDraggedEventHandler());
+        anchorPaneMain.addEventFilter( ScrollEvent.ANY, sceneGestureMain.getOnScrollEventHandler());
+
 
         System.out.println("NO CRASH??");
     }
@@ -218,11 +232,10 @@ public class EditLinkBetweenFloorsController {
     /*
     Author: PJ Mara. Sets up a pan and scroll image!
      */
-    private void setUpImage(ImageView Map1, DoubleProperty zoomProperty, DoubleProperty deltaY, int x, int y) {
-        AnchorPane anchorPanePath = new AnchorPane();
+    private SceneGestures setUpImage(AnchorPane anchorPanePath, SceneGestures sceneGestures, ImageView Map1, DoubleProperty zoomProperty, DoubleProperty deltaY, int x, int y) {
         anchorPanePath.setLayoutX(x);
         anchorPanePath.setLayoutY(y);
-        anchorPanePath.setPrefSize(446,280);
+        anchorPanePath.setPrefSize(420,285.6);
         Rectangle clip = new Rectangle();
         //clip.widthProperty().bind(Map1.fitWidthProperty());
         //clip.heightProperty().bind(Map1.fitHeightProperty());
@@ -230,6 +243,7 @@ public class EditLinkBetweenFloorsController {
         clip.setY(0);
         clip.setWidth(Map1.getFitWidth());
         clip.setHeight(Map1.getFitHeight());
+
 
         anchorPanePath.setClip(clip);
 
@@ -239,7 +253,7 @@ public class EditLinkBetweenFloorsController {
         deltaY.bind(zoomPaneImage.deltaY);
         zoomPaneImage.getChildren().add(Map1);
 
-        SceneGestures sceneGestures = new SceneGestures(zoomPaneImage, Map1);
+        sceneGestures = new SceneGestures(zoomPaneImage, Map1);
         anchorPanePath.addEventFilter( MouseEvent.MOUSE_CLICKED, sceneGestures.getOnMouseClickedEventHandler());
         anchorPanePath.addEventFilter( MouseEvent.MOUSE_PRESSED, sceneGestures.getOnMousePressedEventHandler());
         anchorPanePath.addEventFilter( MouseEvent.MOUSE_DRAGGED, sceneGestures.getOnMouseDraggedEventHandler());
@@ -247,14 +261,23 @@ public class EditLinkBetweenFloorsController {
         zoomPaneImage.setLayoutX(x);
         zoomPaneImage.setLayoutY(y);
 
+        System.out.println(anchorPanePath.getWidth() + " | " + anchorPanePath.getHeight());
+
         anchorPaneWindow.getChildren().add(zoomPaneImage);
         anchorPaneWindow.getChildren().add(anchorPanePath);
         sceneGestures.reset(Map1, Map1.getImage().getWidth(), Map1.getImage().getHeight());
+
+        return sceneGestures;
     }
 
     @FXML
     private void typeSelected() {
-
+        if (Filter.getValue().equals("Stairs")) {
+            type = "STAI";
+        }
+        else {
+            type = "ELEV";
+        }
     }
 
     @FXML
@@ -263,48 +286,86 @@ public class EditLinkBetweenFloorsController {
             Map.setImage(new Image(mapURLlookup.get("3")));
             MapUpper.setImage(null);
             MapLower.setImage(new Image(mapURLlookup.get("2")));
+            currentMap = "3";
         }
         else if (Floor.getValue().equals("2")) {
             Map.setImage(new Image(mapURLlookup.get("2")));
             MapUpper.setImage(new Image(mapURLlookup.get("3")));
             MapLower.setImage(new Image(mapURLlookup.get("1")));
-            drawNodes(Map);
+            currentMap = "2";
+            //drawNodes(Map);
         }
         else if (Floor.getValue().equals("1")) {
             Map.setImage(new Image(mapURLlookup.get("1")));
             MapUpper.setImage(new Image(mapURLlookup.get("2")));
             MapLower.setImage(new Image(mapURLlookup.get("Ground")));
+            currentMap = "1";
         }
         else if (Floor.getValue().equals("Ground")) {
             Map.setImage(new Image(mapURLlookup.get("Ground")));
             MapUpper.setImage(new Image(mapURLlookup.get("1")));
             MapLower.setImage(new Image(mapURLlookup.get("L1")));
+            currentMap = "Ground";
         }
         else if (Floor.getValue().equals("L1")) {
             Map.setImage(new Image(mapURLlookup.get("L1")));
             MapUpper.setImage(new Image(mapURLlookup.get("Ground")));
             MapLower.setImage(new Image(mapURLlookup.get("L2")));
+            currentMap = "L1";
         }
         else {
             Map.setImage(new Image(mapURLlookup.get("L2")));
             MapUpper.setImage(new Image(mapURLlookup.get("L1")));
             MapLower.setImage(null);
+            currentMap = "L2";
         }
     }
 
-    private void drawNodes(ImageView map) {
-        double x = map.getX();
-        double y = map.getY();
-        Point2D point = new Point2D(x,y);
-        for (Location l : single.getData()) {
-            if (l.getFloor().equals("2")) {
-                System.out.println("DRAWING CIRCLE");
-                Circle newCircle = new Circle();
-                newCircle.setCenterX((l.getXcoord() - point.getX()) * 0.137 * map.getScaleX());
-                newCircle.setCenterY((l.getYcoord() - point.getY()) * 0.137 * map.getScaleY());
-                newCircle.setRadius(Math.max(2.5, 2.5f * (map.getScaleX())));
-                newCircle.setStroke(Color.GREEN);
-                newCircle.setFill(Color.GREEN);
+    private boolean displayingNodes = true;
+
+    @FXML
+    private void nodeDisplayPress(){
+        //displayingNodes = !displayingNodes;
+
+        for (Circle c :circles) {
+            anchorPaneMain.getChildren().remove(c);
+        }
+
+        circles.clear();
+
+        if(displayingNodes) {
+            drawNodes();
+        }
+        sceneGestureMain.setDrawPath(circles,lines);
+    }
+
+    private void drawNodes(){
+
+        //display all nodes on that floor!!!
+        ArrayList<Location> nodes = new ArrayList<Location>();
+        //want to fill nodes w/ floor = currrentFloor
+        int temp = 0;
+        double scaleRatio = Map.getFitWidth() / Map.getImage().getWidth();
+        System.out.println(scaleRatio);
+        Point2D point = sceneGestureMain.getImageLocation();
+        for (int i = 0; i < single.getData().size(); i++) {
+            if (single.getData().get(i).getFloor().equals(currentMap) && single.getData().get(i).getNodeType().equals(type)) {
+                //System.out.println(currentMap);
+                nodes.add(single.getData().get(i));
+
+                Circle thisCircle = new Circle();
+
+                anchorPaneMain.getChildren().add(thisCircle);
+
+                //Setting the properties of the circle
+                thisCircle.setCenterX((nodes.get(temp).getXcoord() - point.getX()) * scaleRatio * sceneGestureMain.getImageScale());
+                thisCircle.setCenterY((nodes.get(temp).getYcoord() - point.getY()) * scaleRatio * sceneGestureMain.getImageScale());
+                thisCircle.setRadius(Math.max(2.5, 2.5f * (sceneGestureMain.getImageScale() / 5)));
+                thisCircle.setStroke(Color.web("RED")); //#f5d96b
+                thisCircle.setFill(Color.web("RED"));
+
+                circles.add(thisCircle);
+                temp++;
             }
         }
     }

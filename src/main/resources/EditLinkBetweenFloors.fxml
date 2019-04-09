@@ -38,22 +38,22 @@
                 <URL value="@size.css" />
                 <URL value="@modify-prompt-text.css" />
             </stylesheets></JFXComboBox>
-        <JFXButton fx:id="PathFindSubmit" buttonType="RAISED" disable="true" layoutX="561.0" layoutY="557.0" onAction="#submitPressed" prefHeight="66.0" prefWidth="180.0" ripplerFill="WHITE" style="-fx-background-color: #7fb1ff;" text="Submit" textFill="WHITE">
+        <JFXButton fx:id="PathFindSubmit" buttonType="RAISED" disable="true" layoutX="561.0" layoutY="557.0" onAction="#nodeDisplayPress" prefHeight="66.0" prefWidth="180.0" ripplerFill="WHITE" style="-fx-background-color: #7fb1ff;" text="Submit" textFill="WHITE">
             <font>
                 <Font name="Times New Roman" size="40.0" />
             </font>
         </JFXButton>
-        <ImageView fx:id="Map" fitHeight="280.0" fitWidth="446.0" pickOnBounds="true" preserveRatio="true">
+        <ImageView fx:id="Map" fitHeight="285.6" fitWidth="420.0" pickOnBounds="true" preserveRatio="true">
             <image>
                 <Image url="@SoftEng_UI_Mockup_Pics/02_thesecondfloor.png" />
             </image>
         </ImageView>
-      <ImageView fx:id="MapLower" fitHeight="280.0" fitWidth="446.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="MapLower" fitHeight="285.6" fitWidth="420.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@SoftEng_UI_Mockup_Pics/02_thesecondfloor.png" />
          </image>
       </ImageView>
-      <ImageView fx:id="MapUpper" fitHeight="280.0" fitWidth="446.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="MapUpper" fitHeight="285.6" fitWidth="420.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@SoftEng_UI_Mockup_Pics/03_thethirdfloor.png" />
          </image></ImageView>
