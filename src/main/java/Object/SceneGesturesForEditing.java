@@ -201,22 +201,26 @@ public class SceneGesturesForEditing {
     @SuppressWarnings("Duplicates")
     private void redrawPath(Point2D oldPointUpper, double oldScale){
         if(circles != null && lines != null) {
+            
+            double scaleRatio = imageView.getFitWidth()/imageView.getImage().getWidth();
+
+            System.out.println(circles);
 
             for (int i = 0; i < circles.size(); i++) {
                 Circle c = circles.get(i);
 
-                c.setCenterX(((c.getCenterX()/(0.137*oldScale)+oldPointUpper.getX())-getImageLocation().getX())*0.137*getImageScale());
-                c.setCenterY(((c.getCenterY()/(0.137*oldScale)+oldPointUpper.getY())-getImageLocation().getY())*0.137*getImageScale());
+                c.setCenterX(((c.getCenterX()/(scaleRatio*oldScale)+oldPointUpper.getX())-getImageLocation().getX())*scaleRatio*getImageScale());
+                c.setCenterY(((c.getCenterY()/(scaleRatio*oldScale)+oldPointUpper.getY())-getImageLocation().getY())*scaleRatio*getImageScale());
                 c.setRadius(Math.max(2.5,2.5f*getImageScale()/5));
             }
 
             for (int i = 0; i < lines.size(); i++) {
                 Line line = lines.get(i);
 
-                line.setStartX(((line.getStartX()/(0.137*oldScale)+oldPointUpper.getX())-getImageLocation().getX())*0.137*getImageScale());
-                line.setStartY(((line.getStartY()/(0.137*oldScale)+oldPointUpper.getY())-getImageLocation().getY())*0.137*getImageScale());
-                line.setEndX(((line.getEndX()/(0.137*oldScale)+oldPointUpper.getX())-getImageLocation().getX())*0.137*getImageScale());
-                line.setEndY(((line.getEndY()/(0.137*oldScale)+oldPointUpper.getY())-getImageLocation().getY())*0.137*getImageScale());
+                line.setStartX(((line.getStartX()/(scaleRatio*oldScale)+oldPointUpper.getX())-getImageLocation().getX())*scaleRatio*getImageScale());
+                line.setStartY(((line.getStartY()/(scaleRatio*oldScale)+oldPointUpper.getY())-getImageLocation().getY())*scaleRatio*getImageScale());
+                line.setEndX(((line.getEndX()/(scaleRatio*oldScale)+oldPointUpper.getX())-getImageLocation().getX())*scaleRatio*getImageScale());
+                line.setEndY(((line.getEndY()/(scaleRatio*oldScale)+oldPointUpper.getY())-getImageLocation().getY())*scaleRatio*getImageScale());
 
                 line.setStrokeWidth(Math.max(1,getImageScale()/8));
             }
