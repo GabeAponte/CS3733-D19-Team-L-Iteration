@@ -383,6 +383,9 @@ public class PathFindingController {
             anchorPanePath.getChildren().remove(l);
         }
 
+        circles.clear(); //Slight Optimization Please add these in -Alex
+        lines.clear();
+
         Point2D point = sceneGestures.getImageLocation();
 
         for (int i = 0; i < path.size()-1; i++) {
