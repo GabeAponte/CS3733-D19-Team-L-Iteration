@@ -75,10 +75,8 @@ public class BookRoomController {
 
     final ObservableList<String> listOfRooms = FXCollections.observableArrayList();
     ArrayList<String> rooms = new ArrayList<>();
-    double scaleRatio = roomImage.getFitWidth()/roomImage.getImage().getWidth();
     //ArrayList<ArrayList<String>> myLocations = new ArrayList<ArrayList<String>>();
     private SceneGestures sceneGestures;
-    Point2D point = sceneGestures.getImageLocation();
     private ArrayList<Circle> circles = new ArrayList<Circle>();
     private ArrayList<String> reverseListOfRooms = new ArrayList<String>();
 
@@ -90,6 +88,7 @@ public class BookRoomController {
         endTime.setValue(LocalTime.now().plusHours(1));
         datePicker.setValue(LocalDate.now());
         datePicker1.setValue(LocalDate.now());
+        //sceneGestures = new SceneGestures(imagePane, roomImage);
     }
 
     @FXML
@@ -242,11 +241,15 @@ public class BookRoomController {
             }
 
             avaliableRooms.setItems(listOfRooms);
+            displayOccupiedRooms();
         }
     }
 
     @FXML
     public void displayOccupiedRooms(){
+
+        //Point2D point = sceneGestures.getImageLocation();
+        //double scaleRatio = roomImage.getFitWidth()/roomImage.getImage().getWidth();
 
         Circle thisCircle = new Circle();
         //in a regular pane
@@ -254,13 +257,14 @@ public class BookRoomController {
 
         for(int i = 0; i < reverseListOfRooms.size(); i++) {
 
-            if (reverseListOfRooms.get(i).equals("Classroom 1")) {
-                //thisCircle.setCenterX(x coordinate - point.getX() * scaleRatio * sceneGestures.getImageScale());
-               // thisCircle.setCenterY(y coordinate - point.getY() * scaleRatio * sceneGestures.getImageScale());
+            //if (reverseListOfRooms.get(i).equals("Classroom 1")) {
+              //  thisCircle.setCenterX(700 - point.getX() * scaleRatio * sceneGestures.getImageScale());
+              //  thisCircle.setCenterY(100 - point.getY() * scaleRatio * sceneGestures.getImageScale());
                 thisCircle.setRadius(Math.max(2.5, 2.5f * (sceneGestures.getImageScale() / 5)));
                 thisCircle.setStroke(Color.web("RED"));
                 thisCircle.setFill(Color.web("RED"));
-            }
+                System.out.println("We reach this");
+           // }
 
 
 

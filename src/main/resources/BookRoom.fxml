@@ -73,7 +73,7 @@
                 </Label>
                 <Pane fx:id="imagePane" prefHeight="200.0" prefWidth="200.0" GridPane.columnSpan="2" GridPane.hgrow="ALWAYS" GridPane.rowIndex="2" GridPane.rowSpan="4" GridPane.vgrow="ALWAYS">
                     <children>
-                        <ImageView fx:id="roomImage" fitHeight="569.0" fitWidth="823.0" pickOnBounds="true" preserveRatio="true">
+                        <ImageView fx:id="roomImage" fitHeight="645.0" fitWidth="900.0" pickOnBounds="true" preserveRatio="true">
                             <image>
                                 <Image url="@SoftEng_UI_Mockup_Pics/BookRoomFloorplan.jpg" />
                             </image>
@@ -85,17 +85,17 @@
                 </Pane>
                 <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" spacing="30.0" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="2">
                     <children>
-                        <JFXTimePicker fx:id="startTime" onAction="#adjustEndDate" defaultColor="#f5d96b" promptText="Start Time" style="-fx-background-color: white;" />
+                        <JFXTimePicker fx:id="startTime" defaultColor="#f5d96b" onAction="#adjustEndDate" promptText="Start Time" style="-fx-background-color: white;" />
                         <JFXDatePicker fx:id="datePicker" defaultColor="#f5d96b" onAction="#fieldsEntered" promptText="Start Date" style="-fx-background-color: white;" />
                     </children>
                 </VBox>
                 <VBox alignment="CENTER" layoutX="874.0" layoutY="200.0" prefHeight="200.0" prefWidth="100.0" spacing="30.0" GridPane.columnIndex="3" GridPane.rowIndex="2">
                     <children>
-                        <JFXTimePicker fx:id="endTime" onAction="#adjustEndDate" defaultColor="#f5d96b" promptText="End Time" style="-fx-background-color: white;" />
+                        <JFXTimePicker fx:id="endTime" defaultColor="#f5d96b" onAction="#adjustEndDate" promptText="End Time" style="-fx-background-color: white;" />
                         <JFXDatePicker fx:id="datePicker1" defaultColor="#f5d96b" onAction="#fieldsEntered" promptText="End Date" style="-fx-background-color: white;" />
                     </children>
                 </VBox>
-            <JFXButton fx:id="viewSchedule" text="View Room Schedule" onAction="#switchToTable" textFill="#f5d96b" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.rowIndex="5">
+            <JFXButton fx:id="viewSchedule" onAction="#switchToTable" text="View Room Schedule" textFill="#f5d96b" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.rowIndex="5">
                <font>
                   <Font name="Avenir Book" size="18.0" />
                </font>
