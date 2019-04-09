@@ -24,7 +24,6 @@ public class AStarStrategy implements PathfindingStrategy {
     public Path findPath(Location start, Location end) {
         Singleton single = Singleton.getInstance();
         openList.add(start);
-        start.getLocID();
         start.setParentID("START");
         ArrayList<Location> path = new ArrayList<Location>();
         Path p = new Path(path);

@@ -24,7 +24,7 @@ public class Main extends Application {
         Singleton single = Singleton.getInstance();
         NodesAccess na = new NodesAccess();
         EdgesAccess ea = new EdgesAccess();
-        //ea.deleteRecords();
+       // ea.deleteRecords();
         //na.readCSVintoTable();
         //ea.readCSVintoTable();
         single.setData();
