@@ -75,7 +75,7 @@
                     <children>
                         <ImageView fx:id="roomImage" fitHeight="569.0" fitWidth="823.0" pickOnBounds="true" preserveRatio="true">
                             <image>
-                                <Image url="@SoftEng_UI_Mockup_Pics/BookRoomPicture.jpg" />
+                                <Image url="@SoftEng_UI_Mockup_Pics/BookRoomFloorplan.jpg" />
                             </image>
                         </ImageView>
                     </children>

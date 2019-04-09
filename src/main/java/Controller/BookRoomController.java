@@ -12,6 +12,7 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Point2D;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -22,6 +23,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
+import javafx.scene.shape.Circle;
 import javafx.stage.Stage;
 
 import java.awt.print.Book;
@@ -73,6 +75,12 @@ public class BookRoomController {
 
     final ObservableList<String> listOfRooms = FXCollections.observableArrayList();
     ArrayList<String> rooms = new ArrayList<>();
+    double scaleRatio = roomImage.getFitWidth()/roomImage.getImage().getWidth();
+    //ArrayList<ArrayList<String>> myLocations = new ArrayList<ArrayList<String>>();
+    private SceneGestures sceneGestures;
+    Point2D point = sceneGestures.getImageLocation();
+    private ArrayList<Circle> circles = new ArrayList<Circle>();
+    private ArrayList<String> reverseListOfRooms = new ArrayList<String>();
 
     @FXML
     private void initialize(){
@@ -219,15 +227,43 @@ public class BookRoomController {
             date = datePicker.getValue().toString();
             endDate = datePicker1.getValue().toString();
             avaliableRooms.getSelectionModel().clearSelection();
+
+            for(int i = 0; i< listOfRooms.size(); i++){
+                reverseListOfRooms.add(i, listOfRooms.get(i));
+            }
+
             listOfRooms.clear();
 
             rooms = ra.getAvailRooms(date, date, startTimeMil, endTimeMil);
 
             for(int i = 1; i < rooms.size(); i+=2){
                 listOfRooms.add(rooms.get(i));
+                reverseListOfRooms.remove(rooms.get(i));
             }
 
             avaliableRooms.setItems(listOfRooms);
+        }
+    }
+
+    @FXML
+    public void displayOccupiedRooms(){
+
+        Circle thisCircle = new Circle();
+        //in a regular pane
+        imagePane.getChildren().add(thisCircle);
+
+        for(int i = 0; i < reverseListOfRooms.size(); i++) {
+
+            if (reverseListOfRooms.get(i).equals("Classroom 1")) {
+                //thisCircle.setCenterX(x coordinate - point.getX() * scaleRatio * sceneGestures.getImageScale());
+               // thisCircle.setCenterY(y coordinate - point.getY() * scaleRatio * sceneGestures.getImageScale());
+                thisCircle.setRadius(Math.max(2.5, 2.5f * (sceneGestures.getImageScale() / 5)));
+                thisCircle.setStroke(Color.web("RED"));
+                thisCircle.setFill(Color.web("RED"));
+            }
+
+
+
         }
     }
 }
