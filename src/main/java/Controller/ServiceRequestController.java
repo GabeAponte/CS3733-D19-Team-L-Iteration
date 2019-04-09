@@ -15,22 +15,41 @@ import java.io.IOException;
 public class ServiceRequestController {
 
     @FXML
-    private Button SanitationServices;
-
-    @FXML
-    private Button Transportation;
-
-    @FXML
     private Button ITServices;
 
     @FXML
-    private Button FacilitiesMaintenance;
+    private Button ReligiousServices;
 
     @FXML
     private Button LanguageInterpreter;
 
     @FXML
+    private Button ExternalTransportation;
+
+    @FXML
+    private Button Florist;
+
+    @FXML
+    private Button AudioVisual;
+
+    @FXML
+    private Button FacilitiesMaintenance;
+
+    @FXML
     private Button SecurityStaff;
+
+    @FXML
+    private Button SanitationServices;
+
+    @FXML
+    private Button InternalTransportation;
+
+    @FXML
+    private Button PrescriptionServices;
+
+    @FXML
+    private Button GiftStoreServices;
+
 
     @FXML
     public Button Back;
@@ -63,35 +82,44 @@ public class ServiceRequestController {
     @FXML
     private void makeRequest(ActionEvent e) throws IOException{
         //source button determines type for service request object, text for label
-        String typeOfService = "";
-        if(e.getSource() == SanitationServices) {
-            typeOfService = "Sanitation";
-        } else if(e.getSource() == Transportation) {
-            typeOfService = "Transportation";
-        } else if(e.getSource() == ITServices) {
-            typeOfService = "IT";
-        } else if(e.getSource() == FacilitiesMaintenance) {
-            typeOfService = "Maintenance";
+        String serviceFXML = "";
+        if(e.getSource() == ITServices) {
+            serviceFXML = "ITServiceRequest.fxml";
+        } else if(e.getSource() == ReligiousServices) {
+            serviceFXML = "ReligiousServiceRequest";
         } else if(e.getSource() == LanguageInterpreter) {
-            typeOfService = "Language Interpreter";
-        } else {
-            typeOfService = "Security";
+            serviceFXML = "ITServiceRequest.fxml";
+        } else if(e.getSource() == ExternalTransportation) {
+            serviceFXML = "ITServiceRequest.fxml";
+        } else if(e.getSource() == Florist) {
+            serviceFXML = "ITServiceRequest.fxml";
+        }else if(e.getSource() == AudioVisual) {
+            serviceFXML = "ITServiceRequest.fxml";
+        }else if(e.getSource() == FacilitiesMaintenance) {
+            serviceFXML = "ITServiceRequest.fxml";
+        }else if(e.getSource() == SecurityStaff) {
+            serviceFXML = "ITServiceRequest.fxml";
+        }else if(e.getSource() == SanitationServices) {
+            serviceFXML = "sanitationServiceRequest.fxml";
+        }else if(e.getSource() == InternalTransportation) {
+            serviceFXML = "ITServiceRequest.fxml";
+        }else if(e.getSource() == PrescriptionServices) {
+            serviceFXML = "ITServiceRequest.fxml";
+        }else if(e.getSource() == GiftStoreServices) {
+            serviceFXML = "ITServiceRequest.fxml";
         }
-
-       // changeToSub(typeOfService);
+        changeToSub(serviceFXML);
     }
 
     //Nathan - changes screen to service sub screen, param "service" determines label on sub scree
     @FXML
-    private void changeToFlorist() throws IOException{
+    private void changeToSub(String fxml) throws IOException{
 
         Stage theStage = (Stage) Back.getScene().getWindow();
         AnchorPane root;
             FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("ServiceRequestFloristDelivery.fxml"));
 
             Parent sceneMain = loader.load();
-
-            //LoggedInHomeController controller = loader.<LoggedInHomeController>getController();
 
             theStage = (Stage) SanitationServices.getScene().getWindow();
 
