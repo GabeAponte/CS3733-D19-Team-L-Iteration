@@ -310,10 +310,7 @@ public class PathFindingController {
         Filter.setItems(filterList);
         Floor.setItems(floorList);
         //initializeTable(na, ea);
-        if(single.getNum() == 1){
-            PathFindStartDrop.setItems(single.getData());
-            PathFindEndDrop.setItems(single.getData());
-        }
+
         anchorPanePath = new AnchorPane();
         anchorPanePath.setLayoutX(79);
         anchorPanePath.setLayoutY(189);
