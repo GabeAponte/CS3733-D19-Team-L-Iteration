@@ -1,7 +1,7 @@
 package Object;
 
 
-public class ServiceRequestTable {
+public class ServiceRequestTable  {
     String requestID;
     String assignedEmployee;
     String fulfilled;
@@ -47,7 +47,7 @@ public class ServiceRequestTable {
         this.urgenecyLevel = urgenecyLevel; */
 
     //religious
-    public ServiceRequestTable(String requestID, String assignedEmployee, String comment, String fulfilled, String creationTime, String completionTime, String creationDate, String completionDate, String location, String type, String denomination, String name) {
+    public ServiceRequestTable(String requestID, String assignedEmployee, String fulfilled, String location, String creationTime, String completionTime, String comment, String denomination, String type,  String name, String creationDate, String completionDate) {
         this.requestID = requestID;
         this.assignedEmployee = assignedEmployee;
         this.fulfilled = fulfilled;

@@ -1,6 +1,9 @@
 package Access;
 
 import java.sql.*;
+import Object.ServiceRequestTable;
+import javafx.scene.control.TreeItem;
+
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -75,7 +78,8 @@ public class ReligiousRequestAccess extends DBAccess{
      * @param getNum
      * @return
 */
-    public ArrayList<String> getReligiousRequests(int getNum){
+    public TreeItem<ServiceRequestTable> getReligiousRequests(int getNum){
+        TreeItem<ServiceRequestTable> nodeRoot = null;
         String sql = "SELECT * FROM religiousRequest where requestID is not NULL";
         int count = 0;
         //noinspection Convert2Diamond
@@ -102,11 +106,11 @@ public class ReligiousRequestAccess extends DBAccess{
                     data.add(rs.getString("name"));
                     data.add(rs.getString("creationDate"));
                     data.add(rs.getString("completionDate"));
-
+                    nodeRoot = new TreeItem<>(new ServiceRequestTable(data.get(0), data.get(1), data.get(2), data.get(3), data.get(4), data.get(5), data.get(6), data.get(7), data.get(8), data.get(9), data.get(10), data.get(11)));
                 }
                 count++;
             }
-            return data;
+            return nodeRoot;
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }

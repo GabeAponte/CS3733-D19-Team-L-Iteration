@@ -9,6 +9,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.control.TreeItem;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -17,7 +18,7 @@ public class FulfillRequestController {
 
     private Stage thestage;
 
-    private ServiceRequestTable theRequest;
+    private TreeItem<ServiceRequestTable> theRequest;
 
     @FXML
     private Button back;
@@ -50,7 +51,7 @@ public class FulfillRequestController {
     }
 
     @FXML
-    public void getRequestID(ServiceRequestTable request) {
+    public void getRequestID(TreeItem<ServiceRequestTable> request) {
         theRequest = request;
     }
 
@@ -67,7 +68,7 @@ public class FulfillRequestController {
         }
         else{
             ServiceRequestAccess sa = new ServiceRequestAccess();
-            sa.fulfillRequest(Integer.parseInt(theRequest.getRequestID()), staffMember.getText());
+            sa.fulfillRequest(Integer.parseInt(theRequest.getValue().getRequestID()), staffMember.getText());
             errorLabel.setText("Request Fulfilled");
 
             FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("ActiveServiceRequests.fxml"));

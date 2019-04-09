@@ -2,78 +2,95 @@
 
 <?import com.jfoenix.controls.JFXButton?>
 <?import com.jfoenix.controls.JFXComboBox?>
+<?import com.jfoenix.controls.JFXToolbar?>
 <?import com.jfoenix.controls.JFXTreeTableView?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.ToolBar?>
 <?import javafx.scene.control.TreeTableColumn?>
+<?import javafx.scene.effect.Blend?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
-<?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" style="-fx-background-color: #7fb1ff;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.ActiveServiceRequestsController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" style="-fx-background-color: #012D5A;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.ActiveServiceRequestsController">
     <children>
-        <ImageView fitHeight="668.0" fitWidth="1282.0" layoutY="51.0" opacity="0.51" AnchorPane.bottomAnchor="1.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="-2.0" AnchorPane.topAnchor="51.0">
-            <image>
-                <Image url="@SoftEng_UI_Mockup_Pics/Background.png" />
-            </image>
-        </ImageView>
-        <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#012d5a" height="442.0" layoutX="50.0" layoutY="206.0" stroke="BLACK" strokeType="INSIDE" width="800.0" AnchorPane.leftAnchor="250.0" AnchorPane.topAnchor="206.0" />
-        <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#7fb1ff" height="100.0" stroke="BLACK" strokeType="INSIDE" width="800.0" AnchorPane.leftAnchor="250.0" AnchorPane.topAnchor="200.0" />
-        <VBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+        <VBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
             <children>
-                <ToolBar maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="125.0" prefWidth="1282.0" style="-fx-background-color: white;" AnchorPane.topAnchor="0.0">
-                    <items>
-                        <ImageView fitHeight="91.0" fitWidth="395.0" pickOnBounds="true" preserveRatio="true">
+                <JFXToolbar prefHeight="100.0" prefWidth="1280.0" style="-fx-background-color: WHITE;">
+                    <left>
+                        <ImageView fitHeight="75.0" fitWidth="325.0" BorderPane.alignment="CENTER">
                             <image>
                                 <Image url="@SoftEng_UI_Mockup_Pics/BWHlogo.png" />
                             </image>
                         </ImageView>
-                        <HBox alignment="CENTER_RIGHT" prefHeight="115.0" prefWidth="842.0">
-                            <children>
-                        <JFXComboBox fx:id="filter" onAction="#filterTable" prefHeight="54.0" prefWidth="348.0" promptText="Type" />
-                                <JFXButton fx:id="back" buttonType="RAISED" onAction="#backPressed" ripplerFill="#b0b0b0" text="Back">
-                                    <font>
-                                        <Font name="Times New Roman" size="40.0" />
-                                    </font>
-                                </JFXButton>
-                            </children></HBox>
-                    </items>
-                </ToolBar>
-                <ToolBar maxHeight="10.0" prefHeight="40.0" prefWidth="200.0" style="-fx-background-color: #012D5A;" />
-                <Label alignment="CENTER" contentDisplay="CENTER" maxWidth="1.7976931348623157E308" prefHeight="42.0" prefWidth="1280.0" text="Choose a Service Request" VBox.vgrow="NEVER">
-                    <font>
-                        <Font name="Times New Roman Bold" size="48.0" />
-                    </font>
+                    </left>
+                    <right>
+                        <JFXButton fx:id="back" buttonType="RAISED" onAction="#backPressed" prefHeight="75.0" prefWidth="150.0" style="-fx-background-radius: 50;" text="Back" BorderPane.alignment="CENTER">
+                            <font>
+                                <Font size="40.0" />
+                            </font>
+                        </JFXButton>
+                    </right>
                     <VBox.margin>
                         <Insets />
                     </VBox.margin>
                     <padding>
-                        <Insets bottom="100.0" top="90.0" />
+                        <Insets left="10.0" right="10.0" />
                     </padding>
-                </Label>
+                </JFXToolbar>
+                <JFXToolbar prefHeight="10.0" prefWidth="1280.0" style="-fx-background-color: F5D96B;" />
+                <GridPane alignment="CENTER" prefHeight="264.0" prefWidth="1280.0" vgap="20.0" VBox.vgrow="ALWAYS">
+                    <columnConstraints>
+                        <ColumnConstraints halignment="CENTER" hgrow="ALWAYS" minWidth="-Infinity" />
+                        <ColumnConstraints />
+                    </columnConstraints>
+                    <rowConstraints>
+                        <RowConstraints minHeight="0.0" valignment="CENTER" />
+                        <RowConstraints minHeight="10.0" valignment="CENTER" vgrow="SOMETIMES" />
+                        <RowConstraints valignment="CENTER" vgrow="ALWAYS" />
+                    </rowConstraints>
+                    <children>
+                        <Label prefHeight="45.0" prefWidth="313.0" text="Active Service Requests" textFill="#f5d96b" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.valignment="CENTER" GridPane.vgrow="NEVER">
+                            <font>
+                                <Font size="30.0" />
+                            </font>
+                            <effect>
+                                <Blend />
+                            </effect>
+                        </Label>
+                        <JFXTreeTableView fx:id="activeRequests" onMouseClicked="#SwitchToFulfillRequestScreen" prefWidth="1073.0" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="2" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
+                            <columns>
+                                <TreeTableColumn fx:id="hi" prefWidth="127.0" text="Location" />
+                                <TreeTableColumn fx:id="type" prefWidth="138.0" text="Type" />
+                                <TreeTableColumn fx:id="name" prefWidth="104.5" text="Name" />
+                                <TreeTableColumn fx:id="dateRequested" minWidth="0.0" prefWidth="164.5" text="Date Requested" />
+                                <TreeTableColumn fx:id="timeRequested" minWidth="0.0" prefWidth="145.0" text="Time Requested" />
+                                <TreeTableColumn fx:id="comment" minWidth="8.5" prefWidth="151.0" text="Comments" />
+                                <TreeTableColumn fx:id="assignedEmployee" prefWidth="145.5" text="Assigned To" />
+                                <TreeTableColumn fx:id="field1" prefWidth="158.5" text="field1" />
+                                <TreeTableColumn fx:id="field2" prefWidth="170.0" text="field2" />
+                                <TreeTableColumn fx:id="field3" prefWidth="164.0" text="field3" />
+                            </columns>
+                        </JFXTreeTableView>
+                        <JFXComboBox fx:id="filter" onAction="#filterTable" prefHeight="37.0" prefWidth="348.0" promptText="Type" stylesheets="@size.css" GridPane.rowIndex="1" GridPane.vgrow="NEVER" />
+                    </children>
+                    <opaqueInsets>
+                        <Insets />
+                    </opaqueInsets>
+                    <padding>
+                        <Insets bottom="50.0" left="50.0" right="50.0" top="25.0" />
+                    </padding>
+                    <VBox.margin>
+                        <Insets />
+                    </VBox.margin>
+                </GridPane>
             </children>
         </VBox>
-        <HBox alignment="CENTER" prefHeight="348.0" prefWidth="905.0" AnchorPane.bottomAnchor="72.0" AnchorPane.leftAnchor="200.0" AnchorPane.rightAnchor="175.0" AnchorPane.topAnchor="300.0">
-         <children>
-            <JFXTreeTableView fx:id="activeRequests" minHeight="-Infinity" minWidth="-Infinity" prefHeight="348.0" prefWidth="773.0">
-               <columns>
-                  <TreeTableColumn fx:id="hi" prefWidth="127.0" text="Location" />
-                  <TreeTableColumn fx:id="type" prefWidth="138.0" text="Type" />
-                  <TreeTableColumn fx:id="name" prefWidth="104.5" text="Name" />
-                  <TreeTableColumn fx:id="dateRequested" minWidth="0.0" prefWidth="164.5" text="Date Requested" />
-                  <TreeTableColumn fx:id="timeRequested" minWidth="0.0" prefWidth="145.0" text="Time Requested" />
-                  <TreeTableColumn fx:id="comment" minWidth="8.5" prefWidth="151.0" text="Comments" />
-                  <TreeTableColumn fx:id="assignedEmployee" prefWidth="145.5" text="Assigned To" />
-                  <TreeTableColumn fx:id="field1" prefWidth="158.5" text="field1" />
-                  <TreeTableColumn fx:id="field2" prefWidth="170.0" text="field2" />
-                  <TreeTableColumn fx:id="field3" prefWidth="164.0" text="field3" />
-               </columns></JFXTreeTableView>
-         </children>
-        </HBox>
     </children>
 </AnchorPane>

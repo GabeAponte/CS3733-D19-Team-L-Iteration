@@ -5,6 +5,7 @@ import Access.ServiceRequestAccess;
 import Object.ServiceRequestTable;
 
 import com.jfoenix.controls.JFXTreeTableView;
+import javafx.beans.property.ReadOnlyObjectWrapper;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -16,13 +17,16 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseButton;
 import javafx.stage.Stage;
 
+import java.awt.event.MouseAdapter;
 import java.io.IOException;
 import java.util.ArrayList;
 
 public class ActiveServiceRequestsController {
 
     private Stage thestage;
-    private ServiceRequestTable selectedRequest;
+    private TreeItem<ServiceRequestTable> selectedRequest;
+
+    TreeItem root = new TreeItem<>("rootxxx");
 
     @FXML
     private Button back;
@@ -87,7 +91,7 @@ public class ActiveServiceRequestsController {
                 "Religious", "Internal Transportation", "Audio/Visual",
                 "External Transportation", "Florist Delivery", "Internal Transportation", "IT",
                 "Language Assistance", "Maintenance", "Prescriptions", "Sanitation", "Security");
-        filterTable();
+        //filterTable();
         activeRequests.getColumns().clear();
 
     }
@@ -97,12 +101,85 @@ public class ActiveServiceRequestsController {
 
 
     //Gabe - Populates table
+    @FXML
     public void filterTable() {
         /**@author Gabe
          * Populates the table on the screen with any active service rquests in the database
          */
         activeRequests.setEditable(false);
         if (filter.getValue() == "Religious") {
+
+            ReligiousRequestAccess rr = new ReligiousRequestAccess();
+
+            int count;
+            count = rr.countRecords()-1;
+            while (count >= 0) {
+                TreeItem<ServiceRequestTable> rrt = rr.getReligiousRequests(count);
+                root.getChildren().add(rrt);
+                count--;
+            }
+
+            timeRequested.setCellValueFactory(cellData -> {
+                if (cellData.getValue().getValue() instanceof ServiceRequestTable) {
+                    return new ReadOnlyObjectWrapper(cellData.getValue().getValue().getCreationTime());
+                }
+                return new ReadOnlyObjectWrapper(cellData.getValue().getValue());
+            });
+
+
+            dateRequested.setCellValueFactory(cellData -> {
+                if (cellData.getValue().getValue() instanceof ServiceRequestTable) {
+                    return new ReadOnlyObjectWrapper(cellData.getValue().getValue().getCreationDate());
+                }
+                return new ReadOnlyObjectWrapper(cellData.getValue().getValue());
+            });
+
+
+            name.setCellValueFactory(cellData -> {
+                System.out.println("nathan test");
+                if (cellData.getValue().getValue() instanceof ServiceRequestTable) {
+                    System.out.println("name");
+                    return new ReadOnlyObjectWrapper(cellData.getValue().getValue().getName());
+
+                }
+                return new ReadOnlyObjectWrapper(cellData.getValue().getValue());
+            });
+
+            field1.setCellValueFactory(cellData -> {
+                if (cellData.getValue().getValue() instanceof ServiceRequestTable) {
+                    return new ReadOnlyObjectWrapper(cellData.getValue().getValue().getDenomination());
+                }
+                return new ReadOnlyObjectWrapper(cellData.getValue().getValue());
+            });
+
+            type.setCellValueFactory(cellData -> {
+                if (cellData.getValue().getValue() instanceof ServiceRequestTable) {
+                    return new ReadOnlyObjectWrapper(cellData.getValue().getValue().getType());
+                }
+                return new ReadOnlyObjectWrapper(cellData.getValue().getValue());
+            });
+
+            hi.setCellValueFactory(cellData -> {
+                if (cellData.getValue().getValue() instanceof ServiceRequestTable) {
+                    return new ReadOnlyObjectWrapper(cellData.getValue().getValue().getLocation());
+                }
+                return new ReadOnlyObjectWrapper(cellData.getValue().getValue());
+            });
+
+            comment.setCellValueFactory(cellData -> {
+                if (cellData.getValue().getValue() instanceof ServiceRequestTable) {
+                    return new ReadOnlyObjectWrapper(cellData.getValue().getValue().getComment());
+                }
+                return new ReadOnlyObjectWrapper(cellData.getValue().getValue());
+            });
+
+            assignedEmployee.setCellValueFactory(cellData -> {
+                if (cellData.getValue().getValue() instanceof ServiceRequestTable) {
+                    return new ReadOnlyObjectWrapper(cellData.getValue().getValue().getAssignedEmployee());
+                }
+                return new ReadOnlyObjectWrapper(cellData.getValue().getValue());
+            });
+
             field1.setText("Denomination");
             activeRequests.getColumns().clear();
             activeRequests.getColumns().add(timeRequested);
@@ -113,28 +190,10 @@ public class ActiveServiceRequestsController {
             activeRequests.getColumns().add(hi);
             activeRequests.getColumns().add(comment);
             activeRequests.getColumns().add(assignedEmployee);
+            activeRequests.setTreeColumn(timeRequested);
+            activeRequests.setRoot(root);
+            activeRequests.setShowRoot(false);
 
-            final ObservableList<ServiceRequestTable> data = FXCollections.observableArrayList();
-            ReligiousRequestAccess rr = new ReligiousRequestAccess();
-
-            int count;
-            count = rr.countRecords()-1;
-            while(count >= 0){
-                ArrayList<String> arr= rr.getReligiousRequests(count);
-                ServiceRequestTable testx = new ServiceRequestTable(arr.get(0), arr.get(1),arr.get(6), arr.get(2), arr.get(4),arr.get(5), arr.get(10), arr.get(11),arr.get(3), arr.get(8),arr.get(7), arr.get(9));
-                count--;
-                data.add(testx);
-            }
-
-            timeRequested.setCellValueFactory(new PropertyValueFactory<ServiceRequestTable,String>("creationTime"));
-            dateRequested.setCellValueFactory(new PropertyValueFactory<ServiceRequestTable, String>("creationDate"));
-            name.setCellValueFactory(new PropertyValueFactory<ServiceRequestTable, String>("name"));
-            field1.setCellValueFactory(new PropertyValueFactory<ServiceRequestTable,String>("denomination"));
-            type.setCellValueFactory(new PropertyValueFactory<ServiceRequestTable, String>("type"));
-            hi.setCellValueFactory(new PropertyValueFactory<ServiceRequestTable, String>("location"));
-            comment.setCellValueFactory(new PropertyValueFactory<ServiceRequestTable,String>("comment"));
-            assignedEmployee.setCellValueFactory(new PropertyValueFactory<ServiceRequestTable, String>("assignedEmployee"));
-            activeRequests.setItems(data);
         }
 
         if (filter.getValue() == "Internal Transportation") {
@@ -264,8 +323,8 @@ public class ActiveServiceRequestsController {
 
 
 
-    public void setNext(ServiceRequestTable request){
-        this.selectedRequest = request;
+   public void setNext(TreeItem<ServiceRequestTable> request){
+     this.selectedRequest = request;
     }
 
     //Gabe - Switches to fulfill screen when mouse double clicks a row in the table
@@ -275,30 +334,34 @@ public class ActiveServiceRequestsController {
      * When double clicking on a row in the table, user is sent to the fulfill request screen
      * and all the information from that row is passed along so that a user can update it
      */
-   /* private void SwitchToFulfillRequestScreen() throws IOException {
+
+    @FXML
+    private void SwitchToFulfillRequestScreen() throws IOException {
         activeRequests.setOnMouseClicked(event -> {
-         //   setNext(activeRequests.getSelectionModel().getSelectedItem());
+            setNext(activeRequests.getSelectionModel().getSelectedItem());
             if (event.getButton().equals(MouseButton.PRIMARY) && event.getClickCount() == 2) {
                 try {
-                    //Load second scene
+
                     FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("FulfillRequest.fxml"));
-                    Parent roots = loader.load();
-                    //Get controller of scene2
-                    FulfillRequestController scene2Controller = loader.getController();
-                    Scene scene = new Scene(roots);
-                    scene2Controller.getRequestID(selectedRequest);
-                    thestage = (Stage) back.getScene().getWindow();
-                    //Show scene 2 in new window
-                    thestage.setScene(scene);
+
+                    Parent sceneMain = loader.load();
+
+                    FulfillRequestController controller = loader.<FulfillRequestController>getController();
+
+                    controller.getRequestID(selectedRequest);
+
+                    Stage theStage = (Stage) back.getScene().getWindow();
+
+                    Scene scene = new Scene(sceneMain);
+                    theStage.setScene(scene);
 
                 } catch (IOException ex) {
                     //noinspection ThrowablePrintedToSystemOut
                     System.err.println(ex);
                 }
-
             }
         });
     }
 }
-    */
-    }
+
+
