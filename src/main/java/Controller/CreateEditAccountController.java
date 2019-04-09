@@ -95,7 +95,7 @@ public class CreateEditAccountController {
     @SuppressWarnings("Duplicates")
     @FXML
     private void backPressed() throws IOException {
-        thestage = (Stage) back.getScene().getWindow();
+        //thestage = (Stage) back.getScene().getWindow();
         AnchorPane root;
         if(type == 1) {
             root = FXMLLoader.load(getClass().getClassLoader().getResource("AdminLoggedInHome.fxml"));
@@ -106,7 +106,7 @@ public class CreateEditAccountController {
         }
         Scene scene = new Scene(root);
         thestage.setScene(scene);
-
+        thestage = (Stage) back.getScene().getWindow();
 
     }
 
@@ -170,7 +170,6 @@ public class CreateEditAccountController {
      * initializer for the scene
      */
     public void initialize() {
-        if (onScreen == true) {
             Singleton single = Singleton.getInstance();
             hasPrivelege = single.isIsAdmin();
             if (!hasPrivelege) {
@@ -185,7 +184,6 @@ public class CreateEditAccountController {
                     "Language", "Maintenance", "Prescription");
         }
 
-        }
 
     /**Andrew made this
      * deletes an employee
@@ -214,8 +212,7 @@ public class CreateEditAccountController {
     public void yesPressed() throws IOException{
         Stage stage = (Stage) yes.getScene().getWindow();
         stage.close();
-        onScreen = true;
-        initialize();
+
         deleteEmployee();
     }
 
@@ -230,7 +227,7 @@ public class CreateEditAccountController {
     public void deleteEmployee() throws IOException {
         EmployeeAccess ea = new EmployeeAccess();
         ea.deleteEmployee(empID);
-       // backPressed();
+        backPressed();
 
     }
 
