@@ -394,7 +394,7 @@ public class EditLocationController {
         anchorPanePath = new AnchorPane();
         anchorPanePath.setLayoutX(30);
         anchorPanePath.setLayoutY(185);
-        anchorPanePath.setPrefSize(631,412);
+        anchorPanePath.setPrefSize(631,429);
 
 
         Rectangle clip = new Rectangle();
