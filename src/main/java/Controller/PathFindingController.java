@@ -1,6 +1,7 @@
 package Controller;
 
 import SearchingAlgorithms.AStarStrategy;
+import SearchingAlgorithms.DepthFirstStrategy;
 import SearchingAlgorithms.PathfindingStrategy;
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.SimpleDoubleProperty;
@@ -386,7 +387,8 @@ public class PathFindingController {
     private void submitPressed(){
         startNode = single.lookup.get(PathFindStartDrop.getValue().getLocID());
         endNode = single.lookup.get(PathFindEndDrop.getValue().getLocID());
-
+        PathfindingStrategy strategy = new AStarStrategy(single.lookup);
+        strategy = new DepthFirstStrategy(single.lookup);
         AStarStrategy astar = new AStarStrategy(single.lookup);
         Path path = findAbstractPath(astar, startNode, endNode);
 

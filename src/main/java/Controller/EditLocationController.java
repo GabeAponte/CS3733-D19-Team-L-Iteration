@@ -760,45 +760,46 @@ public class EditLocationController {
         public void handle(MouseEvent event) {
             Point2D mousePress = sceneGestures.imageViewToImage(Map, new Point2D(event.getX(), event.getY()));
             sceneGestures.setMouseDown(mousePress);
-            circles.remove(thisCircle);
-            int getX = (int) mousePress.getX();
-            int getY = (int) mousePress.getY();
-            String newQuery = na.getNodebyCoordNoType(getX, getY, floorNum(), 5);
-            Point2D point = sceneGestures.getImageLocation();
-            if (newQuery != null) {
-                Location focusLoc = single.lookup.get(newQuery);
-                nodeInfoID.setText(focusLoc.getLocID());
-                nodeInfoX.setText("" + focusLoc.getXcoord());
-                nodeInfoY.setText("" + focusLoc.getYcoord());
-                nodeInfoType.setText("" + focusLoc.getNodeType());
-                nodeInfoBuilding.setText("" + focusLoc.getBuilding());
-                nodeInfoFloor.setText("" + focusLoc.getFloor());
-                nodeInfoLong.setText("" + focusLoc.getLongName());
-                nodeInfoShort.setText("" + focusLoc.getShortName());
+            if(mousePress.getX() == sceneGestures.getMouseDown().getValue().getX() && mousePress.getY() == sceneGestures.getMouseDown().getValue().getY()) {
+                circles.remove(thisCircle);
+                int getX = (int) mousePress.getX();
+                int getY = (int) mousePress.getY();
+                String newQuery = na.getNodebyCoordNoType(getX, getY, floorNum(), 5);
+                Point2D point = sceneGestures.getImageLocation();
+                if (newQuery != null) {
+                    Location focusLoc = single.lookup.get(newQuery);
+                    nodeInfoID.setText(focusLoc.getLocID());
+                    nodeInfoX.setText("" + focusLoc.getXcoord());
+                    nodeInfoY.setText("" + focusLoc.getYcoord());
+                    nodeInfoType.setText("" + focusLoc.getNodeType());
+                    nodeInfoBuilding.setText("" + focusLoc.getBuilding());
+                    nodeInfoFloor.setText("" + focusLoc.getFloor());
+                    nodeInfoLong.setText("" + focusLoc.getLongName());
+                    nodeInfoShort.setText("" + focusLoc.getShortName());
 
-            }
-            else {
-                nodeInfoID.setText("");
-                nodeInfoX.setText("" + (int) mousePress.getX());
-                nodeInfoY.setText("" + (int) mousePress.getY());
-                nodeInfoType.setText("");
-                nodeInfoBuilding.setText("");
-                nodeInfoFloor.setText("");
-                nodeInfoLong.setText("");
-                nodeInfoShort.setText("");
-                double scaleRatio = Map.getFitWidth() / Map.getImage().getWidth();
+                } else {
+                    nodeInfoID.setText("");
+                    nodeInfoX.setText("" + (int) mousePress.getX());
+                    nodeInfoY.setText("" + (int) mousePress.getY());
+                    nodeInfoType.setText("");
+                    nodeInfoBuilding.setText("");
+                    nodeInfoFloor.setText("");
+                    nodeInfoLong.setText("");
+                    nodeInfoShort.setText("");
+                    double scaleRatio = Map.getFitWidth() / Map.getImage().getWidth();
 
-            System.out.println(sceneGestures.getImageScale());
-            System.out.println((mousePress.getX() - point.getX()) * scaleRatio * sceneGestures.getImageScale());
+                    //System.out.println(sceneGestures.getImageScale());
+                    //System.out.println((mousePress.getX() - point.getX()) * scaleRatio * sceneGestures.getImageScale());
 
-                //Setting the properties of the circle
-                thisCircle.setCenterX((mousePress.getX() - point.getX()) * scaleRatio * sceneGestures.getImageScale());
-                thisCircle.setCenterY((mousePress.getY() - point.getY()) * scaleRatio * sceneGestures.getImageScale());
-                thisCircle.setRadius(Math.max(2.5, 2.5f * (sceneGestures.getImageScale() / 5)));
-                thisCircle.setStroke(Color.web("GREEN")); //#f5d96b
-                thisCircle.setFill(Color.web("GREEN"));
+                    //Setting the properties of the circle
+                    thisCircle.setCenterX((mousePress.getX() - point.getX()) * scaleRatio * sceneGestures.getImageScale());
+                    thisCircle.setCenterY((mousePress.getY() - point.getY()) * scaleRatio * sceneGestures.getImageScale());
+                    thisCircle.setRadius(Math.max(2.5, 2.5f * (sceneGestures.getImageScale() / 5)));
+                    thisCircle.setStroke(Color.web("GREEN")); //#f5d96b
+                    thisCircle.setFill(Color.web("GREEN"));
 
-                circles.add(thisCircle);
+                    circles.add(thisCircle);
+                }
             }
 
         }
