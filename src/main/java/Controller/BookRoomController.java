@@ -189,7 +189,7 @@ public class BookRoomController {
             avaliableRooms.getSelectionModel().clearSelection();
             listOfRooms.clear();
 
-            rooms = ra.getAvailRooms(date, startTimeMil, endTimeMil);
+            rooms = ra.getAvailRooms(date, date, startTimeMil, endTimeMil);
 
             for(int i = 1; i < rooms.size(); i+=2){
                 listOfRooms.add(rooms.get(i));
