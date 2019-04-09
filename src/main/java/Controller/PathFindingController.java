@@ -1161,42 +1161,46 @@ public class PathFindingController {
                 System.out.println("node added");
             }
         }
+        //if there are no nodes, dont do anything
+        if(! nodes.isEmpty()){
 
-        AStarStrategy astar = new AStarStrategy(single.lookup);
+            AStarStrategy astar = new AStarStrategy(single.lookup);
 
-        long startTime;
-        long endTime;
-        long currentCountTime;
+            long startTime;
+            long endTime;
+            long currentCountTime;
 
-        //just to initailize closestTime
-        startTime = System.nanoTime();
-        Path thispath = findAbstractPath(astar,kioskTemp, nodes.get(0));
-        endTime = System.nanoTime();
-        long closestTime = (endTime - startTime);
-
-        Location closestLOC = nodes.get(0);
-        Path closestPath = thispath; //?
-        //finding closest POI
-        for(int i=0; i<nodes.size(); i++){
+            //just to initailize closestTime
             startTime = System.nanoTime();
-            findAbstractPath(astar,kioskTemp, nodes.get(i));
+            Path thispath = findAbstractPath(astar,kioskTemp, nodes.get(0));
             endTime = System.nanoTime();
+            long closestTime = (endTime - startTime);
 
-            currentCountTime = (endTime - startTime);
+            Location closestLOC = nodes.get(0);
+            Path closestPath = thispath; //?
+            //finding closest POI
+            for(int i=0; i<nodes.size(); i++){
+                startTime = System.nanoTime();
+                findAbstractPath(astar,kioskTemp, nodes.get(i));
+                endTime = System.nanoTime();
 
-            if(closestTime > currentCountTime){
-                closestPath = findAbstractPath(astar,kioskTemp, nodes.get(i));
-                closestLOC = nodes.get(i);
+                currentCountTime = (endTime - startTime);
+
+                if(closestTime > currentCountTime){
+                    closestPath = findAbstractPath(astar,kioskTemp, nodes.get(i));
+                    closestLOC = nodes.get(i);
+                }
+
             }
 
+
+            displayPath(closestPath.getPath(), kioskTemp, closestLOC);
+            printPath(closestPath.getPath());
+
+            sceneGestures.setDrawPath(circles,lines);
+            //System.out.println("just pretend it prints out the path to closest");
         }
 
-
-        displayPath(closestPath.getPath(), kioskTemp, closestLOC);
-        printPath(closestPath.getPath());
-
-        sceneGestures.setDrawPath(circles,lines);
-        //System.out.println("just pretend it prints out the path to closest");
     }
 
     /**
