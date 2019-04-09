@@ -911,6 +911,7 @@ public class PathFindingController {
             }
         }
     }
+    //end of Gabe's massive amalgamation of if statements
 
     private void cleanup() {
         for (Location x : single.lookup.values()) {
