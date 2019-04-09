@@ -26,6 +26,7 @@ public class Singleton {
     private static long lastTime;
     private static int typePathfind;
     private static boolean isAdmin;
+    private static int timeoutSec;
 
     private ObservableList<Location> data = FXCollections.observableArrayList();
     public HashMap<String, Location> lookup = new HashMap<String, Location>();
@@ -38,7 +39,17 @@ public class Singleton {
         kioskID = "";
         typePathfind = 1;
         isAdmin = false;
+        timeoutSec = 5000;
     }
+
+    public static int getTimeoutSec() {
+        return timeoutSec;
+    }
+
+    public static void setTimeoutSec(int timeoutSec) {
+        Singleton.timeoutSec = timeoutSec;
+    }
+
     public void setData() {
         NodesAccess na = new NodesAccess();
         EdgesAccess ea = new EdgesAccess();

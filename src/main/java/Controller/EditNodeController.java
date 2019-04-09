@@ -5,15 +5,20 @@ import Object.*;
 
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXTextField;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -55,10 +60,39 @@ public class EditNodeController {
     private boolean isNew =true;
     private ObservableList<String> locationIDS = FXCollections.observableArrayList();
 
+    Timeline timeout;
 
     public void initialize() {
         //submitButton.setDisable(true);
         //enableSubmit();
+
+        Singleton single = Singleton.getInstance();
+        single.setLastTime();
+        timeout = new Timeline(new KeyFrame(Duration.seconds(2), new EventHandler<ActionEvent>() {
+
+            @Override
+            public void handle(ActionEvent event) {
+                if((System.currentTimeMillis() - single.getLastTime()) > single.getTimeoutSec()){
+                    try{
+                        single.setLastTime();
+                        timeout.stop();
+                        FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("HospitalHome.fxml"));
+
+                        Parent sceneMain = loader.load();
+
+                        Stage thisStage = (Stage) error.getScene().getWindow();
+
+                        Scene newScene = new Scene(sceneMain);
+                        thisStage.setScene(newScene);
+                    } catch (IOException io){
+                        System.out.println(io.getMessage());
+                    }
+                }
+            }
+        }));
+        timeout.setCycleCount(Timeline.INDEFINITE);
+        timeout.play();
+
         nodeXCoord.textProperty().addListener(this::changedX);
         nodeYCoord.textProperty().addListener(this::changedY);
         nodeFloor.textProperty().addListener(this::changedFloor);
@@ -106,6 +140,8 @@ public class EditNodeController {
 
     @FXML
     private void enableSubmit(){
+        Singleton single = Singleton.getInstance();
+        single.setLastTime();
         boolean disable = nodeID.getText().trim().isEmpty() || nodeXCoord.getText().trim().isEmpty() || nodeYCoord.getText().trim().isEmpty();
         disable = disable || nodeFloor.getText().trim().isEmpty() || nodeBuilding.getText().trim().isEmpty() || nodeType.getText().trim().isEmpty();
         disable = disable || nodeLongName.getText().trim().isEmpty() || nodeShortName.getText().trim().isEmpty();
@@ -115,6 +151,8 @@ public class EditNodeController {
 
     @FXML
     private void returnAndSave() throws IOException {
+        Singleton single = Singleton.getInstance();
+        single.setLastTime();
         if (checkFields()) {
 
             NodesAccess na = new NodesAccess();
@@ -143,6 +181,7 @@ public class EditNodeController {
             thestage = (Stage) submitButton.getScene().getWindow();
             Parent roots;
             if (isNew) {
+                timeout.stop();
                 FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("EditEdges.fxml"));
                 roots = loader.load();
                 EditEdgesController scene2Controller = loader.getController();
@@ -150,6 +189,7 @@ public class EditNodeController {
                 scene2Controller.flipBool();
                 scene2Controller.setInitialValues(nodeID.getText(), "ADD EDGE");
             } else {
+                timeout.stop();
                 FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("EditLocation.fxml"));
                 roots = loader.load();
                 EditLocationController scene2Controller = loader.getController();
@@ -192,6 +232,7 @@ public class EditNodeController {
     //back/cancel button here
     @FXML
     private void editNodeBackPress() throws IOException {
+        timeout.stop();
         FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("EditLocation.fxml"));
         Parent roots = loader.load();
 

@@ -6,9 +6,12 @@ import Access.RoomAccess;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXDatePicker;
 import com.jfoenix.controls.JFXTimePicker;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -24,6 +27,7 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import Object.*;
+import javafx.util.Duration;
 
 public class BookRoomController {
     @FXML
@@ -53,11 +57,38 @@ public class BookRoomController {
     @FXML
     private Button bookRoomBack;
 
+    Timeline timeout;
+
     final ObservableList<String> listOfRooms = FXCollections.observableArrayList();
     ArrayList<String> rooms = new ArrayList<>();
 
+    public void initialize(){
+        Singleton single = Singleton.getInstance();
+        single.setLastTime();
+        timeout = new Timeline(new KeyFrame(Duration.seconds(2), new EventHandler<ActionEvent>() {
+
+            @Override
+            public void handle(ActionEvent event) {
+                System.out.println("checking if");
+                if((System.currentTimeMillis() - single.getLastTime()) > single.getTimeoutSec()){
+                    System.out.println("if successfull");
+                    try{
+                        single.setLastTime();
+                        System.out.println("set time");
+                        backPressed();
+                    } catch (IOException io){
+                        System.out.println(io.getMessage());
+                    }
+                }
+            }
+        }));
+        timeout.setCycleCount(Timeline.INDEFINITE);
+        timeout.play();
+    }
+
     @FXML
     private void backPressed() throws IOException {
+        timeout.stop();
         FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("LoggedInHome.fxml"));
 
         Parent sceneMain = loader.load();
@@ -78,6 +109,9 @@ public class BookRoomController {
      * to book any avaliable rooms
      */
     private void findRoom(ActionEvent event) {
+        Singleton single = Singleton.getInstance();
+        single.setLastTime();
+
         LocalTime startTimeValue = startTime.getValue();
         LocalTime endTimeValue = endTime.getValue();
         LocalDate roomDate = datePicker.getValue();
@@ -144,7 +178,6 @@ public class BookRoomController {
             String endDate = datePicker1.getValue().toString();
             String roomID = "RoomTest";
             EmployeeAccess ea = new EmployeeAccess();
-            Singleton single = Singleton.getInstance();
             String employeeID = ea.getEmployeeInformation(single.getUsername()).get(0);
             ReservationAccess roomReq = new ReservationAccess();
             for(int i = 1; i < rooms.size(); i+=2) {
@@ -158,6 +191,8 @@ public class BookRoomController {
 
     @FXML
     public void fieldsEntered(){
+        Singleton single = Singleton.getInstance();
+        single.setLastTime();
         RoomAccess ra = new RoomAccess();
         int startTimeMil = 0;
         int endTimeMil = 0;
