@@ -24,6 +24,7 @@ import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
+import java.awt.print.Book;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -71,12 +72,25 @@ public class BookRoomController {
     private Button bookRoomBack;
 
     final ObservableList<String> listOfRooms = FXCollections.observableArrayList();
-   ArrayList<String> rooms = new ArrayList<>();
+    ArrayList<String> rooms = new ArrayList<>();
 
     @FXML
     private void initialize(){
         roomImage.fitWidthProperty().bind(imagePane.widthProperty());
         roomImage.fitHeightProperty().bind(imagePane.heightProperty());
+        startTime.setValue(LocalTime.now());
+        endTime.setValue(LocalTime.now().plusHours(1));
+        datePicker.setValue(LocalDate.now());
+        datePicker1.setValue(LocalDate.now());
+    }
+
+    @FXML
+    public void adjustEndDate(){
+        if(startTime.getValue().isAfter(LocalTime.NOON)&&(endTime.getValue().isBefore(LocalTime.NOON))){
+                datePicker1.setValue(LocalDate.now().plusDays(1));
+        }else{
+            datePicker1.setValue(LocalDate.now());
+        }
     }
 
     @FXML
@@ -85,6 +99,16 @@ public class BookRoomController {
         Parent sceneMain = loader.load();
         LoggedInHomeController controller = loader.<LoggedInHomeController>getController();
         Stage theStage = (Stage) bookRoomBack.getScene().getWindow();
+        Scene scene = new Scene(sceneMain);
+        theStage.setScene(scene);
+    }
+
+    @FXML
+    private void switchToTable() throws IOException{
+        FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("BookRoom2.fxml"));
+        Parent sceneMain = loader.load();
+        BookRoom2Controller controller = loader.<BookRoom2Controller>getController();
+        Stage theStage = (Stage) viewSchedule.getScene().getWindow();
         Scene scene = new Scene(sceneMain);
         theStage.setScene(scene);
     }
@@ -142,7 +166,7 @@ public class BookRoomController {
         else if (startTimeValue.equals(endTimeValue)) {
             error.setText("Times cannot be the same.");
         }
-        else if (startTimeValue.compareTo(endTimeValue) > 0) {
+        else if (startTimeValue.compareTo(endTimeValue) > 0 && roomDate.equals(endRoomDate)) {
             error.setText("Start time cannot be after end time.");
         }
         else if (startTimeValue.compareTo(curTime) < 0 && roomDate.equals(curDate)) {
@@ -160,7 +184,13 @@ public class BookRoomController {
             int startTimeMil = startTime.getValue().getHour() * 100 + startTime.getValue().getMinute();
             int endTimeMil = endTime.getValue().getHour() * 100 + endTime.getValue().getMinute();
             String date = datePicker.getValue().toString();
-            String endDate = datePicker1.getValue().toString();
+            String endDate;
+            if(datePicker1.getValue() == null){
+                endDate = date;
+            }
+            else {
+                endDate = datePicker1.getValue().toString();
+            }
             String roomID = "RoomTest";
             EmployeeAccess ea = new EmployeeAccess();
             Singleton single = Singleton.getInstance();
@@ -181,11 +211,13 @@ public class BookRoomController {
         int startTimeMil = 0;
         int endTimeMil = 0;
         String date = "";
+        String endDate = "";
 
         if(startTime.getValue() != null && endTime != null && datePicker.getValue() != null && datePicker1.getValue() != null){
             startTimeMil = startTime.getValue().getHour() * 100 + startTime.getValue().getMinute();
             endTimeMil = endTime.getValue().getHour() * 100 + endTime.getValue().getMinute();
             date = datePicker.getValue().toString();
+            endDate = datePicker1.getValue().toString();
             avaliableRooms.getSelectionModel().clearSelection();
             listOfRooms.clear();
 
