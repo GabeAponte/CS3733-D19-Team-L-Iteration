@@ -69,14 +69,14 @@ public class ReligiousRequestAccess extends DBAccess{
             System.out.println(e.getMessage());
         }
     }
-
-    /**ANDREW MADE THIS
+*/
+    /**Gabe MADE THIS
      * returns the record fields for the given index in serviceRequest
      * @param getNum
      * @return
-
-    public ArrayList<String> getRequests(int getNum){
-        String sql = "SELECT * FROM serviceRequest where assignedEmployee is NULL";
+*/
+    public ArrayList<String> getReligiousRequests(int getNum){
+        String sql = "SELECT * FROM religiousRequest where requestID is not NULL";
         int count = 0;
         //noinspection Convert2Diamond
         ArrayList<String> data = new ArrayList<String>();
@@ -86,22 +86,23 @@ public class ReligiousRequestAccess extends DBAccess{
 
             while (rs.next()) {
                 if (count == getNum) {
-                    data.add(""+rs.getInt("requestID"));
-                    if(rs.getString("comment") != null){
-                        data.add(rs.getString("comment"));
+                    data.add(Integer.toString(rs.getInt("requestID")));
+                    data.add(rs.getString("assignedEmployee"));
+                    if (rs.getBoolean("fulfilled")){
+                        data.add("Yes");
+                    } else {
+                        data.add("No");
                     }
-                    else{
-                        data.add("no comment");
-                    }
-                    data.add(rs.getString("requestDepartment"));
-                    if(rs.getString("assignedEmployee") != null){
-                        data.add(rs.getString("assignedEmployee"));
-                        data.add("Fulfilled");
-                    }
-                    else{
-                        data.add("none assigned");
-                        data.add("not Fulfilled");
-                    }
+                    data.add(Integer.toString(rs.getInt("location")));
+                    data.add(Integer.toString(rs.getInt("creationTime")));
+                    data.add(Integer.toString(rs.getInt("completionTime")));
+                    data.add(rs.getString("comment"));
+                    data.add(rs.getString("denomination"));
+                    data.add(rs.getString("type"));
+                    data.add(rs.getString("name"));
+                    data.add(rs.getString("creationDate"));
+                    data.add(rs.getString("completionDate"));
+
                 }
                 count++;
             }
@@ -113,13 +114,13 @@ public class ReligiousRequestAccess extends DBAccess{
         return null;
     }
 
-    /** ANDREW MADE THIS
+    /** Gabe MADE THIS
      * returns the number of records in serviceRequest
      *
      * @return int
-
+*/
     public int countRecords() {
-        String sql = "select COUNT(*) from serviceRequest where assignedEmployee is null";
+        String sql = "select COUNT(*) from religiousRequest where requestID is not null";
         try (Connection conn = this.connect();
              Statement stmt = conn.createStatement();
              ResultSet rs = stmt.executeQuery(sql)) {
@@ -130,7 +131,7 @@ public class ReligiousRequestAccess extends DBAccess{
         }
         return 0;
 
-    } */
+    }
 
     public static void main(String[] args) {
         ReligiousRequestAccess sra = new ReligiousRequestAccess();

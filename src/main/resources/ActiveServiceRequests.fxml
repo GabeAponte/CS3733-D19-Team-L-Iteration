@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXComboBox?>
+<?import com.jfoenix.controls.JFXTreeTableView?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.TableColumn?>
-<?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.ToolBar?>
+<?import javafx.scene.control.TreeTableColumn?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -34,6 +35,7 @@
                         </ImageView>
                         <HBox alignment="CENTER_RIGHT" prefHeight="115.0" prefWidth="842.0">
                             <children>
+                        <JFXComboBox fx:id="filter" onAction="#filterTable" prefHeight="54.0" prefWidth="348.0" promptText="Type" />
                                 <JFXButton fx:id="back" buttonType="RAISED" onAction="#backPressed" ripplerFill="#b0b0b0" text="Back">
                                     <font>
                                         <Font name="Times New Roman" size="40.0" />
@@ -57,15 +59,21 @@
             </children>
         </VBox>
         <HBox alignment="CENTER" prefHeight="348.0" prefWidth="905.0" AnchorPane.bottomAnchor="72.0" AnchorPane.leftAnchor="200.0" AnchorPane.rightAnchor="175.0" AnchorPane.topAnchor="300.0">
-            <children>
-                <TableView fx:id="activeRequests" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseClicked="#SwitchToFulfillRequestScreen" prefHeight="323.0" prefWidth="753.0" HBox.hgrow="NEVER">
-                    <columns>
-                        <TableColumn fx:id="requestDepartment" maxWidth="150.0" minWidth="-Infinity" prefWidth="506.0" text="Department" />
-                  <TableColumn fx:id="comment" maxWidth="431.0" prefWidth="416.0" text="Comments" />
-                  <TableColumn fx:id="assignedEmployee" maxWidth="252.0" prefWidth="186.0" text="Assigned" />
-                    </columns>
-                </TableView>
-            </children>
+         <children>
+            <JFXTreeTableView fx:id="activeRequests" minHeight="-Infinity" minWidth="-Infinity" prefHeight="348.0" prefWidth="773.0">
+               <columns>
+                  <TreeTableColumn fx:id="hi" prefWidth="127.0" text="Location" />
+                  <TreeTableColumn fx:id="type" prefWidth="138.0" text="Type" />
+                  <TreeTableColumn fx:id="name" prefWidth="104.5" text="Name" />
+                  <TreeTableColumn fx:id="dateRequested" minWidth="0.0" prefWidth="164.5" text="Date Requested" />
+                  <TreeTableColumn fx:id="timeRequested" minWidth="0.0" prefWidth="145.0" text="Time Requested" />
+                  <TreeTableColumn fx:id="comment" minWidth="8.5" prefWidth="151.0" text="Comments" />
+                  <TreeTableColumn fx:id="assignedEmployee" prefWidth="145.5" text="Assigned To" />
+                  <TreeTableColumn fx:id="field1" prefWidth="158.5" text="field1" />
+                  <TreeTableColumn fx:id="field2" prefWidth="170.0" text="field2" />
+                  <TreeTableColumn fx:id="field3" prefWidth="164.0" text="field3" />
+               </columns></JFXTreeTableView>
+         </children>
         </HBox>
     </children>
 </AnchorPane>
