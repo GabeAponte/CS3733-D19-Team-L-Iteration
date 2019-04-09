@@ -492,7 +492,7 @@ public class EditLinkBetweenFloorsController {
         ArrayList<Location> nodes = new ArrayList<Location>();
         //want to fill nodes w/ floor = currrentFloor
         int temp = 0;
-        double scaleRatio = MapUpper.getFitWidth() / MapUpper.getImage().getWidth();
+        double scaleRatio = Map.getFitWidth() / Map.getImage().getWidth();
         Point2D point = sceneGestureUpper.getImageLocation();
         for (int i = 0; i < single.getData().size(); i++) {
             if (single.getData().get(i).getFloor().equals(currentMapAbove) && single.getData().get(i).getNodeType().equals(type)) {
