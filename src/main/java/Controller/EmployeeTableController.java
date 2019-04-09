@@ -4,6 +4,8 @@ import Access.EmployeeAccess;
 import Access.ServiceRequestAccess;
 import Object.EmployeeTable;
 import com.jfoenix.controls.JFXTreeTableView;
+import javafx.beans.property.ReadOnlyObjectWrapper;
+import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -22,54 +24,84 @@ import java.util.ArrayList;
 public class EmployeeTableController {
 
     private Stage thestage;
+    TreeItem root = new TreeItem<>("rootxxx");
 
     @FXML
     private Button back;
 
     @FXML
-    TableColumn<EmployeeTable,String> ID;
+    TreeTableColumn<EmployeeTable,String> ID;
 
     @FXML
-    TableColumn<EmployeeTable,String> firstName;
+    TreeTableColumn<EmployeeTable,String> firstName;
 
     @FXML
-    TableColumn<EmployeeTable,String> lastName;
+    TreeTableColumn<EmployeeTable,String> lastName;
 
     @FXML
-    TableColumn<EmployeeTable,String> position;
+    TreeTableColumn<EmployeeTable,String> position;
 
     @FXML
-    TableColumn<EmployeeTable,String> department;
+    TreeTableColumn<EmployeeTable,String> department;
 
     @FXML
-    TableColumn<EmployeeTable,String> isAdmin;
-
+    TreeTableColumn<EmployeeTable,String> isAdmin;
 
     @FXML
-    TableView<EmployeeTable> employees;
+    TreeTableView<EmployeeTable> employees;
 
     public void initialize(){
+
+        employees.getColumns().clear();
         employees.setEditable(false);
         EmployeeAccess ea = new EmployeeAccess();
         final ObservableList<EmployeeTable> data = FXCollections.observableArrayList();
         //initializeTable(ea);
 
-        ID.setCellValueFactory(new PropertyValueFactory<EmployeeTable,String>("employeeID"));
-        firstName.setCellValueFactory(new PropertyValueFactory<EmployeeTable, String>("firstName"));
+        ID.setCellValueFactory(cellData -> {
+            if (cellData.getValue().getValue()instanceof EmployeeTable) {
+                return new ReadOnlyObjectWrapper(cellData.getValue().getValue().getID());
+            }
+            return new ReadOnlyObjectWrapper(cellData.getValue().getValue());
+        });
+
+        firstName.setCellValueFactory((TreeTableColumn.CellDataFeatures<EmployeeTable, String> param) -> {
+            //String id = param.getValue().getValue().getID();
+            return new SimpleStringProperty(param.getValue().getValue().getFirstName());
+        });
+
+        lastName.setCellValueFactory((TreeTableColumn.CellDataFeatures<EmployeeTable, String> param) -> {
+            //String id = param.getValue().getValue().getID();
+            return new SimpleStringProperty(param.getValue().getValue().getLastName());
+        });
+
+        position.setCellValueFactory((TreeTableColumn.CellDataFeatures<EmployeeTable, String> param) -> {
+            //String id = param.getValue().getValue().getID();
+            return new SimpleStringProperty(param.getValue().getValue().getType());
+        });
+
+        department.setCellValueFactory((TreeTableColumn.CellDataFeatures<EmployeeTable, String> param) -> {
+            //String id = param.getValue().getValue().getID();
+            return new SimpleStringProperty(param.getValue().getValue().getDepartment());
+        });
+
+        employees.getColumns().add(ID);
+        employees.getColumns().add(firstName);
+        employees.getColumns().add(lastName);
+        employees.getColumns().add(position);
+        employees.getColumns().add(department);
+
+        /*ID.setCellValueFactory(
+                (TreeTableColumn.CellDataFeatures<EmployeeTable, String> param) ->
+                        new ReadOnlyStringWrapper(param.getValue().getValue().getName())
+        );*/
+        /*firstName.setCellValueFactory(new PropertyValueFactory<EmployeeTable, String>("firstName"));
         firstName.setCellValueFactory(new PropertyValueFactory<EmployeeTable, String>("lastName"));
         position.setCellValueFactory(new PropertyValueFactory<EmployeeTable, String>("lastName"));
         department.setCellValueFactory(new PropertyValueFactory<EmployeeTable, String>("type"));
+*/
 
-        int count;
-        count = ea.countRecords()-1;
-        while(count >= 0){
-            ArrayList<String> arr= ea.getRequests(count);
-            EmployeeTable testx = new EmployeeTable(arr.get(0), arr.get(1),arr.get(2), arr.get(3), arr.get(4));
-            count--;
-            data.add(testx);
-        }
-
-        employees.setItems(data);
+        //employees.setItems(data);
     }
     @FXML
     /**@author Gabe

@@ -2,6 +2,9 @@ package Access;
 
 import java.sql.*;
 import java.util.ArrayList;
+import Object.*;
+import javafx.scene.control.TreeItem;
+import sun.reflect.generics.tree.Tree;
 
 public class EmployeeAccess extends DBAccess{
     /**ANDREW MADE THIS
@@ -257,7 +260,8 @@ public class EmployeeAccess extends DBAccess{
      * @param getNum
      * @return
      */
-    public ArrayList<String> getRequests(int getNum){
+    public TreeItem<EmployeeTable> getRequests(int getNum){
+        TreeItem<EmployeeTable> nodeRoot = null;
         String sql = "SELECT * FROM employee where username is not NULL";
         int count = 0;
         //noinspection Convert2Diamond
@@ -272,11 +276,11 @@ public class EmployeeAccess extends DBAccess{
                     data.add(rs.getString("type"));
                     data.add(rs.getString("firstName"));
                     data.add(rs.getString("lastName"));
-
+                    nodeRoot = new TreeItem<>(new EmployeeTable(data.get(0), data.get(1), data.get(2), data.get(3), data.get(4)));
                 }
                 count++;
             }
-            return data;
+            return nodeRoot;
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
