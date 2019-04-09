@@ -45,12 +45,9 @@ public class SuggestionBoxController {
 
             @Override
             public void handle(ActionEvent event) {
-                System.out.println("checking if");
                 if((System.currentTimeMillis() - single.getLastTime()) > single.getTimeoutSec()){
-                    System.out.println("if successfull");
                     try{
                         single.setLastTime();
-                        System.out.println("set time");
                         backPressed();
                     } catch (IOException io){
                         System.out.println(io.getMessage());
