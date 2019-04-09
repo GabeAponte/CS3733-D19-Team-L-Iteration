@@ -315,12 +315,17 @@ public class EditLocationController {
         ea = new EdgesAccess();
 
         anchorPanePath = new AnchorPane();
-        zoomPaneImage = new PanAndZoomPane();
+        anchorPanePath.setLayoutX(30);
+        anchorPanePath.setLayoutY(185);
+        anchorPanePath.setPrefSize(631,412);
+
 
         Rectangle clip = new Rectangle();
         clip.widthProperty().bind(Map.fitWidthProperty());
         clip.heightProperty().bind(Map.fitHeightProperty());
         anchorPanePath.setClip(clip);
+
+        zoomPaneImage = new PanAndZoomPane();
 
         zoomProperty.bind(zoomPaneImage.myScale);
         deltaY.bind(zoomPaneImage.deltaY);
@@ -332,15 +337,14 @@ public class EditLocationController {
         anchorPanePath.addEventFilter( MouseEvent.MOUSE_PRESSED, sceneGestures.getOnMousePressedEventHandler());
         anchorPanePath.addEventFilter( MouseEvent.MOUSE_DRAGGED, sceneGestures.getOnMouseDraggedEventHandler());
         anchorPanePath.addEventFilter( ScrollEvent.ANY, sceneGestures.getOnScrollEventHandler());
-        anchorPanePath.setLayoutX(30);
-        anchorPanePath.setLayoutY(185);
+
         zoomPaneImage.setLayoutX(30);
         zoomPaneImage.setLayoutY(185);
 
 
         anchorPaneWindow.getChildren().add(zoomPaneImage);
         anchorPaneWindow.getChildren().add(anchorPanePath);
-
+        //sceneGestures.reset(Map, Map.getImage().getWidth(), Map.getImage().getHeight());
 
         thisCircle = new Circle();
         anchorPanePath.getChildren().add(thisCircle);
@@ -603,6 +607,7 @@ public class EditLocationController {
         //want to fill nodes w/ floor = currrentFloor
         int temp = 0;
         double scaleRatio = Map.getFitWidth() / Map.getImage().getWidth();
+        System.out.println(scaleRatio);
         Point2D point = sceneGestures.getImageLocation();
         for (int i = 0; i < single.getData().size(); i++) {
             if (single.getData().get(i).getFloor().equals(floorNum())/* current Map floor*/) {
