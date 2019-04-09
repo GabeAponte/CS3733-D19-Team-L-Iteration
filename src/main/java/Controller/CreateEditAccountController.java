@@ -5,17 +5,20 @@ import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXRadioButton;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 import Object.*;
 
 import javax.mail.internet.AddressException;
 import javax.mail.internet.InternetAddress;
 import java.io.IOException;
+import java.net.URL;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
@@ -71,6 +74,12 @@ public class CreateEditAccountController {
     @FXML
     private Button delete;
 
+    @FXML
+    private Button yes;
+
+    @FXML
+    private Button no;
+
     private String pusername;
 
     private String empID;
@@ -78,6 +87,10 @@ public class CreateEditAccountController {
     private int type;
 
     private boolean hasPrivelege;
+
+    private boolean onScreen;
+
+    private boolean deleted;
 
     @SuppressWarnings("Duplicates")
     @FXML
@@ -156,30 +169,67 @@ public class CreateEditAccountController {
     /**ANDREW MADE THIS
      * initializer for the scene
      */
-    public void initialize(){
-        Singleton single = Singleton.getInstance();
-        hasPrivelege = single.isIsAdmin();
-        if(!hasPrivelege){
-            position.setDisable(true);
-            employeeID.setDisable(true);
-            isAdmin.setDisable(true);
-            department.setDisable(true);
+    public void initialize() {
+        if (onScreen == true) {
+            Singleton single = Singleton.getInstance();
+            hasPrivelege = single.isIsAdmin();
+            if (!hasPrivelege) {
+                position.setDisable(true);
+                employeeID.setDisable(true);
+                isAdmin.setDisable(true);
+                department.setDisable(true);
+            }
+            submit.setDisable(true);
+            errorLabel.setText("");
+            department.getItems().addAll("Sanitation", "Security", "IT", "Religious", "Audio Visual", "External Transportation", "Internal Transportation",
+                    "Language", "Maintenance", "Prescription");
         }
-        submit.setDisable(true);
-        errorLabel.setText("");
-        department.getItems().addAll("Sanitation", "Security", "IT", "Religious", "Audio Visual", "External Transportation", "Internal Transportation",
-                "Language", "Maintenance", "Prescription");
-    }
+
+        }
 
     /**Andrew made this
      * deletes an employee
      * @throws IOException
      */
     @FXML
-    public void deleteEmployee() throws IOException{
+    public void deleteClicked() throws IOException{
+        onScreen = false;
+        Stage stage;
+        Parent root;
+
+        stage = new Stage();
+        root = FXMLLoader.load(getClass().getClassLoader().getResource("DeleteEmployee.fxml"));
+        stage.setScene(new Scene(root));
+      //  stage.setTitle("My modal window");
+        stage.initModality(Modality.APPLICATION_MODAL);
+        stage.initOwner(delete.getScene().getWindow());
+        stage.showAndWait();
+
+        /*EmployeeAccess ea = new EmployeeAccess();
+        ea.deleteEmployee(empID);
+        backPressed(); */
+    }
+
+    @FXML
+    public void yesPressed() throws IOException{
+        Stage stage = (Stage) yes.getScene().getWindow();
+        stage.close();
+        deleteEmployee();
+    }
+
+    @FXML
+    public void noPressed() throws IOException{
+        Stage stage = (Stage) no.getScene().getWindow();
+        stage.close();
+    }
+
+
+    @FXML
+    public void deleteEmployee() throws IOException {
         EmployeeAccess ea = new EmployeeAccess();
         ea.deleteEmployee(empID);
-        backPressed();
+       // backPressed();
+
     }
 
     /**ANDREW MADE THIS

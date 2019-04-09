@@ -133,7 +133,7 @@ public class FulfillRequestController {
         }
     }
 
-    @FXML   
+    @FXML
     @SuppressWarnings("Duplicates")
     /**@author Gabe, DJ
      * Once a staff members name is inputed into the text field and the submit button is pressed,
