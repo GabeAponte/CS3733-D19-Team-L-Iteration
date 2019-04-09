@@ -14,6 +14,7 @@ public class ServiceRequestAccess extends DBAccess{
     private SanitationAccess sa = new SanitationAccess();
     private InternalTransportAccess ita = new InternalTransportAccess();
     private ReligiousRequestAccess rra = new ReligiousRequestAccess();
+    private AudioVisualAccess ava = new AudioVisualAccess();
     private ExternalTransportAccess eta = new ExternalTransportAccess();
     private FloristDeliveryAccess fda = new FloristDeliveryAccess();
     private ITAccess ia = new ITAccess();
@@ -45,7 +46,7 @@ public class ServiceRequestAccess extends DBAccess{
     }
 
     /**Andrew Made this
-     * Facade method for getting religiousRequests
+     * Facade method for deleting religiousRequests
      * @return
      */
     public void deleteReligiousRequests() {
@@ -61,7 +62,7 @@ public class ServiceRequestAccess extends DBAccess{
     }
 
     /**Andrew Made this
-     * Facade method for getting internalTransportRequests
+     * Facade method for deleting internalTransportRequests
      * @return
      */
     public void deleteInternalTransportRequests() {
@@ -88,11 +89,75 @@ public class ServiceRequestAccess extends DBAccess{
     }
 
     /**Andrew Made this
-     * Facade method for getting sanitationRequests
+     * Facade method for deleting sanitationRequests
      * @return
      */
     public void deleteSanitationRequests() {
         sa.deleteRecords();
+    }
+
+    /**Andrew Made this
+     * Facade method for deleting AudioVisualRequests
+     * @return
+     */
+    public void deleteAudioVisualRequests() {
+        ava.deleteRecords();
+    }
+
+    /**Andrew Made this
+     * Facade method for deleting FloristDeliverRequests
+     * @return
+     */
+    public void deleteFloristRequests() {
+        fda.deleteRecords();
+    }
+
+    /**Andrew Made this
+     * Facade method for deleting externalTransportationRequests
+     * @return
+     */
+    public void deleteEXternalTransportationRequests() {
+        eta.deleteRecords();
+    }
+
+    /**Andrew Made this
+     * Facade method for deleting ITRequests
+     * @return
+     */
+    public void deleteITRequests() {
+        ia.deleteRecords();
+    }
+
+    /**Andrew Made this
+     * Facade method for deleting languageRequests
+     * @return
+     */
+    public void deleteLanguageRequests() {
+        la.deleteRecords();
+    }
+
+    /**Andrew Made this
+     * Facade method for deleting maintenanceRequests
+     * @return
+     */
+    public void deleteMaintenanceRequests() {
+        ma.deleteRecords();
+    }
+
+    /**Andrew Made this
+     * Facade method for deleting prescriptionRequests
+     * @return
+     */
+    public void deletePrescriptionRequests() {
+        pa.deleteRecords();
+    }
+
+    /**Andrew Made this
+     * Facade method for deleting securityRequests
+     * @return
+     */
+    public void deleteSecurityRequests() {
+        sca.deleteRecords();
     }
 
     /**ANDREW MADE THIS
