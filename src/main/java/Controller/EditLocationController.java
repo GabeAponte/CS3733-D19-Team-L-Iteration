@@ -692,6 +692,9 @@ public class EditLocationController {
         public void handle(MouseEvent event) {
             Point2D mousePress = sceneGestures.imageViewToImage(Map, new Point2D(event.getX(), event.getY()));
 
+            circles.remove(thisCircle);
+            
+
             sceneGestures.setMouseDown(mousePress);
 
             nodeInfoX.setText("" + (int)mousePress.getX());
@@ -702,6 +705,8 @@ public class EditLocationController {
 
             System.out.println(sceneGestures.getImageScale());
             System.out.println((mousePress.getX() - point.getX()) * scaleRatio * sceneGestures.getImageScale());
+
+            //thisCircle = new Circle();
 
             //Setting the properties of the circle
             thisCircle.setCenterX((mousePress.getX() - point.getX()) * scaleRatio * sceneGestures.getImageScale());
