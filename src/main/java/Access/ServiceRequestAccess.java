@@ -14,6 +14,13 @@ public class ServiceRequestAccess extends DBAccess{
     private SanitationAccess sa = new SanitationAccess();
     private InternalTransportAccess ita = new InternalTransportAccess();
     private ReligiousRequestAccess rra = new ReligiousRequestAccess();
+    private ExternalTransportAccess eta = new ExternalTransportAccess();
+    private FloristDeliveryAccess fda = new FloristDeliveryAccess();
+    private ITAccess ia = new ITAccess();
+    private LanguageAccess la = new LanguageAccess();
+    private MaintenanceAccess ma = new MaintenanceAccess();
+    private PrescriptionAccess pa = new PrescriptionAccess();
+    private SecurityAccess sca = new SecurityAccess();
 
     /**ANDREW MADE THIS
      * deletes all the records from the serviceRequest table
