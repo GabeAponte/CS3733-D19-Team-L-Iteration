@@ -143,7 +143,13 @@ public class EditLocationController {
         Map.setImage(new Image("/SoftEng_UI_Mockup_Pics/00_thegroundfloor.png"));
         floorSelected = 0;
         if(displayingNodes){
+            for (Circle c: circles){
+                anchorPanePath.getChildren().remove(c);
+            }
+            circles.clear();
             drawNodes();
+            circles.add(thisCircle);
+            anchorPanePath.getChildren().add(thisCircle);
         }
     }
     @FXML
@@ -151,7 +157,13 @@ public class EditLocationController {
         Map.setImage(new Image("/SoftEng_UI_Mockup_Pics/00_thelowerlevel1.png"));
         floorSelected = -1;
         if(displayingNodes){
+            for (Circle c: circles){
+                anchorPanePath.getChildren().remove(c);
+            }
+            circles.clear();
             drawNodes();
+            circles.add(thisCircle);
+            anchorPanePath.getChildren().add(thisCircle);
         }
     }
 
@@ -159,7 +171,13 @@ public class EditLocationController {
         Map.setImage(new Image("/SoftEng_UI_Mockup_Pics/00_thelowerlevel2.png"));
         floorSelected = -2;
         if(displayingNodes){
+            for (Circle c: circles){
+                anchorPanePath.getChildren().remove(c);
+            }
+            circles.clear();
             drawNodes();
+            circles.add(thisCircle);
+            anchorPanePath.getChildren().add(thisCircle);
         }
     }
     @FXML
@@ -167,7 +185,13 @@ public class EditLocationController {
         Map.setImage(new Image("/SoftEng_UI_Mockup_Pics/01_thefirstfloor.png"));
         floorSelected = 1;
         if(displayingNodes){
+            for (Circle c: circles){
+                anchorPanePath.getChildren().remove(c);
+            }
+            circles.clear();
             drawNodes();
+            circles.add(thisCircle);
+            anchorPanePath.getChildren().add(thisCircle);
         }
     }
     @FXML
@@ -175,7 +199,13 @@ public class EditLocationController {
         Map.setImage(new Image("/SoftEng_UI_Mockup_Pics/02_thesecondfloor.png"));
         floorSelected = 2;
         if(displayingNodes){
+            for (Circle c: circles){
+                anchorPanePath.getChildren().remove(c);
+            }
+            circles.clear();
             drawNodes();
+            circles.add(thisCircle);
+            anchorPanePath.getChildren().add(thisCircle);
         }
     }
     @FXML
@@ -183,7 +213,13 @@ public class EditLocationController {
         Map.setImage(new Image("/SoftEng_UI_Mockup_Pics/03_thethirdfloor.png"));
         floorSelected = 3;
         if(displayingNodes){
+            for (Circle c: circles){
+                anchorPanePath.getChildren().remove(c);
+            }
+            circles.clear();
             drawNodes();
+            circles.add(thisCircle);
+            anchorPanePath.getChildren().add(thisCircle);
         }
     }
 
@@ -593,7 +629,10 @@ public class EditLocationController {
             anchorPanePath.getChildren().remove(c);
         }
 
-        circles.clear();
+        if(!anchorPanePath.getChildren().contains(thisCircle)) {
+            circles.add(thisCircle);
+            anchorPanePath.getChildren().add(thisCircle);
+        }
 
         if(displayingNodes) {   
             drawNodes();   
@@ -601,23 +640,18 @@ public class EditLocationController {
     }
     
     private void drawNodes(){
-        circles.add(thisCircle);
-        anchorPanePath.getChildren().add(thisCircle);
         //display all nodes on that floor!!!
         ArrayList<Location> nodes = new ArrayList<Location>();
         //want to fill nodes w/ floor = currrentFloor
         int temp = 0;
         double scaleRatio = Map.getFitWidth() / Map.getImage().getWidth();
-        System.out.println(scaleRatio);
         Point2D point = sceneGestures.getImageLocation();
         for (int i = 0; i < single.getData().size(); i++) {
             if (single.getData().get(i).getFloor().equals(floorNum())/* current Map floor*/) {
-                System.out.println(floorNum());
                 nodes.add(single.getData().get(i));
 
                 Circle thisCircle = new Circle();
 
-                anchorPanePath.getChildren().add(thisCircle);
 
                 //Setting the properties of the circle
                 thisCircle.setCenterX((nodes.get(temp).getXcoord() - point.getX()) * scaleRatio * sceneGestures.getImageScale());
@@ -626,12 +660,12 @@ public class EditLocationController {
                 thisCircle.setStroke(Color.web("RED")); //#f5d96b
                 thisCircle.setFill(Color.web("RED"));
 
+                anchorPanePath.getChildren().add(thisCircle);
+
                 circles.add(thisCircle);
                 temp++;
             }
         }
-
-
     }
         
         
@@ -639,9 +673,7 @@ public class EditLocationController {
     private void nodeInfoIDPress(){
         //be able to modify the selected nodeID
 
-
-
-        }
+    }
 
     @FXML
     private void nodeInfoFloorPress(){
@@ -694,8 +726,6 @@ public class EditLocationController {
         @Override
         public void handle(MouseEvent event) {
             Point2D mousePress = sceneGestures.imageViewToImage(Map, new Point2D(event.getX(), event.getY()));
-
-            System.out.println(mousePress.getX() + " " + sceneGestures.getMouseDown().getValue().getX());
 
             if(mousePress.getX() == sceneGestures.getMouseDown().getValue().getX() && mousePress.getY() == sceneGestures.getMouseDown().getValue().getY()) {
                 circles.remove(thisCircle);
