@@ -136,6 +136,12 @@ public class PathFindingController {
     private void clickedG(){
         Map.setImage(new Image("/SoftEng_UI_Mockup_Pics/00_thegroundfloor.png"));
         currentMap = "G";
+        for (Circle c: circles) {
+            anchorPanePath.getChildren().remove(c);
+        }
+        for (Line l: lines) {
+            anchorPanePath.getChildren().remove(l);
+        }
         if(PathFindStartDrop.getValue() != null && PathFindEndDrop.getValue() != null){
             submitPressed();
         }
@@ -144,6 +150,12 @@ public class PathFindingController {
     private void clickedL1() {
         Map.setImage(new Image("/SoftEng_UI_Mockup_Pics/00_thelowerlevel1.png"));
         currentMap = "L1";
+        for (Circle c: circles) {
+            anchorPanePath.getChildren().remove(c);
+        }
+        for (Line l: lines) {
+            anchorPanePath.getChildren().remove(l);
+        }
         if(PathFindStartDrop.getValue() != null && PathFindEndDrop.getValue() != null){
             submitPressed();
         }
@@ -152,6 +164,12 @@ public class PathFindingController {
     public void clickedL2(){
         Map.setImage(new Image("/SoftEng_UI_Mockup_Pics/00_thelowerlevel2.png"));
         currentMap = "L2";
+        for (Circle c: circles) {
+            anchorPanePath.getChildren().remove(c);
+        }
+        for (Line l: lines) {
+            anchorPanePath.getChildren().remove(l);
+        }
         if(PathFindStartDrop.getValue() != null && PathFindEndDrop.getValue() != null){
             submitPressed();
         }
@@ -160,6 +178,12 @@ public class PathFindingController {
     private void clicked1(){
         Map.setImage(new Image("/SoftEng_UI_Mockup_Pics/01_thefirstfloor.png"));
         currentMap = "1";
+        for (Circle c: circles) {
+            anchorPanePath.getChildren().remove(c);
+        }
+        for (Line l: lines) {
+            anchorPanePath.getChildren().remove(l);
+        }
         if(PathFindStartDrop.getValue() != null && PathFindEndDrop.getValue() != null){
             submitPressed();
         }
@@ -168,6 +192,12 @@ public class PathFindingController {
     private void clicked2(){
         Map.setImage(new Image("/SoftEng_UI_Mockup_Pics/02_thesecondfloor.png"));
         currentMap = "2";
+        for (Circle c: circles) {
+            anchorPanePath.getChildren().remove(c);
+        }
+        for (Line l: lines) {
+            anchorPanePath.getChildren().remove(l);
+        }
         if(PathFindStartDrop.getValue() != null && PathFindEndDrop.getValue() != null){
             submitPressed();
         }
@@ -176,6 +206,12 @@ public class PathFindingController {
     private void clicked3(){
         Map.setImage(new Image("/SoftEng_UI_Mockup_Pics/03_thethirdfloor.png"));
         currentMap = "3";
+        for (Circle c: circles) {
+            anchorPanePath.getChildren().remove(c);
+        }
+        for (Line l: lines) {
+            anchorPanePath.getChildren().remove(l);
+        }
         if(PathFindStartDrop.getValue() != null && PathFindEndDrop.getValue() != null){
             submitPressed();
         }
@@ -207,6 +243,12 @@ public class PathFindingController {
      * Replaces image URL with the next floor up when the UP button is pressed
      */
     private void upClicked() {
+        for (Circle c: circles) {
+            anchorPanePath.getChildren().remove(c);
+        }
+        for (Line l: lines) {
+            anchorPanePath.getChildren().remove(l);
+        }
         if (mapURLs.isEmpty()) {
             map();
             listIterator = mapURLs.listIterator();
@@ -242,6 +284,12 @@ public class PathFindingController {
      * allows the map to change when UP is pressed and the last button clicked was DOWN by calling next one more time.
      */
     private void upAgain() {
+        for (Circle c: circles) {
+            anchorPanePath.getChildren().remove(c);
+        }
+        for (Line l: lines) {
+            anchorPanePath.getChildren().remove(l);
+        }
         if (listIterator.hasNext() == false) {
             listIterator = mapURLs.listIterator();
             String next = listIterator.next();
@@ -258,6 +306,12 @@ public class PathFindingController {
      * allows the map to change when down is pressed and the last button clicked was UP by calling previous one more time.
      */
     private void downAgain() {
+        for (Circle c: circles) {
+            anchorPanePath.getChildren().remove(c);
+        }
+        for (Line l: lines) {
+            anchorPanePath.getChildren().remove(l);
+        }
         if (listIterator.hasPrevious() == false) {
             listIterator = mapURLs.listIterator(mapURLs.size() - 1);
             String previous = listIterator.previous();
@@ -274,6 +328,12 @@ public class PathFindingController {
      * Replaces image URL with the next floor down when the DOWN button is pressed
      */
     private void downClicked(){
+        for (Circle c: circles) {
+            anchorPanePath.getChildren().remove(c);
+        }
+        for (Line l: lines) {
+            anchorPanePath.getChildren().remove(l);
+        }
         if (mapURLs.isEmpty()) {
             map();
             listIterator = mapURLs.listIterator();
@@ -1005,15 +1065,17 @@ public class PathFindingController {
     /** GRACE MADE THIS
      * display path to nearest keyword
      */
+    Location kioskTemp = single.getData().get(0);
+
     public void displayClosestPOI(String keyword){
         ArrayList<Location> nodes = new ArrayList<Location>();
-        Location kioskTemp = single.getData().get(0);
         //want to fill nodes w/ relevent POI
 
         for(int i=0; i<single.getData().size(); i++) {
             //if nodetype contains keyword
-            if (single.getData().get(i).getNodeType().contains(keyword) && single.getData().get(i).getFloor() == kioskTemp.getFloor()) {
+            if (single.getData().get(i).getNodeType().contains(keyword) && single.getData().get(i).getFloor().equals(kioskTemp.getFloor())) {
                 nodes.add(single.getData().get(i));
+                System.out.println("node added");
             }
         }
 
@@ -1048,7 +1110,7 @@ public class PathFindingController {
 
 
         displayPath(closestPath.getPath(), kioskTemp, closestLOC);
-        printPath(thispath.getPath());
+        printPath(closestPath.getPath());
 
         sceneGestures.setDrawPath(circles,lines);
         //System.out.println("just pretend it prints out the path to closest");
@@ -1077,7 +1139,9 @@ public class PathFindingController {
             stairsRadButton.setSelected(false);
             stairsRadButton.setTextFill(Color.web("#ffffff"));
 
-            //displayClosestPOI("REST");
+            if(!(currentMap.equals(kioskTemp.getFloor()))){
+                displayClosestPOI("REST");
+            }
             displayPOINodes("REST");
             // for some reason displaying poi nodes cannot go before displaying the closest path
         }
@@ -1111,7 +1175,9 @@ public class PathFindingController {
             stairsRadButton.setSelected(false);
             stairsRadButton.setTextFill(Color.web("#ffffff"));
 
-            //displayClosestPOI("RETL");
+            if(!(currentMap.equals(kioskTemp.getFloor()))) {
+                displayClosestPOI("RETL");
+            }
             displayPOINodes("RETL");
         }
         if(!cafeRadButton.isSelected()){
@@ -1144,7 +1210,9 @@ public class PathFindingController {
             stairsRadButton.setSelected(false);
             stairsRadButton.setTextFill(Color.web("#ffffff"));
 
-            //displayClosestPOI("ELEV");
+            if(!(currentMap.equals(kioskTemp.getFloor()))) {
+                displayClosestPOI("ELEV");
+            }
             displayPOINodes("ELEV");
         }
         if(!eleRadButton.isSelected()){
@@ -1177,7 +1245,9 @@ public class PathFindingController {
             bathroomRadButton.setSelected(false);
             bathroomRadButton.setTextFill(Color.web("#ffffff"));
 
-            //displayClosestPOI("STAI");
+            if(!(currentMap.equals(kioskTemp.getFloor()))) {
+                displayClosestPOI("STAI");
+            }
             displayPOINodes("STAI");
         }
         if(!stairsRadButton.isSelected()){
