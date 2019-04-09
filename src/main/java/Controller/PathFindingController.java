@@ -1125,7 +1125,7 @@ public class PathFindingController {
             if(single.getData().get(i).getNodeType().contains(keyword) && single.getData().get(i).getFloor().equals(currentMap)/* && data.get(i).getFloor() == kioskNode.getFloor*/){
                 nodes.add(single.getData().get(i));
 
-                System.out.println("ok at least one node gets here");
+                //System.out.println("ok at least one node gets here");
 
                 Circle thisCircle = new Circle();
 
@@ -1149,8 +1149,7 @@ public class PathFindingController {
     /** GRACE MADE THIS
      * display path to nearest keyword
      */
-    Location kioskTemp = single.getData().get(0);
-
+    Location kioskTemp = single.getData().get(0); //initially at floor 2
     public void displayClosestPOI(String keyword){
         ArrayList<Location> nodes = new ArrayList<Location>();
         //want to fill nodes w/ relevent POI
@@ -1207,8 +1206,11 @@ public class PathFindingController {
     @FXML
     private void setKioskButtPress(){
         //get start location from dropdown
-        kioskTemp = PathFindStartDrop.getValue();
-        //set kioskTemp to that^
+        if(!(PathFindStartDrop.getValue() == null)){
+            kioskTemp = PathFindStartDrop.getValue();
+            //set kioskTemp to that^
+        }
+
     }
     /** GRACE MADE THIS
      *display and find closest bathroom
@@ -1233,7 +1235,7 @@ public class PathFindingController {
             stairsRadButton.setSelected(false);
             stairsRadButton.setTextFill(Color.web("#ffffff"));
 
-            if(!(currentMap.equals(kioskTemp.getFloor()))){
+            if((currentMap.equals(kioskTemp.getFloor()))){
                 displayClosestPOI("REST");
             }
             displayPOINodes("REST");
@@ -1269,7 +1271,8 @@ public class PathFindingController {
             stairsRadButton.setSelected(false);
             stairsRadButton.setTextFill(Color.web("#ffffff"));
 
-            if(!(currentMap.equals(kioskTemp.getFloor()))) {
+            if((currentMap.equals(kioskTemp.getFloor()))) {
+                System.out.println("");
                 displayClosestPOI("RETL");
             }
             displayPOINodes("RETL");
@@ -1304,7 +1307,7 @@ public class PathFindingController {
             stairsRadButton.setSelected(false);
             stairsRadButton.setTextFill(Color.web("#ffffff"));
 
-            if(!(currentMap.equals(kioskTemp.getFloor()))) {
+            if((currentMap.equals(kioskTemp.getFloor()))) {
                 displayClosestPOI("ELEV");
             }
             displayPOINodes("ELEV");
@@ -1339,7 +1342,7 @@ public class PathFindingController {
             bathroomRadButton.setSelected(false);
             bathroomRadButton.setTextFill(Color.web("#ffffff"));
 
-            if(!(currentMap.equals(kioskTemp.getFloor()))) {
+            if((currentMap.equals(kioskTemp.getFloor()))) {
                 displayClosestPOI("STAI");
             }
             displayPOINodes("STAI");
