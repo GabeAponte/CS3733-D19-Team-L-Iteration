@@ -214,6 +214,8 @@ public class CreateEditAccountController {
     public void yesPressed() throws IOException{
         Stage stage = (Stage) yes.getScene().getWindow();
         stage.close();
+        onScreen = true;
+        initialize();
         deleteEmployee();
     }
 
