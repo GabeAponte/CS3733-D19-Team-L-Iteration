@@ -601,7 +601,8 @@ public class EditLocationController {
     }
     
     private void drawNodes(){
-
+        circles.add(thisCircle);
+        anchorPanePath.getChildren().add(thisCircle);
         //display all nodes on that floor!!!
         ArrayList<Location> nodes = new ArrayList<Location>();
         //want to fill nodes w/ floor = currrentFloor
@@ -629,6 +630,8 @@ public class EditLocationController {
                 temp++;
             }
         }
+
+
     }
         
         
@@ -692,31 +695,31 @@ public class EditLocationController {
         public void handle(MouseEvent event) {
             Point2D mousePress = sceneGestures.imageViewToImage(Map, new Point2D(event.getX(), event.getY()));
 
-            circles.remove(thisCircle);
-            
+            System.out.println(mousePress.getX() + " " + sceneGestures.getMouseDown().getValue().getX());
 
-            sceneGestures.setMouseDown(mousePress);
+            if(mousePress.getX() == sceneGestures.getMouseDown().getValue().getX() && mousePress.getY() == sceneGestures.getMouseDown().getValue().getY()) {
+                circles.remove(thisCircle);
 
-            nodeInfoX.setText("" + (int)mousePress.getX());
-            nodeInfoY.setText("" + (int)mousePress.getY());
+                nodeInfoX.setText("" + (int) mousePress.getX());
+                nodeInfoY.setText("" + (int) mousePress.getY());
 
-            Point2D point = sceneGestures.getImageLocation();
-            double scaleRatio = Map.getFitWidth()/Map.getImage().getWidth();
+                Point2D point = sceneGestures.getImageLocation();
+                double scaleRatio = Map.getFitWidth() / Map.getImage().getWidth();
 
-            System.out.println(sceneGestures.getImageScale());
-            System.out.println((mousePress.getX() - point.getX()) * scaleRatio * sceneGestures.getImageScale());
+                System.out.println(sceneGestures.getImageScale());
+                System.out.println((mousePress.getX() - point.getX()) * scaleRatio * sceneGestures.getImageScale());
 
-            //thisCircle = new Circle();
+                //thisCircle = new Circle();
 
-            //Setting the properties of the circle
-            thisCircle.setCenterX((mousePress.getX() - point.getX()) * scaleRatio * sceneGestures.getImageScale());
-            thisCircle.setCenterY((mousePress.getY() - point.getY()) * scaleRatio * sceneGestures.getImageScale());
-            thisCircle.setRadius(Math.max(2.5, 2.5f * (sceneGestures.getImageScale() / 5)));
-            thisCircle.setStroke(Color.web("GREEN")); //#f5d96b
-            thisCircle.setFill(Color.web("GREEN"));
+                //Setting the properties of the circle
+                thisCircle.setCenterX((mousePress.getX() - point.getX()) * scaleRatio * sceneGestures.getImageScale());
+                thisCircle.setCenterY((mousePress.getY() - point.getY()) * scaleRatio * sceneGestures.getImageScale());
+                thisCircle.setRadius(Math.max(2.5, 2.5f * (sceneGestures.getImageScale() / 5)));
+                thisCircle.setStroke(Color.web("GREEN")); //#f5d96b
+                thisCircle.setFill(Color.web("GREEN"));
 
-            circles.add(thisCircle);
-
+                circles.add(thisCircle);
+            }
         }
     };
 
