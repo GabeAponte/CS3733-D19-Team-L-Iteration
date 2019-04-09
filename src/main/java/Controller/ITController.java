@@ -31,7 +31,7 @@ public class ITController {
     private JFXComboBox<String> floor;
 
     @FXML
-    private JFXComboBox<String> location;
+    private JFXComboBox<String> loc;
 
     @FXML
     private JFXTextArea description;
@@ -45,6 +45,9 @@ public class ITController {
     private boolean signedIn;
     private String uname;
 
+    //Specs
+    //
+
     public void init(boolean loggedIn, String username) {
         uname = username;
         signedIn = loggedIn;
@@ -53,7 +56,6 @@ public class ITController {
     public void initialize(){
         submit.setDisable(true);
         device.getItems().addAll("Desktop Computer", "Laptop Computer", "Tablet", "Smartphone", "Kiosk");
-
     }
 
     @FXML

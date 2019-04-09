@@ -85,46 +85,59 @@ public class ServiceRequestController {
         String serviceFXML = "";
         if(e.getSource() == ITServices) {
             serviceFXML = "ITServiceRequest.fxml";
-        } else if(e.getSource() == ReligiousServices) {
-            serviceFXML = "ReligiousServiceRequest";
-        } else if(e.getSource() == LanguageInterpreter) {
-            serviceFXML = "ITServiceRequest.fxml";
-        } else if(e.getSource() == ExternalTransportation) {
-            serviceFXML = "ITServiceRequest.fxml";
-        } else if(e.getSource() == Florist) {
-            serviceFXML = "ITServiceRequest.fxml";
-        }else if(e.getSource() == AudioVisual) {
-            serviceFXML = "ITServiceRequest.fxml";
-        }else if(e.getSource() == FacilitiesMaintenance) {
-            serviceFXML = "ITServiceRequest.fxml";
-        }else if(e.getSource() == SecurityStaff) {
-            serviceFXML = "ITServiceRequest.fxml";
-        }else if(e.getSource() == SanitationServices) {
-            serviceFXML = "sanitationServiceRequest.fxml";
-        }else if(e.getSource() == InternalTransportation) {
-            serviceFXML = "ITServiceRequest.fxml";
-        }else if(e.getSource() == PrescriptionServices) {
-            serviceFXML = "ITServiceRequest.fxml";
-        }else if(e.getSource() == GiftStoreServices) {
-            serviceFXML = "ITServiceRequest.fxml";
         }
-        changeToSub(serviceFXML);
+        else if(e.getSource() == ReligiousServices) {
+            serviceFXML = "ReligiousServiceRequest.fxml";
+        }
+        else if(e.getSource() == LanguageInterpreter) {
+            serviceFXML = "ServiceRequestLanguage.fxml";
+        }
+        else if(e.getSource() == ExternalTransportation) {
+            serviceFXML = "ReligiousServiceRequest.fxml";
+        }
+        else if(e.getSource() == Florist) {
+            serviceFXML = "ServiceRequestFloristDelivery.fxml";
+        }
+        else if(e.getSource() == AudioVisual) {
+            serviceFXML = "ReligiousServiceRequest.fxml";
+        }
+        else if(e.getSource() == FacilitiesMaintenance) {
+            serviceFXML = "ReligiousServiceRequest.fxml";
+        }
+        else if(e.getSource() == SecurityStaff) {
+            serviceFXML = "ReligiousServiceRequest.fxml";
+        }
+        else if(e.getSource() == SanitationServices) {
+            serviceFXML = "sanitationServiceRequest.fxml";
+        }
+        else if(e.getSource() == InternalTransportation) {
+            serviceFXML = "ReligiousServiceRequest.fxml";
+        }
+        else if(e.getSource() == PrescriptionServices) {
+            serviceFXML = "ReligiousServiceRequest.fxml";
+        }
+        else if(e.getSource() == GiftStoreServices) {
+            serviceFXML = "ReligiousServiceRequest.fxml";
+        }
+        changeToSub(e.getSource(), serviceFXML);
     }
 
     //Nathan - changes screen to service sub screen, param "service" determines label on sub scree
     @FXML
-    private void changeToSub(String fxml) throws IOException{
+    private void changeToSub(Object e, String fxml) throws IOException{
 
         Stage theStage = (Stage) Back.getScene().getWindow();
         AnchorPane root;
-            FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("ServiceRequestFloristDelivery.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource(fxml));
 
-            Parent sceneMain = loader.load();
+        Parent sceneMain = loader.load();
 
-            theStage = (Stage) SanitationServices.getScene().getWindow();
+        //LoggedInHomeController controller = loader.<LoggedInHomeController>getController();
 
-            Scene scene = new Scene(sceneMain);
-            theStage.setScene(scene);
+        theStage = (Stage) SanitationServices.getScene().getWindow();
+
+        Scene scene = new Scene(sceneMain);
+        theStage.setScene(scene);
 
     }
 
