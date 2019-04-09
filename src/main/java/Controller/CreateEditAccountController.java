@@ -168,7 +168,7 @@ public class CreateEditAccountController {
         submit.setDisable(true);
         errorLabel.setText("");
         department.getItems().addAll("Sanitation", "Security", "IT", "Religious", "Audio Visual", "External Transportation", "Internal Transportation",
-                "Language", "Maintenance", "Prescription");
+                "Language", "Maintenance", "Prescription", "Florist Delivery");
     }
 
     /**Andrew made this
