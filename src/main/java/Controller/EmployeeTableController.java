@@ -66,7 +66,6 @@ public class EmployeeTableController{
             TreeItem<EmployeeTable> arr= ea.getRequests(count);
             root.getChildren().add(arr);
             count--;
-            System.out.println("looop");
         }
 
         ID.setCellValueFactory(cellData -> {
