@@ -59,6 +59,7 @@ public class SceneGestures {
 
         public void handle(MouseEvent event) {
             Point2D mousePress = imageViewToImage(imageView, new Point2D(event.getX(), event.getY()));
+            System.out.println("BAD");
             mouseDown.set(mousePress);
         }
 

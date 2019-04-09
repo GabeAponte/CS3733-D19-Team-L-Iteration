@@ -12,6 +12,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.input.ScrollEvent;
@@ -98,8 +99,8 @@ public class EditLinkBetweenFloorsController {
         map();
         //initializeTable(na, ea);
         setUpImage(Map, zoomPropertyMain, deltaYMain, 431, 115);
-        //setUpImage(MapUpper, zoomPropertyUpper, deltaYUpper, 830, 417);
-        //setUpImage(MapLower, zoomPropertyLower, deltaYLower, 25, 417);
+        setUpImage(MapUpper, zoomPropertyUpper, deltaYUpper, 830, 417);
+        setUpImage(MapLower, zoomPropertyLower, deltaYLower, 25, 417);
 
         System.out.println("NO CRASH??");
     }
@@ -222,8 +223,8 @@ public class EditLinkBetweenFloorsController {
         Rectangle clip = new Rectangle();
         //clip.widthProperty().bind(Map1.fitWidthProperty());
         //clip.heightProperty().bind(Map1.fitHeightProperty());
-        clip.setX(Map1.getX());
-        clip.setY(Map1.getY());
+        clip.setX(0);
+        clip.setY(0);
         clip.setWidth(Map1.getFitWidth());
         clip.setHeight(Map1.getFitHeight());
 
@@ -234,21 +235,56 @@ public class EditLinkBetweenFloorsController {
         zoomProperty.bind(zoomPaneImage.myScale);
         deltaY.bind(zoomPaneImage.deltaY);
         zoomPaneImage.getChildren().add(Map1);
-        zoomPaneImage.setLayoutX(0);
-        zoomPaneImage.setLayoutY(0);
 
         SceneGestures sceneGestures = new SceneGestures(zoomPaneImage, Map1);
         anchorPanePath.addEventFilter( MouseEvent.MOUSE_CLICKED, sceneGestures.getOnMouseClickedEventHandler());
         anchorPanePath.addEventFilter( MouseEvent.MOUSE_PRESSED, sceneGestures.getOnMousePressedEventHandler());
         anchorPanePath.addEventFilter( MouseEvent.MOUSE_DRAGGED, sceneGestures.getOnMouseDraggedEventHandler());
         anchorPanePath.addEventFilter( ScrollEvent.ANY, sceneGestures.getOnScrollEventHandler());
-
+        zoomPaneImage.setLayoutX(x);
+        zoomPaneImage.setLayoutY(y);
 
         anchorPaneWindow.getChildren().add(zoomPaneImage);
         anchorPaneWindow.getChildren().add(anchorPanePath);
-        System.out.println(clip.getX() + " | " + clip.getWidth());
-        System.out.println(Map1.getImage());
         sceneGestures.reset(Map1, Map1.getImage().getWidth(), Map1.getImage().getHeight());
+    }
 
+    @FXML
+    private void typeSelected() {
+
+    }
+
+    @FXML
+    private void floorSelected() {
+        if (Floor.getValue().equals("3")) {
+            Map.setImage(new Image(mapURLlookup.get("3")));
+            MapUpper.setImage(null);
+            MapLower.setImage(new Image(mapURLlookup.get("2")));
+        }
+        else if (Floor.getValue().equals("2")) {
+            Map.setImage(new Image(mapURLlookup.get("2")));
+            MapUpper.setImage(new Image(mapURLlookup.get("3")));
+            MapLower.setImage(new Image(mapURLlookup.get("1")));
+        }
+        else if (Floor.getValue().equals("1")) {
+            Map.setImage(new Image(mapURLlookup.get("1")));
+            MapUpper.setImage(new Image(mapURLlookup.get("2")));
+            MapLower.setImage(new Image(mapURLlookup.get("Ground")));
+        }
+        else if (Floor.getValue().equals("Ground")) {
+            Map.setImage(new Image(mapURLlookup.get("Ground")));
+            MapUpper.setImage(new Image(mapURLlookup.get("1")));
+            MapLower.setImage(new Image(mapURLlookup.get("L1")));
+        }
+        else if (Floor.getValue().equals("L1")) {
+            Map.setImage(new Image(mapURLlookup.get("L1")));
+            MapUpper.setImage(new Image(mapURLlookup.get("Ground")));
+            MapLower.setImage(new Image(mapURLlookup.get("L2")));
+        }
+        else {
+            Map.setImage(new Image(mapURLlookup.get("L2")));
+            MapUpper.setImage(new Image(mapURLlookup.get("L1")));
+            MapLower.setImage(null);
+        }
     }
 }
