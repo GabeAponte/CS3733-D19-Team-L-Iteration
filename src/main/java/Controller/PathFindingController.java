@@ -1116,8 +1116,10 @@ public class PathFindingController {
         ArrayList<Location> nodes = new ArrayList<Location>();
         //want to fill nodes w/ floor = currrentKioskFloor && nodeLongName? or nodeType? .contains(keyword)
         int temp = 0;
+
         double scaleRatio = Map.getFitWidth() / Map.getImage().getWidth();
         Point2D point = sceneGestures.getImageLocation();
+
         for(int i=0; i<single.getData().size(); i++){
             //if nodetype contains keyword
             //System.out.println(currentMap);
@@ -1165,6 +1167,20 @@ public class PathFindingController {
         if(! nodes.isEmpty()){
 
             AStarStrategy astar = new AStarStrategy(single.lookup);
+
+            //get closest node
+            int nodeAx=0;
+            int nodeAy=0;
+
+            int nodeBx= kioskTemp.getXcoord();
+
+            for(int i=0; i<nodes.size(); i++){
+                //kiosk is B
+                nodeAx = nodes.get(i).getXcoord();
+                nodeAy = nodes.get(i).getYcoord();
+
+
+            }
 
             long startTime;
             long endTime;
