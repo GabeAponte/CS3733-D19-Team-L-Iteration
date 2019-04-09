@@ -1,5 +1,6 @@
 package Controller;
 
+import Access.EmployeeAccess;
 import Object.Singleton;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -51,12 +52,22 @@ public class AdminLoggedInHomeController {
     //   seeSuggestions should switch to the suggestions table screen
     //   switching to the fulfillRequest screen should display all active service requests for the admin
 
+    /**ANDREW MADE THIS
+     * Initializes the screen
+     */
+    public void initialize(){
+        Singleton single = Singleton.getInstance();
+        EmployeeAccess ea = new EmployeeAccess();
+        welcome.setText("Welcome, " + ea.getEmployeeInformation(single.getUsername()).get(3));
+    }
+
     @FXML
     private void logOut() throws IOException {
         Stage thestage = (Stage) logOut.getScene().getWindow();
         AnchorPane root;
         Singleton.setLoggedIn(false);
         Singleton.setUsername("");
+        Singleton.setIsAdmin(false);
         root = FXMLLoader.load(getClass().getClassLoader().getResource("HospitalHome.fxml"));
         Scene scene = new Scene(root);
         thestage.setScene(scene);
@@ -133,5 +144,48 @@ public class AdminLoggedInHomeController {
         Scene scene = new Scene(sceneMain);
         theStage.setScene(scene);
     }
+
+    @FXML
+    private void SwitchToAddAccountScreen() throws IOException{
+        FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("CreateEditAccount.fxml"));
+
+        Parent sceneMain = loader.load();
+
+        CreateEditAccountController controller = loader.<CreateEditAccountController>getController();
+        controller.setType(1, "");
+        Stage theStage = (Stage) fufillServiceRequest.getScene().getWindow();
+
+        Scene scene = new Scene(sceneMain);
+        theStage.setScene(scene);
+    }
+
+    @FXML
+    private void SwitchToEditAccountScreen() throws IOException{
+        FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("EmployeeTable.fxml"));
+
+        Parent sceneMain = loader.load();
+
+        EmployeeTableController controller = loader.<EmployeeTableController>getController();
+
+        Stage theStage = (Stage) fufillServiceRequest.getScene().getWindow();
+
+        Scene scene = new Scene(sceneMain);
+        theStage.setScene(scene);
+    }
+    /*
+    @FXML
+    private void SwitchToSuggestionScreen() throws IOException{
+        FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("SuggestionBox.fxml"));
+
+        Parent sceneMain = loader.load();
+
+        SuggestionBoxController controller = loader.<SuggestionBoxController>getController();
+
+        Stage theStage = (Stage) fufillServiceRequest.getScene().getWindow();
+
+        Scene scene = new Scene(sceneMain);
+        theStage.setScene(scene);
+    }
+     */
 
 }
