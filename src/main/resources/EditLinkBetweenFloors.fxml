@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXComboBox?>
+<?import java.net.URL?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ToolBar?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane fx:id="anchorPaneWindow" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" style="-fx-background-color: #7fb1ff;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.EditLinkBetweenFloorsController">
+    <children>
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#012d5a" height="306.0" layoutX="819.0" layoutY="404.0" stroke="#012d5a" strokeType="INSIDE" width="453.0" />
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#012d5a" height="306.0" layoutX="8.0" layoutY="404.0" stroke="#012d5a" strokeType="INSIDE" width="453.0" />
+        <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#012d5a" height="100.0" layoutX="547.0" layoutY="545.0" stroke="#012d5a" strokeType="INSIDE" width="205.0" />
+        <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#012d5a" height="298.0" layoutX="414.0" layoutY="110.0" stroke="#012d5a" strokeType="INSIDE" width="446.0" />
+        <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#012d5a" height="73.0" layoutX="41.0" layoutY="219.0" stroke="#012d5a" strokeType="INSIDE" width="343.0" />
+        <ToolBar maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="100.0" prefWidth="1280.0" style="-fx-background-color: white;">
+            <items>
+                <ImageView fitHeight="91.0" fitWidth="395.0" pickOnBounds="true" preserveRatio="true">
+                    <image>
+                        <Image url="@SoftEng_UI_Mockup_Pics/BWHlogo.png" />
+                    </image>
+                </ImageView>
+            </items>
+        </ToolBar>
+        <ToolBar layoutY="95.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="10.0" prefWidth="1280.0" style="-fx-background-color: #012D5A;" />
+        <JFXButton fx:id="PathFindBack" buttonType="RAISED" layoutX="1100.0" layoutY="19.0" onAction="#backPressed" prefHeight="58.0" prefWidth="154.0" ripplerFill="#b0b0b0" text="Back">
+            <font>
+                <Font name="Times New Roman" size="40.0" />
+            </font>
+        </JFXButton>
+        <JFXComboBox fx:id="Filter" layoutX="57.0" layoutY="233.0" prefHeight="31.0" prefWidth="205.0" promptText="Room Type" style="-jfx-focus-color: white;" styleClass="jfx-combo-box">
+            <stylesheets>
+                <URL value="@size.css" />
+                <URL value="@modify-prompt-text.css" />
+            </stylesheets></JFXComboBox>
+        <JFXButton fx:id="PathFindSubmit" buttonType="RAISED" disable="true" layoutX="561.0" layoutY="557.0" onAction="#submitPressed" prefHeight="66.0" prefWidth="180.0" ripplerFill="WHITE" style="-fx-background-color: #7fb1ff;" text="Submit" textFill="WHITE">
+            <font>
+                <Font name="Times New Roman" size="40.0" />
+            </font>
+        </JFXButton>
+        <JFXComboBox fx:id="Floor" layoutX="271.0" layoutY="234.0" prefHeight="31.0" prefWidth="105.0" promptText="Floor" style="-jfx-focus-color: white;" styleClass="jfx-combo-box">
+            <stylesheets>
+                <URL value="@size.css" />
+                <URL value="@modify-prompt-text.css" />
+            </stylesheets>
+        </JFXComboBox>
+        <ImageView fx:id="Map" fitHeight="280.0" fitWidth="446.0" layoutX="431.0" layoutY="115.0" pickOnBounds="true" preserveRatio="true">
+            <image>
+                <Image url="@SoftEng_UI_Mockup_Pics/02_thesecondfloor.png" />
+            </image>
+        </ImageView>
+      <ImageView fx:id="MapLower" fitHeight="280.0" fitWidth="446.0" layoutX="29.0" layoutY="417.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@SoftEng_UI_Mockup_Pics/02_thesecondfloor.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="MapUpper" fitHeight="280.0" fitWidth="446.0" layoutX="837.0" layoutY="417.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@SoftEng_UI_Mockup_Pics/03_thethirdfloor.png" />
+         </image></ImageView>
+      <Label layoutX="301.0" layoutY="115.0" text="Current Floor:" />
+      <Label layoutX="41.0" layoutY="374.0" text="Floor Below:" />
+      <Label layoutX="884.0" layoutY="374.0" text="Floor Above:" />
+    </children>
+</AnchorPane>

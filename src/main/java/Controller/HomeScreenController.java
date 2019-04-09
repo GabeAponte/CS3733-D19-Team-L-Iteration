@@ -65,11 +65,11 @@ public class HomeScreenController {
 
     @FXML
     private void SwitchToPathfindScreen() throws IOException{
-        FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("HospitalPathFinding.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("EditLinkBetweenFloors.fxml"));
 
         Parent sceneMain = loader.load();
 
-        PathFindingController controller = loader.<PathFindingController>getController();
+        EditLinkBetweenFloorsController controller = loader.getController();
 
         Stage theStage = (Stage) HomeFindPath.getScene().getWindow();
 
