@@ -411,7 +411,7 @@ public class PathFindingController {
         lines.clear();
 
         Point2D point = sceneGestures.getImageLocation();
-        double scaleRatio = Map.getFitWidth()/Map.getImage().getWidth();
+        double scaleRatio = Math.min(Map.getFitWidth()/Map.getImage().getWidth(),Map.getFitHeight()/Map.getImage().getHeight());
 
         for (int i = 0; i < path.size() - 1; i++) {
             Line line = new Line();

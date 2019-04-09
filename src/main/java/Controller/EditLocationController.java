@@ -8,6 +8,7 @@ import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXTextField;
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.SimpleDoubleProperty;
+import javafx.beans.value.ChangeListener;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.EventHandler;
@@ -109,18 +110,24 @@ public class EditLocationController {
     @FXML
     private JFXTextField nodeInfoShort;
 
+    @FXML Button SubmitButton;
+
     @FXML
     private ImageView Map;
     @FXML
     private AnchorPane anchorPaneWindow;
+    @FXML
+    private Pane imagePane;
 
-    private int floorSelected;
+    private int floorSelected = -2;
     private boolean displayingNodes = false;
     private Circle thisCircle;
 
     private ArrayList<String> mapURLs = new ArrayList<String>();
     private ArrayList<Circle> circles = new ArrayList<Circle>();
     private ArrayList<Line> lines = new ArrayList<Line>();
+
+    private Point2D mousePress;
 
     private PanAndZoomPane zoomPaneImage;
     private SceneGesturesForEditing sceneGestures;
@@ -143,6 +150,7 @@ public class EditLocationController {
         Map.setImage(new Image("/SoftEng_UI_Mockup_Pics/00_thegroundfloor.png"));
         floorSelected = 0;
         if(displayingNodes){
+            eraseNodes();
             drawNodes();
         }
     }
@@ -150,7 +158,8 @@ public class EditLocationController {
     private void clickedL1(){
         Map.setImage(new Image("/SoftEng_UI_Mockup_Pics/00_thelowerlevel1.png"));
         floorSelected = -1;
-        if(displayingNodes){
+        if(displayingNodes) {
+            eraseNodes();
             drawNodes();
         }
     }
@@ -159,6 +168,7 @@ public class EditLocationController {
         Map.setImage(new Image("/SoftEng_UI_Mockup_Pics/00_thelowerlevel2.png"));
         floorSelected = -2;
         if(displayingNodes){
+            eraseNodes();
             drawNodes();
         }
     }
@@ -167,6 +177,7 @@ public class EditLocationController {
         Map.setImage(new Image("/SoftEng_UI_Mockup_Pics/01_thefirstfloor.png"));
         floorSelected = 1;
         if(displayingNodes){
+            eraseNodes();
             drawNodes();
         }
     }
@@ -175,6 +186,7 @@ public class EditLocationController {
         Map.setImage(new Image("/SoftEng_UI_Mockup_Pics/02_thesecondfloor.png"));
         floorSelected = 2;
         if(displayingNodes){
+            eraseNodes();
             drawNodes();
         }
     }
@@ -183,6 +195,7 @@ public class EditLocationController {
         Map.setImage(new Image("/SoftEng_UI_Mockup_Pics/03_thethirdfloor.png"));
         floorSelected = 3;
         if(displayingNodes){
+            eraseNodes();
             drawNodes();
         }
     }
@@ -205,105 +218,147 @@ public class EditLocationController {
     boolean upclickedLast = false;
     boolean downclickedLast = false;
 
-    @FXML
-    /**
-     * Grace made this, but its from gabe's code
-     * Replaces image URL with the next floor up when the UP button is pressed
-     */
-    private void upClicked() {
-        if (mapURLs.isEmpty()) {
-            map();
-            listIterator = mapURLs.listIterator();
-        }
-        if (listIterator.hasNext() == false && downclickedLast == true) {
-            listIterator = mapURLs.listIterator();
-            String next = listIterator.next();
-            Map.setImage(new Image(next));
-        }
-        else if (listIterator.hasNext() == false) {
-            listIterator = mapURLs.listIterator();
-            String next = listIterator.next();
-            Map.setImage(new Image(next));
-        }
-
-        else if (downclickedLast == true){
-            String next = listIterator.next();
-            Map.setImage(new Image(next));
-            upAgain();
-            // Map.setImage(new Image(next));
-        }
-
-        else if (downclickedLast == false){
-            String next = listIterator.next();
-            Map.setImage(new Image(next));
-        }
-        upclickedLast = true;
-        downclickedLast = false;
-    }
-    @FXML
-    /**
-     * Grace made this, but its from gabe's code
-     * allows the map to change when UP is pressed and the last button clicked was DOWN by calling next one more time.
-     */
-    private void upAgain() {
-        if (listIterator.hasNext() == false) {
-            listIterator = mapURLs.listIterator();
-            String next = listIterator.next();
-            Map.setImage(new Image(next));
-        } else {
-            String next = listIterator.next();
-            Map.setImage(new Image(next));
-        }
-    }
-
-    @FXML
-    /**
-     * Grace made this, but its from gabe's code
-     * allows the map to change when down is pressed and the last button clicked was UP by calling previous one more time.
-     */
-    private void downAgain() {
-        if (listIterator.hasPrevious() == false) {
-            listIterator = mapURLs.listIterator(mapURLs.size() - 1);
-            String previous = listIterator.previous();
-            Map.setImage(new Image(previous));
-        } else {
-            String previous = listIterator.previous();
-            Map.setImage(new Image(previous));
-        }
-    }
-
-    @FXML
-    /**
-     * Grace made this, but its from gabe's code
-     * Replaces image URL with the next floor down when the DOWN button is pressed
-     */
-    private void downClicked(){
-        if (mapURLs.isEmpty()) {
-            map();
-            listIterator = mapURLs.listIterator();
-        }
-        if (listIterator.hasPrevious() == false && upclickedLast == true) {
-            listIterator = mapURLs.listIterator(mapURLs.size()-1);
-            String previous = listIterator.previous();
-            Map.setImage(new Image(previous));
-        }
-        else if (listIterator.hasPrevious() == false) {
-            listIterator = mapURLs.listIterator(mapURLs.size()-1);
-            String previous = listIterator.previous();
-            Map.setImage(new Image(previous));
-        }
-        else if (upclickedLast == true){
-            String previous = listIterator.previous();
-            Map.setImage(new Image(previous));
-            downAgain();//Due to the nature of listIterator, previous needs to be called twice inorder for the image to switch
-        }
-        else if (upclickedLast == false){
-            String previous = listIterator.previous();
-            Map.setImage(new Image(previous));
-        }
-        upclickedLast = false;
-        downclickedLast = true;
-    }
+//    @FXML
+//    /**
+//     * Grace made this, but its from gabe's code
+//     * Replaces image URL with the next floor up when the UP button is pressed
+//     */
+//    private void upClicked() {
+//        if (mapURLs.isEmpty()) {
+//            map();
+//            listIterator = mapURLs.listIterator();
+//        }
+//        if (listIterator.hasNext() == false && downclickedLast == true) {
+//            listIterator = mapURLs.listIterator();
+//            String next = listIterator.next();
+//            Map.setImage(new Image(next));
+//        }
+//        else if (listIterator.hasNext() == false) {
+//            listIterator = mapURLs.listIterator();
+//            String next = listIterator.next();
+//            Map.setImage(new Image(next));
+//        }
+//
+//        else if (downclickedLast == true){
+//            String next = listIterator.next();
+//            Map.setImage(new Image(next));
+//            upAgain();
+//            // Map.setImage(new Image(next));
+//        }
+//
+//        else if (downclickedLast == false){
+//            String next = listIterator.next();
+//            Map.setImage(new Image(next));
+//        }
+//        upclickedLast = true;
+//        downclickedLast = false;
+//        floorSelected ++;
+//        if(displayingNodes){
+//            for (Circle c: circles){
+//                anchorPanePath.getChildren().remove(c);
+//            }
+//            circles.clear();
+//            drawNodes();
+//            circles.add(thisCircle);
+//            anchorPanePath.getChildren().add(thisCircle);
+//        }
+//    }
+//    @FXML
+//    /**
+//     * Grace made this, but its from gabe's code
+//     * allows the map to change when UP is pressed and the last button clicked was DOWN by calling next one more time.
+//     */
+//    private void upAgain() {
+//        if (listIterator.hasNext() == false) {
+//            listIterator = mapURLs.listIterator();
+//            String next = listIterator.next();
+//            Map.setImage(new Image(next));
+//        } else {
+//            String next = listIterator.next();
+//            Map.setImage(new Image(next));
+//            floorSelected ++;
+//            if(displayingNodes){
+//                for (Circle c: circles){
+//                    anchorPanePath.getChildren().remove(c);
+//                }
+//                circles.clear();
+//                drawNodes();
+//                circles.add(thisCircle);
+//                anchorPanePath.getChildren().add(thisCircle);
+//            }
+//        }
+//
+//    }
+//
+//    @FXML
+//    /**
+//     * Grace made this, but its from gabe's code
+//     * allows the map to change when down is pressed and the last button clicked was UP by calling previous one more time.
+//     */
+//    private void downAgain() {
+//        if (listIterator.hasPrevious() == false) {
+//            listIterator = mapURLs.listIterator(mapURLs.size() - 1);
+//            String previous = listIterator.previous();
+//            Map.setImage(new Image(previous));
+//        } else {
+//            String previous = listIterator.previous();
+//            Map.setImage(new Image(previous));
+//            floorSelected --;
+//            if(displayingNodes){
+//                for (Circle c: circles){
+//                    anchorPanePath.getChildren().remove(c);
+//                }
+//                circles.clear();
+//                drawNodes();
+//                circles.add(thisCircle);
+//                anchorPanePath.getChildren().add(thisCircle);
+//            }
+//        }
+//    }
+//
+//    @FXML
+//    /**
+//     * Grace made this, but its from gabe's code
+//     * Replaces image URL with the next floor down when the DOWN button is pressed
+//     */
+//    private void downClicked(){
+//        if (mapURLs.isEmpty()) {
+//            map();
+//            listIterator = mapURLs.listIterator();
+//        }
+//        if (listIterator.hasPrevious() == false && upclickedLast == true) {
+//            listIterator = mapURLs.listIterator(mapURLs.size()-1);
+//            String previous = listIterator.previous();
+//            Map.setImage(new Image(previous));
+//        }
+//        else if (listIterator.hasPrevious() == false) {
+//            listIterator = mapURLs.listIterator(mapURLs.size()-1);
+//            String previous = listIterator.previous();
+//            Map.setImage(new Image(previous));
+//        }
+//        else if (upclickedLast == true){
+//            String previous = listIterator.previous();
+//            Map.setImage(new Image(previous));
+//            downAgain();//Due to the nature of listIterator, previous needs to be called twice inorder for the image to switch
+//        }
+//        else if (upclickedLast == false){
+//            String previous = listIterator.previous();
+//            Map.setImage(new Image(previous));
+//        }
+//        upclickedLast = false;
+//        downclickedLast = true;
+//
+//        floorSelected --;
+//        if(displayingNodes){
+//            for (Circle c: circles){
+//                anchorPanePath.getChildren().remove(c);
+//            }
+//            circles.clear();
+//            drawNodes();
+//            circles.add(thisCircle);
+//            anchorPanePath.getChildren().add(thisCircle);
+//        }
+//    }
 
 
 
@@ -589,46 +644,59 @@ public class EditLocationController {
     private void nodeDisplayPress(){
         displayingNodes = !displayingNodes;
 
-        for (Circle c :circles) {
+        if(displayingNodes) {
+            drawNodes();
+        }
+    }
+
+    private void eraseNodes(){
+        circles.add(thisCircle);
+        for (Circle c: circles){
             anchorPanePath.getChildren().remove(c);
         }
 
         circles.clear();
 
-        if(displayingNodes) {   
-            drawNodes();   
-        }
+        circles.add(thisCircle);
+        anchorPanePath.getChildren().add(thisCircle);
     }
-    
+
     private void drawNodes(){
-
-        //display all nodes on that floor!!!
-        ArrayList<Location> nodes = new ArrayList<Location>();
-        //want to fill nodes w/ floor = currrentFloor
-        int temp = 0;
-        double scaleRatio = Map.getFitWidth() / Map.getImage().getWidth();
-        System.out.println(scaleRatio);
+        double scaleRatio = Math.min(Map.getFitWidth() / Map.getImage().getWidth(), Map.getFitHeight() / Map.getImage().getHeight());
         Point2D point = sceneGestures.getImageLocation();
-        for (int i = 0; i < single.getData().size(); i++) {
-            if (single.getData().get(i).getFloor().equals(floorNum())/* current Map floor*/) {
-                System.out.println(floorNum());
-                nodes.add(single.getData().get(i));
 
-                Circle thisCircle = new Circle();
+        if(displayingNodes) {
+            //display all nodes on that floor!!!
+            ArrayList<Location> nodes = new ArrayList<Location>();
+            //want to fill nodes w/ floor = currrentFloor
+            int temp = 0;
+            for (int i = 0; i < single.getData().size(); i++) {
+                if (single.getData().get(i).getFloor().equals(floorNum())/* current Map floor*/) {
+                    nodes.add(single.getData().get(i));
 
-                anchorPanePath.getChildren().add(thisCircle);
+                    Circle thisCircle = new Circle();
 
-                //Setting the properties of the circle
-                thisCircle.setCenterX((nodes.get(temp).getXcoord() - point.getX()) * scaleRatio * sceneGestures.getImageScale());
-                thisCircle.setCenterY((nodes.get(temp).getYcoord() - point.getY()) * scaleRatio * sceneGestures.getImageScale());
-                thisCircle.setRadius(Math.max(2.5, 2.5f * (sceneGestures.getImageScale() / 5)));
-                thisCircle.setStroke(Color.web("RED")); //#f5d96b
-                thisCircle.setFill(Color.web("RED"));
 
-                circles.add(thisCircle);
-                temp++;
+                    //Setting the properties of the circle
+                    thisCircle.setCenterX((nodes.get(temp).getXcoord() - point.getX()) * scaleRatio * sceneGestures.getImageScale());
+                    thisCircle.setCenterY((nodes.get(temp).getYcoord() - point.getY()) * scaleRatio * sceneGestures.getImageScale());
+                    thisCircle.setRadius(Math.max(2.5, 2.5f * (sceneGestures.getImageScale() / 5)));
+                    thisCircle.setStroke(Color.web("RED")); //#f5d96b
+                    thisCircle.setFill(Color.web("RED"));
+
+                    anchorPanePath.getChildren().add(thisCircle);
+
+                    circles.add(thisCircle);
+                    temp++;
+                }
             }
         }
+
+//        thisCircle.setCenterX((mousePress.getX() - point.getX()) * scaleRatio * sceneGestures.getImageScale());
+//        thisCircle.setCenterY((mousePress.getY() - point.getY()) * scaleRatio * sceneGestures.getImageScale());
+//        thisCircle.setRadius(Math.max(2.5, 2.5f * (sceneGestures.getImageScale() / 5)));
+//        thisCircle.setStroke(Color.web("RED")); //#f5d96b
+//        thisCircle.setFill(Color.web("RED"));
     }
         
         
@@ -720,8 +788,8 @@ public class EditLocationController {
                 nodeInfoShort.setText("");
                 double scaleRatio = Map.getFitWidth() / Map.getImage().getWidth();
 
-                System.out.println(sceneGestures.getImageScale());
-                System.out.println((mousePress.getX() - point.getX()) * scaleRatio * sceneGestures.getImageScale());
+            System.out.println(sceneGestures.getImageScale());
+            System.out.println((mousePress.getX() - point.getX()) * scaleRatio * sceneGestures.getImageScale());
 
                 //Setting the properties of the circle
                 thisCircle.setCenterX((mousePress.getX() - point.getX()) * scaleRatio * sceneGestures.getImageScale());
@@ -731,7 +799,6 @@ public class EditLocationController {
                 thisCircle.setFill(Color.web("GREEN"));
 
                 circles.add(thisCircle);
-                //sceneGestures.setDrawPath(circles, lines);
             }
 
         }
