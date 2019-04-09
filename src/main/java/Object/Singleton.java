@@ -34,7 +34,7 @@ public class Singleton {
         username = "";
         num = 1;
     }
-    public void setData() {
+    public synchronized void setData() {
         NodesAccess na = new NodesAccess();
         EdgesAccess ea = new EdgesAccess();
         ArrayList<String> edgeList;
