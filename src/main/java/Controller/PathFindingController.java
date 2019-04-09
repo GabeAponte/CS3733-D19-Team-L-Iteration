@@ -976,7 +976,7 @@ public class PathFindingController {
         Point2D point = sceneGestures.getImageLocation();
         for(int i=0; i<single.getData().size(); i++){
             //if nodetype contains keyword
-            System.out.println(currentMap);
+            //System.out.println(currentMap);
 
             if(single.getData().get(i).getNodeType().contains(keyword) && single.getData().get(i).getFloor().equals(currentMap)/* && data.get(i).getFloor() == kioskNode.getFloor*/){
                 nodes.add(single.getData().get(i));
@@ -991,8 +991,8 @@ public class PathFindingController {
                 thisCircle.setCenterX((nodes.get(temp).getXcoord()-point.getX())*scaleRatio*sceneGestures.getImageScale());
                 thisCircle.setCenterY((nodes.get(temp).getYcoord()-point.getY())*scaleRatio*sceneGestures.getImageScale());
                 thisCircle.setRadius(Math.max(2.5,2.5f*(sceneGestures.getImageScale()/5)));
-                thisCircle.setStroke(Color.web("#f5d96b"));
-                thisCircle.setFill(Color.web("#f5d96b"));
+                thisCircle.setStroke(Color.web("RED"));
+                thisCircle.setFill(Color.web("RED"));
 
                 circles.add(thisCircle);
                 temp++;
