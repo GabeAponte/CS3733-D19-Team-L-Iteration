@@ -92,6 +92,8 @@ public class CreateEditAccountController {
 
     private boolean deleted;
 
+    private static boolean clickedDelete = false;
+
     @SuppressWarnings("Duplicates")
     @FXML
     private void backPressed() throws IOException {
@@ -181,6 +183,11 @@ public class CreateEditAccountController {
             errorLabel.setText("");
             department.getItems().addAll("Sanitation", "Security", "IT", "Religious", "Audio Visual", "External Transportation", "Internal Transportation",
                     "Language", "Maintenance", "Prescription");
+            if(clickedDelete){
+
+                System.out.println("HERE");
+            }
+
         }
 
 
@@ -190,6 +197,7 @@ public class CreateEditAccountController {
      */
     @FXML
     public void deleteClicked() throws IOException{
+        Stage editStage = (Stage) delete.getScene().getWindow();
         onScreen = false;
         Stage stage;
         Parent root;
@@ -201,8 +209,18 @@ public class CreateEditAccountController {
         stage.initModality(Modality.APPLICATION_MODAL);
         stage.initOwner(delete.getScene().getWindow());
         stage.setUserData(ID);
+        clickedDelete = true;
         stage.showAndWait();
         System.out.println(empID);
+
+        System.out.println(deleted);
+
+        if(clickedDelete) {
+            AnchorPane root2;
+            root2 = FXMLLoader.load(getClass().getClassLoader().getResource("EmployeeTable.fxml"));
+            Scene scene2 = new Scene(root2);
+            editStage.setScene(scene2);
+        }
 
         /*EmployeeAccess ea = new EmployeeAccess();
         ea.deleteEmployee(empID);
@@ -211,19 +229,15 @@ public class CreateEditAccountController {
 
     @FXML
     public void yesPressed() throws IOException{
+        clickedDelete = true;
         Stage stage = (Stage) yes.getScene().getWindow();
         stage.close();
-        thestage = (Stage) yes.getScene().getWindow();
-        AnchorPane root;
-
-        root = FXMLLoader.load(getClass().getClassLoader().getResource("EmployeeTable.fxml"));
-        Scene scene = new Scene(root);
-        thestage.setScene(scene);
-       // deleteEmployee(stage);
+        deleteEmployee(stage);
     }
 
     @FXML
     public void noPressed() throws IOException{
+        clickedDelete = false;
         Stage stage = (Stage) no.getScene().getWindow();
         stage.close();
     }
