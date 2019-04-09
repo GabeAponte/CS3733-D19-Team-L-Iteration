@@ -1,5 +1,6 @@
 package Controller;
 
+import Access.DBAccess;
 import Access.EmployeeAccess;
 import Access.ServiceRequestAccess;
 import Object.EmployeeTable;
@@ -19,9 +20,10 @@ import javafx.stage.Stage;
 import Object.*;
 
 import java.io.IOException;
+import java.sql.Connection;
 import java.util.ArrayList;
 
-public class EmployeeTableController {
+public class EmployeeTableController extends DBAccess {
 
     private Stage thestage;
     TreeItem root = new TreeItem<>("rootxxx");
@@ -52,11 +54,17 @@ public class EmployeeTableController {
 
     public void initialize(){
 
-        employees.getColumns().clear();
         employees.setEditable(false);
         EmployeeAccess ea = new EmployeeAccess();
-        final ObservableList<EmployeeTable> data = FXCollections.observableArrayList();
-        //initializeTable(ea);
+
+        int count;
+        count = ea.countRecords()-1;
+        while(count >= 0){
+            TreeItem<EmployeeTable> arr= ea.getRequests(count);
+            root.getChildren().add(arr);
+            count--;
+            System.out.println("looop");
+        }
 
         ID.setCellValueFactory(cellData -> {
             if (cellData.getValue().getValue()instanceof EmployeeTable) {
@@ -65,43 +73,37 @@ public class EmployeeTableController {
             return new ReadOnlyObjectWrapper(cellData.getValue().getValue());
         });
 
-        firstName.setCellValueFactory((TreeTableColumn.CellDataFeatures<EmployeeTable, String> param) -> {
-            //String id = param.getValue().getValue().getID();
-            return new SimpleStringProperty(param.getValue().getValue().getFirstName());
+        firstName.setCellValueFactory(cellData -> {
+            if (cellData.getValue().getValue()instanceof EmployeeTable) {
+                return new ReadOnlyObjectWrapper(cellData.getValue().getValue().getFirstName());
+            }
+            return new ReadOnlyObjectWrapper(cellData.getValue().getValue());
         });
 
-        lastName.setCellValueFactory((TreeTableColumn.CellDataFeatures<EmployeeTable, String> param) -> {
-            //String id = param.getValue().getValue().getID();
-            return new SimpleStringProperty(param.getValue().getValue().getLastName());
+        lastName.setCellValueFactory(cellData -> {
+            if (cellData.getValue().getValue()instanceof EmployeeTable) {
+                return new ReadOnlyObjectWrapper(cellData.getValue().getValue().getLastName());
+            }
+            return new ReadOnlyObjectWrapper(cellData.getValue().getValue());
         });
 
-        position.setCellValueFactory((TreeTableColumn.CellDataFeatures<EmployeeTable, String> param) -> {
-            //String id = param.getValue().getValue().getID();
-            return new SimpleStringProperty(param.getValue().getValue().getType());
+        position.setCellValueFactory(cellData -> {
+            if (cellData.getValue().getValue()instanceof EmployeeTable) {
+                return new ReadOnlyObjectWrapper(cellData.getValue().getValue().getType());
+            }
+            return new ReadOnlyObjectWrapper(cellData.getValue().getValue());
         });
 
-        department.setCellValueFactory((TreeTableColumn.CellDataFeatures<EmployeeTable, String> param) -> {
-            //String id = param.getValue().getValue().getID();
-            return new SimpleStringProperty(param.getValue().getValue().getDepartment());
+        department.setCellValueFactory(cellData -> {
+            if (cellData.getValue().getValue()instanceof EmployeeTable) {
+                return new ReadOnlyObjectWrapper(cellData.getValue().getValue().getDepartment());
+            }
+            return new ReadOnlyObjectWrapper(cellData.getValue().getValue());
         });
 
-        employees.getColumns().add(ID);
-        employees.getColumns().add(firstName);
-        employees.getColumns().add(lastName);
-        employees.getColumns().add(position);
-        employees.getColumns().add(department);
-
-        /*ID.setCellValueFactory(
-                (TreeTableColumn.CellDataFeatures<EmployeeTable, String> param) ->
-                        new ReadOnlyStringWrapper(param.getValue().getValue().getName())
-        );*/
-        /*firstName.setCellValueFactory(new PropertyValueFactory<EmployeeTable, String>("firstName"));
-        firstName.setCellValueFactory(new PropertyValueFactory<EmployeeTable, String>("lastName"));
-        position.setCellValueFactory(new PropertyValueFactory<EmployeeTable, String>("lastName"));
-        department.setCellValueFactory(new PropertyValueFactory<EmployeeTable, String>("type"));
-*/
-
-        //employees.setItems(data);
+        employees.setTreeColumn(ID);
+        employees.setRoot(root);
+        employees.setShowRoot(false);
     }
     @FXML
     /**@author Gabe
