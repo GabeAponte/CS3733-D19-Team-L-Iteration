@@ -1,5 +1,6 @@
 package Controller;
 
+import Access.EmployeeAccess;
 import Access.InternalTransportAccess;
 import Access.ReligiousRequestAccess;
 import Access.ServiceRequestAccess;
@@ -21,6 +22,7 @@ import javafx.stage.Stage;
 import java.awt.event.MouseAdapter;
 import java.io.IOException;
 import java.util.ArrayList;
+import Object.*;
 
 
 public class ActiveServiceRequestsController {
@@ -75,17 +77,32 @@ public class ActiveServiceRequestsController {
      * Returns user to the Logged In Home screen when the back button is pressed
      */
     private void backPressed() throws IOException {
-        FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("AdminLoggedInHome.fxml"));
-        Parent roots = loader.load();
+        Singleton single = Singleton.getInstance();
+        if(single.isIsAdmin()) {
+            FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("AdminLoggedInHome.fxml"));
+            Parent roots = loader.load();
 
-        //Get controller of scene2
-        AdminLoggedInHomeController scene2Controller = loader.getController();
+            //Get controller of scene2
+            AdminLoggedInHomeController scene2Controller = loader.getController();
 
-        Scene scene = new Scene(roots);
-        Stage thestage = (Stage) activeRequests.getScene().getWindow();
+            Scene scene = new Scene(roots);
+            Stage thestage = (Stage) activeRequests.getScene().getWindow();
 
-        //Show scene 2 in new window
-        thestage.setScene(scene);
+            //Show scene 2 in new window
+            thestage.setScene(scene);
+        } else {
+            FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("EmployeeLoggedInHome.fxml"));
+            Parent roots = loader.load();
+
+            //Get controller of scene2
+            EmployeeLoggedInHomeController scene2Controller = loader.getController();
+
+            Scene scene = new Scene(roots);
+            Stage thestage = (Stage) activeRequests.getScene().getWindow();
+
+            //Show scene 2 in new window
+            thestage.setScene(scene);
+        }
     }
     @FXML
     public void initialize() {
@@ -461,7 +478,13 @@ public class ActiveServiceRequestsController {
         activeRequests.setOnMouseClicked(event -> {
             setNext(activeRequests.getSelectionModel().getSelectedItem());
             if (event.getButton().equals(MouseButton.PRIMARY) && event.getClickCount() == 2) {
-                yooo();
+                Singleton single = Singleton.getInstance();
+                EmployeeAccess ea = new EmployeeAccess();
+                if(single.isIsAdmin()) {
+                    yooo();
+                }else if(single.getUsername().equals(ea.getEmployeeUsername(activeRequests.getSelectionModel().getSelectedItem().getValue().getAssignedEmployee()))){
+                    yooo();
+                }
             }
         });
     }
