@@ -18,6 +18,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.input.ScrollEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Line;
 import javafx.scene.shape.Rectangle;
@@ -88,8 +89,9 @@ public class EditLinkBetweenFloorsController {
 
     String currentMap = "";
 
+
+
     public void initialize() {
-        Singleton single = Singleton.getInstance();
         na = new NodesAccess();
         ea = new EdgesAccess();
         PathFindSubmit.setDisable(false);
@@ -266,6 +268,7 @@ public class EditLinkBetweenFloorsController {
             Map.setImage(new Image(mapURLlookup.get("2")));
             MapUpper.setImage(new Image(mapURLlookup.get("3")));
             MapLower.setImage(new Image(mapURLlookup.get("1")));
+            drawNodes(Map);
         }
         else if (Floor.getValue().equals("1")) {
             Map.setImage(new Image(mapURLlookup.get("1")));
@@ -286,6 +289,23 @@ public class EditLinkBetweenFloorsController {
             Map.setImage(new Image(mapURLlookup.get("L2")));
             MapUpper.setImage(new Image(mapURLlookup.get("L1")));
             MapLower.setImage(null);
+        }
+    }
+
+    private void drawNodes(ImageView map) {
+        double x = map.getX();
+        double y = map.getY();
+        Point2D point = new Point2D(x,y);
+        for (Location l : single.getData()) {
+            if (l.getFloor().equals("2")) {
+                System.out.println("DRAWING CIRCLE");
+                Circle newCircle = new Circle();
+                newCircle.setCenterX((l.getXcoord() - point.getX()) * 0.137 * map.getScaleX());
+                newCircle.setCenterY((l.getYcoord() - point.getY()) * 0.137 * map.getScaleY());
+                newCircle.setRadius(Math.max(2.5, 2.5f * (map.getScaleX())));
+                newCircle.setStroke(Color.GREEN);
+                newCircle.setFill(Color.GREEN);
+            }
         }
     }
     
