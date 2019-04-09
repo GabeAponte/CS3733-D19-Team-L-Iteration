@@ -68,6 +68,9 @@ public class CreateEditAccountController {
     @FXML
     private Label errorLabel;
 
+    @FXML
+    private Button delete;
+
     private String pusername;
 
     private String empID;
@@ -104,6 +107,7 @@ public class CreateEditAccountController {
         type = check;
         if(type == 1){
             title.setText("Create an Account");
+            delete.setDisable(true);
         }else if(type == 2){
             title.setText("Edit your Account");
             Singleton single = Singleton.getInstance();
@@ -122,7 +126,7 @@ public class CreateEditAccountController {
             lastName.setText(data.get(7));
             email.setText(data.get(8));
             pusername = single.getUsername();
-
+            delete.setDisable(true);
         }else if(type == 3){
             title.setText("Edit an Account");
             employeeID.setDisable(true);
@@ -142,6 +146,7 @@ public class CreateEditAccountController {
             firstName.setText(data.get(6));
             lastName.setText(data.get(7));
             email.setText(data.get(8));
+            delete.setDisable(false);
         }
     }
 
@@ -161,6 +166,17 @@ public class CreateEditAccountController {
         errorLabel.setText("");
         department.getItems().addAll("Sanitation", "Security", "IT", "Religious", "Audio Visual", "External Transportation", "Internal Transportation",
                 "Language", "Maintenance", "Prescription");
+    }
+
+    /**Andrew made this
+     * deletes an employee
+     * @throws IOException
+     */
+    @FXML
+    public void deleteEmployee() throws IOException{
+        EmployeeAccess ea = new EmployeeAccess();
+        ea.deleteEmployee(empID);
+        backPressed();
     }
 
     /**ANDREW MADE THIS

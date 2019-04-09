@@ -60,6 +60,7 @@
                   <RowConstraints maxHeight="1.7976931348623157E308" minHeight="10.0" valignment="CENTER" vgrow="ALWAYS" />
                   <RowConstraints maxHeight="1.7976931348623157E308" minHeight="10.0" valignment="CENTER" vgrow="ALWAYS" />
                   <RowConstraints maxHeight="59.111358642578125" minHeight="0.0" prefHeight="0.0" valignment="CENTER" vgrow="ALWAYS" />
+                  <RowConstraints maxHeight="59.111358642578125" minHeight="0.0" prefHeight="0.0" valignment="CENTER" vgrow="ALWAYS" />
               </rowConstraints>
                <children>
                   <JFXTextField fx:id="employeeID" focusColor="#f6bd38" onKeyReleased="#checkSubmit" promptText="Employee ID (Can't be Changed)" style="-jfx-prompt-text: WHITE;" stylesheets="@modify-prompt-text.css" unFocusColor="WHITE" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" GridPane.vgrow="ALWAYS">
@@ -169,6 +170,11 @@
                         <Insets left="100.0" right="300.0" />
                      </GridPane.margin>
                   </JFXTextField>
+                  <JFXButton fx:id="delete" buttonType="RAISED" onAction="#deleteEmployee" prefHeight="7.0" prefWidth="138.0" style="-fx-border-color: F5D96B; -fx-border-width: 2; -fx-border-radius: 50; -fx-background-radius: 50;" text="Delete" textFill="WHITE" GridPane.columnIndex="1" GridPane.rowIndex="8">
+                     <font>
+                        <Font size="30.0" />
+                     </font>
+                  </JFXButton>
                </children>
                <opaqueInsets>
                   <Insets />
