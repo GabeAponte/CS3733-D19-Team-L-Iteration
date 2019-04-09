@@ -813,7 +813,7 @@ public class EditLocationController {
         @Override
         public void handle(MouseEvent event) {
             Singleton single = Singleton.getInstance();
-            single.setData();
+            single.setLastTime();
             Point2D mousePress = sceneGestures.imageViewToImage(Map, new Point2D(event.getX(), event.getY()));
             sceneGestures.setMouseDown(mousePress);
             if(mousePress.getX() == sceneGestures.getMouseDown().getValue().getX() && mousePress.getY() == sceneGestures.getMouseDown().getValue().getY()) {
