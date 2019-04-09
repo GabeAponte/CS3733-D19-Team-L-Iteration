@@ -105,6 +105,30 @@ public class EmployeeAccess extends DBAccess{
         return null;
     }
 
+    /**ANDREW MADE THIS
+     *  returns the fields of a particular employee in an arraylist
+     * @param employeeID
+     * @return
+     */
+    public String getEmployeeUsername(String employeeID){
+        String sql = "SELECT username FROM employee where employeeID = ?";
+        //noinspection Convert2Diamond
+        ArrayList<String> data = new ArrayList<String>();
+        try (Connection conn = this.connect();
+             PreparedStatement pstmt = conn.prepareStatement(sql)){
+            pstmt.setString(1, employeeID);
+            ResultSet rs = pstmt.executeQuery();
+            while (rs.next()) {
+                return rs.getString("username");
+            }
+
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+
+        return null;
+    }
+
     /** ANDREW MADE THIS
      * Queries the database for all fields of the employee table and returns an arraylist of arraylist string on a certain condition
      */

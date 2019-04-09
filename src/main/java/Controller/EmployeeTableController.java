@@ -16,6 +16,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseButton;
+import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import Object.*;
 
@@ -51,6 +52,8 @@ public class EmployeeTableController{
 
     @FXML
     TreeTableView<EmployeeTable> employees;
+
+    private TreeItem<EmployeeTable> selectedEmployee;
 
     public void initialize(){
 
@@ -110,6 +113,13 @@ public class EmployeeTableController{
      * Returns admin to the Admin Logged In Home screen when the back button is pressed
      */
     private void backPressed() throws IOException {
+        thestage = (Stage) back.getScene().getWindow();
+        AnchorPane root;
+
+        root = FXMLLoader.load(getClass().getClassLoader().getResource("AdminLoggedInHome.fxml"));
+
+        Scene scene = new Scene(root);
+        thestage.setScene(scene);
     }
 
     /**
@@ -127,20 +137,24 @@ public class EmployeeTableController{
      * and all the employee information from the clicked on row is passed along so that the edit account
      * fields are populated and the admin can make any changes
      */
+    public void setNext(TreeItem<EmployeeTable> employee) {
+        this.selectedEmployee = employee;
+    }
 
-    /* @FXML
-    private void SwitchToCreateEditAccount() throws IOException { }
-        activeRequests.setOnMouseClicked(event -> {
-            setNext(activeRequests.getSelectionModel().getSelectedItem());
+
+    @FXML
+    private void SwitchToCreateEditAccount() throws IOException {
+        employees.setOnMouseClicked(event -> {
+            setNext(employees.getSelectionModel().getSelectedItem());
             if (event.getButton().equals(MouseButton.PRIMARY) && event.getClickCount() == 2) {
                 try {
                     //Load second scene
-                    FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("FulfillRequest.fxml"));
+                    FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("CreateEditAccount.fxml"));
                     Parent roots = loader.load();
                     //Get controller of scene2
-                    FulfillRequestController scene2Controller = loader.getController();
+                    CreateEditAccountController scene2Controller = loader.getController();
                     Scene scene = new Scene(roots);
-                    scene2Controller.getRequestID(selectedRequest);
+                    scene2Controller.setType(3, selectedEmployee.getValue().getID());
                     thestage = (Stage) back.getScene().getWindow();
                     //Show scene 2 in new window
                     thestage.setScene(scene);
@@ -153,5 +167,5 @@ public class EmployeeTableController{
             }
         });
     }
-} */
 }
+

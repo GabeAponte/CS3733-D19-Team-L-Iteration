@@ -152,7 +152,7 @@ public class AdminLoggedInHomeController {
         Parent sceneMain = loader.load();
 
         CreateEditAccountController controller = loader.<CreateEditAccountController>getController();
-        controller.setType(1);
+        controller.setType(1, "");
         Stage theStage = (Stage) fufillServiceRequest.getScene().getWindow();
 
         Scene scene = new Scene(sceneMain);

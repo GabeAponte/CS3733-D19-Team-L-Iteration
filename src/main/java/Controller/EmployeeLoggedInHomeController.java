@@ -128,7 +128,7 @@ public class EmployeeLoggedInHomeController {
         Parent sceneMain = loader.load();
 
         CreateEditAccountController controller = loader.<CreateEditAccountController>getController();
-        controller.setType(2);
+        controller.setType(2, "");
 
         Stage theStage = (Stage) fufillServiceRequest.getScene().getWindow();
 

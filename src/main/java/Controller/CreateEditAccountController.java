@@ -70,6 +70,8 @@ public class CreateEditAccountController {
 
     private String pusername;
 
+    private String empID;
+
     private int type;
 
     private boolean hasPrivelege;
@@ -98,7 +100,7 @@ public class CreateEditAccountController {
      * type = 1 when creating, type = 2 when editing your employee account, type = 3 when admin editing any account
      * @param check
      */
-    public void setType(int check){
+    public void setType(int check, String user){
         type = check;
         if(type == 1){
             title.setText("Create an Account");
@@ -123,6 +125,23 @@ public class CreateEditAccountController {
 
         }else if(type == 3){
             title.setText("Edit an Account");
+            employeeID.setDisable(true);
+            EmployeeAccess ea = new EmployeeAccess();
+            pusername = ea.getEmployeeUsername(user);
+            ArrayList<String> data = ea.getEmployeeInformation(pusername);
+            username.setText(pusername);
+            empID = data.get(0);
+            employeeID.setText(data.get(0));
+            department.getSelectionModel().select(data.get(1));
+            if(data.get(2).equals("true")){
+                isAdmin.setSelected(true);
+            }
+            nickname.setText(data.get(3));
+            password.setText(data.get(4));
+            position.setText(data.get(5));
+            firstName.setText(data.get(6));
+            lastName.setText(data.get(7));
+            email.setText(data.get(8));
         }
     }
 
@@ -140,7 +159,8 @@ public class CreateEditAccountController {
         }
         submit.setDisable(true);
         errorLabel.setText("");
-        department.getItems().addAll("Sanitation", "Security", "IT");
+        department.getItems().addAll("Sanitation", "Security", "IT", "Religious", "Audio Visual", "External Transportation", "Internal Transportation",
+                "Language", "Maintenance", "Prescription");
     }
 
     /**ANDREW MADE THIS
@@ -269,7 +289,27 @@ public class CreateEditAccountController {
             }
             errorLabel.setText("");
         } else {
-
+            if(!pusername.equals(username.getText())) {
+                try {
+                    ea.updateEmployee(employeeID.getText(), "username", username.getText());
+                } catch (SQLException e) {
+                    errorLabel.setText("The Username is already in use");
+                    return;
+                }
+            }
+            ea.changeAdmin(employeeID.getText(), isAdmin.isSelected());
+            try {
+                ea.updateEmployee(employeeID.getText(), "password", password.getText());
+                ea.updateEmployee(employeeID.getText(), "department", department.getValue().toString());
+                ea.updateEmployee(employeeID.getText(), "type", position.getText());
+                ea.updateEmployee(employeeID.getText(), "firstName", firstName.getText());
+                ea.updateEmployee(employeeID.getText(), "lastName", lastName.getText());
+                ea.updateEmployee(employeeID.getText(), "nickname", nickname.getText());
+                ea.updateEmployee(employeeID.getText(), "email", email.getText());
+            } catch (SQLException e){
+                System.out.println(e.getMessage());
+            }
+            errorLabel.setText("");
         }
     }
 }
