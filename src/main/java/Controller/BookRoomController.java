@@ -74,7 +74,9 @@ public class BookRoomController {
                     System.out.println("if successfull");
                     try{
                         single.setLastTime();
-                        System.out.println("set time");
+                        single.setLoggedIn(false);
+                        single.setUsername("");
+                        single.setIsAdmin(false);
                         backPressed();
                     } catch (IOException io){
                         System.out.println(io.getMessage());

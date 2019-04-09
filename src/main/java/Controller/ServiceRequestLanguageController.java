@@ -62,7 +62,9 @@ public class ServiceRequestLanguageController {
                     if((System.currentTimeMillis() - single.getLastTime()) > single.getTimeoutSec()){
                         try{
                             single.setLastTime();
-                            timeout.stop();
+                            single.setLoggedIn(false);
+                            single.setUsername("");
+                            single.setIsAdmin(false);
                             FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("HospitalHome.fxml"));
 
                             Parent sceneMain = loader.load();
@@ -71,6 +73,7 @@ public class ServiceRequestLanguageController {
 
                             Scene newScene = new Scene(sceneMain);
                             thisStage.setScene(newScene);
+                            timeout.stop();
                         } catch (IOException io){
                             System.out.println(io.getMessage());
                         }

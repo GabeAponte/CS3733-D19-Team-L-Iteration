@@ -1,7 +1,10 @@
 package Controller;
 
 import Object.Singleton;
+import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -10,6 +13,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 
 import java.io.IOException;
 
@@ -46,6 +50,31 @@ public class AdminLoggedInHomeController {
 
     Timeline timeout;
 
+    public void initialize(){
+        Singleton single = Singleton.getInstance();
+        single.setLastTime();
+        timeout = new Timeline(new KeyFrame(Duration.seconds(2), new EventHandler<ActionEvent>() {
+
+            @Override
+            public void handle(ActionEvent event) {
+                System.out.println("checking if");
+                if((System.currentTimeMillis() - single.getLastTime()) > single.getTimeoutSec()){
+                    System.out.println("if successfull");
+                    try{
+                        single.setLastTime();
+                        single.setLoggedIn(false);
+                        single.setUsername("");
+                        single.setIsAdmin(false);
+                        logOut();
+                    } catch (IOException io){
+                        System.out.println(io.getMessage());
+                    }
+                }
+            }
+        }));
+        timeout.setCycleCount(Timeline.INDEFINITE);
+        timeout.play();
+    }
     // TODO Make label display "Welcome, [nickname of admin signed in]"
     //   New Account button should to create/edit account screen with title changed to Create Account and all the input fields are blank
     //   Edit Account should switch to the employee table screen. Double clicking on an employee in the table should bring up the
@@ -59,8 +88,10 @@ public class AdminLoggedInHomeController {
         timeout.stop();
         Stage thestage = (Stage) logOut.getScene().getWindow();
         AnchorPane root;
-        Singleton.setLoggedIn(false);
-        Singleton.setUsername("");
+        Singleton single = Singleton.getInstance();
+        single.setLoggedIn(false);
+        single.setUsername("");
+        single.setIsAdmin(false);
         root = FXMLLoader.load(getClass().getClassLoader().getResource("HospitalHome.fxml"));
         Scene scene = new Scene(root);
         thestage.setScene(scene);

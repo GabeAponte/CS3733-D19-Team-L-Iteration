@@ -75,11 +75,21 @@ public class ActiveServiceRequestsController {
             public void handle(ActionEvent event) {
                 System.out.println("checking if");
                 if((System.currentTimeMillis() - single.getLastTime()) > single.getTimeoutSec()){
-                    System.out.println("if successfull");
                     try{
+                        System.out.println("did it");
                         single.setLastTime();
-                        System.out.println("set time");
-                        backPressed();
+                        single.setLoggedIn(false);
+                        single.setUsername("");
+                        single.setIsAdmin(false);
+                        FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("HospitalHome.fxml"));
+
+                        Parent sceneMain = loader.load();
+
+                        Stage thisStage = (Stage) activeRequests.getScene().getWindow();
+
+                        Scene newScene = new Scene(sceneMain);
+                        thisStage.setScene(newScene);
+                        timeout.stop();
                     } catch (IOException io){
                         System.out.println(io.getMessage());
                     }
