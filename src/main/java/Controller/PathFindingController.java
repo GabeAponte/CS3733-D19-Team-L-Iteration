@@ -425,23 +425,25 @@ public class PathFindingController {
                 line.setVisible(false);
             }
             //if switching floors
-            if(!(path.get(i).getFloor().equals(path.get(i+1).getFloor()))){
-                //create a circle to signify a connection
-                Circle midCircle = new Circle();
-
-                //Setting the properties of the circle
-                midCircle.setCenterX((path.get(i).getXcoord() -point.getX())*scaleRatio*sceneGestures.getImageScale());
-                midCircle.setCenterY((path.get(i).getYcoord() -point.getY())*scaleRatio*sceneGestures.getImageScale());
-                midCircle.setRadius(3.0f);
-                //default to not showing this circle
-                midCircle.setVisible(false);
-                //if either this node or the connecting node are on the currently displayed floor, display this circle
-                if(path.get(i).getFloor().equals(currentMap)|| path.get(i+1).getFloor().equals(currentMap)){
-                    midCircle.setVisible(true);
-                }
-                circles.add(midCircle);
-                anchorPanePath.getChildren().add(midCircle);
-            }
+//            if(!(path.get(i).getFloor().equals(path.get(i+1).getFloor()))){
+//                //create a circle to signify a connection
+//                Circle midCircle = new Circle();
+//
+//                //Setting the properties of the circle
+//                midCircle.setCenterX((path.get(i).getXcoord() -point.getX())*scaleRatio*sceneGestures.getImageScale());
+//                midCircle.setCenterY((path.get(i).getYcoord() -point.getY())*scaleRatio*sceneGestures.getImageScale());
+//                midCircle.setRadius(3.0f);
+//                //default to not showing this circle
+////                if(!(path.get(i).getFloor().equals(currentMap))){
+////                    midCircle.setVisible(false);
+////                }
+//                //if either this node or the connecting node are on the currently displayed floor, display this circle
+//                if(path.get(i).getFloor().equals(currentMap)|| path.get(i+1).getFloor().equals(currentMap)) { // && !(path.get(i).getNodeType() == "ELEV" || path.get(i).getNodeType() == "STAI")){
+//                    midCircle.setVisible(true);
+//                }
+//                circles.add(midCircle);
+//                anchorPanePath.getChildren().add(midCircle);
+//            }
             anchorPanePath.getChildren().add(line);
 
             lines.add(line);
@@ -1155,18 +1157,18 @@ public class PathFindingController {
                 curDirection = directionPath(a,b);
                 nextDirection = directionPath(b,c);
 
-                Point2D point = sceneGestures.getImageLocation();
-                Circle TurningCircle = new Circle();
-
-                //Setting the properties of the circle
-                TurningCircle.setCenterX((b.getXcoord()-point.getX())*0.137*sceneGestures.getImageScale());
-                TurningCircle.setCenterY((b.getYcoord()-point.getY())*0.137*sceneGestures.getImageScale());
-                TurningCircle.setRadius(Math.max(2.5,2.5f*(sceneGestures.getImageScale()/5)));
-                TurningCircle.setStroke(Color.YELLOW);
-                TurningCircle.setFill(Color.YELLOW);
-
-                anchorPanePath.getChildren().add(TurningCircle);
-                circles.add(TurningCircle);
+//                Point2D point = sceneGestures.getImageLocation();
+//                Circle TurningCircle = new Circle();
+//
+//                //Setting the properties of the circle
+//                TurningCircle.setCenterX((b.getXcoord()-point.getX())*0.137*sceneGestures.getImageScale());
+//                TurningCircle.setCenterY((b.getYcoord()-point.getY())*0.137*sceneGestures.getImageScale());
+//                TurningCircle.setRadius(Math.max(2.5,2.5f*(sceneGestures.getImageScale()/5)));
+//                TurningCircle.setStroke(Color.YELLOW);
+//                TurningCircle.setFill(Color.YELLOW);
+//
+//                anchorPanePath.getChildren().add(TurningCircle);
+//                circles.add(TurningCircle);
 
 
 
