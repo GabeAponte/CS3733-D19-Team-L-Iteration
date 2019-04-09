@@ -226,7 +226,6 @@ public class PathFindingController {
             String next = listIterator.next();
             Map.setImage(new Image(next));
             upAgain();
-            // Map.setImage(new Image(next));
         }
 
         else if (downclickedLast == false){
@@ -416,10 +415,11 @@ public class PathFindingController {
 
         for (int i = 0; i < path.size() - 1; i++) {
             Line line = new Line();
-            line.setStartX(path.get(i).getXcoord() *scaleRatio*sceneGestures.getImageScale());
-            line.setStartY(path.get(i).getYcoord() *scaleRatio*sceneGestures.getImageScale());
-            line.setEndX(path.get(i + 1).getXcoord() *scaleRatio*sceneGestures.getImageScale());
-            line.setEndY(path.get(i + 1).getYcoord() *scaleRatio*sceneGestures.getImageScale());
+
+            line.setStartX((path.get(i).getXcoord() -point.getX())*scaleRatio*sceneGestures.getImageScale());
+            line.setStartY((path.get(i).getYcoord() -point.getY())*scaleRatio*sceneGestures.getImageScale());
+            line.setEndX((path.get(i + 1).getXcoord() -point.getX())*scaleRatio*sceneGestures.getImageScale());
+            line.setEndY((path.get(i + 1).getYcoord() -point.getY())*scaleRatio*sceneGestures.getImageScale());
 
             if(!(path.get(i).getFloor().equals(currentMap)) || !(path.get(i+1).getFloor().equals(currentMap))){
                 line.setVisible(false);
@@ -430,8 +430,8 @@ public class PathFindingController {
                 Circle midCircle = new Circle();
 
                 //Setting the properties of the circle
-                midCircle.setCenterX(path.get(i).getXcoord() *scaleRatio*sceneGestures.getImageScale());
-                midCircle.setCenterY(path.get(i).getYcoord() *scaleRatio*sceneGestures.getImageScale());
+                midCircle.setCenterX((path.get(i).getXcoord() -point.getX())*scaleRatio*sceneGestures.getImageScale());
+                midCircle.setCenterY((path.get(i).getYcoord() -point.getY())*scaleRatio*sceneGestures.getImageScale());
                 midCircle.setRadius(3.0f);
                 //default to not showing this circle
                 midCircle.setVisible(false);
@@ -442,7 +442,6 @@ public class PathFindingController {
                 circles.add(midCircle);
                 anchorPanePath.getChildren().add(midCircle);
             }
-            System.out.println(path.toString());
             anchorPanePath.getChildren().add(line);
 
             lines.add(line);
