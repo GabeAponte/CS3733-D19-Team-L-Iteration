@@ -83,8 +83,6 @@ public class AdminLoggedInHomeController {
 
         Parent sceneMain = pLoader.load();
 
-        PathFindingController pController = pLoader.<PathFindingController>getController();
-
         Stage theStage = (Stage) findPath.getScene().getWindow();
 
         Scene scene = new Scene(sceneMain);
