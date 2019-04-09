@@ -57,7 +57,7 @@
                         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                     </rowConstraints>
                     <children>
-                        <JFXButton fx:id="ITServices" buttonType="RAISED" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" style="-fx-border-color: white; -fx-border-radius: 100; -fx-background-radius: 100;" text="IT Services" textFill="WHITE" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" GridPane.valignment="CENTER">
+                        <JFXButton fx:id="ITServices" buttonType="RAISED" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" style="-fx-border-color: white; -fx-border-radius: 100; -fx-background-radius: 100;" text="IT Services (Daniel)" textFill="WHITE" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" GridPane.valignment="CENTER">
                             <font>
                                 <Font size="25.0" />
                             </font>
@@ -65,7 +65,7 @@
                                 <Insets left="100.0" right="100.0" />
                             </GridPane.margin>
                         </JFXButton>
-                        <JFXButton fx:id="ReligiousServices" buttonType="RAISED" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" onAction="#changeToReligiousRequest" style="-fx-border-color: white; -fx-border-radius: 100; -fx-background-radius: 100;" text="Religious Services" textFill="WHITE" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="2" GridPane.valignment="CENTER">
+                        <JFXButton fx:id="ReligiousServices" buttonType="RAISED" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" onAction="#changeToReligiousRequest" style="-fx-border-color: white; -fx-border-radius: 100; -fx-background-radius: 100;" text="Religious Services (Gabe)" textFill="WHITE" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="2" GridPane.valignment="CENTER">
                             <font>
                                 <Font size="25.0" />
                             </font>
@@ -73,7 +73,7 @@
                                 <Insets left="100.0" right="100.0" />
                             </GridPane.margin>
                         </JFXButton>
-                        <JFXButton fx:id="LanguageInterpreter" buttonType="RAISED" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" style="-fx-border-color: white; -fx-border-radius: 100; -fx-background-radius: 100;" text="Language Interpretrer" textFill="WHITE" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="3" GridPane.valignment="CENTER">
+                        <JFXButton fx:id="LanguageInterpreter" buttonType="RAISED" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" style="-fx-border-color: white; -fx-border-radius: 100; -fx-background-radius: 100;" text="Language Interpretrer (Grace)" textFill="WHITE" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="3" GridPane.valignment="CENTER">
                             <font>
                                 <Font size="25.0" />
                             </font>
@@ -81,7 +81,7 @@
                                 <Insets left="100.0" right="100.0" />
                             </GridPane.margin>
                         </JFXButton>
-                        <JFXButton fx:id="FacilitiesMaintenance" buttonType="RAISED" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" style="-fx-border-color: white; -fx-border-radius: 100; -fx-background-radius: 100;" text="Facilities Maintenance" textFill="WHITE" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" GridPane.valignment="CENTER">
+                        <JFXButton fx:id="FacilitiesMaintenance" buttonType="RAISED" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" style="-fx-border-color: white; -fx-border-radius: 100; -fx-background-radius: 100;" text="Facilities Maintenance (Paul)" textFill="WHITE" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" GridPane.valignment="CENTER">
                             <font>
                                 <Font size="25.0" />
                             </font>
@@ -89,7 +89,7 @@
                                 <Insets left="100.0" right="100.0" />
                             </GridPane.margin>
                         </JFXButton>
-                        <JFXButton fx:id="SecurityStaff" buttonType="RAISED" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" style="-fx-border-color: white; -fx-border-radius: 100; -fx-background-radius: 100;" text="Security Staff" textFill="WHITE" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="2" GridPane.valignment="CENTER">
+                        <JFXButton fx:id="SecurityStaff" buttonType="RAISED" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" style="-fx-border-color: white; -fx-border-radius: 100; -fx-background-radius: 100;" text="Security Staff (Anagha)" textFill="WHITE" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="2" GridPane.valignment="CENTER">
                             <font>
                                 <Font size="25.0" />
                             </font>
@@ -97,7 +97,7 @@
                                 <Insets left="100.0" right="100.0" />
                             </GridPane.margin>
                         </JFXButton>
-                        <JFXButton fx:id="SanitationServices" buttonType="RAISED" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" style="-fx-border-color: white; -fx-border-radius: 100; -fx-background-radius: 100;" text="Sanitation Services" textFill="WHITE" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="3" GridPane.valignment="CENTER">
+                        <JFXButton fx:id="SanitationServices" buttonType="RAISED" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" style="-fx-border-color: white; -fx-border-radius: 100; -fx-background-radius: 100;" text="Sanitation Services (Andrew)" textFill="WHITE" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="3" GridPane.valignment="CENTER">
                             <font>
                                 <Font size="25.0" />
                             </font>
@@ -105,7 +105,7 @@
                                 <Insets left="100.0" right="100.0" />
                             </GridPane.margin>
                         </JFXButton>
-                        <JFXButton fx:id="ExternalTransportation" buttonType="RAISED" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" style="-fx-border-color: white; -fx-border-radius: 100; -fx-background-radius: 100;" text="External Transportation" textFill="WHITE" GridPane.rowIndex="4">
+                        <JFXButton fx:id="ExternalTransportation" buttonType="RAISED" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" style="-fx-border-color: white; -fx-border-radius: 100; -fx-background-radius: 100;" text="External Transportation (Isabella" textFill="WHITE" GridPane.rowIndex="4">
                             <font>
                                 <Font size="25.0" />
                             </font>
@@ -113,7 +113,7 @@
                                 <Insets left="100.0" right="100.0" />
                             </GridPane.margin>
                         </JFXButton>
-                        <JFXButton fx:id="InternalTransportation" buttonType="RAISED" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" onAction="#changeToInternalTransport" style="-fx-border-color: white; -fx-border-radius: 100; -fx-background-radius: 100;" text="Internal Transportation" textFill="WHITE" GridPane.columnIndex="1" GridPane.rowIndex="4">
+                        <JFXButton fx:id="InternalTransportation" buttonType="RAISED" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" onAction="#changeToInternalTransport" style="-fx-border-color: white; -fx-border-radius: 100; -fx-background-radius: 100;" text="Internal Transportation (Nathan)" textFill="WHITE" GridPane.columnIndex="1" GridPane.rowIndex="4">
                             <font>
                                 <Font size="25.0" />
                             </font>
@@ -121,7 +121,7 @@
                                 <Insets left="100.0" right="100.0" />
                             </GridPane.margin>
                         </JFXButton>
-                        <JFXButton fx:id="AudioVisual" buttonType="RAISED" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" style="-fx-border-color: white; -fx-border-radius: 100; -fx-background-radius: 100;" text="Audio/Visual" textFill="WHITE" GridPane.rowIndex="6">
+                        <JFXButton fx:id="AudioVisual" buttonType="RAISED" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" style="-fx-border-color: white; -fx-border-radius: 100; -fx-background-radius: 100;" text="Audio/Visual (Nikhil)" textFill="WHITE" GridPane.rowIndex="6">
                             <font>
                                 <Font size="25.0" />
                             </font>
@@ -129,7 +129,7 @@
                                 <Insets left="100.0" right="100.0" />
                             </GridPane.margin>
                         </JFXButton>
-                        <JFXButton fx:id="Florist" buttonType="RAISED" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" onAction="#changeToFlorist" style="-fx-border-color: white; -fx-border-radius: 100; -fx-background-radius: 100;" text="Florist" textFill="WHITE" GridPane.rowIndex="5">
+                        <JFXButton fx:id="Florist" buttonType="RAISED" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" onAction="#changeToFlorist" style="-fx-border-color: white; -fx-border-radius: 100; -fx-background-radius: 100;" text="Florist (Lile)" textFill="WHITE" GridPane.rowIndex="5">
                             <font>
                                 <Font size="25.0" />
                             </font>
@@ -137,7 +137,7 @@
                                 <Insets left="100.0" right="100.0" />
                             </GridPane.margin>
                         </JFXButton>
-                        <JFXButton fx:id="PrescriptionServices" buttonType="RAISED" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" style="-fx-border-color: white; -fx-border-radius: 100; -fx-background-radius: 100;" text="Prescription Services" textFill="WHITE" GridPane.columnIndex="1" GridPane.rowIndex="5">
+                        <JFXButton fx:id="PrescriptionServices" buttonType="RAISED" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" style="-fx-border-color: white; -fx-border-radius: 100; -fx-background-radius: 100;" text="Prescription Services (Alex)" textFill="WHITE" GridPane.columnIndex="1" GridPane.rowIndex="5">
                             <font>
                                 <Font size="25.0" />
                             </font>
@@ -163,7 +163,7 @@
                         </Label>
                     </children>
                     <padding>
-                        <Insets bottom="75.0" left="50.0" right="50.0" top="50.0" />
+                        <Insets bottom="75.0" left="25.0" right="25.0" top="50.0" />
                     </padding>
                 </GridPane>
             </children>
