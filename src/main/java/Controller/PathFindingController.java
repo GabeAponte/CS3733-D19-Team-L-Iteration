@@ -142,6 +142,14 @@ public class PathFindingController {
         for (Line l: lines) {
             anchorPanePath.getChildren().remove(l);
         }
+        bathroomRadButton.setSelected(false);
+        bathroomRadButton.setTextFill(Color.web("#ffffff"));
+        cafeRadButton.setSelected(false);
+        cafeRadButton.setTextFill(Color.web("#ffffff"));
+        eleRadButton.setSelected(false);
+        eleRadButton.setTextFill(Color.web("#ffffff"));
+        stairsRadButton.setSelected(false);
+        stairsRadButton.setTextFill(Color.web("#ffffff"));
         if(PathFindStartDrop.getValue() != null && PathFindEndDrop.getValue() != null){
             submitPressed();
         }
@@ -156,6 +164,14 @@ public class PathFindingController {
         for (Line l: lines) {
             anchorPanePath.getChildren().remove(l);
         }
+        bathroomRadButton.setSelected(false);
+        bathroomRadButton.setTextFill(Color.web("#ffffff"));
+        cafeRadButton.setSelected(false);
+        cafeRadButton.setTextFill(Color.web("#ffffff"));
+        eleRadButton.setSelected(false);
+        eleRadButton.setTextFill(Color.web("#ffffff"));
+        stairsRadButton.setSelected(false);
+        stairsRadButton.setTextFill(Color.web("#ffffff"));
         if(PathFindStartDrop.getValue() != null && PathFindEndDrop.getValue() != null){
             submitPressed();
         }
@@ -170,6 +186,14 @@ public class PathFindingController {
         for (Line l: lines) {
             anchorPanePath.getChildren().remove(l);
         }
+        bathroomRadButton.setSelected(false);
+        bathroomRadButton.setTextFill(Color.web("#ffffff"));
+        cafeRadButton.setSelected(false);
+        cafeRadButton.setTextFill(Color.web("#ffffff"));
+        eleRadButton.setSelected(false);
+        eleRadButton.setTextFill(Color.web("#ffffff"));
+        stairsRadButton.setSelected(false);
+        stairsRadButton.setTextFill(Color.web("#ffffff"));
         if(PathFindStartDrop.getValue() != null && PathFindEndDrop.getValue() != null){
             submitPressed();
         }
@@ -184,6 +208,14 @@ public class PathFindingController {
         for (Line l: lines) {
             anchorPanePath.getChildren().remove(l);
         }
+        bathroomRadButton.setSelected(false);
+        bathroomRadButton.setTextFill(Color.web("#ffffff"));
+        cafeRadButton.setSelected(false);
+        cafeRadButton.setTextFill(Color.web("#ffffff"));
+        eleRadButton.setSelected(false);
+        eleRadButton.setTextFill(Color.web("#ffffff"));
+        stairsRadButton.setSelected(false);
+        stairsRadButton.setTextFill(Color.web("#ffffff"));
         if(PathFindStartDrop.getValue() != null && PathFindEndDrop.getValue() != null){
             submitPressed();
         }
@@ -198,6 +230,14 @@ public class PathFindingController {
         for (Line l: lines) {
             anchorPanePath.getChildren().remove(l);
         }
+        bathroomRadButton.setSelected(false);
+        bathroomRadButton.setTextFill(Color.web("#ffffff"));
+        cafeRadButton.setSelected(false);
+        cafeRadButton.setTextFill(Color.web("#ffffff"));
+        eleRadButton.setSelected(false);
+        eleRadButton.setTextFill(Color.web("#ffffff"));
+        stairsRadButton.setSelected(false);
+        stairsRadButton.setTextFill(Color.web("#ffffff"));
         if(PathFindStartDrop.getValue() != null && PathFindEndDrop.getValue() != null){
             submitPressed();
         }
@@ -212,6 +252,14 @@ public class PathFindingController {
         for (Line l: lines) {
             anchorPanePath.getChildren().remove(l);
         }
+        bathroomRadButton.setSelected(false);
+        bathroomRadButton.setTextFill(Color.web("#ffffff"));
+        cafeRadButton.setSelected(false);
+        cafeRadButton.setTextFill(Color.web("#ffffff"));
+        eleRadButton.setSelected(false);
+        eleRadButton.setTextFill(Color.web("#ffffff"));
+        stairsRadButton.setSelected(false);
+        stairsRadButton.setTextFill(Color.web("#ffffff"));
         if(PathFindStartDrop.getValue() != null && PathFindEndDrop.getValue() != null){
             submitPressed();
         }
@@ -249,6 +297,14 @@ public class PathFindingController {
         for (Line l: lines) {
             anchorPanePath.getChildren().remove(l);
         }
+        bathroomRadButton.setSelected(false);
+        bathroomRadButton.setTextFill(Color.web("#ffffff"));
+        cafeRadButton.setSelected(false);
+        cafeRadButton.setTextFill(Color.web("#ffffff"));
+        eleRadButton.setSelected(false);
+        eleRadButton.setTextFill(Color.web("#ffffff"));
+        stairsRadButton.setSelected(false);
+        stairsRadButton.setTextFill(Color.web("#ffffff"));
         if (mapURLs.isEmpty()) {
             map();
             listIterator = mapURLs.listIterator();
@@ -290,6 +346,14 @@ public class PathFindingController {
         for (Line l: lines) {
             anchorPanePath.getChildren().remove(l);
         }
+        bathroomRadButton.setSelected(false);
+        bathroomRadButton.setTextFill(Color.web("#ffffff"));
+        cafeRadButton.setSelected(false);
+        cafeRadButton.setTextFill(Color.web("#ffffff"));
+        eleRadButton.setSelected(false);
+        eleRadButton.setTextFill(Color.web("#ffffff"));
+        stairsRadButton.setSelected(false);
+        stairsRadButton.setTextFill(Color.web("#ffffff"));
         if (listIterator.hasNext() == false) {
             listIterator = mapURLs.listIterator();
             String next = listIterator.next();
@@ -312,6 +376,14 @@ public class PathFindingController {
         for (Line l: lines) {
             anchorPanePath.getChildren().remove(l);
         }
+        bathroomRadButton.setSelected(false);
+        bathroomRadButton.setTextFill(Color.web("#ffffff"));
+        cafeRadButton.setSelected(false);
+        cafeRadButton.setTextFill(Color.web("#ffffff"));
+        eleRadButton.setSelected(false);
+        eleRadButton.setTextFill(Color.web("#ffffff"));
+        stairsRadButton.setSelected(false);
+        stairsRadButton.setTextFill(Color.web("#ffffff"));
         if (listIterator.hasPrevious() == false) {
             listIterator = mapURLs.listIterator(mapURLs.size() - 1);
             String previous = listIterator.previous();
@@ -334,6 +406,14 @@ public class PathFindingController {
         for (Line l: lines) {
             anchorPanePath.getChildren().remove(l);
         }
+        bathroomRadButton.setSelected(false);
+        bathroomRadButton.setTextFill(Color.web("#ffffff"));
+        cafeRadButton.setSelected(false);
+        cafeRadButton.setTextFill(Color.web("#ffffff"));
+        eleRadButton.setSelected(false);
+        eleRadButton.setTextFill(Color.web("#ffffff"));
+        stairsRadButton.setSelected(false);
+        stairsRadButton.setTextFill(Color.web("#ffffff"));
         if (mapURLs.isEmpty()) {
             map();
             listIterator = mapURLs.listIterator();
