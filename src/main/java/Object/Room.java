@@ -69,4 +69,47 @@ public class Room{
             auditorium = false;
     }
 
+    public String getTime() {
+        return time;
+    }
+
+    public boolean isClass1() {
+        return class1;
+    }
+
+    public boolean isClass2() {
+        return class2;
+    }
+
+    public boolean isClass3() {
+        return class3;
+    }
+
+    public boolean isClass4() {
+        return class4;
+    }
+
+    public boolean isClass5() {
+        return class5;
+    }
+
+    public boolean isClass6() {
+        return class6;
+    }
+
+    public boolean isClass7() {
+        return class7;
+    }
+
+    public boolean isClass8() {
+        return class8;
+    }
+
+    public boolean isClass9() {
+        return class9;
+    }
+
+    public boolean isAuditorium() {
+        return auditorium;
+    }
 }
