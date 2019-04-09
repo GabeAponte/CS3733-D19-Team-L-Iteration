@@ -127,8 +127,8 @@ public class EditLinkBetweenFloorsController {
     public void initialize() {
         na = new NodesAccess();
         ea = new EdgesAccess();
-        PathFindSubmit.setDisable(false);
-        displayNodes.setDisable(false);
+        PathFindSubmit.setDisable(true);
+        displayNodes.setDisable(true);
         filter();
         floor();
         Filter.setItems(filterList);
@@ -300,6 +300,9 @@ public class EditLinkBetweenFloorsController {
         } else {
             type = "ELEV";
         }
+        if (Floor.getValue() != null) {
+            displayNodes.setDisable(false);
+        }
     }
 
     @FXML
@@ -347,6 +350,9 @@ public class EditLinkBetweenFloorsController {
             currentMap = "L2";
             currentMapAbove = "L1";
             currentMapBelow = "";
+        }
+        if (type != "") {
+            displayNodes.setDisable(false);
         }
     }
 
@@ -461,7 +467,11 @@ public class EditLinkBetweenFloorsController {
                     node2Name.setText(toConnectLoc.getLocID());
                 }
             }
+            if (toConnectLoc != null && focusLoc != null) {
+                PathFindSubmit.setDisable(false);
+            }
         }
+
     };
 
     private EventHandler<MouseEvent> getOnMouseClickedEventHandler() {
