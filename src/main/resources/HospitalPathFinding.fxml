@@ -57,13 +57,14 @@
          </font>
       </JFXButton>
 
-      <VBox alignment="CENTER_LEFT" layoutX="880.0" layoutY="513.0" prefHeight="195.0" prefWidth="340.0">
+      <VBox alignment="CENTER_LEFT" layoutX="1114.0" layoutY="527.0" prefHeight="195.0" prefWidth="255.0">
          <children>
             <Label text="Points Of Interest" textFill="WHITE">
                <font>
                   <Font size="30.0" />
                </font>
             </Label>
+            <JFXButton fx:id="setKioskButton" onAction="#setKioskButtPress" style="-fx-border-color: WHITE; -fx-border-radius: 50; -fx-background-radius: 50;" text="Set Kiosk" textFill="WHITE" />
             <JFXRadioButton fx:id="bathroomRadButton" onAction="#bathRadButtPressed" style="-jfx-selected-color: #f5d96b; -jfx-unselected-color: WHITE;" text="Bathroom" textFill="WHITE">
                <font>
                   <Font size="20.0" />

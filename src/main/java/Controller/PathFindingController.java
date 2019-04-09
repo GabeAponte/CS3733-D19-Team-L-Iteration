@@ -2,6 +2,7 @@ package Controller;
 
 import SearchingAlgorithms.AStarStrategy;
 import SearchingAlgorithms.PathfindingStrategy;
+import com.jfoenix.controls.JFXButton;
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.collections.FXCollections;
@@ -86,6 +87,8 @@ public class PathFindingController {
     private RadioButton eleRadButton;
     @FXML
     private RadioButton stairsRadButton;
+    @FXML
+    private JFXButton setKioskButton; //setKioskButtPress
 
     @FXML
     private ComboBox<String> Filter;
@@ -1197,6 +1200,16 @@ public class PathFindingController {
         //System.out.println("just pretend it prints out the path to closest");
     }
 
+    /**
+     * Grace made this
+     * sets the kiosk to the "Start Location" dropdown location
+     */
+    @FXML
+    private void setKioskButtPress(){
+        //get start location from dropdown
+        kioskTemp = PathFindStartDrop.getValue();
+        //set kioskTemp to that^
+    }
     /** GRACE MADE THIS
      *display and find closest bathroom
      */
