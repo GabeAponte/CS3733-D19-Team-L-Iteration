@@ -23,7 +23,7 @@ import java.io.IOException;
 import java.sql.Connection;
 import java.util.ArrayList;
 
-public class EmployeeTableController extends DBAccess {
+public class EmployeeTableController{
 
     private Stage thestage;
     TreeItem root = new TreeItem<>("rootxxx");
