@@ -213,8 +213,13 @@ public class CreateEditAccountController {
     public void yesPressed() throws IOException{
         Stage stage = (Stage) yes.getScene().getWindow();
         stage.close();
+        thestage = (Stage) yes.getScene().getWindow();
+        AnchorPane root;
 
-        deleteEmployee(stage);
+        root = FXMLLoader.load(getClass().getClassLoader().getResource("EmployeeTable.fxml"));
+        Scene scene = new Scene(root);
+        thestage.setScene(scene);
+       // deleteEmployee(stage);
     }
 
     @FXML
@@ -228,7 +233,6 @@ public class CreateEditAccountController {
     public void deleteEmployee(Stage stage) throws IOException {
         EmployeeAccess ea = new EmployeeAccess();
         ea.deleteEmployee(stage.getUserData().toString());
-        backPressed();
 
     }
 
