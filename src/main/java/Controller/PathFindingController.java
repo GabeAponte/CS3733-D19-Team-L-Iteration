@@ -974,8 +974,12 @@ public class PathFindingController {
         Point2D point = sceneGestures.getImageLocation();
         for(int i=0; i<single.getData().size(); i++){
             //if nodetype contains keyword
-            if(single.getData().get(i).getNodeType().contains(keyword)  && single.getData().get(i).getFloor() == "2"/* && data.get(i).getFloor() == kioskNode.getFloor*/){
+            //System.out.println("hello?");
+
+            if(single.getData().get(i).getNodeType().contains(keyword) ){// && single.getData().get(i).getFloor() == "2"/* && data.get(i).getFloor() == kioskNode.getFloor*/){
                 nodes.add(single.getData().get(i));
+
+                System.out.println("ok at least one node gets here");
 
                 Circle thisCircle = new Circle();
 
@@ -1105,7 +1109,7 @@ public class PathFindingController {
             stairsRadButton.setSelected(false);
             stairsRadButton.setTextFill(Color.web("#ffffff"));
 
-            displayClosestPOI("RETL");
+            //displayClosestPOI("RETL");
             displayPOINodes("RETL");
         }
         if(!cafeRadButton.isSelected()){
@@ -1138,7 +1142,7 @@ public class PathFindingController {
             stairsRadButton.setSelected(false);
             stairsRadButton.setTextFill(Color.web("#ffffff"));
 
-            displayClosestPOI("ELEV");
+            //displayClosestPOI("ELEV");
             displayPOINodes("ELEV");
         }
         if(!eleRadButton.isSelected()){
@@ -1171,7 +1175,7 @@ public class PathFindingController {
             bathroomRadButton.setSelected(false);
             bathroomRadButton.setTextFill(Color.web("#ffffff"));
 
-            displayClosestPOI("STAI");
+            //displayClosestPOI("STAI");
             displayPOINodes("STAI");
         }
         if(!stairsRadButton.isSelected()){
