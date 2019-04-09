@@ -230,16 +230,12 @@ public class EmployeeAccess extends DBAccess{
             pstmt.setString(2, data.get(1));
             pstmt.setString(3, data.get(2));
             pstmt.setString(4, data.get(3));
-            if(data.get(5).equals("true")){
-                pstmt.setBoolean(5, true);
-            } else{
-                pstmt.setBoolean(5, false);
-            }
-            pstmt.setString(6, data.get(5));
-            pstmt.setString(7, data.get(6));
-            pstmt.setString(8, data.get(7));
-            pstmt.setString(9, data.get(8));
-            pstmt.setString(10, data.get(9));
+            pstmt.setBoolean(5, false);
+            pstmt.setString(6, data.get(4));
+            pstmt.setString(7, data.get(5));
+            pstmt.setString(8, data.get(6));
+            pstmt.setString(9, data.get(7));
+            pstmt.setString(10, data.get(8));
             pstmt.executeUpdate();
         } catch (SQLException e) {
             System.out.println(e.getMessage());

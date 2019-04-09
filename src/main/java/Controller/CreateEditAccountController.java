@@ -107,6 +107,7 @@ public class CreateEditAccountController {
         type = check;
         if(type == 1){
             title.setText("Create an Account");
+            delete.setVisible(false);
             delete.setDisable(true);
         }else if(type == 2){
             title.setText("Edit your Account");
@@ -126,6 +127,7 @@ public class CreateEditAccountController {
             lastName.setText(data.get(7));
             email.setText(data.get(8));
             pusername = single.getUsername();
+            delete.setVisible(false);
             delete.setDisable(true);
         }else if(type == 3){
             title.setText("Edit an Account");
@@ -146,6 +148,7 @@ public class CreateEditAccountController {
             firstName.setText(data.get(6));
             lastName.setText(data.get(7));
             email.setText(data.get(8));
+            delete.setVisible(true);
             delete.setDisable(false);
         }
     }
@@ -246,7 +249,7 @@ public class CreateEditAccountController {
      * submit button functionality - does a lot of error checking
      */
     @FXML
-    private void submitPressed(){
+    private void submitPressed()throws IOException{
         EmployeeAccess ea = new EmployeeAccess();
         if(!isValidEmailAddress(email.getText())){
             errorLabel.setText("Invalid Email Address");
@@ -270,11 +273,6 @@ public class CreateEditAccountController {
             list.add(username.getText());
             list.add(password.getText());
             list.add(department.getValue().toString());
-            if(isAdmin.isSelected()) {
-                list.add("true");
-            }else{
-                list.add("false");
-            }
             list.add(position.getText());
             list.add(firstName.getText());
             list.add(lastName.getText());
@@ -282,6 +280,12 @@ public class CreateEditAccountController {
             list.add(email.getText());
             errorLabel.setText("");
             ea.addEmployee(list);
+            if(isAdmin.isSelected()) {
+                ea.changeAdmin(employeeID.getText(), true);
+            }else{
+                ea.changeAdmin(employeeID.getText(), false);
+            }
+            backPressed();
         }else if(type == 2){
             if(!pusername.equals(username.getText())) {
                 try {
@@ -304,6 +308,7 @@ public class CreateEditAccountController {
                 System.out.println(e.getMessage());
             }
             errorLabel.setText("");
+            backPressed();
         } else {
             if(!pusername.equals(username.getText())) {
                 try {
@@ -326,6 +331,7 @@ public class CreateEditAccountController {
                 System.out.println(e.getMessage());
             }
             errorLabel.setText("");
+            backPressed();
         }
     }
 }
