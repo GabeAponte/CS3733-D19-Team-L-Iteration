@@ -34,6 +34,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.ListIterator;
 
+import static java.lang.Math.sqrt;
+
 @SuppressWarnings("Duplicates")
 public class PathFindingController {
 
@@ -1173,42 +1175,44 @@ public class PathFindingController {
             int nodeAy=0;
 
             int nodeBx= kioskTemp.getXcoord();
+            int nodeBy= kioskTemp.getYcoord();
+
+            int m=0; //x coord stuff
+            int n=0; //y coord stuff
+
+            double smallestDistance = 500000;
+            double length =0;
+
+            Location closestLOC = nodes.get(0);
+            Path closestPath = findAbstractPath(astar,kioskTemp, nodes.get(0)); //?
 
             for(int i=0; i<nodes.size(); i++){
+
                 //kiosk is B
                 nodeAx = nodes.get(i).getXcoord();
                 nodeAy = nodes.get(i).getYcoord();
 
+                n = nodeAx - nodeBx;
+                n = Math.abs(n);
+                //absolute val in case its negative
+                m = nodeAy -nodeBy;
+                m = Math.abs(m);
+                //abs val
+                //length
+                length = sqrt((m*m)+(n+n));
+                //a^2 + b^2 = c^2 therefore sqrt gets the length of the distance between kiosk and this node
 
-            }
+                System.out.println("n:"+n+" m:"+m+" length:"+length);
 
-            long startTime;
-            long endTime;
-            long currentCountTime;
-
-            //just to initailize closestTime
-            startTime = System.nanoTime();
-            Path thispath = findAbstractPath(astar,kioskTemp, nodes.get(0));
-            endTime = System.nanoTime();
-            long closestTime = (endTime - startTime);
-
-            Location closestLOC = nodes.get(0);
-            Path closestPath = thispath; //?
-            //finding closest POI
-            for(int i=0; i<nodes.size(); i++){
-                startTime = System.nanoTime();
-                findAbstractPath(astar,kioskTemp, nodes.get(i));
-                endTime = System.nanoTime();
-
-                currentCountTime = (endTime - startTime);
-
-                if(closestTime > currentCountTime){
-                    closestPath = findAbstractPath(astar,kioskTemp, nodes.get(i));
+                if(length < smallestDistance){
+                    smallestDistance = length;
+                    System.out.println("xxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"+"  smallest distance: "+smallestDistance);
+                    //set this node to be for pathing
                     closestLOC = nodes.get(i);
+                    closestPath = findAbstractPath(astar,kioskTemp, closestLOC);
+
                 }
-
             }
-
 
             displayPath(closestPath.getPath(), kioskTemp, closestLOC);
             printPath(closestPath.getPath());
