@@ -37,7 +37,8 @@
          <stylesheets>
             <URL value="@size.css" />
             <URL value="@modify-prompt-text.css" />
-         </stylesheets></JFXComboBox>
+         </stylesheets>
+      </JFXComboBox>
       <JFXComboBox fx:id="PathFindStartDrop" layoutX="860.0" layoutY="278.0" onAction="#locationsSelected" prefHeight="43.0" prefWidth="300.0" promptText="Select a Start Location">
          <stylesheets>
             <URL value="@modify-prompt-text.css" />
