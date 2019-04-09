@@ -1,5 +1,6 @@
 package Controller;
 
+import Access.EmployeeAccess;
 import Access.ServiceRequestAccess;
 import Object.EmployeeTable;
 import com.jfoenix.controls.JFXTreeTableView;
@@ -13,6 +14,7 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseButton;
 import javafx.stage.Stage;
+import Object.*;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -25,24 +27,50 @@ public class EmployeeTableController {
     private Button back;
 
     @FXML
-    TreeTableColumn<EmployeeTable,String> ID;
+    TableColumn<EmployeeTable,String> ID;
 
     @FXML
-    TreeTableColumn<EmployeeTable,String> name;
+    TableColumn<EmployeeTable,String> firstName;
 
     @FXML
-    TreeTableColumn<EmployeeTable,String> position;
+    TableColumn<EmployeeTable,String> lastName;
 
     @FXML
-    TreeTableColumn<EmployeeTable,String> department;
+    TableColumn<EmployeeTable,String> position;
+
+    @FXML
+    TableColumn<EmployeeTable,String> department;
 
     @FXML
     TableColumn<EmployeeTable,String> isAdmin;
 
 
     @FXML
-    TreeTableView<EmployeeTable> employees;
+    TableView<EmployeeTable> employees;
 
+    public void initialize(){
+        employees.setEditable(false);
+        EmployeeAccess ea = new EmployeeAccess();
+        final ObservableList<EmployeeTable> data = FXCollections.observableArrayList();
+        //initializeTable(ea);
+
+        ID.setCellValueFactory(new PropertyValueFactory<EmployeeTable,String>("employeeID"));
+        firstName.setCellValueFactory(new PropertyValueFactory<EmployeeTable, String>("firstName"));
+        firstName.setCellValueFactory(new PropertyValueFactory<EmployeeTable, String>("lastName"));
+        position.setCellValueFactory(new PropertyValueFactory<EmployeeTable, String>("lastName"));
+        department.setCellValueFactory(new PropertyValueFactory<EmployeeTable, String>("type"));
+
+        int count;
+        count = ea.countRecords()-1;
+        while(count >= 0){
+            ArrayList<String> arr= ea.getRequests(count);
+            EmployeeTable testx = new EmployeeTable(arr.get(0), arr.get(1),arr.get(2), arr.get(3), arr.get(4));
+            count--;
+            data.add(testx);
+        }
+
+        employees.setItems(data);
+    }
     @FXML
     /**@author Gabe
      * Returns admin to the Admin Logged In Home screen when the back button is pressed
@@ -55,7 +83,8 @@ public class EmployeeTableController {
      * Populates the table on the screen with any employees in the database
      */
 
-    public void initializeTable() {
+    /*public void initializeTable(EmployeeAccess ea) {
+        ArrayList<ArrayList<String>>  ls = ea.getEmployees("", "");
     }
 
 

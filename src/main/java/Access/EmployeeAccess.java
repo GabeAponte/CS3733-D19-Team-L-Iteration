@@ -234,6 +234,56 @@ public class EmployeeAccess extends DBAccess{
         }
     }
 
+    /**NATHAN MADE THIS
+     * Counts number of employee records in database
+     * @return
+     */
+    public int countRecords() {
+        String sql = "select COUNT(*) from employee where username is not null";
+        try (Connection conn = this.connect();
+             Statement stmt = conn.createStatement();
+             ResultSet rs = stmt.executeQuery(sql)) {
+
+            return rs.getInt(1);
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        return 0;
+
+    }
+
+    /**NATHAN MADE THIS
+     * gets record getNum
+     * @param getNum
+     * @return
+     */
+    public ArrayList<String> getRequests(int getNum){
+        String sql = "SELECT * FROM employee where username is not NULL";
+        int count = 0;
+        //noinspection Convert2Diamond
+        ArrayList<String> data = new ArrayList<String>();
+        try (Connection conn = this.connect();
+             Statement stmt = conn.createStatement();
+             ResultSet rs = stmt.executeQuery(sql)) {
+            while (rs.next()) {
+                if (count == getNum) {
+                    data.add(rs.getString("employeeID"));
+                    data.add(rs.getString("department"));
+                    data.add(rs.getString("type"));
+                    data.add(rs.getString("firstName"));
+                    data.add(rs.getString("lastName"));
+
+                }
+                count++;
+            }
+            return data;
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+
+        return null;
+    }
+
     /**Andrew made this for testing
      *
      * @param args
