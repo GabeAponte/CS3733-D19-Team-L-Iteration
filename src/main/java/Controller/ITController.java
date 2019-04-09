@@ -46,7 +46,8 @@ public class ITController {
     private String uname;
 
     //Specs
-    //
+    //HDMI
+    // Ethernet
 
     public void init(boolean loggedIn, String username) {
         uname = username;
@@ -55,7 +56,7 @@ public class ITController {
 
     public void initialize(){
         submit.setDisable(true);
-        device.getItems().addAll("Desktop Computer", "Laptop Computer", "Tablet", "Smartphone", "Kiosk");
+        device.getItems().addAll("Desktop Computer", "Laptop Computer", "Tablet", "Smartphone", "Kiosk", "Television");
     }
 
     @FXML
@@ -74,6 +75,5 @@ public class ITController {
         Scene scene = new Scene(sceneMain);
         theStage.setScene(scene);
     }
-
 
 }
