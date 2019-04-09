@@ -557,6 +557,7 @@ public class PathFindingController {
         }
     }
 
+
     @FXML
     private void clearStart(){
         PathFindStartDrop.getSelectionModel().clearSelection();
@@ -975,9 +976,9 @@ public class PathFindingController {
         Point2D point = sceneGestures.getImageLocation();
         for(int i=0; i<single.getData().size(); i++){
             //if nodetype contains keyword
-            //System.out.println("hello?");
+            System.out.println(currentMap);
 
-            if(single.getData().get(i).getNodeType().contains(keyword) ){// && single.getData().get(i).getFloor() == "2"/* && data.get(i).getFloor() == kioskNode.getFloor*/){
+            if(single.getData().get(i).getNodeType().contains(keyword) && single.getData().get(i).getFloor().equals(currentMap)/* && data.get(i).getFloor() == kioskNode.getFloor*/){
                 nodes.add(single.getData().get(i));
 
                 System.out.println("ok at least one node gets here");
