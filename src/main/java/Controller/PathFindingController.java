@@ -1,6 +1,7 @@
 package Controller;
 
 import SearchingAlgorithms.AStarStrategy;
+import SearchingAlgorithms.DepthFirstStrategy;
 import SearchingAlgorithms.PathfindingStrategy;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
@@ -432,7 +433,8 @@ public class PathFindingController {
         single.setLastTime();
         startNode = single.lookup.get(PathFindStartDrop.getValue().getLocID());
         endNode = single.lookup.get(PathFindEndDrop.getValue().getLocID());
-
+        PathfindingStrategy strategy = new AStarStrategy(single.lookup);
+        strategy = new DepthFirstStrategy(single.lookup);
         AStarStrategy astar = new AStarStrategy(single.lookup);
         Path path = findAbstractPath(astar, startNode, endNode);
 
@@ -458,7 +460,7 @@ public class PathFindingController {
         lines.clear();
 
         Point2D point = sceneGestures.getImageLocation();
-        double scaleRatio = Map.getFitWidth()/Map.getImage().getWidth();
+        double scaleRatio = Math.min(Map.getFitWidth()/Map.getImage().getWidth(),Map.getFitHeight()/Map.getImage().getHeight());
 
         for (int i = 0; i < path.size() - 1; i++) {
             Line line = new Line();

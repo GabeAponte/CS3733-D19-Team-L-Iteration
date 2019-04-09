@@ -113,6 +113,7 @@
                                                 <Insets right="10.0" />
                                             </HBox.margin>
                                         </JFXButton>
+                                        <!--
                                         <JFXButton fx:id="Up" alignment="CENTER" onAction="#upClicked" ripplerFill="WHITE" text="UP" textFill="WHITE" HBox.hgrow="ALWAYS">
                                             <HBox.margin>
                                                 <Insets right="10.0" />
@@ -123,6 +124,7 @@
                                                 <Insets right="10.0" />
                                             </HBox.margin>
                                         </JFXButton>
+                                        -->
                                     </children>
                                 </HBox>
                             </children>
@@ -204,7 +206,7 @@
                                                         <Font name="Times New Roman" size="20.0" />
                                                     </font>
                                                 </JFXButton>
-                                                <JFXButton ripplerFill="WHITE" style="-fx-border-radius: 50; -fx-background-radius: 50;" text="Submit Changes" textFill="WHITE">
+                                                <JFXButton fx:id="SubmitButton" ripplerFill="WHITE" style="-fx-border-radius: 50; -fx-background-radius: 50;" text="Submit Changes" textFill="WHITE">
                                                     <font>
                                                         <Font size="20.0" />
                                                     </font>
