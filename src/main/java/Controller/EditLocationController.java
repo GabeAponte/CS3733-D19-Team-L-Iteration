@@ -1,5 +1,6 @@
 package Controller;
 
+import API.UpdateLocationThread;
 import Access.EdgesAccess;
 import Access.NodesAccess;
 import Object.*;
@@ -667,6 +668,12 @@ public class EditLocationController {
     @FXML
     private void nodeInfoShortPress(){
         //be able to modify the selected nodeID
+    }
+
+    @FXML
+    private void submitButtonPressed() {
+        UpdateLocationThread ul = new UpdateLocationThread();
+        ul.start();
     }
 
     @FXML

@@ -39,7 +39,7 @@ public class Singleton {
         typePathfind = 1;
         isAdmin = false;
     }
-    public void setData() {
+    public synchronized void setData() {
         NodesAccess na = new NodesAccess();
         EdgesAccess ea = new EdgesAccess();
         ArrayList<String> edgeList;
