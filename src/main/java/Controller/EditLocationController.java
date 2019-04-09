@@ -111,9 +111,8 @@ public class EditLocationController {
 
     @FXML
     private ImageView Map;
-
     @FXML
-    private VBox vBox;
+    private AnchorPane anchorPaneWindow;
 
     private int floorSelected;
     private boolean displayingNodes = false;
@@ -333,9 +332,14 @@ public class EditLocationController {
         anchorPanePath.addEventFilter( MouseEvent.MOUSE_PRESSED, sceneGestures.getOnMousePressedEventHandler());
         anchorPanePath.addEventFilter( MouseEvent.MOUSE_DRAGGED, sceneGestures.getOnMouseDraggedEventHandler());
         anchorPanePath.addEventFilter( ScrollEvent.ANY, sceneGestures.getOnScrollEventHandler());
+        anchorPanePath.setLayoutX(30);
+        anchorPanePath.setLayoutY(185);
+        zoomPaneImage.setLayoutX(30);
+        zoomPaneImage.setLayoutY(185);
 
-        vBox.getChildren().add(zoomPaneImage);
-        vBox.getChildren().add(anchorPanePath);
+
+        anchorPaneWindow.getChildren().add(zoomPaneImage);
+        anchorPaneWindow.getChildren().add(anchorPanePath);
 
 
         thisCircle = new Circle();
