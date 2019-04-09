@@ -1,110 +1,98 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXTextArea?>
+<?import com.jfoenix.controls.JFXToolbar?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.TextArea?>
-<?import javafx.scene.control.ToolBar?>
+<?import javafx.scene.effect.Blend?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
-<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
-<?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.SuggestionBoxController">
+<?import javafx.stage.Screen?>
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" style="-fx-background-color: #012D5A;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.SuggestionBoxController">
+
     <children>
-        <VBox alignment="CENTER" layoutY="136.0" prefHeight="585.0" prefWidth="1280.0" style="-fx-background-color: #7fb1ff;" AnchorPane.bottomAnchor="-1.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="135.0" />
-        <ImageView fitHeight="668.0" fitWidth="1282.0" layoutY="51.0" opacity="0.51" AnchorPane.bottomAnchor="1.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="-2.0" AnchorPane.topAnchor="51.0">
-            <image>
-                <Image url="@SoftEng_UI_Mockup_Pics/Background.png" />
-            </image>
-        </ImageView>
-      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#012d5a" height="459.0" layoutY="196.0" stroke="#012d5a" strokeType="INSIDE" width="880.0" AnchorPane.leftAnchor="200.0" AnchorPane.rightAnchor="200.0" AnchorPane.topAnchor="196.0" />
-      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#7fb1ff" height="94.0" layoutX="-220.0" stroke="#012d5a" strokeType="INSIDE" width="880.0" AnchorPane.leftAnchor="200.0" AnchorPane.rightAnchor="208.0" AnchorPane.topAnchor="195.0" />
-          <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="143.0" prefWidth="842.0" text="  Give Us Feedback" AnchorPane.leftAnchor="205.0" AnchorPane.rightAnchor="205.0" AnchorPane.topAnchor="140.0">
-              <font>
-                  <Font name="Times New Roman Bold" size="40.0" />
-              </font>
-              <padding>
-                  <Insets bottom="10.0" top="75.0" />
-              </padding>
-          </Label>
-        <ToolBar maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="125.0" prefWidth="1282.0" style="-fx-background-color: white;" AnchorPane.topAnchor="0.0">
-            <items>
-                <ImageView fitHeight="91.0" fitWidth="395.0" pickOnBounds="true" preserveRatio="true">
-                    <image>
-                        <Image url="@SoftEng_UI_Mockup_Pics/BWHlogo.png" />
-               </image>
-            </ImageView>
-            <HBox alignment="CENTER_RIGHT" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="120.0" prefWidth="836.0">
-               <children>
-                  <JFXButton fx:id="SuggestionBack" buttonType="RAISED" minHeight="-Infinity" minWidth="-Infinity" onAction="#backPressed" prefHeight="100.0" prefWidth="176.0" ripplerFill="#b0b0b0" text="Back">
-                     <font>
-                        <Font name="Times New Roman" size="40.0" />
-                     </font>
-                  </JFXButton>
-               </children>
-            </HBox>
-              </items>
-          </ToolBar>
-          <ToolBar layoutX="-15.0" layoutY="131.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="10.0" prefWidth="1280.0" style="-fx-background-color: #012d5a;" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="125.0" />
-          <GridPane alignment="CENTER" hgap="30.0" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="562.0" prefWidth="891.0" AnchorPane.leftAnchor="200.0" AnchorPane.rightAnchor="200.0" AnchorPane.topAnchor="145.0">
-              <columnConstraints>
-                  <ColumnConstraints maxWidth="168.0" minWidth="0.0" prefWidth="0.0" />
-                  <ColumnConstraints hgrow="SOMETIMES" />
-              </columnConstraints>
-              <rowConstraints>
-                  <RowConstraints />
-                  <RowConstraints />
-                  <RowConstraints maxHeight="80.0" minHeight="10.0" prefHeight="40.0" vgrow="NEVER" />
-            <RowConstraints maxHeight="80.0" minHeight="10.0" prefHeight="40.0" vgrow="SOMETIMES" />
-            <RowConstraints maxHeight="90.0" minHeight="0.0" prefHeight="77.0" vgrow="SOMETIMES" />
-            <RowConstraints maxHeight="90.0" minHeight="10.0" prefHeight="77.0" vgrow="SOMETIMES" />
-            <RowConstraints />
-            <RowConstraints />
-            <RowConstraints />
-            <RowConstraints />
-            <RowConstraints />
-            <RowConstraints maxHeight="59.0" minHeight="0.0" prefHeight="0.0" />
-            <RowConstraints maxHeight="59.0" minHeight="10.0" prefHeight="30.0" />
-            <RowConstraints maxHeight="59.0" minHeight="10.0" prefHeight="30.0" />
-            <RowConstraints maxHeight="59.0" minHeight="10.0" prefHeight="30.0" />
-            <RowConstraints maxHeight="59.0" minHeight="10.0" prefHeight="30.0" />
-            <RowConstraints maxHeight="60.0" minHeight="10.0" prefHeight="60.0" />
-            <RowConstraints maxHeight="59.0" minHeight="0.0" prefHeight="0.0" />
-            <RowConstraints maxHeight="59.0" minHeight="10.0" prefHeight="30.0" />
-              </rowConstraints>
-              <children>
-            <TextArea fx:id="feedbackComments" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="197.0" prefWidth="740.0" promptText="Type suggestions here" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="4" GridPane.rowSpan="2">
-               <GridPane.margin>
-                  <Insets bottom="10.0" left="100.0" right="125.0" top="85.0" />
-               </GridPane.margin>
-               <font>
-                  <Font name="Times New Roman" size="24.0" />
-               </font>
-            </TextArea>
-            <JFXButton fx:id="submitFeedback" buttonType="RAISED" contentDisplay="CENTER" onAction="#submitPressed" prefHeight="47.0" prefWidth="131.0" ripplerFill="#b0b0b0" style="-fx-background-color: white;" text="Submit" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="15" GridPane.valignment="CENTER">
-               <font>
-                  <Font name="Times New Roman" size="25.0" />
-               </font>
-               <GridPane.margin>
-                  <Insets top="40.0" />
-               </GridPane.margin>
-            </JFXButton>
-            <Label fx:id="error" alignment="CENTER" contentDisplay="CENTER" prefHeight="30.0" prefWidth="439.0" textFill="WHITE" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="14" GridPane.valignment="CENTER">
-               <font>
-                  <Font name="Times New Roman" size="24.0" />
-               </font>
-            </Label>
-              </children>
-         <padding>
-            <Insets top="10.0" />
-         </padding>
-          </GridPane>
+        <VBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <children>
+                <JFXToolbar prefHeight="107.0" prefWidth="1280.0" style="-fx-background-color: WHITE;">
+                    <left>
+                        <ImageView fitHeight="75.0" fitWidth="325.0" BorderPane.alignment="CENTER">
+                            <image>
+                                <Image url="@SoftEng_UI_Mockup_Pics/BWHlogo.png" />
+                            </image>
+                        </ImageView>
+                    </left>
+                    <right>
+                        <JFXButton fx:id="SuggestionBack" buttonType="RAISED" onAction="#backPressed" prefHeight="75.0" prefWidth="150.0" style="-fx-background-radius: 50;" text="Back" BorderPane.alignment="CENTER">
+                            <font>
+                                <Font size="40.0" />
+                            </font>
+                        </JFXButton>
+                    </right>
+                    <VBox.margin>
+                        <Insets />
+                    </VBox.margin>
+                    <padding>
+                        <Insets left="10.0" right="10.0" />
+                    </padding>
+                </JFXToolbar>
+                <JFXToolbar prefHeight="10.0" prefWidth="1280.0" style="-fx-background-color: F5D96B;" />
+                <GridPane alignment="CENTER" hgap="25.0" prefHeight="264.0" prefWidth="1280.0" vgap="50.0" VBox.vgrow="ALWAYS">
+                    <columnConstraints>
+                        <ColumnConstraints halignment="CENTER" hgrow="ALWAYS" maxWidth="1.7976931348623157E308" minWidth="-Infinity" prefWidth="625.0" />
+                        <ColumnConstraints halignment="CENTER" hgrow="ALWAYS" maxWidth="1.7976931348623157E308" minWidth="-Infinity" prefWidth="625.0" />
+                    </columnConstraints>
+                    <rowConstraints>
+                        <RowConstraints valignment="CENTER" vgrow="ALWAYS" />
+                        <RowConstraints maxHeight="1.7976931348623157E308" valignment="CENTER" vgrow="ALWAYS" />
+                        <RowConstraints maxHeight="94.0" minHeight="0.0" prefHeight="94.0" valignment="CENTER" vgrow="ALWAYS" />
+                        <RowConstraints maxHeight="59.111358642578125" minHeight="0.0" prefHeight="0.0" valignment="CENTER" vgrow="ALWAYS" />
+                    </rowConstraints>
+                    <children>
+                        <Label text="Give Us Feedback" textFill="#f5d96b" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
+                            <font>
+                                <Font size="30.0" />
+                            </font>
+                            <effect>
+                                <Blend />
+                            </effect>
+                        </Label>
+                        <JFXTextArea fx:id="feedbackComments" focusColor="#f6bd38" promptText="Type suggestions here" style="-fx-background-color: WHITE;" unFocusColor="WHITE" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" GridPane.rowSpan="2" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
+                            <font>
+                                <Font size="20.0" />
+                            </font>
+                            <GridPane.margin>
+                                <Insets left="200.0" right="200.0" />
+                            </GridPane.margin>
+                        </JFXTextArea>
+                        <JFXButton fx:id="submitFeedback" buttonType="RAISED" onAction="#submitPressed" prefHeight="7.0" prefWidth="138.0" style="-fx-border-color: F5D96B; -fx-border-width: 2; -fx-border-radius: 50; -fx-background-radius: 50;" text="Submit" textFill="WHITE" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="3" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
+                            <font>
+                                <Font size="30.0" />
+                            </font>
+                            <GridPane.margin>
+                                <Insets top="25.0" />
+                            </GridPane.margin>
+                        </JFXButton>
+                    </children>
+                    <opaqueInsets>
+                        <Insets />
+                    </opaqueInsets>
+                    <padding>
+                        <Insets bottom="100.0" top="50.0" />
+                    </padding>
+                    <VBox.margin>
+                        <Insets />
+                    </VBox.margin>
+                </GridPane>
+            </children>
+        </VBox>
     </children>
 </AnchorPane>
