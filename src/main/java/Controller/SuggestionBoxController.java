@@ -79,13 +79,13 @@ public class SuggestionBoxController {
      * value is valid.
      */
     private void submitPressed() {
-        timeout.stop();
         Singleton single = Singleton.getInstance();
         single.setLastTime();
         SuggestionBasicAccess sga = new SuggestionBasicAccess();
 
         //Gabe - checks if the comment is nothing and that it isn't the prompt text
         if (feedbackComments.getText().trim().isEmpty() || feedbackComments.getText().equals("Type suggestions here")) {
+            timeout.stop();
             error.setText("Please enter your feedback");
 
         } else {
