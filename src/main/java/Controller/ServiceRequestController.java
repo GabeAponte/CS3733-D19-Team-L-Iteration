@@ -149,7 +149,7 @@ public class ServiceRequestController {
             serviceFXML = "AudioVisualController.fxml";
         }
         else if(e.getSource() == FacilitiesMaintenance) {
-            serviceFXML = "ReligiousServiceRequest.fxml";
+            serviceFXML = "ServiceRequestMaintenance.fxml";
         }
         else if(e.getSource() == SecurityStaff) {
             serviceFXML = "ReligiousServiceRequest.fxml";
@@ -158,7 +158,7 @@ public class ServiceRequestController {
             serviceFXML = "sanitationServiceRequest.fxml";
         }
         else if(e.getSource() == InternalTransportation) {
-            serviceFXML = "ReligiousServiceRequest.fxml";
+            serviceFXML = "InternalTransport.fxml";
         }
         else if(e.getSource() == PrescriptionServices) {
             serviceFXML = "PrescriptionServiceRequest.fxml";

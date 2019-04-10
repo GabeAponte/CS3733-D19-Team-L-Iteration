@@ -1,7 +1,5 @@
 package Controller;
 
-
-import Access.ReligiousRequestAccess;
 import Access.ServiceRequestAccess;
 import com.jfoenix.controls.JFXTextArea;
 import com.jfoenix.controls.JFXTextField;
@@ -15,7 +13,6 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.RadioButton;
-import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import Object.*;
 import javafx.util.Duration;
@@ -38,8 +35,6 @@ public class MaintenanceServiceRequestController {
     @FXML
     RadioButton hazardYes;
 
-    @FXML
-    RadioButton hazardNo;
 
     @FXML
     private Button Submit;
@@ -100,7 +95,7 @@ public class MaintenanceServiceRequestController {
     private void reenableSubmit() {
         Singleton single = Singleton.getInstance();
         single.setLastTime();
-        if (Description.getText().trim().isEmpty() || (!hazardNo.isSelected() && !hazardYes.isSelected()) || Location.getText().trim().isEmpty() || field1.getText().trim().isEmpty() || field2.getText().trim().isEmpty()) {
+        if (Description.getText().trim().isEmpty() || Location.getText().trim().isEmpty() || field1.getText().trim().isEmpty() || field2.getText().trim().isEmpty()) {
             Submit.setDisable(true);
         } else {
             Submit.setDisable(false);
@@ -114,7 +109,7 @@ public class MaintenanceServiceRequestController {
         boolean check = false;
         if(hazardYes.isSelected()){
             check = true;
-        }else if(hazardNo.isSelected()){
+        }else {
             check = false;
         }
         sra.makeMaintenanceRequest(Description.getText(), Location.getText(), field1.getText(), Boolean.toString(check));
