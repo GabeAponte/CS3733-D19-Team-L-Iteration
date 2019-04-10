@@ -28,7 +28,7 @@
                         </ImageView>
                     </left>
                     <right>
-                        <JFXButton fx:id="Back" buttonType="RAISED" onAction="#backPressed" prefHeight="75.0" prefWidth="150.0" style="-fx-background-radius: 50;" text="Back" BorderPane.alignment="CENTER">
+                        <JFXButton fx:id="Back" buttonType="RAISED" maxHeight="1.7976931348623157E308" onAction="#backPressed" prefHeight="90.0" prefWidth="157.0" text="Back" BorderPane.alignment="CENTER">
                             <font>
                                 <Font size="40.0" />
                             </font>

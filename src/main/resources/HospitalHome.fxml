@@ -51,14 +51,14 @@
                         </Label>
                         <JFXButton fx:id="HomeSuggestions" alignment="CENTER" buttonType="RAISED" onAction="#SwitchToSuggestionBox" prefHeight="107.0" prefWidth="240.0" ripplerFill="#b0b0b0" text="Suggestions">
                            <font>
-                              <Font name="Times New Roman" size="36.0" />
+                              <Font size="33.0" />
                            </font>
                         </JFXButton>
                         <HBox alignment="CENTER_RIGHT" prefHeight="107.0" prefWidth="155.0">
                            <children>
                               <JFXButton fx:id="LogIn" alignment="CENTER" buttonType="RAISED" onAction="#SwitchToLoginScreen" prefHeight="115.0" prefWidth="159.0" ripplerFill="#b0b0b0" text="Log In">
                                  <font>
-                                    <Font name="Times New Roman" size="36.0" />
+                                    <Font size="33.0" />
                                  </font>
                               </JFXButton>
                            </children>
