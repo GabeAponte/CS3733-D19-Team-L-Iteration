@@ -74,13 +74,13 @@ public class RoomAccess extends DBAccess {
             while(rs.next()){
                 data.add(rs.getString("name"));
             }
-
             return data;
+
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
-        return data;
 
+        return null;
     }
 
     /**ANDREW MADE THIS

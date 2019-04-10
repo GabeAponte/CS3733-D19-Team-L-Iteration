@@ -63,13 +63,13 @@
                         <Blend />
                      </effect>
                   </Label>
-                  <JFXTreeTableView fx:id="employees" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
+                  <JFXTreeTableView fx:id="employees" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" onMouseClicked="#SwitchToCreateEditAccount" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
                      <columns>
-                        <TreeTableColumn fx:id="ID" minWidth="0.0" prefWidth="225.0" text="ID" />
-                        <TreeTableColumn fx:id="name" prefWidth="350.0" text="Name" />
-                        <TreeTableColumn fx:id="department" minWidth="-1.0" prefWidth="250.0" resizable="false" text="Department" />
+                        <TreeTableColumn fx:id="ID" minWidth="0.0" prefWidth="147.0" text="ID" />
+                        <TreeTableColumn fx:id="firstName" prefWidth="246.0" text="First Name" />
+                        <TreeTableColumn fx:id="lastName" prefWidth="220.0" text="Last Name" />
+                        <TreeTableColumn fx:id="department" minWidth="-1.0" prefWidth="340.0" resizable="false" text="Department" />
                         <TreeTableColumn fx:id="position" minWidth="7.198272705078125" prefWidth="225.0" text="Position" />
-                        <TreeTableColumn fx:id="isAdmin" maxWidth="2000.0" minWidth="7.198272705078125" prefWidth="127.755615234375" text="Is Admin?" />
                      </columns>
                      <GridPane.margin>
                         <Insets left="50.0" right="50.0" />

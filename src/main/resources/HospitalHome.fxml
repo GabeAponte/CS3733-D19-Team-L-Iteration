@@ -1,5 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import com.jfoenix.controls.*?>
+<?import java.lang.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 <?import com.jfoenix.controls.JFXButton?>
 <?import com.jfoenix.controls.JFXToolbar?>
 <?import javafx.geometry.Insets?>
@@ -14,9 +21,9 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
-
 <?import javafx.stage.Screen?>
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" style="-fx-background-color: #012D5A;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.HomeScreenController">
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" style="-fx-background-color: #012D5A;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.HomeScreenController">
    <children>
       <VBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
@@ -37,7 +44,7 @@
                <right>
                   <HBox alignment="CENTER_RIGHT" prefHeight="107.0" prefWidth="932.0" BorderPane.alignment="CENTER">
                      <children>
-                        <Label fx:id="timeLabel" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="185.0" text="The Time is: 19:20:21" textAlignment="CENTER">
+                        <Label fx:id="timeLabel" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="185.0" text="Time : 19:20:21" textAlignment="CENTER">
                            <font>
                               <Font name="Times New Roman" size="20.0" />
                            </font>
@@ -63,14 +70,15 @@
             <JFXToolbar prefHeight="10.0" prefWidth="1280.0" style="-fx-background-color: F5D96B;" />
             <GridPane alignment="CENTER" hgap="25.0" prefHeight="264.0" prefWidth="1280.0" vgap="50.0" VBox.vgrow="ALWAYS">
                <columnConstraints>
-                  <ColumnConstraints halignment="CENTER" hgrow="ALWAYS" maxWidth="1.7976931348623157E308" minWidth="-Infinity" prefWidth="625.0" />
-                  <ColumnConstraints halignment="CENTER" hgrow="ALWAYS" maxWidth="1.7976931348623157E308" minWidth="-Infinity" prefWidth="625.0" />
+                  <ColumnConstraints halignment="CENTER" hgrow="ALWAYS" maxWidth="1.7976931348623157E308" minWidth="-Infinity" prefWidth="487.78533935546875" />
+                  <ColumnConstraints halignment="CENTER" hgrow="ALWAYS" maxWidth="1.7976931348623157E308" minWidth="10.0" prefWidth="273.8167724609375" />
+                  <ColumnConstraints halignment="CENTER" hgrow="ALWAYS" maxWidth="1.7976931348623157E308" minWidth="-Infinity" prefWidth="468.1832275390625" />
                </columnConstraints>
                <rowConstraints>
                   <RowConstraints valignment="CENTER" vgrow="ALWAYS" />
                   <RowConstraints maxHeight="1.7976931348623157E308" valignment="CENTER" vgrow="ALWAYS" />
-                  <RowConstraints maxHeight="1.7976931348623157E308" valignment="CENTER" vgrow="ALWAYS" />
-                  <RowConstraints maxHeight="1.7976931348623157E308" valignment="CENTER" vgrow="ALWAYS" />
+                  <RowConstraints maxHeight="1.7976931348623157E308" minHeight="0.0" prefHeight="0.0" valignment="CENTER" vgrow="ALWAYS" />
+                  <RowConstraints maxHeight="1.7976931348623157E308" minHeight="142.0" valignment="CENTER" vgrow="ALWAYS" />
                   <RowConstraints maxHeight="94.0" minHeight="0.0" prefHeight="0.0" valignment="CENTER" vgrow="ALWAYS" />
                   <RowConstraints maxHeight="94.0" minHeight="0.0" prefHeight="0.0" valignment="CENTER" vgrow="ALWAYS" />
                   <RowConstraints maxHeight="59.111358642578125" minHeight="0.0" prefHeight="0.0" valignment="CENTER" vgrow="ALWAYS" />
@@ -85,16 +93,27 @@
                   <Insets />
                </VBox.margin>
                <children>
-                  <JFXButton fx:id="HomeFindPath" buttonType="RAISED" onAction="#SwitchToPathfindScreen" prefHeight="165.0" prefWidth="409.0" ripplerFill="#b0b0b0" style="-fx-background-color: white;" text="Find Path" GridPane.rowIndex="3">
+                  <JFXButton fx:id="HomeFindPath" buttonType="RAISED" onAction="#SwitchToPathfindScreen" prefHeight="138.0" prefWidth="409.0" ripplerFill="WHITE" style="-fx-border-color: white; -fx-border-radius: 100; -fx-background-radius: 100; -fx-border-width: 3;" text="Find Path" textFill="WHITE" GridPane.rowIndex="3">
                      <font>
-                        <Font name="Times New Roman" size="48.0" />
+                        <Font size="48.0" />
                      </font>
+                     <GridPane.margin>
+                        <Insets left="10.0" />
+                     </GridPane.margin>
                   </JFXButton>
-                  <JFXButton fx:id="HomeServiceRequest" buttonType="RAISED" onAction="#SwitchToServiceScreen" prefHeight="165.0" prefWidth="409.0" ripplerFill="#b0b0b0" style="-fx-background-color: white;" text="Request Service" GridPane.columnIndex="1" GridPane.rowIndex="3">
+                  <JFXButton fx:id="HomeServiceRequest" buttonType="RAISED" onAction="#SwitchToServiceScreen" prefHeight="138.0" prefWidth="409.0" ripplerFill="WHITE" style="-fx-border-color: white; -fx-border-radius: 100; -fx-background-radius: 100; -fx-border-width: 3;" text="Request Service" textFill="WHITE" GridPane.columnIndex="2" GridPane.rowIndex="3">
                      <font>
-                        <Font name="Times New Roman" size="48.0" />
+                        <Font size="44.0" />
                      </font>
+                     <GridPane.margin>
+                        <Insets />
+                     </GridPane.margin>
                   </JFXButton>
+                  <ImageView fitHeight="446.0" fitWidth="390.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.rowIndex="3" GridPane.vgrow="ALWAYS">
+                     <image>
+                        <Image url="@SoftEng_UI_Mockup_Pics/logo.png" />
+                     </image>
+                  </ImageView>
                </children>
             </GridPane>
          </children>
