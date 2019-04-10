@@ -243,6 +243,7 @@ public class EditLocationController {
         single.setLastTime();
         addNode.setDisable(true);
         deleteNode.setDisable(true);
+        deleteEdge.setDisable(true);
         SubmitButton.setDisable(true);
         timeout = new Timeline(new KeyFrame(Duration.seconds(2), new EventHandler<ActionEvent>() {
 
