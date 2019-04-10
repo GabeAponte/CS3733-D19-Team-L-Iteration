@@ -46,6 +46,9 @@ public class EditLocationController {
     Button backButton;
 
     @FXML
+    ComboBox<Location> edgeDropDown;
+
+    @FXML
     Button downloadNode;
 
     @FXML
