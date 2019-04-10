@@ -66,9 +66,6 @@ public class EditLocationController {
     Button addNode;
 
     @FXML
-    Button addEdge;
-
-    @FXML
     Button deleteNode;
 
     @FXML
@@ -260,7 +257,7 @@ public class EditLocationController {
 
                         Parent sceneMain = loader.load();
 
-                        Stage thisStage = (Stage) addEdge.getScene().getWindow();
+                        Stage thisStage = (Stage) deleteEdge.getScene().getWindow();
 
                         Scene newScene = new Scene(sceneMain);
                         thisStage.setScene(newScene);
@@ -468,6 +465,17 @@ public class EditLocationController {
             ul.start();
             edgeDropDown.setItems(null);
             edgeDropDown.setPromptText("DELETED");
+            nodeInfoID.setText("");
+            nodeInfoX.setText("");
+            nodeInfoY.setText("");
+            nodeInfoType.setText("");
+            nodeInfoBuilding.setText("");
+            nodeInfoFloor.setText("");
+            nodeInfoLong.setText("");
+            nodeInfoShort.setText("");
+            eraseNodes();
+            drawNodes();
+
         }
         else if (alert.getResult() == ButtonType.NO) {
             //do nothing
@@ -511,7 +519,7 @@ public class EditLocationController {
 
         EditLinkBetweenFloorsController controller = loader.<EditLinkBetweenFloorsController>getController();
 
-        Stage theStage = (Stage) addEdge.getScene().getWindow();
+        Stage theStage = (Stage) deleteEdge.getScene().getWindow();
 
         Scene scene = new Scene(sceneMain);
         theStage.setScene(scene);
@@ -607,7 +615,7 @@ public class EditLocationController {
         double scaleRatio = Math.min(Map.getFitWidth() / Map.getImage().getWidth(), Map.getFitHeight() / Map.getImage().getHeight());
         Point2D point = sceneGestures.getImageLocation();
 
-        if(displayingNodes) {
+        if(true) {
             //display all nodes on that floor!!!
             ArrayList<Location> nodes = new ArrayList<Location>();
             //want to fill nodes w/ floor = currrentFloor
@@ -761,7 +769,7 @@ public class EditLocationController {
 
         LoggedInHomeController controller = loader.<LoggedInHomeController>getController();
 
-        Stage theStage = (Stage) addEdge.getScene().getWindow();
+        Stage theStage = (Stage) deleteEdge.getScene().getWindow();
 
         Scene scene = new Scene(sceneMain);
         theStage.setScene(scene);

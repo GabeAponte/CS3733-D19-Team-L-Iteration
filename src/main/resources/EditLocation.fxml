@@ -189,18 +189,13 @@
                                                         <Font size="15.0" />
                                                     </font>
                                                 </Label>
-                                                <JFXComboBox fx:id="edgeDropDown" focusColor="#f5d96b" onAction="#selectedEdge" promptText="Select or Make a Node" stylesheets="@modify-prompt-text.css" unFocusColor="WHITE" />
-                                                <JFXButton fx:id="addEdge" buttonType="RAISED" onAction="#addEdgePress" ripplerFill="WHITE" text="Edge Add" textFill="WHITE">
-                                                    <font>
-                                                        <Font name="Times New Roman" size="20.0" />
-                                                    </font>
-                                                </JFXButton>
+                                                <JFXComboBox fx:id="edgeDropDown" focusColor="#f5d96b" onAction="#selectedEdge" promptText="Select or Make a Node" styleClass="jfx-combobox" stylesheets="@modify-prompt-text.css" unFocusColor="WHITE" />
                                                 <JFXButton fx:id="deleteEdge" buttonType="RAISED" onAction="#deleteEdgePress" ripplerFill="WHITE" text="Edge Delete" textFill="WHITE">
                                                     <font>
                                                         <Font name="Times New Roman" size="20.0" />
                                                     </font>
                                                 </JFXButton>
-                                                <JFXButton fx:id="downloadEdge" buttonType="RAISED" onAction="#downloadEdges" ripplerFill="WHITE" text="Edge Download csv" textFill="WHITE">
+                                                <JFXButton fx:id="downloadEdge" buttonType="RAISED" onAction="#downloadEdges" ripplerFill="WHITE" text="Get Edge csv" textFill="WHITE">
                                                     <font>
                                                         <Font name="Times New Roman" size="20.0" />
                                                     </font>
@@ -210,7 +205,7 @@
                                                         <Font size="20.0" />
                                                     </font>
                                                 </JFXButton>
-                                    <JFXButton fx:id="ButtonLinkBetweenScreens" onAction="#switchToLinkFloors" ripplerFill="WHITE" style="-fx-border-radius: 50; -fx-background-radius: 50;" text="Link Across Floors" textFill="WHITE">
+                                    <JFXButton fx:id="ButtonLinkBetweenScreens" onAction="#switchToLinkFloors" ripplerFill="WHITE" style="-fx-border-radius: 50; -fx-background-radius: 50;" text="Add Edges" textFill="WHITE">
                                        <font>
                                           <Font size="20.0" />
                                        </font>

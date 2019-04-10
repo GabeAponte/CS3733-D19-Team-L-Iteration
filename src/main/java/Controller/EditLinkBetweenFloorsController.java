@@ -3,6 +3,7 @@ package Controller;
 import API.UpdateLocationThread;
 import Access.EdgesAccess;
 import Access.NodesAccess;
+import com.jfoenix.controls.JFXRadioButton;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.beans.property.DoubleProperty;
@@ -40,6 +41,9 @@ import Object.*;
 import javafx.util.Duration;
 
 public class EditLinkBetweenFloorsController {
+
+    @FXML
+    private Button clearButton;
 
     @FXML
     private Stage thestage;
@@ -129,6 +133,11 @@ public class EditLinkBetweenFloorsController {
     private boolean selectingFirst = true;
     private boolean isSelectingSecond = false;
 
+    @FXML
+    private JFXRadioButton singleFloorSelect;
+    @FXML
+    private JFXRadioButton multiFloorSelect;
+
     private Location focusLoc;
     private Location toConnectLoc;
 
@@ -144,8 +153,10 @@ public class EditLinkBetweenFloorsController {
     public void initialize() {
         Singleton single = Singleton.getInstance();
         single.setLastTime();
-        timeout = new Timeline(new KeyFrame(Duration.seconds(2), new EventHandler<ActionEvent>() {
+        multiFloorSelect.setSelected(false);
+        singleFloorSelect.setSelected(true);
 
+        timeout = new Timeline(new KeyFrame(Duration.seconds(2), new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
                 if((System.currentTimeMillis() - single.getLastTime()) > single.getTimeoutSec()){
@@ -190,6 +201,8 @@ public class EditLinkBetweenFloorsController {
         sceneGestureMain.setDrawPath(circles, lines);
         sceneGestureUpper.setDrawPath(circlesUpper, linesUpper);
         sceneGestureLower.setDrawPath(circlesLower, linesLower);
+        MapLower.setVisible(false);
+        MapUpper.setVisible(false);
     }
 
     @FXML
@@ -279,6 +292,15 @@ public class EditLinkBetweenFloorsController {
     private void filter() {
         filterList.add("Stairs");
         filterList.add("Elevators");
+        filterList.add("Restrooms");
+        filterList.add("Conference Rooms");
+        filterList.add("Labs");
+        filterList.add("Departments");
+        filterList.add("Information");
+        filterList.add("Exit");
+        filterList.add("Retail");
+        filterList.add("Halls");
+        filterList.add("ALL");
     }
 
     @FXML
@@ -357,12 +379,40 @@ public class EditLinkBetweenFloorsController {
         single.setLastTime();
         if (Filter.getValue().equals("Stairs")) {
             type = "STAI";
-        } else {
+        } else if (Filter.getValue().equals("Restrooms")) {
+            type = "REST";
+        }
+        else if (Filter.getValue().equals("Elevators")) {
             type = "ELEV";
+        }
+        else if (Filter.getValue().equals("Conference Rooms")) {
+            type = "CONF";
+        }
+        else if (Filter.getValue().equals("Labs")) {
+            type = "LABS";
+        }
+        else if (Filter.getValue().equals("Departments")) {
+            type = "DEPT";
+        }
+        else if (Filter.getValue().equals("Information")) {
+            type = "INFO";
+        }
+        else if (Filter.getValue().equals("Exit")) {
+            type = "EXIT";
+        }
+        else if (Filter.getValue().equals("Retail")) {
+            type = "RETL";
+        }
+        else if (Filter.getValue().equals("Halls")) {
+            type = "HALL";
+        }
+        else if (Filter.getValue().equals("ALL")) {
+            type = "ALL";
         }
         if (Floor.getValue() != null) {
             displayNodes.setDisable(false);
         }
+        nodeDisplayPress();
     }
 
     @FXML
@@ -416,6 +466,9 @@ public class EditLinkBetweenFloorsController {
         if (type != "") {
             displayNodes.setDisable(false);
         }
+        eraseNodes(anchorPaneLower, circlesLower);
+        eraseNodes(anchorPaneUpper, circlesUpper);
+        eraseNodes(anchorPaneMain, circles);
     }
 
 
@@ -439,8 +492,34 @@ public class EditLinkBetweenFloorsController {
         circlesLower.clear();
         circlesUpper.clear();
         drawNodes();
-        drawOtherFloors();
+        if (multiFloorSelect.isSelected()) {
+            drawOtherFloors();
+        }
         //sceneGestureMain.setDrawPath(circles, lines);
+    }
+
+    @FXML
+    private void multiFloorClicked() {
+        singleFloorSelect.setSelected(false);
+        multiFloorSelect.setSelected(true);
+        MapUpper.setVisible(true);
+        MapLower.setVisible(true);
+        filterList.clear();
+        filterList.add("Stairs");
+        filterList.add("Elevators");
+    }
+
+    @FXML
+    private void singleFloorClicked() {
+        multiFloorSelect.setSelected(false);
+        singleFloorSelect.setSelected(true);
+        MapLower.setVisible(false);
+        MapUpper.setVisible(false);
+        eraseNodes(anchorPaneLower, circlesLower);
+        eraseNodes(anchorPaneUpper, circlesUpper);
+        filterList.clear();
+        filter();
+
     }
 
     private void drawNodes() {
@@ -452,7 +531,11 @@ public class EditLinkBetweenFloorsController {
         double scaleRatio = Math.min(Map.getFitWidth() / Map.getImage().getWidth(),Map.getFitHeight()/Map.getImage().getHeight());
         Point2D point = sceneGestureMain.getImageLocation();
         for (int i = 0; i < single.getData().size(); i++) {
-            if (single.getData().get(i).getFloor().equals(currentMap) && single.getData().get(i).getNodeType().equals(type)) {
+            boolean badCode = false;
+            if (type == "ALL") {
+                badCode = true;
+            }
+            if (single.getData().get(i).getFloor().equals(currentMap) && (single.getData().get(i).getNodeType().equals(type) || badCode)) {
                 nodes.add(single.getData().get(i));
 
                 Circle thisCircle = new Circle();
@@ -492,46 +575,79 @@ public class EditLinkBetweenFloorsController {
             }
             int getX;
             int getY;
-            if (event.getSceneY() < 417) {
-                Point2D mousePress = sceneGestures.imageViewToImage(Map, new Point2D(event.getX(), event.getY()));
-                sceneGestures.setMouseDown(mousePress);
-                getX = roundToFive((int) mousePress.getX());
-                getY = roundToFive((int) mousePress.getY());
-                String newQuery = na.getNodebyCoord(getX, getY, currentMap, type);
-                Point2D point = sceneGestureMain.getImageLocation();
-                if (newQuery != null) {
-                    focusLoc = single.lookup.get(newQuery);
-                    node1X.setText("" + focusLoc.getXcoord());
-                    node1Y.setText("" + focusLoc.getYcoord());
-                    node1Name.setText(focusLoc.getLocID());
-                }
-            }
-            else if (event.getSceneX() > 830 && !currentMap.equals("3")){
-                Point2D mousePress = sceneGestures.imageViewToImage(MapUpper, new Point2D(event.getX(), event.getY()));
-                sceneGestures.setMouseDown(mousePress);
-                getX = roundToFive((int) mousePress.getX());
-                getY = roundToFive((int) mousePress.getY());
-                String newQuery = na.getNodebyCoord(getX, getY, currentMapAbove, type);
+            if (multiFloorSelect.isSelected()) {
 
-                if (newQuery != null) {
-                    toConnectLoc = single.lookup.get(newQuery);
-                    node2X.setText("" + toConnectLoc.getXcoord());
-                    node2Y.setText("" + toConnectLoc.getYcoord());
-                    node2Name.setText(toConnectLoc.getLocID());
+                if (event.getSceneX() > mapPane.getLayoutX() && event.getSceneY() < mapPane.getLayoutY() + mapPane.getHeight()) {
+                    Point2D mousePress = sceneGestures.imageViewToImage(Map, new Point2D(event.getX(), event.getY()));
+                    sceneGestures.setMouseDown(mousePress);
+                    getX = roundToFive((int) mousePress.getX());
+                    getY = roundToFive((int) mousePress.getY());
+                    String newQuery = na.getNodebyCoord(getX, getY, currentMap, type);
+                    Point2D point = sceneGestureMain.getImageLocation();
+                    if (newQuery != null) {
+                        focusLoc = single.lookup.get(newQuery);
+                        node1X.setText("" + focusLoc.getXcoord());
+                        node1Y.setText("" + focusLoc.getYcoord());
+                        node1Name.setText(focusLoc.getLocID());
+                    }
+                } else if (event.getSceneY() < upperPane.getLayoutY() + upperPane.getHeight() && !currentMap.equals("3")) {
+                    Point2D mousePress = sceneGestures.imageViewToImage(MapUpper, new Point2D(event.getX(), event.getY()));
+                    sceneGestures.setMouseDown(mousePress);
+                    getX = roundToFive((int) mousePress.getX());
+                    getY = roundToFive((int) mousePress.getY());
+                    String newQuery = na.getNodebyCoord(getX, getY, currentMapAbove, type);
+
+                    if (newQuery != null) {
+                        toConnectLoc = single.lookup.get(newQuery);
+                        node2X.setText("" + toConnectLoc.getXcoord());
+                        node2Y.setText("" + toConnectLoc.getYcoord());
+                        node2Name.setText(toConnectLoc.getLocID());
+                    }
+                } else {
+                    Point2D mousePress = sceneGestures.imageViewToImage(MapLower, new Point2D(event.getX(), event.getY()));
+                    sceneGestures.setMouseDown(mousePress);
+                    getX = roundToFive((int) mousePress.getX());
+                    getY = roundToFive((int) mousePress.getY());
+                    String newQuery = na.getNodebyCoord(getX, getY, currentMapBelow, type);
+                    if (newQuery != null) {
+                        toConnectLoc = single.lookup.get(newQuery);
+                        node2X.setText("" + toConnectLoc.getXcoord());
+                        node2Y.setText("" + toConnectLoc.getYcoord());
+                        node2Name.setText(toConnectLoc.getLocID());
+                    }
                 }
             }
             else {
-                Point2D mousePress = sceneGestures.imageViewToImage(MapLower, new Point2D(event.getX(), event.getY()));
-                sceneGestures.setMouseDown(mousePress);
-                getX = roundToFive((int) mousePress.getX());
-                getY = roundToFive((int) mousePress.getY());
-                String newQuery = na.getNodebyCoord(getX, getY, currentMapBelow, type);
-                if (newQuery != null) {
-                    toConnectLoc = single.lookup.get(newQuery);
-                    node2X.setText("" + toConnectLoc.getXcoord());
-                    node2Y.setText("" + toConnectLoc.getYcoord());
-                    node2Name.setText(toConnectLoc.getLocID());
+                if (event.getSceneX() > mapPane.getLayoutX() && event.getSceneY() < mapPane.getLayoutY() + mapPane.getHeight()) {
+                    Point2D mousePress = sceneGestures.imageViewToImage(Map, new Point2D(event.getX(), event.getY()));
+                    sceneGestures.setMouseDown(mousePress);
+                    getX = roundToFive((int) mousePress.getX());
+                    getY = roundToFive((int) mousePress.getY());
+                    String newQuery;
+                    if (type != "ALL") {
+                        newQuery = na.getNodebyCoord(getX, getY, currentMap, type);
+                    }
+                    else {
+                        newQuery = na.getNodebyCoordNoType(getX, getY, currentMap, 7);
+                    }
+                    Point2D point = sceneGestureMain.getImageLocation();
+                    if (newQuery != null && focusLoc == null) {
+                        focusLoc = single.lookup.get(newQuery);
+                        node1X.setText("" + focusLoc.getXcoord());
+                        node1Y.setText("" + focusLoc.getYcoord());
+                        node1Name.setText(focusLoc.getLocID());
+                    }
+                    else if (newQuery != null){
+                        toConnectLoc = single.lookup.get(newQuery);
+                        node2X.setText("" + toConnectLoc.getXcoord());
+                        node2Y.setText("" + toConnectLoc.getYcoord());
+                        node2Name.setText(toConnectLoc.getLocID());
+                    }
+                    else {
+                        System.out.println("QUERY FAILED");
+                    }
                 }
+
             }
             if (toConnectLoc != null && focusLoc != null) {
                 PathFindSubmit.setDisable(false);
@@ -604,6 +720,31 @@ public class EditLinkBetweenFloorsController {
                 temp++;
             }
         }
+    }
+
+    @FXML
+    private void clearPressed() {
+        focusLoc = null;
+        toConnectLoc = null;
+
+
+        node1X.setText("");
+        node1Y.setText("");
+        node1Name.setText("");
+
+        node2X.setText("");
+        node2Y.setText("");
+        node2Name.setText("");
+        PathFindSubmit.setDisable(true);
+
+    }
+
+    private void eraseNodes(AnchorPane anchorPanePath, ArrayList<Circle> circle){
+        for (Circle c: circle){
+            anchorPanePath.getChildren().remove(c);
+        }
+
+        circle.clear();
     }
 }
 

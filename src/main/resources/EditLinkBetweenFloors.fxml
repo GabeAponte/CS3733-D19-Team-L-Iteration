@@ -2,6 +2,7 @@
 
 <?import com.jfoenix.controls.JFXButton?>
 <?import com.jfoenix.controls.JFXComboBox?>
+<?import com.jfoenix.controls.JFXRadioButton?>
 <?import com.jfoenix.controls.JFXToolbar?>
 <?import java.net.URL?>
 <?import javafx.geometry.Insets?>
@@ -198,6 +199,27 @@
                         <Font name="Avenir Book" size="18.0" />
                      </font>
                   </JFXButton>
+                  <JFXRadioButton fx:id="multiFloorSelect" onAction="#multiFloorClicked" text="Multi-Floor" textFill="WHITE" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="3">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                     <GridPane.margin>
+                        <Insets left="95.0" />
+                     </GridPane.margin>
+                  </JFXRadioButton>
+                  <JFXRadioButton fx:id="singleFloorSelect" onAction="#singleFloorClicked" text="Single Floor" textFill="WHITE" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="2">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                     <GridPane.margin>
+                        <Insets left="100.0" />
+                     </GridPane.margin>
+                  </JFXRadioButton>
+                  <JFXButton fx:id="clearButton" onAction="#clearPressed" text="CLEAR SELECTIONS" textFill="WHITE" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1">
+                     <GridPane.margin>
+                        <Insets left="100.0" />
+                     </GridPane.margin>
+                  </JFXButton>
                </children>
                <columnConstraints>
                   <ColumnConstraints />
@@ -221,7 +243,7 @@
                       </ImageView>
                </left>
                <right>
-                      <JFXButton fx:id="PathFindBack" onAction="#backPressed" buttonType="RAISED" maxHeight="1.7976931348623157E308" prefWidth="286.0" ripplerFill="#b0b0b0" text="Back" BorderPane.alignment="CENTER">
+                      <JFXButton fx:id="PathFindBack" buttonType="RAISED" maxHeight="1.7976931348623157E308" onAction="#backPressed" prefWidth="286.0" ripplerFill="#b0b0b0" text="Back" BorderPane.alignment="CENTER">
                           <font>
                               <Font name="Avenir Book" size="48.0" />
                           </font>
