@@ -65,10 +65,11 @@ public class ServiceRequestLanguageController {
                             single.setLoggedIn(false);
                             single.setUsername("");
                             single.setIsAdmin(false);
+                            single.setDoPopup(true);
                             FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("HospitalHome.fxml"));
-
                             Parent sceneMain = loader.load();
-
+                            HomeScreenController controller = loader.<HomeScreenController>getController();
+                            controller.displayPopup();
                             Stage thisStage = (Stage) comment1.getScene().getWindow();
 
                             Scene newScene = new Scene(sceneMain);

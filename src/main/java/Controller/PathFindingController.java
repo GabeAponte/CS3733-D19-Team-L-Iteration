@@ -329,10 +329,14 @@ public class PathFindingController {
                         single.setLoggedIn(false);
                         single.setUsername("");
                         single.setIsAdmin(false);
+                        single.setDoPopup(true);
+                        System.out.println("transitioning");
                         FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("HospitalHome.fxml"));
-
+                        System.out.println("Loading");
                         Parent sceneMain = loader.load();
-
+                        System.out.println("hey");
+                        HomeScreenController controller = loader.<HomeScreenController>getController();
+                        controller.displayPopup();
                         Stage thisStage = (Stage) Up.getScene().getWindow();
 
                         Scene newScene = new Scene(sceneMain);
@@ -392,12 +396,13 @@ public class PathFindingController {
         Singleton single = Singleton.getInstance();
         thestage = (Stage) PathFindBack.getScene().getWindow();
         AnchorPane root;
+
         if(single.isLoggedIn()) {
-            FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("LoggedInHome.fxml"));
-
+            FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("EmployeeLoggedInHome.fxml"));
+            if(single.isIsAdmin()){
+                loader = new FXMLLoader(getClass().getClassLoader().getResource("AdminLoggedInHome.fxml"));
+            }
             Parent sceneMain = loader.load();
-
-            LoggedInHomeController controller = loader.<LoggedInHomeController>getController();
 
             Stage theStage = (Stage) PathFindBack.getScene().getWindow();
 
@@ -405,10 +410,16 @@ public class PathFindingController {
             theStage.setScene(scene);
             return;
         } else {
-            root = FXMLLoader.load(getClass().getClassLoader().getResource("HospitalHome.fxml"));
+            single.setDoPopup(true);
+            FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("HospitalHome.fxml"));
+
+            Parent sceneMain = loader.load();
+
+            Stage theStage = (Stage) PathFindBack.getScene().getWindow();
+
+            Scene scene = new Scene(sceneMain);
+            theStage.setScene(scene);
         }
-        Scene scene = new Scene(root);
-        thestage.setScene(scene);
     }
 
     @FXML

@@ -49,12 +49,15 @@ public class LogInController {
                 if((System.currentTimeMillis() - single.getLastTime()) > single.getTimeoutSec()){
                     try{
                         single.setLastTime();
+                        single.setDoPopup(true);
                         single.setLoggedIn(false);
                         single.setUsername("");
                         single.setIsAdmin(false);
                         FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("HospitalHome.fxml"));
 
                         Parent sceneMain = loader.load();
+                        HomeScreenController controller = loader.<HomeScreenController>getController();
+                        controller.displayPopup();
 
                         Stage thisStage = (Stage) username.getScene().getWindow();
 
@@ -74,11 +77,16 @@ public class LogInController {
     @FXML
     private void backPressed() throws IOException {
         timeout.stop();
-        thestage = (Stage) back.getScene().getWindow();
-        AnchorPane root;
-        root = FXMLLoader.load(getClass().getClassLoader().getResource("HospitalHome.fxml"));
-        Scene scene = new Scene(root);
-        thestage.setScene(scene);
+        FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("HospitalHome.fxml"));
+
+        Parent sceneMain = loader.load();
+        HomeScreenController controller = loader.<HomeScreenController>getController();
+        controller.displayPopup();
+
+        Stage thisStage = (Stage) username.getScene().getWindow();
+
+        Scene newScene = new Scene(sceneMain);
+        thisStage.setScene(newScene);
     }
 
     //grace

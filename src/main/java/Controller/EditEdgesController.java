@@ -84,18 +84,20 @@ public class EditEdgesController {
                 if((System.currentTimeMillis() - single.getLastTime()) > single.getTimeoutSec()){
                     try{
                         single.setLastTime();
+                        single.setDoPopup(true);
                         single.setLoggedIn(false);
                         single.setUsername("");
                         single.setIsAdmin(false);
                         FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("HospitalHome.fxml"));
 
                         Parent sceneMain = loader.load();
+                        HomeScreenController controller = loader.<HomeScreenController>getController();
+                        controller.displayPopup();
 
-                        Stage thisStage = (Stage) PathFindEndDrop.getScene().getWindow();
+                        Stage thisStage = (Stage) EditEdgeBack.getScene().getWindow();
 
                         Scene newScene = new Scene(sceneMain);
                         thisStage.setScene(newScene);
-                        System.out.println("Hey");
                         timeout.stop();
                     } catch (IOException io){
                         System.out.println(io.getMessage());

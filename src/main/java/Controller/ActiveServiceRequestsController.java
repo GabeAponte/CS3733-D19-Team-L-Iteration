@@ -129,9 +129,12 @@ public class ActiveServiceRequestsController {
                         single.setLoggedIn(false);
                         single.setUsername("");
                         single.setIsAdmin(false);
+                        single.setDoPopup(true);
                         FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("HospitalHome.fxml"));
 
                         Parent sceneMain = loader.load();
+                        HomeScreenController controller = loader.<HomeScreenController>getController();
+                        controller.displayPopup();
 
                         Stage thisStage = (Stage) activeRequests.getScene().getWindow();
 

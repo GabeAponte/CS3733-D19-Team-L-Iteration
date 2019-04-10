@@ -63,15 +63,20 @@ public class AdminLoggedInHomeController {
                     System.out.println("if successfull");
                     try{
                         single.setLastTime();
-                        Stage thestage = (Stage) findPath.getScene().getWindow();
-                        AnchorPane root;
-                        Singleton single = Singleton.getInstance();
+                        single.setDoPopup(true);
                         single.setLoggedIn(false);
                         single.setUsername("");
                         single.setIsAdmin(false);
-                        root = FXMLLoader.load(getClass().getClassLoader().getResource("HospitalHome.fxml"));
-                        Scene scene = new Scene(root);
-                        thestage.setScene(scene);
+                        FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("HospitalHome.fxml"));
+
+                        Parent sceneMain = loader.load();
+                        HomeScreenController controller = loader.<HomeScreenController>getController();
+                        controller.displayPopup();
+
+                        Stage thisStage = (Stage) newAccount.getScene().getWindow();
+
+                        Scene newScene = new Scene(sceneMain);
+                        thisStage.setScene(newScene);
                         timeout.stop();
                     } catch (IOException io){
                         System.out.println(io.getMessage());
@@ -103,6 +108,7 @@ public class AdminLoggedInHomeController {
         single.setLoggedIn(false);
         single.setUsername("");
         single.setIsAdmin(false);
+        single.setDoPopup(true);
         root = FXMLLoader.load(getClass().getClassLoader().getResource("HospitalHome.fxml"));
         Scene scene = new Scene(root);
         thestage.setScene(scene);

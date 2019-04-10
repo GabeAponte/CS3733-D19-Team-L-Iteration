@@ -73,10 +73,11 @@ public class ServiceRequestController {
                         single.setLoggedIn(false);
                         single.setUsername("");
                         single.setIsAdmin(false);
+                        single.setDoPopup(true);
                         FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("HospitalHome.fxml"));
-
                         Parent sceneMain = loader.load();
-
+                        HomeScreenController controller = loader.<HomeScreenController>getController();
+                        controller.displayPopup();
                         Stage thisStage = (Stage) Back.getScene().getWindow();
 
                         Scene newScene = new Scene(sceneMain);
@@ -97,12 +98,13 @@ public class ServiceRequestController {
         Singleton single = Singleton.getInstance();
         Stage theStage = (Stage) Back.getScene().getWindow();
         AnchorPane root;
-        if(single.isLoggedIn()){
-            FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("AdminLoggedInHome.fxml"));
+        if (single.isLoggedIn()) {
 
+            FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("EmployeeLoggedInHome.fxml"));
+            if (single.isIsAdmin()) {
+                loader = new FXMLLoader(getClass().getClassLoader().getResource("AdminLoggedInHome.fxml"));
+            }
             Parent sceneMain = loader.load();
-
-            AdminLoggedInHomeController controller = loader.<AdminLoggedInHomeController>getController();
 
             theStage = (Stage) SanitationServices.getScene().getWindow();
 
@@ -110,10 +112,15 @@ public class ServiceRequestController {
             theStage.setScene(scene);
             return;
         } else {
-            root = FXMLLoader.load(getClass().getClassLoader().getResource("HospitalHome.fxml"));
-        }
-        Scene scene = new Scene(root);
-        theStage.setScene(scene);
+            single.setDoPopup(true);
+            FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("HospitalHome.fxml"));
+            Parent sceneMain = loader.load();
+
+            theStage = (Stage) SanitationServices.getScene().getWindow();
+
+            Scene scene = new Scene(sceneMain);
+            theStage.setScene(scene);
+    }
     }
 
     //passes off type of button
