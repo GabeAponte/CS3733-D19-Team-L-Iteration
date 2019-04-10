@@ -55,7 +55,7 @@
                         <RowConstraints maxHeight="72.5" minHeight="10.0" prefHeight="62.0" vgrow="SOMETIMES" />
                     </rowConstraints>
                     <children>
-                        <JFXTextField fx:id="username" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onKeyReleased="#enableLogin" prefHeight="44.0" prefWidth="295.0" promptText="Username" style="-fx-background-color: fff;" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
+                        <JFXTextField fx:id="username" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onAction="#enterKeyPressToLogin" onKeyReleased="#enableLogin" prefHeight="44.0" prefWidth="295.0" promptText="Username" style="-fx-background-color: fff;" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
                             <font>
                                 <Font name="System" size="25.0" />
                             </font>

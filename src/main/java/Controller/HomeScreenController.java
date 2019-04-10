@@ -1,9 +1,11 @@
 package Controller;
 
 import API.Weather;
+import Object.*;
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -14,6 +16,7 @@ import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
@@ -43,10 +46,15 @@ public class HomeScreenController {
     @FXML
     Label tempDisplay;
 
+    @FXML
+    Button yes;
+
     Timeline clock;
 
+    Stage editStage;
 
-    public void initialize(){
+    public void initialize() throws IOException{
+        Singleton single = Singleton.getInstance();
         /*Weather weatherBoy = new Weather();
         String icon = weatherBoy.getIcon();
         Image img = new Image(icon);
@@ -81,6 +89,31 @@ public class HomeScreenController {
         clock.play();
     }
 
+    public void displayPopup(){
+        Singleton single = Singleton.getInstance();
+        try {
+                clock.pause();
+                Stage stage;
+                Parent root;
+                stage = new Stage();
+                root = FXMLLoader.load(getClass().getClassLoader().getResource("TimeoutPopup.fxml"));
+                stage.setScene(new Scene(root));
+                stage.setTitle("Inactivity Popup");
+                stage.initModality(Modality.APPLICATION_MODAL);
+                stage.show();
+                single = Singleton.getInstance();
+                single.setLastTime();
+                clock.play();
+        } catch (Exception e){
+            System.out.println(e.getMessage());
+        }
+    }
+    @FXML
+    private void yesPressed(){
+        Stage stage = (Stage) yes.getScene().getWindow();
+        //clock.stop();
+        stage.close();
+    }
     @FXML
     private void SwitchToPathfindScreen() throws IOException{
         clock.stop();

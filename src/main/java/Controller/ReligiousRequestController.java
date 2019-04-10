@@ -73,10 +73,11 @@ public class ReligiousRequestController {
                         single.setLoggedIn(false);
                         single.setUsername("");
                         single.setIsAdmin(false);
+                        single.setDoPopup(true);
                         FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("HospitalHome.fxml"));
-
                         Parent sceneMain = loader.load();
-
+                        HomeScreenController controller = loader.<HomeScreenController>getController();
+                        controller.displayPopup();
                         Stage thisStage = (Stage) Type.getScene().getWindow();
 
                         Scene newScene = new Scene(sceneMain);
@@ -111,7 +112,6 @@ public class ReligiousRequestController {
         single.setLastTime();
         ReligiousRequestAccess rra = new ReligiousRequestAccess();
         rra.makeRequest(Description.getText(), Denomination.getText(),Location.getText(), Name.getText(), Type.getValue());
-        System.out.println("Submit Pressed");
         backPressed();
     }
 

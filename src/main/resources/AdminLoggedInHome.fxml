@@ -65,7 +65,7 @@
                         </Label>
                         <HBox alignment="CENTER_RIGHT" HBox.hgrow="ALWAYS">
                            <children>
-                              <JFXButton fx:id="seeSuggestions" buttonType="RAISED" prefHeight="81.0" prefWidth="338.0" text="See Suggestions" HBox.hgrow="ALWAYS">
+                              <JFXButton fx:id="seeSuggestions" buttonType="RAISED" onAction="#SwitchToSuggestionScreen" prefHeight="81.0" prefWidth="338.0" style="-fx-background-radius: 100;" text="See Suggestions" HBox.hgrow="ALWAYS">
                                  <font>
                                     <Font size="34.0" />
                                  </font>
@@ -141,11 +141,17 @@
                                  <font>
                                     <Font size="35.0" />
                                  </font>
+                                 <GridPane.margin>
+                                    <Insets />
+                                 </GridPane.margin>
                               </JFXButton>
                               <JFXButton fx:id="findPath" buttonType="RAISED" onAction="#SwitchToPathfindScreen" prefHeight="95.0" prefWidth="650.0" ripplerFill="WHITE" style="-fx-background-radius: 100; -fx-border-width: 2; -fx-border-color: F5D96B; -fx-border-radius: 1000;" text="Find Path" textFill="WHITE" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="4" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
                                  <font>
                                     <Font size="35.0" />
                                  </font>
+                                 <GridPane.margin>
+                                    <Insets right="55.0" />
+                                 </GridPane.margin>
                               </JFXButton>
                            </children>
                         </GridPane>
