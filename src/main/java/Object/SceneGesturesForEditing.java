@@ -70,8 +70,6 @@ public class SceneGesturesForEditing {
     private EventHandler<MouseEvent> onMouseDraggedEventHandler = new EventHandler<MouseEvent>() {
         public void handle(MouseEvent event) {
             Point2D oldPoint = getImageLocation();
-
-
             Point2D dragPoint = imageViewToImage(imageView, new Point2D(event.getX(), event.getY()));
             shift(imageView, dragPoint.subtract(mouseDown.get()));
             mouseDown.set(imageViewToImage(imageView, new Point2D(event.getX(), event.getY())));
@@ -206,6 +204,8 @@ public class SceneGesturesForEditing {
         if(circles != null && lines != null) {
             
             double scaleRatio = Math.min(imageView.getFitWidth()/imageView.getImage().getWidth(),imageView.getFitHeight()/imageView.getImage().getHeight());
+
+            //System.out.println(scaleRatio);
 
             for (int i = 0; i < circles.size(); i++) {
                 Circle c = circles.get(i);
