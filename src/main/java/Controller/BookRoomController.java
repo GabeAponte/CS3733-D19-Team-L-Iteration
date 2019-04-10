@@ -119,7 +119,7 @@ public class BookRoomController {
      * When a user selcts a valid start and end time and a date, they are given the option
      * to book any avaliable rooms
      */
-    private void findRoom(ActionEvent event) {
+    private void findRoom() {
         Singleton single = Singleton.getInstance();
         single.setLastTime();
 
