@@ -491,8 +491,8 @@ public class PathFindingController {
         Circle StartCircle = new Circle();
 
         //Setting the properties of the circle
-        StartCircle.setCenterX((startNode.getXcoord()-point.getX())*0.137*sceneGestures.getImageScale());
-        StartCircle.setCenterY((startNode.getYcoord()-point.getY())*0.137*sceneGestures.getImageScale());
+        StartCircle.setCenterX((startNode.getXcoord()-point.getX())*scaleRatio*sceneGestures.getImageScale());
+        StartCircle.setCenterY((startNode.getYcoord()-point.getY())*scaleRatio*sceneGestures.getImageScale());
         StartCircle.setRadius(Math.max(2.5,2.5f*(sceneGestures.getImageScale()/5)));
         StartCircle.setStroke(Color.GREEN);
         StartCircle.setFill(Color.GREEN);
@@ -506,8 +506,8 @@ public class PathFindingController {
         Circle EndCircle = new Circle();
 
         //Setting the properties of the circle
-        EndCircle.setCenterX((endNode.getXcoord()-point.getX())*0.137*sceneGestures.getImageScale());
-        EndCircle.setCenterY((endNode.getYcoord()-point.getY())*0.137*sceneGestures.getImageScale());
+        EndCircle.setCenterX((endNode.getXcoord()-point.getX())*scaleRatio*sceneGestures.getImageScale());
+        EndCircle.setCenterY((endNode.getYcoord()-point.getY())*scaleRatio*sceneGestures.getImageScale());
         EndCircle.setRadius(Math.max(2.5,2.5f*(sceneGestures.getImageScale()/5)));
         EndCircle.setStroke(Color.RED);
         EndCircle.setFill(Color.RED);
