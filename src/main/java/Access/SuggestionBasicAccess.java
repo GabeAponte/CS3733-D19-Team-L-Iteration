@@ -1,9 +1,7 @@
 package Access;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
+import java.util.ArrayList;
 
 public class SuggestionBasicAccess extends DBAccess{
     /**@author Gabe
@@ -38,6 +36,27 @@ public class SuggestionBasicAccess extends DBAccess{
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
+    }
+
+    /** ANDREW MADE THIS
+     * Queries the database and returns an arraylist of all the suggestions
+     */
+    public ArrayList<String> getSuggestions() {
+        //noinspection Convert2Diamond
+        String sql = "select * from suggestionBasic";
+        ArrayList<String> data = new ArrayList<String>();
+        try (Connection conn = this.connect();
+             PreparedStatement pstmt = conn.prepareStatement(sql)){
+            ResultSet rs = pstmt.executeQuery();
+            while (rs.next()) {
+                data.add(rs.getString("body"));
+            }
+            return data;
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+
+        return null;
     }
 }
 
