@@ -1,16 +1,19 @@
 package Controller;
 
+import API.UpdateLocationThread;
 import Access.EdgesAccess;
 import Access.NodesAccess;
 import Object.*;
 
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXTextField;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.SimpleDoubleProperty;
-import javafx.beans.value.ChangeListener;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -31,6 +34,7 @@ import javafx.scene.shape.Circle;
 import javafx.scene.shape.Line;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -111,6 +115,7 @@ public class EditLocationController {
     private JFXTextField nodeInfoShort;
 
     @FXML Button SubmitButton;
+    @FXML Button ButtonLinkBetweenScreens;
 
     @FXML
     private ImageView Map;
@@ -145,8 +150,12 @@ public class EditLocationController {
     private Location focusNode;
     private Edge focusEdge;
 
+    Timeline timeout;
+
     @FXML
     private void clickedG(){
+        Singleton single = Singleton.getInstance();
+        single.setLastTime();
         Map.setImage(new Image("/SoftEng_UI_Mockup_Pics/00_thegroundfloor.png"));
         floorSelected = 0;
         if(displayingNodes){
@@ -156,6 +165,8 @@ public class EditLocationController {
     }
     @FXML
     private void clickedL1(){
+        Singleton single = Singleton.getInstance();
+        single.setLastTime();
         Map.setImage(new Image("/SoftEng_UI_Mockup_Pics/00_thelowerlevel1.png"));
         floorSelected = -1;
         if(displayingNodes) {
@@ -165,6 +176,8 @@ public class EditLocationController {
     }
 
     @FXML public void clickedL2(){
+        Singleton single = Singleton.getInstance();
+        single.setLastTime();
         Map.setImage(new Image("/SoftEng_UI_Mockup_Pics/00_thelowerlevel2.png"));
         floorSelected = -2;
         if(displayingNodes){
@@ -174,6 +187,8 @@ public class EditLocationController {
     }
     @FXML
     private void clicked1(){
+        Singleton single = Singleton.getInstance();
+        single.setLastTime();
         Map.setImage(new Image("/SoftEng_UI_Mockup_Pics/01_thefirstfloor.png"));
         floorSelected = 1;
         if(displayingNodes){
@@ -183,6 +198,8 @@ public class EditLocationController {
     }
     @FXML
     private void clicked2(){
+        Singleton single = Singleton.getInstance();
+        single.setLastTime();
         Map.setImage(new Image("/SoftEng_UI_Mockup_Pics/02_thesecondfloor.png"));
         floorSelected = 2;
         if(displayingNodes){
@@ -192,6 +209,8 @@ public class EditLocationController {
     }
     @FXML
     private void clicked3(){
+        Singleton single = Singleton.getInstance();
+        single.setLastTime();
         Map.setImage(new Image("/SoftEng_UI_Mockup_Pics/03_thethirdfloor.png"));
         floorSelected = 3;
         if(displayingNodes){
@@ -217,155 +236,149 @@ public class EditLocationController {
     ListIterator<String> listIterator = null;
     boolean upclickedLast = false;
     boolean downclickedLast = false;
+/*
+    @FXML
+    /**
+     * Grace made this, but its from gabe's code
+     * Replaces image URL with the next floor up when the UP button is pressed
+     *//*
+    private void upClicked() {
+        Singleton single = Singleton.getInstance();
+        single.setLastTime();
+        if (mapURLs.isEmpty()) {
+            map();
+            listIterator = mapURLs.listIterator();
+        }
+        if (listIterator.hasNext() == false && downclickedLast == true) {
+            listIterator = mapURLs.listIterator();
+            String next = listIterator.next();
+            Map.setImage(new Image(next));
+        }
+        else if (listIterator.hasNext() == false) {
+            listIterator = mapURLs.listIterator();
+            String next = listIterator.next();
+            Map.setImage(new Image(next));
+        }
 
-//    @FXML
-//    /**
-//     * Grace made this, but its from gabe's code
-//     * Replaces image URL with the next floor up when the UP button is pressed
-//     */
-//    private void upClicked() {
-//        if (mapURLs.isEmpty()) {
-//            map();
-//            listIterator = mapURLs.listIterator();
-//        }
-//        if (listIterator.hasNext() == false && downclickedLast == true) {
-//            listIterator = mapURLs.listIterator();
-//            String next = listIterator.next();
-//            Map.setImage(new Image(next));
-//        }
-//        else if (listIterator.hasNext() == false) {
-//            listIterator = mapURLs.listIterator();
-//            String next = listIterator.next();
-//            Map.setImage(new Image(next));
-//        }
-//
-//        else if (downclickedLast == true){
-//            String next = listIterator.next();
-//            Map.setImage(new Image(next));
-//            upAgain();
-//            // Map.setImage(new Image(next));
-//        }
-//
-//        else if (downclickedLast == false){
-//            String next = listIterator.next();
-//            Map.setImage(new Image(next));
-//        }
-//        upclickedLast = true;
-//        downclickedLast = false;
-//        floorSelected ++;
-//        if(displayingNodes){
-//            for (Circle c: circles){
-//                anchorPanePath.getChildren().remove(c);
-//            }
-//            circles.clear();
-//            drawNodes();
-//            circles.add(thisCircle);
-//            anchorPanePath.getChildren().add(thisCircle);
-//        }
-//    }
-//    @FXML
-//    /**
-//     * Grace made this, but its from gabe's code
-//     * allows the map to change when UP is pressed and the last button clicked was DOWN by calling next one more time.
-//     */
-//    private void upAgain() {
-//        if (listIterator.hasNext() == false) {
-//            listIterator = mapURLs.listIterator();
-//            String next = listIterator.next();
-//            Map.setImage(new Image(next));
-//        } else {
-//            String next = listIterator.next();
-//            Map.setImage(new Image(next));
-//            floorSelected ++;
-//            if(displayingNodes){
-//                for (Circle c: circles){
-//                    anchorPanePath.getChildren().remove(c);
-//                }
-//                circles.clear();
-//                drawNodes();
-//                circles.add(thisCircle);
-//                anchorPanePath.getChildren().add(thisCircle);
-//            }
-//        }
-//
-//    }
-//
-//    @FXML
-//    /**
-//     * Grace made this, but its from gabe's code
-//     * allows the map to change when down is pressed and the last button clicked was UP by calling previous one more time.
-//     */
-//    private void downAgain() {
-//        if (listIterator.hasPrevious() == false) {
-//            listIterator = mapURLs.listIterator(mapURLs.size() - 1);
-//            String previous = listIterator.previous();
-//            Map.setImage(new Image(previous));
-//        } else {
-//            String previous = listIterator.previous();
-//            Map.setImage(new Image(previous));
-//            floorSelected --;
-//            if(displayingNodes){
-//                for (Circle c: circles){
-//                    anchorPanePath.getChildren().remove(c);
-//                }
-//                circles.clear();
-//                drawNodes();
-//                circles.add(thisCircle);
-//                anchorPanePath.getChildren().add(thisCircle);
-//            }
-//        }
-//    }
-//
-//    @FXML
-//    /**
-//     * Grace made this, but its from gabe's code
-//     * Replaces image URL with the next floor down when the DOWN button is pressed
-//     */
-//    private void downClicked(){
-//        if (mapURLs.isEmpty()) {
-//            map();
-//            listIterator = mapURLs.listIterator();
-//        }
-//        if (listIterator.hasPrevious() == false && upclickedLast == true) {
-//            listIterator = mapURLs.listIterator(mapURLs.size()-1);
-//            String previous = listIterator.previous();
-//            Map.setImage(new Image(previous));
-//        }
-//        else if (listIterator.hasPrevious() == false) {
-//            listIterator = mapURLs.listIterator(mapURLs.size()-1);
-//            String previous = listIterator.previous();
-//            Map.setImage(new Image(previous));
-//        }
-//        else if (upclickedLast == true){
-//            String previous = listIterator.previous();
-//            Map.setImage(new Image(previous));
-//            downAgain();//Due to the nature of listIterator, previous needs to be called twice inorder for the image to switch
-//        }
-//        else if (upclickedLast == false){
-//            String previous = listIterator.previous();
-//            Map.setImage(new Image(previous));
-//        }
-//        upclickedLast = false;
-//        downclickedLast = true;
-//
-//        floorSelected --;
-//        if(displayingNodes){
-//            for (Circle c: circles){
-//                anchorPanePath.getChildren().remove(c);
-//            }
-//            circles.clear();
-//            drawNodes();
-//            circles.add(thisCircle);
-//            anchorPanePath.getChildren().add(thisCircle);
-//        }
-//    }
+        else if (downclickedLast == true){
+            String next = listIterator.next();
+            Map.setImage(new Image(next));
+            upAgain();
+            // Map.setImage(new Image(next));
+        }
 
+        else if (downclickedLast == false){
+            String next = listIterator.next();
+            Map.setImage(new Image(next));
+        }
+        upclickedLast = true;
+        downclickedLast = false;
+    }
+    @FXML
+    /**
+     * Grace made this, but its from gabe's code
+     * allows the map to change when UP is pressed and the last button clicked was DOWN by calling next one more time.
+     *//*
+    private void upAgain() {
+        Singleton single = Singleton.getInstance();
+        single.setLastTime();
+        if (listIterator.hasNext() == false) {
+            listIterator = mapURLs.listIterator();
+            String next = listIterator.next();
+            Map.setImage(new Image(next));
+        } else {
+            String next = listIterator.next();
+            Map.setImage(new Image(next));
+        }
+    }
 
+    @FXML
+    /**
+     * Grace made this, but its from gabe's code
+     * allows the map to change when down is pressed and the last button clicked was UP by calling previous one more time.
+     *//*
+    private void downAgain() {
+        Singleton single = Singleton.getInstance();
+        single.setLastTime();
+        if (listIterator.hasPrevious() == false) {
+            listIterator = mapURLs.listIterator(mapURLs.size() - 1);
+            String previous = listIterator.previous();
+            Map.setImage(new Image(previous));
+        } else {
+            String previous = listIterator.previous();
+            Map.setImage(new Image(previous));
+        }
+    }
+
+    @FXML
+    /**
+     * Grace made this, but its from gabe's code
+     * Replaces image URL with the next floor down when the DOWN button is pressed
+     *//*
+    private void downClicked(){
+        Singleton single = Singleton.getInstance();
+        single.setLastTime();
+        if (mapURLs.isEmpty()) {
+            map();
+            listIterator = mapURLs.listIterator();
+        }
+        if (listIterator.hasPrevious() == false && upclickedLast == true) {
+            listIterator = mapURLs.listIterator(mapURLs.size()-1);
+            String previous = listIterator.previous();
+            Map.setImage(new Image(previous));
+        }
+        else if (listIterator.hasPrevious() == false) {
+            listIterator = mapURLs.listIterator(mapURLs.size()-1);
+            String previous = listIterator.previous();
+            Map.setImage(new Image(previous));
+        }
+        else if (upclickedLast == true){
+            String previous = listIterator.previous();
+            Map.setImage(new Image(previous));
+            downAgain();//Due to the nature of listIterator, previous needs to be called twice inorder for the image to switch
+        }
+        else if (upclickedLast == false){
+            String previous = listIterator.previous();
+            Map.setImage(new Image(previous));
+        }
+        upclickedLast = false;
+        downclickedLast = true;
+    }
+*/
 
     @SuppressWarnings("Convert2Diamond")
     @FXML
     public void initialize(){
         Singleton single = Singleton.getInstance();
+        single.setLastTime();
+        timeout = new Timeline(new KeyFrame(Duration.seconds(2), new EventHandler<ActionEvent>() {
+
+            @Override
+            public void handle(ActionEvent event) {
+                if((System.currentTimeMillis() - single.getLastTime()) > single.getTimeoutSec()){
+                    try{
+                        single.setLastTime();
+                        single.setLoggedIn(false);
+                        single.setUsername("");
+                        single.setIsAdmin(false);
+                        FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("HospitalHome.fxml"));
+
+                        Parent sceneMain = loader.load();
+
+                        Stage thisStage = (Stage) addEdge.getScene().getWindow();
+
+                        Scene newScene = new Scene(sceneMain);
+                        thisStage.setScene(newScene);
+                        timeout.stop();
+                    } catch (IOException io){
+                        System.out.println(io.getMessage());
+                    }
+                }
+            }
+        }));
+        timeout.setCycleCount(Timeline.INDEFINITE);
+        timeout.play();
+
         na = new NodesAccess();
         ea = new EdgesAccess();
 
@@ -424,6 +437,8 @@ public class EditLocationController {
 
     @FXML
     private void deleteEdgePress() {
+        Singleton single = Singleton.getInstance();
+        single.setLastTime();
         /*
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Delete selected edge?", ButtonType.YES, ButtonType.NO);
         alert.showAndWait();
@@ -440,6 +455,8 @@ public class EditLocationController {
 
     @FXML
     private void modifyEdgePress() {
+        Singleton single = Singleton.getInstance();
+        single.setLastTime();
         /*
         ObservableList<String> toPass = FXCollections.observableArrayList();
         for (Location l : nodeData) {
@@ -470,6 +487,8 @@ public class EditLocationController {
 
     @FXML
     private void addEdgePress() {
+        Singleton single = Singleton.getInstance();
+        single.setLastTime();
         /*
         ObservableList<String> toPass = FXCollections.observableArrayList();
         for (Location l : nodeData) {
@@ -498,6 +517,8 @@ public class EditLocationController {
 
     @FXML
     private void deleteNodePress() {
+        Singleton single = Singleton.getInstance();
+        single.setLastTime();
         /*
         //this is the dialogue popup
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Delete selected node?", ButtonType.YES, ButtonType.NO);
@@ -528,6 +549,8 @@ public class EditLocationController {
 
     @FXML
     private void modifyNodePress() {
+        Singleton single = Singleton.getInstance();
+        single.setLastTime();
         /*
         try {
             //Load second scene
@@ -551,7 +574,24 @@ public class EditLocationController {
     }
 
     @FXML
+    private void switchToLinkFloors() throws IOException {
+        timeout.stop();
+        FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("EditLinkBetweenFloors.fxml"));
+
+        Parent sceneMain = loader.load();
+
+        EditLinkBetweenFloorsController controller = loader.<EditLinkBetweenFloorsController>getController();
+
+        Stage theStage = (Stage) addEdge.getScene().getWindow();
+
+        Scene scene = new Scene(sceneMain);
+        theStage.setScene(scene);
+    }
+
+    @FXML
     private void addNodePress() {
+        Singleton single = Singleton.getInstance();
+        single.setLastTime();
         /*
         ObservableList<String> toPass = FXCollections.observableArrayList();
         for (Location l : nodeData) {
@@ -577,12 +617,16 @@ public class EditLocationController {
 
     @FXML
     private void downloadNodes() {
+        Singleton single = Singleton.getInstance();
+        single.setLastTime();
         NodesAccess na = new NodesAccess();
         na.writeTableIntoCSV("");
     }
 
     @FXML
     private void downloadEdges() {
+        Singleton single = Singleton.getInstance();
+        single.setLastTime();
         EdgesAccess ea = new EdgesAccess();
         ea.writeTableIntoCSV("");
     }
@@ -642,6 +686,8 @@ public class EditLocationController {
     @FXML
 
     private void nodeDisplayPress(){
+        Singleton single = Singleton.getInstance();
+        single.setLastTime();
         displayingNodes = !displayingNodes;
 
         if(displayingNodes) {
@@ -702,6 +748,8 @@ public class EditLocationController {
         
     @FXML
     private void nodeInfoIDPress(){
+        Singleton single = Singleton.getInstance();
+        single.setData();
         //be able to modify the selected nodeID
 
 
@@ -710,35 +758,56 @@ public class EditLocationController {
 
     @FXML
     private void nodeInfoFloorPress(){
+        Singleton single = Singleton.getInstance();
+        single.setData();
         //be able to modify the selected nodeID
     }
     @FXML
     private void nodeInfoXPress(){
+        Singleton single = Singleton.getInstance();
+        single.setData();
         //be able to modify the selected nodeID
     }
     @FXML
     private void nodeInfoYPress(){
+        Singleton single = Singleton.getInstance();
+        single.setData();
         //be able to modify the selected nodeID
     }
     @FXML
     private void nodeInfoTypePress(){
+        Singleton single = Singleton.getInstance();
+        single.setData();
         //be able to modify the selected nodeID
     }
     @FXML
     private void nodeInfoBuildingPress(){
+        Singleton single = Singleton.getInstance();
+        single.setData();
         //be able to modify the selected nodeID
     }
     @FXML
     private void nodeInfoLongPress(){
+        Singleton single = Singleton.getInstance();
+        single.setData();
         //be able to modify the selected nodeID
     }
     @FXML
     private void nodeInfoShortPress(){
+        Singleton single = Singleton.getInstance();
+        single.setData();
         //be able to modify the selected nodeID
     }
 
     @FXML
+    private void submitButtonPressed() {
+        UpdateLocationThread ul = new UpdateLocationThread();
+        ul.start();
+    }
+
+    @FXML
     private void backPressed() throws IOException{
+        timeout.stop();
         FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("LoggedInHome.fxml"));
 
         Parent sceneMain = loader.load();
@@ -758,6 +827,8 @@ public class EditLocationController {
 
         @Override
         public void handle(MouseEvent event) {
+            Singleton single = Singleton.getInstance();
+            single.setLastTime();
             Point2D mousePress = sceneGestures.imageViewToImage(Map, new Point2D(event.getX(), event.getY()));
             sceneGestures.setMouseDown(mousePress);
             if(mousePress.getX() == sceneGestures.getMouseDown().getValue().getX() && mousePress.getY() == sceneGestures.getMouseDown().getValue().getY()) {

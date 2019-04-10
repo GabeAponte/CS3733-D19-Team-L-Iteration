@@ -1,6 +1,9 @@
 package Controller;
 
 import Object.*;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -9,6 +12,7 @@ import javafx.event.ActionEvent;
 import javafx.scene.control.Button;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 
 import java.io.IOException;
 
@@ -35,17 +39,51 @@ public class ServiceRequestController {
     @FXML
     public Button Back;
 
+    Timeline timeout;
+
+    public void initialize(){
+        Singleton single = Singleton.getInstance();
+        single.setLastTime();
+        timeout = new Timeline(new KeyFrame(Duration.seconds(2), new EventHandler<ActionEvent>() {
+
+            @Override
+            public void handle(ActionEvent event) {
+                if((System.currentTimeMillis() - single.getLastTime()) > single.getTimeoutSec()){
+                    try{
+                        single.setLastTime();
+                        single.setLoggedIn(false);
+                        single.setUsername("");
+                        single.setIsAdmin(false);
+                        FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("HospitalHome.fxml"));
+
+                        Parent sceneMain = loader.load();
+
+                        Stage thisStage = (Stage) Back.getScene().getWindow();
+
+                        Scene newScene = new Scene(sceneMain);
+                        thisStage.setScene(newScene);
+                        timeout.stop();
+                    } catch (IOException io){
+                        System.out.println(io.getMessage());
+                    }
+                }
+            }
+        }));
+        timeout.setCycleCount(Timeline.INDEFINITE);
+        timeout.play();
+    }
     @FXML
     protected void backPressed() throws IOException {
+        timeout.stop();
         Singleton single = Singleton.getInstance();
         Stage theStage = (Stage) Back.getScene().getWindow();
         AnchorPane root;
         if(single.isLoggedIn()){
-            FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("LoggedInHome.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("AdminLoggedInHome.fxml"));
 
             Parent sceneMain = loader.load();
 
-            LoggedInHomeController controller = loader.<LoggedInHomeController>getController();
+            AdminLoggedInHomeController controller = loader.<AdminLoggedInHomeController>getController();
 
             theStage = (Stage) SanitationServices.getScene().getWindow();
 
@@ -84,7 +122,7 @@ public class ServiceRequestController {
     //Nathan - changes screen to service sub screen, param "service" determines label on sub scree
     @FXML
     private void changeToFlorist() throws IOException{
-
+        timeout.stop();
         Stage theStage = (Stage) Back.getScene().getWindow();
         AnchorPane root;
             FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("ServiceRequestFloristDelivery.fxml"));
@@ -102,7 +140,7 @@ public class ServiceRequestController {
 
     @FXML
     private void changeToInternalTransport() throws IOException{
-
+        timeout.stop();
         Stage theStage = (Stage) Back.getScene().getWindow();
         AnchorPane root;
         FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("InternalTransport.fxml"));
@@ -120,7 +158,7 @@ public class ServiceRequestController {
 
     @FXML
     private void changeToReligiousRequest() throws IOException{
-
+        timeout.stop();
         Stage theStage = (Stage) Back.getScene().getWindow();
         AnchorPane root;
         FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("ReligiousServiceRequest.fxml"));

@@ -211,6 +211,11 @@
                                                         <Font size="20.0" />
                                                     </font>
                                                 </JFXButton>
+                                    <JFXButton fx:id="ButtonLinkBetweenScreens" onAction="#switchToLinkFloors" ripplerFill="WHITE" style="-fx-border-radius: 50; -fx-background-radius: 50;" text="Link Across Floors" textFill="WHITE">
+                                       <font>
+                                          <Font size="20.0" />
+                                       </font>
+                                    </JFXButton>
                                             </children>
                                             <padding>
                                                 <Insets left="45.0" right="45.0" />

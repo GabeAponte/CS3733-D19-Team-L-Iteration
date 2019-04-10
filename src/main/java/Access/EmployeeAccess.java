@@ -2,6 +2,9 @@ package Access;
 
 import java.sql.*;
 import java.util.ArrayList;
+import Object.*;
+import javafx.scene.control.TreeItem;
+import sun.reflect.generics.tree.Tree;
 
 public class EmployeeAccess extends DBAccess{
     /**ANDREW MADE THIS
@@ -43,6 +46,33 @@ public class EmployeeAccess extends DBAccess{
     }
 
     /**ANDREW MADE THIS
+     * checks if an employee username is already taken
+     * @param username
+     * @return
+     */
+    public boolean checkFields(String employeeID, String username){
+        String sql = "select employeeID, username from employee where username = ? or employeeID = ?";
+        String check = "";
+        try (Connection conn = this.connect();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            pstmt.setString(1, username);
+            pstmt.setString(2, employeeID);
+            ResultSet rs = pstmt.executeQuery();
+            while(rs.next()){
+                if(rs.getString("username").equals(username)){
+                    return true;
+                }
+                if(rs.getString("employeeID").equals(employeeID)){
+                    return true;
+                }
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        return false;
+    }
+
+    /**ANDREW MADE THIS
      *  returns the fields of a particular employee in an arraylist
      * @param username
      * @return
@@ -60,8 +90,37 @@ public class EmployeeAccess extends DBAccess{
                 data.add(rs.getString("department"));
                 data.add(Boolean.toString(rs.getBoolean("isAdmin")));
                 data.add(rs.getString("nickname"));
+                data.add(rs.getString("password"));
+                data.add(rs.getString("type"));
+                data.add(rs.getString("firstName"));
+                data.add(rs.getString("lastName"));
+                data.add(rs.getString("email"));
             }
             return data;
+
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+
+        return null;
+    }
+
+    /**ANDREW MADE THIS
+     *  returns the fields of a particular employee in an arraylist
+     * @param employeeID
+     * @return
+     */
+    public String getEmployeeUsername(String employeeID){
+        String sql = "SELECT username FROM employee where employeeID = ?";
+        //noinspection Convert2Diamond
+        ArrayList<String> data = new ArrayList<String>();
+        try (Connection conn = this.connect();
+             PreparedStatement pstmt = conn.prepareStatement(sql)){
+            pstmt.setString(1, employeeID);
+            ResultSet rs = pstmt.executeQuery();
+            while (rs.next()) {
+                return rs.getString("username");
+            }
 
         } catch (SQLException e) {
             System.out.println(e.getMessage());
@@ -121,17 +180,15 @@ public class EmployeeAccess extends DBAccess{
      * @param field, the column of the table you want to edit
      * @param data, the data you want to put in
      */
-    public void updateEmployee(String employeeID, String field, String data) {
+    public void updateEmployee(String employeeID, String field, String data) throws SQLException{
         String sql = "update employee set " + field + "= ? where employeeID= ?;";
 
-        try (Connection conn = this.connect();
-             PreparedStatement pstmt = conn.prepareStatement(sql)) {
-            pstmt.setString(1, data);
-            pstmt.setString(2, employeeID);
-            pstmt.executeUpdate();
-        } catch (SQLException e) {
-            System.out.println(e.getMessage());
-        }
+        Connection conn = this.connect();
+        PreparedStatement pstmt = conn.prepareStatement(sql);
+        pstmt.setString(1, data);
+        pstmt.setString(2, employeeID);
+        pstmt.executeUpdate();
+
     }
 
     /** ANDREW MADE THIS
@@ -173,16 +230,12 @@ public class EmployeeAccess extends DBAccess{
             pstmt.setString(2, data.get(1));
             pstmt.setString(3, data.get(2));
             pstmt.setString(4, data.get(3));
-            if(data.get(5).equals("true")){
-                pstmt.setBoolean(5, true);
-            } else{
-                pstmt.setBoolean(5, false);
-            }
-            pstmt.setString(6, data.get(5));
-            pstmt.setString(7, data.get(6));
-            pstmt.setString(8, data.get(7));
-            pstmt.setString(9, data.get(8));
-            pstmt.setString(10, data.get(9));
+            pstmt.setBoolean(5, false);
+            pstmt.setString(6, data.get(4));
+            pstmt.setString(7, data.get(5));
+            pstmt.setString(8, data.get(6));
+            pstmt.setString(9, data.get(7));
+            pstmt.setString(10, data.get(8));
             pstmt.executeUpdate();
         } catch (SQLException e) {
             System.out.println(e.getMessage());
@@ -199,9 +252,61 @@ public class EmployeeAccess extends DBAccess{
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
             pstmt.setString(1, employeeID);
             pstmt.executeUpdate();
+            System.out.println(employeeID);
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
+    }
+
+    /**NATHAN MADE THIS
+     * Counts number of employee records in database
+     * @return
+     */
+    public int countRecords() {
+        String sql = "select COUNT(*) from employee where username is not null";
+        try (Connection conn = this.connect();
+             Statement stmt = conn.createStatement();
+             ResultSet rs = stmt.executeQuery(sql)) {
+
+            return rs.getInt(1);
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        return 0;
+
+    }
+
+    /**NATHAN MADE THIS
+     * gets record getNum
+     * @param getNum
+     * @return
+     */
+    public TreeItem<EmployeeTable> getRequests(int getNum){
+        TreeItem<EmployeeTable> nodeRoot = null;
+        String sql = "SELECT * FROM employee where username is not NULL";
+        int count = 0;
+        //noinspection Convert2Diamond
+        ArrayList<String> data = new ArrayList<String>();
+        try (Connection conn = this.connect();
+             Statement stmt = conn.createStatement();
+             ResultSet rs = stmt.executeQuery(sql)) {
+            while (rs.next()) {
+                if (count == getNum) {
+                    data.add(rs.getString("employeeID"));
+                    data.add(rs.getString("department"));
+                    data.add(rs.getString("type"));
+                    data.add(rs.getString("firstName"));
+                    data.add(rs.getString("lastName"));
+                    nodeRoot = new TreeItem<>(new EmployeeTable(data.get(0), data.get(1), data.get(2), data.get(3), data.get(4)));
+                }
+                count++;
+            }
+            return nodeRoot;
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+
+        return null;
     }
 
     /**Andrew made this for testing
