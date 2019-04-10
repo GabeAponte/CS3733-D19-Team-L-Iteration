@@ -4,6 +4,7 @@
 <?import com.jfoenix.controls.JFXComboBox?>
 <?import com.jfoenix.controls.JFXTextArea?>
 <?import com.jfoenix.controls.JFXToolbar?>
+<?import java.net.URL?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.effect.Blend?>
@@ -67,13 +68,17 @@
                         <Blend />
                      </effect>
                   </Label>
-                  <JFXTextArea fx:id="description" focusColor="#f6bd38" promptText="Type a description here" style="-fx-background-color: WHITE;" unFocusColor="WHITE" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.hgrow="SOMETIMES" GridPane.rowIndex="4" GridPane.rowSpan="2" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
+                  <JFXTextArea fx:id="description" focusColor="#f6bd38" onKeyTyped="#checkIfNull" promptText="Please explain your problem in more detail." style="-fx-background-color: WHITE;" unFocusColor="WHITE" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.hgrow="SOMETIMES" GridPane.rowIndex="4" GridPane.rowSpan="2" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
                      <font>
                         <Font size="20.0" />
                      </font>
                      <GridPane.margin>
                         <Insets left="200.0" right="200.0" />
                      </GridPane.margin>
+                     <stylesheets>
+                        <URL value="@modify-prompt-text.css" />
+                        <URL value="@size.css" />
+                     </stylesheets>
                   </JFXTextArea>
                   <JFXButton fx:id="submit" buttonType="RAISED" prefHeight="7.0" prefWidth="138.0" style="-fx-border-color: F5D96B; -fx-border-width: 2; -fx-border-radius: 50; -fx-background-radius: 50;" text="Submit" textFill="WHITE" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="6" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
                      <font>
@@ -83,10 +88,14 @@
                         <Insets top="25.0" />
                      </GridPane.margin>
                   </JFXButton>
-                  <JFXComboBox fx:id="device" prefHeight="43.0" prefWidth="434.0" promptText="Device?" GridPane.rowIndex="1" />
-                  <JFXComboBox fx:id="problem" prefHeight="43.0" prefWidth="434.0" promptText="Problem?" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                  <JFXComboBox fx:id="floor" prefHeight="43.0" prefWidth="434.0" promptText="Floor?" GridPane.rowIndex="3" />
-                  <JFXComboBox fx:id="loc" prefHeight="43.0" prefWidth="434.0" promptText="Location" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                  <JFXComboBox fx:id="device" onAction="#deviceSelected" prefHeight="43.0" prefWidth="434.0" promptText="Select Device" stylesheets="@size.css" GridPane.rowIndex="1" />
+                  <JFXComboBox fx:id="problem" prefHeight="43.0" prefWidth="434.0" promptText="Select the Problem" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                     <stylesheets>
+                        <URL value="@modify-prompt-text.css" />
+                        <URL value="@size.css" />
+                     </stylesheets></JFXComboBox>
+                  <JFXComboBox fx:id="floor" onAction="#floorSelected" prefHeight="43.0" prefWidth="434.0" promptText="Select Floor" stylesheets="@size.css" GridPane.rowIndex="3" />
+                  <JFXComboBox fx:id="loc" prefHeight="43.0" prefWidth="434.0" promptText="Select Location" stylesheets="@size.css" GridPane.columnIndex="1" GridPane.rowIndex="3" />
                </children>
                <opaqueInsets>
                   <Insets />

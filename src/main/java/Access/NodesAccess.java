@@ -413,6 +413,22 @@ public class NodesAccess extends DBAccess{
         return null;
     }
 
+    public ArrayList<String> getValidITLocations(String theFloor){
+        String sql = "SELECT * from nodes where (nodeType != \"HALL\") and (nodeType != \"STAI\") and (nodeType != \"ELEV\") and (nodeType != \"REST\") and (nodeType != \"BATH\") and (nodeType != \"EXIT\") and floor = ?;";
+        ArrayList<String> data = new ArrayList<String>();
+        try (Connection conn = this.connect();
+             PreparedStatement pstmt = conn.prepareStatement(sql)){
+            pstmt.setString(1, theFloor);
+            ResultSet rs = pstmt.executeQuery();
+            while(rs.next()){
+                data.add(rs.getString("longName"));
+            }
+            return data;
+        } catch(SQLException e){
+            System.out.println(e.getMessage());
+        }
+        return null;
+    }
 
     public static void main(String[] args) {
         NodesAccess na = new NodesAccess();
