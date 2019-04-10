@@ -822,16 +822,16 @@ public class EditLocationController {
                     String newQuery = na.getNodebyCoordNoType(getX, getY, floorNum(), 5);
                     Point2D point = sceneGestures.getImageLocation();
                     if (newQuery != null) {
-                        Location focusLoc = single.lookup.get(newQuery);
-                        nodeInfoID.setText(focusLoc.getLocID());
-                        nodeInfoX.setText("" + focusLoc.getXcoord());
-                        nodeInfoY.setText("" + focusLoc.getYcoord());
-                        nodeInfoType.setText("" + focusLoc.getNodeType());
-                        nodeInfoBuilding.setText("" + focusLoc.getBuilding());
-                        nodeInfoFloor.setText("" + focusLoc.getFloor());
-                        nodeInfoLong.setText("" + focusLoc.getLongName());
-                        nodeInfoShort.setText("" + focusLoc.getShortName());
-
+                        focusNode = single.lookup.get(newQuery);
+                        nodeInfoID.setText(focusNode.getLocID());
+                        nodeInfoX.setText("" + focusNode.getXcoord());
+                        nodeInfoY.setText("" + focusNode.getYcoord());
+                        nodeInfoType.setText("" + focusNode.getNodeType());
+                        nodeInfoBuilding.setText("" + focusNode.getBuilding());
+                        nodeInfoFloor.setText("" + focusNode.getFloor());
+                        nodeInfoLong.setText("" + focusNode.getLongName());
+                        nodeInfoShort.setText("" + focusNode.getShortName());
+                        populateEdges(focusNode);
                     } else {
                         nodeInfoID.setText("");
                         nodeInfoX.setText("" + (int) mousePress.getX());
