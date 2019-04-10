@@ -243,6 +243,8 @@ public class EditLocationController {
     public void initialize(){
         Singleton single = Singleton.getInstance();
         single.setLastTime();
+        addNode.setDisable(true);
+        deleteNode.setDisable(true);
         timeout = new Timeline(new KeyFrame(Duration.seconds(2), new EventHandler<ActionEvent>() {
 
             @Override
@@ -418,36 +420,6 @@ public class EditLocationController {
     }
 
     @FXML
-    private void addEdgePress() {
-        Singleton single = Singleton.getInstance();
-        single.setLastTime();
-        /*
-        ObservableList<String> toPass = FXCollections.observableArrayList();
-        for (Location l : nodeData) {
-            toPass.add(l.getLocID());
-        }
-        try {
-            //Load second scene
-            FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("EditEdges.fxml"));
-            Parent roots = loader.load();
-
-            //Get controller of scene2
-            EditEdgesController scene2Controller = loader.getController();
-
-            Scene scene = new Scene(roots);
-            scene2Controller.populateNodeList(toPass);
-            Stage thestage = (Stage) makeEditableNode.getScene().getWindow();
-            //Show scene 2 in new window
-            thestage.setScene(scene);
-
-        } catch (IOException ex) {
-            //noinspection ThrowablePrintedToSystemOut
-            System.err.println(ex);
-        }
-        */
-    }
-
-    @FXML
     private void deleteNodePress() {
         single = Singleton.getInstance();
         single.setLastTime();
@@ -475,6 +447,7 @@ public class EditLocationController {
             nodeInfoShort.setText("");
             eraseNodes();
             drawNodes();
+            deleteNode.setDisable(true);
 
         }
         else if (alert.getResult() == ButtonType.NO) {
@@ -542,6 +515,9 @@ public class EditLocationController {
         na.addNode(data);
         UpdateLocationThread ul = new UpdateLocationThread();
         ul.start();
+        addNode.setDisable(true);
+        anchorPanePath.getChildren().remove(thisCircle);
+
     }
 
     @FXML
@@ -610,6 +586,21 @@ public class EditLocationController {
         circles.add(thisCircle);
         anchorPanePath.getChildren().add(thisCircle);
     }
+
+
+    @FXML
+    private void onTextReleased() {
+
+        if (nodeInfoID.getText().equals("") || nodeInfoX.getText().equals("") || nodeInfoY.getText().equals("") ||
+            nodeInfoFloor.getText().equals("") || nodeInfoBuilding.getText().equals("") || nodeInfoType.getText().equals("") ||
+            nodeInfoShort.getText().equals("") || nodeInfoLong.getText().equals("")) {
+            addNode.setDisable(true);
+        }
+        else {
+            addNode.setDisable(false);
+        }
+    }
+
 
     private void drawNodes(){
         double scaleRatio = Math.min(Map.getFitWidth() / Map.getImage().getWidth(), Map.getFitHeight() / Map.getImage().getHeight());
@@ -803,6 +794,7 @@ public class EditLocationController {
                     nodeInfoLong.setText("" + focusNode.getLongName());
                     nodeInfoShort.setText("" + focusNode.getShortName());
                     populateEdges(focusNode);
+                    deleteNode.setDisable(false);
 
                 } else {
                     nodeInfoID.setText("");
@@ -814,6 +806,7 @@ public class EditLocationController {
                     nodeInfoLong.setText("");
                     nodeInfoShort.setText("");
                     double scaleRatio = Math.min(Map.getFitWidth() / Map.getImage().getWidth(),Map.getFitHeight()/Map.getImage().getHeight());
+                    deleteNode.setDisable(true);
 
                     //System.out.println(sceneGestures.getImageScale());
                     //System.out.println((mousePress.getX() - point.getX()) * scaleRatio * sceneGestures.getImageScale());

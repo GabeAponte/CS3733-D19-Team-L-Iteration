@@ -472,7 +472,6 @@ public class EditLinkBetweenFloorsController {
     }
 
 
-
     @FXML
     private void nodeDisplayPress() {
         Singleton single = Singleton.getInstance();
