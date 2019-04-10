@@ -195,6 +195,7 @@ public class BookRoomController {
         else if (roomDate == null) {
             error.setText("Please select a date.");
         }
+
         else if (startTimeValue.equals(endTimeValue)) {
             error.setText("Times cannot be the same.");
         }
@@ -207,6 +208,9 @@ public class BookRoomController {
         else if (availableRooms.getValue() == null) {
             error.setText("Please pick a room.");
         }
+        else if (startTimeValue.compareTo(endTimeValue) > 0) {
+            error.setText("Start time cannot be ahead of end time.");
+        }
         else {
             error.setTextFill(Color.WHITE);
             error.setText("Room booked.");
@@ -214,18 +218,18 @@ public class BookRoomController {
             int endTimeMil = endTime.getValue().getHour() * 100 + endTime.getValue().getMinute();
             String date = datePicker.getValue().toString();
             String endDate;
-            String roomID = "RoomTest";
+            String roomName = availableRooms.getValue().toString();
             EmployeeAccess ea = new EmployeeAccess();
             String employeeID = ea.getEmployeeInformation(single.getUsername()).get(0);
             ReservationAccess roomReq = new ReservationAccess();
-            for(int i = 1; i < rooms.size(); i+=2) {
-                if (rooms.get(i).equals(availableRooms.getValue())) {
-                    roomID = rooms.get(i - 1);
-                }
-            }
+//            for(int i = 1; i < rooms.size(); i+=2) {
+//                if (rooms.get(i).equals(availableRooms.getValue())) {
+//                    roomID = rooms.get(i - 1);
+//                }
+//            }
             System.out.println("Start Time (MIL): " + startTimeMil + "End Time (MIL): " + endTimeMil);
             RoomAccess ra = new RoomAccess();
-            roomReq.makeReservation(ra.getRoomID(roomID), employeeID, date, date, startTimeMil, endTimeMil);
+            roomReq.makeReservation(ra.getRoomID(roomName), employeeID, date, date, startTimeMil, endTimeMil);
             fieldsEntered();
         }
     }
@@ -258,7 +262,6 @@ public class BookRoomController {
             for(int i = 0; i < rooms.size(); i++){
                 System.out.println("Available Rooms: " + rooms.get(i));
             }
-
 
             for(int i = 0; i< listOfRooms.size(); i++){
                 reverseListOfRooms.add(i, listOfRooms.get(i));
