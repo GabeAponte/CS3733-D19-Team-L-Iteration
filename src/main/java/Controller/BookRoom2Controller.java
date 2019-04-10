@@ -100,9 +100,12 @@ public class BookRoom2Controller {
 
     @FXML
     private void backPressed() throws IOException {
-        FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("LoggedInHome.fxml"));
+        Singleton single = Singleton.getInstance();
+        FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("EmployeeLoggedInHome.fxml"));
+        if(single.isIsAdmin()) {
+            loader = new FXMLLoader(getClass().getClassLoader().getResource("AdminLoggedInHome.fxml"));
+        }
         Parent sceneMain = loader.load();
-        LoggedInHomeController controller = loader.<LoggedInHomeController>getController();
         Stage theStage = (Stage) bookRoom2Back.getScene().getWindow();
         Scene scene = new Scene(sceneMain);
         theStage.setScene(scene);
