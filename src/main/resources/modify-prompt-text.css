@@ -5,6 +5,11 @@
     -fx-text-fill: WHITE;
 }
 
+.jfx-text-area {
+    -fx-prompt-text-fill: WHITE;
+    -fx-text-fill: WHITE;
+}
+
 .jfx-combobox {
     -fx-prompt-text-fill: WHITE;
     -fx-text-fill: WHITE;
