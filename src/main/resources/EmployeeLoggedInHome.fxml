@@ -16,7 +16,6 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<?import javafx.stage.Screen?>
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" style="-fx-background-color: #012D5A;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.EmployeeLoggedInHomeController">
 
    <children>
@@ -31,7 +30,7 @@
                   </ImageView>
                </left>
                <right>
-                  <JFXButton fx:id="logOut" buttonType="RAISED" onAction="#logOut" prefHeight="86.0" prefWidth="201.0" style="-fx-background-radius: 50;" text="Log Out" BorderPane.alignment="CENTER">
+                  <JFXButton fx:id="logOut" buttonType="RAISED" onAction="#logOut" prefHeight="86.0" prefWidth="201.0" text="Log Out" BorderPane.alignment="CENTER">
                      <font>
                         <Font size="40.0" />
                      </font>
@@ -59,7 +58,7 @@
                         </Label>
                         <HBox alignment="CENTER_RIGHT" HBox.hgrow="ALWAYS">
                            <children>
-                              <JFXButton fx:id="seeSuggestions" buttonType="RAISED" prefHeight="81.0" prefWidth="338.0" style="-fx-background-radius: 100;" text="See Suggestions" HBox.hgrow="ALWAYS">
+                              <JFXButton fx:id="seeSuggestions" buttonType="RAISED" prefHeight="81.0" prefWidth="338.0" text="See Suggestions" HBox.hgrow="ALWAYS">
                                  <font>
                                     <Font size="38.0" />
                                  </font>
@@ -88,17 +87,17 @@
                             <RowConstraints vgrow="ALWAYS" />
                           </rowConstraints>
                            <children>
-                              <JFXButton fx:id="findPath" buttonType="RAISED" onAction="#SwitchToPathfindScreen" prefHeight="150.0" prefWidth="300.0" ripplerFill="#b0b0b0" style="-fx-background-radius: 100; -fx-border-width: 2; -fx-border-color: F5D96B; -fx-border-radius: 1000;" text="Find Path" textFill="#f5d96b" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
+                              <JFXButton fx:id="findPath" buttonType="RAISED" onAction="#SwitchToPathfindScreen" prefHeight="150.0" prefWidth="300.0" ripplerFill="WHITE" style="-fx-background-radius: 100; -fx-border-width: 2; -fx-border-color: F5D96B; -fx-border-radius: 1000;" text="Find Path" textFill="WHITE" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
                                  <font>
-                                    <Font name="Times New Roman" size="36.0" />
+                                    <Font size="35.0" />
                                  </font>
                                  <GridPane.margin>
                                     <Insets right="75.0" top="50.0" />
                                  </GridPane.margin>
                               </JFXButton>
-                              <JFXButton fx:id="serviceRequest" buttonType="RAISED" onAction="#SwitchToServiceScreen" prefHeight="150.0" prefWidth="300.0" ripplerFill="#b0b0b0" style="-fx-border-color: F5D96B; -fx-border-radius: 1000; -fx-border-width: 2; -fx-background-radius: 100;" text="Service Request" textFill="#f5d96b" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" GridPane.vgrow="ALWAYS">
+                              <JFXButton fx:id="serviceRequest" buttonType="RAISED" onAction="#SwitchToServiceScreen" prefHeight="150.0" prefWidth="300.0" ripplerFill="WHITE" style="-fx-border-color: F5D96B; -fx-border-radius: 1000; -fx-border-width: 2; -fx-background-radius: 100;" text="Service Request" textFill="WHITE" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" GridPane.vgrow="ALWAYS">
                                  <font>
-                                    <Font name="Times New Roman" size="36.0" />
+                                    <Font size="35.0" />
                                  </font>
                                  <GridPane.margin>
                                     <Insets bottom="75.0" right="75.0" />
@@ -126,25 +125,25 @@
                               <RowConstraints vgrow="ALWAYS" />
                            </rowConstraints>
                            <children>
-                              <JFXButton fx:id="fufillServiceRequest" buttonType="RAISED" onAction="#SwitchToFullfillRequestScreen" prefHeight="95.0" prefWidth="510.0" ripplerFill="#b0b0b0" style="-fx-border-radius: 1000; -fx-border-width: 2; -fx-border-color: F5D96B; -fx-background-radius: 100;" text="Fulfill Service Requests" textFill="#f5d96b" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" GridPane.vgrow="ALWAYS">
+                              <JFXButton fx:id="fufillServiceRequest" buttonType="RAISED" onAction="#SwitchToFullfillRequestScreen" prefHeight="95.0" prefWidth="510.0" ripplerFill="WHITE" style="-fx-border-radius: 1000; -fx-border-width: 2; -fx-border-color: F5D96B; -fx-background-radius: 100;" text="Fulfill Service Requests" textFill="WHITE" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" GridPane.vgrow="ALWAYS">
                                  <font>
-                                    <Font name="Times New Roman" size="36.0" />
+                                    <Font size="35.0" />
                                  </font>
                                  <GridPane.margin>
                                     <Insets right="75.0" />
                                  </GridPane.margin>
                               </JFXButton>
-                              <JFXButton fx:id="bookRoom" buttonType="RAISED" onAction="#bookRoom" prefHeight="95.0" prefWidth="510.0" ripplerFill="#b0b0b0" style="-fx-border-radius: 1000; -fx-border-width: 2; -fx-border-color: F5D96B; -fx-background-radius: 100;" text="Room Booking" textFill="#f5d96b" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="2" GridPane.vgrow="ALWAYS">
+                              <JFXButton fx:id="bookRoom" buttonType="RAISED" onAction="#bookRoom" prefHeight="95.0" prefWidth="510.0" ripplerFill="WHITE" style="-fx-border-radius: 1000; -fx-border-width: 2; -fx-border-color: F5D96B; -fx-background-radius: 100;" text="Room Booking" textFill="WHITE" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="2" GridPane.vgrow="ALWAYS">
                                  <font>
-                                    <Font name="Times New Roman" size="36.0" />
+                                    <Font size="35.0" />
                                  </font>
                                  <GridPane.margin>
                                     <Insets right="75.0" />
                                  </GridPane.margin>
                               </JFXButton>
-                              <JFXButton fx:id="myAccount" alignment="CENTER" buttonType="RAISED" onAction="#SwitchToEditAccountScreen" prefHeight="95.0" prefWidth="510.0" ripplerFill="#b0b0b0" style="-fx-border-color: F5D96B; -fx-border-radius: 1000; -fx-border-width: 2; -fx-background-radius: 100;" text="My Account" textFill="#f5d96b" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.vgrow="ALWAYS">
+                              <JFXButton fx:id="myAccount" alignment="CENTER" buttonType="RAISED" onAction="#SwitchToEditAccountScreen" prefHeight="95.0" prefWidth="510.0" ripplerFill="WHITE" style="-fx-border-color: F5D96B; -fx-border-radius: 1000; -fx-border-width: 2; -fx-background-radius: 100;" text="My Account" textFill="WHITE" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.vgrow="ALWAYS">
                                  <font>
-                                    <Font name="Times New Roman" size="36.0" />
+                                    <Font size="35.0" />
                                  </font>
                                  <GridPane.margin>
                                     <Insets right="75.0" />

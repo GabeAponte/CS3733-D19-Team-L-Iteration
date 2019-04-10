@@ -1,12 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import com.jfoenix.controls.*?>
-<?import java.lang.*?>
-<?import javafx.geometry.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.image.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.text.*?>
 <?import com.jfoenix.controls.JFXButton?>
 <?import com.jfoenix.controls.JFXToolbar?>
 <?import javafx.geometry.Insets?>
@@ -21,9 +14,8 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
-<?import javafx.stage.Screen?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" style="-fx-background-color: #012D5A;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.HomeScreenController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" style="-fx-background-color: #012D5A;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.HomeScreenController">
    <children>
       <VBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
@@ -41,31 +33,44 @@
                <padding>
                   <Insets left="10.0" right="10.0" />
                </padding>
-               <right>
-                  <HBox alignment="CENTER_RIGHT" prefHeight="107.0" prefWidth="932.0" BorderPane.alignment="CENTER">
+               <center>
+                  <HBox alignment="CENTER_RIGHT" prefHeight="107.0" prefWidth="397.0" BorderPane.alignment="CENTER">
                      <children>
-                        <Label fx:id="timeLabel" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="185.0" text="Time : 19:20:21" textAlignment="CENTER">
-                           <font>
-                              <Font name="Times New Roman" size="20.0" />
-                           </font>
-                        </Label>
+                        <GridPane alignment="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" HBox.hgrow="ALWAYS">
+                          <columnConstraints>
+                            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                          </columnConstraints>
+                          <rowConstraints>
+                            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                          </rowConstraints>
+                           <children>
+                              <Label fx:id="timeLabel" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="30.0" prefWidth="112.0" text="19:20:21" textAlignment="CENTER" GridPane.halignment="CENTER">
+                                 <font>
+                                    <Font size="25.0" />
+                                 </font>
+                                 <GridPane.margin>
+                                    <Insets left="95.0" />
+                                 </GridPane.margin>
+                              </Label>
+                           </children>
+                        </GridPane>
                         <JFXButton fx:id="HomeSuggestions" alignment="CENTER" buttonType="RAISED" onAction="#SwitchToSuggestionBox" prefHeight="107.0" prefWidth="240.0" ripplerFill="#b0b0b0" text="Suggestions">
                            <font>
-                              <Font name="Times New Roman" size="36.0" />
+                              <Font size="33.0" />
                            </font>
                         </JFXButton>
                         <HBox alignment="CENTER_RIGHT" prefHeight="107.0" prefWidth="155.0">
                            <children>
                               <JFXButton fx:id="LogIn" alignment="CENTER" buttonType="RAISED" onAction="#SwitchToLoginScreen" prefHeight="115.0" prefWidth="159.0" ripplerFill="#b0b0b0" text="Log In">
                                  <font>
-                                    <Font name="Times New Roman" size="36.0" />
+                                    <Font size="33.0" />
                                  </font>
                               </JFXButton>
                            </children>
                         </HBox>
                      </children>
                   </HBox>
-               </right>
+               </center>
             </JFXToolbar>
             <JFXToolbar prefHeight="10.0" prefWidth="1280.0" style="-fx-background-color: F5D96B;" />
             <GridPane alignment="CENTER" hgap="25.0" prefHeight="264.0" prefWidth="1280.0" vgap="50.0" VBox.vgrow="ALWAYS">
@@ -93,7 +98,7 @@
                   <Insets />
                </VBox.margin>
                <children>
-                  <JFXButton fx:id="HomeFindPath" buttonType="RAISED" onAction="#SwitchToPathfindScreen" prefHeight="138.0" prefWidth="409.0" ripplerFill="WHITE" style="-fx-border-color: white; -fx-border-radius: 100; -fx-background-radius: 100; -fx-border-width: 3;" text="Find Path" textFill="WHITE" GridPane.rowIndex="3">
+                  <JFXButton fx:id="HomeFindPath" buttonType="RAISED" onAction="#SwitchToPathfindScreen" prefHeight="138.0" prefWidth="409.0" ripplerFill="WHITE" style="-fx-border-color: #f5d96b; -fx-border-radius: 100; -fx-background-radius: 100; -fx-border-width: 3;" text="Find Path" textFill="WHITE" GridPane.rowIndex="3">
                      <font>
                         <Font size="48.0" />
                      </font>
@@ -101,7 +106,7 @@
                         <Insets left="10.0" />
                      </GridPane.margin>
                   </JFXButton>
-                  <JFXButton fx:id="HomeServiceRequest" buttonType="RAISED" onAction="#SwitchToServiceScreen" prefHeight="138.0" prefWidth="409.0" ripplerFill="WHITE" style="-fx-border-color: white; -fx-border-radius: 100; -fx-background-radius: 100; -fx-border-width: 3;" text="Request Service" textFill="WHITE" GridPane.columnIndex="2" GridPane.rowIndex="3">
+                  <JFXButton fx:id="HomeServiceRequest" buttonType="RAISED" onAction="#SwitchToServiceScreen" prefHeight="138.0" prefWidth="409.0" ripplerFill="WHITE" style="-fx-border-color: #f5d96b; -fx-border-radius: 100; -fx-background-radius: 100; -fx-border-width: 3;" text="Request Service" textFill="WHITE" GridPane.columnIndex="2" GridPane.rowIndex="3">
                      <font>
                         <Font size="44.0" />
                      </font>

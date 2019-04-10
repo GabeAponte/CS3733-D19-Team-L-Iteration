@@ -75,7 +75,7 @@
                         </JFXButton>
                         <Label alignment="CENTER" prefHeight="29.0" prefWidth="138.0" text="Assign to:" textFill="WHITE" GridPane.halignment="RIGHT" GridPane.rowIndex="1">
                             <font>
-                                <Font name="Times New Roman" size="25.0" />
+                                <Font size="25.0" />
                             </font>
                             <GridPane.margin>
                                 <Insets right="100.0" />
