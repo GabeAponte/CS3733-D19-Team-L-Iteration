@@ -76,6 +76,7 @@ public class LogInController {
     private void backPressed() throws IOException {
         timeout.stop();
         Singleton single = Singleton.getInstance();
+        single.setLastTime();
         single.setDoPopup(true);
         FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("HospitalHome.fxml"));
 
@@ -111,7 +112,7 @@ public class LogInController {
         String uname = username.getText();
         String pass = password.getText();
 
-        boolean validLogin = false;
+        boolean validLogin;
         Singleton single = Singleton.getInstance();
         single.setLastTime();
 
@@ -134,6 +135,8 @@ public class LogInController {
 
     private void SwitchToSignedIn(String fxml) throws IOException{
         timeout.stop();
+        Singleton single = Singleton.getInstance();
+        single.setLastTime();
         FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource(fxml));
 
         Parent sceneMain = loader.load();

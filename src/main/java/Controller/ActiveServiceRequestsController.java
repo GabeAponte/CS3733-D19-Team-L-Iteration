@@ -90,9 +90,6 @@ public class ActiveServiceRequestsController {
             FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("AdminLoggedInHome.fxml"));
             Parent roots = loader.load();
 
-            //Get controller of scene2
-            AdminLoggedInHomeController scene2Controller = loader.getController();
-
             Scene scene = new Scene(roots);
             Stage thestage = (Stage) activeRequests.getScene().getWindow();
 
@@ -101,9 +98,6 @@ public class ActiveServiceRequestsController {
         } else {
             FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("EmployeeLoggedInHome.fxml"));
             Parent roots = loader.load();
-
-            //Get controller of scene2
-            EmployeeLoggedInHomeController scene2Controller = loader.getController();
 
             Scene scene = new Scene(roots);
             Stage thestage = (Stage) activeRequests.getScene().getWindow();
@@ -130,9 +124,11 @@ public class ActiveServiceRequestsController {
                         single.setDoPopup(true);
                         FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("HospitalHome.fxml"));
 
+                        single.setLastTime();
                         Parent sceneMain = loader.load();
                         HomeScreenController controller = loader.<HomeScreenController>getController();
                         controller.displayPopup();
+                        single.setLastTime();
 
                         Stage thisStage = (Stage) activeRequests.getScene().getWindow();
 
@@ -152,7 +148,6 @@ public class ActiveServiceRequestsController {
                 "Religious", "Internal Transportation", "Audio/Visual",
                 "External Transportation", "Florist Delivery", "IT",
                 "Language Assistance", "Maintenance", "Prescriptions", "Sanitation", "Security");
-        //filterTable();
         activeRequests.getColumns().clear();
     }
 
@@ -161,6 +156,9 @@ public class ActiveServiceRequestsController {
      */
     @FXML
     private void filterTable(){
+        Singleton single = Singleton.getInstance();
+        single.setLastTime();
+
         activeRequests.setEditable(false);
 
         if (filter.getValue() == "Internal Transportation") {
@@ -1075,7 +1073,7 @@ public class ActiveServiceRequestsController {
             activeRequests.setShowRoot(false);
         }
 
-        }
+    }
 
 
 
@@ -1095,9 +1093,10 @@ public class ActiveServiceRequestsController {
     private void SwitchToFulfillRequestScreen() throws IOException {
         timeout.stop();
         activeRequests.setOnMouseClicked(event -> {
+            Singleton single = Singleton.getInstance();
+            single.setLastTime();
             setNext(activeRequests.getSelectionModel().getSelectedItem());
             if (event.getButton().equals(MouseButton.PRIMARY) && event.getClickCount() == 2) {
-                Singleton single = Singleton.getInstance();
                 EmployeeAccess ea = new EmployeeAccess();
                 if(single.isIsAdmin()) {
                     yooo();

@@ -20,9 +20,6 @@ import javafx.util.Duration;
 import java.io.IOException;
 
 public class MaintenanceServiceRequestController {
-    private boolean signedIn;
-    private String uname;
-
     @FXML
     JFXTextField field1;
 
@@ -48,15 +45,6 @@ public class MaintenanceServiceRequestController {
 
     Timeline timeout;
 
-    public void init(boolean loggedIn) {
-        signedIn = loggedIn;
-    }
-
-    public void init(boolean loggedIn, String username) {
-        uname = username;
-        init(loggedIn);
-    }
-
     public void initialize(){
         Singleton single = Singleton.getInstance();
         single.setLastTime();
@@ -67,14 +55,16 @@ public class MaintenanceServiceRequestController {
                 if((System.currentTimeMillis() - single.getLastTime()) > single.getTimeoutSec()){
                     try{
                         single.setLastTime();
-                        single.setLoggedIn(false);
                         single.setUsername("");
                         single.setIsAdmin(false);
                         single.setDoPopup(true);
                         FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("HospitalHome.fxml"));
                         Parent sceneMain = loader.load();
-                        HomeScreenController controller = loader.<HomeScreenController>getController();
-                        controller.displayPopup();
+                        if(single.isLoggedIn()) {
+                            single.setLoggedIn(false);
+                            HomeScreenController controller = loader.<HomeScreenController>getController();
+                            controller.displayPopup();
+                        }
                         Stage thisStage = (Stage) Back.getScene().getWindow();
 
                         Scene newScene = new Scene(sceneMain);
@@ -120,6 +110,8 @@ public class MaintenanceServiceRequestController {
     @FXML
     protected void backPressed() throws IOException {
         timeout.stop();
+        Singleton single = Singleton.getInstance();
+        single.setLastTime();
         FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("ServiceRequest.fxml"));
 
         Parent sceneMain = loader.load();

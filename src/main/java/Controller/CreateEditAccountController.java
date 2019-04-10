@@ -118,7 +118,9 @@ public class CreateEditAccountController {
 
                         Parent sceneMain = loader.load();
                         HomeScreenController controller = loader.<HomeScreenController>getController();
+                        single.setLastTime();
                         controller.displayPopup();
+                        single.setLastTime();
 
                         Stage thisStage = (Stage) firstName.getScene().getWindow();
 
@@ -151,6 +153,8 @@ public class CreateEditAccountController {
     @FXML
     private void backPressed() throws IOException {
         timeout.stop();
+        Singleton single = Singleton.getInstance();
+        single.setLastTime();
         thestage = (Stage) back.getScene().getWindow();
         AnchorPane root;
         if(type == 1) {

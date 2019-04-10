@@ -67,9 +67,11 @@ public class AdminLoggedInHomeController {
                         single.setIsAdmin(false);
                         FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("HospitalHome.fxml"));
 
+                        single.setLastTime();
                         Parent sceneMain = loader.load();
                         HomeScreenController controller = loader.<HomeScreenController>getController();
                         controller.displayPopup();
+                        single.setLastTime();
 
                         Stage thisStage = (Stage) newAccount.getScene().getWindow();
 
@@ -103,6 +105,7 @@ public class AdminLoggedInHomeController {
         Stage thestage = (Stage) findPath.getScene().getWindow();
         AnchorPane root;
         Singleton single = Singleton.getInstance();
+        single.setLastTime();
         single.setLoggedIn(false);
         single.setUsername("");
         single.setIsAdmin(false);
@@ -115,6 +118,8 @@ public class AdminLoggedInHomeController {
     @FXML
     private void bookRoom() throws IOException {
         timeout.stop();
+        Singleton single = Singleton.getInstance();
+        single.setLastTime();
         FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("BookRoom.fxml"));
 
         Parent sceneMain = loader.load();
@@ -128,6 +133,8 @@ public class AdminLoggedInHomeController {
     @FXML
     private void SwitchToPathfindScreen() throws IOException{
         timeout.stop();
+        Singleton single = Singleton.getInstance();
+        single.setLastTime();
         FXMLLoader pLoader = new FXMLLoader(getClass().getClassLoader().getResource("HospitalPathFinding.fxml"));
 
         Parent sceneMain = pLoader.load();
@@ -141,6 +148,8 @@ public class AdminLoggedInHomeController {
     @FXML
     private void SwitchToServiceScreen() throws IOException{
         timeout.stop();
+        Singleton single = Singleton.getInstance();
+        single.setLastTime();
         FXMLLoader sLoader = new FXMLLoader(getClass().getClassLoader().getResource("ServiceRequest.fxml"));
 
         Parent sceneMain = sLoader.load();
@@ -154,6 +163,8 @@ public class AdminLoggedInHomeController {
     @FXML
     private void SwitchToFullfillRequestScreen() throws IOException{
         timeout.stop();
+        Singleton single = Singleton.getInstance();
+        single.setLastTime();
         FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("ActiveServiceRequests.fxml"));
 
         Parent sceneMain = loader.load();
@@ -167,6 +178,8 @@ public class AdminLoggedInHomeController {
     @FXML
     private void SwitchToEditLocationScreen() throws IOException{
         timeout.stop();
+        Singleton single = Singleton.getInstance();
+        single.setLastTime();
         FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("EditLocation.fxml"));
 
         Parent sceneMain = loader.load();
@@ -180,6 +193,8 @@ public class AdminLoggedInHomeController {
     @FXML
     private void SwitchToAddAccountScreen() throws IOException{
         timeout.stop();
+        Singleton single = Singleton.getInstance();
+        single.setLastTime();
         FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("CreateEditAccount.fxml"));
 
         Parent sceneMain = loader.load();
@@ -195,11 +210,11 @@ public class AdminLoggedInHomeController {
     @FXML
     private void SwitchToEditAccountScreen() throws IOException{
         timeout.stop();
+        Singleton single = Singleton.getInstance();
+        single.setLastTime();
         FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("EmployeeTable.fxml"));
 
         Parent sceneMain = loader.load();
-
-        EmployeeTableController controller = loader.<EmployeeTableController>getController();
 
         Stage theStage = (Stage) fufillServiceRequest.getScene().getWindow();
 
@@ -209,12 +224,12 @@ public class AdminLoggedInHomeController {
 
     @FXML
     private void SwitchToSuggestionScreen() throws IOException{
-    timeout.stop();
+        timeout.stop();
+        Singleton single = Singleton.getInstance();
+        single.setLastTime();
         FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("SuggestionTable.fxml"));
 
         Parent sceneMain = loader.load();
-
-        SuggestionTableController controller = loader.<SuggestionTableController>getController();
 
         Stage theStage = (Stage) fufillServiceRequest.getScene().getWindow();
 

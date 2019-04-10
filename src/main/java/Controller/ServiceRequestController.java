@@ -72,12 +72,12 @@ public class ServiceRequestController {
                         single.setDoPopup(true);
                         FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("HospitalHome.fxml"));
                         Parent sceneMain = loader.load();
-                        if(single.isLoggedIn()){
+                        if(single.isLoggedIn()) {
+                            single.setLoggedIn(false);
                             HomeScreenController controller = loader.<HomeScreenController>getController();
                             controller.displayPopup();
                         }
                         single.setLastTime();
-                        single.setLoggedIn(false);
                         single.setUsername("");
                         single.setIsAdmin(false);
                         Stage thisStage = (Stage) Back.getScene().getWindow();
@@ -128,6 +128,8 @@ public class ServiceRequestController {
     //passes off type of button
     @FXML
     private void makeRequest(ActionEvent e) throws IOException{
+        Singleton single = Singleton.getInstance();
+        single.setLastTime();
         //source button determines type for service request object, text for label
         String serviceFXML = "";
         if(e.getSource() == ITServices) {
@@ -179,63 +181,11 @@ public class ServiceRequestController {
 
         Parent sceneMain = loader.load();
 
-        //LoggedInHomeController controller = loader.<LoggedInHomeController>getController();
-
         theStage = (Stage) SanitationServices.getScene().getWindow();
 
         Scene scene = new Scene(sceneMain);
         theStage.setScene(scene);
 
-    }
-
-    @FXML
-    private void changeToInternalTransport() throws IOException{
-        timeout.stop();
-        Stage theStage = (Stage) Back.getScene().getWindow();
-        AnchorPane root;
-        FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("InternalTransport.fxml"));
-
-        Parent sceneMain = loader.load();
-
-        //LoggedInHomeController controller = loader.<LoggedInHomeController>getController();
-
-        theStage = (Stage) SanitationServices.getScene().getWindow();
-
-        Scene scene = new Scene(sceneMain);
-        theStage.setScene(scene);
-
-    }
-
-    @FXML
-    private void changeToReligiousRequest() throws IOException{
-        timeout.stop();
-        Stage theStage = (Stage) Back.getScene().getWindow();
-        AnchorPane root;
-        FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("ReligiousServiceRequest.fxml"));
-
-        Parent sceneMain = loader.load();
-
-        //LoggedInHomeController controller = loader.<LoggedInHomeController>getController();
-
-        theStage = (Stage) SanitationServices.getScene().getWindow();
-
-        Scene scene = new Scene(sceneMain);
-        theStage.setScene(scene);
-
-    }
-
-    @FXML
-    private void changeToMaintenanceRequest() throws IOException {
-        Stage theStage = (Stage) Back.getScene().getWindow();
-        AnchorPane root;
-        FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("ServiceRequestMaintenance.fxml"));
-
-        Parent sceneMain = loader.load();
-
-        theStage = (Stage) SanitationServices.getScene().getWindow();
-
-        Scene scene = new Scene(sceneMain);
-        theStage.setScene(scene);
     }
 
 }

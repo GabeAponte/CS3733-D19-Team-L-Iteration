@@ -442,6 +442,7 @@ public class EditLocationController {
         //this is the dialogue popup
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Delete selected node?", ButtonType.YES, ButtonType.NO);
         alert.showAndWait();
+        single.setLastTime();
         if (alert.getResult() == ButtonType.YES) {
             single.lookup.get(focusNode.getLocID()).restitch();
             //delete the node here
@@ -481,11 +482,11 @@ public class EditLocationController {
     @FXML
     private void switchToLinkFloors() throws IOException {
         timeout.stop();
+        Singleton single = Singleton.getInstance();
+        single.setLastTime();
         FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("EditLinkBetweenFloors.fxml"));
 
         Parent sceneMain = loader.load();
-
-        EditLinkBetweenFloorsController controller = loader.<EditLinkBetweenFloorsController>getController();
 
         Stage theStage = (Stage) deleteEdge.getScene().getWindow();
 
@@ -602,6 +603,8 @@ public class EditLocationController {
 
 
     private void drawNodes(){
+        Singleton single = Singleton.getInstance();
+        single.setLastTime();
         double scaleRatio = Math.min(Map.getFitWidth() / Map.getImage().getWidth(), Map.getFitHeight() / Map.getImage().getHeight());
         Point2D point = sceneGestures.getImageLocation();
 
@@ -745,6 +748,8 @@ public class EditLocationController {
 
     @FXML
     private void submitButtonPressed() {
+        Singleton single = Singleton.getInstance();
+        single.setLastTime();
         na.updateNode(nodeInfoID.getText(), "xcoord", nodeInfoX.getText());
         na.updateNode(nodeInfoID.getText(), "ycoord", nodeInfoY.getText());
         na.updateNode(nodeInfoID.getText(), "floor", nodeInfoFloor.getText());
@@ -760,6 +765,7 @@ public class EditLocationController {
     private void backPressed() throws IOException{
         timeout.stop();
         Singleton single = Singleton.getInstance();
+        single.setLastTime();
 
         FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("EmployeeLoggedInHome.fxml"));
 

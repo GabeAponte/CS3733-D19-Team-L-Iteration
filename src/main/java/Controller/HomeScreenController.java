@@ -100,6 +100,7 @@ public class HomeScreenController {
                 stage.setScene(new Scene(root));
                 stage.setTitle("Inactivity Popup");
                 stage.initModality(Modality.APPLICATION_MODAL);
+                single.setLastTime();
                 stage.show();
                 single = Singleton.getInstance();
                 single.setLastTime();
@@ -117,6 +118,8 @@ public class HomeScreenController {
     @FXML
     private void SwitchToPathfindScreen() throws IOException{
         clock.stop();
+        Singleton single = Singleton.getInstance();
+        single.setLastTime();
         FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("HospitalPathFinding.fxml"));
 
         Parent sceneMain = loader.load();
@@ -130,16 +133,20 @@ public class HomeScreenController {
     @FXML
     private void SwitchToSuggestionBox() throws IOException{
         clock.stop();
-            Stage thestage = (Stage) HomeSuggestions.getScene().getWindow();
-            AnchorPane root;
-            root = FXMLLoader.load(getClass().getClassLoader().getResource("SuggestionBox.fxml"));
-            Scene scene = new Scene(root);
-            thestage.setScene(scene);
+        Singleton single = Singleton.getInstance();
+        single.setLastTime();
+        Stage thestage = (Stage) HomeSuggestions.getScene().getWindow();
+        AnchorPane root;
+        root = FXMLLoader.load(getClass().getClassLoader().getResource("SuggestionBox.fxml"));
+        Scene scene = new Scene(root);
+        thestage.setScene(scene);
     }
 
     @FXML
     private void SwitchToServiceScreen() throws IOException{
         clock.stop();
+        Singleton single = Singleton.getInstance();
+        single.setLastTime();
         FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("ServiceRequest.fxml"));
 
         Parent sceneMain = loader.load();
@@ -155,6 +162,8 @@ public class HomeScreenController {
     @FXML
     private void SwitchToLoginScreen(ActionEvent event){
         clock.stop();
+        Singleton single = Singleton.getInstance();
+        single.setLastTime();
         try {
             Stage thestage = (Stage) LogIn.getScene().getWindow();
             AnchorPane root;

@@ -19,10 +19,6 @@ import javafx.util.Duration;
 import java.io.IOException;
 
 public class PrescriptionServiceRequestController {
-
-    private boolean signedIn;
-    private String uname;
-
     @FXML
     private Button submitButton;
 
@@ -46,15 +42,6 @@ public class PrescriptionServiceRequestController {
 
 
     Timeline timeout;
-
-    public void init(boolean loggedIn) {
-        signedIn = loggedIn;
-    }
-
-    public void init(boolean loggedIn, String username) {
-        uname = username;
-        init(loggedIn);
-    }
 
     public void initialize() {
         Singleton single = Singleton.getInstance();
@@ -104,7 +91,6 @@ public class PrescriptionServiceRequestController {
     }
     @FXML
     private void submitClicked() throws IOException {
-        timeout.pause();
         Singleton single = Singleton.getInstance();
         single.setLastTime();
         ServiceRequestAccess sra = new ServiceRequestAccess();

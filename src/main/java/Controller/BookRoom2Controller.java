@@ -4,10 +4,13 @@ import Access.EmployeeAccess;
 import Access.ReservationAccess;
 import Access.RoomAccess;
 import com.jfoenix.controls.*;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 import javafx.beans.property.ReadOnlyObjectWrapper;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -25,6 +28,7 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import Object.*;
+import javafx.util.Duration;
 
 public class BookRoom2Controller {
     @FXML
@@ -92,15 +96,55 @@ public class BookRoom2Controller {
 
     private TreeItem Root = new TreeItem<>("rootxxx");
 
+    Timeline timeout;
+
     @FXML
     private void initialize() {
+        Singleton single = Singleton.getInstance();
+        single.setLastTime();
+        timeout = new Timeline(new KeyFrame(Duration.seconds(2), new EventHandler<ActionEvent>() {
+
+            @Override
+            public void handle(ActionEvent event) {
+                if((System.currentTimeMillis() - single.getLastTime()) > single.getTimeoutSec()){
+                    try{
+                        single.setLastTime();
+                        single.setDoPopup(true);
+                        single.setLoggedIn(false);
+                        single.setUsername("");
+                        single.setIsAdmin(false);
+                        FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("HospitalHome.fxml"));
+
+                        Parent sceneMain = loader.load();
+                        HomeScreenController controller = loader.<HomeScreenController>getController();
+                        single.setLastTime();
+                        controller.displayPopup();
+                        single.setLastTime();
+
+                        Stage thisStage = (Stage) requestRoom.getScene().getWindow();
+
+                        Scene newScene = new Scene(sceneMain);
+                        thisStage.setScene(newScene);
+                        timeout.stop();
+                    } catch (IOException io){
+                        System.out.println(io.getMessage());
+                    }
+                }
+            }
+        }));
+
+
+        timeout.setCycleCount(Timeline.INDEFINITE);
+        timeout.play();
         datePicker.setValue(LocalDate.now());
         findRooms();
     }
 
     @FXML
     private void backPressed() throws IOException {
+        timeout.stop();
         Singleton single = Singleton.getInstance();
+        single.setLastTime();
         FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("EmployeeLoggedInHome.fxml"));
         if(single.isIsAdmin()) {
             loader = new FXMLLoader(getClass().getClassLoader().getResource("AdminLoggedInHome.fxml"));
@@ -113,6 +157,9 @@ public class BookRoom2Controller {
 
     @FXML
     private void switchToBookScreen() throws IOException {
+        timeout.stop();
+        Singleton single = Singleton.getInstance();
+        single.setLastTime();
         FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("BookRoom.fxml"));
         Parent sceneMain = loader.load();
         BookRoomController controller = loader.<BookRoomController>getController();
@@ -123,6 +170,8 @@ public class BookRoom2Controller {
 
     @FXML
     private void findRooms() {
+        Singleton single = Singleton.getInstance();
+        single.setLastTime();
         bookedTime.setRoot(null);
         Root.getChildren().clear();
         RoomAccess ra = new RoomAccess();
@@ -459,8 +508,7 @@ public class BookRoom2Controller {
         bookedTime.setTreeColumn(timeCol);
         bookedTime.setRoot(Root);
         bookedTime.setShowRoot(false);
-
-
+        single.setLastTime();
     }
 
 

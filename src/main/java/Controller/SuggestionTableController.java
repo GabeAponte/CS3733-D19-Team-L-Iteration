@@ -62,7 +62,9 @@ public class SuggestionTableController {
                         Parent sceneMain = loader.load();
 
                         HomeScreenController controller = loader.<HomeScreenController>getController();
+                        single.setLastTime();
                         controller.displayPopup();
+                        single.setLastTime();
 
                         Stage thisStage = (Stage) suggestions.getScene().getWindow();
 
@@ -118,6 +120,8 @@ public class SuggestionTableController {
     @FXML
     private void backPressed() throws IOException {
         timeout.stop();
+        Singleton single = Singleton.getInstance();
+        single.setLastTime();
         thestage = (Stage) back.getScene().getWindow();
         AnchorPane root;
 

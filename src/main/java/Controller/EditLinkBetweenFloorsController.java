@@ -37,7 +37,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import Object.*;
 import javafx.util.Duration;
 
 public class EditLinkBetweenFloorsController {
@@ -170,7 +169,9 @@ public class EditLinkBetweenFloorsController {
 
                         Parent sceneMain = loader.load();
                         HomeScreenController controller = loader.<HomeScreenController>getController();
+                        single.setLastTime();
                         controller.displayPopup();
+                        single.setLastTime();
 
                         Stage thisStage = (Stage) node2X.getScene().getWindow();
 
@@ -226,6 +227,7 @@ public class EditLinkBetweenFloorsController {
     private void backPressed() throws IOException {
         timeout.stop();
         Singleton single = Singleton.getInstance();
+        single.setLastTime();
         thestage = (Stage) PathFindBack.getScene().getWindow();
         AnchorPane root;
         if (single.isLoggedIn()) {
@@ -233,18 +235,23 @@ public class EditLinkBetweenFloorsController {
 
             Parent sceneMain = loader.load();
 
-            EditLocationController controller = loader.<EditLocationController>getController();
-
             Stage theStage = (Stage) PathFindBack.getScene().getWindow();
 
             Scene scene = new Scene(sceneMain);
             theStage.setScene(scene);
             return;
         } else {
-            root = FXMLLoader.load(getClass().getClassLoader().getResource("HospitalHome.fxml"));
+            single.setDoPopup(true);
+            FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("HospitalHome.fxml"));
+
+            Parent sceneMain = loader.load();
+
+            Stage theStage = (Stage) PathFindBack.getScene().getWindow();
+
+            Scene scene = new Scene(sceneMain);
+            theStage.setScene(scene);
+            return;
         }
-        Scene scene = new Scene(root);
-        thestage.setScene(scene);
     }
 
     public HashMap<String, Location> getLookup() {
@@ -497,6 +504,8 @@ public class EditLinkBetweenFloorsController {
 
     @FXML
     private void multiFloorClicked() {
+        Singleton single = Singleton.getInstance();
+        single.setLastTime();
         singleFloorSelect.setSelected(false);
         multiFloorSelect.setSelected(true);
         MapUpper.setVisible(true);
@@ -520,6 +529,8 @@ public class EditLinkBetweenFloorsController {
 
     @FXML
     private void singleFloorClicked() {
+        Singleton single = Singleton.getInstance();
+        single.setLastTime();
         multiFloorSelect.setSelected(false);
         singleFloorSelect.setSelected(true);
         MapLower.setVisible(false);
@@ -544,7 +555,8 @@ public class EditLinkBetweenFloorsController {
     }
 
     private void drawNodes() {
-
+        Singleton single = Singleton.getInstance();
+        single.setLastTime();
         //display all nodes on that floor!!!
         ArrayList<Location> nodes = new ArrayList<Location>();
         //want to fill nodes w/ floor = currrentFloor
@@ -690,7 +702,8 @@ public class EditLinkBetweenFloorsController {
     }
 
     private void drawOtherFloors() {
-
+        Singleton single = Singleton.getInstance();
+        single.setLastTime();
         //display all nodes on that floor!!!
         ArrayList<Location> nodes = new ArrayList<Location>();
         //want to fill nodes w/ floor = currrentFloor
@@ -743,6 +756,8 @@ public class EditLinkBetweenFloorsController {
 
     @FXML
     private void clearPressed() {
+        Singleton single = Singleton.getInstance();
+        single.setLastTime();
         focusLoc = null;
         toConnectLoc = null;
 
@@ -759,6 +774,8 @@ public class EditLinkBetweenFloorsController {
     }
 
     private void eraseNodes(AnchorPane anchorPanePath, ArrayList<Circle> circle){
+        Singleton single = Singleton.getInstance();
+        single.setLastTime();
         for (Circle c: circle){
             anchorPanePath.getChildren().remove(c);
         }

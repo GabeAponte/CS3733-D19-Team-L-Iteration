@@ -71,7 +71,9 @@ public class EmployeeTableController{
 
                         Parent sceneMain = loader.load();
                         HomeScreenController controller = loader.<HomeScreenController>getController();
+                        single.setLastTime();
                         controller.displayPopup();
+                        single.setLastTime();
 
                         Stage thisStage = (Stage) employees.getScene().getWindow();
 
@@ -144,6 +146,9 @@ public class EmployeeTableController{
     @FXML
     private void backPressed() throws IOException {
         timeout.stop();
+        Singleton single = Singleton.getInstance();
+        single.setLastTime();
+
         thestage = (Stage) back.getScene().getWindow();
         AnchorPane root;
 
@@ -172,7 +177,8 @@ public class EmployeeTableController{
             if (event.getButton().equals(MouseButton.PRIMARY) && event.getClickCount() == 2) {
                 try {
                     single.setLastTime();
-                    timeout.pause();
+                    timeout.stop();
+                    //timeout.pause();
                     //Load second scene
                     FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("CreateEditAccount.fxml"));
                     Parent roots = loader.load();
@@ -180,14 +186,14 @@ public class EmployeeTableController{
                     CreateEditAccountController scene2Controller = loader.getController();
                     Scene scene = new Scene(roots);
                     scene2Controller.setType(3, selectedEmployee.getValue().getID());
-                    timeout.stop();
+                    //timeout.stop();
                     thestage = (Stage) back.getScene().getWindow();
                     //Show scene 2 in new window
                     thestage.setScene(scene);
 
                 } catch (IOException ex) {
                     //noinspection ThrowablePrintedToSystemOut
-                    timeout.play();
+                    //timeout.play();
                     System.err.println(ex);
                 }
 
