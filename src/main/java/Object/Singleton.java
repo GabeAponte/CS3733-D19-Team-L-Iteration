@@ -39,7 +39,7 @@ public class Singleton {
         kioskID = "";
         typePathfind = 1;
         isAdmin = false;
-        timeoutSec = 500000;
+        timeoutSec = 5000;
     }
 
     public static int getTimeoutSec() {

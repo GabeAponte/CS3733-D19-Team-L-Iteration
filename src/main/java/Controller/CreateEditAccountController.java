@@ -232,6 +232,9 @@ public class CreateEditAccountController {
      */
     @FXML
     public void deleteClicked() throws IOException{
+        timeout.pause();
+        Singleton single = Singleton.getInstance();
+        single.setLastTime();
         Stage editStage = (Stage) delete.getScene().getWindow();
         onScreen = false;
         Stage stage;
@@ -252,9 +255,13 @@ public class CreateEditAccountController {
 
         if(clickedDelete) {
             AnchorPane root2;
+            timeout.stop();
             root2 = FXMLLoader.load(getClass().getClassLoader().getResource("EmployeeTable.fxml"));
             Scene scene2 = new Scene(root2);
             editStage.setScene(scene2);
+        } else {
+            single.setLastTime();
+            timeout.play();
         }
 
         /*EmployeeAccess ea = new EmployeeAccess();
@@ -291,6 +298,8 @@ public class CreateEditAccountController {
      * @return
      */
     public static boolean isValidEmailAddress(String email) {
+        Singleton single = Singleton.getInstance();
+        single.setLastTime();
         boolean result = true;
         try {
             InternetAddress emailAddr = new InternetAddress(email);
@@ -309,6 +318,8 @@ public class CreateEditAccountController {
      */
     @FXML
     private void checkSubmit(){
+        Singleton single = Singleton.getInstance();
+        single.setLastTime();
         if(employeeID == null || employeeID.getText().trim().isEmpty()) {
             submit.setDisable(true);
             return;
@@ -353,6 +364,8 @@ public class CreateEditAccountController {
      */
     @FXML
     private void submitPressed()throws IOException{
+        Singleton single = Singleton.getInstance();
+        single.setLastTime();
         EmployeeAccess ea = new EmployeeAccess();
         if(!isValidEmailAddress(email.getText())){
             errorLabel.setText("Invalid Email Address");

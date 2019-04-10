@@ -63,10 +63,16 @@ public class AdminLoggedInHomeController {
                     System.out.println("if successfull");
                     try{
                         single.setLastTime();
+                        Stage thestage = (Stage) findPath.getScene().getWindow();
+                        AnchorPane root;
+                        Singleton single = Singleton.getInstance();
                         single.setLoggedIn(false);
                         single.setUsername("");
                         single.setIsAdmin(false);
-                        logOut();
+                        root = FXMLLoader.load(getClass().getClassLoader().getResource("HospitalHome.fxml"));
+                        Scene scene = new Scene(root);
+                        thestage.setScene(scene);
+                        timeout.stop();
                     } catch (IOException io){
                         System.out.println(io.getMessage());
                     }
@@ -91,7 +97,7 @@ public class AdminLoggedInHomeController {
     @FXML
     private void logOut() throws IOException {
         timeout.stop();
-        Stage thestage = (Stage) logOut.getScene().getWindow();
+        Stage thestage = (Stage) findPath.getScene().getWindow();
         AnchorPane root;
         Singleton single = Singleton.getInstance();
         single.setLoggedIn(false);
@@ -171,6 +177,7 @@ public class AdminLoggedInHomeController {
 
     @FXML
     private void SwitchToAddAccountScreen() throws IOException{
+        timeout.stop();
         FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("CreateEditAccount.fxml"));
 
         Parent sceneMain = loader.load();
@@ -185,6 +192,7 @@ public class AdminLoggedInHomeController {
 
     @FXML
     private void SwitchToEditAccountScreen() throws IOException{
+        timeout.stop();
         FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("EmployeeTable.fxml"));
 
         Parent sceneMain = loader.load();
@@ -199,6 +207,7 @@ public class AdminLoggedInHomeController {
     /*
     @FXML
     private void SwitchToSuggestionScreen() throws IOException{
+    timeout.stop();
         FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("SuggestionBox.fxml"));
 
         Parent sceneMain = loader.load();
