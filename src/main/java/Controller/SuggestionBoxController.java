@@ -33,8 +33,8 @@ public class SuggestionBoxController {
     @FXML
     private Stage thestage;
 
-    @FXML
-    private Label error;
+    //@FXML
+    //private Label error;
 
     @FXML
     private Button SuggestionBack;
@@ -100,7 +100,7 @@ public class SuggestionBoxController {
         //Gabe - checks if the comment is nothing and that it isn't the prompt text
         if (feedbackComments.getText().trim().isEmpty() || feedbackComments.getText().equals("Type suggestions here")) {
             //timeout.stop();
-            error.setText("Please enter your feedback");
+            //error.setText("Please enter your feedback");
 
         } else {
             //Gabe - valid suggestion and is added to database

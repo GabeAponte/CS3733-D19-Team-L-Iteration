@@ -40,7 +40,7 @@ public class Singleton {
         kioskID = "";
         typePathfind = 1;
         isAdmin = false;
-        timeoutSec = 5000000;
+        timeoutSec = 500000;
         doPopup = true;
     }
 
@@ -61,6 +61,8 @@ public class Singleton {
     }
 
     public synchronized void setData() {
+        lookup.clear();
+        data.clear();
         NodesAccess na = new NodesAccess();
         EdgesAccess ea = new EdgesAccess();
         ArrayList<String> edgeList;
