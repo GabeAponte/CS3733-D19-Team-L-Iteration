@@ -1,6 +1,7 @@
 package Controller;
 
 import SearchingAlgorithms.AStarStrategy;
+import SearchingAlgorithms.BreadthFirstStrategy;
 import SearchingAlgorithms.DepthFirstStrategy;
 import SearchingAlgorithms.PathfindingStrategy;
 import javafx.animation.KeyFrame;
@@ -104,6 +105,9 @@ public class PathFindingController {
     @FXML
     private ComboBox<Location> PathFindStartDrop;
 
+    @FXML
+    private ComboBox<PathfindingStrategy> strategySelector;
+
 
     @FXML
     private AnchorPane anchorPaneWindow;
@@ -116,6 +120,7 @@ public class PathFindingController {
     private AnchorPane anchorPanePath;
     private final DoubleProperty zoomProperty = new SimpleDoubleProperty(1.0d);
     private final DoubleProperty deltaY = new SimpleDoubleProperty(0.0d);
+    private PathfindingStrategy strategyAlgorithm;
 
     private NodesAccess na;
     private EdgesAccess ea;
@@ -316,9 +321,22 @@ public class PathFindingController {
         downclickedLast = true;
     }
 
+    @FXML
+    private void strategySelected() {
+        strategyAlgorithm = strategySelector.getValue();
+    }
+
     public void initialize() {
         Singleton single = Singleton.getInstance();
         single.setLastTime();
+        ObservableList<PathfindingStrategy> strategies = FXCollections.observableArrayList();
+        AStarStrategy aStarStrategy = new AStarStrategy(single.lookup);
+        strategies.add(aStarStrategy);
+        strategies.add(new DepthFirstStrategy(single.lookup));
+        strategies.add(new BreadthFirstStrategy(single.lookup));
+        strategySelector.setItems(strategies);
+        strategySelector.setValue(aStarStrategy);
+        strategyAlgorithm = strategySelector.getValue();
         timeout = new Timeline(new KeyFrame(Duration.seconds(2), new EventHandler<ActionEvent>() {
 
             @Override
@@ -437,10 +455,8 @@ public class PathFindingController {
         single.setLastTime();
         startNode = single.lookup.get(PathFindStartDrop.getValue().getLocID());
         endNode = single.lookup.get(PathFindEndDrop.getValue().getLocID());
-        PathfindingStrategy strategy = new AStarStrategy(single.lookup);
-        strategy = new DepthFirstStrategy(single.lookup);
-        AStarStrategy astar = new AStarStrategy(single.lookup);
-        Path path = findAbstractPath(astar, startNode, endNode);
+
+        Path path = findAbstractPath(strategyAlgorithm, startNode, endNode);
 
         displayPath(path.getPath(), startNode, endNode);
         printPath(path.getPath());
