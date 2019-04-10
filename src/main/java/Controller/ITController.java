@@ -63,16 +63,16 @@ public class ITController {
                     try{
                         single.setLastTime();
                         single.setDoPopup(true);
-                        single.setLoggedIn(false);
                         single.setUsername("");
                         single.setIsAdmin(false);
                         FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("HospitalHome.fxml"));
 
                         Parent sceneMain = loader.load();
-                        HomeScreenController controller = loader.<HomeScreenController>getController();
-                        single.setLastTime();
-                        controller.displayPopup();
-                        single.setLastTime();
+                        if(single.isLoggedIn()) {
+                            single.setLoggedIn(false);
+                            HomeScreenController controller = loader.<HomeScreenController>getController();
+                            controller.displayPopup();
+                        }
 
                         Stage thisStage = (Stage) back.getScene().getWindow();
 

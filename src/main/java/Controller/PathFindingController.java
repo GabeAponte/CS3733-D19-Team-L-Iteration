@@ -450,7 +450,8 @@ public class PathFindingController {
     @FXML
     private void backPressed() throws IOException {
         timeout.stop();
-        Singleton single = Singleton.getInstance();
+        single = Singleton.getInstance();
+        single.setLastTime();
         thestage = (Stage) PathFindBack.getScene().getWindow();
         AnchorPane root;
 

@@ -34,14 +34,14 @@ public class Singleton {
 
     private static Singleton single = new Singleton();
     private Singleton(){
-        loggedIn = false;
-        username = "";
-        num = 1;
-        kioskID = "";
-        typePathfind = 1;
-        isAdmin = false;
-        timeoutSec = 30000;
-        doPopup = true;
+        loggedIn = false; //is user logged in
+        username = ""; //username of logged in user
+        num = 1; //for test classes only
+        kioskID = ""; //kiosk node ID
+        typePathfind = 1; //which strategy selection for pathfinding
+        isAdmin = false; //is signedin employee an admin
+        timeoutSec = 10000; //how long before timeout (in ms) 1000 = 1 second
+        doPopup = true; //should be more appropriately named initializeClock
     }
 
     public static boolean isDoPopup(){

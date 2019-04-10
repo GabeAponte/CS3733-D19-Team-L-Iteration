@@ -59,14 +59,16 @@ public class SanitationServiceRequestController {
                 if((System.currentTimeMillis() - single.getLastTime()) > single.getTimeoutSec()){
                     try{
                         single.setLastTime();
-                        single.setLoggedIn(false);
                         single.setUsername("");
                         single.setIsAdmin(false);
                         single.setDoPopup(true);
                         FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("HospitalHome.fxml"));
                         Parent sceneMain = loader.load();
-                        HomeScreenController controller = loader.<HomeScreenController>getController();
-                        controller.displayPopup();
+                        if(single.isLoggedIn()) {
+                            single.setLoggedIn(false);
+                            HomeScreenController controller = loader.<HomeScreenController>getController();
+                            controller.displayPopup();
+                        }
                         Stage thisStage = (Stage) comment1.getScene().getWindow();
 
                         Scene newScene = new Scene(sceneMain);
@@ -158,8 +160,9 @@ public class SanitationServiceRequestController {
     @FXML
     private void backPressed() throws IOException {
         timeout.stop();
-        FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("ServiceRequest.fxml"));
         Singleton single = Singleton.getInstance();
+        single.setLastTime();
+        FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("ServiceRequest.fxml"));
 
         Parent sceneMain = loader.load();
 

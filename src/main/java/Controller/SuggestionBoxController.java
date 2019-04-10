@@ -33,9 +33,6 @@ public class SuggestionBoxController {
     @FXML
     private Stage thestage;
 
-    //@FXML
-    //private Label error;
-
     @FXML
     private Button SuggestionBack;
 

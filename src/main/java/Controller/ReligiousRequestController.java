@@ -24,10 +24,6 @@ import Object.*;
 import java.io.IOException;
 
 public class ReligiousRequestController {
-    private boolean signedIn;
-    private String uname;
-
-
     @FXML
     public Button Back;
 
@@ -51,15 +47,6 @@ public class ReligiousRequestController {
 
     Timeline timeout;
 
-    public void init(boolean loggedIn) {
-        signedIn = loggedIn;
-    }
-
-    public void init(boolean loggedIn, String username) {
-        uname = username;
-        init(loggedIn);
-    }
-
     public void initialize(){
         Singleton single = Singleton.getInstance();
         single.setLastTime();
@@ -70,14 +57,16 @@ public class ReligiousRequestController {
                 if((System.currentTimeMillis() - single.getLastTime()) > single.getTimeoutSec()){
                     try{
                         single.setLastTime();
-                        single.setLoggedIn(false);
                         single.setUsername("");
                         single.setIsAdmin(false);
                         single.setDoPopup(true);
                         FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("HospitalHome.fxml"));
                         Parent sceneMain = loader.load();
-                        HomeScreenController controller = loader.<HomeScreenController>getController();
-                        controller.displayPopup();
+                        if(single.isLoggedIn()) {
+                            single.setLoggedIn(false);
+                            HomeScreenController controller = loader.<HomeScreenController>getController();
+                            controller.displayPopup();
+                        }
                         Stage thisStage = (Stage) Type.getScene().getWindow();
 
                         Scene newScene = new Scene(sceneMain);
