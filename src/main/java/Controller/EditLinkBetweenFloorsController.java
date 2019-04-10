@@ -24,6 +24,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.input.ScrollEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Line;
@@ -60,6 +61,15 @@ public class EditLinkBetweenFloorsController {
 
     @FXML
     private AnchorPane anchorPaneWindow;
+
+    @FXML
+    private Pane mapPane;
+
+    @FXML
+    private Pane upperPane;
+
+    @FXML
+    private Pane lowerPane;
 
     @FXML
     private ImageView Map;
@@ -172,9 +182,9 @@ public class EditLinkBetweenFloorsController {
         Floor.setItems(floorList);
         map();
         //initializeTable(na, ea);
-        sceneGestureMain = setUpImage(anchorPaneMain, sceneGestureMain, Map, zoomPropertyMain, deltaYMain, 431, 115);
-        sceneGestureUpper = setUpImage(anchorPaneUpper, sceneGestureUpper, MapUpper, zoomPropertyUpper, deltaYUpper, 830, 417);
-        sceneGestureLower = setUpImage(anchorPaneLower, sceneGestureLower, MapLower, zoomPropertyLower, deltaYLower, 25, 417);
+        sceneGestureMain = setUpImage(anchorPaneMain, sceneGestureMain, Map, zoomPropertyMain, deltaYMain, mapPane, 0, 0);
+        sceneGestureUpper = setUpImage(anchorPaneUpper, sceneGestureUpper, MapUpper, zoomPropertyUpper, deltaYUpper, upperPane, 0, 0);
+        sceneGestureLower = setUpImage(anchorPaneLower, sceneGestureLower, MapLower, zoomPropertyLower, deltaYLower, lowerPane, 0, 0);
 
 
         sceneGestureMain.setDrawPath(circles, lines);
@@ -191,7 +201,7 @@ public class EditLinkBetweenFloorsController {
         mapURLlookup.put("3", "/SoftEng_UI_Mockup_Pics/03_thethirdfloor.png");
         mapURLlookup.put("2", "/SoftEng_UI_Mockup_Pics/02_thesecondfloor.png");
         mapURLlookup.put("1", "/SoftEng_UI_Mockup_Pics/01_thefirstfloor.png");
-        mapURLlookup.put("Ground", "/SoftEng_UI_Mockup_Pics/00_thegroundfloor.png");
+        mapURLlookup.put("G", "/SoftEng_UI_Mockup_Pics/00_thegroundfloor.png");
         mapURLlookup.put("L1", "/SoftEng_UI_Mockup_Pics/00_thelowerlevel1.png");
         mapURLlookup.put("L2", "/SoftEng_UI_Mockup_Pics/00_thelowerlevel2.png");
     }
@@ -253,12 +263,12 @@ public class EditLinkBetweenFloorsController {
 
     @FXML
     private void floor() {
-        floorList.add("Ground");
+        floorList.add("3");
+        floorList.add("2");
+        floorList.add("1");
+        floorList.add("G");
         floorList.add("L1");
         floorList.add("L2");
-        floorList.add("1");
-        floorList.add("2");
-        floorList.add("3");
     }
 
     @FXML
@@ -279,7 +289,7 @@ public class EditLinkBetweenFloorsController {
     private void filterFloor() {
         Singleton single = Singleton.getInstance();
         single.setLastTime();
-        if (Floor.getValue() == "Ground") {
+        if (Floor.getValue() == "G") {
             pickedFloor = "G";
         }
         if (Floor.getValue() == "L1") {
@@ -302,7 +312,7 @@ public class EditLinkBetweenFloorsController {
     /*
     Author: PJ Mara. Sets up a pan and scroll image!
      */
-    private SceneGesturesForEditing setUpImage(AnchorPane anchorPanePath, SceneGesturesForEditing sceneGestures, ImageView Map1, DoubleProperty zoomProperty, DoubleProperty deltaY, int x, int y) {
+    private SceneGesturesForEditing setUpImage(AnchorPane anchorPanePath, SceneGesturesForEditing sceneGestures, ImageView Map1, DoubleProperty zoomProperty, DoubleProperty deltaY, Pane pane, int x, int y) {
         anchorPanePath.setLayoutX(x);
         anchorPanePath.setLayoutY(y);
         anchorPanePath.setPrefSize(420, 285.6);
@@ -331,8 +341,17 @@ public class EditLinkBetweenFloorsController {
         zoomPaneImage.setLayoutX(x);
         zoomPaneImage.setLayoutY(y);
 
-        anchorPaneWindow.getChildren().add(zoomPaneImage);
-        anchorPaneWindow.getChildren().add(anchorPanePath);
+        Map.fitWidthProperty().bind(mapPane.widthProperty());
+        Map.fitHeightProperty().bind(mapPane.heightProperty());
+
+        MapUpper.fitWidthProperty().bind(upperPane.widthProperty());
+        MapUpper.fitHeightProperty().bind(upperPane.heightProperty());
+
+        MapLower.fitWidthProperty().bind(lowerPane.widthProperty());
+        MapLower.fitHeightProperty().bind(lowerPane.heightProperty());
+
+        pane.getChildren().add(zoomPaneImage);
+        pane.getChildren().add(anchorPanePath);
         sceneGestures.reset(Map1, Map1.getImage().getWidth(), Map1.getImage().getHeight());
 
         return sceneGestures;
@@ -374,12 +393,12 @@ public class EditLinkBetweenFloorsController {
         } else if (Floor.getValue().equals("1")) {
             Map.setImage(new Image(mapURLlookup.get("1")));
             MapUpper.setImage(new Image(mapURLlookup.get("2")));
-            MapLower.setImage(new Image(mapURLlookup.get("Ground")));
+            MapLower.setImage(new Image(mapURLlookup.get("G")));
             currentMap = "1";
             currentMapAbove = "2";
             currentMapBelow = "G";
-        } else if (Floor.getValue().equals("Ground")) {
-            Map.setImage(new Image(mapURLlookup.get("Ground")));
+        } else if (Floor.getValue().equals("G")) {
+            Map.setImage(new Image(mapURLlookup.get("G")));
             MapUpper.setImage(new Image(mapURLlookup.get("1")));
             MapLower.setImage(new Image(mapURLlookup.get("L1")));
             currentMap = "G";
@@ -387,7 +406,7 @@ public class EditLinkBetweenFloorsController {
             currentMapBelow = "L1";
         } else if (Floor.getValue().equals("L1")) {
             Map.setImage(new Image(mapURLlookup.get("L1")));
-            MapUpper.setImage(new Image(mapURLlookup.get("Ground")));
+            MapUpper.setImage(new Image(mapURLlookup.get("G")));
             MapLower.setImage(new Image(mapURLlookup.get("L2")));
             currentMap = "L1";
             currentMapAbove = "G";
@@ -436,7 +455,7 @@ public class EditLinkBetweenFloorsController {
         ArrayList<Location> nodes = new ArrayList<Location>();
         //want to fill nodes w/ floor = currrentFloor
         int temp = 0;
-        double scaleRatio = Map.getFitWidth() / Map.getImage().getWidth();
+        double scaleRatio = Math.min(Map.getFitWidth() / Map.getImage().getWidth(),Map.getFitHeight()/Map.getImage().getHeight());
         Point2D point = sceneGestureMain.getImageLocation();
         for (int i = 0; i < single.getData().size(); i++) {
             if (single.getData().get(i).getFloor().equals(currentMap) && single.getData().get(i).getNodeType().equals(type)) {

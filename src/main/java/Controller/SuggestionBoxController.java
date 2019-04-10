@@ -91,7 +91,7 @@ public class SuggestionBoxController {
         } else {
             //Gabe - valid suggestion and is added to database
             sga.addSuggestion(feedbackComments.getText());
-            error.setText("Thank you for your feedback");
+            //error.setText("Thank you for your feedback");
             feedbackComments.setText("");
         }
     }
