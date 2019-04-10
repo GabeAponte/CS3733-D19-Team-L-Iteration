@@ -832,6 +832,7 @@ public class EditLocationController {
                         nodeInfoLong.setText("" + focusNode.getLongName());
                         nodeInfoShort.setText("" + focusNode.getShortName());
                         populateEdges(focusNode);
+                        nodeInfoID.setDisable(true);
                     } else {
                         nodeInfoID.setText("");
                         nodeInfoX.setText("" + (int) mousePress.getX());
@@ -855,6 +856,7 @@ public class EditLocationController {
                         thisCircle.setFill(Color.web("GREEN"));
 
                         circles.add(thisCircle);
+                        nodeInfoID.setDisable(false);
                     }
                 }
             }
