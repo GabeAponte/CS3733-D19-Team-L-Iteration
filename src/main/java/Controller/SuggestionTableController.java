@@ -56,9 +56,13 @@ public class SuggestionTableController {
                         single.setLoggedIn(false);
                         single.setUsername("");
                         single.setIsAdmin(false);
+                        single.setDoPopup(true);
                         FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("HospitalHome.fxml"));
 
                         Parent sceneMain = loader.load();
+
+                        HomeScreenController controller = loader.<HomeScreenController>getController();
+                        controller.displayPopup();
 
                         Stage thisStage = (Stage) suggestions.getScene().getWindow();
 
@@ -71,6 +75,8 @@ public class SuggestionTableController {
                 }
             }
         }));
+        timeout.setCycleCount(Timeline.INDEFINITE);
+        timeout.play();
         makeTable();
 
         deleteComment();
@@ -121,28 +127,15 @@ public class SuggestionTableController {
         thestage.setScene(scene);
     }
 
-    /**
-     * @author Gabe
-     * Populates the table on the screen with any employees in the database
-     */
-
-    /*public void initializeTable(EmployeeAccess ea) {
-        ArrayList<ArrayList<String>>  ls = ea.getEmployees("", "");
-    }
-
-
-    /**@author Gabe
-     * When double clicking on a row in the table, admin is sent to the create/edit screen
-     * and all the employee information from the clicked on row is passed along so that the edit account
-     * fields are populated and the admin can make any changes
-     */
     public void setNext(TreeItem<SuggestionTable> selected) {
         selectedSuggestion = selected;
     }
 
     @FXML
     private void deleteComment() {
-               SuggestionBasicAccess sba = new SuggestionBasicAccess();
+        Singleton single = Singleton.getInstance();
+        single.setLastTime();
+        SuggestionBasicAccess sba = new SuggestionBasicAccess();
         suggestions.setOnKeyPressed(keyEvent -> {
             setNext(suggestions.getSelectionModel().getSelectedItem());
             if (keyEvent.getCode().equals(KeyCode.DELETE) && selectedSuggestion != null){
@@ -156,6 +149,8 @@ public class SuggestionTableController {
 
    @FXML
     private void getComment() {
+       Singleton single = Singleton.getInstance();
+       single.setLastTime();
         suggestions.setOnMouseClicked(event -> {
             setNext(suggestions.getSelectionModel().getSelectedItem());
             if (event.getButton().equals(MouseButton.PRIMARY) && event.getClickCount() == 2) {
