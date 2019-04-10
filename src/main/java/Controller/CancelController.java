@@ -102,7 +102,6 @@ public class CancelController {
         ServiceRequestAccess sra = new ServiceRequestAccess();
         ChildThread ct = new ChildThread(typeOfService, comment);
         ct.start();
-        sra.makeRequest(comment, typeOfService);
         noClicked();
     }
 
