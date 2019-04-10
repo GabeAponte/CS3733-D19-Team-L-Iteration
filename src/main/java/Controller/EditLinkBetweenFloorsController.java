@@ -377,40 +377,34 @@ public class EditLinkBetweenFloorsController {
     private void typeSelected() {
         Singleton single = Singleton.getInstance();
         single.setLastTime();
-        if (Filter.getValue().equals("Stairs")) {
-            type = "STAI";
-        } else if (Filter.getValue().equals("Restrooms")) {
-            type = "REST";
-        }
-        else if (Filter.getValue().equals("Elevators")) {
-            type = "ELEV";
-        }
-        else if (Filter.getValue().equals("Conference Rooms")) {
-            type = "CONF";
-        }
-        else if (Filter.getValue().equals("Labs")) {
-            type = "LABS";
-        }
-        else if (Filter.getValue().equals("Departments")) {
-            type = "DEPT";
-        }
-        else if (Filter.getValue().equals("Information")) {
-            type = "INFO";
-        }
-        else if (Filter.getValue().equals("Exit")) {
-            type = "EXIT";
-        }
-        else if (Filter.getValue().equals("Retail")) {
-            type = "RETL";
-        }
-        else if (Filter.getValue().equals("Halls")) {
-            type = "HALL";
-        }
-        else if (Filter.getValue().equals("ALL")) {
-            type = "ALL";
-        }
-        if (Floor.getValue() != null) {
-            displayNodes.setDisable(false);
+        if (Filter.getValue() != null) {
+            System.out.println(Filter);
+            if (Filter.getValue().equals("Stairs")) {
+                type = "STAI";
+            } else if (Filter.getValue().equals("Restrooms")) {
+                type = "REST";
+            } else if (Filter.getValue().equals("Elevators")) {
+                type = "ELEV";
+            } else if (Filter.getValue().equals("Conference Rooms")) {
+                type = "CONF";
+            } else if (Filter.getValue().equals("Labs")) {
+                type = "LABS";
+            } else if (Filter.getValue().equals("Departments")) {
+                type = "DEPT";
+            } else if (Filter.getValue().equals("Information")) {
+                type = "INFO";
+            } else if (Filter.getValue().equals("Exit")) {
+                type = "EXIT";
+            } else if (Filter.getValue().equals("Retail")) {
+                type = "RETL";
+            } else if (Filter.getValue().equals("Halls")) {
+                type = "HALL";
+            } else if (Filter.getValue().equals("ALL")) {
+                type = "ALL";
+            }
+            if (Floor.getValue() != null) {
+                displayNodes.setDisable(false);
+            }
         }
         nodeDisplayPress();
     }
@@ -503,7 +497,19 @@ public class EditLinkBetweenFloorsController {
         multiFloorSelect.setSelected(true);
         MapUpper.setVisible(true);
         MapLower.setVisible(true);
-        filterList.clear();
+        Filter.setValue(null);
+        Filter.setPromptText("Select Type");
+        filterList.remove("Stairs");
+        filterList.remove("Elevators");
+        filterList.remove("Restrooms");
+        filterList.remove("Conference Rooms");
+        filterList.remove("Labs");
+        filterList.remove("Departments");
+        filterList.remove("Information");
+        filterList.remove("Exit");
+        filterList.remove("Retail");
+        filterList.remove("Halls");
+        filterList.remove("ALL");
         filterList.add("Stairs");
         filterList.add("Elevators");
     }
@@ -514,9 +520,21 @@ public class EditLinkBetweenFloorsController {
         singleFloorSelect.setSelected(true);
         MapLower.setVisible(false);
         MapUpper.setVisible(false);
+        Filter.setValue(null);
+        Filter.setPromptText("Select Type");
         eraseNodes(anchorPaneLower, circlesLower);
         eraseNodes(anchorPaneUpper, circlesUpper);
-        filterList.clear();
+        filterList.remove("Stairs");
+        filterList.remove("Elevators");
+        filterList.remove("Restrooms");
+        filterList.remove("Conference Rooms");
+        filterList.remove("Labs");
+        filterList.remove("Departments");
+        filterList.remove("Information");
+        filterList.remove("Exit");
+        filterList.remove("Retail");
+        filterList.remove("Halls");
+        filterList.remove("ALL");
         filter();
 
     }

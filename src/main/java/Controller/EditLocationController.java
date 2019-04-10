@@ -245,6 +245,7 @@ public class EditLocationController {
         single.setLastTime();
         addNode.setDisable(true);
         deleteNode.setDisable(true);
+        SubmitButton.setDisable(true);
         timeout = new Timeline(new KeyFrame(Duration.seconds(2), new EventHandler<ActionEvent>() {
 
             @Override
@@ -595,9 +596,11 @@ public class EditLocationController {
             nodeInfoFloor.getText().equals("") || nodeInfoBuilding.getText().equals("") || nodeInfoType.getText().equals("") ||
             nodeInfoShort.getText().equals("") || nodeInfoLong.getText().equals("")) {
             addNode.setDisable(true);
+            SubmitButton.setDisable(true);
         }
         else {
             addNode.setDisable(false);
+            SubmitButton.setDisable(false);
         }
     }
 
@@ -747,6 +750,13 @@ public class EditLocationController {
 
     @FXML
     private void submitButtonPressed() {
+        na.updateNode(nodeInfoID.getText(), "xcoord", nodeInfoX.getText());
+        na.updateNode(nodeInfoID.getText(), "ycoord", nodeInfoY.getText());
+        na.updateNode(nodeInfoID.getText(), "floor", nodeInfoFloor.getText());
+        na.updateNode(nodeInfoID.getText(), "building", nodeInfoBuilding.getText());
+        na.updateNode(nodeInfoID.getText(), "nodeType", nodeInfoType.getText());
+        na.updateNode(nodeInfoID.getText(), "longName", nodeInfoLong.getText());
+        na.updateNode(nodeInfoID.getText(), "shortName", nodeInfoShort.getText());
         UpdateLocationThread ul = new UpdateLocationThread();
         ul.start();
     }
