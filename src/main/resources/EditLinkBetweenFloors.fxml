@@ -44,7 +44,7 @@
             </stylesheets></JFXComboBox>
         <JFXButton fx:id="PathFindSubmit" buttonType="RAISED" disable="true" layoutX="505.0" layoutY="560.0" onAction="#submitPressed" prefHeight="73.0" prefWidth="270.0" ripplerFill="WHITE" style="-fx-background-color: #7fb1ff;" text="Submit Edge" textFill="WHITE">
             <font>
-                <Font name="Times New Roman" size="40.0" />
+                <Font size="35.0" />
             </font>
         </JFXButton>
         <ImageView fx:id="Map" fitHeight="285.6" fitWidth="420.0" pickOnBounds="true" preserveRatio="true">
@@ -125,7 +125,7 @@
       <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#012d5a" height="100.0" layoutX="499.0" layoutY="442.0" stroke="#012d5a" strokeType="INSIDE" width="284.0" />
       <JFXButton fx:id="displayNodes" buttonType="RAISED" disable="true" layoutX="505.0" layoutY="455.0" onAction="#nodeDisplayPress" prefHeight="73.0" prefWidth="270.0" ripplerFill="WHITE" style="-fx-background-color: #7fb1ff;" text="Show Nodes" textFill="WHITE">
          <font>
-            <Font name="Times New Roman" size="40.0" />
+            <Font size="35.0" />
          </font>
       </JFXButton>
     </children>
