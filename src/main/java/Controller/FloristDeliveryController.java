@@ -1,5 +1,6 @@
 package Controller;
 
+import Access.ReligiousRequestAccess;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXTextArea;
 import com.jfoenix.controls.JFXTextField;
@@ -27,6 +28,9 @@ public class FloristDeliveryController {
 
     @FXML
     private JFXTextField flowerName;
+
+    @FXML
+    private JFXTextField senderName;
 
     @FXML
     private JFXTextArea comment;
@@ -69,6 +73,26 @@ public class FloristDeliveryController {
         }));
         timeout.setCycleCount(Timeline.INDEFINITE);
         timeout.play();
+        submit.setDisable(true);
+    }
+
+    @FXML
+    private void reenableSubmit() {
+        Singleton single = Singleton.getInstance();
+        single.setLastTime();
+        if (receiverName.getText().trim().isEmpty() ||  Location.getText().trim().isEmpty() ||
+                senderName.getText().trim().isEmpty() || flowerName.getText().trim().isEmpty() ||
+                comment.getText().trim().isEmpty()) {
+            System.out.println(receiverName.getText().trim().isEmpty());
+            System.out.println(Location.getText().trim().isEmpty());
+            System.out.println(senderName.getText().trim().isEmpty());
+            System.out.println(flowerName.getText().trim().isEmpty());
+            System.out.println(comment.getText().trim().isEmpty());
+            System.out.println(" aaa sadad");
+            submit.setDisable(true);
+        } else {
+            submit.setDisable(false);
+        }
     }
     @FXML
     private void backPressed() throws IOException {
@@ -80,6 +104,14 @@ public class FloristDeliveryController {
 
         Scene scene = new Scene(sceneMain);
         theStage.setScene(scene);
+    }
+
+    @FXML
+    private void submitClicked() throws IOException {
+        Singleton single = Singleton.getInstance();
+        single.setLastTime();
+        System.out.println("Submit Pressed");
+        backPressed();
     }
 
 }
