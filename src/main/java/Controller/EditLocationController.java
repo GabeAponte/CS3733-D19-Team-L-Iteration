@@ -594,6 +594,28 @@ public class EditLocationController {
         */
     }
 
+    private void populateEdges(Location x) {
+        ObservableList<Location> locsToAdd = FXCollections.observableArrayList();
+        Location l = single.lookup.get(x.getLocID());
+        for (Edge e: l.getEdges()) {
+            //System.out.println(e.getEdgeID());
+            if (!e.getStartNode().equals(l)) {
+                locsToAdd.add(e.getStartNode());
+            }
+            else {
+                locsToAdd.add(e.getEndNode());
+            }
+        }
+        edgeDropDown.setItems(locsToAdd);
+        if (!locsToAdd.isEmpty()) {
+            edgeDropDown.setValue(locsToAdd.get(0));
+        }
+        else {
+            edgeDropDown.setPromptText("NO EDGES");
+        }
+
+    }
+
     /**
      * Grace made these
      *
