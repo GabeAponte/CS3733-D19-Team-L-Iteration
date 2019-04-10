@@ -1,10 +1,14 @@
 package Controller;
 
+import Access.DBAccess;
+import Access.EmployeeAccess;
 import Access.ServiceRequestAccess;
 import Object.EmployeeTable;
 import com.jfoenix.controls.JFXTreeTableView;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
+import javafx.beans.property.ReadOnlyObjectWrapper;
+import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -16,16 +20,20 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseButton;
+import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
+import Object.*;
 import javafx.util.Duration;
 import Object.*;
 
 import java.io.IOException;
+import java.sql.Connection;
 import java.util.ArrayList;
 
-public class EmployeeTableController {
+public class EmployeeTableController{
 
     private Stage thestage;
+    TreeItem root = new TreeItem<>("rootxxx");
 
     @FXML
     private Button back;
@@ -34,7 +42,10 @@ public class EmployeeTableController {
     TreeTableColumn<EmployeeTable,String> ID;
 
     @FXML
-    TreeTableColumn<EmployeeTable,String> name;
+    TreeTableColumn<EmployeeTable,String> firstName;
+
+    @FXML
+    TreeTableColumn<EmployeeTable,String> lastName;
 
     @FXML
     TreeTableColumn<EmployeeTable,String> position;
@@ -43,11 +54,12 @@ public class EmployeeTableController {
     TreeTableColumn<EmployeeTable,String> department;
 
     @FXML
-    TableColumn<EmployeeTable,String> isAdmin;
-
+    TreeTableColumn<EmployeeTable,String> isAdmin;
 
     @FXML
     TreeTableView<EmployeeTable> employees;
+
+    private TreeItem<EmployeeTable> selectedEmployee;
 
     Timeline timeout;
 
@@ -81,13 +93,71 @@ public class EmployeeTableController {
         }));
         timeout.setCycleCount(Timeline.INDEFINITE);
         timeout.play();
+
+        employees.setEditable(false);
+        EmployeeAccess ea = new EmployeeAccess();
+
+        int count;
+        count = ea.countRecords()-1;
+        while(count >= 0){
+            TreeItem<EmployeeTable> arr= ea.getRequests(count);
+            root.getChildren().add(arr);
+            count--;
+        }
+
+        ID.setCellValueFactory(cellData -> {
+            if (cellData.getValue().getValue()instanceof EmployeeTable) {
+                return new ReadOnlyObjectWrapper(cellData.getValue().getValue().getID());
+            }
+            return new ReadOnlyObjectWrapper(cellData.getValue().getValue());
+        });
+
+        firstName.setCellValueFactory(cellData -> {
+            if (cellData.getValue().getValue()instanceof EmployeeTable) {
+                return new ReadOnlyObjectWrapper(cellData.getValue().getValue().getFirstName());
+            }
+            return new ReadOnlyObjectWrapper(cellData.getValue().getValue());
+        });
+
+        lastName.setCellValueFactory(cellData -> {
+            if (cellData.getValue().getValue()instanceof EmployeeTable) {
+                return new ReadOnlyObjectWrapper(cellData.getValue().getValue().getLastName());
+            }
+            return new ReadOnlyObjectWrapper(cellData.getValue().getValue());
+        });
+
+        position.setCellValueFactory(cellData -> {
+            if (cellData.getValue().getValue()instanceof EmployeeTable) {
+                return new ReadOnlyObjectWrapper(cellData.getValue().getValue().getType());
+            }
+            return new ReadOnlyObjectWrapper(cellData.getValue().getValue());
+        });
+
+        department.setCellValueFactory(cellData -> {
+            if (cellData.getValue().getValue()instanceof EmployeeTable) {
+                return new ReadOnlyObjectWrapper(cellData.getValue().getValue().getDepartment());
+            }
+            return new ReadOnlyObjectWrapper(cellData.getValue().getValue());
+        });
+
+        employees.setTreeColumn(ID);
+        employees.setRoot(root);
+        employees.setShowRoot(false);
     }
-    @FXML
+
     /**@author Gabe
      * Returns admin to the Admin Logged In Home screen when the back button is pressed
      */
+    @FXML
     private void backPressed() throws IOException {
         timeout.stop();
+        thestage = (Stage) back.getScene().getWindow();
+        AnchorPane root;
+
+        root = FXMLLoader.load(getClass().getClassLoader().getResource("AdminLoggedInHome.fxml"));
+
+        Scene scene = new Scene(root);
+        thestage.setScene(scene);
     }
 
     /**
@@ -95,7 +165,8 @@ public class EmployeeTableController {
      * Populates the table on the screen with any employees in the database
      */
 
-    public void initializeTable() {
+    /*public void initializeTable(EmployeeAccess ea) {
+        ArrayList<ArrayList<String>>  ls = ea.getEmployees("", "");
     }
 
 
@@ -104,31 +175,41 @@ public class EmployeeTableController {
      * and all the employee information from the clicked on row is passed along so that the edit account
      * fields are populated and the admin can make any changes
      */
+    public void setNext(TreeItem<EmployeeTable> employee) {
+        this.selectedEmployee = employee;
+    }
 
-    /* @FXML
-    private void SwitchToCreateEditAccount() throws IOException { }
-        activeRequests.setOnMouseClicked(event -> {
-            setNext(activeRequests.getSelectionModel().getSelectedItem());
+
+    @FXML
+    private void SwitchToCreateEditAccount() throws IOException {
+        Singleton single = Singleton.getInstance();
+        single.setLastTime();
+        employees.setOnMouseClicked(event -> {
+            setNext(employees.getSelectionModel().getSelectedItem());
             if (event.getButton().equals(MouseButton.PRIMARY) && event.getClickCount() == 2) {
                 try {
+                    single.setLastTime();
+                    timeout.pause();
                     //Load second scene
-                    FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("FulfillRequest.fxml"));
+                    FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("CreateEditAccount.fxml"));
                     Parent roots = loader.load();
                     //Get controller of scene2
-                    FulfillRequestController scene2Controller = loader.getController();
+                    CreateEditAccountController scene2Controller = loader.getController();
                     Scene scene = new Scene(roots);
-                    scene2Controller.getRequestID(selectedRequest);
+                    scene2Controller.setType(3, selectedEmployee.getValue().getID());
+                    timeout.stop();
                     thestage = (Stage) back.getScene().getWindow();
                     //Show scene 2 in new window
                     thestage.setScene(scene);
 
                 } catch (IOException ex) {
                     //noinspection ThrowablePrintedToSystemOut
+                    timeout.play();
                     System.err.println(ex);
                 }
 
             }
         });
     }
-} */
 }
+

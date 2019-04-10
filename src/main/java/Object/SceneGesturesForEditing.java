@@ -205,9 +205,7 @@ public class SceneGesturesForEditing {
     public void redrawPath(Point2D oldPointUpper, double oldScale){
         if(circles != null && lines != null) {
             
-            double scaleRatio = imageView.getFitWidth()/imageView.getImage().getWidth();
-
-            //System.out.println(circles);
+            double scaleRatio = Math.min(imageView.getFitWidth()/imageView.getImage().getWidth(),imageView.getFitHeight()/imageView.getImage().getHeight());
 
             for (int i = 0; i < circles.size(); i++) {
                 Circle c = circles.get(i);

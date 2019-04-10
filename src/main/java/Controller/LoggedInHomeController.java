@@ -1,5 +1,6 @@
 package Controller;
 
+import Access.EmployeeAccess;
 import Object.*;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
@@ -10,6 +11,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import javafx.util.Duration;
@@ -154,5 +156,6 @@ public class LoggedInHomeController {
         Scene scene = new Scene(sceneMain);
         theStage.setScene(scene);
     }
+
 
 }

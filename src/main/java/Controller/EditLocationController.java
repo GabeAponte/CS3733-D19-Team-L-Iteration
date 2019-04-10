@@ -27,9 +27,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.input.ScrollEvent;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
-import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Line;
@@ -383,10 +381,12 @@ public class EditLocationController {
         ea = new EdgesAccess();
 
         anchorPanePath = new AnchorPane();
-        anchorPanePath.setLayoutX(30);
-        anchorPanePath.setLayoutY(185);
-        anchorPanePath.setPrefSize(631,412);
+//        anchorPanePath.setLayoutX(30);
+//        anchorPanePath.setLayoutY(185);
+//        anchorPanePath.setPrefSize(631,429);
 
+        Map.fitWidthProperty().bind(imagePane.widthProperty());
+        Map.fitHeightProperty().bind(imagePane.heightProperty());
 
         Rectangle clip = new Rectangle();
         clip.widthProperty().bind(Map.fitWidthProperty());
@@ -401,17 +401,34 @@ public class EditLocationController {
 
         sceneGestures = new SceneGesturesForEditing(zoomPaneImage, Map);
 
-        anchorPanePath.addEventFilter( MouseEvent.MOUSE_CLICKED, getOnMouseClickedEventHandler());
-        anchorPanePath.addEventFilter( MouseEvent.MOUSE_PRESSED, sceneGestures.getOnMousePressedEventHandler());
-        anchorPanePath.addEventFilter( MouseEvent.MOUSE_DRAGGED, sceneGestures.getOnMouseDraggedEventHandler());
-        anchorPanePath.addEventFilter( ScrollEvent.ANY, sceneGestures.getOnScrollEventHandler());
+        imagePane.addEventFilter( MouseEvent.MOUSE_CLICKED, getOnMouseClickedEventHandler());
+        imagePane.addEventFilter( MouseEvent.MOUSE_PRESSED, sceneGestures.getOnMousePressedEventHandler());
+        imagePane.addEventFilter( MouseEvent.MOUSE_DRAGGED, sceneGestures.getOnMouseDraggedEventHandler());
+        imagePane.addEventFilter( ScrollEvent.ANY, sceneGestures.getOnScrollEventHandler());
+        Map.sceneProperty().addListener((observableScene, oldScene, newScene) -> {
+            if (oldScene == null && newScene != null) {
+                // scene is set for the first time. Now its the time to listen stage changes.
+                newScene.windowProperty().addListener((observableWindow, oldWindow, newWindow) -> {
+                    if (oldWindow == null && newWindow != null) {
+                        // stage is set. now is the right time to do whatever we need to the stage in the controller.
+                        ChangeListener<Number> stageSizeListener = (observable, oldValue, newValue) -> {
+                            eraseNodes();
+                            drawNodesResize(oldValue.doubleValue(), newValue.doubleValue());
+                        };
 
-        zoomPaneImage.setLayoutX(30);
-        zoomPaneImage.setLayoutY(185);
+                        ((Stage) newWindow).widthProperty().addListener(stageSizeListener);
+                        ((Stage) newWindow).heightProperty().addListener(stageSizeListener);
+                    }
+                });
+            }
+        });
+
+//        zoomPaneImage.setLayoutX(30);
+//        zoomPaneImage.setLayoutY(185);
 
 
-        anchorPaneWindow.getChildren().add(zoomPaneImage);
-        anchorPaneWindow.getChildren().add(anchorPanePath);
+        imagePane.getChildren().add(zoomPaneImage);
+        imagePane.getChildren().add(anchorPanePath);
         //sceneGestures.reset(Map, Map.getImage().getWidth(), Map.getImage().getHeight());
 
         thisCircle = new Circle();
@@ -419,6 +436,8 @@ public class EditLocationController {
 
         sceneGestures.reset(Map, Map.getImage().getWidth(), Map.getImage().getHeight());
         sceneGestures.setDrawPath(circles, lines);
+
+        drawNodes();
     }
 
 
@@ -668,13 +687,14 @@ public class EditLocationController {
             return "L2";
         }
     }
-    @FXML
 
+    @FXML
     private void nodeDisplayPress(){
         Singleton single = Singleton.getInstance();
         single.setLastTime();
         displayingNodes = !displayingNodes;
 
+        eraseNodes();
         if(displayingNodes) {
             drawNodes();
         }
@@ -722,12 +742,65 @@ public class EditLocationController {
                 }
             }
         }
+        if(thisCircle != null && mousePress != null) {
+            thisCircle.setCenterX((mousePress.getX() - point.getX()) * scaleRatio * sceneGestures.getImageScale());
+            thisCircle.setCenterY((mousePress.getY() - point.getY()) * scaleRatio * sceneGestures.getImageScale());
+            thisCircle.setRadius(Math.max(2.5, 2.5f * (sceneGestures.getImageScale() / 5)));
+            thisCircle.setStroke(Color.web("GREEN")); //#f5d96b
+            thisCircle.setFill(Color.web("GREEN"));
+        }
+    }
 
-//        thisCircle.setCenterX((mousePress.getX() - point.getX()) * scaleRatio * sceneGestures.getImageScale());
-//        thisCircle.setCenterY((mousePress.getY() - point.getY()) * scaleRatio * sceneGestures.getImageScale());
-//        thisCircle.setRadius(Math.max(2.5, 2.5f * (sceneGestures.getImageScale() / 5)));
-//        thisCircle.setStroke(Color.web("RED")); //#f5d96b
-//        thisCircle.setFill(Color.web("RED"));
+    private void drawNodesResize(double oldSize, double newSize) {
+        double newRatio = Math.min((Map.getFitWidth() / oldSize * newSize) / Map.getImage().getWidth(),(Map.getFitHeight() / oldSize * newSize) / Map.getImage().getHeight());
+        double beforeRatio = Math.min(Map.getFitWidth()/Map.getImage().getWidth(), Map.getFitHeight()/Map.getImage().getHeight());
+
+        System.out.println(newRatio + "   " + beforeRatio);
+        double scaleRatio;
+        if(newSize >= oldSize){
+            scaleRatio = Math.max(beforeRatio, newRatio);
+        }
+        else{
+            scaleRatio = Math.max(beforeRatio, newRatio);
+        }
+
+        scaleRatio = newRatio;
+
+        Point2D point = sceneGestures.getImageLocation();
+
+        if(displayingNodes) {
+            //display all nodes on that floor!!!
+            ArrayList<Location> nodes = new ArrayList<Location>();
+            //want to fill nodes w/ floor = currrentFloor
+            int temp = 0;
+            for (int i = 0; i < single.getData().size(); i++) {
+                if (single.getData().get(i).getFloor().equals(floorNum())/* current Map floor*/) {
+                    nodes.add(single.getData().get(i));
+
+                    Circle thisCircle = new Circle();
+
+
+                    //Setting the properties of the circle
+                    thisCircle.setCenterX((nodes.get(temp).getXcoord() - point.getX()) * scaleRatio * sceneGestures.getImageScale());
+                    thisCircle.setCenterY((nodes.get(temp).getYcoord() - point.getY()) * scaleRatio * sceneGestures.getImageScale());
+                    thisCircle.setRadius(Math.max(2.5, 2.5f * (sceneGestures.getImageScale() / 5)));
+                    thisCircle.setStroke(Color.web("RED")); //#f5d96b
+                    thisCircle.setFill(Color.web("RED"));
+
+                    anchorPanePath.getChildren().add(thisCircle);
+
+                    circles.add(thisCircle);
+                    temp++;
+                }
+            }
+        }
+        if(thisCircle != null && mousePress != null) {
+            thisCircle.setCenterX((mousePress.getX() - point.getX()) * scaleRatio * sceneGestures.getImageScale());
+            thisCircle.setCenterY((mousePress.getY() - point.getY()) * scaleRatio * sceneGestures.getImageScale());
+            thisCircle.setRadius(Math.max(2.5, 2.5f * (sceneGestures.getImageScale() / 5)));
+            thisCircle.setStroke(Color.web("GREEN")); //#f5d96b
+            thisCircle.setFill(Color.web("GREEN"));
+        }
     }
         
         
@@ -737,9 +810,7 @@ public class EditLocationController {
         single.setData();
         //be able to modify the selected nodeID
 
-
-
-        }
+    }
 
     @FXML
     private void nodeInfoFloorPress(){
@@ -842,17 +913,17 @@ public class EditLocationController {
                     nodeInfoFloor.setText("");
                     nodeInfoLong.setText("");
                     nodeInfoShort.setText("");
-                    double scaleRatio = Map.getFitWidth() / Map.getImage().getWidth();
+                    double scaleRatio = Math.min(Map.getFitWidth() / Map.getImage().getWidth(),Map.getFitHeight()/Map.getImage().getHeight());
 
                     //System.out.println(sceneGestures.getImageScale());
                     //System.out.println((mousePress.getX() - point.getX()) * scaleRatio * sceneGestures.getImageScale());
 
-                    //Setting the properties of the circle
-                    thisCircle.setCenterX((mousePress.getX() - point.getX()) * scaleRatio * sceneGestures.getImageScale());
-                    thisCircle.setCenterY((mousePress.getY() - point.getY()) * scaleRatio * sceneGestures.getImageScale());
-                    thisCircle.setRadius(Math.max(2.5, 2.5f * (sceneGestures.getImageScale() / 5)));
-                    thisCircle.setStroke(Color.web("GREEN")); //#f5d96b
-                    thisCircle.setFill(Color.web("GREEN"));
+                //Setting the properties of the circle
+                thisCircle.setCenterX((mousePress.getX() - point.getX()) * scaleRatio * sceneGestures.getImageScale());
+                thisCircle.setCenterY((mousePress.getY() - point.getY()) * scaleRatio * sceneGestures.getImageScale());
+                thisCircle.setRadius(Math.max(2.5, 2.5f * (sceneGestures.getImageScale() / 5)));
+                thisCircle.setStroke(Color.web("GREEN")); //#f5d96b
+                thisCircle.setFill(Color.web("GREEN"));
 
                     circles.add(thisCircle);
                 }

@@ -6,6 +6,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import Object.*;
+import javafx.scene.control.TreeItem;
 
 public class InternalTransportAccess extends DBAccess{
     private static final DateFormat sdf = new SimpleDateFormat("yyyy/MM/dd");
@@ -44,13 +45,13 @@ public class InternalTransportAccess extends DBAccess{
 
         try (Connection conn = this.connect();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
-            pstmt.setString(1, sdf.format(date));
+            pstmt.setInt(1, Integer.parseInt(tdf.format(date.getTime())));
             pstmt.setString(2, desc);
             pstmt.setString(3, startLocation.getLocID());
             pstmt.setString(4, endLocation.getLocID());
             pstmt.setString(5, type);
             pstmt.setString(6, phoneNumber);
-            pstmt.setInt(7, Integer.parseInt(tdf.format(date.getTime())));
+            pstmt.setString(7, sdf.format(date));
 
             pstmt.executeUpdate();
         } catch (SQLException e) {
@@ -77,13 +78,14 @@ public class InternalTransportAccess extends DBAccess{
         }
     }
 
-    **ANDREW MADE THIS
+    /**ANDREW MADE THIS
      * returns the record fields for the given index in serviceRequest
      * @param getNum
      * @return
-     *
-    public ArrayList<String> getRequests(int getNum){
-        String sql = "SELECT * FROM internalTransportationRequest where assignedEmployee is NULL";
+     **/
+    public TreeItem<ServiceRequestTable> getRequests(int getNum){
+        TreeItem<ServiceRequestTable> nodeRoot = null;
+        String sql = "SELECT * FROM internalTransportationRequest where requestID is not NULL";
         int count = 0;
         //noinspection Convert2Diamond
         ArrayList<String> data = new ArrayList<String>();
@@ -92,26 +94,27 @@ public class InternalTransportAccess extends DBAccess{
              ResultSet rs = stmt.executeQuery(sql)) {
             while (rs.next()) {
                 if (count == getNum) {
-                    data.add(""+rs.getInt("requestID"));
-                    if(rs.getString("comment") != null){
-                        data.add(rs.getString("comment"));
+                    data.add(Integer.toString(rs.getInt("requestID")));
+                    data.add(rs.getString("assignedEmployee"));
+                    if (rs.getBoolean("fulfilled")){
+                        data.add("Yes");
+                    } else {
+                        data.add("No");
                     }
-                    else{
-                        data.add("no comment");
-                    }
-                    data.add(rs.getString("requestDepartment"));
-                    if(rs.getString("assignedEmployee") != null){
-                        data.add(rs.getString("assignedEmployee"));
-                        data.add("Fulfilled");
-                    }
-                    else{
-                        data.add("none assigned");
-                        data.add("not Fulfilled");
-                    }
+                    data.add(Integer.toString(rs.getInt("creationTime")));
+                    data.add(Integer.toString(rs.getInt("completionTime")));
+                    data.add(rs.getString("comment"));
+                    data.add(rs.getString("startLocation"));
+                    data.add(rs.getString("endLocation"));
+                    data.add(rs.getString("type"));
+                    data.add(rs.getString("phoneNumber"));
+                    data.add(rs.getString("creationDate"));
+                    data.add(rs.getString("creationTime"));
+                    nodeRoot = new TreeItem<>(new ServiceRequestTable(1, data.get(0), data.get(1), data.get(2), data.get(3), data.get(4), data.get(5), data.get(6), data.get(7), data.get(8), data.get(9), data.get(10), data.get(11)));
                 }
                 count++;
             }
-            return data;
+            return nodeRoot;
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
@@ -119,11 +122,11 @@ public class InternalTransportAccess extends DBAccess{
         return null;
     }
 
-    ** NATHAN MADE THIS
+   /** NATHAN MADE THIS
      * returns the number of records in internalTransportationRequest
      *
      * @return int
-     *
+     */
     public int countRecords() {
         String sql = "select COUNT(*) from internalTransportationRequest where assignedEmployee is null";
         try (Connection conn = this.connect();
@@ -136,7 +139,7 @@ public class InternalTransportAccess extends DBAccess{
         }
         return 0;
 
-    }*/
+    }
 
     public static void main(String[] args) {
         ServiceRequestAccess sra = new ServiceRequestAccess();
