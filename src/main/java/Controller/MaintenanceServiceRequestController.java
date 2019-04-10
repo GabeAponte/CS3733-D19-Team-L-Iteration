@@ -1,9 +1,8 @@
 package Controller;
 
-import API.ChildThread;
+import Access.MaintenanceRequestAccess;
 import Access.ReligiousRequestAccess;
 import Access.ServiceRequestAccess;
-import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXTextArea;
 import com.jfoenix.controls.JFXTextField;
 import javafx.animation.KeyFrame;
@@ -15,40 +14,42 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.TextField;
+import javafx.scene.control.RadioButton;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
-import javafx.util.Duration;
 import Object.*;
+import javafx.util.Duration;
 
 import java.io.IOException;
 
-public class FloristDeliveryController {
+public class MaintenanceServiceRequestController {
     private boolean signedIn;
     private String uname;
 
+    @FXML
+    JFXTextField field1;
 
     @FXML
-    public Button backBtn;
+    JFXTextField field2;
 
     @FXML
-    public Button Submit;
+    JFXTextField Location;
 
     @FXML
-    public JFXTextField senderName;
+    RadioButton hazardYes;
 
     @FXML
-    public JFXTextField Location;
+    RadioButton hazardNo;
 
     @FXML
-    public JFXTextField receiverName;
+    private Button Submit;
 
     @FXML
-    public JFXTextField flowerName;
-
+    public Button Back;
 
     @FXML
-    public JFXTextArea comment;
+    public JFXTextArea Description;
+
 
     Timeline timeout;
 
@@ -79,7 +80,7 @@ public class FloristDeliveryController {
                         Parent sceneMain = loader.load();
                         HomeScreenController controller = loader.<HomeScreenController>getController();
                         controller.displayPopup();
-                        Stage thisStage = (Stage) senderName.getScene().getWindow();
+                        Stage thisStage = (Stage) Back.getScene().getWindow();
 
                         Scene newScene = new Scene(sceneMain);
                         thisStage.setScene(newScene);
@@ -93,14 +94,13 @@ public class FloristDeliveryController {
         timeout.setCycleCount(Timeline.INDEFINITE);
         timeout.play();
         Submit.setDisable(true);
-
     }
 
     @FXML
     private void reenableSubmit() {
         Singleton single = Singleton.getInstance();
         single.setLastTime();
-        if (comment.getText().trim().isEmpty() || flowerName.getText().trim().isEmpty() || Location.getText().trim().isEmpty() || receiverName.getText().trim().isEmpty() || senderName.getText().trim().isEmpty()) {
+        if (Description.getText().trim().isEmpty() || (!hazardNo.isSelected() && !hazardYes.isSelected()) || Location.getText().trim().isEmpty() || field1.getText().trim().isEmpty() || field2.getText().trim().isEmpty()) {
             Submit.setDisable(true);
         } else {
             Submit.setDisable(false);
@@ -111,7 +111,13 @@ public class FloristDeliveryController {
         Singleton single = Singleton.getInstance();
         single.setLastTime();
         ServiceRequestAccess sra = new ServiceRequestAccess();
-        sra.makeFloristRequest(comment.getText(), receiverName.getText(), Location.getText(), flowerName.getText());
+        boolean check = false;
+        if(hazardYes.isSelected()){
+            check = true;
+        }else if(hazardNo.isSelected()){
+            check = false;
+        }
+        sra.makeMaintenanceRequest(Description.getText(), Location.getText(), field1.getText(), Boolean.toString(check));
         System.out.println("Submit Pressed");
         backPressed();
     }
@@ -123,7 +129,7 @@ public class FloristDeliveryController {
 
         Parent sceneMain = loader.load();
 
-        Stage theStage = (Stage) backBtn.getScene().getWindow();
+        Stage theStage = (Stage) Back.getScene().getWindow();
 
         Scene scene = new Scene(sceneMain);
         theStage.setScene(scene);
