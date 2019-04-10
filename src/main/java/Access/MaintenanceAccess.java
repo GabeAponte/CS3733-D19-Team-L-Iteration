@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import Object.ServiceRequestTable;
 
-public class SanitationAccess extends DBAccess {
+public class MaintenanceAccess extends DBAccess{
     private static final DateFormat sdf = new SimpleDateFormat("yyyy/MM/dd");
     private static final DateFormat tdf = new SimpleDateFormat("HHmm");
 
@@ -17,7 +17,7 @@ public class SanitationAccess extends DBAccess {
      * deletes all the records from the serviceRequest table
      */
     public void deleteRecords() {
-        String sql = "Delete from sanitationRequest;";
+        String sql = "Delete from maintenanceRequest;";
 
         try (Connection conn = this.connect();
              Statement stmt = conn.createStatement()) {
@@ -31,9 +31,9 @@ public class SanitationAccess extends DBAccess {
      * adds a new religious request to the database
      *
      */
-    public void makeRequest(String desc, String location, String type, String urgency){
-        String sql = "insert into sanitationRequest(" +
-                "comment, type, location, creationTime, creationDate, urgencyLevel)" +
+    public void makeRequest(String desc, String location, String type, String isHazard){
+        String sql = "insert into maintenanceRequest(" +
+                "comment, type, location, creationTime, creationDate, isHazard)" +
                 "values (?, ?, ?, ?, ?, ?)";
 
         try (Connection conn = this.connect();
@@ -44,7 +44,11 @@ public class SanitationAccess extends DBAccess {
             pstmt.setString(3, location);
             pstmt.setInt(4, Integer.parseInt(tdf.format(date.getTime())));
             pstmt.setString(5, sdf.format(date));
-            pstmt.setString(6, urgency);
+            if(isHazard.equals("true")) {
+                pstmt.setBoolean(6, true);
+            }else {
+                pstmt.setBoolean(6, false);
+            }
             pstmt.executeUpdate();
         } catch (SQLException e) {
             System.out.println(e.getMessage());
@@ -76,9 +80,9 @@ public class SanitationAccess extends DBAccess {
      * @param getNum
      * @return
      */
-    public TreeItem<ServiceRequestTable> getSanitationRequests(int getNum){
+    public TreeItem<ServiceRequestTable> getMaintenanceRequests(int getNum){
         TreeItem<ServiceRequestTable> nodeRoot = null;
-        String sql = "SELECT * FROM sanitationRequest where requestID is not NULL and fulfilled = 0";
+        String sql = "SELECT * FROM maintenanceRequest where requestID is not NULL and fulfilled = 0";
         int count = 0;
         //noinspection Convert2Diamond
         ArrayList<String> data = new ArrayList<String>();
@@ -100,10 +104,14 @@ public class SanitationAccess extends DBAccess {
                     data.add(Integer.toString(rs.getInt("completionTime")));
                     data.add(rs.getString("comment"));
                     data.add(rs.getString("type"));
-                    data.add(rs.getString("urgencyLevel"));
+                    if(rs.getBoolean("isHazard")) {
+                        data.add("true");
+                    }else {
+                        data.add("false");
+                    }
                     data.add(rs.getString("creationDate"));
                     data.add(rs.getString("completionDate"));
-                    nodeRoot = new TreeItem<>(new ServiceRequestTable(data.get(0), data.get(1), data.get(2), data.get(3), 5, data.get(4), data.get(5), data.get(6), data.get(7), data.get(8), data.get(9), data.get(10)));
+                    nodeRoot = new TreeItem<>(new ServiceRequestTable(data.get(0), 5, data.get(1), data.get(2), data.get(3), data.get(4), data.get(5), data.get(6), data.get(7), data.get(8), data.get(9), data.get(10)));
                 }
                 count++;
             }
@@ -121,7 +129,7 @@ public class SanitationAccess extends DBAccess {
      * @return int
      */
     public int countRecords() {
-        String sql = "select COUNT(*) from sanitationRequest where requestID is not null and fulfilled = false";
+        String sql = "select COUNT(*) from maintenanceRequest where requestID is not null and fulfilled = false";
         try (Connection conn = this.connect();
              Statement stmt = conn.createStatement();
              ResultSet rs = stmt.executeQuery(sql)) {
@@ -137,5 +145,4 @@ public class SanitationAccess extends DBAccess {
     public static void main(String[] args) {
         ReligiousRequestAccess sra = new ReligiousRequestAccess();
     }
-
 }

@@ -22,18 +22,18 @@ public class ServiceRequestTable  {
     String problem;
     String language;
     String level;
-    int interpreters;
-    Boolean isHazard;
+    String interpreters;
+    String isHazard;
     String medicineType;
-    int deliveryTime;
-    int ammount;
-    int urgenecyLevel;
+    String deliveryTime;
+    String ammount;
+    String urgenecyLevel;
     String personDesc;
     String denomination;
     String name;
 
     //sanitation
-    /*public ServiceRequestTable(String requestID, String assignedEmployee, Boolean fulfilled, String comment, int creationTime, int completionTime, String creationDate, String completionDate, String location, String type, int urgenecyLevel) {
+    public ServiceRequestTable(String requestID, String assignedEmployee, String fulfilled, String location, int k, String creationTime, String completionTime, String comment, String type, String urgenecyLevel, String creationDate, String completionDate) {
         this.requestID = requestID;
         this.assignedEmployee = assignedEmployee;
         this.fulfilled = fulfilled;
@@ -44,7 +44,8 @@ public class ServiceRequestTable  {
         this.completionDate = completionDate;
         this.location = location;
         this.type = type;
-        this.urgenecyLevel = urgenecyLevel; */
+        this.urgenecyLevel = urgenecyLevel;
+    }
 
     //religious
     public ServiceRequestTable(String requestID, String assignedEmployee, String fulfilled, String location, String creationTime, String completionTime, String comment, String denomination, String type,  String name, String creationDate, String completionDate) {
@@ -63,9 +64,9 @@ public class ServiceRequestTable  {
     }
 
 
-    /*
+
     //prescription
-    public ServiceRequestTable(String requestID, String assignedEmployee, Boolean fulfilled, String comment, int creationTime, int completionTime, String creationDate, String completionDate, String location, String destination, String medicineType, int deliveryTime, int ammount) {
+    public ServiceRequestTable(String requestID, String assignedEmployee, String fulfilled, String location, String creationTime, String completionTime, String comment, String medicineType, String destination, String deliveryTime, String ammount, String creationDate, String completionDate) {
         this.requestID = requestID;
         this.assignedEmployee = assignedEmployee;
         this.fulfilled = fulfilled;
@@ -81,7 +82,7 @@ public class ServiceRequestTable  {
         this.ammount = ammount;
     }
     //maintenanceRequest
-    public ServiceRequestTable(String requestID, String assignedEmployee, Boolean fulfilled, String comment, int creationTime, int completionTime, String creationDate, String completionDate, String location, String type, Boolean isHazard) {
+    public ServiceRequestTable(String requestID, int k, String assignedEmployee, String fulfilled, String location, String creationTime, String completionTime, String comment, String type, String isHazard, String creationDate, String completionDate) {
         this.requestID = requestID;
         this.assignedEmployee = assignedEmployee;
         this.fulfilled = fulfilled;
@@ -95,7 +96,7 @@ public class ServiceRequestTable  {
         this.isHazard = isHazard;
     }
     //Language
-    public ServiceRequestTable(String requestID, String assignedEmployee, Boolean fulfilled, String comment, int creationTime, int completionTime, String creationDate, String completionDate, String location, String language, String level, int interpreters) {
+    public ServiceRequestTable(String requestID, String assignedEmployee, String fulfilled, int k, String location, String creationTime, String completionTime, String comment, String language, String level, String interpreters, String creationDate, String completionDate) {
         this.requestID = requestID;
         this.assignedEmployee = assignedEmployee;
         this.fulfilled = fulfilled;
@@ -109,8 +110,9 @@ public class ServiceRequestTable  {
         this.level = level;
         this.interpreters = interpreters;
     }
+
     //IT
-        public ServiceRequestTable(String requestID, String assignedEmployee, Boolean fulfilled, String comment, int creationTime, int completionTime, String creationDate, String completionDate, String location, String device, String problem) {
+    public ServiceRequestTable(int k, String requestID, String assignedEmployee, String fulfilled, String location, String creationTime, String completionTime, String comment, String device, String problem, String creationDate, String completionDate) {
         this.requestID = requestID;
         this.assignedEmployee = assignedEmployee;
         this.fulfilled = fulfilled;
@@ -122,8 +124,10 @@ public class ServiceRequestTable  {
         this.location = location;
         this.device = device;
         this.problem = problem;
-    } */
-        public ServiceRequestTable(int k, String requestID, String assignedEmployee, String fulfilled, String creationTime, String completionTime,String comment, String startLocation, String endLocation, String type, String phoneNumber, String creationDate, String completionDate) {
+    }
+
+    //internal transportation
+    public ServiceRequestTable(int k, String requestID, String assignedEmployee, String fulfilled, String creationTime, String completionTime,String comment, String startLocation, String endLocation, String type, String phoneNumber, String creationDate, String completionDate) {
         this.requestID = requestID;
         this.assignedEmployee = assignedEmployee;
         this.fulfilled = fulfilled;
@@ -137,9 +141,9 @@ public class ServiceRequestTable  {
         this.endLocation = endLocation;
         this.phoneNumber = phoneNumber;
     }
-    /*
+
     //florist
-    public ServiceRequestTable(String requestID, String assignedEmployee, String comment, int creationTime, int completionTime, Boolean fulfilled, String creationDate, String completionDate, String location, String receiverName, String flowerName) {
+    public ServiceRequestTable(String requestID, String assignedEmployee, int k, String fulfilled, String creationTime, String completionTime, String comment, String receiverName, String flowerName, String location, String creationDate, String completionDate) {
         this.requestID = requestID;
         this.assignedEmployee = assignedEmployee;
         this.fulfilled = fulfilled;
@@ -154,7 +158,7 @@ public class ServiceRequestTable  {
     }
 
     //externalTrans
-    public ServiceRequestTable(String requestID, String assignedEmployee, Boolean fulfilled, String comment, int creationTime, int completionTime, String creationDate, String completionDate, String location, String type, String phoneNumber, String destination) {
+    public ServiceRequestTable(String requestID, int k, String assignedEmployee, String fulfilled, String location, String creationTime, String completionTime, String comment, String type, String destination, String phoneNumber, String creationDate, String completionDate) {
         this.requestID = requestID;
         this.assignedEmployee = assignedEmployee;
         this.fulfilled = fulfilled;
@@ -170,8 +174,7 @@ public class ServiceRequestTable  {
     }
 
    //audio visual
-   public ServiceRequestTable(String requestID, String assignedEmployee, String comment, int creationTime, int completionTime, String creationDate, String completionDate, Boolean fulfilled, String location, String type, String destination) {
-
+   public ServiceRequestTable(String requestID, String assignedEmployee, String fulfilled, String location, String creationTime, String completionTime, String comment, String destination, String type, String creationDate, String completionDate) {
         this.requestID = requestID;
         this.assignedEmployee = assignedEmployee;
         this.fulfilled = fulfilled;
@@ -186,7 +189,7 @@ public class ServiceRequestTable  {
     }
 
     //securityRequest
-    public ServiceRequestTable(String requestID, String assignedEmployee, String comment, int creationTime, int completionTime, String creationDate, String completionDate, String location, Boolean fulfilled, String type, String personDesc) {
+    public ServiceRequestTable(String requestID, String assignedEmployee, String fulfilled, int k, String location, String creationTime, String completionTime, String comment, String name, String type, String creationDate, String completionDate) {
         this.requestID = requestID;
         this.assignedEmployee = assignedEmployee;
         this.fulfilled = fulfilled;
@@ -197,9 +200,9 @@ public class ServiceRequestTable  {
         this.completionDate = completionDate;
         this.location = location;
         this.type = type;
-        this.personDesc = personDesc;
+        this.name = name;
     }
-    */
+
 
     public String getRequestID() {
         return requestID;
@@ -361,20 +364,20 @@ public class ServiceRequestTable  {
         this.level = level;
     }
 
-    public int getInterpreters() {
+    public String getInterpreters() {
         return interpreters;
     }
 
-    public void setInterpreters(int interpreters) {
+    public void setInterpreters(String interpreters) {
         this.interpreters = interpreters;
     }
 
-    public Boolean getHazard() {
+    public String getIsHazard() {
         return isHazard;
     }
 
-    public void setHazard(Boolean hazard) {
-        isHazard = hazard;
+    public void setIsHazard(String isHazard) {
+        this.isHazard = isHazard;
     }
 
     public String getMedicineType() {
@@ -385,27 +388,27 @@ public class ServiceRequestTable  {
         this.medicineType = medicineType;
     }
 
-    public int getDeliveryTime() {
+    public String getDeliveryTime() {
         return deliveryTime;
     }
 
-    public void setDeliveryTime(int deliveryTime) {
+    public void setDeliveryTime(String deliveryTime) {
         this.deliveryTime = deliveryTime;
     }
 
-    public int getAmmount() {
+    public String getAmmount() {
         return ammount;
     }
 
-    public void setAmmount(int ammount) {
+    public void setAmmount(String ammount) {
         this.ammount = ammount;
     }
 
-    public int getUrgenecyLevel() {
+    public String getUrgenecyLevel() {
         return urgenecyLevel;
     }
 
-    public void setUrgenecyLevel(int urgenecyLevel) {
+    public void setUrgenecyLevel(String urgenecyLevel) {
         this.urgenecyLevel = urgenecyLevel;
     }
 
@@ -432,5 +435,4 @@ public class ServiceRequestTable  {
     public void setName(String name) {
         this.name = name;
     }
-
 }
