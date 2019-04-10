@@ -173,7 +173,6 @@ public class FulfillRequestController {
         ServiceRequestAccess sra = new ServiceRequestAccess();
         sra.assignEmployee(this.rid, staffMember.getValue().toString(), this.table);
         if(fulfill.isSelected()){
-            System.out.println("we got here");
             sra.fulfillRequest(this.rid,this.table);
         }
         if(staffMember.getValue() != null){

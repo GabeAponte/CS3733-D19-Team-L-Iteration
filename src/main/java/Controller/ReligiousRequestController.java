@@ -112,7 +112,6 @@ public class ReligiousRequestController {
         single.setLastTime();
         ReligiousRequestAccess rra = new ReligiousRequestAccess();
         rra.makeRequest(Description.getText(), Denomination.getText(),Location.getText(), Name.getText(), Type.getValue());
-        System.out.println("Submit Pressed");
         backPressed();
     }
 

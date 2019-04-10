@@ -81,8 +81,6 @@ public class SuggestionBoxController {
         single.setLastTime();
         FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("HospitalHome.fxml"));
         Parent sceneMain = loader.load();
-        HomeScreenController controller = loader.<HomeScreenController>getController();
-        controller.displayPopup();
         Stage thisStage = (Stage) submitFeedback.getScene().getWindow();
 
         Scene newScene = new Scene(sceneMain);
@@ -101,7 +99,7 @@ public class SuggestionBoxController {
 
         //Gabe - checks if the comment is nothing and that it isn't the prompt text
         if (feedbackComments.getText().trim().isEmpty() || feedbackComments.getText().equals("Type suggestions here")) {
-            timeout.stop();
+            //timeout.stop();
             error.setText("Please enter your feedback");
 
         } else {

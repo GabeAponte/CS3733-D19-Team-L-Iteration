@@ -139,7 +139,6 @@ public class SanitationServiceRequestController {
             submit1.setDisable(true);
             return;
         }
-        //System.out.println("nathan gay");
 
         submit1.setDisable(false);
     }
