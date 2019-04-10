@@ -66,15 +66,15 @@ public class ITController {
     }
 
     @FXML
-    private void submitRequest(){
+    private void submitRequest() throws IOException {
         ServiceRequestAccess sra = new ServiceRequestAccess();
         sra.makeITRequest(description.getText(), loc.getValue(), device.getValue(), problem.getValue());
-        System.out.println("Submit pressed with this info");
+        backPressed();
 
     }
 
     @FXML
-    private void deviceSelected(){
+    private void deviceSelected() {
         if(device.getValue().equals("Desktop Computer")){
             problem.getItems().clear();
             problem.getItems().addAll("Computer not powering on","Computer running slowly", "Computer frozen","Internet or network connectivity issues", "Strange noises from computer", "Malware/Virus related issue", "Display not powering on or working","Need HDMI", "Need ethernet cord", "Mouse/Keyboard needed", "Other");

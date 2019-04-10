@@ -65,15 +65,17 @@ public class PrescriptionServiceRequestControler {
             public void handle(ActionEvent event) {
                 if ((System.currentTimeMillis() - single.getLastTime()) > single.getTimeoutSec()) {
                     try {
+                        single.setDoPopup(true);
+                        FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("HospitalHome.fxml"));
+                        Parent sceneMain = loader.load();
+                        if(single.isLoggedIn()) {
+                            HomeScreenController controller = loader.<HomeScreenController>getController();
+                            controller.displayPopup();
+                        }
                         single.setLastTime();
                         single.setLoggedIn(false);
                         single.setUsername("");
                         single.setIsAdmin(false);
-                        single.setDoPopup(true);
-                        FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("HospitalHome.fxml"));
-                        Parent sceneMain = loader.load();
-                        HomeScreenController controller = loader.<HomeScreenController>getController();
-                        controller.displayPopup();
                         Stage thisStage = (Stage) submitButton.getScene().getWindow();
 
                         Scene newScene = new Scene(sceneMain);
@@ -92,6 +94,8 @@ public class PrescriptionServiceRequestControler {
     }
     @FXML
     private void reenableSubmit() {
+        Singleton single = Singleton.getInstance();
+        single.setLastTime();
         if (destinationField.getText().trim().isEmpty() || medicineTypeField.getText().trim().isEmpty() || deliveryTimeField.getText().trim().isEmpty() || amountField.getText().trim().isEmpty()) {
             submitButton.setDisable(true);
         } else {
@@ -100,6 +104,7 @@ public class PrescriptionServiceRequestControler {
     }
     @FXML
     private void submitClicked() throws IOException {
+        timeout.pause();
         Singleton single = Singleton.getInstance();
         single.setLastTime();
         ServiceRequestAccess sra = new ServiceRequestAccess();
@@ -109,6 +114,7 @@ public class PrescriptionServiceRequestControler {
 
     @FXML
     protected void backPressed() throws IOException {
+        timeout.stop();
         FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("ServiceRequest.fxml"));
 
         Parent sceneMain = loader.load();
