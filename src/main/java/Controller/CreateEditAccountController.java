@@ -96,8 +96,6 @@ public class CreateEditAccountController {
 
     private boolean onScreen;
 
-    private boolean deleted;
-
     private static boolean clickedDelete = false;
 
     Timeline timeout;
@@ -147,10 +145,6 @@ public class CreateEditAccountController {
         errorLabel.setText("");
         department.getItems().addAll("Sanitation", "Security", "IT", "Religious", "Audio Visual", "External Transportation", "Internal Transportation",
                 "Language", "Maintenance", "Prescription");
-        if(clickedDelete){
-
-            System.out.println("HERE");
-        }
     }
 
     @SuppressWarnings("Duplicates")
@@ -245,15 +239,11 @@ public class CreateEditAccountController {
         stage = new Stage();
         root = FXMLLoader.load(getClass().getClassLoader().getResource("DeleteEmployee.fxml"));
         stage.setScene(new Scene(root));
-      //  stage.setTitle("My modal window");
         stage.initModality(Modality.APPLICATION_MODAL);
         stage.initOwner(delete.getScene().getWindow());
         stage.setUserData(ID);
         clickedDelete = true;
         stage.showAndWait();
-        System.out.println(empID);
-
-        System.out.println(deleted);
 
         if(clickedDelete) {
             AnchorPane root2;
@@ -353,9 +343,6 @@ public class CreateEditAccountController {
             submit.setDisable(true);
             return;
         }
-
-
-        //System.out.println("nathan gay");
 
         submit.setDisable(false);
     }

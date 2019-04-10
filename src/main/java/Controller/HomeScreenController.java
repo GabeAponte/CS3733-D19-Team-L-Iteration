@@ -68,18 +68,18 @@ public class HomeScreenController {
                 if ((hour = hour % 12) == 0) {
                     hour = 12;
                 }
-                System.out.println("yo");
+
                 if (minute < 10) {
                     if (second > 9) {
-                        timeLabel.setText("The Time is: " + hour + ":0" + (minute) + ":" + second);
+                        timeLabel.setText(hour + ":0" + (minute) + ":" + second);
                     } else {
-                        timeLabel.setText("The Time is: " + hour + ":0" + (minute) + ":0" + second);
+                        timeLabel.setText(hour + ":0" + (minute) + ":0" + second);
                     }
                 } else {
                     if (second > 9) {
-                        timeLabel.setText("The Time is: " + hour + ":" + (minute) + ":" + second);
+                        timeLabel.setText(hour + ":" + (minute) + ":" + second);
                     } else {
-                        timeLabel.setText("The Time is: " + hour + ":" + (minute) + ":0" + second);
+                        timeLabel.setText(hour + ":" + (minute) + ":0" + second);
                     }
                 }
             }),
