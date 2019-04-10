@@ -16,6 +16,7 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Point2D;
+import javafx.geometry.Rectangle2D;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -124,6 +125,8 @@ public class BookRoomController {
                 }
             }
         }));
+
+        
         timeout.setCycleCount(Timeline.INDEFINITE);
         timeout.play();
         fieldsEntered();
@@ -261,6 +264,12 @@ public class BookRoomController {
         String date = "";
         String endDate = "";
 
+        for (Circle c: circles) {
+            imagePane.getChildren().remove(c);
+        }
+
+        circles.clear();
+
         if(startTime.getValue() != null && endTime != null && datePicker.getValue() != null && datePicker1.getValue() != null){
             startTimeMil = startTime.getValue().getHour() * 100 + startTime.getValue().getMinute();
             endTimeMil = endTime.getValue().getHour() * 100 + endTime.getValue().getMinute();
@@ -295,31 +304,47 @@ public class BookRoomController {
 
     @FXML
     public void displayOccupiedRooms(){
-
         for(int i = 0; i< reverseListOfRooms.size(); i++){
-            System.out.println(reverseListOfRooms.get(i).toString());
+            System.out.println("!");
+            if(reverseListOfRooms.get(i).toString().equals("Classroom 1 (Computer)")){
+                System.out.println("Hello world");
+                makeDot(2420,1775);
+            }else if(reverseListOfRooms.get(i).toString().equals("Classroom 2 (Computer)")){
+                makeDot(3020,1290);
+            }else if(reverseListOfRooms.get(i).toString().equals("Classroom 3 (Computer)")){
+                makeDot(2880,900);
+            }else if(reverseListOfRooms.get(i).toString().equals("Classroom 4 (Classroom)")){
+                makeDot(2545,370);
+            }else if(reverseListOfRooms.get(i).toString().equals("Classroom 5 (Computer)")){
+                makeDot(2390,920);
+            }else if(reverseListOfRooms.get(i).toString().equals("Classroom 6 (Classroom)")){
+                makeDot(2255,370);
+            }else if(reverseListOfRooms.get(i).toString().equals("Classroom 7 (Computer)")){
+                makeDot(2115,920);
+            }else if(reverseListOfRooms.get(i).toString().equals("Classroom 8 (Classroom)")){
+                makeDot(1922,370);
+            }else if(reverseListOfRooms.get(i).toString().equals("Classroom 9 (Computer)")){
+                makeDot(1870,825);
+            }else if(reverseListOfRooms.get(i).toString().equals("Mission Hall Auditorium")){
+                makeDot(3125,1840);
+            }
         }
-        /*
-        //Point2D point = sceneGestures.getImageLocation();
-        //double scaleRatio = roomImage.getFitWidth()/roomImage.getImage().getWidth();
-
-        Circle thisCircle = new Circle();
-        //in a regular pane
-        imagePane.getChildren().add(thisCircle);
-
-        for(int i = 0; i < reverseListOfRooms.size(); i++) {
-
-            //if (reverseListOfRooms.get(i).equals("Classroom 1")) {
-              //  thisCircle.setCenterX(700 - point.getX() * scaleRatio * sceneGestures.getImageScale());
-              //  thisCircle.setCenterY(100 - point.getY() * scaleRatio * sceneGestures.getImageScale());
-                thisCircle.setRadius(Math.max(2.5, 2.5f * (sceneGestures.getImageScale() / 5)));
-                thisCircle.setStroke(Color.web("RED"));
-                thisCircle.setFill(Color.web("RED"));
-                System.out.println("We reach this");
-           // }
-*/
-
 
         }
+
+    private void makeDot(double x, double y){
+        double scaleRatio = Math.min(roomImage.getFitWidth()/roomImage.getImage().getWidth(), roomImage.getFitHeight()/roomImage.getImage().getHeight());
+        Circle c = new Circle();
+
+        System.out.println(x*scaleRatio);
+
+        c.setCenterX(x*scaleRatio);
+        c.setCenterY(y*scaleRatio);
+        c.setRadius(10);
+        c.setStroke(Color.web("RED"));
+        c.setFill(Color.web("RED"));
+        imagePane.getChildren().add(c);
+        circles.add(c);
     }
+}
 
