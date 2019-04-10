@@ -52,7 +52,7 @@
                <center>
                   <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="543.0" BorderPane.alignment="CENTER">
                      <children>
-                        <Label fx:id="welcome" alignment="CENTER" contentDisplay="CENTER" prefHeight="57.0" prefWidth="277.0" text="Welcome, [Nickname]" HBox.hgrow="ALWAYS">
+                        <Label fx:id="welcome" alignment="CENTER" contentDisplay="CENTER" prefHeight="57.0" prefWidth="308.0" text="Welcome, Admin [Nickname]" HBox.hgrow="ALWAYS">
                            <font>
                               <Font size="22.0" />
                            </font>
@@ -164,7 +164,7 @@
                               <Insets bottom="25.0" top="25.0" />
                            </padding>
                            <children>
-                              <ImageView fitHeight="587.0" fitWidth="469.0" pickOnBounds="true" preserveRatio="true" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
+                              <ImageView fitHeight="540.0" fitWidth="467.0" pickOnBounds="true" preserveRatio="true" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
                                  <image>
                                     <Image url="@SoftEng_UI_Mockup_Pics/logo.png" />
                                  </image>
