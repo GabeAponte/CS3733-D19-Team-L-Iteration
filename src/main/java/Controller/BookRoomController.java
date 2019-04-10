@@ -45,7 +45,7 @@ public class BookRoomController {
     private JFXDatePicker datePicker1;
 
     @FXML
-    private JFXComboBox<String> avaliableRooms;
+    private JFXComboBox<String> availableRooms;
 
     @FXML
     private Label error;
@@ -93,6 +93,7 @@ public class BookRoomController {
         }else{
             datePicker1.setValue(LocalDate.now());
         }
+        fieldsEntered();
     }
 
     public void initialize(){
@@ -125,6 +126,7 @@ public class BookRoomController {
         }));
         timeout.setCycleCount(Timeline.INDEFINITE);
         timeout.play();
+        fieldsEntered();
     }
 
     @FXML
@@ -213,7 +215,7 @@ public class BookRoomController {
         else if (roomDate.compareTo(curDate) < 0) {
             error.setText("Please select a time for today or a future day.");
         }
-        else if (avaliableRooms.getValue() == null) {
+        else if (availableRooms.getValue() == null) {
             error.setText("Please pick a room.");
         }
         else {
@@ -234,7 +236,7 @@ public class BookRoomController {
             String employeeID = ea.getEmployeeInformation(single.getUsername()).get(0);
             ReservationAccess roomReq = new ReservationAccess();
             for(int i = 1; i < rooms.size(); i+=2) {
-                if (rooms.get(i).equals(avaliableRooms.getValue())) {
+                if (rooms.get(i).equals(availableRooms.getValue())) {
                     roomID = rooms.get(i - 1);
                 }
             }
@@ -257,7 +259,13 @@ public class BookRoomController {
             endTimeMil = endTime.getValue().getHour() * 100 + endTime.getValue().getMinute();
             date = datePicker.getValue().toString();
             endDate = datePicker1.getValue().toString();
-            avaliableRooms.getSelectionModel().clearSelection();
+            availableRooms.getSelectionModel().clearSelection();
+
+            rooms = ra.getAvailRooms(date, date, startTimeMil, endTimeMil);
+            for(int i = 0; i < rooms.size(); i++){
+                System.out.println("Available Rooms: " + rooms.get(i));
+            }
+
 
             for(int i = 0; i< listOfRooms.size(); i++){
                 reverseListOfRooms.add(i, listOfRooms.get(i));
@@ -265,6 +273,7 @@ public class BookRoomController {
 
             listOfRooms.clear();
 
+            System.out.println("startTimeMil: " + startTimeMil + "\n endTimeMil:" + endTimeMil);
             rooms = ra.getAvailRooms(date, date, startTimeMil, endTimeMil);
 
             for(int i = 0; i < rooms.size(); i++){
@@ -272,7 +281,7 @@ public class BookRoomController {
                 reverseListOfRooms.remove(rooms.get(i));
             }
 
-            avaliableRooms.setItems(listOfRooms);
+            availableRooms.setItems(listOfRooms);
             displayOccupiedRooms();
         }
     }
