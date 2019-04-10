@@ -69,18 +69,17 @@ public class HomeScreenController {
                 if ((hour = hour % 12) == 0) {
                     hour = 12;
                 }
-
                 if (minute < 10) {
                     if (second > 9) {
-                        timeLabel.setText("The Time is: " + hour + ":0" + (minute) + ":" + second);
+                        timeLabel.setText(hour + ":0" + (minute) + ":" + second);
                     } else {
-                        timeLabel.setText("The Time is: " + hour + ":0" + (minute) + ":0" + second);
+                        timeLabel.setText(hour + ":0" + (minute) + ":0" + second);
                     }
                 } else {
                     if (second > 9) {
-                        timeLabel.setText("The Time is: " + hour + ":" + (minute) + ":" + second);
+                        timeLabel.setText(hour + ":" + (minute) + ":" + second);
                     } else {
-                        timeLabel.setText("The Time is: " + hour + ":" + (minute) + ":0" + second);
+                        timeLabel.setText(hour + ":" + (minute) + ":0" + second);
                     }
                 }
             }),
@@ -89,7 +88,6 @@ public class HomeScreenController {
             clock.setCycleCount(Animation.INDEFINITE);
             clock.play();
         }
-
     }
 
     public void displayPopup(){
@@ -123,8 +121,6 @@ public class HomeScreenController {
         FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("HospitalPathFinding.fxml"));
 
         Parent sceneMain = loader.load();
-
-        PathFindingController controller = loader.getController();
 
         Stage theStage = (Stage) HomeFindPath.getScene().getWindow();
 

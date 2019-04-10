@@ -86,7 +86,7 @@ public class AdminLoggedInHomeController {
         timeout.play();
 
         EmployeeAccess ea = new EmployeeAccess();
-        welcome.setText("Welcome, " + ea.getEmployeeInformation(single.getUsername()).get(3));
+        welcome.setText("Welcome, Admin " + ea.getEmployeeInformation(single.getUsername()).get(3));
 
     }
     // TODO Make label display "Welcome, [nickname of admin signed in]"
@@ -171,8 +171,6 @@ public class AdminLoggedInHomeController {
 
         Parent sceneMain = loader.load();
 
-        EditLocationController controller = loader.<EditLocationController>getController();
-
         Stage theStage = (Stage) fufillServiceRequest.getScene().getWindow();
 
         Scene scene = new Scene(sceneMain);
@@ -223,6 +221,5 @@ public class AdminLoggedInHomeController {
         Scene scene = new Scene(sceneMain);
         theStage.setScene(scene);
     }
-
 
 }

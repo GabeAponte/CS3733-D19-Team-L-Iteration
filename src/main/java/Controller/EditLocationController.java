@@ -46,10 +46,10 @@ public class EditLocationController {
     Button backButton;
 
     @FXML
-    Button downloadNode;
+    ComboBox<Location> edgeDropDown;
 
     @FXML
-    ComboBox<Location> edgeDropDown;
+    Button downloadNode;
 
     @FXML
     Button downloadEdge;
@@ -62,6 +62,9 @@ public class EditLocationController {
 
     @FXML
     Button addNode;
+
+    @FXML
+    Button addEdge;
 
     @FXML
     Button deleteNode;
@@ -114,7 +117,6 @@ public class EditLocationController {
     private JFXTextField nodeInfoShort;
 
     @FXML Button SubmitButton;
-    @FXML Button ButtonLinkBetweenScreens;
 
     @FXML
     private ImageView Map;
@@ -241,9 +243,6 @@ public class EditLocationController {
     public void initialize(){
         Singleton single = Singleton.getInstance();
         single.setLastTime();
-        addNode.setDisable(true);
-        deleteNode.setDisable(true);
-        SubmitButton.setDisable(true);
         timeout = new Timeline(new KeyFrame(Duration.seconds(2), new EventHandler<ActionEvent>() {
 
             @Override
@@ -261,7 +260,7 @@ public class EditLocationController {
                         HomeScreenController controller = loader.<HomeScreenController>getController();
                         controller.displayPopup();
 
-                        Stage thisStage = (Stage) backButton.getScene().getWindow();
+                        Stage thisStage = (Stage) addEdge.getScene().getWindow();
 
                         Scene newScene = new Scene(sceneMain);
                         thisStage.setScene(newScene);
@@ -516,49 +515,6 @@ public class EditLocationController {
     }
 
     @FXML
-    private void downloadNodes() {
-        Singleton single = Singleton.getInstance();
-        single.setLastTime();
-        NodesAccess na = new NodesAccess();
-        na.writeTableIntoCSV("");
-    }
-
-    @FXML
-    private void downloadEdges() {
-        Singleton single = Singleton.getInstance();
-        single.setLastTime();
-        EdgesAccess ea = new EdgesAccess();
-        ea.writeTableIntoCSV("");
-    }
-
-
-    /**
-     * Grace made these
-     *
-     */
-    private String floorNum() {
-
-        if(floorSelected == 3){
-            return "3";
-        }
-        else if(floorSelected == 2){
-            return "2";
-        }
-        else if(floorSelected == 1){
-            return "1";
-        }
-        else if(floorSelected == 0){
-            return "G";
-        }
-        else if(floorSelected == -1){
-            return "L1";
-        }
-        else {
-            return "L2";
-        }
-    }
-
-    @FXML
     private void nodeDisplayPress(){
         Singleton single = Singleton.getInstance();
         single.setLastTime();
@@ -587,19 +543,107 @@ public class EditLocationController {
     private void onTextReleased() {
 
         if (nodeInfoID.getText().equals("") || nodeInfoX.getText().equals("") || nodeInfoY.getText().equals("") ||
-            nodeInfoFloor.getText().equals("") || nodeInfoBuilding.getText().equals("") || nodeInfoType.getText().equals("") ||
-            nodeInfoShort.getText().equals("") || nodeInfoLong.getText().equals("")) {
+                nodeInfoFloor.getText().equals("") || nodeInfoBuilding.getText().equals("") || nodeInfoType.getText().equals("") ||
+                nodeInfoShort.getText().equals("") || nodeInfoLong.getText().equals("")) {
             addNode.setDisable(true);
             SubmitButton.setDisable(true);
         }
         else {
-            if (!single.lookup.containsKey(nodeInfoID.getText())) {
-                addNode.setDisable(false);
-            }
+            addNode.setDisable(false);
             SubmitButton.setDisable(false);
         }
     }
 
+    @FXML
+    private void downloadNodes() {
+        Singleton single = Singleton.getInstance();
+        single.setLastTime();
+        NodesAccess na = new NodesAccess();
+        na.writeTableIntoCSV("");
+    }
+
+    @FXML
+    private void downloadEdges() {
+        Singleton single = Singleton.getInstance();
+        single.setLastTime();
+        EdgesAccess ea = new EdgesAccess();
+        ea.writeTableIntoCSV("");
+    }
+
+    private void initializeTable(NodesAccess na, EdgesAccess ea) {
+        /*
+        ArrayList<String> edgeList;
+        int count;
+        count = 0;
+        while (count < na.countRecords()) {
+            ArrayList<String> arr = na.getNodes(count);
+            Location testx = new Location(arr.get(0), Integer.parseInt(arr.get(1)), Integer.parseInt(arr.get(2)), (arr.get(3)), arr.get(4), arr.get(5), arr.get(6), arr.get(7));
+            //only add the node if it hasn't been done yet
+            if (!(lookup.containsKey(arr.get(0)))) {
+                lookup.put((arr.get(0)), testx);
+                nodeData.add(testx);
+            }
+            count++;
+        }
+        count = 0;
+        while (count < ea.countRecords()) {
+            edgeList = ea.getEdges(count);
+            if (!edgeList.get(0).equals("edgeID")) {
+                Edge testy = new Edge(edgeList.get(0), lookup.get(edgeList.get(1)), lookup.get(edgeList.get(2)));
+                edgeData.add(testy);
+            }
+            count++;
+        }
+        */
+    }
+
+    private void populateEdges(Location x) {
+        ObservableList<Location> locsToAdd = FXCollections.observableArrayList();
+        Location l = single.lookup.get(x.getLocID());
+        for (Edge e: l.getEdges()) {
+            //System.out.println(e.getEdgeID());
+            if (!e.getStartNode().equals(l)) {
+                locsToAdd.add(e.getStartNode());
+            }
+            else {
+                locsToAdd.add(e.getEndNode());
+            }
+        }
+        edgeDropDown.setItems(locsToAdd);
+        if (!locsToAdd.isEmpty()) {
+            edgeDropDown.setValue(locsToAdd.get(0));
+        }
+        else {
+            edgeDropDown.setPromptText("NO EDGES");
+        }
+
+    }
+
+    /**
+     * Grace made these
+     *
+     */
+    private String floorNum() {
+
+        if(floorSelected == 3){
+            return "3";
+        }
+        else if(floorSelected == 2){
+            return "2";
+        }
+        else if(floorSelected == 1){
+            return "1";
+        }
+        else if(floorSelected == 0){
+            return "G";
+        }
+        else if(floorSelected == -1){
+            return "L1";
+        }
+        else {
+            return "L2";
+        }
+    }
 
     private void drawNodes(){
         double scaleRatio = Math.min(Map.getFitWidth() / Map.getImage().getWidth(), Map.getFitHeight() / Map.getImage().getHeight());
@@ -645,12 +689,6 @@ public class EditLocationController {
         double beforeRatio = Math.min(Map.getFitWidth()/Map.getImage().getWidth(), Map.getFitHeight()/Map.getImage().getHeight());
 
         double scaleRatio;
-        if(newSize >= oldSize){
-            scaleRatio = Math.max(beforeRatio, newRatio);
-        }
-        else{
-            scaleRatio = Math.max(beforeRatio, newRatio);
-        }
 
         scaleRatio = newRatio;
 
@@ -745,13 +783,6 @@ public class EditLocationController {
 
     @FXML
     private void submitButtonPressed() {
-        na.updateNode(nodeInfoID.getText(), "xcoord", nodeInfoX.getText());
-        na.updateNode(nodeInfoID.getText(), "ycoord", nodeInfoY.getText());
-        na.updateNode(nodeInfoID.getText(), "floor", nodeInfoFloor.getText());
-        na.updateNode(nodeInfoID.getText(), "building", nodeInfoBuilding.getText());
-        na.updateNode(nodeInfoID.getText(), "nodeType", nodeInfoType.getText());
-        na.updateNode(nodeInfoID.getText(), "longName", nodeInfoLong.getText());
-        na.updateNode(nodeInfoID.getText(), "shortName", nodeInfoShort.getText());
         UpdateLocationThread ul = new UpdateLocationThread();
         ul.start();
     }
@@ -768,7 +799,7 @@ public class EditLocationController {
         }
         Parent sceneMain = loader.load();
 
-        Stage theStage = (Stage) backButton.getScene().getWindow();
+        Stage theStage = (Stage) addEdge.getScene().getWindow();
 
         Scene scene = new Scene(sceneMain);
         theStage.setScene(scene);
@@ -781,10 +812,9 @@ public class EditLocationController {
 
         @Override
         public void handle(MouseEvent event) {
-            single = Singleton.getInstance();
+            Singleton single = Singleton.getInstance();
             single.setLastTime();
-            Point2D mousePress = sceneGestures.imageViewToImage(Map, new Point2D(event.getX(), event.getY()));
-            sceneGestures.setMouseDown(mousePress);
+            mousePress = sceneGestures.imageViewToImage(Map, new Point2D(event.getX(), event.getY()));
             if(mousePress.getX() == sceneGestures.getMouseDown().getValue().getX() && mousePress.getY() == sceneGestures.getMouseDown().getValue().getY()) {
                 if (mousePress.getX() <= 5000 && mousePress.getY() <= 3400) {
                     int getX = (int) mousePress.getX();
@@ -792,16 +822,15 @@ public class EditLocationController {
                     String newQuery = na.getNodebyCoordNoType(getX, getY, floorNum(), 5);
                     Point2D point = sceneGestures.getImageLocation();
                     if (newQuery != null) {
-                        focusNode = single.lookup.get(newQuery);
-                        nodeInfoID.setText(focusNode.getLocID());
-                        nodeInfoX.setText("" + focusNode.getXcoord());
-                        nodeInfoY.setText("" + focusNode.getYcoord());
-                        nodeInfoType.setText("" + focusNode.getNodeType());
-                        nodeInfoBuilding.setText("" + focusNode.getBuilding());
-                        nodeInfoFloor.setText("" + focusNode.getFloor());
-                        nodeInfoLong.setText("" + focusNode.getLongName());
-                        nodeInfoShort.setText("" + focusNode.getShortName());
-                        populateEdges(focusNode);
+                        Location focusLoc = single.lookup.get(newQuery);
+                        nodeInfoID.setText(focusLoc.getLocID());
+                        nodeInfoX.setText("" + focusLoc.getXcoord());
+                        nodeInfoY.setText("" + focusLoc.getYcoord());
+                        nodeInfoType.setText("" + focusLoc.getNodeType());
+                        nodeInfoBuilding.setText("" + focusLoc.getBuilding());
+                        nodeInfoFloor.setText("" + focusLoc.getFloor());
+                        nodeInfoLong.setText("" + focusLoc.getLongName());
+                        nodeInfoShort.setText("" + focusLoc.getShortName());
 
                     } else {
                         nodeInfoID.setText("");
@@ -836,33 +865,10 @@ public class EditLocationController {
         return onMouseClickedEventHandler;
     }
 
-    private void populateEdges(Location x) {
-        ObservableList<Location> locsToAdd = FXCollections.observableArrayList();
-        Location l = single.lookup.get(x.getLocID());
-        for (Edge e: l.getEdges()) {
-            //System.out.println(e.getEdgeID());
-            if (!e.getStartNode().equals(l)) {
-                locsToAdd.add(e.getStartNode());
-            }
-            else {
-                locsToAdd.add(e.getEndNode());
-            }
-        }
-        edgeDropDown.setItems(locsToAdd);
-        if (!locsToAdd.isEmpty()) {
-            edgeDropDown.setValue(locsToAdd.get(0));
-        }
-        else {
-            edgeDropDown.setPromptText("NO EDGES");
-        }
-
-    }
-
     @FXML
     private void selectedEdge() {
 
         deleteEdge.setDisable(false);
     }
-
 }
 

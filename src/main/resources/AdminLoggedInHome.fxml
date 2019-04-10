@@ -1,5 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import com.jfoenix.controls.*?>
+<?import java.lang.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.effect.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 <?import com.jfoenix.controls.JFXButton?>
 <?import com.jfoenix.controls.JFXToolbar?>
 <?import javafx.geometry.Insets?>
@@ -16,7 +24,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" style="-fx-background-color: #012D5A;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.AdminLoggedInHomeController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" style="-fx-background-color: #012D5A;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.AdminLoggedInHomeController">
    <children>
       <VBox alignment="TOP_CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
@@ -29,9 +37,9 @@
                   </ImageView>
                </left>
                <right>
-                  <JFXButton fx:id="logOut" buttonType="RAISED" onAction="#logOut" prefHeight="86.0" prefWidth="201.0" style="-fx-background-radius: 50;" text="Log Out" BorderPane.alignment="CENTER">
+                  <JFXButton fx:id="logOut" buttonType="RAISED" onAction="#logOut" prefHeight="86.0" prefWidth="201.0" text="Log Out" BorderPane.alignment="CENTER">
                      <font>
-                        <Font size="40.0" />
+                        <Font size="34.0" />
                      </font>
                   </JFXButton>
                </right>
@@ -44,9 +52,9 @@
                <center>
                   <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="543.0" BorderPane.alignment="CENTER">
                      <children>
-                        <Label fx:id="welcome" alignment="CENTER" contentDisplay="CENTER" text="Welcome, [Nickname]" HBox.hgrow="ALWAYS">
+                        <Label fx:id="welcome" alignment="CENTER" contentDisplay="CENTER" prefHeight="57.0" prefWidth="308.0" text="Welcome, Admin [Nickname]" HBox.hgrow="ALWAYS">
                            <font>
-                              <Font size="36.0" />
+                              <Font size="22.0" />
                            </font>
                            <effect>
                               <Blend />
@@ -59,7 +67,7 @@
                            <children>
                               <JFXButton fx:id="seeSuggestions" buttonType="RAISED" onAction="#SwitchToSuggestionScreen" prefHeight="81.0" prefWidth="338.0" style="-fx-background-radius: 100;" text="See Suggestions" HBox.hgrow="ALWAYS">
                                  <font>
-                                    <Font size="38.0" />
+                                    <Font size="34.0" />
                                  </font>
                                  <HBox.margin>
                                     <Insets right="10.0" />
@@ -74,39 +82,77 @@
             <JFXToolbar prefHeight="10.0" prefWidth="1280.0" style="-fx-background-color: F5D96B;" />
             <HBox prefHeight="100.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
                <children>
-                  <VBox alignment="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" prefHeight="610.0" prefWidth="640.0" HBox.hgrow="ALWAYS">
+                  <VBox alignment="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" prefHeight="610.0" prefWidth="773.0" HBox.hgrow="ALWAYS">
                      <children>
-                        <GridPane VBox.vgrow="ALWAYS">
+                        <GridPane prefHeight="612.0" prefWidth="707.0" VBox.vgrow="ALWAYS">
                           <columnConstraints>
-                            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                            <ColumnConstraints hgrow="ALWAYS" maxWidth="1.7976931348623157E308" minWidth="10.0" prefWidth="353.7015075683594" />
+                            <ColumnConstraints hgrow="ALWAYS" maxWidth="1.7976931348623157E308" minWidth="10.0" prefWidth="353.2984924316406" />
                           </columnConstraints>
                           <rowConstraints>
-                            <RowConstraints vgrow="ALWAYS" />
-                            <RowConstraints vgrow="ALWAYS" />
+                            <RowConstraints maxHeight="1.7976931348623157E308" vgrow="ALWAYS" />
+                            <RowConstraints maxHeight="1.7976931348623157E308" vgrow="ALWAYS" />
+                              <RowConstraints maxHeight="1.7976931348623157E308" vgrow="ALWAYS" />
+                              <RowConstraints maxHeight="1.7976931348623157E308" vgrow="ALWAYS" />
+                              <RowConstraints maxHeight="1.7976931348623157E308" vgrow="ALWAYS" />
                           </rowConstraints>
                            <children>
-                              <JFXButton fx:id="findPath" buttonType="RAISED" onAction="#SwitchToPathfindScreen" prefHeight="150.0" prefWidth="300.0" ripplerFill="#b0b0b0" style="-fx-background-radius: 100; -fx-border-width: 2; -fx-border-color: F5D96B; -fx-border-radius: 1000;" text="Find Path" textFill="#f5d96b" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
+                              <JFXButton fx:id="newAccount" alignment="CENTER" buttonType="RAISED" onAction="#SwitchToAddAccountScreen" prefHeight="95.0" prefWidth="350.0" ripplerFill="WHITE" style="-fx-border-radius: 1000; -fx-border-width: 2; -fx-border-color: F5D96B; -fx-background-radius: 100;" text="New Account" textFill="WHITE" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
                                  <font>
-                                    <Font name="Times New Roman" size="36.0" />
+                                    <Font size="33.0" />
                                  </font>
                                  <GridPane.margin>
-                                    <Insets right="75.0" top="50.0" />
+                                    <Insets left="10.0" right="10.0" />
                                  </GridPane.margin>
                               </JFXButton>
-                              <JFXButton fx:id="serviceRequest" buttonType="RAISED" onAction="#SwitchToServiceScreen" prefHeight="150.0" prefWidth="300.0" ripplerFill="#b0b0b0" style="-fx-border-color: F5D96B; -fx-border-radius: 1000; -fx-border-width: 2; -fx-background-radius: 100;" text="Service Request" textFill="#f5d96b" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" GridPane.vgrow="ALWAYS">
+                              <JFXButton fx:id="editAccount" alignment="CENTER" buttonType="RAISED" onAction="#SwitchToEditAccountScreen" prefHeight="95.0" prefWidth="350.0" ripplerFill="WHITE" style="-fx-border-color: F5D96B; -fx-border-radius: 1000; -fx-border-width: 2; -fx-background-radius: 100;" text="Edit Account" textFill="WHITE" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
                                  <font>
-                                    <Font name="Times New Roman" size="36.0" />
+                                    <Font size="33.0" />
                                  </font>
                                  <GridPane.margin>
-                                    <Insets bottom="75.0" right="75.0" />
+                                    <Insets left="10.0" right="10.0" />
                                  </GridPane.margin>
                               </JFXButton>
-                              <VBox maxWidth="-Infinity" minHeight="-Infinity" prefHeight="624.0" prefWidth="10.0" style="-fx-background-color: F5D96B;" GridPane.columnIndex="1" GridPane.columnSpan="2147483647" GridPane.halignment="RIGHT" GridPane.rowSpan="2147483647">
+                              <JFXButton fx:id="fufillServiceRequest" buttonType="RAISED" onAction="#SwitchToFullfillRequestScreen" prefHeight="95.0" prefWidth="350.0" ripplerFill="WHITE" style="-fx-border-radius: 1000; -fx-border-width: 2; -fx-border-color: F5D96B; -fx-background-radius: 100;" text="Fulfill Service Request" textFill="WHITE" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
+                                 <font>
+                                    <Font size="27.0" />
+                                 </font>
                                  <GridPane.margin>
-                                    <Insets right="80.0" />
+                                    <Insets left="10.0" right="10.0" />
                                  </GridPane.margin>
-                              </VBox>
+                              </JFXButton>
+                              <JFXButton fx:id="bookRoom" buttonType="RAISED" onAction="#bookRoom" prefHeight="95.0" prefWidth="650.0" ripplerFill="WHITE" style="-fx-border-radius: 1000; -fx-border-width: 2; -fx-border-color: F5D96B; -fx-background-radius: 100;" text="Room Booking" textFill="WHITE" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="2" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
+                                 <font>
+                                    <Font size="35.0" />
+                                 </font>
+                                 <GridPane.margin>
+                                    <Insets />
+                                 </GridPane.margin>
+                              </JFXButton>
+                              <JFXButton fx:id="serviceRequest" buttonType="RAISED" onAction="#SwitchToServiceScreen" prefHeight="95.0" prefWidth="350.0" ripplerFill="WHITE" style="-fx-border-color: F5D96B; -fx-border-radius: 1000; -fx-border-width: 2; -fx-background-radius: 100;" text="Service Request" textFill="WHITE" GridPane.rowIndex="1">
+                                 <font>
+                                    <Font size="28.0" />
+                                 </font>
+                                 <GridPane.margin>
+                                    <Insets left="10.0" right="10.0" />
+                                 </GridPane.margin>
+                              </JFXButton>
+                              <JFXButton fx:id="editLocations" buttonType="RAISED" onAction="#SwitchToEditLocationScreen" prefHeight="95.0" prefWidth="650.0" ripplerFill="WHITE" style="-fx-border-radius: 1000; -fx-background-radius: 100; -fx-border-width: 2; -fx-border-color: F5D96B;" text="Edit Locations" textFill="WHITE" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="3" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
+                                 <font>
+                                    <Font size="35.0" />
+                                 </font>
+                                 <GridPane.margin>
+                                    <Insets />
+                                 </GridPane.margin>
+                              </JFXButton>
+                              <JFXButton fx:id="findPath" buttonType="RAISED" onAction="#SwitchToPathfindScreen" prefHeight="95.0" prefWidth="650.0" ripplerFill="WHITE" style="-fx-background-radius: 100; -fx-border-width: 2; -fx-border-color: F5D96B; -fx-border-radius: 1000;" text="Find Path" textFill="WHITE" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="4" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
+                                 <font>
+                                    <Font size="35.0" />
+                                 </font>
+                                 <GridPane.margin>
+                                    <Insets right="55.0" />
+                                 </GridPane.margin>
+                              </JFXButton>
                            </children>
                         </GridPane>
                      </children>
@@ -116,59 +162,20 @@
                         <GridPane VBox.vgrow="ALWAYS">
                            <columnConstraints>
                               <ColumnConstraints hgrow="ALWAYS" />
-                              <ColumnConstraints hgrow="ALWAYS" />
                            </columnConstraints>
                            <rowConstraints>
                               <RowConstraints vgrow="ALWAYS" />
-                              <RowConstraints vgrow="ALWAYS" />
-                              <RowConstraints vgrow="ALWAYS" />
-                              <RowConstraints vgrow="ALWAYS" />
                            </rowConstraints>
-                           <children>
-                              <JFXButton fx:id="editLocations" buttonType="RAISED" onAction="#SwitchToEditLocationScreen" prefHeight="95.0" prefWidth="510.0" ripplerFill="#b0b0b0" style="-fx-border-radius: 1000; -fx-background-radius: 100; -fx-border-width: 2; -fx-border-color: F5D96B;" text="Edit Locations" textFill="#f5d96b" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" GridPane.vgrow="ALWAYS">
-                                 <font>
-                                    <Font name="Times New Roman" size="36.0" />
-                                 </font>
-                                 <GridPane.margin>
-                                    <Insets right="75.0" />
-                                 </GridPane.margin>
-                              </JFXButton>
-                              <JFXButton fx:id="fufillServiceRequest" buttonType="RAISED" onAction="#SwitchToFullfillRequestScreen" prefHeight="95.0" prefWidth="510.0" ripplerFill="#b0b0b0" style="-fx-border-radius: 1000; -fx-border-width: 2; -fx-border-color: F5D96B; -fx-background-radius: 100;" text="Fulfill Service Request" textFill="#f5d96b" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="2" GridPane.vgrow="ALWAYS">
-                                 <font>
-                                    <Font name="Times New Roman" size="36.0" />
-                                 </font>
-                                 <GridPane.margin>
-                                    <Insets right="75.0" />
-                                 </GridPane.margin>
-                              </JFXButton>
-                              <JFXButton fx:id="bookRoom" buttonType="RAISED" onAction="#bookRoom" prefHeight="95.0" prefWidth="510.0" ripplerFill="#b0b0b0" style="-fx-border-radius: 1000; -fx-border-width: 2; -fx-border-color: F5D96B; -fx-background-radius: 100;" text="Room Booking" textFill="#f5d96b" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="3" GridPane.vgrow="ALWAYS">
-                                 <font>
-                                    <Font name="Times New Roman" size="36.0" />
-                                 </font>
-                                 <GridPane.margin>
-                                    <Insets right="75.0" />
-                                 </GridPane.margin>
-                              </JFXButton>
-                              <JFXButton fx:id="newAccount" buttonType="RAISED" onAction="#SwitchToAddAccountScreen" prefHeight="95.0" prefWidth="258.0" ripplerFill="#b0b0b0" style="-fx-border-radius: 1000; -fx-border-width: 2; -fx-border-color: F5D96B; -fx-background-radius: 100;" text="New Account" textFill="#f5d96b" GridPane.halignment="LEFT">
-                                 <font>
-                                    <Font name="Times New Roman" size="36.0" />
-                                 </font>
-                                 <GridPane.margin>
-                                    <Insets />
-                                 </GridPane.margin>
-                              </JFXButton>
-                              <JFXButton fx:id="editAccount" buttonType="RAISED" onAction="#SwitchToEditAccountScreen" prefHeight="95.0" prefWidth="243.0" ripplerFill="#b0b0b0" style="-fx-border-color: F5D96B; -fx-border-radius: 1000; -fx-border-width: 2; -fx-background-radius: 100;" text="Edit Account" textFill="#f5d96b" GridPane.columnIndex="1" GridPane.halignment="CENTER">
-                                 <font>
-                                    <Font name="Times New Roman" size="36.0" />
-                                 </font>
-                                 <GridPane.margin>
-                                    <Insets right="55.0" />
-                                 </GridPane.margin>
-                              </JFXButton>
-                           </children>
                            <padding>
                               <Insets bottom="25.0" top="25.0" />
                            </padding>
+                           <children>
+                              <ImageView fitHeight="540.0" fitWidth="467.0" pickOnBounds="true" preserveRatio="true" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
+                                 <image>
+                                    <Image url="@SoftEng_UI_Mockup_Pics/logo.png" />
+                                 </image>
+                              </ImageView>
+                           </children>
                         </GridPane>
                      </children>
                   </VBox>
