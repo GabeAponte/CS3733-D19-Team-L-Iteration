@@ -581,7 +581,9 @@ public class EditLocationController {
             SubmitButton.setDisable(true);
         }
         else {
-            addNode.setDisable(false);
+            if (!single.lookup.containsKey(nodeInfoID.getText())) {
+                addNode.setDisable(false);
+            }
             SubmitButton.setDisable(false);
         }
     }

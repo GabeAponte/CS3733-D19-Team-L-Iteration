@@ -463,6 +463,7 @@ public class EditLinkBetweenFloorsController {
         if (type != "") {
             displayNodes.setDisable(false);
         }
+        clearPressed();
         eraseNodes(anchorPaneLower, circlesLower);
         eraseNodes(anchorPaneUpper, circlesUpper);
         eraseNodes(anchorPaneMain, circles);
