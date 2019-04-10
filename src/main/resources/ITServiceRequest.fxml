@@ -83,7 +83,7 @@
                         <Insets top="25.0" />
                      </GridPane.margin>
                   </JFXButton>
-                  <JFXComboBox fx:id="device" prefHeight="43.0" prefWidth="434.0" promptText="Device?" GridPane.rowIndex="1" />
+                  <JFXComboBox fx:id="device" onAction="#deviceSelected" prefHeight="43.0" prefWidth="434.0" promptText="Device?" GridPane.rowIndex="1" />
                   <JFXComboBox fx:id="problem" prefHeight="43.0" prefWidth="434.0" promptText="Problem?" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                   <JFXComboBox fx:id="floor" prefHeight="43.0" prefWidth="434.0" promptText="Floor?" GridPane.rowIndex="3" />
                   <JFXComboBox fx:id="loc" prefHeight="43.0" prefWidth="434.0" promptText="Location" GridPane.columnIndex="1" GridPane.rowIndex="3" />

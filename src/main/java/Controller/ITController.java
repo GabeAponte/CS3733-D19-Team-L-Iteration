@@ -65,6 +65,34 @@ public class ITController {
     }
 
     @FXML
+    private void deviceSelected(){
+        if(device.getValue().equals("Desktop Computer")){
+            problem.getItems().clear();
+            problem.getItems().addAll("Computer not powering on", "Computer Frozen","Internet or network connectivity issues", "Strange noises from computer", "Malware/Virus related issue", "Display not powering on or working","WiFi Problems","Need HDMI", "Mouse/Keyboard needed");
+        }
+        else if(device.getValue().equals("Laptop Computer")){
+            problem.getItems().clear();
+            problem.getItems().addAll("Laptop not powering", "Laptop Frozen", "Display not powering on or working","WiFi Problems","Need HDMI");
+        }
+        else if(device.getValue().equals("Tablet")){
+            problem.getItems().clear();
+            problem.getItems().addAll("Tablet not powering", "Tablet Frozen", "Screen cracked","WiFi Problems","Need HDMI");
+        }
+        else if(device.getValue().equals("Smartphone")){
+            problem.getItems().clear();
+            problem.getItems().addAll("Phone not powering on", "Phone Frozen", "Display cracked", "Display cracked","WiFi Problems","Need HDMI");
+        }
+        else if(device.getValue().equals("Kiosk")){
+            problem.getItems().clear();
+            problem.getItems().addAll("Kiosk powered off", "Kiosk touch screen not working", "Display not powering on or working","WiFi Problems","Need HDMI");
+        }
+        else if(device.getValue().equals("Television")){
+            problem.getItems().clear();
+            problem.getItems().addAll("Computer not powering", "Computer Frozen", "Display not powering on or working","WiFi Problems","Need HDMI");
+        }
+    }
+
+    @FXML
     protected void backPressed() throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("ServiceRequest.fxml"));
 
