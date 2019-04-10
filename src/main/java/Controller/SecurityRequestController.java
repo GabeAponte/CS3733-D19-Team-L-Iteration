@@ -1,6 +1,7 @@
 package Controller;
 
 import Access.ReligiousRequestAccess;
+import Access.ServiceRequestAccess;
 import Object.Singleton;
 import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXTextArea;
@@ -108,8 +109,8 @@ public class SecurityRequestController {
     private void submitClicked() throws IOException {
         Singleton single = Singleton.getInstance();
         single.setLastTime();
-        ReligiousRequestAccess rra = new ReligiousRequestAccess();
-        rra.makeRequest(Description.getText(), Location.getText(),Identifiers.getText(), Type.getValue(), Level.getValue());
+        ServiceRequestAccess sra = new ServiceRequestAccess();
+        sra.makeSecurityRequest(Description.getText(), Location.getText(),Identifiers.getText(), Type.getValue(), Level.getValue());
         System.out.println("Submit Pressed");
         backPressed();
     }
