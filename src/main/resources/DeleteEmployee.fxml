@@ -27,7 +27,7 @@
                   <Insets left="10.0" right="10.0" />
                </padding>
                <center>
-                  <Label text="Are you sure?" textFill="#f5d96b" BorderPane.alignment="CENTER">
+                  <Label text="Are you sure?" textFill="#012d5a" BorderPane.alignment="CENTER">
                      <font>
                         <Font size="20.0" />
                      </font>
@@ -48,7 +48,7 @@
                 <RowConstraints maxHeight="107.0" minHeight="10.0" prefHeight="94.5" vgrow="SOMETIMES" />
               </rowConstraints>
                <children>
-                  <JFXButton fx:id="no" onAction="#noPressed" style="-fx-border-radius: 1000; -fx-border-color: F5D96B; -fx-background-radius: 50;" text="No, Keep" textFill="WHITE" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1">
+                  <JFXButton fx:id="no" onAction="#noPressed" ripplerFill="WHITE" style="-fx-border-radius: 50; -fx-border-color: F5D96B; -fx-background-radius: 50;" text="No, Keep" textFill="WHITE" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1">
                      <font>
                         <Font size="20.0" />
                      </font>
@@ -64,7 +64,7 @@
                         <Insets top="10.0" />
                      </GridPane.margin>
                   </Label>
-                  <JFXButton fx:id="yes" onAction="#yesPressed" style="-fx-border-radius: 1000; -fx-border-color: F5D96B; -fx-background-radius: 50;" text="Yes, Delete" textFill="WHITE" GridPane.halignment="CENTER" GridPane.rowIndex="1">
+                  <JFXButton fx:id="yes" onAction="#yesPressed" ripplerFill="WHITE" style="-fx-border-radius: 50; -fx-border-color: F5D96B; -fx-background-radius: 50;" text="Yes, Delete" textFill="WHITE" GridPane.halignment="CENTER" GridPane.rowIndex="1">
                      <font>
                         <Font size="20.0" />
                      </font>

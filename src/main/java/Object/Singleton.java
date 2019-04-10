@@ -47,7 +47,7 @@ public class Singleton {
     public static boolean isDoPopup(){
         return doPopup;
     }
-    
+
     public static void setDoPopup(boolean flag){
         doPopup = flag;
     }
