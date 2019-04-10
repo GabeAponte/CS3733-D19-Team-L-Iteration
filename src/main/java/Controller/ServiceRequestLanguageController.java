@@ -2,9 +2,11 @@ package Controller;
 
 import Access.NodesAccess;
 import Access.SanitationAccess;
+import Access.ServiceRequestAccess;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXTextArea;
+import com.jfoenix.controls.JFXTextField;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.collections.FXCollections;
@@ -15,6 +17,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.stage.Stage;
 import Object.*;
 import javafx.util.Duration;
@@ -25,157 +28,111 @@ import java.util.HashMap;
 
 public class ServiceRequestLanguageController {
 
-        @FXML
-        private JFXButton submit1;
+    private boolean signedIn;
+    private String uname;
 
-        @FXML
-        private JFXButton Back2;
-    /*
-        @FXML
-        private JFXComboBox<Location> location1;
-*/
-        @FXML
-        private JFXTextArea comment1;
+    @FXML
+    public Button Back;
 
-        @FXML
-        private JFXComboBox<String> typeBox1;
+    @FXML
+    public Button Submit;
 
-        @FXML
-        private JFXComboBox<String> urgencyLevel1;
+    @FXML
+    public JFXTextField language;
 
-        private NodesAccess na;
-        /*
-        private final ObservableList<Location> data = FXCollections.observableArrayList();
-        private HashMap<String, Location> lookup = new HashMap<String, Location>();
-*/
-        Timeline timeout;
-        /**Andrew made this
-         * Initializes the items that the controller uses and adds fields to combo boxes
-         */
-        public void initialize(){
-            Singleton single = Singleton.getInstance();
-            single.setLastTime();
-            timeout = new Timeline(new KeyFrame(Duration.seconds(2), new EventHandler<ActionEvent>() {
+    @FXML
+    public JFXTextField Location;
 
-                @Override
-                public void handle(ActionEvent event) {
-                    if((System.currentTimeMillis() - single.getLastTime()) > single.getTimeoutSec()){
-                        try{
-                            single.setLastTime();
-                            single.setLoggedIn(false);
-                            single.setUsername("");
-                            single.setIsAdmin(false);
-                            single.setDoPopup(true);
-                            FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("HospitalHome.fxml"));
-                            Parent sceneMain = loader.load();
-                            HomeScreenController controller = loader.<HomeScreenController>getController();
-                            controller.displayPopup();
-                            Stage thisStage = (Stage) comment1.getScene().getWindow();
+    @FXML
+    public JFXComboBox<String> level;
 
-                            Scene newScene = new Scene(sceneMain);
-                            thisStage.setScene(newScene);
-                            timeout.stop();
-                        } catch (IOException io){
-                            System.out.println(io.getMessage());
-                        }
+
+    @FXML
+    public JFXComboBox<String> interpreters;
+
+    @FXML
+    public JFXTextArea Description;
+
+    Timeline timeout;
+
+    public void init(boolean loggedIn) {
+        signedIn = loggedIn;
+    }
+
+    public void init(boolean loggedIn, String username) {
+        uname = username;
+        init(loggedIn);
+    }
+
+    public void initialize() {
+        Singleton single = Singleton.getInstance();
+        single.setLastTime();
+        timeout = new Timeline(new KeyFrame(Duration.seconds(2), new EventHandler<ActionEvent>() {
+
+            @Override
+            public void handle(ActionEvent event) {
+                if((System.currentTimeMillis() - single.getLastTime()) > single.getTimeoutSec()){
+                    try{
+                        single.setLastTime();
+                        single.setLoggedIn(false);
+                        single.setUsername("");
+                        single.setIsAdmin(false);
+                        single.setDoPopup(true);
+                        FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("HospitalHome.fxml"));
+                        Parent sceneMain = loader.load();
+                        HomeScreenController controller = loader.<HomeScreenController>getController();
+                        controller.displayPopup();
+                        Stage thisStage = (Stage) level.getScene().getWindow();
+
+                        Scene newScene = new Scene(sceneMain);
+                        thisStage.setScene(newScene);
+                        timeout.stop();
+                    } catch (IOException io){
+                        System.out.println(io.getMessage());
                     }
                 }
-            }));
-            timeout.setCycleCount(Timeline.INDEFINITE);
-            timeout.play();
-            na = new NodesAccess();
-            initializeTable(na);
-//            location1.setItems(data);
-            typeBox1.getItems().addAll(
-                    "Vomit",
-                    "Spill",
-                    "Rodent Found",
-                    "Bio Hazard"
-            );
-            urgencyLevel1.getItems().addAll(
-                    "Utmost Urgency",
-                    "Complete Quickly",
-                    "Complete Within Week"
-            );
-            submit1.setDisable(true);
-        }
-
-        /** Andrew copied this from somewhere
-         * initializes the location combo box to show possible node locations
-         * @param na
-         */
-        private void initializeTable(NodesAccess na) {
-/*
-            ArrayList<String> edgeList;
-            int count;
-            count = 0;
-            while (count < na.countRecords()) {
-                ArrayList<String> arr = na.getNodes(count);
-                ArrayList<String> arr2;
-                Location testx = new Location(arr.get(0), Integer.parseInt(arr.get(1)), Integer.parseInt(arr.get(2)), arr.get(3), arr.get(4), arr.get(5), arr.get(6), arr.get(7));
-                //only add the node if it hasn't been done yet
-                if (!(lookup.containsKey(arr.get(0)))) {
-                    lookup.put((arr.get(0)), testx);
-                    data.add(testx);
-                }
-                count++;
             }
-*/        }
+        }));
+        timeout.setCycleCount(Timeline.INDEFINITE);
+        timeout.play();
+        Submit.setDisable(true);
+        interpreters.getItems().addAll(
+                "3", "2", "1");
 
-        /**Andrew made this
-         * checks if the submit should be enabled or not
-         */
-        @FXML
-        private void checkSubmit(){
-            Singleton single = Singleton.getInstance();
-            single.setLastTime();
-/*
-            if(comment1 == null || comment1.getText().trim().isEmpty()){
-                submit1.setDisable(true);
-                return;
-            }else if(typeBox1.getValue() == null){
-                submit1.setDisable(true);
-                return;
-            }else if(location1.getValue() == null){
-                submit1.setDisable(true);
-                return;
-            }else if(urgencyLevel1.getValue() == null){
-                submit1.setDisable(true);
-                return;
-            }
-            //System.out.println("nathan gay");
+        level.getItems().addAll(
+                "5", "4", "3", "2", "1");
+    }
 
-*/            submit1.setDisable(false);
+    @FXML
+    private void reenableSubmit() {
+        Singleton single = Singleton.getInstance();
+        single.setLastTime();
+        if (Description.getText().trim().isEmpty() || interpreters.getValue() == null || Location.getText().trim().isEmpty() || level.getValue() == null || language.getText().trim().isEmpty()){
+            Submit.setDisable(true);
+        } else {
+            Submit.setDisable(false);
         }
+    }
 
-        /**Andrew made this
-         * submits the request fields to be stored in the database
-         */
-        @FXML
-        private void makeRequest(){
-            Singleton single = Singleton.getInstance();
-            single.setLastTime();
-            /*
-            SanitationAccess sa = new SanitationAccess();
-            sa.makeRequest(location1.getValue().getLocID(), comment1.getText(), typeBox1.getValue(), urgencyLevel1.getValue());
-            */
-        }
+    @FXML
+    private void submitClicked() throws IOException {
+        Singleton single = Singleton.getInstance();
+        single.setLastTime();
+        ServiceRequestAccess sra = new ServiceRequestAccess();
+        sra.makeLanguageRequest(Description.getText(), Location.getText(), language.getText(), level.getValue(), interpreters.getValue());
+        System.out.println("Submit Pressed");
+        backPressed();
+    }
 
-        //Nathan - changes screen to service sub screen, param "service" determines label on sub screen
-        @FXML
-        private void backPressed() throws IOException {
-            timeout.stop();
-            FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("ServiceRequest.fxml"));
- //           Singleton single = Singleton.getInstance();
+    @FXML
+    protected void backPressed() throws IOException {
+        timeout.stop();
+        FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("ServiceRequest.fxml"));
+        Parent sceneMain = loader.load();
 
-            Parent sceneMain = loader.load();
+        Stage theStage = (Stage) Back.getScene().getWindow();
 
-            ServiceRequestController controller = loader.<ServiceRequestController>getController();
-
-            Stage theStage = (Stage) Back2.getScene().getWindow();
-
-            Scene scene = new Scene(sceneMain);
-            theStage.setScene(scene);
-        }
-
+        Scene scene = new Scene(sceneMain);
+        theStage.setScene(scene);
+    }
 }
