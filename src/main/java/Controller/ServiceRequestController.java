@@ -224,4 +224,18 @@ public class ServiceRequestController {
 
     }
 
+    @FXML
+    private void changeToMaintenanceRequest() throws IOException {
+        Stage theStage = (Stage) Back.getScene().getWindow();
+        AnchorPane root;
+        FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("ServiceRequestMaintenance.fxml"));
+
+        Parent sceneMain = loader.load();
+
+        theStage = (Stage) SanitationServices.getScene().getWindow();
+
+        Scene scene = new Scene(sceneMain);
+        theStage.setScene(scene);
+    }
+
 }
