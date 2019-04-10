@@ -85,13 +85,16 @@
                                 <Insets right="100.0" />
                             </GridPane.margin>
                         </Label>
-                        <JFXToggleButton fx:id="fulfill" prefHeight="145.0" prefWidth="242.0" text="Fulfilled" GridPane.columnSpan="2147483647" GridPane.rowIndex="2">
+                        <JFXToggleButton fx:id="fulfill" prefHeight="145.0" prefWidth="242.0" size="15.0" text="Fulfilled" textFill="WHITE" GridPane.columnSpan="2147483647" GridPane.rowIndex="2">
                             <stylesheets>
                                 <URL value="@size.css" />
                                 <URL value="@modify-prompt-text.css" />
                             </stylesheets>
+                     <font>
+                        <Font size="20.0" />
+                     </font>
                         </JFXToggleButton>
-                  <JFXComboBox fx:id="staffMember" prefHeight="40.0" prefWidth="275.0" promptText="EmployeeID" stylesheets="@size.css" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.rowIndex="1" />
+                  <JFXComboBox fx:id="staffMember" onAction="#open" prefHeight="40.0" prefWidth="275.0" promptText="EmployeeID" stylesheets="@size.css" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.rowIndex="1" />
                     </children>
                     <opaqueInsets>
                         <Insets />

@@ -49,15 +49,15 @@ public class FulfillRequestController {
 
     Timeline timeout;
 
-    public void initialize(){
+    public void initialize() {
         Singleton single = Singleton.getInstance();
         single.setLastTime();
         timeout = new Timeline(new KeyFrame(Duration.seconds(2), new EventHandler<ActionEvent>() {
 
             @Override
             public void handle(ActionEvent event) {
-                if((System.currentTimeMillis() - single.getLastTime()) > single.getTimeoutSec()){
-                    try{
+                if ((System.currentTimeMillis() - single.getLastTime()) > single.getTimeoutSec()) {
+                    try {
                         single.setLastTime();
                         single.setDoPopup(true);
                         single.setLoggedIn(false);
@@ -74,7 +74,7 @@ public class FulfillRequestController {
                         Scene newScene = new Scene(sceneMain);
                         thisStage.setScene(newScene);
                         timeout.stop();
-                    } catch (IOException io){
+                    } catch (IOException io) {
                         System.out.println(io.getMessage());
                     }
                 }
@@ -82,6 +82,8 @@ public class FulfillRequestController {
         }));
         timeout.setCycleCount(Timeline.INDEFINITE);
         timeout.play();
+        submit.setDisable(true);
+
     }
     @FXML
     /**@author Gabe
@@ -96,6 +98,15 @@ public class FulfillRequestController {
         Stage thestage = (Stage) back.getScene().getWindow();
         //Show scene 2 in new window
         thestage.setScene(scene);
+    }
+
+    @FXML
+    public void open(){
+        if (staffMember.getValue() != null) {
+            submit.setDisable(false);
+        } else {
+            submit.setDisable(true);
+        }
     }
 
     @FXML
@@ -169,16 +180,16 @@ public class FulfillRequestController {
     }
 
     @FXML
-    private void submitPressed() throws IOException{
-        ServiceRequestAccess sra = new ServiceRequestAccess();
-        sra.assignEmployee(this.rid, staffMember.getValue().toString(), this.table);
-        if(fulfill.isSelected()){
-            sra.fulfillRequest(this.rid,this.table);
+    private void submitPressed() throws IOException {
+            ServiceRequestAccess sra = new ServiceRequestAccess();
+            sra.assignEmployee(this.rid, staffMember.getValue().toString(), this.table);
+            if (fulfill.isSelected()) {
+                sra.fulfillRequest(this.rid, this.table);
+            }
+            if (staffMember.getValue() != null) {
+                backPressed();
+            }
         }
-        if(staffMember.getValue() != null){
-            backPressed();
-        }
-    }
 
     @FXML
     @SuppressWarnings("Duplicates")
