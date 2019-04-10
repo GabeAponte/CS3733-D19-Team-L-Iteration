@@ -221,7 +221,7 @@
                       </ImageView>
                </left>
                <right>
-                      <JFXButton fx:id="PathFindBack" buttonType="RAISED" maxHeight="1.7976931348623157E308" prefWidth="286.0" ripplerFill="#b0b0b0" text="Back" BorderPane.alignment="CENTER">
+                      <JFXButton fx:id="PathFindBack" onAction="#backPressed" buttonType="RAISED" maxHeight="1.7976931348623157E308" prefWidth="286.0" ripplerFill="#b0b0b0" text="Back" BorderPane.alignment="CENTER">
                           <font>
                               <Font name="Avenir Book" size="48.0" />
                           </font>

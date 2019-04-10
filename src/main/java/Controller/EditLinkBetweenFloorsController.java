@@ -339,14 +339,8 @@ public class EditLinkBetweenFloorsController {
         zoomPaneImage.setLayoutX(x);
         zoomPaneImage.setLayoutY(y);
 
-        Map.fitWidthProperty().bind(mapPane.widthProperty());
-        Map.fitHeightProperty().bind(mapPane.heightProperty());
-
-        MapUpper.fitWidthProperty().bind(upperPane.widthProperty());
-        MapUpper.fitHeightProperty().bind(upperPane.heightProperty());
-
-        MapLower.fitWidthProperty().bind(lowerPane.widthProperty());
-        MapLower.fitHeightProperty().bind(lowerPane.heightProperty());
+        Map1.fitWidthProperty().bind(pane.widthProperty());
+        Map1.fitHeightProperty().bind(pane.heightProperty());
 
         pane.getChildren().add(zoomPaneImage);
         pane.getChildren().add(anchorPanePath);
@@ -562,7 +556,7 @@ public class EditLinkBetweenFloorsController {
         ArrayList<Location> nodes = new ArrayList<Location>();
         //want to fill nodes w/ floor = currrentFloor
         int temp = 0;
-        double scaleRatio = Map.getFitWidth() / Map.getImage().getWidth();
+        double scaleRatio = Math.min(Map.getFitWidth() / Map.getImage().getWidth(), Map.getFitHeight()/Map.getImage().getHeight());
         Point2D point = sceneGestureUpper.getImageLocation();
         for (int i = 0; i < single.getData().size(); i++) {
             if (single.getData().get(i).getFloor().equals(currentMapAbove) && single.getData().get(i).getNodeType().equals(type)) {
