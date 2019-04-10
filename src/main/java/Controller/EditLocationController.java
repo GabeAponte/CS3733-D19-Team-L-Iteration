@@ -386,10 +386,15 @@ public class EditLocationController {
 
         anchorPanePath = new AnchorPane();
 
-        Map.fitWidthProperty().bind(imagePane.widthProperty());
-        Map.fitHeightProperty().bind(imagePane.heightProperty());
+//        Map.fitWidthProperty().bind(imagePane.widthProperty());
+//        Map.fitHeightProperty().bind(imagePane.heightProperty());
 
-        clip = new Rectangle(631,429);
+        Map.setFitWidth(610);
+        Map.setFitHeight(415);
+
+        clip = new Rectangle();
+        clip.widthProperty().bind(Map.fitWidthProperty());
+        clip.heightProperty().bind(Map.fitHeightProperty());
         anchorPanePath.setClip(clip);
 
         zoomPaneImage = new PanAndZoomPane();
@@ -400,10 +405,10 @@ public class EditLocationController {
 
         sceneGestures = new SceneGesturesForEditing(zoomPaneImage, Map);
 
-        anchorPanePath.addEventFilter( MouseEvent.MOUSE_CLICKED, getOnMouseClickedEventHandler());
-        anchorPanePath.addEventFilter( MouseEvent.MOUSE_PRESSED, sceneGestures.getOnMousePressedEventHandler());
-        anchorPanePath.addEventFilter( MouseEvent.MOUSE_DRAGGED, sceneGestures.getOnMouseDraggedEventHandler());
-        anchorPanePath.addEventFilter( ScrollEvent.ANY, sceneGestures.getOnScrollEventHandler());
+        imagePane.addEventFilter( MouseEvent.MOUSE_CLICKED, getOnMouseClickedEventHandler());
+        imagePane.addEventFilter( MouseEvent.MOUSE_PRESSED, sceneGestures.getOnMousePressedEventHandler());
+        imagePane.addEventFilter( MouseEvent.MOUSE_DRAGGED, sceneGestures.getOnMouseDraggedEventHandler());
+        imagePane.addEventFilter( ScrollEvent.ANY, sceneGestures.getOnScrollEventHandler());
         Map.sceneProperty().addListener((observableScene, oldScene, newScene) -> {
             if (oldScene == null && newScene != null) {
                 // scene is set for the first time. Now its the time to listen stage changes.
@@ -414,14 +419,14 @@ public class EditLocationController {
                             eraseNodes();
                             drawNodesResize(oldValue.doubleValue(), newValue.doubleValue());
 
-                            anchorPanePath.setClip(clip);
+                            Map.setFitWidth(Map.getFitWidth()/oldValue.doubleValue()*newValue.doubleValue());
                         };
 
                         ChangeListener<Number> stageSizeListenerHeight = (observable, oldValue, newValue) -> {
                             eraseNodes();
                             drawNodesResize(oldValue.doubleValue(), newValue.doubleValue());
 
-                            anchorPanePath.setClip(clip);
+                            Map.setFitHeight(Map.getFitHeight()/oldValue.doubleValue()*newValue.doubleValue());
                         };
 
                         ((Stage) newWindow).widthProperty().addListener(stageSizeListenerWidth);
