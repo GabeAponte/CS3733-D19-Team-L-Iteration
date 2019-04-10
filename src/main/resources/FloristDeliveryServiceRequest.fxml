@@ -28,6 +28,8 @@
                         <Image url="@SoftEng_UI_Mockup_Pics/BWHlogo.png" />
                      </image>
                   </ImageView>
+                     </image>
+                  </ImageView>
                </left>
                <right>
                   <JFXButton fx:id="backBtn" buttonType="RAISED" onAction="#backPressed" prefHeight="75.0" prefWidth="150.0" style="-fx-background-radius: 50;" text="Back" BorderPane.alignment="CENTER">

@@ -22,7 +22,7 @@
    <children>
       <VBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
-            <JFXToolbar prefHeight="107.0" prefWidth="1280.0" style="-fx-background-color: WHITE;">
+            <JFXToolbar prefHeight="100.0" prefWidth="1280.0" style="-fx-background-color: WHITE;">
                <left>
                   <ImageView fitHeight="75.0" fitWidth="325.0" BorderPane.alignment="CENTER">
                      <image>
@@ -31,7 +31,7 @@
                   </ImageView>
                </left>
                <right>
-                  <JFXButton fx:id="backButton" buttonType="RAISED" prefHeight="75.0" prefWidth="150.0" style="-fx-background-radius: 50;" text="Back" BorderPane.alignment="CENTER">
+                  <JFXButton fx:id="backButton" buttonType="RAISED" onAction="#backPressed" prefHeight="75.0" prefWidth="150.0" style="-fx-background-radius: 50;" text="Back" BorderPane.alignment="CENTER">
                      <font>
                         <Font size="40.0" />
                      </font>
@@ -67,7 +67,6 @@
                         <Font size="20.0" />
                      </font>
                      <stylesheets>
-                        <URL value="@CS3733-D19-Team-L-Iterations/src/main/resources/modify-prompt-text.css" />
                         <URL value="@modify-prompt-text.css" />
                      </stylesheets>
                   </JFXTextField>
@@ -79,7 +78,6 @@
                         <Font size="20.0" />
                      </font>
                      <stylesheets>
-                        <URL value="@CS3733-D19-Team-L-Iterations/src/main/resources/modify-prompt-text.css" />
                         <URL value="@modify-prompt-text.css" />
                      </stylesheets>
                   </JFXTextField>
@@ -91,7 +89,6 @@
                         <Font size="20.0" />
                      </font>
                      <stylesheets>
-                        <URL value="@CS3733-D19-Team-L-Iterations/src/main/resources/modify-prompt-text.css" />
                         <URL value="@modify-prompt-text.css" />
                      </stylesheets>
                   </JFXTextField>
@@ -103,7 +100,6 @@
                         <Font size="20.0" />
                      </font>
                      <stylesheets>
-                        <URL value="@CS3733-D19-Team-L-Iterations/src/main/resources/modify-prompt-text.css" />
                         <URL value="@modify-prompt-text.css" />
                      </stylesheets>
                   </JFXTextField>
