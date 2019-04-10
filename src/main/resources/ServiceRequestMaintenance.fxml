@@ -59,7 +59,7 @@
                   <RowConstraints maxHeight="59.111358642578125" minHeight="0.0" prefHeight="0.0" valignment="CENTER" vgrow="ALWAYS" />
               </rowConstraints>
                <children>
-                  <JFXTextField fx:id="field1" focusColor="#f6bd38" onKeyReleased="#reenableSubmit" promptText="Location" style="-jfx-prompt-text: WHITE;" stylesheets="@modify-prompt-text.css" text="field 1" unFocusColor="WHITE" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" GridPane.vgrow="ALWAYS">
+                  <JFXTextField fx:id="field1" focusColor="#f6bd38" onKeyReleased="#reenableSubmit" promptText="type1" style="-jfx-prompt-text: WHITE;" stylesheets="@modify-prompt-text.css" unFocusColor="WHITE" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" GridPane.vgrow="ALWAYS">
                      <GridPane.margin>
                         <Insets left="100.0" right="100.0" />
                      </GridPane.margin>
@@ -67,7 +67,7 @@
                         <Font size="20.0" />
                      </font>
                   </JFXTextField>
-                  <JFXTextField fx:id="field2" focusColor="#f6bd38" onKeyReleased="#reenableSubmit" promptText="Prompt Text" style="-jfx-prompt-text: WHITE;" stylesheets="@modify-prompt-text.css" text="field 2" unFocusColor="WHITE" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="2" GridPane.vgrow="ALWAYS">
+                  <JFXTextField fx:id="field2" focusColor="#f6bd38" onKeyReleased="#reenableSubmit" promptText="type2" style="-jfx-prompt-text: WHITE;" stylesheets="@modify-prompt-text.css" unFocusColor="WHITE" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="2" GridPane.vgrow="ALWAYS">
                      <GridPane.margin>
                         <Insets left="100.0" right="100.0" />
                      </GridPane.margin>
@@ -75,7 +75,7 @@
                         <Font size="20.0" />
                      </font>
                   </JFXTextField>
-                  <JFXTextField fx:id="Location" focusColor="#f6bd38" onKeyReleased="#reenableSubmit" promptText="Denomination" style="-jfx-prompt-text: WHITE;" stylesheets="@modify-prompt-text.css" text="Location" unFocusColor="WHITE" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" GridPane.vgrow="ALWAYS">
+                  <JFXTextField fx:id="Location" focusColor="#f6bd38" onKeyReleased="#reenableSubmit" promptText="Location" style="-jfx-prompt-text: WHITE;" stylesheets="@modify-prompt-text.css" unFocusColor="WHITE" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" GridPane.vgrow="ALWAYS">
                      <GridPane.margin>
                         <Insets left="100.0" right="100.0" />
                      </GridPane.margin>
@@ -99,7 +99,7 @@
                         <Insets left="200.0" right="200.0" />
                      </GridPane.margin>
                   </JFXTextArea>
-                  <JFXButton buttonType="RAISED" prefHeight="7.0" prefWidth="138.0" style="-fx-border-color: F5D96B; -fx-border-width: 2; -fx-border-radius: 50; -fx-background-radius: 50;" text="Submit" textFill="WHITE" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="5" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
+                  <JFXButton fx:id="Submit" buttonType="RAISED" onAction="#submitClicked" prefHeight="7.0" prefWidth="138.0" style="-fx-border-color: F5D96B; -fx-border-width: 2; -fx-border-radius: 50; -fx-background-radius: 50;" text="Submit" textFill="WHITE" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="5" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
                      <font>
                         <Font size="30.0" />
                      </font>
@@ -115,11 +115,6 @@
                         <Insets left="100.0" />
                      </padding>
                   </Label>
-                  <RadioButton fx:id="hazardNo" mnemonicParsing="false" onAction="#reenableSubmit" text="No" textFill="WHITE" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.rowIndex="2">
-                     <GridPane.margin>
-                        <Insets left="400.0" />
-                     </GridPane.margin>
-                  </RadioButton>
                   <RadioButton fx:id="hazardYes" mnemonicParsing="false" onAction="#reenableSubmit" text="Yes" textFill="WHITE" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.rowIndex="2">
                      <GridPane.margin>
                         <Insets left="330.0" />
