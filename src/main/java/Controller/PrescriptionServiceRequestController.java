@@ -1,8 +1,8 @@
 package Controller;
 
-import com.jfoenix.controls.JFXTextArea;
 import Access.ServiceRequestAccess;
 import Object.Singleton;
+import com.jfoenix.controls.JFXTextArea;
 import com.jfoenix.controls.JFXTextField;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
@@ -18,7 +18,7 @@ import javafx.util.Duration;
 
 import java.io.IOException;
 
-public class PrescriptionServiceRequestControler {
+public class PrescriptionServiceRequestController {
 
     private boolean signedIn;
     private String uname;
