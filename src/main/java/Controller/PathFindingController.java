@@ -3,6 +3,7 @@ package Controller;
 import SearchingAlgorithms.AStarStrategy;
 import SearchingAlgorithms.DepthFirstStrategy;
 import SearchingAlgorithms.PathfindingStrategy;
+import com.sun.scenario.effect.impl.sw.sse.SSEBlend_SRC_OUTPeer;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.beans.property.DoubleProperty;
@@ -436,6 +437,19 @@ public class PathFindingController {
         printPath(path.getPath());
 
         sceneGestures.setDrawPath(circles,lines);
+//        System.out.println('\u2190');
+//        System.out.println('\u2191');
+//        System.out.println('\u2192');
+//        System.out.println('\u2193');
+//        System.out.println('\u2196');
+//        System.out.println('\u2197');
+//        System.out.println('\u21D0');
+//        System.out.println('\u21D1');
+//        System.out.println('\u21D2');
+//        System.out.println('\u21D3');
+//        System.out.println(" ");
+//        System.out.println('\u21E6');
+//        System.out.println('\u21E7');
     }
 
     public void displayPath(ArrayList<Location> path, Location startNode, Location endNode){
