@@ -405,6 +405,7 @@ public class ActiveServiceRequestsController {
                 return new ReadOnlyObjectWrapper(cellData.getValue().getValue());
             });
 
+            field1.setText("Name");
             activeRequests.getColumns().clear();
             activeRequests.getColumns().add(timeRequested);
             activeRequests.getColumns().add(dateRequested);
