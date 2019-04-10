@@ -1,16 +1,10 @@
 package Controller;
 
-import Access.DBAccess;
 import Access.EmployeeAccess;
-import Access.ServiceRequestAccess;
 import Object.EmployeeTable;
-import com.jfoenix.controls.JFXTreeTableView;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.beans.property.ReadOnlyObjectWrapper;
-import javafx.beans.property.SimpleStringProperty;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -18,17 +12,13 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
-import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseButton;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import Object.*;
 import javafx.util.Duration;
-import Object.*;
 
 import java.io.IOException;
-import java.sql.Connection;
-import java.util.ArrayList;
 
 public class EmployeeTableController{
 
@@ -73,12 +63,15 @@ public class EmployeeTableController{
                 if((System.currentTimeMillis() - single.getLastTime()) > single.getTimeoutSec()){
                     try{
                         single.setLastTime();
+                        single.setDoPopup(true);
                         single.setLoggedIn(false);
                         single.setUsername("");
                         single.setIsAdmin(false);
                         FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("HospitalHome.fxml"));
 
                         Parent sceneMain = loader.load();
+                        HomeScreenController controller = loader.<HomeScreenController>getController();
+                        controller.displayPopup();
 
                         Stage thisStage = (Stage) employees.getScene().getWindow();
 
@@ -159,16 +152,6 @@ public class EmployeeTableController{
         Scene scene = new Scene(root);
         thestage.setScene(scene);
     }
-
-    /**
-     * @author Gabe
-     * Populates the table on the screen with any employees in the database
-     */
-
-    /*public void initializeTable(EmployeeAccess ea) {
-        ArrayList<ArrayList<String>>  ls = ea.getEmployees("", "");
-    }
-
 
     /**@author Gabe
      * When double clicking on a row in the table, admin is sent to the create/edit screen

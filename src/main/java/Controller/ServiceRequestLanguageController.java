@@ -65,10 +65,11 @@ public class ServiceRequestLanguageController {
                             single.setLoggedIn(false);
                             single.setUsername("");
                             single.setIsAdmin(false);
+                            single.setDoPopup(true);
                             FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("HospitalHome.fxml"));
-
                             Parent sceneMain = loader.load();
-
+                            HomeScreenController controller = loader.<HomeScreenController>getController();
+                            controller.displayPopup();
                             Stage thisStage = (Stage) comment1.getScene().getWindow();
 
                             Scene newScene = new Scene(sceneMain);
@@ -128,23 +129,7 @@ public class ServiceRequestLanguageController {
         private void checkSubmit(){
             Singleton single = Singleton.getInstance();
             single.setLastTime();
-/*
-            if(comment1 == null || comment1.getText().trim().isEmpty()){
-                submit1.setDisable(true);
-                return;
-            }else if(typeBox1.getValue() == null){
-                submit1.setDisable(true);
-                return;
-            }else if(location1.getValue() == null){
-                submit1.setDisable(true);
-                return;
-            }else if(urgencyLevel1.getValue() == null){
-                submit1.setDisable(true);
-                return;
-            }
-            //System.out.println("nathan gay");
-
-*/            submit1.setDisable(false);
+            submit1.setDisable(false);
         }
 
         /**Andrew made this
@@ -154,10 +139,6 @@ public class ServiceRequestLanguageController {
         private void makeRequest(){
             Singleton single = Singleton.getInstance();
             single.setLastTime();
-            /*
-            SanitationAccess sa = new SanitationAccess();
-            sa.makeRequest(location1.getValue().getLocID(), comment1.getText(), typeBox1.getValue(), urgencyLevel1.getValue());
-            */
         }
 
         //Nathan - changes screen to service sub screen, param "service" determines label on sub screen
@@ -165,11 +146,8 @@ public class ServiceRequestLanguageController {
         private void backPressed() throws IOException {
             timeout.stop();
             FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("ServiceRequest.fxml"));
- //           Singleton single = Singleton.getInstance();
 
             Parent sceneMain = loader.load();
-
-            ServiceRequestController controller = loader.<ServiceRequestController>getController();
 
             Stage theStage = (Stage) Back2.getScene().getWindow();
 

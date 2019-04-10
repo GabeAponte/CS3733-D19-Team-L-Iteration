@@ -65,18 +65,20 @@ public class EmployeeLoggedInHomeController {
                 if((System.currentTimeMillis() - single.getLastTime()) > single.getTimeoutSec()){
                     try{
                         single.setLastTime();
+                        single.setDoPopup(true);
                         single.setLoggedIn(false);
                         single.setUsername("");
                         single.setIsAdmin(false);
                         FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("HospitalHome.fxml"));
 
                         Parent sceneMain = loader.load();
+                        HomeScreenController controller = loader.<HomeScreenController>getController();
+                        controller.displayPopup();
 
                         Stage thisStage = (Stage) seeSuggestions.getScene().getWindow();
 
                         Scene newScene = new Scene(sceneMain);
                         thisStage.setScene(newScene);
-                        System.out.println("hey");
                         timeout.stop();
                     } catch (IOException io){
                         System.out.println(io.getMessage());
@@ -94,6 +96,7 @@ public class EmployeeLoggedInHomeController {
         AnchorPane root;
         Singleton.setLoggedIn(false);
         Singleton.setUsername("");
+        Singleton.setDoPopup(true);
         root = FXMLLoader.load(getClass().getClassLoader().getResource("HospitalHome.fxml"));
         Scene scene = new Scene(root);
         thestage.setScene(scene);

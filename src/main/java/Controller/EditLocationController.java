@@ -253,14 +253,17 @@ public class EditLocationController {
                 if((System.currentTimeMillis() - single.getLastTime()) > single.getTimeoutSec()){
                     try{
                         single.setLastTime();
+                        single.setDoPopup(true);
                         single.setLoggedIn(false);
                         single.setUsername("");
                         single.setIsAdmin(false);
                         FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("HospitalHome.fxml"));
 
                         Parent sceneMain = loader.load();
+                        HomeScreenController controller = loader.<HomeScreenController>getController();
+                        controller.displayPopup();
 
-                        Stage thisStage = (Stage) deleteEdge.getScene().getWindow();
+                        Stage thisStage = (Stage) addEdge.getScene().getWindow();
 
                         Scene newScene = new Scene(sceneMain);
                         thisStage.setScene(newScene);
@@ -278,9 +281,6 @@ public class EditLocationController {
         ea = new EdgesAccess();
 
         anchorPanePath = new AnchorPane();
-//        anchorPanePath.setLayoutX(30);
-//        anchorPanePath.setLayoutY(185);
-//        anchorPanePath.setPrefSize(631,429);
 
         Map.fitWidthProperty().bind(imagePane.widthProperty());
         Map.fitHeightProperty().bind(imagePane.heightProperty());
@@ -320,13 +320,8 @@ public class EditLocationController {
             }
         });
 
-//        zoomPaneImage.setLayoutX(30);
-//        zoomPaneImage.setLayoutY(185);
-
-
         imagePane.getChildren().add(zoomPaneImage);
         imagePane.getChildren().add(anchorPanePath);
-        //sceneGestures.reset(Map, Map.getImage().getWidth(), Map.getImage().getHeight());
 
         thisCircle = new Circle();
         anchorPanePath.getChildren().add(thisCircle);
@@ -421,6 +416,13 @@ public class EditLocationController {
     }
 
     @FXML
+    private void addEdgePress() {
+        Singleton single = Singleton.getInstance();
+        single.setLastTime();
+
+    }
+
+    @FXML
     private void deleteNodePress() {
         single = Singleton.getInstance();
         single.setLastTime();
@@ -462,26 +464,7 @@ public class EditLocationController {
     private void modifyNodePress() {
         Singleton single = Singleton.getInstance();
         single.setLastTime();
-        /*
-        try {
-            //Load second scene
-            FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("EditNode.fxml"));
-            Parent roots = loader.load();
 
-            //Get controller of scene2
-            EditNodeController scene2Controller = loader.getController();
-
-            Scene scene = new Scene(roots);
-            scene2Controller.fillFields(this.focusNode);
-            Stage thestage = (Stage) makeEditableNode.getScene().getWindow();
-            //Show scene 2 in new window
-            thestage.setScene(scene);
-
-        } catch (IOException ex) {
-            //noinspection ThrowablePrintedToSystemOut
-            System.err.println(ex);
-        }
-        */
     }
 
     @FXML
@@ -559,7 +542,7 @@ public class EditLocationController {
         else if(floorSelected == -1){
             return "L1";
         }
-        else /*Map.getImage().equals("/SoftEng_UI_Mockup_Pics/02_thesecondfloor.png")*/{
+        else {
             return "L2";
         }
     }
@@ -648,7 +631,6 @@ public class EditLocationController {
         double newRatio = Math.min((Map.getFitWidth() / oldSize * newSize) / Map.getImage().getWidth(),(Map.getFitHeight() / oldSize * newSize) / Map.getImage().getHeight());
         double beforeRatio = Math.min(Map.getFitWidth()/Map.getImage().getWidth(), Map.getFitHeight()/Map.getImage().getHeight());
 
-        //System.out.println(newRatio + "   " + beforeRatio);
         double scaleRatio;
         if(newSize >= oldSize){
             scaleRatio = Math.max(beforeRatio, newRatio);
@@ -764,13 +746,16 @@ public class EditLocationController {
     @FXML
     private void backPressed() throws IOException{
         timeout.stop();
-        FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("LoggedInHome.fxml"));
+        Singleton single = Singleton.getInstance();
 
+        FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("EmployeeLoggedInHome.fxml"));
+
+        if(single.isIsAdmin()){
+            loader = new FXMLLoader(getClass().getClassLoader().getResource("AdminLoggedInHome.fxml"));
+        }
         Parent sceneMain = loader.load();
 
-        LoggedInHomeController controller = loader.<LoggedInHomeController>getController();
-
-        Stage theStage = (Stage) deleteEdge.getScene().getWindow();
+        Stage theStage = (Stage) addEdge.getScene().getWindow();
 
         Scene scene = new Scene(sceneMain);
         theStage.setScene(scene);
@@ -817,9 +802,6 @@ public class EditLocationController {
                     nodeInfoShort.setText("");
                     double scaleRatio = Math.min(Map.getFitWidth() / Map.getImage().getWidth(),Map.getFitHeight()/Map.getImage().getHeight());
                     deleteNode.setDisable(true);
-
-                    //System.out.println(sceneGestures.getImageScale());
-                    //System.out.println((mousePress.getX() - point.getX()) * scaleRatio * sceneGestures.getImageScale());
 
                 //Setting the properties of the circle
                 thisCircle.setCenterX((mousePress.getX() - point.getX()) * scaleRatio * sceneGestures.getImageScale());

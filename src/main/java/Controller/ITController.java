@@ -61,7 +61,7 @@ public class ITController {
 
     @FXML
     private void submitRequest(){
-        System.out.println("Submit pressed with this info");
+
     }
 
     @FXML
