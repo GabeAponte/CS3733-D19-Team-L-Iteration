@@ -1041,7 +1041,7 @@ public class ActiveServiceRequestsController {
 
             field2.setCellValueFactory(cellData -> {
                 if (cellData.getValue().getValue() instanceof ServiceRequestTable) {
-                    return new ReadOnlyObjectWrapper(cellData.getValue().getValue().getName());
+                    return new ReadOnlyObjectWrapper(cellData.getValue().getValue().getThreatLevel());
                 }
                 return new ReadOnlyObjectWrapper(cellData.getValue().getValue());
             });
