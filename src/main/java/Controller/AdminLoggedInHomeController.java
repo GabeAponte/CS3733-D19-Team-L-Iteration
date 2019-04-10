@@ -204,21 +204,21 @@ public class AdminLoggedInHomeController {
         Scene scene = new Scene(sceneMain);
         theStage.setScene(scene);
     }
-    /*
+
     @FXML
     private void SwitchToSuggestionScreen() throws IOException{
     timeout.stop();
-        FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("SuggestionBox.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("SuggestionTable.fxml"));
 
         Parent sceneMain = loader.load();
 
-        SuggestionBoxController controller = loader.<SuggestionBoxController>getController();
+        SuggestionTableController controller = loader.<SuggestionTableController>getController();
 
         Stage theStage = (Stage) fufillServiceRequest.getScene().getWindow();
 
         Scene scene = new Scene(sceneMain);
         theStage.setScene(scene);
     }
-     */
+
 
 }

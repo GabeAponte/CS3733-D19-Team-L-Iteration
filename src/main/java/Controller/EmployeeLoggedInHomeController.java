@@ -169,6 +169,7 @@ public class EmployeeLoggedInHomeController {
         theStage.setScene(scene);
     }
 
+
     @FXML
     private void myAccount() throws IOException {
         timeout.stop();
@@ -176,8 +177,18 @@ public class EmployeeLoggedInHomeController {
     }
 
     @FXML
-    private void seeSuggestions() throws IOException {
+    private void SwitchToSuggestionScreen() throws IOException{
         timeout.stop();
+        FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("SuggestionTable.fxml"));
+
+        Parent sceneMain = loader.load();
+
+        SuggestionTableController controller = loader.<SuggestionTableController>getController();
+
+        Stage theStage = (Stage) fufillServiceRequest.getScene().getWindow();
+
+        Scene scene = new Scene(sceneMain);
+        theStage.setScene(scene);
+    }
 
     }
-}
