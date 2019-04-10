@@ -25,6 +25,8 @@ public class SceneGesturesForEditing {
     private ArrayList<Line> lines;
 
     ObjectProperty<Point2D> mouseDown = new SimpleObjectProperty<>();
+    ObjectProperty<Point2D> mouseDownOrig = new SimpleObjectProperty<>();
+
 
     private static final int MIN_PIXELS = 235;
 
@@ -60,6 +62,7 @@ public class SceneGesturesForEditing {
         public void handle(MouseEvent event) {
             Point2D mousePress = imageViewToImage(imageView, new Point2D(event.getX(), event.getY()));
             mouseDown.set(mousePress);
+            mouseDownOrig.set(mousePress);
         }
 
     };
@@ -199,7 +202,7 @@ public class SceneGesturesForEditing {
     }
 
     @SuppressWarnings("Duplicates")
-    private void redrawPath(Point2D oldPointUpper, double oldScale){
+    public void redrawPath(Point2D oldPointUpper, double oldScale){
         if(circles != null && lines != null) {
             
             double scaleRatio = imageView.getFitWidth()/imageView.getImage().getWidth();
@@ -229,5 +232,9 @@ public class SceneGesturesForEditing {
 
     public void setMouseDown(Point2D mousePress){
         mouseDown.set(mousePress);
+    }
+
+    public ObjectProperty<Point2D> getMouseDown(){
+        return mouseDownOrig;
     }
 }

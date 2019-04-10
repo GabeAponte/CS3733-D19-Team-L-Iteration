@@ -2,10 +2,13 @@ package Controller;
 
 import Access.EdgesAccess;
 import Access.NodesAccess;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -25,12 +28,14 @@ import javafx.scene.shape.Circle;
 import javafx.scene.shape.Line;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
+import Object.*;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 
 import Object.*;
+import javafx.util.Duration;
 
 public class EditLinkBetweenFloorsController {
 
@@ -123,8 +128,39 @@ public class EditLinkBetweenFloorsController {
     String currentMapAbove = "";
     String currentMapBelow = "";
 
+    Timeline timeout;
 
     public void initialize() {
+        Singleton single = Singleton.getInstance();
+        single.setLastTime();
+        timeout = new Timeline(new KeyFrame(Duration.seconds(2), new EventHandler<ActionEvent>() {
+
+            @Override
+            public void handle(ActionEvent event) {
+                if((System.currentTimeMillis() - single.getLastTime()) > single.getTimeoutSec()){
+                    try{
+                        single.setLastTime();
+                        single.setLoggedIn(false);
+                        single.setUsername("");
+                        single.setIsAdmin(false);
+                        FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("HospitalHome.fxml"));
+
+                        Parent sceneMain = loader.load();
+
+                        Stage thisStage = (Stage) Map.getScene().getWindow();
+
+                        Scene newScene = new Scene(sceneMain);
+                        thisStage.setScene(newScene);
+                        timeout.stop();
+                    } catch (IOException io){
+                        System.out.println(io.getMessage());
+                    }
+                }
+            }
+        }));
+        timeout.setCycleCount(Timeline.INDEFINITE);
+        timeout.play();
+
         na = new NodesAccess();
         ea = new EdgesAccess();
         PathFindSubmit.setDisable(true);
@@ -161,6 +197,7 @@ public class EditLinkBetweenFloorsController {
 
     @FXML
     private void backPressed() throws IOException {
+        timeout.stop();
         Singleton single = Singleton.getInstance();
         thestage = (Stage) PathFindBack.getScene().getWindow();
         AnchorPane root;
@@ -189,6 +226,8 @@ public class EditLinkBetweenFloorsController {
 
     @FXML
     private void submitPressed() {
+        Singleton single = Singleton.getInstance();
+        single.setLastTime();
         String start = focusLoc.getLocID();
         String end = toConnectLoc.getLocID();
         Edge e = new Edge(start+"_"+end,focusLoc, toConnectLoc);
@@ -202,6 +241,8 @@ public class EditLinkBetweenFloorsController {
      * reads the input for the room type combo box
      */
     private void filterType() {
+        Singleton single = Singleton.getInstance();
+        single.setLastTime();
         if (Filter.getValue() == ("Stairs"))
         if (Filter.getValue() == ("Elevators")) {
             type = "ELEV";
@@ -234,6 +275,8 @@ public class EditLinkBetweenFloorsController {
      * reads the input for the floor combo box
      */
     private void filterFloor() {
+        Singleton single = Singleton.getInstance();
+        single.setLastTime();
         if (Floor.getValue() == "Ground") {
             pickedFloor = "G";
         }
@@ -295,6 +338,8 @@ public class EditLinkBetweenFloorsController {
 
     @FXML
     private void typeSelected() {
+        Singleton single = Singleton.getInstance();
+        single.setLastTime();
         if (Filter.getValue().equals("Stairs")) {
             type = "STAI";
         } else {
@@ -307,6 +352,8 @@ public class EditLinkBetweenFloorsController {
 
     @FXML
     private void floorSelected() {
+        Singleton single = Singleton.getInstance();
+        single.setLastTime();
         if (Floor.getValue().equals("3")) {
             Map.setImage(new Image(mapURLlookup.get("3")));
             MapUpper.setImage(null);
@@ -360,6 +407,8 @@ public class EditLinkBetweenFloorsController {
 
     @FXML
     private void nodeDisplayPress() {
+        Singleton single = Singleton.getInstance();
+        single.setLastTime();
         //displayingNodes = !displayingNodes;
         for (Circle c : circles) {
             anchorPaneMain.getChildren().remove(c);
@@ -415,6 +464,8 @@ public class EditLinkBetweenFloorsController {
 
         @Override
         public void handle(MouseEvent event) {
+            Singleton single = Singleton.getInstance();
+            single.setLastTime();
             //todo make this coordinate based not hard coded
             SceneGesturesForEditing sceneGestures;
             if (event.getSceneY() < 417) {
@@ -492,7 +543,7 @@ public class EditLinkBetweenFloorsController {
         ArrayList<Location> nodes = new ArrayList<Location>();
         //want to fill nodes w/ floor = currrentFloor
         int temp = 0;
-        double scaleRatio = MapUpper.getFitWidth() / MapUpper.getImage().getWidth();
+        double scaleRatio = Map.getFitWidth() / Map.getImage().getWidth();
         Point2D point = sceneGestureUpper.getImageLocation();
         for (int i = 0; i < single.getData().size(); i++) {
             if (single.getData().get(i).getFloor().equals(currentMapAbove) && single.getData().get(i).getNodeType().equals(type)) {

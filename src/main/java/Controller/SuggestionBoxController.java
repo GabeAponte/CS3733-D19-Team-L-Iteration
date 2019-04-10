@@ -40,16 +40,14 @@ public class SuggestionBoxController {
 
     public void initialize(){
         Singleton single = Singleton.getInstance();
+        single.setLastTime();
         timeout = new Timeline(new KeyFrame(Duration.seconds(2), new EventHandler<ActionEvent>() {
 
             @Override
             public void handle(ActionEvent event) {
-                System.out.println("checking if");
-                if((System.currentTimeMillis() - single.getLastTime()) > 10000){
-                    System.out.println("if successfull");
+                if((System.currentTimeMillis() - single.getLastTime()) > single.getTimeoutSec()){
                     try{
                         single.setLastTime();
-                        System.out.println("set time");
                         backPressed();
                     } catch (IOException io){
                         System.out.println(io.getMessage());
@@ -66,6 +64,8 @@ public class SuggestionBoxController {
      */
     private void backPressed() throws IOException {
         timeout.stop();
+        Singleton single = Singleton.getInstance();
+        single.setLastTime();
         thestage = (Stage) SuggestionBack.getScene().getWindow();
         AnchorPane root;
         root = FXMLLoader.load(getClass().getClassLoader().getResource("HospitalHome.fxml"));
@@ -79,11 +79,13 @@ public class SuggestionBoxController {
      * value is valid.
      */
     private void submitPressed() {
-        timeout.stop();
+        Singleton single = Singleton.getInstance();
+        single.setLastTime();
         SuggestionBasicAccess sga = new SuggestionBasicAccess();
 
         //Gabe - checks if the comment is nothing and that it isn't the prompt text
         if (feedbackComments.getText().trim().isEmpty() || feedbackComments.getText().equals("Type suggestions here")) {
+            timeout.stop();
             error.setText("Please enter your feedback");
 
         } else {
