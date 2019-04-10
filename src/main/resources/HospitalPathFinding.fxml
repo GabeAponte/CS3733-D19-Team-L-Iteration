@@ -177,7 +177,13 @@
                   <Font size="15.0" />
                </font>
             </JFXButton>
-            <VBox fx:id="scrollVBox" prefHeight="550.0" prefWidth="242.0" GridPane.columnIndex="6" GridPane.rowIndex="2" GridPane.rowSpan="2" />
+            <VBox fx:id="scrollVBox" prefHeight="550.0" prefWidth="242.0" GridPane.columnIndex="6" GridPane.rowIndex="2" GridPane.rowSpan="2">
+               <children>
+                  <Label fx:id="Direction" alignment="TOP_LEFT" prefHeight="529.0" prefWidth="242.0" textFill="WHITE" wrapText="true">
+                     <font>
+                        <Font name="Courier New" size="10.0" />
+                     </font></Label>
+               </children></VBox>
             <Label fx:id="directions" alignment="CENTER" prefHeight="146.0" prefWidth="411.0" text="Directions" textAlignment="CENTER" textFill="#f5d96b" underline="true" GridPane.columnIndex="6" GridPane.rowIndex="1">
                <font>
                   <Font size="35.0" />
