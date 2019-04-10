@@ -3,7 +3,6 @@ package Controller;
 import SearchingAlgorithms.AStarStrategy;
 import SearchingAlgorithms.DepthFirstStrategy;
 import SearchingAlgorithms.PathfindingStrategy;
-import com.sun.scenario.effect.impl.sw.sse.SSEBlend_SRC_OUTPeer;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.beans.property.DoubleProperty;
@@ -24,6 +23,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.input.ScrollEvent;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Line;
@@ -114,6 +114,13 @@ public class PathFindingController {
 
     @FXML
     private ImageView Map;
+
+    @FXML
+    private Pane imagePane;
+
+    private Rectangle clip;
+    private boolean displayingPath;
+    private Path path;
 
     private PanAndZoomPane zoomPaneImage;
     private SceneGestures sceneGestures;
@@ -368,8 +375,8 @@ public class PathFindingController {
 //        Map.fitWidthProperty().bind(imagePane.widthProperty());
 //        Map.fitHeightProperty().bind(imagePane.heightProperty());
 
-        Map.setFitWidth(610);
-        Map.setFitHeight(415);
+        Map.setFitWidth(754);
+        Map.setFitHeight(507);
 
         clip = new Rectangle();
         clip.widthProperty().bind(Map.fitWidthProperty());
@@ -382,9 +389,9 @@ public class PathFindingController {
         deltaY.bind(zoomPaneImage.deltaY);
         zoomPaneImage.getChildren().add(Map);
 
-        sceneGestures = new SceneGesturesForEditing(zoomPaneImage, Map);
+        sceneGestures = new SceneGestures(zoomPaneImage, Map);
 
-        imagePane.addEventFilter( MouseEvent.MOUSE_CLICKED, getOnMouseClickedEventHandler());
+        imagePane.addEventFilter( MouseEvent.MOUSE_CLICKED, sceneGestures.getOnMouseClickedEventHandler());
         imagePane.addEventFilter( MouseEvent.MOUSE_PRESSED, sceneGestures.getOnMousePressedEventHandler());
         imagePane.addEventFilter( MouseEvent.MOUSE_DRAGGED, sceneGestures.getOnMouseDraggedEventHandler());
         imagePane.addEventFilter( ScrollEvent.ANY, sceneGestures.getOnScrollEventHandler());
@@ -397,15 +404,13 @@ public class PathFindingController {
                     if (oldWindow == null && newWindow != null) {
                         // stage is set. now is the right time to do whatever we need to the stage in the controller.
                         ChangeListener<Number> stageSizeListenerWidth = (observable, oldValue, newValue) -> {
-                            eraseNodes();
-                            drawNodesResize(oldValue.doubleValue(), newValue.doubleValue());
+                            displayPath();
 
                             Map.setFitWidth(Map.getFitWidth()/oldValue.doubleValue()*newValue.doubleValue());
                         };
 
                         ChangeListener<Number> stageSizeListenerHeight = (observable, oldValue, newValue) -> {
-                            eraseNodes();
-                            drawNodesResize(oldValue.doubleValue(), newValue.doubleValue());
+                            displayPath();
 
                             Map.setFitHeight(Map.getFitHeight()/oldValue.doubleValue()*newValue.doubleValue());
                         };
@@ -420,14 +425,8 @@ public class PathFindingController {
         imagePane.getChildren().add(zoomPaneImage);
         imagePane.getChildren().add(anchorPanePath);
 
-        thisCircle = new Circle();
-        anchorPanePath.getChildren().add(thisCircle);
-
         sceneGestures.reset(Map, Map.getImage().getWidth(), Map.getImage().getHeight());
         sceneGestures.setDrawPath(circles, lines);
-
-        drawNodes();
-
     }
 
     @FXML
@@ -478,12 +477,17 @@ public class PathFindingController {
         single.setLastTime();
         startNode = single.lookup.get(PathFindStartDrop.getValue().getLocID());
         endNode = single.lookup.get(PathFindEndDrop.getValue().getLocID());
+
+
         PathfindingStrategy strategy = new AStarStrategy(single.lookup);
         strategy = new DepthFirstStrategy(single.lookup);
-        AStarStrategy astar = new AStarStrategy(single.lookup);
-        Path path = findAbstractPath(astar, startNode, endNode);
 
-        displayPath(path.getPath(), startNode, endNode);
+        displayingPath = true;
+
+        AStarStrategy astar = new AStarStrategy(single.lookup);
+        path = findAbstractPath(astar, startNode, endNode);
+
+        displayPath();
         //printPath(path.getPath());
         Direction.setText(printPath(path.getPath()));
 
@@ -504,70 +508,73 @@ public class PathFindingController {
 //        System.out.println('\u21E7');
     }
 
-    public void displayPath(ArrayList<Location> path, Location startNode, Location endNode){
+    public void displayPath(){
         single.setLastTime();
-        path.add(0,startNode);
 
-        for (Circle c: circles) {
-            anchorPanePath.getChildren().remove(c);
-        }
-        for (Line l: lines) {
-            anchorPanePath.getChildren().remove(l);
-        }
+        if(displayingPath) {
+            path.getPath().add(0,startNode);
 
-        circles.clear();
-        lines.clear();
-
-        Point2D point = sceneGestures.getImageLocation();
-        double scaleRatio = Math.min(Map.getFitWidth()/Map.getImage().getWidth(),Map.getFitHeight()/Map.getImage().getHeight());
-
-        for (int i = 0; i < path.size() - 1; i++) {
-            Line line = new Line();
-
-            line.setStartX((path.get(i).getXcoord() -point.getX())*scaleRatio*sceneGestures.getImageScale());
-            line.setStartY((path.get(i).getYcoord() -point.getY())*scaleRatio*sceneGestures.getImageScale());
-            line.setEndX((path.get(i + 1).getXcoord() -point.getX())*scaleRatio*sceneGestures.getImageScale());
-            line.setEndY((path.get(i + 1).getYcoord() -point.getY())*scaleRatio*sceneGestures.getImageScale());
-
-            if(!(path.get(i).getFloor().equals(currentMap)) || !(path.get(i+1).getFloor().equals(currentMap))){
-                line.setVisible(false);
+            for (Circle c : circles) {
+                anchorPanePath.getChildren().remove(c);
             }
-            anchorPanePath.getChildren().add(line);
+            for (Line l : lines) {
+                anchorPanePath.getChildren().remove(l);
+            }
 
-            lines.add(line);
+            circles.clear();
+            lines.clear();
+
+            Point2D point = sceneGestures.getImageLocation();
+            double scaleRatio = Math.min(Map.getFitWidth() / Map.getImage().getWidth(), Map.getFitHeight() / Map.getImage().getHeight());
+
+            for (int i = 0; i < path.getPath().size() - 1; i++) {
+                Line line = new Line();
+
+                line.setStartX((path.getPath().get(i).getXcoord() - point.getX()) * scaleRatio * sceneGestures.getImageScale());
+                line.setStartY((path.getPath().get(i).getYcoord() - point.getY()) * scaleRatio * sceneGestures.getImageScale());
+                line.setEndX((path.getPath().get(i + 1).getXcoord() - point.getX()) * scaleRatio * sceneGestures.getImageScale());
+                line.setEndY((path.getPath().get(i + 1).getYcoord() - point.getY()) * scaleRatio * sceneGestures.getImageScale());
+
+                if (!(path.getPath().get(i).getFloor().equals(currentMap)) || !(path.getPath().get(i + 1).getFloor().equals(currentMap))) {
+                    line.setVisible(false);
+                }
+                anchorPanePath.getChildren().add(line);
+
+                lines.add(line);
+            }
+            Circle StartCircle = new Circle();
+
+            //Setting the properties of the circle
+            StartCircle.setCenterX((startNode.getXcoord() - point.getX()) * scaleRatio * sceneGestures.getImageScale());
+            StartCircle.setCenterY((startNode.getYcoord() - point.getY()) * scaleRatio * sceneGestures.getImageScale());
+            StartCircle.setRadius(Math.max(2.5, 2.5f * (sceneGestures.getImageScale() / 5)));
+            StartCircle.setStroke(Color.GREEN);
+            StartCircle.setFill(Color.GREEN);
+            if (!startNode.getFloor().equals(currentMap)) {
+                StartCircle.setVisible(false);
+            }
+
+
+            anchorPanePath.getChildren().add(StartCircle);
+
+            Circle EndCircle = new Circle();
+
+            //Setting the properties of the circle
+            EndCircle.setCenterX((endNode.getXcoord() - point.getX()) * scaleRatio * sceneGestures.getImageScale());
+            EndCircle.setCenterY((endNode.getYcoord() - point.getY()) * scaleRatio * sceneGestures.getImageScale());
+            EndCircle.setRadius(Math.max(2.5, 2.5f * (sceneGestures.getImageScale() / 5)));
+            EndCircle.setStroke(Color.RED);
+            EndCircle.setFill(Color.RED);
+            if (!endNode.getFloor().equals(currentMap)) {
+                EndCircle.setVisible(false);
+            }
+
+            anchorPanePath.getChildren().add(EndCircle);
+
+
+            circles.add(StartCircle);
+            circles.add(EndCircle);
         }
-        Circle StartCircle = new Circle();
-
-        //Setting the properties of the circle
-        StartCircle.setCenterX((startNode.getXcoord()-point.getX())*scaleRatio*sceneGestures.getImageScale());
-        StartCircle.setCenterY((startNode.getYcoord()-point.getY())*scaleRatio*sceneGestures.getImageScale());
-        StartCircle.setRadius(Math.max(2.5,2.5f*(sceneGestures.getImageScale()/5)));
-        StartCircle.setStroke(Color.GREEN);
-        StartCircle.setFill(Color.GREEN);
-        if(!startNode.getFloor().equals(currentMap)){
-            StartCircle.setVisible(false);
-        }
-
-
-        anchorPanePath.getChildren().add(StartCircle);
-
-        Circle EndCircle = new Circle();
-
-        //Setting the properties of the circle
-        EndCircle.setCenterX((endNode.getXcoord()-point.getX())*scaleRatio*sceneGestures.getImageScale());
-        EndCircle.setCenterY((endNode.getYcoord()-point.getY())*scaleRatio*sceneGestures.getImageScale());
-        EndCircle.setRadius(Math.max(2.5,2.5f*(sceneGestures.getImageScale()/5)));
-        EndCircle.setStroke(Color.RED);
-        EndCircle.setFill(Color.RED);
-        if(!endNode.getFloor().equals(currentMap)){
-            EndCircle.setVisible(false);
-        }
-
-        anchorPanePath.getChildren().add(EndCircle);
-
-
-        circles.add(StartCircle);
-        circles.add(EndCircle);
     }
 
     @FXML
