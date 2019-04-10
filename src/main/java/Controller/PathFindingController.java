@@ -130,14 +130,14 @@ public class PathFindingController {
     private ArrayList<Circle> circles = new ArrayList<Circle>();
     private ArrayList<Line> lines = new ArrayList<Line>();
 
-    ListIterator<String> listIterator = null;
+    private ListIterator<String> listIterator = null;
 
     Timeline timeout;
 
-    String pickedFloor = "test";
-    String type = "test";
-    String type2 = "";
-    String currentMap = "2"; //defaults to floor 2
+    private String pickedFloor = "test";
+    private String type = "test";
+    private String type2 = "";
+    private String currentMap = "2"; //defaults to floor 2
 
     @FXML
     private void clickedG(){
