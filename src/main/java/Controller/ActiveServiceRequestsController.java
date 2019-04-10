@@ -121,17 +121,18 @@ public class ActiveServiceRequestsController {
 
             @Override
             public void handle(ActionEvent event) {
-                System.out.println("checking if");
                 if ((System.currentTimeMillis() - single.getLastTime()) > single.getTimeoutSec()) {
                     try {
-                        System.out.println("did it");
                         single.setLastTime();
                         single.setLoggedIn(false);
                         single.setUsername("");
                         single.setIsAdmin(false);
+                        single.setDoPopup(true);
                         FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("HospitalHome.fxml"));
 
                         Parent sceneMain = loader.load();
+                        HomeScreenController controller = loader.<HomeScreenController>getController();
+                        controller.displayPopup();
 
                         Stage thisStage = (Stage) activeRequests.getScene().getWindow();
 

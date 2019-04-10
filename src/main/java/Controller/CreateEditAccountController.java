@@ -96,8 +96,6 @@ public class CreateEditAccountController {
 
     private boolean onScreen;
 
-    private boolean deleted;
-
     private static boolean clickedDelete = false;
 
     Timeline timeout;
@@ -112,18 +110,20 @@ public class CreateEditAccountController {
                 if((System.currentTimeMillis() - single.getLastTime()) > single.getTimeoutSec()){
                     try{
                         single.setLastTime();
+                        single.setDoPopup(true);
                         single.setLoggedIn(false);
                         single.setUsername("");
                         single.setIsAdmin(false);
                         FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("HospitalHome.fxml"));
 
                         Parent sceneMain = loader.load();
+                        HomeScreenController controller = loader.<HomeScreenController>getController();
+                        controller.displayPopup();
 
-                        Stage thisStage = (Stage) back.getScene().getWindow();
+                        Stage thisStage = (Stage) firstName.getScene().getWindow();
 
                         Scene newScene = new Scene(sceneMain);
                         thisStage.setScene(newScene);
-                        //System.out.println("Hey");
                         timeout.stop();
                     } catch (IOException io){
                         System.out.println(io.getMessage());
@@ -145,10 +145,6 @@ public class CreateEditAccountController {
         errorLabel.setText("");
         department.getItems().addAll("Sanitation", "Security", "IT", "Religious", "Audio Visual", "External Transportation", "Internal Transportation",
                 "Language", "Maintenance", "Prescription");
-        if(clickedDelete){
-
-            System.out.println("HERE");
-        }
     }
 
     @SuppressWarnings("Duplicates")
@@ -243,15 +239,11 @@ public class CreateEditAccountController {
         stage = new Stage();
         root = FXMLLoader.load(getClass().getClassLoader().getResource("DeleteEmployee.fxml"));
         stage.setScene(new Scene(root));
-      //  stage.setTitle("My modal window");
         stage.initModality(Modality.APPLICATION_MODAL);
         stage.initOwner(delete.getScene().getWindow());
         stage.setUserData(ID);
         clickedDelete = true;
         stage.showAndWait();
-        System.out.println(empID);
-
-        System.out.println(deleted);
 
         if(clickedDelete) {
             AnchorPane root2;
@@ -351,9 +343,6 @@ public class CreateEditAccountController {
             submit.setDisable(true);
             return;
         }
-
-
-        //System.out.println("nathan gay");
 
         submit.setDisable(false);
     }
