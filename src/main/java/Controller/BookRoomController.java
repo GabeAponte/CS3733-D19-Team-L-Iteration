@@ -235,7 +235,7 @@ public class BookRoomController {
 
             rooms = ra.getAvailRooms(date, date, startTimeMil, endTimeMil);
 
-            for(int i = 1; i < rooms.size(); i+=2){
+            for(int i = 0; i < rooms.size(); i++){
                 listOfRooms.add(rooms.get(i));
                 reverseListOfRooms.remove(rooms.get(i));
             }
