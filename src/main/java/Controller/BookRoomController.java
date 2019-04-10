@@ -69,15 +69,24 @@ public class BookRoomController {
 
             @Override
             public void handle(ActionEvent event) {
-                System.out.println("checking if");
                 if((System.currentTimeMillis() - single.getLastTime()) > single.getTimeoutSec()){
-                    System.out.println("if successfull");
                     try{
                         single.setLastTime();
+                        single.setDoPopup(true);
                         single.setLoggedIn(false);
                         single.setUsername("");
                         single.setIsAdmin(false);
-                        backPressed();
+                        FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("HospitalHome.fxml"));
+
+                        Parent sceneMain = loader.load();
+                        HomeScreenController controller = loader.<HomeScreenController>getController();
+                        controller.displayPopup();
+
+                        Stage thisStage = (Stage) endTime.getScene().getWindow();
+
+                        Scene newScene = new Scene(sceneMain);
+                        thisStage.setScene(newScene);
+                        timeout.stop();
                     } catch (IOException io){
                         System.out.println(io.getMessage());
                     }
@@ -110,7 +119,7 @@ public class BookRoomController {
      * When a user selcts a valid start and end time and a date, they are given the option
      * to book any avaliable rooms
      */
-    private void findRoom(ActionEvent event) {
+    private void findRoom() {
         Singleton single = Singleton.getInstance();
         single.setLastTime();
 

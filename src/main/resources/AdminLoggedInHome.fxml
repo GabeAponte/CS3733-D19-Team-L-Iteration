@@ -65,7 +65,7 @@
                         </Label>
                         <HBox alignment="CENTER_RIGHT" HBox.hgrow="ALWAYS">
                            <children>
-                              <JFXButton fx:id="seeSuggestions" buttonType="RAISED" prefHeight="81.0" prefWidth="338.0" text="See Suggestions" HBox.hgrow="ALWAYS">
+                              <JFXButton fx:id="seeSuggestions" buttonType="RAISED" onAction="#SwitchToSuggestionScreen" prefHeight="81.0" prefWidth="338.0" style="-fx-background-radius: 100;" text="See Suggestions" HBox.hgrow="ALWAYS">
                                  <font>
                                     <Font size="34.0" />
                                  </font>

@@ -41,7 +41,7 @@ public class Singleton {
         typePathfind = 1;
         isAdmin = false;
         timeoutSec = 500000;
-        doPopup = false;
+        doPopup = true;
     }
 
     public static boolean isDoPopup(){
@@ -61,6 +61,8 @@ public class Singleton {
     }
 
     public synchronized void setData() {
+        lookup.clear();
+        data.clear();
         NodesAccess na = new NodesAccess();
         EdgesAccess ea = new EdgesAccess();
         ArrayList<String> edgeList;
