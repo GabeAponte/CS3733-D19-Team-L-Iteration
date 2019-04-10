@@ -56,7 +56,7 @@ public class EmployeeLoggedInHomeController {
         Singleton single = Singleton.getInstance();
         single.setLastTime();
         EmployeeAccess ea = new EmployeeAccess();
-        welcome.setText("Welcome, " + ea.getEmployeeInformation(single.getUsername()).get(3));
+        welcome.setText("Welcome, Employee " + ea.getEmployeeInformation(single.getUsername()).get(3));
 
         timeout = new Timeline(new KeyFrame(Duration.seconds(2), new EventHandler<ActionEvent>() {
 
@@ -65,18 +65,20 @@ public class EmployeeLoggedInHomeController {
                 if((System.currentTimeMillis() - single.getLastTime()) > single.getTimeoutSec()){
                     try{
                         single.setLastTime();
+                        single.setDoPopup(true);
                         single.setLoggedIn(false);
                         single.setUsername("");
                         single.setIsAdmin(false);
                         FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("HospitalHome.fxml"));
 
                         Parent sceneMain = loader.load();
+                        HomeScreenController controller = loader.<HomeScreenController>getController();
+                        controller.displayPopup();
 
                         Stage thisStage = (Stage) seeSuggestions.getScene().getWindow();
 
                         Scene newScene = new Scene(sceneMain);
                         thisStage.setScene(newScene);
-                        System.out.println("hey");
                         timeout.stop();
                     } catch (IOException io){
                         System.out.println(io.getMessage());
@@ -94,6 +96,7 @@ public class EmployeeLoggedInHomeController {
         AnchorPane root;
         Singleton.setLoggedIn(false);
         Singleton.setUsername("");
+        Singleton.setDoPopup(true);
         root = FXMLLoader.load(getClass().getClassLoader().getResource("HospitalHome.fxml"));
         Scene scene = new Scene(root);
         thestage.setScene(scene);
@@ -169,6 +172,7 @@ public class EmployeeLoggedInHomeController {
         theStage.setScene(scene);
     }
 
+
     @FXML
     private void myAccount() throws IOException {
         timeout.stop();
@@ -176,8 +180,18 @@ public class EmployeeLoggedInHomeController {
     }
 
     @FXML
-    private void seeSuggestions() throws IOException {
+    private void SwitchToSuggestionScreen() throws IOException{
         timeout.stop();
+        FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("SuggestionTable.fxml"));
+
+        Parent sceneMain = loader.load();
+
+        SuggestionTableController controller = loader.<SuggestionTableController>getController();
+
+        Stage theStage = (Stage) fufillServiceRequest.getScene().getWindow();
+
+        Scene scene = new Scene(sceneMain);
+        theStage.setScene(scene);
+    }
 
     }
-}

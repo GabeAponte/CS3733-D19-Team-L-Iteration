@@ -1,12 +1,14 @@
 package Controller;
 
 import SearchingAlgorithms.AStarStrategy;
+import SearchingAlgorithms.BreadthFirstStrategy;
 import SearchingAlgorithms.DepthFirstStrategy;
 import SearchingAlgorithms.PathfindingStrategy;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.SimpleDoubleProperty;
+import javafx.beans.value.ChangeListener;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -22,6 +24,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.input.ScrollEvent;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Line;
@@ -40,6 +43,8 @@ import java.util.ListIterator;
 
 @SuppressWarnings("Duplicates")
 public class PathFindingController {
+    @FXML
+    private Label Direction;
 
     @FXML
     private Stage thestage;
@@ -104,6 +109,9 @@ public class PathFindingController {
     @FXML
     private ComboBox<Location> PathFindStartDrop;
 
+    @FXML
+    private ComboBox<PathfindingStrategy> strategySelector;
+
 
     @FXML
     private AnchorPane anchorPaneWindow;
@@ -111,11 +119,19 @@ public class PathFindingController {
     @FXML
     private ImageView Map;
 
+    @FXML
+    private Pane imagePane;
+
+    private Rectangle clip;
+    private boolean displayingPath;
+    private Path path;
+
     private PanAndZoomPane zoomPaneImage;
     private SceneGestures sceneGestures;
     private AnchorPane anchorPanePath;
     private final DoubleProperty zoomProperty = new SimpleDoubleProperty(1.0d);
     private final DoubleProperty deltaY = new SimpleDoubleProperty(0.0d);
+    private PathfindingStrategy strategyAlgorithm;
 
     private NodesAccess na;
     private EdgesAccess ea;
@@ -137,7 +153,7 @@ public class PathFindingController {
     private String pickedFloor = "test";
     private String type = "test";
     private String type2 = "";
-    private String currentMap = "2"; //defaults to floor 2
+    private String currentMap = "G"; //defaults to floor G
 
     @FXML
     private void clickedG(){
@@ -316,23 +332,39 @@ public class PathFindingController {
         downclickedLast = true;
     }
 
+    @FXML
+    private void strategySelected() {
+        strategyAlgorithm = strategySelector.getValue();
+    }
+
     public void initialize() {
         Singleton single = Singleton.getInstance();
         single.setLastTime();
+        ObservableList<PathfindingStrategy> strategies = FXCollections.observableArrayList();
+        AStarStrategy aStarStrategy = new AStarStrategy(single.lookup);
+        strategies.add(aStarStrategy);
+        strategies.add(new DepthFirstStrategy(single.lookup));
+        strategies.add(new BreadthFirstStrategy(single.lookup));
+        strategySelector.setItems(strategies);
+        strategySelector.setValue(aStarStrategy);
+        strategyAlgorithm = strategySelector.getValue();
         timeout = new Timeline(new KeyFrame(Duration.seconds(2), new EventHandler<ActionEvent>() {
 
             @Override
             public void handle(ActionEvent event) {
                 if((System.currentTimeMillis() - single.getLastTime()) > single.getTimeoutSec()){
                     try{
+                        single.setDoPopup(true);
+                        FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("HospitalHome.fxml"));
+                        Parent sceneMain = loader.load();
+                        if(single.isLoggedIn()){
+                            HomeScreenController controller = loader.<HomeScreenController>getController();
+                            controller.displayPopup();
+                        }
                         single.setLastTime();
                         single.setLoggedIn(false);
                         single.setUsername("");
                         single.setIsAdmin(false);
-                        FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("HospitalHome.fxml"));
-
-                        Parent sceneMain = loader.load();
-
                         Stage thisStage = (Stage) Up.getScene().getWindow();
 
                         Scene newScene = new Scene(sceneMain);
@@ -357,10 +389,14 @@ public class PathFindingController {
         //initializeTable(na, ea);
 
         anchorPanePath = new AnchorPane();
-        anchorPanePath.setLayoutX(79);
-        anchorPanePath.setLayoutY(189);
-        anchorPanePath.setPrefSize(685,464);
-        Rectangle clip = new Rectangle();
+
+//        Map.fitWidthProperty().bind(imagePane.widthProperty());
+//        Map.fitHeightProperty().bind(imagePane.heightProperty());
+
+        Map.setFitWidth(754);
+        Map.setFitHeight(507);
+
+        clip = new Rectangle();
         clip.widthProperty().bind(Map.fitWidthProperty());
         clip.heightProperty().bind(Map.fitHeightProperty());
         anchorPanePath.setClip(clip);
@@ -372,18 +408,43 @@ public class PathFindingController {
         zoomPaneImage.getChildren().add(Map);
 
         sceneGestures = new SceneGestures(zoomPaneImage, Map);
-        anchorPanePath.addEventFilter( MouseEvent.MOUSE_CLICKED, sceneGestures.getOnMouseClickedEventHandler());
-        anchorPanePath.addEventFilter( MouseEvent.MOUSE_PRESSED, sceneGestures.getOnMousePressedEventHandler());
-        anchorPanePath.addEventFilter( MouseEvent.MOUSE_DRAGGED, sceneGestures.getOnMouseDraggedEventHandler());
-        anchorPanePath.addEventFilter( ScrollEvent.ANY, sceneGestures.getOnScrollEventHandler());
-        zoomPaneImage.setLayoutX(79);
-        zoomPaneImage.setLayoutY(189);
 
-        anchorPaneWindow.getChildren().add(zoomPaneImage);
-        anchorPaneWindow.getChildren().add(anchorPanePath);
+        imagePane.addEventFilter( MouseEvent.MOUSE_CLICKED, sceneGestures.getOnMouseClickedEventHandler());
+        imagePane.addEventFilter( MouseEvent.MOUSE_PRESSED, sceneGestures.getOnMousePressedEventHandler());
+        imagePane.addEventFilter( MouseEvent.MOUSE_DRAGGED, sceneGestures.getOnMouseDraggedEventHandler());
+        imagePane.addEventFilter( ScrollEvent.ANY, sceneGestures.getOnScrollEventHandler());
+
+
+        Map.sceneProperty().addListener((observableScene, oldScene, newScene) -> {
+            if (oldScene == null && newScene != null) {
+                // scene is set for the first time. Now its the time to listen stage changes.
+                newScene.windowProperty().addListener((observableWindow, oldWindow, newWindow) -> {
+                    if (oldWindow == null && newWindow != null) {
+                        // stage is set. now is the right time to do whatever we need to the stage in the controller.
+                        ChangeListener<Number> stageSizeListenerWidth = (observable, oldValue, newValue) -> {
+                            displayPath();
+
+                            Map.setFitWidth(Map.getFitWidth()/oldValue.doubleValue()*newValue.doubleValue());
+                        };
+
+                        ChangeListener<Number> stageSizeListenerHeight = (observable, oldValue, newValue) -> {
+                            displayPath();
+
+                            Map.setFitHeight(Map.getFitHeight()/oldValue.doubleValue()*newValue.doubleValue());
+                        };
+
+                        ((Stage) newWindow).widthProperty().addListener(stageSizeListenerWidth);
+                        ((Stage) newWindow).heightProperty().addListener(stageSizeListenerHeight);
+                    }
+                });
+            }
+        });
+
+        imagePane.getChildren().add(zoomPaneImage);
+        imagePane.getChildren().add(anchorPanePath);
 
         sceneGestures.reset(Map, Map.getImage().getWidth(), Map.getImage().getHeight());
-
+        sceneGestures.setDrawPath(circles, lines);
     }
 
     @FXML
@@ -392,12 +453,13 @@ public class PathFindingController {
         Singleton single = Singleton.getInstance();
         thestage = (Stage) PathFindBack.getScene().getWindow();
         AnchorPane root;
+
         if(single.isLoggedIn()) {
-            FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("LoggedInHome.fxml"));
-
+            FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("EmployeeLoggedInHome.fxml"));
+            if(single.isIsAdmin()){
+                loader = new FXMLLoader(getClass().getClassLoader().getResource("AdminLoggedInHome.fxml"));
+            }
             Parent sceneMain = loader.load();
-
-            LoggedInHomeController controller = loader.<LoggedInHomeController>getController();
 
             Stage theStage = (Stage) PathFindBack.getScene().getWindow();
 
@@ -405,10 +467,16 @@ public class PathFindingController {
             theStage.setScene(scene);
             return;
         } else {
-            root = FXMLLoader.load(getClass().getClassLoader().getResource("HospitalHome.fxml"));
+            single.setDoPopup(true);
+            FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("HospitalHome.fxml"));
+
+            Parent sceneMain = loader.load();
+
+            Stage theStage = (Stage) PathFindBack.getScene().getWindow();
+
+            Scene scene = new Scene(sceneMain);
+            theStage.setScene(scene);
         }
-        Scene scene = new Scene(root);
-        thestage.setScene(scene);
     }
 
     @FXML
@@ -427,81 +495,91 @@ public class PathFindingController {
         single.setLastTime();
         startNode = single.lookup.get(PathFindStartDrop.getValue().getLocID());
         endNode = single.lookup.get(PathFindEndDrop.getValue().getLocID());
-        PathfindingStrategy strategy = new AStarStrategy(single.lookup);
-        strategy = new DepthFirstStrategy(single.lookup);
-        AStarStrategy astar = new AStarStrategy(single.lookup);
-        Path path = findAbstractPath(astar, startNode, endNode);
 
-        displayPath(path.getPath(), startNode, endNode);
-        printPath(path.getPath());
+
+
+        displayingPath = true;
+
+
+        path = findAbstractPath(strategyAlgorithm, startNode, endNode);
+
+        displayPath();
+        //printPath(path.getPath());
+        Direction.setText(printPath(path.getPath()));
+
+        Direction.setWrapText(true);
+
 
         sceneGestures.setDrawPath(circles,lines);
     }
 
-    public void displayPath(ArrayList<Location> path, Location startNode, Location endNode){
+    public void displayPath(){
         single.setLastTime();
-        path.add(0,startNode);
 
-        for (Circle c: circles) {
-            anchorPanePath.getChildren().remove(c);
-        }
-        for (Line l: lines) {
-            anchorPanePath.getChildren().remove(l);
-        }
+        if(displayingPath) {
+            path.getPath().add(0,startNode);
 
-        circles.clear();
-        lines.clear();
-
-        Point2D point = sceneGestures.getImageLocation();
-        double scaleRatio = Math.min(Map.getFitWidth()/Map.getImage().getWidth(),Map.getFitHeight()/Map.getImage().getHeight());
-
-        for (int i = 0; i < path.size() - 1; i++) {
-            Line line = new Line();
-
-            line.setStartX((path.get(i).getXcoord() -point.getX())*scaleRatio*sceneGestures.getImageScale());
-            line.setStartY((path.get(i).getYcoord() -point.getY())*scaleRatio*sceneGestures.getImageScale());
-            line.setEndX((path.get(i + 1).getXcoord() -point.getX())*scaleRatio*sceneGestures.getImageScale());
-            line.setEndY((path.get(i + 1).getYcoord() -point.getY())*scaleRatio*sceneGestures.getImageScale());
-
-            if(!(path.get(i).getFloor().equals(currentMap)) || !(path.get(i+1).getFloor().equals(currentMap))){
-                line.setVisible(false);
+            for (Circle c : circles) {
+                anchorPanePath.getChildren().remove(c);
             }
-            anchorPanePath.getChildren().add(line);
+            for (Line l : lines) {
+                anchorPanePath.getChildren().remove(l);
+            }
 
-            lines.add(line);
+            circles.clear();
+            lines.clear();
+
+            Point2D point = sceneGestures.getImageLocation();
+            double scaleRatio = Math.min(Map.getFitWidth() / Map.getImage().getWidth(), Map.getFitHeight() / Map.getImage().getHeight());
+
+            for (int i = 0; i < path.getPath().size() - 1; i++) {
+                Line line = new Line();
+
+                line.setStartX((path.getPath().get(i).getXcoord() - point.getX()) * scaleRatio * sceneGestures.getImageScale());
+                line.setStartY((path.getPath().get(i).getYcoord() - point.getY()) * scaleRatio * sceneGestures.getImageScale());
+                line.setEndX((path.getPath().get(i + 1).getXcoord() - point.getX()) * scaleRatio * sceneGestures.getImageScale());
+                line.setEndY((path.getPath().get(i + 1).getYcoord() - point.getY()) * scaleRatio * sceneGestures.getImageScale());
+
+                if (!(path.getPath().get(i).getFloor().equals(currentMap)) || !(path.getPath().get(i + 1).getFloor().equals(currentMap))) {
+                    line.setVisible(false);
+                }
+                anchorPanePath.getChildren().add(line);
+
+                lines.add(line);
+            }
+            Circle StartCircle = new Circle();
+
+            //Setting the properties of the circle
+            StartCircle.setCenterX((startNode.getXcoord() - point.getX()) * scaleRatio * sceneGestures.getImageScale());
+            StartCircle.setCenterY((startNode.getYcoord() - point.getY()) * scaleRatio * sceneGestures.getImageScale());
+            StartCircle.setRadius(Math.max(2.5, 2.5f * (sceneGestures.getImageScale() / 5)));
+            StartCircle.setStroke(Color.GREEN);
+            StartCircle.setFill(Color.GREEN);
+            if (!startNode.getFloor().equals(currentMap)) {
+                StartCircle.setVisible(false);
+            }
+
+
+            anchorPanePath.getChildren().add(StartCircle);
+
+            Circle EndCircle = new Circle();
+
+            //Setting the properties of the circle
+            EndCircle.setCenterX((endNode.getXcoord() - point.getX()) * scaleRatio * sceneGestures.getImageScale());
+            EndCircle.setCenterY((endNode.getYcoord() - point.getY()) * scaleRatio * sceneGestures.getImageScale());
+            EndCircle.setRadius(Math.max(2.5, 2.5f * (sceneGestures.getImageScale() / 5)));
+            EndCircle.setStroke(Color.RED);
+            EndCircle.setFill(Color.RED);
+            if (!endNode.getFloor().equals(currentMap)) {
+                EndCircle.setVisible(false);
+            }
+
+            anchorPanePath.getChildren().add(EndCircle);
+
+
+            circles.add(StartCircle);
+            circles.add(EndCircle);
         }
-        Circle StartCircle = new Circle();
-
-        //Setting the properties of the circle
-        StartCircle.setCenterX((startNode.getXcoord()-point.getX())*0.137*sceneGestures.getImageScale());
-        StartCircle.setCenterY((startNode.getYcoord()-point.getY())*0.137*sceneGestures.getImageScale());
-        StartCircle.setRadius(Math.max(2.5,2.5f*(sceneGestures.getImageScale()/5)));
-        StartCircle.setStroke(Color.GREEN);
-        StartCircle.setFill(Color.GREEN);
-        if(!startNode.getFloor().equals(currentMap)){
-            StartCircle.setVisible(false);
-        }
-
-
-        anchorPanePath.getChildren().add(StartCircle);
-
-        Circle EndCircle = new Circle();
-
-        //Setting the properties of the circle
-        EndCircle.setCenterX((endNode.getXcoord()-point.getX())*0.137*sceneGestures.getImageScale());
-        EndCircle.setCenterY((endNode.getYcoord()-point.getY())*0.137*sceneGestures.getImageScale());
-        EndCircle.setRadius(Math.max(2.5,2.5f*(sceneGestures.getImageScale()/5)));
-        EndCircle.setStroke(Color.RED);
-        EndCircle.setFill(Color.RED);
-        if(!endNode.getFloor().equals(currentMap)){
-            EndCircle.setVisible(false);
-        }
-
-        anchorPanePath.getChildren().add(EndCircle);
-
-
-        circles.add(StartCircle);
-        circles.add(EndCircle);
     }
 
     @FXML
@@ -1038,11 +1116,11 @@ public class PathFindingController {
             System.out.println(A.size() == 2);
 
             System.out.println("You are already at your destination");
-            text += "You are already at your destination \n";
+            text += "You are already at your destination :)\n";
             return text;
         }
         System.out.println("Begin from " + A.get(0).getLongName());
-        text += "Begin from " + A.get(0).getLongName();
+        text += "Begin from " + A.get(0).getLongName() + "\n";
         //when size is two, but two location are different
         if(A.size() == 2){
             aType = A.get(0).getNodeType();
@@ -1059,7 +1137,7 @@ public class PathFindingController {
                 else{
                         System.out.println("Go straight to " + A.get(1).getLongName() + " (" +
                             convertToExact(A.get(0).findDistance(A.get(1))) + " ft) \n");
-                        text += "Go straight to " + A.get(1).getLongName() + " (" +
+                        text += "\u21E7 Go straight to " + A.get(1).getLongName() + " (" +
                             convertToExact(A.get(0).findDistance(A.get(1))) + " ft) \n";
                         return text;
                 }
@@ -1080,7 +1158,7 @@ public class PathFindingController {
 
                 System.out.println("Go straight to " + b.getLongName()
                         + " (" + convertToExact(start.findDistance(b)) + " ft) " );
-                text += "Go straight to " + b.getLongName()
+                text += "\u21E7 Go straight to " + b.getLongName()
                         + " (" + convertToExact(start.findDistance(b)) + " ft) \n";
 
                 //- -> + , x+ : left
@@ -1091,21 +1169,21 @@ public class PathFindingController {
                     if(curDirection == 2 || curDirection == 6){
                         if(Math.abs(slopeBC)> Math.abs(slopeAB)){
                             System.out.println("Turn left");
-                            text += "Turn left\n";
+                            text += "\u21E6 Turn left \n";
                         }
                         else{
                             System.out.println("Turn right");
-                            text += "Turn right\n";
+                            text += "\u21E8 Turn right\n";
                         }
                     }
                     else if(curDirection == 4 || curDirection ==8){
                         if(Math.abs(slopeBC)> Math.abs(slopeAB)){
                             System.out.println("Turn right");
-                            text += "Turn right\n";
+                            text += "\u21E8 Turn right\n";
                         }
                         else{
                             System.out.println("Turn left");
-                            text += "Turn left\n";
+                            text += "\u21E6 Turn left \n";
                         }
 
                     }
@@ -1114,11 +1192,11 @@ public class PathFindingController {
                 else if((curDirection == 2 && nextDirection ==6) || (curDirection == 6 && nextDirection ==2)){
                     if(Math.abs(slopeBC)>Math.abs(slopeAB)){
                         System.out.println("Turn right");
-                        text += "Turn right\n";
+                        text += "\u21E8 Turn right\n";
                     }
                     else{
                         System.out.println("Turn left");
-                        text += "Turn left\n";
+                        text += "\u21E6 Turn left\n";
                     }
 
                 }
@@ -1126,11 +1204,11 @@ public class PathFindingController {
                 else if((curDirection == 8 && nextDirection ==4) || (curDirection == 6 && nextDirection ==2)){
                     if(Math.abs(slopeBC)>Math.abs(slopeAB)){
                         System.out.println("Turn left");
-                        text += "Turn left\n";
+                        text += "\u21E6 Turn left\n";
                     }
                     else{
                         System.out.println("Turn right");
-                        text += "Turn right\n";
+                        text += "\u21E8 Turn right\n";
                     }
 
                 }
@@ -1138,22 +1216,22 @@ public class PathFindingController {
                 else if(curDirection <= 5){
                     if(nextDirection < curDirection + 4 && nextDirection > curDirection){
                         System.out.println("Turn right");
-                        text += "Turn right\n";
+                        text += "\u21E8 Turn right\n";
                     }
                     else {
                         System.out.println("Turn left");
-                        text += "Turn left\n";
+                        text += "\u21E6 Turn left\n";
                     }
                 }
                 else{
                     if(curDirection == 6){
                         if(nextDirection == 7 || nextDirection == 8 || nextDirection == 1){
                             System.out.println("Turn right");
-                            text += "Turn right\n";
+                            text += "\u21E8 Turn right\n";
                         }
                         if(nextDirection == 5 || nextDirection == 4 || nextDirection == 3){
                             System.out.println("Turn left");
-                            text += "Turn left\n";
+                            text += "\u21E6 Turn left\n";
                         }
 
 
@@ -1161,11 +1239,11 @@ public class PathFindingController {
                     else if (curDirection ==7){
                         if(nextDirection == 8 || nextDirection == 1 || nextDirection == 2){
                             System.out.println("Turn right");
-                            text += "Turn right\n";
+                            text += "\u21E8 Turn right\n";
                         }
                         else if(nextDirection == 6 || nextDirection == 5 || nextDirection == 4){
                             System.out.println("Turn left");
-                            text += "Turn left\n";
+                            text += "\u21E6 Turn left\n";
                         }
                         else {
 
@@ -1179,7 +1257,7 @@ public class PathFindingController {
                         }
                         else if(nextDirection == 5 || nextDirection == 6 || nextDirection == 7){
                             System.out.println("Turn left");
-                            text += "Turn left\n";
+                            text += "\u21E6 Turn left\n";
                         }
                         else {
 
@@ -1195,7 +1273,7 @@ public class PathFindingController {
             if(i == A.size() - 3){
                 System.out.println("Go straight to your destination " + A.get(A.size()-1).getLongName() +
                         " (" + convertToExact(b.findDistance(c)) + " ft) " );
-                text += "Go straight to your destination " + A.get(A.size()-1).getLongName() +
+                text += "\u21E7 Go straight to your destination " + A.get(A.size()-1).getLongName() +
                                 " (" + convertToExact(b.findDistance(c)) + " ft) \n";
                 return text;
             }

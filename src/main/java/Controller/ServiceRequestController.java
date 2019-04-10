@@ -69,14 +69,17 @@ public class ServiceRequestController {
             public void handle(ActionEvent event) {
                 if((System.currentTimeMillis() - single.getLastTime()) > single.getTimeoutSec()){
                     try{
+                        single.setDoPopup(true);
+                        FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("HospitalHome.fxml"));
+                        Parent sceneMain = loader.load();
+                        if(single.isLoggedIn()){
+                            HomeScreenController controller = loader.<HomeScreenController>getController();
+                            controller.displayPopup();
+                        }
                         single.setLastTime();
                         single.setLoggedIn(false);
                         single.setUsername("");
                         single.setIsAdmin(false);
-                        FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("HospitalHome.fxml"));
-
-                        Parent sceneMain = loader.load();
-
                         Stage thisStage = (Stage) Back.getScene().getWindow();
 
                         Scene newScene = new Scene(sceneMain);
@@ -97,12 +100,13 @@ public class ServiceRequestController {
         Singleton single = Singleton.getInstance();
         Stage theStage = (Stage) Back.getScene().getWindow();
         AnchorPane root;
-        if(single.isLoggedIn()){
-            FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("AdminLoggedInHome.fxml"));
+        if (single.isLoggedIn()) {
 
+            FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("EmployeeLoggedInHome.fxml"));
+            if (single.isIsAdmin()) {
+                loader = new FXMLLoader(getClass().getClassLoader().getResource("AdminLoggedInHome.fxml"));
+            }
             Parent sceneMain = loader.load();
-
-            AdminLoggedInHomeController controller = loader.<AdminLoggedInHomeController>getController();
 
             theStage = (Stage) SanitationServices.getScene().getWindow();
 
@@ -110,10 +114,15 @@ public class ServiceRequestController {
             theStage.setScene(scene);
             return;
         } else {
-            root = FXMLLoader.load(getClass().getClassLoader().getResource("HospitalHome.fxml"));
-        }
-        Scene scene = new Scene(root);
-        theStage.setScene(scene);
+            single.setDoPopup(true);
+            FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("HospitalHome.fxml"));
+            Parent sceneMain = loader.load();
+
+            theStage = (Stage) SanitationServices.getScene().getWindow();
+
+            Scene scene = new Scene(sceneMain);
+            theStage.setScene(scene);
+    }
     }
 
     //passes off type of button
@@ -131,10 +140,10 @@ public class ServiceRequestController {
             serviceFXML = "ServiceRequestLanguage.fxml";
         }
         else if(e.getSource() == ExternalTransportation) {
-            serviceFXML = "ReligiousServiceRequest.fxml";
+            serviceFXML = "ExternalTransportationServiceRequest.fxml";
         }
         else if(e.getSource() == Florist) {
-            serviceFXML = "ServiceRequestFloristDelivery.fxml";
+            serviceFXML = "FloristDeliveryServiceRequest.fxml";
         }
         else if(e.getSource() == AudioVisual) {
             serviceFXML = "ReligiousServiceRequest.fxml";

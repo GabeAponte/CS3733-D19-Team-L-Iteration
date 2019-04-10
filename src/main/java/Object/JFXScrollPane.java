@@ -20,6 +20,7 @@ import javafx.scene.transform.Scale;
 import javafx.scene.transform.Transform;
 import javafx.util.Duration;
 
+import javax.swing.*;
 import java.util.function.Function;
 
 @DefaultProperty(value = "content")
@@ -158,6 +159,9 @@ public class JFXScrollPane extends StackPane {
             scale.setY(map(opacity, 0, 1, 1, 0.75));
         });
         scrollPane.setPannable(true);
+        scrollPane.setFitToHeight(true);
+        scrollPane.setFitToWidth(true);
+
         getChildren().setAll(scrollPane, header);
     }
 

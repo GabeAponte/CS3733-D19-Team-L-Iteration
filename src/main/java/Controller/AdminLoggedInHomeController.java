@@ -58,20 +58,23 @@ public class AdminLoggedInHomeController {
 
             @Override
             public void handle(ActionEvent event) {
-                System.out.println("checking if");
                 if((System.currentTimeMillis() - single.getLastTime()) > single.getTimeoutSec()){
-                    System.out.println("if successfull");
                     try{
                         single.setLastTime();
-                        Stage thestage = (Stage) findPath.getScene().getWindow();
-                        AnchorPane root;
-                        Singleton single = Singleton.getInstance();
+                        single.setDoPopup(true);
                         single.setLoggedIn(false);
                         single.setUsername("");
                         single.setIsAdmin(false);
-                        root = FXMLLoader.load(getClass().getClassLoader().getResource("HospitalHome.fxml"));
-                        Scene scene = new Scene(root);
-                        thestage.setScene(scene);
+                        FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("HospitalHome.fxml"));
+
+                        Parent sceneMain = loader.load();
+                        HomeScreenController controller = loader.<HomeScreenController>getController();
+                        controller.displayPopup();
+
+                        Stage thisStage = (Stage) newAccount.getScene().getWindow();
+
+                        Scene newScene = new Scene(sceneMain);
+                        thisStage.setScene(newScene);
                         timeout.stop();
                     } catch (IOException io){
                         System.out.println(io.getMessage());
@@ -83,7 +86,7 @@ public class AdminLoggedInHomeController {
         timeout.play();
 
         EmployeeAccess ea = new EmployeeAccess();
-        welcome.setText("Welcome, " + ea.getEmployeeInformation(single.getUsername()).get(3));
+        welcome.setText("Welcome, Admin " + ea.getEmployeeInformation(single.getUsername()).get(3));
 
     }
     // TODO Make label display "Welcome, [nickname of admin signed in]"
@@ -103,6 +106,7 @@ public class AdminLoggedInHomeController {
         single.setLoggedIn(false);
         single.setUsername("");
         single.setIsAdmin(false);
+        single.setDoPopup(true);
         root = FXMLLoader.load(getClass().getClassLoader().getResource("HospitalHome.fxml"));
         Scene scene = new Scene(root);
         thestage.setScene(scene);
@@ -167,8 +171,6 @@ public class AdminLoggedInHomeController {
 
         Parent sceneMain = loader.load();
 
-        EditLocationController controller = loader.<EditLocationController>getController();
-
         Stage theStage = (Stage) fufillServiceRequest.getScene().getWindow();
 
         Scene scene = new Scene(sceneMain);
@@ -204,21 +206,20 @@ public class AdminLoggedInHomeController {
         Scene scene = new Scene(sceneMain);
         theStage.setScene(scene);
     }
-    /*
+
     @FXML
     private void SwitchToSuggestionScreen() throws IOException{
     timeout.stop();
-        FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("SuggestionBox.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("SuggestionTable.fxml"));
 
         Parent sceneMain = loader.load();
 
-        SuggestionBoxController controller = loader.<SuggestionBoxController>getController();
+        SuggestionTableController controller = loader.<SuggestionTableController>getController();
 
         Stage theStage = (Stage) fufillServiceRequest.getScene().getWindow();
 
         Scene scene = new Scene(sceneMain);
         theStage.setScene(scene);
     }
-     */
 
 }

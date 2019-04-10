@@ -1,7 +1,9 @@
 package Controller;
 
+import API.UpdateLocationThread;
 import Access.EdgesAccess;
 import Access.NodesAccess;
+import com.jfoenix.controls.JFXRadioButton;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.beans.property.DoubleProperty;
@@ -23,6 +25,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.input.ScrollEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Line;
@@ -38,6 +41,9 @@ import Object.*;
 import javafx.util.Duration;
 
 public class EditLinkBetweenFloorsController {
+
+    @FXML
+    private Button clearButton;
 
     @FXML
     private Stage thestage;
@@ -59,6 +65,15 @@ public class EditLinkBetweenFloorsController {
 
     @FXML
     private AnchorPane anchorPaneWindow;
+
+    @FXML
+    private Pane mapPane;
+
+    @FXML
+    private Pane upperPane;
+
+    @FXML
+    private Pane lowerPane;
 
     @FXML
     private ImageView Map;
@@ -118,6 +133,11 @@ public class EditLinkBetweenFloorsController {
     private boolean selectingFirst = true;
     private boolean isSelectingSecond = false;
 
+    @FXML
+    private JFXRadioButton singleFloorSelect;
+    @FXML
+    private JFXRadioButton multiFloorSelect;
+
     private Location focusLoc;
     private Location toConnectLoc;
 
@@ -133,21 +153,26 @@ public class EditLinkBetweenFloorsController {
     public void initialize() {
         Singleton single = Singleton.getInstance();
         single.setLastTime();
-        timeout = new Timeline(new KeyFrame(Duration.seconds(2), new EventHandler<ActionEvent>() {
+        multiFloorSelect.setSelected(false);
+        singleFloorSelect.setSelected(true);
 
+        timeout = new Timeline(new KeyFrame(Duration.seconds(2), new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
                 if((System.currentTimeMillis() - single.getLastTime()) > single.getTimeoutSec()){
                     try{
                         single.setLastTime();
+                        single.setDoPopup(true);
                         single.setLoggedIn(false);
                         single.setUsername("");
                         single.setIsAdmin(false);
                         FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("HospitalHome.fxml"));
 
                         Parent sceneMain = loader.load();
+                        HomeScreenController controller = loader.<HomeScreenController>getController();
+                        controller.displayPopup();
 
-                        Stage thisStage = (Stage) Map.getScene().getWindow();
+                        Stage thisStage = (Stage) node2X.getScene().getWindow();
 
                         Scene newScene = new Scene(sceneMain);
                         thisStage.setScene(newScene);
@@ -171,14 +196,16 @@ public class EditLinkBetweenFloorsController {
         Floor.setItems(floorList);
         map();
         //initializeTable(na, ea);
-        sceneGestureMain = setUpImage(anchorPaneMain, sceneGestureMain, Map, zoomPropertyMain, deltaYMain, 431, 115);
-        sceneGestureUpper = setUpImage(anchorPaneUpper, sceneGestureUpper, MapUpper, zoomPropertyUpper, deltaYUpper, 830, 417);
-        sceneGestureLower = setUpImage(anchorPaneLower, sceneGestureLower, MapLower, zoomPropertyLower, deltaYLower, 25, 417);
+        sceneGestureMain = setUpImage(anchorPaneMain, sceneGestureMain, Map, zoomPropertyMain, deltaYMain, mapPane, 0, 0);
+        sceneGestureUpper = setUpImage(anchorPaneUpper, sceneGestureUpper, MapUpper, zoomPropertyUpper, deltaYUpper, upperPane, 0, 0);
+        sceneGestureLower = setUpImage(anchorPaneLower, sceneGestureLower, MapLower, zoomPropertyLower, deltaYLower, lowerPane, 0, 0);
 
 
         sceneGestureMain.setDrawPath(circles, lines);
         sceneGestureUpper.setDrawPath(circlesUpper, linesUpper);
         sceneGestureLower.setDrawPath(circlesLower, linesLower);
+        MapLower.setVisible(false);
+        MapUpper.setVisible(false);
     }
 
     @FXML
@@ -190,7 +217,7 @@ public class EditLinkBetweenFloorsController {
         mapURLlookup.put("3", "/SoftEng_UI_Mockup_Pics/03_thethirdfloor.png");
         mapURLlookup.put("2", "/SoftEng_UI_Mockup_Pics/02_thesecondfloor.png");
         mapURLlookup.put("1", "/SoftEng_UI_Mockup_Pics/01_thefirstfloor.png");
-        mapURLlookup.put("Ground", "/SoftEng_UI_Mockup_Pics/00_thegroundfloor.png");
+        mapURLlookup.put("G", "/SoftEng_UI_Mockup_Pics/00_thegroundfloor.png");
         mapURLlookup.put("L1", "/SoftEng_UI_Mockup_Pics/00_thelowerlevel1.png");
         mapURLlookup.put("L2", "/SoftEng_UI_Mockup_Pics/00_thelowerlevel2.png");
     }
@@ -202,11 +229,11 @@ public class EditLinkBetweenFloorsController {
         thestage = (Stage) PathFindBack.getScene().getWindow();
         AnchorPane root;
         if (single.isLoggedIn()) {
-            FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("LoggedInHome.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("EditLocation.fxml"));
 
             Parent sceneMain = loader.load();
 
-            LoggedInHomeController controller = loader.<LoggedInHomeController>getController();
+            EditLocationController controller = loader.<EditLocationController>getController();
 
             Stage theStage = (Stage) PathFindBack.getScene().getWindow();
 
@@ -230,9 +257,10 @@ public class EditLinkBetweenFloorsController {
         single.setLastTime();
         String start = focusLoc.getLocID();
         String end = toConnectLoc.getLocID();
-        Edge e = new Edge(start+"_"+end,focusLoc, toConnectLoc);
         ea.addEdge(start, end);
-        single.setData();
+        UpdateLocationThread ul = new UpdateLocationThread();
+        ul.start();
+        //single.setData();
     }
 
     @FXML
@@ -251,12 +279,12 @@ public class EditLinkBetweenFloorsController {
 
     @FXML
     private void floor() {
-        floorList.add("Ground");
+        floorList.add("3");
+        floorList.add("2");
+        floorList.add("1");
+        floorList.add("G");
         floorList.add("L1");
         floorList.add("L2");
-        floorList.add("1");
-        floorList.add("2");
-        floorList.add("3");
     }
 
     @FXML
@@ -267,6 +295,15 @@ public class EditLinkBetweenFloorsController {
     private void filter() {
         filterList.add("Stairs");
         filterList.add("Elevators");
+        filterList.add("Restrooms");
+        filterList.add("Conference Rooms");
+        filterList.add("Labs");
+        filterList.add("Departments");
+        filterList.add("Information");
+        filterList.add("Exit");
+        filterList.add("Retail");
+        filterList.add("Halls");
+        filterList.add("ALL");
     }
 
     @FXML
@@ -277,7 +314,7 @@ public class EditLinkBetweenFloorsController {
     private void filterFloor() {
         Singleton single = Singleton.getInstance();
         single.setLastTime();
-        if (Floor.getValue() == "Ground") {
+        if (Floor.getValue() == "G") {
             pickedFloor = "G";
         }
         if (Floor.getValue() == "L1") {
@@ -300,7 +337,7 @@ public class EditLinkBetweenFloorsController {
     /*
     Author: PJ Mara. Sets up a pan and scroll image!
      */
-    private SceneGesturesForEditing setUpImage(AnchorPane anchorPanePath, SceneGesturesForEditing sceneGestures, ImageView Map1, DoubleProperty zoomProperty, DoubleProperty deltaY, int x, int y) {
+    private SceneGesturesForEditing setUpImage(AnchorPane anchorPanePath, SceneGesturesForEditing sceneGestures, ImageView Map1, DoubleProperty zoomProperty, DoubleProperty deltaY, Pane pane, int x, int y) {
         anchorPanePath.setLayoutX(x);
         anchorPanePath.setLayoutY(y);
         anchorPanePath.setPrefSize(420, 285.6);
@@ -329,8 +366,11 @@ public class EditLinkBetweenFloorsController {
         zoomPaneImage.setLayoutX(x);
         zoomPaneImage.setLayoutY(y);
 
-        anchorPaneWindow.getChildren().add(zoomPaneImage);
-        anchorPaneWindow.getChildren().add(anchorPanePath);
+        Map1.fitWidthProperty().bind(pane.widthProperty());
+        Map1.fitHeightProperty().bind(pane.heightProperty());
+
+        pane.getChildren().add(zoomPaneImage);
+        pane.getChildren().add(anchorPanePath);
         sceneGestures.reset(Map1, Map1.getImage().getWidth(), Map1.getImage().getHeight());
 
         return sceneGestures;
@@ -340,14 +380,36 @@ public class EditLinkBetweenFloorsController {
     private void typeSelected() {
         Singleton single = Singleton.getInstance();
         single.setLastTime();
-        if (Filter.getValue().equals("Stairs")) {
-            type = "STAI";
-        } else {
-            type = "ELEV";
+        if (Filter.getValue() != null) {
+            //System.out.println(Filter);
+            if (Filter.getValue().equals("Stairs")) {
+                type = "STAI";
+            } else if (Filter.getValue().equals("Restrooms")) {
+                type = "REST";
+            } else if (Filter.getValue().equals("Elevators")) {
+                type = "ELEV";
+            } else if (Filter.getValue().equals("Conference Rooms")) {
+                type = "CONF";
+            } else if (Filter.getValue().equals("Labs")) {
+                type = "LABS";
+            } else if (Filter.getValue().equals("Departments")) {
+                type = "DEPT";
+            } else if (Filter.getValue().equals("Information")) {
+                type = "INFO";
+            } else if (Filter.getValue().equals("Exit")) {
+                type = "EXIT";
+            } else if (Filter.getValue().equals("Retail")) {
+                type = "RETL";
+            } else if (Filter.getValue().equals("Halls")) {
+                type = "HALL";
+            } else if (Filter.getValue().equals("ALL")) {
+                type = "ALL";
+            }
+            if (Floor.getValue() != null) {
+                displayNodes.setDisable(false);
+            }
         }
-        if (Floor.getValue() != null) {
-            displayNodes.setDisable(false);
-        }
+        nodeDisplayPress();
     }
 
     @FXML
@@ -372,12 +434,12 @@ public class EditLinkBetweenFloorsController {
         } else if (Floor.getValue().equals("1")) {
             Map.setImage(new Image(mapURLlookup.get("1")));
             MapUpper.setImage(new Image(mapURLlookup.get("2")));
-            MapLower.setImage(new Image(mapURLlookup.get("Ground")));
+            MapLower.setImage(new Image(mapURLlookup.get("G")));
             currentMap = "1";
             currentMapAbove = "2";
             currentMapBelow = "G";
-        } else if (Floor.getValue().equals("Ground")) {
-            Map.setImage(new Image(mapURLlookup.get("Ground")));
+        } else if (Floor.getValue().equals("G")) {
+            Map.setImage(new Image(mapURLlookup.get("G")));
             MapUpper.setImage(new Image(mapURLlookup.get("1")));
             MapLower.setImage(new Image(mapURLlookup.get("L1")));
             currentMap = "G";
@@ -385,7 +447,7 @@ public class EditLinkBetweenFloorsController {
             currentMapBelow = "L1";
         } else if (Floor.getValue().equals("L1")) {
             Map.setImage(new Image(mapURLlookup.get("L1")));
-            MapUpper.setImage(new Image(mapURLlookup.get("Ground")));
+            MapUpper.setImage(new Image(mapURLlookup.get("G")));
             MapLower.setImage(new Image(mapURLlookup.get("L2")));
             currentMap = "L1";
             currentMapAbove = "G";
@@ -401,8 +463,11 @@ public class EditLinkBetweenFloorsController {
         if (type != "") {
             displayNodes.setDisable(false);
         }
+        clearPressed();
+        eraseNodes(anchorPaneLower, circlesLower);
+        eraseNodes(anchorPaneUpper, circlesUpper);
+        eraseNodes(anchorPaneMain, circles);
     }
-
 
 
     @FXML
@@ -424,8 +489,58 @@ public class EditLinkBetweenFloorsController {
         circlesLower.clear();
         circlesUpper.clear();
         drawNodes();
-        drawOtherFloors();
+        if (multiFloorSelect.isSelected()) {
+            drawOtherFloors();
+        }
         //sceneGestureMain.setDrawPath(circles, lines);
+    }
+
+    @FXML
+    private void multiFloorClicked() {
+        singleFloorSelect.setSelected(false);
+        multiFloorSelect.setSelected(true);
+        MapUpper.setVisible(true);
+        MapLower.setVisible(true);
+        Filter.setValue(null);
+        Filter.setPromptText("Select Type");
+        filterList.remove("Stairs");
+        filterList.remove("Elevators");
+        filterList.remove("Restrooms");
+        filterList.remove("Conference Rooms");
+        filterList.remove("Labs");
+        filterList.remove("Departments");
+        filterList.remove("Information");
+        filterList.remove("Exit");
+        filterList.remove("Retail");
+        filterList.remove("Halls");
+        filterList.remove("ALL");
+        filterList.add("Stairs");
+        filterList.add("Elevators");
+    }
+
+    @FXML
+    private void singleFloorClicked() {
+        multiFloorSelect.setSelected(false);
+        singleFloorSelect.setSelected(true);
+        MapLower.setVisible(false);
+        MapUpper.setVisible(false);
+        Filter.setValue(null);
+        Filter.setPromptText("Select Type");
+        eraseNodes(anchorPaneLower, circlesLower);
+        eraseNodes(anchorPaneUpper, circlesUpper);
+        filterList.remove("Stairs");
+        filterList.remove("Elevators");
+        filterList.remove("Restrooms");
+        filterList.remove("Conference Rooms");
+        filterList.remove("Labs");
+        filterList.remove("Departments");
+        filterList.remove("Information");
+        filterList.remove("Exit");
+        filterList.remove("Retail");
+        filterList.remove("Halls");
+        filterList.remove("ALL");
+        filter();
+
     }
 
     private void drawNodes() {
@@ -434,10 +549,14 @@ public class EditLinkBetweenFloorsController {
         ArrayList<Location> nodes = new ArrayList<Location>();
         //want to fill nodes w/ floor = currrentFloor
         int temp = 0;
-        double scaleRatio = Map.getFitWidth() / Map.getImage().getWidth();
+        double scaleRatio = Math.min(Map.getFitWidth() / Map.getImage().getWidth(),Map.getFitHeight()/Map.getImage().getHeight());
         Point2D point = sceneGestureMain.getImageLocation();
         for (int i = 0; i < single.getData().size(); i++) {
-            if (single.getData().get(i).getFloor().equals(currentMap) && single.getData().get(i).getNodeType().equals(type)) {
+            boolean badCode = false;
+            if (type == "ALL") {
+                badCode = true;
+            }
+            if (single.getData().get(i).getFloor().equals(currentMap) && (single.getData().get(i).getNodeType().equals(type) || badCode)) {
                 nodes.add(single.getData().get(i));
 
                 Circle thisCircle = new Circle();
@@ -477,46 +596,79 @@ public class EditLinkBetweenFloorsController {
             }
             int getX;
             int getY;
-            if (event.getSceneY() < 417) {
-                Point2D mousePress = sceneGestures.imageViewToImage(Map, new Point2D(event.getX(), event.getY()));
-                sceneGestures.setMouseDown(mousePress);
-                getX = roundToFive((int) mousePress.getX());
-                getY = roundToFive((int) mousePress.getY());
-                String newQuery = na.getNodebyCoord(getX, getY, currentMap, type);
-                Point2D point = sceneGestureMain.getImageLocation();
-                if (newQuery != null) {
-                    focusLoc = single.lookup.get(newQuery);
-                    node1X.setText("" + focusLoc.getXcoord());
-                    node1Y.setText("" + focusLoc.getYcoord());
-                    node1Name.setText(focusLoc.getLocID());
-                }
-            }
-            else if (event.getSceneX() > 830 && !currentMap.equals("3")){
-                Point2D mousePress = sceneGestures.imageViewToImage(MapUpper, new Point2D(event.getX(), event.getY()));
-                sceneGestures.setMouseDown(mousePress);
-                getX = roundToFive((int) mousePress.getX());
-                getY = roundToFive((int) mousePress.getY());
-                String newQuery = na.getNodebyCoord(getX, getY, currentMapAbove, type);
+            if (multiFloorSelect.isSelected()) {
 
-                if (newQuery != null) {
-                    toConnectLoc = single.lookup.get(newQuery);
-                    node2X.setText("" + toConnectLoc.getXcoord());
-                    node2Y.setText("" + toConnectLoc.getYcoord());
-                    node2Name.setText(toConnectLoc.getLocID());
+                if (event.getSceneX() > mapPane.getLayoutX() && event.getSceneY() < mapPane.getLayoutY() + mapPane.getHeight()) {
+                    Point2D mousePress = sceneGestures.imageViewToImage(Map, new Point2D(event.getX(), event.getY()));
+                    sceneGestures.setMouseDown(mousePress);
+                    getX = roundToFive((int) mousePress.getX());
+                    getY = roundToFive((int) mousePress.getY());
+                    String newQuery = na.getNodebyCoord(getX, getY, currentMap, type);
+                    Point2D point = sceneGestureMain.getImageLocation();
+                    if (newQuery != null) {
+                        focusLoc = single.lookup.get(newQuery);
+                        node1X.setText("" + focusLoc.getXcoord());
+                        node1Y.setText("" + focusLoc.getYcoord());
+                        node1Name.setText(focusLoc.getLocID());
+                    }
+                } else if (event.getSceneY() < upperPane.getLayoutY() + upperPane.getHeight() && !currentMap.equals("3")) {
+                    Point2D mousePress = sceneGestures.imageViewToImage(MapUpper, new Point2D(event.getX(), event.getY()));
+                    sceneGestures.setMouseDown(mousePress);
+                    getX = roundToFive((int) mousePress.getX());
+                    getY = roundToFive((int) mousePress.getY());
+                    String newQuery = na.getNodebyCoord(getX, getY, currentMapAbove, type);
+
+                    if (newQuery != null) {
+                        toConnectLoc = single.lookup.get(newQuery);
+                        node2X.setText("" + toConnectLoc.getXcoord());
+                        node2Y.setText("" + toConnectLoc.getYcoord());
+                        node2Name.setText(toConnectLoc.getLocID());
+                    }
+                } else {
+                    Point2D mousePress = sceneGestures.imageViewToImage(MapLower, new Point2D(event.getX(), event.getY()));
+                    sceneGestures.setMouseDown(mousePress);
+                    getX = roundToFive((int) mousePress.getX());
+                    getY = roundToFive((int) mousePress.getY());
+                    String newQuery = na.getNodebyCoord(getX, getY, currentMapBelow, type);
+                    if (newQuery != null) {
+                        toConnectLoc = single.lookup.get(newQuery);
+                        node2X.setText("" + toConnectLoc.getXcoord());
+                        node2Y.setText("" + toConnectLoc.getYcoord());
+                        node2Name.setText(toConnectLoc.getLocID());
+                    }
                 }
             }
             else {
-                Point2D mousePress = sceneGestures.imageViewToImage(MapLower, new Point2D(event.getX(), event.getY()));
-                sceneGestures.setMouseDown(mousePress);
-                getX = roundToFive((int) mousePress.getX());
-                getY = roundToFive((int) mousePress.getY());
-                String newQuery = na.getNodebyCoord(getX, getY, currentMapBelow, type);
-                if (newQuery != null) {
-                    toConnectLoc = single.lookup.get(newQuery);
-                    node2X.setText("" + toConnectLoc.getXcoord());
-                    node2Y.setText("" + toConnectLoc.getYcoord());
-                    node2Name.setText(toConnectLoc.getLocID());
+                if (event.getSceneX() > mapPane.getLayoutX() && event.getSceneY() < mapPane.getLayoutY() + mapPane.getHeight()) {
+                    Point2D mousePress = sceneGestures.imageViewToImage(Map, new Point2D(event.getX(), event.getY()));
+                    sceneGestures.setMouseDown(mousePress);
+                    getX = roundToFive((int) mousePress.getX());
+                    getY = roundToFive((int) mousePress.getY());
+                    String newQuery;
+                    if (type != "ALL") {
+                        newQuery = na.getNodebyCoord(getX, getY, currentMap, type);
+                    }
+                    else {
+                        newQuery = na.getNodebyCoordNoType(getX, getY, currentMap, 7);
+                    }
+                    Point2D point = sceneGestureMain.getImageLocation();
+                    if (newQuery != null && focusLoc == null) {
+                        focusLoc = single.lookup.get(newQuery);
+                        node1X.setText("" + focusLoc.getXcoord());
+                        node1Y.setText("" + focusLoc.getYcoord());
+                        node1Name.setText(focusLoc.getLocID());
+                    }
+                    else if (newQuery != null){
+                        toConnectLoc = single.lookup.get(newQuery);
+                        node2X.setText("" + toConnectLoc.getXcoord());
+                        node2Y.setText("" + toConnectLoc.getYcoord());
+                        node2Name.setText(toConnectLoc.getLocID());
+                    }
+                    else {
+                        //System.out.println("QUERY FAILED");
+                    }
                 }
+
             }
             if (toConnectLoc != null && focusLoc != null) {
                 PathFindSubmit.setDisable(false);
@@ -543,11 +695,10 @@ public class EditLinkBetweenFloorsController {
         ArrayList<Location> nodes = new ArrayList<Location>();
         //want to fill nodes w/ floor = currrentFloor
         int temp = 0;
-        double scaleRatio = Map.getFitWidth() / Map.getImage().getWidth();
+        double scaleRatio = Math.min(Map.getFitWidth() / Map.getImage().getWidth(), Map.getFitHeight()/Map.getImage().getHeight());
         Point2D point = sceneGestureUpper.getImageLocation();
         for (int i = 0; i < single.getData().size(); i++) {
             if (single.getData().get(i).getFloor().equals(currentMapAbove) && single.getData().get(i).getNodeType().equals(type)) {
-                //System.out.println(currentMap);
                 nodes.add(single.getData().get(i));
 
                 Circle thisCircle = new Circle();
@@ -571,7 +722,6 @@ public class EditLinkBetweenFloorsController {
         Point2D pointLower = sceneGestureLower.getImageLocation();
         for (int i = 0; i < single.getData().size(); i++) {
             if (single.getData().get(i).getFloor().equals(currentMapBelow) && single.getData().get(i).getNodeType().equals(type)) {
-                //System.out.println(currentMap);
                 nodesLower.add(single.getData().get(i));
 
                 Circle thisCircle = new Circle();
@@ -589,6 +739,31 @@ public class EditLinkBetweenFloorsController {
                 temp++;
             }
         }
+    }
+
+    @FXML
+    private void clearPressed() {
+        focusLoc = null;
+        toConnectLoc = null;
+
+
+        node1X.setText("");
+        node1Y.setText("");
+        node1Name.setText("");
+
+        node2X.setText("");
+        node2Y.setText("");
+        node2Name.setText("");
+        PathFindSubmit.setDisable(true);
+
+    }
+
+    private void eraseNodes(AnchorPane anchorPanePath, ArrayList<Circle> circle){
+        for (Circle c: circle){
+            anchorPanePath.getChildren().remove(c);
+        }
+
+        circle.clear();
     }
 }
 
