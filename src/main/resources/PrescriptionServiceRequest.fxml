@@ -4,7 +4,6 @@
 <?import com.jfoenix.controls.JFXTextArea?>
 <?import com.jfoenix.controls.JFXTextField?>
 <?import com.jfoenix.controls.JFXToolbar?>
-<?import java.net.URL?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.effect.Blend?>
@@ -31,7 +30,7 @@
                   </ImageView>
                </left>
                <right>
-                  <JFXButton fx:id="backButton" buttonType="RAISED" prefHeight="75.0" prefWidth="150.0" style="-fx-background-radius: 50;" text="Back" BorderPane.alignment="CENTER">
+                  <JFXButton fx:id="backButton" buttonType="RAISED" onAction="#backPressed" prefHeight="75.0" prefWidth="150.0" style="-fx-background-radius: 50;" text="Back" BorderPane.alignment="CENTER">
                      <font>
                         <Font size="40.0" />
                      </font>
@@ -59,53 +58,37 @@
                   <RowConstraints maxHeight="59.111358642578125" minHeight="0.0" prefHeight="0.0" valignment="CENTER" vgrow="ALWAYS" />
               </rowConstraints>
                <children>
-                  <JFXTextField fx:id="destinationField" focusColor="#f6bd38" onAction="#reenableSubmit" promptText="Destination" style="-jfx-prompt-text: WHITE;" unFocusColor="WHITE" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" GridPane.vgrow="ALWAYS">
+                  <JFXTextField fx:id="destinationField" focusColor="#f6bd38" onAction="#reenableSubmit" promptText="Destination" style="-jfx-prompt-text: WHITE;" stylesheets="@modify-prompt-text.css" unFocusColor="WHITE" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" GridPane.vgrow="ALWAYS">
                      <GridPane.margin>
                         <Insets left="100.0" right="100.0" />
                      </GridPane.margin>
                      <font>
                         <Font size="20.0" />
                      </font>
-                     <stylesheets>
-                        <URL value="@CS3733-D19-Team-L-Iterations/src/main/resources/modify-prompt-text.css" />
-                        <URL value="@modify-prompt-text.css" />
-                     </stylesheets>
                   </JFXTextField>
-                  <JFXTextField fx:id="deliveryTimeField" focusColor="#f6bd38" onAction="#reenableSubmit" promptText="Medicine Type" style="-jfx-prompt-text: WHITE;" unFocusColor="WHITE" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="2" GridPane.vgrow="ALWAYS">
+                  <JFXTextField fx:id="deliveryTimeField" focusColor="#f6bd38" onAction="#reenableSubmit" promptText="Medicine Type" style="-jfx-prompt-text: WHITE;" stylesheets="@modify-prompt-text.css" unFocusColor="WHITE" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="2" GridPane.vgrow="ALWAYS">
                      <GridPane.margin>
                         <Insets left="100.0" right="100.0" />
                      </GridPane.margin>
                      <font>
                         <Font size="20.0" />
                      </font>
-                     <stylesheets>
-                        <URL value="@CS3733-D19-Team-L-Iterations/src/main/resources/modify-prompt-text.css" />
-                        <URL value="@modify-prompt-text.css" />
-                     </stylesheets>
                   </JFXTextField>
-                  <JFXTextField fx:id="medicineTypeField" focusColor="#f6bd38" onAction="#reenableSubmit" promptText="Delivery Time" style="-jfx-prompt-text: WHITE;" unFocusColor="WHITE" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" GridPane.vgrow="ALWAYS">
+                  <JFXTextField fx:id="medicineTypeField" focusColor="#f6bd38" onAction="#reenableSubmit" promptText="Delivery Time" style="-jfx-prompt-text: WHITE;" stylesheets="@modify-prompt-text.css" unFocusColor="WHITE" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" GridPane.vgrow="ALWAYS">
                      <GridPane.margin>
                         <Insets left="100.0" right="100.0" />
                      </GridPane.margin>
                      <font>
                         <Font size="20.0" />
                      </font>
-                     <stylesheets>
-                        <URL value="@CS3733-D19-Team-L-Iterations/src/main/resources/modify-prompt-text.css" />
-                        <URL value="@modify-prompt-text.css" />
-                     </stylesheets>
                   </JFXTextField>
-                  <JFXTextField fx:id="amountField" focusColor="#f6bd38" onAction="#reenableSubmit" promptText="Amount" style="-jfx-prompt-text: WHITE;" unFocusColor="WHITE" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="2" GridPane.vgrow="ALWAYS">
+                  <JFXTextField fx:id="amountField" focusColor="#f6bd38" onAction="#reenableSubmit" promptText="Amount" style="-jfx-prompt-text: WHITE;" stylesheets="@modify-prompt-text.css" unFocusColor="WHITE" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="2" GridPane.vgrow="ALWAYS">
                      <GridPane.margin>
                         <Insets left="100.0" right="100.0" />
                      </GridPane.margin>
                      <font>
                         <Font size="20.0" />
                      </font>
-                     <stylesheets>
-                        <URL value="@CS3733-D19-Team-L-Iterations/src/main/resources/modify-prompt-text.css" />
-                        <URL value="@modify-prompt-text.css" />
-                     </stylesheets>
                   </JFXTextField>
                   <Label text="Perscription Service Request" textFill="#f5d96b" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
                      <font>
