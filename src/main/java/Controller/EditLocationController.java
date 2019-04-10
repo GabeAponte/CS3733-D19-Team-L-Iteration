@@ -441,11 +441,10 @@ public class EditLocationController {
         //this is the dialogue popup
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Delete selected node?", ButtonType.YES, ButtonType.NO);
         alert.showAndWait();
-        single = Singleton.getInstance();
         if (alert.getResult() == ButtonType.YES) {
             single.lookup.get(focusNode.getLocID()).restitch();
             //delete the node here
-            NodesAccess na = new NodesAccess();
+            na = new NodesAccess();
             na.deleteNode(focusNode.getLocID());
             UpdateLocationThread ul = new UpdateLocationThread();
             ul.start();
@@ -802,7 +801,8 @@ public class EditLocationController {
                         nodeInfoLong.setText("" + focusNode.getLongName());
                         nodeInfoShort.setText("" + focusNode.getShortName());
                         populateEdges(focusNode);
-                        nodeInfoID.setDisable(false);
+                        nodeInfoID.setDisable(true);
+                        deleteNode.setDisable(false);
 
                     } else {
                         nodeInfoID.setText("");
@@ -814,7 +814,8 @@ public class EditLocationController {
                         nodeInfoLong.setText("");
                         nodeInfoShort.setText("");
                         circles.remove(thisCircle);
-                        nodeInfoID.setDisable(true);
+                        nodeInfoID.setDisable(false);
+                        deleteNode.setDisable(true);
                         double scaleRatio = Math.min(Map.getFitWidth() / Map.getImage().getWidth(), Map.getFitHeight() / Map.getImage().getHeight());
 
                         //System.out.println(sceneGestures.getImageScale());
