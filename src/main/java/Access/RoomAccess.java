@@ -61,26 +61,31 @@ public class RoomAccess extends DBAccess {
      */
     public ArrayList<String> getAvailRooms(String startDate, String endDate, int startTime, int endTime){
         //TODO Should make this not ugly
-        String sql = "select rID from reservation where (? between startDate and endDate) or (? between startDate and endDate) and (endtime <= ? or starttime >= ?);";
+        String sql = "select name from room left outer join (select rID from reservation where (startDate = ?) and (((? between startTime and endTime) and (? != endTime and (? between startTime and endTime))) or ((? between startTime and endTime) and (? != startTime and (? between startTime and endTime))) or (? < startTime and ? > endTime))) on roomID = rID where rID is null;";
         ArrayList<String> data = new ArrayList<String>();
         try (Connection conn = this.connect();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
             pstmt.setString(1, startDate);
-            pstmt.setString(2, endDate);
-            pstmt.setInt(3, endTime);
-            pstmt.setInt(4, startTime);
+            pstmt.setInt(2, startTime);
+            pstmt.setInt(3, startTime);
+            pstmt.setInt(4, endTime);
+            pstmt.setInt(5, endTime);
+            pstmt.setInt(6, endTime);
+            pstmt.setInt(7, startTime);
+            pstmt.setInt(8, startTime);
+            pstmt.setInt(9, endTime);
 
             ResultSet rs = pstmt.executeQuery();
             while(rs.next()){
-                data.add(rs.getString("rID"));
+                data.add(rs.getString("name"));
             }
-
             return data;
+
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
-        return data;
 
+        return null;
     }
 
     /**ANDREW MADE THIS
@@ -95,7 +100,7 @@ public class RoomAccess extends DBAccess {
              Statement stmt = conn.createStatement();
              ResultSet rs = stmt.executeQuery(sql)) {
             while (rs.next()) {
-                    data.add(rs.getString("roomID"));
+                data.add(rs.getString("roomID"));
             }
             return data;
 
@@ -106,20 +111,44 @@ public class RoomAccess extends DBAccess {
         return null;
     }
 
+    /**ANDREW MADE THIS
+     * returns the record fields for the given index in room
+     * @return
+     */
+    public String getRoomID(String roomName){
+        String sql = "SELECT roomID FROM room where name = ?";
+        //noinspection Convert2Diamond
+        String data = "";
+        try (Connection conn = this.connect();
+             PreparedStatement pstmt = conn.prepareStatement(sql)){
+            pstmt.setString(1, roomName);
+            ResultSet rs = pstmt.executeQuery();
+            while (rs.next()) {
+                data = (rs.getString("roomID"));
+            }
+            return data;
+
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+
+        return data;
+    }
+
+
+
     public static void main(String[] args) {
         ArrayList<String> temp = new ArrayList<>();
         ArrayList<String> temp1 = new ArrayList<>();
         RoomAccess ra = new RoomAccess();
-        temp = ra.getAvailRooms("2019-04-10", "2019-04-11", 1600, 1700);
+        temp = ra.getAvailRooms("2019-04-09", "2019-04-09", 1300, 1330);
         temp1 = ra.getRoomID();
         for(int i = 0; i < temp.size(); i++){
             System.out.println(temp.get(i));
-            System.out.println("HI");
         }
         for(int i = 0; i < temp1.size(); i++){
-            System.out.println("Room ID: " + temp1.get(i));
+            //System.out.println("Room ID: " + temp1.get(i));
         }
         System.out.println("WTH");
-
     }
 }
