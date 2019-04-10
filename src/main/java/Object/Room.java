@@ -30,7 +30,7 @@ public class Room{
             e.printStackTrace();
         }
         SimpleDateFormat startSimpleDate = new SimpleDateFormat("hh:mm a");
-        System.out.println(startSimpleDate.format(startDate));
+      //  System.out.println(startSimpleDate.format(startDate));
 
         Date endDate = null;
         try {
@@ -39,7 +39,7 @@ public class Room{
             e.printStackTrace();
         }
         SimpleDateFormat endSimpleDate = new SimpleDateFormat("hh:mm a");
-        System.out.println(startSimpleDate.format(endDate));
+      //  System.out.println(startSimpleDate.format(endDate));
 
         time = startSimpleDate.format(startDate) + " - " + endSimpleDate.format(endDate);
 

@@ -113,7 +113,7 @@ public class ExternalTransportationController {
         single.setLastTime();
         ServiceRequestAccess sra = new ServiceRequestAccess();
         sra.makeExternalRequest(Description.getText(), Location.getText(), Destination.getText(), Type.getValue(), PhoneNumber.getText());
-        System.out.println("Submit Pressed");
+        //System.out.println("Submit Pressed");
         backPressed();
     }
 

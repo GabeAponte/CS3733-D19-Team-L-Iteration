@@ -113,7 +113,7 @@ public class MaintenanceServiceRequestController {
             check = false;
         }
         sra.makeMaintenanceRequest(Description.getText(), Location.getText(), field1.getText(), Boolean.toString(check));
-        System.out.println("Submit Pressed");
+       // System.out.println("Submit Pressed");
         backPressed();
     }
 

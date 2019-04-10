@@ -1012,7 +1012,6 @@ public class ActiveServiceRequestsController {
 
             dateRequested.setCellValueFactory(cellData -> {
                 if (cellData.getValue().getValue() instanceof ServiceRequestTable) {
-                    System.out.println("Setcell factory date set");
                     return new ReadOnlyObjectWrapper(cellData.getValue().getValue().getCreationDate());
                 }
                 return new ReadOnlyObjectWrapper(cellData.getValue().getValue());
@@ -1112,7 +1111,7 @@ public class ActiveServiceRequestsController {
     private void yooo(){
         try {
 
-            FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("FulFillRequest.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("FulfillRequest.fxml"));
 
             Parent sceneMain = loader.load();
 

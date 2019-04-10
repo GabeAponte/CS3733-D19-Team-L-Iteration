@@ -48,7 +48,7 @@ public class Weather {
      */
     public String getIcon(){
         String type = currently.get().getByKey("icon");
-        System.out.println(type);
+      //  System.out.println(type);
         if(type.contains("clear")){
             return "weatherIcons/sunImage.jpg";
         } else if(type.contains("rain") || type.contains("sleet")){

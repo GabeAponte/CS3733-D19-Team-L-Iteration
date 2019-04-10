@@ -110,7 +110,7 @@ public class FloristDeliveryController {
         single.setLastTime();
         ServiceRequestAccess sra = new ServiceRequestAccess();
         sra.makeFloristRequest(comment.getText(), receiverName.getText(), Location.getText(), flowerName.getText());
-        System.out.println("Submit Pressed");
+       // System.out.println("Submit Pressed");
         backPressed();
     }
 

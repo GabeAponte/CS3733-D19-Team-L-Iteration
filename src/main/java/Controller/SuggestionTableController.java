@@ -102,7 +102,7 @@ public class SuggestionTableController {
             if (cellData.getValue().getValue()instanceof SuggestionTable) {
                 return new ReadOnlyObjectWrapper(cellData.getValue().getValue().getComment());
             }
-            System.out.println("Invalid");
+           // System.out.println("Invalid");
             return new ReadOnlyObjectWrapper(cellData.getValue().getValue());
         });
 

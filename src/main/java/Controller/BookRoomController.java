@@ -240,7 +240,7 @@ public class BookRoomController {
 //                    roomID = rooms.get(i - 1);
 //                }
 //            }
-            System.out.println("Start Time (MIL): " + startTimeMil + "End Time (MIL): " + endTimeMil);
+           // System.out.println("Start Time (MIL): " + startTimeMil + "End Time (MIL): " + endTimeMil);
             RoomAccess ra = new RoomAccess();
             roomReq.makeReservation(ra.getRoomID(roomName), employeeID, date, date, startTimeMil, endTimeMil);
             fieldsEntered();
@@ -273,7 +273,7 @@ public class BookRoomController {
 
             rooms = ra.getAvailRooms(date, date, startTimeMil, endTimeMil);
             for(int i = 0; i < rooms.size(); i++){
-                System.out.println("Available Rooms: " + rooms.get(i));
+                //System.out.println("Available Rooms: " + rooms.get(i));
             }
 
             for(int i = 0; i< listOfRooms.size(); i++){
@@ -283,7 +283,7 @@ public class BookRoomController {
 
             listOfRooms.clear();
 
-            System.out.println("startTimeMil: " + startTimeMil + "\n endTimeMil:" + endTimeMil);
+            //System.out.println("startTimeMil: " + startTimeMil + "\n endTimeMil:" + endTimeMil);
             rooms = ra.getAvailRooms(date, date, startTimeMil, endTimeMil);
 
             for(int i = 0; i < rooms.size(); i++){
@@ -300,9 +300,9 @@ public class BookRoomController {
     @FXML
     public void displayOccupiedRooms(){
         for(int i = 0; i< reverseListOfRooms.size(); i++){
-            System.out.println("!");
+           // System.out.println("!");
             if(reverseListOfRooms.get(i).toString().equals("Classroom 1 (Computer)")){
-                System.out.println("Hello world");
+               // System.out.println("Hello world");
                 makeDot(2420,1775);
             }else if(reverseListOfRooms.get(i).toString().equals("Classroom 2 (Computer)")){
                 makeDot(3020,1290);
@@ -331,7 +331,7 @@ public class BookRoomController {
         double scaleRatio = Math.min(roomImage.getFitWidth()/roomImage.getImage().getWidth(), roomImage.getFitHeight()/roomImage.getImage().getHeight());
         Circle c = new Circle();
 
-        System.out.println(x*scaleRatio);
+      //  System.out.println(x*scaleRatio);
 
         c.setCenterX(x*scaleRatio);
         c.setCenterY(y*scaleRatio);
@@ -362,7 +362,7 @@ public class BookRoomController {
         double scaleRatio = Math.min(roomImage.getFitWidth()/roomImage.getImage().getWidth(), roomImage.getFitHeight()/roomImage.getImage().getHeight());
         Circle c = new Circle();
 
-        System.out.println(x*scaleRatio);
+       // System.out.println(x*scaleRatio);
 
         c.setCenterX(x*scaleRatio);
         c.setCenterY(y*scaleRatio);

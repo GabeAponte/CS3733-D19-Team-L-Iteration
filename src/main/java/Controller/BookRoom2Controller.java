@@ -135,7 +135,7 @@ public class BookRoom2Controller {
             Root.getChildren().add(bookedRooms);
             //System.out.println(bookedRooms.getValue().getTime());
             if(i == 33) {
-                System.out.println("Start Time: " + startTime + "End Time: " +endTime);
+               // System.out.println("Start Time: " + startTime + "End Time: " +endTime);
             }
             if(i == 0){
                 startTime += 30;

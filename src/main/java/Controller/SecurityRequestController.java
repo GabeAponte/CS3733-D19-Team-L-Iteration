@@ -111,7 +111,7 @@ public class SecurityRequestController {
         single.setLastTime();
         ServiceRequestAccess sra = new ServiceRequestAccess();
         sra.makeSecurityRequest(Description.getText(), Location.getText(),Identifiers.getText(), Type.getValue(), Level.getValue());
-        System.out.println("Submit Pressed");
+       // System.out.println("Submit Pressed");
         backPressed();
     }
 

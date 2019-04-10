@@ -105,7 +105,6 @@ public class AudioVisualController {
         single.setLastTime();
         ServiceRequestAccess sra = new ServiceRequestAccess();
         sra.makeAudioRequest(Description.getText(), Name.getText(), Location.getText(), Type.getValue());
-        System.out.println("Submit Pressed");
         backPressed();
     }
 

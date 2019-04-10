@@ -49,13 +49,16 @@
                   <Insets left="10.0" right="10.0" />
                </padding>
                <center>
-                  <Label text="Suggestion Box" textFill="#f5d96b" BorderPane.alignment="CENTER">
+                  <Label text="Suggestion Box" BorderPane.alignment="CENTER">
                      <font>
                         <Font size="30.0" />
                      </font>
                      <effect>
                         <Blend />
                      </effect>
+                     <padding>
+                        <Insets right="100.0" />
+                     </padding>
                   </Label>
                </center>
             </JFXToolbar>

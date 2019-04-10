@@ -120,7 +120,7 @@ public class ServiceRequestLanguageController {
         single.setLastTime();
         ServiceRequestAccess sra = new ServiceRequestAccess();
         sra.makeLanguageRequest(Description.getText(), Location.getText(), language.getText(), level.getValue(), interpreters.getValue());
-        System.out.println("Submit Pressed");
+        //System.out.println("Submit Pressed");
         backPressed();
     }
 

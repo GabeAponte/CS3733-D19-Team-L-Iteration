@@ -68,7 +68,7 @@ public class ChildThread extends Thread {
 
         } catch (MessagingException mex) {
             mex.printStackTrace();
-            System.out.println("Failed to send: Messaging Exception");
+           // System.out.println("Failed to send: Messaging Exception");
         } /*catch (InterruptedException ie){
             ie.printStackTrace();
         }*/
