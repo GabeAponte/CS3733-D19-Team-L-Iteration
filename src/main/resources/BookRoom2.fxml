@@ -81,8 +81,8 @@
             </JFXButton>
             <JFXTreeTableView fx:id="bookedTime" style="-fx-background-radius: 20; -fx-border-color: #f5d96b; -fx-border-radius: 20; -fx-border-width: 5;" GridPane.columnSpan="3" GridPane.rowIndex="2" GridPane.rowSpan="4">
                <columns>
-                  <TreeTableColumn fx:id="timeCol" prefWidth="75.0" text="Time" />
-                  <TreeTableColumn fx:id="class1Col" editable="false" minWidth="150.0" prefWidth="150.0" sortable="false" text="Classroom 1" />
+                  <TreeTableColumn fx:id="timeCol" prefWidth="125.0" text="Time" />
+                  <TreeTableColumn fx:id="class1Col" editable="false" minWidth="116.0" prefWidth="150.0" sortable="false" text="Classroom 1" />
                   <TreeTableColumn fx:id="class2Col" editable="false" minWidth="150.0" prefWidth="150.0" sortable="false" text="Classroom 2" />
                   <TreeTableColumn fx:id="class3Col" editable="false" minWidth="150.0" prefWidth="150.0" sortable="false" text="Classroom 3" />
                   <TreeTableColumn fx:id="class4Col" editable="false" minWidth="150.0" prefWidth="150.0" sortable="false" text="Classroom 4" />

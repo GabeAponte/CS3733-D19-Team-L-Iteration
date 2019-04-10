@@ -85,17 +85,8 @@ public class BookRoomController {
     //ArrayList<ArrayList<String>> myLocations = new ArrayList<ArrayList<String>>();
     private SceneGestures sceneGestures;
     private ArrayList<Circle> circles = new ArrayList<Circle>();
+    private ArrayList<String> myListOfRooms = new ArrayList<String>();
     private ArrayList<String> reverseListOfRooms = new ArrayList<String>();
-
-    @FXML
-    public void adjustEndDate(){
-        if(startTime.getValue().isAfter(LocalTime.NOON)&&(endTime.getValue().isBefore(LocalTime.NOON))){
-                datePicker1.setValue(LocalDate.now().plusDays(1));
-        }else{
-            datePicker1.setValue(LocalDate.now());
-        }
-        fieldsEntered();
-    }
 
     public void initialize(){
         roomImage.fitWidthProperty().bind(imagePane.widthProperty());
@@ -103,7 +94,6 @@ public class BookRoomController {
         startTime.setValue(LocalTime.now());
         endTime.setValue(LocalTime.now().plusHours(1));
         datePicker.setValue(LocalDate.now());
-        datePicker1.setValue(LocalDate.now());
         Singleton single = Singleton.getInstance();
         single.setLastTime();
         timeout = new Timeline(new KeyFrame(Duration.seconds(2), new EventHandler<ActionEvent>() {
@@ -126,7 +116,7 @@ public class BookRoomController {
             }
         }));
 
-        
+
         timeout.setCycleCount(Timeline.INDEFINITE);
         timeout.play();
         fieldsEntered();
@@ -167,7 +157,6 @@ public class BookRoomController {
         LocalTime startTimeValue = startTime.getValue();
         LocalTime endTimeValue = endTime.getValue();
         LocalDate roomDate = datePicker.getValue();
-        LocalDate endRoomDate = datePicker1.getValue();
         LocalDate curDate = LocalDate.now();
         LocalTime curTime = LocalTime.now();
 
@@ -209,17 +198,11 @@ public class BookRoomController {
         else if (startTimeValue.equals(endTimeValue)) {
             error.setText("Times cannot be the same.");
         }
-        else if (startTimeValue.compareTo(endTimeValue) > 0 && roomDate.equals(endRoomDate)) {
-            error.setText("Start time cannot be after end time.");
-        }
         else if (startTimeValue.compareTo(curTime) < 0 && roomDate.equals(curDate)) {
             error.setText("Please select a current or future time for today.");
         }
         else if (roomDate.compareTo(curDate) < 0) {
             error.setText("Please select a time for today or a future day.");
-        }
-        else if (endRoomDate.compareTo(roomDate) < 0) {
-            error.setText("Please select a start date that is not after the end date.");
         }
         else if (availableRooms.getValue() == null) {
             error.setText("Please pick a room.");
@@ -231,12 +214,6 @@ public class BookRoomController {
             int endTimeMil = endTime.getValue().getHour() * 100 + endTime.getValue().getMinute();
             String date = datePicker.getValue().toString();
             String endDate;
-            if(datePicker1.getValue() == null){
-                endDate = date;
-            }
-            else {
-                endDate = datePicker1.getValue().toString();
-            }
             String roomID = "RoomTest";
             EmployeeAccess ea = new EmployeeAccess();
             String employeeID = ea.getEmployeeInformation(single.getUsername()).get(0);
@@ -248,7 +225,8 @@ public class BookRoomController {
             }
             System.out.println("Start Time (MIL): " + startTimeMil + "End Time (MIL): " + endTimeMil);
             RoomAccess ra = new RoomAccess();
-            roomReq.makeReservation(ra.getRoomID(roomID), employeeID, date, endDate, startTimeMil, endTimeMil);
+            roomReq.makeReservation(ra.getRoomID(roomID), employeeID, date, date, startTimeMil, endTimeMil);
+            fieldsEntered();
         }
     }
 
@@ -270,11 +248,10 @@ public class BookRoomController {
 
         circles.clear();
 
-        if(startTime.getValue() != null && endTime != null && datePicker.getValue() != null && datePicker1.getValue() != null){
+        if(startTime.getValue() != null && endTime != null && datePicker.getValue() != null){
             startTimeMil = startTime.getValue().getHour() * 100 + startTime.getValue().getMinute();
             endTimeMil = endTime.getValue().getHour() * 100 + endTime.getValue().getMinute();
             date = datePicker.getValue().toString();
-            endDate = datePicker1.getValue().toString();
             availableRooms.getSelectionModel().clearSelection();
 
             rooms = ra.getAvailRooms(date, date, startTimeMil, endTimeMil);
@@ -285,6 +262,7 @@ public class BookRoomController {
 
             for(int i = 0; i< listOfRooms.size(); i++){
                 reverseListOfRooms.add(i, listOfRooms.get(i));
+                myListOfRooms.add(i, listOfRooms.get(i));
             }
 
             listOfRooms.clear();
@@ -298,6 +276,7 @@ public class BookRoomController {
             }
 
             availableRooms.setItems(listOfRooms);
+            displayAvailableRooms();
             displayOccupiedRooms();
         }
     }
@@ -346,5 +325,37 @@ public class BookRoomController {
         imagePane.getChildren().add(c);
         circles.add(c);
     }
+
+    @FXML
+    public void displayAvailableRooms(){
+        for(int i = 0; i< myListOfRooms.size(); i++){
+                makeGreenDot(2420,1775);
+                makeGreenDot(3020,1290);
+                makeGreenDot(2880,900);
+                makeGreenDot(2545,370);
+                makeGreenDot(2390,920);
+                makeGreenDot(2255,370);
+                makeGreenDot(2115,920);
+                makeGreenDot(1922,370);
+                makeGreenDot(1870,825);
+                makeGreenDot(3125,1840);
+            }
+        }
+
+    private void makeGreenDot(double x, double y){
+        double scaleRatio = Math.min(roomImage.getFitWidth()/roomImage.getImage().getWidth(), roomImage.getFitHeight()/roomImage.getImage().getHeight());
+        Circle c = new Circle();
+
+        System.out.println(x*scaleRatio);
+
+        c.setCenterX(x*scaleRatio);
+        c.setCenterY(y*scaleRatio);
+        c.setRadius(10);
+        c.setStroke(Color.web("GREEN"));
+        c.setFill(Color.web("GREEN"));
+        imagePane.getChildren().add(c);
+        circles.add(c);
+    }
+
 }
 
