@@ -47,7 +47,7 @@
                 <JFXToolbar maxHeight="10.0" minHeight="10.0" prefHeight="10.0" style="-fx-background-color: #f5d96b;" />
                 <JFXToolbar>
                     <center>
-                        <Label text="Edit An Object.Location" textFill="#f5d96b" BorderPane.alignment="CENTER">
+                        <Label text="Edit A Location" textFill="#f5d96b" BorderPane.alignment="CENTER">
                             <font>
                                 <Font name="Times New Roman Bold" size="40.0" />
                             </font>
@@ -82,8 +82,7 @@
                                 </Pane>
                                 <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" GridPane.halignment="CENTER" GridPane.rowIndex="1">
                                     <children>
-
-                                        <JFXButton fx:id="G" alignment="CENTER" onAction="#clickedG" ripplerFill="WHITE" text="G" textFill="WHITE" HBox.hgrow="ALWAYS">
+                                        <JFXButton fx:id="L2" alignment="CENTER" onAction="#clickedL2" ripplerFill="WHITE" text="L2" textFill="WHITE" HBox.hgrow="ALWAYS">
                                             <HBox.margin>
                                                 <Insets right="10.0" />
                                             </HBox.margin>
@@ -93,7 +92,7 @@
                                                 <Insets right="10.0" />
                                             </HBox.margin>
                                         </JFXButton>
-                                        <JFXButton fx:id="L2" alignment="CENTER" onAction="#clickedL2" ripplerFill="WHITE" text="L2" textFill="WHITE" HBox.hgrow="ALWAYS">
+                                        <JFXButton fx:id="G" alignment="CENTER" onAction="#clickedG" ripplerFill="WHITE" text="G" textFill="WHITE" HBox.hgrow="ALWAYS">
                                             <HBox.margin>
                                                 <Insets right="10.0" />
                                             </HBox.margin>
@@ -133,7 +132,7 @@
                             </HBox.margin>
                         </GridPane>
 
-                        <GridPane HBox.hgrow="ALWAYS">
+                        <GridPane prefHeight="540.0" prefWidth="0.0" HBox.hgrow="ALWAYS">
                             <columnConstraints>
                                 <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                             </columnConstraints>
@@ -143,7 +142,7 @@
                             <children>
                                 <HBox prefHeight="100.0" prefWidth="200.0">
                                     <children>
-                                        <VBox prefHeight="200.0" prefWidth="100.0" spacing="10.0" HBox.hgrow="ALWAYS">
+                                        <VBox alignment="TOP_CENTER" prefHeight="496.0" prefWidth="160.0" spacing="10.0" HBox.hgrow="ALWAYS">
                                             <children>
                                                 <Label alignment="CENTER" text="Node Info:" textFill="WHITE">
                                                     <font>
@@ -183,9 +182,9 @@
                                                 <Insets left="45.0" right="45.0" />
                                             </padding>
                                         </VBox>
-                                        <VBox prefHeight="200.0" prefWidth="100.0" spacing="10.0" HBox.hgrow="ALWAYS">
+                                        <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="100.0" spacing="10.0" HBox.hgrow="ALWAYS">
                                             <children>
-                                                <Label text="Edge Info:" textFill="WHITE">
+                                                <Label alignment="TOP_LEFT" text="Edge Info:" textFill="WHITE">
                                                     <font>
                                                         <Font size="15.0" />
                                                     </font>
