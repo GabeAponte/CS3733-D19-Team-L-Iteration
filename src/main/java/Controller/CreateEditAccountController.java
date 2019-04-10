@@ -119,7 +119,7 @@ public class CreateEditAccountController {
 
                         Parent sceneMain = loader.load();
 
-                        Stage thisStage = (Stage) nickname.getScene().getWindow();
+                        Stage thisStage = (Stage) back.getScene().getWindow();
 
                         Scene newScene = new Scene(sceneMain);
                         thisStage.setScene(newScene);
@@ -447,6 +447,7 @@ public class CreateEditAccountController {
                 System.out.println(e.getMessage());
             }
             errorLabel.setText("");
+            timeout.stop();
             backPressed();
         }
     }

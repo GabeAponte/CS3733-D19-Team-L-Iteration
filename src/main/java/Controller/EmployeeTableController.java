@@ -144,10 +144,11 @@ public class EmployeeTableController{
         employees.setRoot(root);
         employees.setShowRoot(false);
     }
-    @FXML
+
     /**@author Gabe
      * Returns admin to the Admin Logged In Home screen when the back button is pressed
      */
+    @FXML
     private void backPressed() throws IOException {
         timeout.stop();
         thestage = (Stage) back.getScene().getWindow();
@@ -181,13 +182,14 @@ public class EmployeeTableController{
 
     @FXML
     private void SwitchToCreateEditAccount() throws IOException {
+        Singleton single = Singleton.getInstance();
+        single.setLastTime();
         employees.setOnMouseClicked(event -> {
             setNext(employees.getSelectionModel().getSelectedItem());
             if (event.getButton().equals(MouseButton.PRIMARY) && event.getClickCount() == 2) {
                 try {
-                    Singleton single = Singleton.getInstance();
                     single.setLastTime();
-                    timeout.stop();
+                    timeout.pause();
                     //Load second scene
                     FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("CreateEditAccount.fxml"));
                     Parent roots = loader.load();
@@ -195,12 +197,14 @@ public class EmployeeTableController{
                     CreateEditAccountController scene2Controller = loader.getController();
                     Scene scene = new Scene(roots);
                     scene2Controller.setType(3, selectedEmployee.getValue().getID());
+                    timeout.stop();
                     thestage = (Stage) back.getScene().getWindow();
                     //Show scene 2 in new window
                     thestage.setScene(scene);
 
                 } catch (IOException ex) {
                     //noinspection ThrowablePrintedToSystemOut
+                    timeout.play();
                     System.err.println(ex);
                 }
 
