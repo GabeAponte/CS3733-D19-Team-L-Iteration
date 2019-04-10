@@ -45,7 +45,7 @@
                     </padding>
                 </JFXToolbar>
                 <JFXToolbar prefHeight="10.0" prefWidth="1280.0" style="-fx-background-color: F5D96B;" />
-                <GridPane alignment="CENTER" prefHeight="264.0" prefWidth="1280.0" vgap="20.0" VBox.vgrow="ALWAYS">
+                <GridPane alignment="CENTER" prefHeight="264.0" vgap="20.0" VBox.vgrow="ALWAYS">
                     <columnConstraints>
                         <ColumnConstraints halignment="CENTER" hgrow="ALWAYS" minWidth="-Infinity" />
                         <ColumnConstraints />
@@ -64,18 +64,18 @@
                                 <Blend />
                             </effect>
                         </Label>
-                        <JFXTreeTableView fx:id="activeRequests" onMouseClicked="#SwitchToFulfillRequestScreen" prefWidth="1073.0" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="2" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
+                        <JFXTreeTableView fx:id="activeRequests" onMouseClicked="#SwitchToFulfillRequestScreen" prefHeight="406.0" prefWidth="1169.0" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="2" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
                             <columns>
-                                <TreeTableColumn fx:id="hi" prefWidth="127.0" text="Location" />
-                                <TreeTableColumn fx:id="type" prefWidth="138.0" text="Type" />
-                                <TreeTableColumn fx:id="name" prefWidth="104.5" text="Name" />
-                                <TreeTableColumn fx:id="dateRequested" minWidth="0.0" prefWidth="164.5" text="Date Requested" />
-                                <TreeTableColumn fx:id="timeRequested" minWidth="0.0" prefWidth="145.0" text="Time Requested" />
-                                <TreeTableColumn fx:id="comment" minWidth="8.5" prefWidth="151.0" text="Comments" />
-                                <TreeTableColumn fx:id="assignedEmployee" prefWidth="145.5" text="Assigned To" />
-                                <TreeTableColumn fx:id="field1" prefWidth="158.5" text="field1" />
-                                <TreeTableColumn fx:id="field2" prefWidth="170.0" text="field2" />
-                                <TreeTableColumn fx:id="field3" prefWidth="164.0" text="field3" />
+                                <TreeTableColumn fx:id="hi" prefWidth="226.40529251098633" text="Location" />
+                                <TreeTableColumn fx:id="type" prefWidth="231.59475708007812" text="Type" />
+                                <TreeTableColumn fx:id="name" prefWidth="241.1651611328125" text="Name" />
+                                <TreeTableColumn fx:id="dateRequested" minWidth="0.0" prefWidth="185.82119750976562" text="Date Requested" />
+                                <TreeTableColumn fx:id="timeRequested" minWidth="0.0" prefWidth="161.51953125" text="Time Requested" />
+                                <TreeTableColumn fx:id="comment" minWidth="8.5" prefWidth="480.2783203125" text="Comments" />
+                                <TreeTableColumn fx:id="assignedEmployee" prefWidth="464.21923828125" text="Assigned To" />
+                                <TreeTableColumn fx:id="field1" prefWidth="526.9271240234375" text="field1" />
+                                <TreeTableColumn fx:id="field2" prefWidth="457.23828125" text="field2" />
+                                <TreeTableColumn fx:id="field3" minWidth="0.0" prefWidth="592.963134765625" text="field3" />
                             </columns>
                         </JFXTreeTableView>
                         <JFXComboBox fx:id="filter" onAction="#filterTable" prefHeight="37.0" prefWidth="348.0" promptText="Type" stylesheets="@size.css" GridPane.rowIndex="1" GridPane.vgrow="NEVER" />
