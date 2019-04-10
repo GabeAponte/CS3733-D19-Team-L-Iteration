@@ -827,7 +827,6 @@ public class EditLocationController {
                 }
             }
 
-            }
         }
     };
 
