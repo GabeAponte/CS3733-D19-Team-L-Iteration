@@ -126,9 +126,9 @@ public class BookRoom2Controller {
         String theDate = datePicker.getValue().toString();
         int startTime = 0;
         int endTime = 30;
-        for(int i = 0; i < 48; i++){
+        for(int i = 0; i < 47; i++){
             System.out.println("Start Time: " + startTime + " End Time: " + endTime);
-            TreeItem<Room> bookedRooms = new TreeItem<Room>(new Room(Integer.toString(startTime), ra.getAvailRooms(theDate, theDate, startTime, endTime)));
+            TreeItem<Room> bookedRooms = new TreeItem<Room>(new Room(Integer.toString(startTime), Integer.toString(endTime), ra.getAvailRooms(theDate, theDate, startTime, endTime)));
             Root.getChildren().add(bookedRooms);
             System.out.println(bookedRooms.getValue().getTime());
             if(i == 0){
@@ -147,7 +147,7 @@ public class BookRoom2Controller {
             endTime %= 2400;
         }
         System.out.println("Start Time: " + startTime + " End Time: " + endTime);
-        TreeItem<Room> bookedRooms2 = new TreeItem<Room>(new Room(Integer.toString(startTime), ra.getAvailRooms(theDate, theDate, startTime, endTime)));
+        TreeItem<Room> bookedRooms2 = new TreeItem<Room>(new Room(Integer.toString(startTime), Integer.toString(endTime), ra.getAvailRooms(theDate, theDate, startTime, endTime)));
         Root.getChildren().add(bookedRooms2);
 
         //timeCol = new TreeTableColumn<Room, String>("Time");

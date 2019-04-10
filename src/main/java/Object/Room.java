@@ -1,6 +1,9 @@
 package Object;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 public class Room{
 
@@ -16,8 +19,31 @@ public class Room{
     boolean class9;
     boolean auditorium;
 
-    public Room(String theTime, ArrayList<String> theRooms){
-        time = theTime;
+    public Room(String startTime, String endTime, ArrayList<String> theRooms){
+        int milTime = Integer.parseInt(startTime);
+        int endMilTime = Integer.parseInt(endTime);
+
+        Date startDate = null;
+        try {
+            startDate = new SimpleDateFormat("hhmm").parse(String.format("%04d", milTime));
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        SimpleDateFormat startSimpleDate = new SimpleDateFormat("hh:mm a");
+        System.out.println(startSimpleDate.format(startDate));
+
+        Date endDate = null;
+        try {
+            endDate = new SimpleDateFormat("hhmm").parse(String.format("%04d", endMilTime));
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        SimpleDateFormat endSimpleDate = new SimpleDateFormat("hh:mm a");
+        System.out.println(startSimpleDate.format(endDate));
+
+        time = startSimpleDate.format(startDate) + " - " + endSimpleDate.format(endDate);
+
+
         if(theRooms.contains("Classroom 1 (Computer)"))
             class1 = true;
         else
