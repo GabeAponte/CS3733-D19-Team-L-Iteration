@@ -8,13 +8,18 @@ import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXTextArea;
 import com.jfoenix.controls.JFXTextField;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 
 import java.awt.*;
 import java.io.IOException;
@@ -47,8 +52,38 @@ public class InternalTransportController {
     private final ObservableList<Location> data = FXCollections.observableArrayList();
     private HashMap<String, Location> lookup = new HashMap<String, Location>();
 
+    Timeline timeout;
+
     public void initialize(){
         Singleton single = Singleton.getInstance();
+        single.setLastTime();
+        timeout = new Timeline(new KeyFrame(Duration.seconds(2), new EventHandler<ActionEvent>() {
+
+            @Override
+            public void handle(ActionEvent event) {
+                if((System.currentTimeMillis() - single.getLastTime()) > single.getTimeoutSec()){
+                    try{
+                        single.setLastTime();
+                        single.setLoggedIn(false);
+                        single.setUsername("");
+                        single.setIsAdmin(false);
+                        FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("HospitalHome.fxml"));
+
+                        Parent sceneMain = loader.load();
+
+                        Stage thisStage = (Stage) commentBox.getScene().getWindow();
+
+                        Scene newScene = new Scene(sceneMain);
+                        thisStage.setScene(newScene);
+                        timeout.stop();
+                    } catch (IOException io){
+                        System.out.println(io.getMessage());
+                    }
+                }
+            }
+        }));
+        timeout.setCycleCount(Timeline.INDEFINITE);
+        timeout.play();
         submitbtn.setDisable(true);
         na = new NodesAccess();
         //initializeTable(na);
@@ -95,6 +130,8 @@ public class InternalTransportController {
 
     @FXML
     private void reenableSubmit(){
+        Singleton single = Singleton.getInstance();
+        single.setLastTime();
         if(commentBox.getText().trim().isEmpty() || typeField.getValue() == null || startBox.getValue() == null || endBox.getValue() == null || phoneField.getText().trim().isEmpty()){
             submitbtn.setDisable(true);
             return;
@@ -105,6 +142,7 @@ public class InternalTransportController {
 
     @FXML
     private void submitPressed() throws IOException{
+        timeout.stop();
         Singleton single = Singleton.getInstance();
         Location startNode = single.lookup.get(startBox.getValue().getLocID());
         Location endNode = single.lookup.get(endBox.getValue().getLocID());

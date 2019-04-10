@@ -6,10 +6,14 @@ import Access.ReligiousRequestAccess;
 import Access.ServiceRequestAccess;
 import Object.ServiceRequestTable;
 
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 import com.jfoenix.controls.JFXTreeTableView;
 import javafx.beans.property.ReadOnlyObjectWrapper;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -18,6 +22,7 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseButton;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 
 import java.awt.event.MouseAdapter;
 import java.io.IOException;
@@ -72,12 +77,15 @@ public class ActiveServiceRequestsController {
     @FXML
     private TreeTableView<ServiceRequestTable> activeRequests;
 
+    Timeline timeout;
+
     @FXML
     /**@author Gabe
      * Returns user to the Logged In Home screen when the back button is pressed
      */
     private void backPressed() throws IOException {
         Singleton single = Singleton.getInstance();
+        timeout.stop();
         if(single.isIsAdmin()) {
             FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("AdminLoggedInHome.fxml"));
             Parent roots = loader.load();
@@ -104,27 +112,54 @@ public class ActiveServiceRequestsController {
             thestage.setScene(scene);
         }
     }
-    @FXML
+
+    //Gabe - Populates table
     public void initialize() {
+        Singleton single = Singleton.getInstance();
+        single.setLastTime();
+        timeout = new Timeline(new KeyFrame(Duration.seconds(2), new EventHandler<ActionEvent>() {
+
+            @Override
+            public void handle(ActionEvent event) {
+                System.out.println("checking if");
+                if ((System.currentTimeMillis() - single.getLastTime()) > single.getTimeoutSec()) {
+                    try {
+                        System.out.println("did it");
+                        single.setLastTime();
+                        single.setLoggedIn(false);
+                        single.setUsername("");
+                        single.setIsAdmin(false);
+                        FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("HospitalHome.fxml"));
+
+                        Parent sceneMain = loader.load();
+
+                        Stage thisStage = (Stage) activeRequests.getScene().getWindow();
+
+                        Scene newScene = new Scene(sceneMain);
+                        thisStage.setScene(newScene);
+                        timeout.stop();
+                    } catch (IOException io) {
+                        System.out.println(io.getMessage());
+                    }
+                }
+            }
+        }));
+        timeout.setCycleCount(Timeline.INDEFINITE);
+        timeout.play();
+
         filter.getItems().addAll(
                 "Religious", "Internal Transportation", "Audio/Visual",
                 "External Transportation", "Florist Delivery", "IT",
                 "Language Assistance", "Maintenance", "Prescriptions", "Sanitation", "Security");
         //filterTable();
         activeRequests.getColumns().clear();
-
-    }
-    public void filter(){
-
     }
 
-
-    //Gabe - Populates table
+    /**@author Gabe
+     * Populates the table on the screen with any active service rquests in the database
+     */
     @FXML
-    public void filterTable() {
-        /**@author Gabe
-         * Populates the table on the screen with any active service rquests in the database
-         */
+    private void filterTable(){
         activeRequests.setEditable(false);
 
         if (filter.getValue() == "Internal Transportation") {
@@ -475,6 +510,7 @@ public class ActiveServiceRequestsController {
 
     @FXML
     private void SwitchToFulfillRequestScreen() throws IOException {
+        timeout.stop();
         activeRequests.setOnMouseClicked(event -> {
             setNext(activeRequests.getSelectionModel().getSelectedItem());
             if (event.getButton().equals(MouseButton.PRIMARY) && event.getClickCount() == 2) {

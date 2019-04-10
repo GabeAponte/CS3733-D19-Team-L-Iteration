@@ -191,17 +191,25 @@ public class Location implements Comparable<Location>{
         return thisScore;
     }
 
+    //Edited by Nikhil- Accounts for z-axis now
     //Nathan - finds DIRECT distance between two nodes
     public double findDistance(Location endNode){
-        double xDiff, yDiff;
+        double xDiff, yDiff, zDiff;
 
         xDiff = this.getXcoord() - endNode.getXcoord();
         yDiff = this.getYcoord() - endNode.getYcoord();
 
+        //Nikhil- We want to prioritize getting onto the same floor to ensure we travel as fast as possible.
+        zDiff = 100 * (this.convertToNum() - endNode.convertToNum());
+        if(this.nodeType.equals("STAI") || endNode.nodeType.equals("STAI")){
+            zDiff *= 3;
+        }
         xDiff = Math.pow(xDiff, 2);
         yDiff = Math.pow(yDiff, 2);
+        zDiff = Math.pow(zDiff, 2);
 
         xDiff += yDiff;
+        xDiff += zDiff;
         return Math.sqrt(xDiff);
     }
 
@@ -236,6 +244,35 @@ public class Location implements Comparable<Location>{
         if(count == openList.size()-1){
             openList.add(A);
         }
+    }
+
+    public int convertToNum() {
+        int fl;
+        if(floor.equals("G")){
+            fl = 0;
+            return fl;
+        }
+        if(floor.equals("L1")){
+            fl = 1;
+            return fl;
+        }
+        if(floor.equals("L2")){
+            fl = 2;
+            return fl;
+        }
+        if(floor.equals("1")){
+            fl = 3;
+            return fl;
+        }
+        if(floor.equals("2")){
+            fl = 4;
+            return fl;
+        }
+        if(floor.equals("3")){
+            fl = 5;
+            return fl;
+        }
+        return 0;
     }
 
     @Override

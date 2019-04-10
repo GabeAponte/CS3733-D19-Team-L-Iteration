@@ -2,7 +2,10 @@ package Controller;
 
 import Object.*;
 import Access.EmployeeAccess;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -12,6 +15,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 
 import java.io.IOException;
 
@@ -34,9 +38,42 @@ public class LogInController {
     @FXML
     private Label errorLabel;
 
+    Timeline timeout;
+    public void initialize(){
+        Singleton single = Singleton.getInstance();
+        single.setLastTime();
+        timeout = new Timeline(new KeyFrame(Duration.seconds(2), new EventHandler<ActionEvent>() {
+
+            @Override
+            public void handle(ActionEvent event) {
+                if((System.currentTimeMillis() - single.getLastTime()) > single.getTimeoutSec()){
+                    try{
+                        single.setLastTime();
+                        single.setLoggedIn(false);
+                        single.setUsername("");
+                        single.setIsAdmin(false);
+                        FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("HospitalHome.fxml"));
+
+                        Parent sceneMain = loader.load();
+
+                        Stage thisStage = (Stage) username.getScene().getWindow();
+
+                        Scene newScene = new Scene(sceneMain);
+                        thisStage.setScene(newScene);
+                        timeout.stop();
+                    } catch (IOException io){
+                        System.out.println(io.getMessage());
+                    }
+                }
+            }
+        }));
+        timeout.setCycleCount(Timeline.INDEFINITE);
+        timeout.play();
+    }
     @SuppressWarnings("Duplicates")
     @FXML
     private void backPressed() throws IOException {
+        timeout.stop();
         thestage = (Stage) back.getScene().getWindow();
         AnchorPane root;
         root = FXMLLoader.load(getClass().getClassLoader().getResource("HospitalHome.fxml"));
@@ -53,6 +90,8 @@ public class LogInController {
 
     @FXML
     private void enableLogin(){
+        Singleton single = Singleton.getInstance();
+        single.setLastTime();
         Boolean disable = (username.getText().isEmpty() || username.getText().trim().isEmpty() || password.getText().isEmpty() || password.getText().trim().isEmpty());
         if(!disable){
             login.setDisable(false);
@@ -68,6 +107,7 @@ public class LogInController {
 
         boolean validLogin = false;
         Singleton single = Singleton.getInstance();
+        single.setLastTime();
 
         EmployeeAccess ea = new EmployeeAccess();
         validLogin = ea.checkEmployee(uname, pass);
@@ -87,6 +127,7 @@ public class LogInController {
     }
 
     private void SwitchToSignedIn(String fxml) throws IOException{
+        timeout.stop();
         FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource(fxml));
 
         Parent sceneMain = loader.load();

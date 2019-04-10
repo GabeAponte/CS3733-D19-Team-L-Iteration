@@ -366,6 +366,54 @@ public class NodesAccess extends DBAccess{
         return data;
     }
 
+
+    public String getNodebyCoord(int x, int y, String floor, String type) {
+        String sql = "SELECT * from nodes where xcoord >= ? - 15 AND xcoord <= ? + 15 AND ycoord >= ? - 15 AND ycoord <= ? + 15 AND floor = ? " +
+                "AND nodeType = ?;";
+        ArrayList<String> data = new ArrayList<String>();
+        try (Connection conn = this.connect();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            pstmt.setInt(1, x);
+            pstmt.setInt(2, x);
+            pstmt.setInt(3, y);
+            pstmt.setInt(4, y);
+            pstmt.setString(5, floor);
+            pstmt.setString(6,type);
+            ResultSet rs = pstmt.executeQuery();
+            while (rs.next()) {
+                return rs.getString("nodeID");
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        return null;
+    }
+
+    public String getNodebyCoordNoType(int x, int y, String floor, int tolerance) {
+        String sql = "SELECT * from nodes where xcoord >= ? - ? AND xcoord <= ? + ? AND ycoord >= ? - ? AND ycoord <= ? + ? AND floor = ?;";
+        ArrayList<String> data = new ArrayList<String>();
+        try (Connection conn = this.connect();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            pstmt.setInt(1, x);
+            pstmt.setInt(2, tolerance);
+            pstmt.setInt(3, x);
+            pstmt.setInt(4, tolerance);
+            pstmt.setInt(5, y);
+            pstmt.setInt(6, tolerance);
+            pstmt.setInt(7, y);
+            pstmt.setInt(8, tolerance);
+            pstmt.setString(9, floor);
+            ResultSet rs = pstmt.executeQuery();
+            while (rs.next()) {
+                return rs.getString("nodeID");
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        return null;
+    }
+
+
     public static void main(String[] args) {
         NodesAccess na = new NodesAccess();
         //na.dropTable();

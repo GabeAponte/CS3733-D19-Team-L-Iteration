@@ -23,8 +23,10 @@ public class Singleton {
     private static String username;
     private static int num;
     private static String kioskID;
+    private static long lastTime;
     private static int typePathfind;
     private static boolean isAdmin;
+    private static int timeoutSec;
 
     private ObservableList<Location> data = FXCollections.observableArrayList();
     public HashMap<String, Location> lookup = new HashMap<String, Location>();
@@ -37,7 +39,17 @@ public class Singleton {
         kioskID = "";
         typePathfind = 1;
         isAdmin = false;
+        timeoutSec = 500000;
     }
+
+    public static int getTimeoutSec() {
+        return timeoutSec;
+    }
+
+    public static void setTimeoutSec(int timeoutSec) {
+        Singleton.timeoutSec = timeoutSec;
+    }
+
     public synchronized void setData() {
         NodesAccess na = new NodesAccess();
         EdgesAccess ea = new EdgesAccess();
@@ -103,6 +115,14 @@ public class Singleton {
 
     public ObservableList<Location> getData() {
         return data;
+    }
+
+    public static void setLastTime(){
+        lastTime = System.currentTimeMillis();
+    }
+
+    public static long getLastTime(){
+        return lastTime;
     }
 
     public static Singleton getInstance() {

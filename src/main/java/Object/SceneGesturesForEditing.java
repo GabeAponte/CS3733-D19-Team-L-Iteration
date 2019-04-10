@@ -13,7 +13,7 @@ import javafx.scene.shape.Line;
 
 import java.util.ArrayList;
 
-public class SceneGestures {
+public class SceneGesturesForEditing {
 
     PanAndZoomPane panAndZoomPane;
 
@@ -25,11 +25,13 @@ public class SceneGestures {
     private ArrayList<Line> lines;
 
     ObjectProperty<Point2D> mouseDown = new SimpleObjectProperty<>();
+    ObjectProperty<Point2D> mouseDownOrig = new SimpleObjectProperty<>();
+
 
     private static final int MIN_PIXELS = 235;
 
 
-    public SceneGestures( PanAndZoomPane canvas, ImageView i) {
+    public SceneGesturesForEditing(PanAndZoomPane canvas, ImageView i) {
         this.panAndZoomPane = canvas;
         imageView = i;
         height = imageView.getImage().getHeight();
@@ -60,6 +62,7 @@ public class SceneGestures {
         public void handle(MouseEvent event) {
             Point2D mousePress = imageViewToImage(imageView, new Point2D(event.getX(), event.getY()));
             mouseDown.set(mousePress);
+            mouseDownOrig.set(mousePress);
         }
 
     };
@@ -108,7 +111,7 @@ public class SceneGestures {
     }
 
     // convert mouse coordinates in the imageView to coordinates in the actual imageView:
-    private Point2D imageViewToImage(ImageView imageView, Point2D imageViewCoordinates) {
+    public Point2D imageViewToImage(ImageView imageView, Point2D imageViewCoordinates) {
         double xProportion = imageViewCoordinates.getX() / imageView.getBoundsInLocal().getWidth();
         double yProportion = imageViewCoordinates.getY() / imageView.getBoundsInLocal().getHeight();
 
@@ -199,9 +202,13 @@ public class SceneGestures {
     }
 
     @SuppressWarnings("Duplicates")
-    private void redrawPath(Point2D oldPointUpper, double oldScale){
+    public void redrawPath(Point2D oldPointUpper, double oldScale){
         if(circles != null && lines != null) {
-            double scaleRatio = imageView.getFitWidth() / imageView.getImage().getWidth();
+            
+            double scaleRatio = imageView.getFitWidth()/imageView.getImage().getWidth();
+
+            //System.out.println(circles);
+
             for (int i = 0; i < circles.size(); i++) {
                 Circle c = circles.get(i);
 
@@ -221,5 +228,13 @@ public class SceneGestures {
                 line.setStrokeWidth(Math.max(1,getImageScale()/8));
             }
         }
+    }
+
+    public void setMouseDown(Point2D mousePress){
+        mouseDown.set(mousePress);
+    }
+
+    public ObjectProperty<Point2D> getMouseDown(){
+        return mouseDownOrig;
     }
 }

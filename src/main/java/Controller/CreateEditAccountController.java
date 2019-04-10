@@ -3,6 +3,10 @@ package Controller;
 import Access.EmployeeAccess;
 import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXRadioButton;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -13,6 +17,8 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import Object.*;
+import javafx.util.Duration;
 import Object.*;
 
 import javax.mail.internet.AddressException;
@@ -94,9 +100,61 @@ public class CreateEditAccountController {
 
     private static boolean clickedDelete = false;
 
+    Timeline timeout;
+
+    public void initialize(){
+        Singleton single = Singleton.getInstance();
+        single.setLastTime();
+        timeout = new Timeline(new KeyFrame(Duration.seconds(2), new EventHandler<ActionEvent>() {
+
+            @Override
+            public void handle(ActionEvent event) {
+                if((System.currentTimeMillis() - single.getLastTime()) > single.getTimeoutSec()){
+                    try{
+                        single.setLastTime();
+                        single.setLoggedIn(false);
+                        single.setUsername("");
+                        single.setIsAdmin(false);
+                        FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("HospitalHome.fxml"));
+
+                        Parent sceneMain = loader.load();
+
+                        Stage thisStage = (Stage) nickname.getScene().getWindow();
+
+                        Scene newScene = new Scene(sceneMain);
+                        thisStage.setScene(newScene);
+                        //System.out.println("Hey");
+                        timeout.stop();
+                    } catch (IOException io){
+                        System.out.println(io.getMessage());
+                    }
+                }
+            }
+        }));
+        timeout.setCycleCount(Timeline.INDEFINITE);
+        timeout.play();
+
+        hasPrivelege = single.isIsAdmin();
+        if (!hasPrivelege) {
+            position.setDisable(true);
+            employeeID.setDisable(true);
+            isAdmin.setDisable(true);
+            department.setDisable(true);
+        }
+        submit.setDisable(true);
+        errorLabel.setText("");
+        department.getItems().addAll("Sanitation", "Security", "IT", "Religious", "Audio Visual", "External Transportation", "Internal Transportation",
+                "Language", "Maintenance", "Prescription");
+        if(clickedDelete){
+
+            System.out.println("HERE");
+        }
+    }
+
     @SuppressWarnings("Duplicates")
     @FXML
     private void backPressed() throws IOException {
+        timeout.stop();
         thestage = (Stage) back.getScene().getWindow();
         AnchorPane root;
         if(type == 1) {
@@ -166,29 +224,6 @@ public class CreateEditAccountController {
             delete.setDisable(false);
         }
     }
-
-    /**ANDREW MADE THIS
-     * initializer for the scene
-     */
-    public void initialize() {
-            Singleton single = Singleton.getInstance();
-            hasPrivelege = single.isIsAdmin();
-            if (!hasPrivelege) {
-                position.setDisable(true);
-                employeeID.setDisable(true);
-                isAdmin.setDisable(true);
-                department.setDisable(true);
-            }
-            submit.setDisable(true);
-            errorLabel.setText("");
-            department.getItems().addAll("Sanitation", "Security", "IT", "Religious", "Audio Visual", "External Transportation", "Internal Transportation",
-                    "Language", "Maintenance", "Prescription");
-            if(clickedDelete){
-
-                System.out.println("HERE");
-            }
-
-        }
 
 
     /**Andrew made this

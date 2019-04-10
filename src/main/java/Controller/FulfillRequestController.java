@@ -3,6 +3,10 @@ package Controller;
 import Access.EmployeeAccess;
 import Access.ServiceRequestAccess;
 import Object.ServiceRequestTable;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import com.jfoenix.controls.JFXComboBox;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -10,6 +14,8 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
+import javafx.util.Duration;
+import Object.*;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -41,11 +47,90 @@ public class FulfillRequestController {
     private String table = "";
     @SuppressWarnings("Duplicates")
 
+    Timeline timeout;
+
+    public void initialize(){
+        Singleton single = Singleton.getInstance();
+        single.setLastTime();
+        timeout = new Timeline(new KeyFrame(Duration.seconds(2), new EventHandler<ActionEvent>() {
+
+            @Override
+            public void handle(ActionEvent event) {
+                if((System.currentTimeMillis() - single.getLastTime()) > single.getTimeoutSec()){
+                    try{
+                        single.setLastTime();
+                        single.setLoggedIn(false);
+                        single.setUsername("");
+                        single.setIsAdmin(false);
+                        FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("HospitalHome.fxml"));
+
+                        Parent sceneMain = loader.load();
+
+                        Stage thisStage = (Stage) back.getScene().getWindow();
+
+                        Scene newScene = new Scene(sceneMain);
+                        thisStage.setScene(newScene);
+                        timeout.stop();
+                    } catch (IOException io){
+                        System.out.println(io.getMessage());
+                    }
+                }
+            }
+        }));
+        timeout.setCycleCount(Timeline.INDEFINITE);
+        timeout.play();
+    }
     @FXML
-    public void init(){
+    /**@author Gabe
+     * Returns user to the Logged In Home screen when the back button is pressed
+     */
+    private void backPressed() throws IOException {
+        timeout.stop();
+        FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("ActiveServiceRequests.fxml"));
+        Parent roots = loader.load();
+
+        Scene scene = new Scene(roots);
+        Stage thestage = (Stage) back.getScene().getWindow();
+        //Show scene 2 in new window
+        thestage.setScene(scene);
+    }
+
+    @FXML
+    public void getRequestID(TreeItem<ServiceRequestTable> request) {
+        Singleton single = Singleton.getInstance();
+        single.setLastTime();
+        theRequest = request;
+    }
+
+    public void setRid(int rid, String table){
+        Singleton single = Singleton.getInstance();
+        this.rid = rid;
+        if(table.equals("Religious")){
+            this.table = "religiousRequest";
+        }else if(table.equals("Internal Transportation")){
+            this.table = "internalTransportationRequest";
+        }else if(table.equals("Audio/Visual")){
+            this.table = "audioVisualRequest";
+        }else if(table.equals("External Transportation")){
+            this.table = "externalTransportationRequest";
+        }else if(table.equals("Florist Delivery")){
+            this.table = "floristDelivery";
+        }else if(table.equals("IT")){
+            this.table = "ITRequest";
+        }else if(table.equals("Language Assistance")){
+            this.table = "languageRequest";
+        }else if(table.equals("Maintenance")){
+            this.table = "maintenanceRequest";
+        }else if(table.equals("Prescriptions")){
+            this.table = "prescriptionRequest";
+        }else if(table.equals("Sanitations")){
+            this.table = "sanitationRequest";
+        }else if(table.equals("Security")){
+            this.table = "securityRequest";
+        }
+
         EmployeeAccess ea = new EmployeeAccess();
         String field = "";
-        Singleton single = Singleton.getInstance();
         if (this.table.equals("audioVisualRequest")) {
             field = "Audio Visual";
         } else if (this.table.equals("externalTransportationRequest")) {
@@ -78,57 +163,6 @@ public class FulfillRequestController {
             staffMember.setValue(ea.getEmployeeInformation(single.getUsername()).get(0));
             staffMember.setDisable(true);
         }
-
-    }
-
-    @FXML
-    /**@author Gabe
-     * Returns user to the Logged In Home screen when the back button is pressed
-     */
-    private void backPressed() throws IOException {
-        FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("ActiveServiceRequests.fxml"));
-        Parent roots = loader.load();
-
-        //Get controller of scene2
-        ActiveServiceRequestsController scene2Controller = loader.getController();
-
-        Scene scene = new Scene(roots);
-        Stage thestage = (Stage) back.getScene().getWindow();
-        //Show scene 2 in new window
-        thestage.setScene(scene);
-    }
-
-    @FXML
-    public void getRequestID(TreeItem<ServiceRequestTable> request) {
-        theRequest = request;
-    }
-
-    public void setRid(int rid, String table){
-        this.rid = rid;
-        if(table.equals("Religious")){
-            this.table = "religiousRequest";
-        }else if(table.equals("Internal Transportation")){
-            this.table = "internalTransportationRequest";
-        }else if(table.equals("Audio/Visual")){
-            this.table = "audioVisualRequest";
-        }else if(table.equals("External Transportation")){
-            this.table = "externalTransportationRequest";
-        }else if(table.equals("Florist Delivery")){
-            this.table = "floristDelivery";
-        }else if(table.equals("IT")){
-            this.table = "ITRequest";
-        }else if(table.equals("Language Assistance")){
-            this.table = "languageRequest";
-        }else if(table.equals("Maintenance")){
-            this.table = "maintenanceRequest";
-        }else if(table.equals("Prescriptions")){
-            this.table = "prescriptionRequest";
-        }else if(table.equals("Sanitations")){
-            this.table = "sanitationRequest";
-        }else if(table.equals("Security")){
-            this.table = "securityRequest";
-        }
-        init();
     }
 
     @FXML
@@ -152,17 +186,18 @@ public class FulfillRequestController {
      * is updated in the database
      */
     private void SwitchToAdminServiceRequestTable() throws IOException {
-            FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("ActiveServiceRequests.fxml"));
-            Parent roots = loader.load();
+        timeout.stop();
+        FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("ActiveServiceRequests.fxml"));
+        Parent roots = loader.load();
 
-            //Get controller of scene2
-            ActiveServiceRequestsController scene2Controller = loader.getController();
+        //Get controller of scene2
+        ActiveServiceRequestsController scene2Controller = loader.getController();
 
-            Scene scene = new Scene(roots);
-            Stage thestage = (Stage) back.getScene().getWindow();
+        Scene scene = new Scene(roots);
+        Stage thestage = (Stage) back.getScene().getWindow();
 
-            //Show scene 2 in new window
-            thestage.setScene(scene);
+        //Show scene 2 in new window
+        thestage.setScene(scene);
     }
 
 }

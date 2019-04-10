@@ -2,6 +2,10 @@ package Controller;
 
 import Access.EmployeeAccess;
 import Object.Singleton;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -10,6 +14,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 
 import java.io.IOException;
 
@@ -44,6 +49,37 @@ public class AdminLoggedInHomeController {
     @FXML
     private Label welcome;
 
+    Timeline timeout;
+
+    public void initialize(){
+        Singleton single = Singleton.getInstance();
+        single.setLastTime();
+        timeout = new Timeline(new KeyFrame(Duration.seconds(2), new EventHandler<ActionEvent>() {
+
+            @Override
+            public void handle(ActionEvent event) {
+                System.out.println("checking if");
+                if((System.currentTimeMillis() - single.getLastTime()) > single.getTimeoutSec()){
+                    System.out.println("if successfull");
+                    try{
+                        single.setLastTime();
+                        single.setLoggedIn(false);
+                        single.setUsername("");
+                        single.setIsAdmin(false);
+                        logOut();
+                    } catch (IOException io){
+                        System.out.println(io.getMessage());
+                    }
+                }
+            }
+        }));
+        timeout.setCycleCount(Timeline.INDEFINITE);
+        timeout.play();
+
+        EmployeeAccess ea = new EmployeeAccess();
+        welcome.setText("Welcome, " + ea.getEmployeeInformation(single.getUsername()).get(3));
+
+    }
     // TODO Make label display "Welcome, [nickname of admin signed in]"
     //   New Account button should to create/edit account screen with title changed to Create Account and all the input fields are blank
     //   Edit Account should switch to the employee table screen. Double clicking on an employee in the table should bring up the
@@ -52,22 +88,15 @@ public class AdminLoggedInHomeController {
     //   seeSuggestions should switch to the suggestions table screen
     //   switching to the fulfillRequest screen should display all active service requests for the admin
 
-    /**ANDREW MADE THIS
-     * Initializes the screen
-     */
-    public void initialize(){
-        Singleton single = Singleton.getInstance();
-        EmployeeAccess ea = new EmployeeAccess();
-        welcome.setText("Welcome, " + ea.getEmployeeInformation(single.getUsername()).get(3));
-    }
-
     @FXML
     private void logOut() throws IOException {
+        timeout.stop();
         Stage thestage = (Stage) logOut.getScene().getWindow();
         AnchorPane root;
-        Singleton.setLoggedIn(false);
-        Singleton.setUsername("");
-        Singleton.setIsAdmin(false);
+        Singleton single = Singleton.getInstance();
+        single.setLoggedIn(false);
+        single.setUsername("");
+        single.setIsAdmin(false);
         root = FXMLLoader.load(getClass().getClassLoader().getResource("HospitalHome.fxml"));
         Scene scene = new Scene(root);
         thestage.setScene(scene);
@@ -75,11 +104,10 @@ public class AdminLoggedInHomeController {
 
     @FXML
     private void bookRoom() throws IOException {
+        timeout.stop();
         FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("BookRoom.fxml"));
 
         Parent sceneMain = loader.load();
-
-        BookRoomController controller = loader.<BookRoomController>getController();
 
         Stage theStage = (Stage) bookRoom.getScene().getWindow();
 
@@ -89,12 +117,10 @@ public class AdminLoggedInHomeController {
 
     @FXML
     private void SwitchToPathfindScreen() throws IOException{
-        boolean signedIn = true;
+        timeout.stop();
         FXMLLoader pLoader = new FXMLLoader(getClass().getClassLoader().getResource("HospitalPathFinding.fxml"));
 
         Parent sceneMain = pLoader.load();
-
-        PathFindingController pController = pLoader.<PathFindingController>getController();
 
         Stage theStage = (Stage) findPath.getScene().getWindow();
 
@@ -104,12 +130,10 @@ public class AdminLoggedInHomeController {
 
     @FXML
     private void SwitchToServiceScreen() throws IOException{
-        boolean signedIn = true;
+        timeout.stop();
         FXMLLoader sLoader = new FXMLLoader(getClass().getClassLoader().getResource("ServiceRequest.fxml"));
 
         Parent sceneMain = sLoader.load();
-
-        ServiceRequestController sController = sLoader.<ServiceRequestController>getController();
 
         Stage theStage = (Stage) findPath.getScene().getWindow();
 
@@ -119,11 +143,10 @@ public class AdminLoggedInHomeController {
 
     @FXML
     private void SwitchToFullfillRequestScreen() throws IOException{
+        timeout.stop();
         FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("ActiveServiceRequests.fxml"));
 
         Parent sceneMain = loader.load();
-
-        ActiveServiceRequestsController controller = loader.<ActiveServiceRequestsController>getController();
 
         Stage theStage = (Stage) fufillServiceRequest.getScene().getWindow();
 
@@ -133,6 +156,7 @@ public class AdminLoggedInHomeController {
 
     @FXML
     private void SwitchToEditLocationScreen() throws IOException{
+        timeout.stop();
         FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("EditLocation.fxml"));
 
         Parent sceneMain = loader.load();
