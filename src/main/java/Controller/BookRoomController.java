@@ -69,9 +69,7 @@ public class BookRoomController {
 
             @Override
             public void handle(ActionEvent event) {
-                System.out.println("checking if");
                 if((System.currentTimeMillis() - single.getLastTime()) > single.getTimeoutSec()){
-                    System.out.println("if successfull");
                     try{
                         single.setLastTime();
                         single.setDoPopup(true);
