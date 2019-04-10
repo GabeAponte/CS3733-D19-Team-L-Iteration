@@ -189,8 +189,8 @@ public class ServiceRequestAccess extends DBAccess{
         sca.deleteRecords();
     }
 
-    public void makeSecurityRequest(String desc, String location, String name, String type) {
-        sca.makeRequest(desc, location, name, type);
+    public void makeSecurityRequest(String desc, String location, String name, String type, String threatLevel) {
+        sca.makeRequest(desc, location, name, type, threatLevel);
     }
 
     public TreeItem<ServiceRequestTable> getSecurityRequests(int getNum) {
