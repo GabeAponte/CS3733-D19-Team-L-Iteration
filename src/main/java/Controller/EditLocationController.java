@@ -117,8 +117,10 @@ public class EditLocationController {
 
     @FXML
     private ImageView Map;
+
     @FXML
     private AnchorPane anchorPaneWindow;
+
     @FXML
     private Pane imagePane;
 
@@ -131,6 +133,8 @@ public class EditLocationController {
     private ArrayList<Line> lines = new ArrayList<Line>();
 
     private Point2D mousePress;
+
+    private Rectangle clip;
 
     private PanAndZoomPane zoomPaneImage;
     private SceneGesturesForEditing sceneGestures;
@@ -381,16 +385,11 @@ public class EditLocationController {
         ea = new EdgesAccess();
 
         anchorPanePath = new AnchorPane();
-//        anchorPanePath.setLayoutX(30);
-//        anchorPanePath.setLayoutY(185);
-//        anchorPanePath.setPrefSize(631,429);
 
         Map.fitWidthProperty().bind(imagePane.widthProperty());
         Map.fitHeightProperty().bind(imagePane.heightProperty());
 
-        Rectangle clip = new Rectangle();
-        clip.widthProperty().bind(Map.fitWidthProperty());
-        clip.heightProperty().bind(Map.fitHeightProperty());
+        clip = new Rectangle(631,429);
         anchorPanePath.setClip(clip);
 
         zoomPaneImage = new PanAndZoomPane();
@@ -401,23 +400,32 @@ public class EditLocationController {
 
         sceneGestures = new SceneGesturesForEditing(zoomPaneImage, Map);
 
-        imagePane.addEventFilter( MouseEvent.MOUSE_CLICKED, getOnMouseClickedEventHandler());
-        imagePane.addEventFilter( MouseEvent.MOUSE_PRESSED, sceneGestures.getOnMousePressedEventHandler());
-        imagePane.addEventFilter( MouseEvent.MOUSE_DRAGGED, sceneGestures.getOnMouseDraggedEventHandler());
-        imagePane.addEventFilter( ScrollEvent.ANY, sceneGestures.getOnScrollEventHandler());
+        anchorPanePath.addEventFilter( MouseEvent.MOUSE_CLICKED, getOnMouseClickedEventHandler());
+        anchorPanePath.addEventFilter( MouseEvent.MOUSE_PRESSED, sceneGestures.getOnMousePressedEventHandler());
+        anchorPanePath.addEventFilter( MouseEvent.MOUSE_DRAGGED, sceneGestures.getOnMouseDraggedEventHandler());
+        anchorPanePath.addEventFilter( ScrollEvent.ANY, sceneGestures.getOnScrollEventHandler());
         Map.sceneProperty().addListener((observableScene, oldScene, newScene) -> {
             if (oldScene == null && newScene != null) {
                 // scene is set for the first time. Now its the time to listen stage changes.
                 newScene.windowProperty().addListener((observableWindow, oldWindow, newWindow) -> {
                     if (oldWindow == null && newWindow != null) {
                         // stage is set. now is the right time to do whatever we need to the stage in the controller.
-                        ChangeListener<Number> stageSizeListener = (observable, oldValue, newValue) -> {
+                        ChangeListener<Number> stageSizeListenerWidth = (observable, oldValue, newValue) -> {
                             eraseNodes();
                             drawNodesResize(oldValue.doubleValue(), newValue.doubleValue());
+
+                            anchorPanePath.setClip(clip);
                         };
 
-                        ((Stage) newWindow).widthProperty().addListener(stageSizeListener);
-                        ((Stage) newWindow).heightProperty().addListener(stageSizeListener);
+                        ChangeListener<Number> stageSizeListenerHeight = (observable, oldValue, newValue) -> {
+                            eraseNodes();
+                            drawNodesResize(oldValue.doubleValue(), newValue.doubleValue());
+
+                            anchorPanePath.setClip(clip);
+                        };
+
+                        ((Stage) newWindow).widthProperty().addListener(stageSizeListenerWidth);
+                        ((Stage) newWindow).heightProperty().addListener(stageSizeListenerHeight);
                     }
                 });
             }
@@ -755,14 +763,7 @@ public class EditLocationController {
         double newRatio = Math.min((Map.getFitWidth() / oldSize * newSize) / Map.getImage().getWidth(),(Map.getFitHeight() / oldSize * newSize) / Map.getImage().getHeight());
         double beforeRatio = Math.min(Map.getFitWidth()/Map.getImage().getWidth(), Map.getFitHeight()/Map.getImage().getHeight());
 
-        System.out.println(newRatio + "   " + beforeRatio);
         double scaleRatio;
-        if(newSize >= oldSize){
-            scaleRatio = Math.max(beforeRatio, newRatio);
-        }
-        else{
-            scaleRatio = Math.max(beforeRatio, newRatio);
-        }
 
         scaleRatio = newRatio;
 
@@ -883,12 +884,12 @@ public class EditLocationController {
 
         @Override
         public void handle(MouseEvent event) {
+            System.out.println(Map.getFitWidth());
+
             Singleton single = Singleton.getInstance();
             single.setLastTime();
-            Point2D mousePress = sceneGestures.imageViewToImage(Map, new Point2D(event.getX(), event.getY()));
-            sceneGestures.setMouseDown(mousePress);
+            mousePress = sceneGestures.imageViewToImage(Map, new Point2D(event.getX(), event.getY()));
             if(mousePress.getX() == sceneGestures.getMouseDown().getValue().getX() && mousePress.getY() == sceneGestures.getMouseDown().getValue().getY()) {
-                circles.remove(thisCircle);
                 int getX = (int) mousePress.getX();
                 int getY = (int) mousePress.getY();
                 String newQuery = na.getNodebyCoordNoType(getX, getY, floorNum(), 5);
@@ -913,22 +914,22 @@ public class EditLocationController {
                     nodeInfoFloor.setText("");
                     nodeInfoLong.setText("");
                     nodeInfoShort.setText("");
+                    circles.remove(thisCircle);
                     double scaleRatio = Math.min(Map.getFitWidth() / Map.getImage().getWidth(),Map.getFitHeight()/Map.getImage().getHeight());
 
                     //System.out.println(sceneGestures.getImageScale());
                     //System.out.println((mousePress.getX() - point.getX()) * scaleRatio * sceneGestures.getImageScale());
 
-                //Setting the properties of the circle
-                thisCircle.setCenterX((mousePress.getX() - point.getX()) * scaleRatio * sceneGestures.getImageScale());
-                thisCircle.setCenterY((mousePress.getY() - point.getY()) * scaleRatio * sceneGestures.getImageScale());
-                thisCircle.setRadius(Math.max(2.5, 2.5f * (sceneGestures.getImageScale() / 5)));
-                thisCircle.setStroke(Color.web("GREEN")); //#f5d96b
-                thisCircle.setFill(Color.web("GREEN"));
+                    //Setting the properties of the circle
+                    thisCircle.setCenterX((mousePress.getX() - point.getX()) * scaleRatio * sceneGestures.getImageScale());
+                    thisCircle.setCenterY((mousePress.getY() - point.getY()) * scaleRatio * sceneGestures.getImageScale());
+                    thisCircle.setRadius(Math.max(2.5, 2.5f * (sceneGestures.getImageScale() / 5)));
+                    thisCircle.setStroke(Color.web("GREEN")); //#f5d96b
+                    thisCircle.setFill(Color.web("GREEN"));
 
                     circles.add(thisCircle);
                 }
             }
-
         }
     };
 
