@@ -68,19 +68,19 @@ public class ITController {
     private void deviceSelected(){
         if(device.getValue().equals("Desktop Computer")){
             problem.getItems().clear();
-            problem.getItems().addAll("Computer not powering on", "Computer Frozen","Internet or network connectivity issues", "Strange noises from computer", "Malware/Virus related issue", "Display not powering on or working","WiFi Problems","Need HDMI", "Mouse/Keyboard needed");
+            problem.getItems().addAll("Computer not powering on","Computer running slowly", "Computer frozen","Internet or network connectivity issues", "Strange noises from computer", "Malware/Virus related issue", "Display not powering on or working","Need HDMI", "Need ethernet cord", "Mouse/Keyboard needed", "Other");
         }
         else if(device.getValue().equals("Laptop Computer")){
             problem.getItems().clear();
-            problem.getItems().addAll("Laptop not powering", "Laptop Frozen", "Display not powering on or working","WiFi Problems","Need HDMI");
+            problem.getItems().addAll("Laptop not powering on", "Laptop running slowly", "Laptop frozen", "Internet or network connectivity issues", "Strange noises from laptop","Malware/Virus related issue", "Display not powering on or working","Need HDMI", "Need ethernet cord", "Laptop overheating", "Trackpad malfunctioning", "Keyboard malfunctioning", "Other");
         }
         else if(device.getValue().equals("Tablet")){
             problem.getItems().clear();
-            problem.getItems().addAll("Tablet not powering", "Tablet Frozen", "Screen cracked","WiFi Problems","Need HDMI");
+            problem.getItems().addAll("Tablet not powering","Tablet running slowly","Tablet frozen", "Internet or network connectivity issues","Screen cracked", "Display not working", "Touch screen not working", "Power/Home button not working", "Tablet not charging", "Tablet overheating" , "Other");
         }
         else if(device.getValue().equals("Smartphone")){
             problem.getItems().clear();
-            problem.getItems().addAll("Phone not powering on", "Phone Frozen", "Display cracked", "Display cracked","WiFi Problems","Need HDMI");
+            problem.getItems().addAll("Phone not powering on", "Phone running slowly", "Phone Frozen", "Internet or network connectivity", "Cellular network connection issues", "Screen cracked", "Display not working","Touch screen not working", "Power/Home button not working", "Phone not charging", "Phone overheating", "Other");
         }
         else if(device.getValue().equals("Kiosk")){
             problem.getItems().clear();
@@ -88,7 +88,7 @@ public class ITController {
         }
         else if(device.getValue().equals("Television")){
             problem.getItems().clear();
-            problem.getItems().addAll("Computer not powering", "Computer Frozen", "Display not powering on or working","WiFi Problems","Need HDMI");
+            problem.getItems().addAll("Computer not powering", "Computer Frozen", "Display not powering on or working","WiFi Problems","Need HDMI", "Remote out of batteries", "Remote not working", "Other");
         }
     }
 
