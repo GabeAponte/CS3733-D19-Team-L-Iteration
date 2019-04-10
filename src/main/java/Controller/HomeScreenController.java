@@ -51,7 +51,6 @@ public class HomeScreenController {
 
     Timeline clock;
 
-    Stage editStage;
 
     public void initialize() throws IOException{
         Singleton single = Singleton.getInstance();

@@ -1,10 +1,6 @@
 package Controller;
 
-import Access.ExternalTransportAccess;
-import Access.ReligiousRequestAccess;
 import Access.ServiceRequestAccess;
-import Object.Singleton;
-import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXTextArea;
 import com.jfoenix.controls.JFXTextField;
 import javafx.animation.KeyFrame;
@@ -16,38 +12,39 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.RadioButton;
 import javafx.stage.Stage;
+import Object.*;
 import javafx.util.Duration;
 
 import java.io.IOException;
 
-public class ExternalTransportationController {
+public class MaintenanceServiceRequestController {
     private boolean signedIn;
     private String uname;
+
+    @FXML
+    JFXTextField field1;
+
+    @FXML
+    JFXTextField field2;
+
+    @FXML
+    JFXTextField Location;
+
+    @FXML
+    RadioButton hazardYes;
+
+
+    @FXML
+    private Button Submit;
 
     @FXML
     public Button Back;
 
     @FXML
-    public Button Submit;
-
-    @FXML
-    public JFXTextField Name;
-
-    @FXML
-    public JFXTextField Location;
-
-    @FXML
-    public JFXTextField Destination;
-
-    @FXML
-    public JFXTextField PhoneNumber;
-
-    @FXML
-    public JFXComboBox<String> Type;
-
-    @FXML
     public JFXTextArea Description;
+
 
     Timeline timeout;
 
@@ -60,7 +57,7 @@ public class ExternalTransportationController {
         init(loggedIn);
     }
 
-    public void initialize() {
+    public void initialize(){
         Singleton single = Singleton.getInstance();
         single.setLastTime();
         timeout = new Timeline(new KeyFrame(Duration.seconds(2), new EventHandler<ActionEvent>() {
@@ -78,7 +75,7 @@ public class ExternalTransportationController {
                         Parent sceneMain = loader.load();
                         HomeScreenController controller = loader.<HomeScreenController>getController();
                         controller.displayPopup();
-                        Stage thisStage = (Stage) Type.getScene().getWindow();
+                        Stage thisStage = (Stage) Back.getScene().getWindow();
 
                         Scene newScene = new Scene(sceneMain);
                         thisStage.setScene(newScene);
@@ -92,27 +89,30 @@ public class ExternalTransportationController {
         timeout.setCycleCount(Timeline.INDEFINITE);
         timeout.play();
         Submit.setDisable(true);
-        Type.getItems().addAll(
-                "Bus", "Taxi", "Uber", "Lyft", "Train");
     }
 
     @FXML
     private void reenableSubmit() {
         Singleton single = Singleton.getInstance();
         single.setLastTime();
-        if (Description.getText().trim().isEmpty() || Type.getValue() == null || Location.getText().trim().isEmpty() || Destination.getText().trim().isEmpty() || Name.getText().trim().isEmpty() || PhoneNumber.getText().trim().isEmpty()) {
+        if (Description.getText().trim().isEmpty() || Location.getText().trim().isEmpty() || field1.getText().trim().isEmpty() || field2.getText().trim().isEmpty()) {
             Submit.setDisable(true);
         } else {
             Submit.setDisable(false);
         }
     }
-
     @FXML
     private void submitClicked() throws IOException {
         Singleton single = Singleton.getInstance();
         single.setLastTime();
         ServiceRequestAccess sra = new ServiceRequestAccess();
-        sra.makeExternalRequest(Description.getText(), Location.getText(), Destination.getText(), Type.getValue(), PhoneNumber.getText());
+        boolean check = false;
+        if(hazardYes.isSelected()){
+            check = true;
+        }else {
+            check = false;
+        }
+        sra.makeMaintenanceRequest(Description.getText(), Location.getText(), field1.getText(), Boolean.toString(check));
         System.out.println("Submit Pressed");
         backPressed();
     }
@@ -121,6 +121,7 @@ public class ExternalTransportationController {
     protected void backPressed() throws IOException {
         timeout.stop();
         FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("ServiceRequest.fxml"));
+
         Parent sceneMain = loader.load();
 
         Stage theStage = (Stage) Back.getScene().getWindow();

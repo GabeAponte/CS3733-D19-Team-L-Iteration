@@ -1,6 +1,5 @@
 package Controller;
 
-import Access.ExternalTransportAccess;
 import Access.ReligiousRequestAccess;
 import Access.ServiceRequestAccess;
 import Object.Singleton;
@@ -21,9 +20,10 @@ import javafx.util.Duration;
 
 import java.io.IOException;
 
-public class ExternalTransportationController {
+public class SecurityRequestController {
     private boolean signedIn;
     private String uname;
+
 
     @FXML
     public Button Back;
@@ -32,16 +32,13 @@ public class ExternalTransportationController {
     public Button Submit;
 
     @FXML
-    public JFXTextField Name;
+    public JFXTextField Identifiers;
 
     @FXML
     public JFXTextField Location;
 
     @FXML
-    public JFXTextField Destination;
-
-    @FXML
-    public JFXTextField PhoneNumber;
+    public JFXComboBox<String> Level;
 
     @FXML
     public JFXComboBox<String> Type;
@@ -60,7 +57,7 @@ public class ExternalTransportationController {
         init(loggedIn);
     }
 
-    public void initialize() {
+    public void initialize(){
         Singleton single = Singleton.getInstance();
         single.setLastTime();
         timeout = new Timeline(new KeyFrame(Duration.seconds(2), new EventHandler<ActionEvent>() {
@@ -93,26 +90,27 @@ public class ExternalTransportationController {
         timeout.play();
         Submit.setDisable(true);
         Type.getItems().addAll(
-                "Bus", "Taxi", "Uber", "Lyft", "Train");
+                "Altercations", "Suspicious Activity", "Guards/Escort", "Weapon Sighted", "Bag Unattended", "Other");
+        Level.getItems().addAll(
+                "5", "4", "3", "2", "1", "NA");
     }
 
     @FXML
     private void reenableSubmit() {
         Singleton single = Singleton.getInstance();
         single.setLastTime();
-        if (Description.getText().trim().isEmpty() || Type.getValue() == null || Location.getText().trim().isEmpty() || Destination.getText().trim().isEmpty() || Name.getText().trim().isEmpty() || PhoneNumber.getText().trim().isEmpty()) {
+        if (Description.getText().trim().isEmpty() || Type.getValue() == null || Location.getText().trim().isEmpty() || Identifiers.getText().trim().isEmpty() || Level.getValue() == null) {
             Submit.setDisable(true);
         } else {
             Submit.setDisable(false);
         }
     }
-
     @FXML
     private void submitClicked() throws IOException {
         Singleton single = Singleton.getInstance();
         single.setLastTime();
         ServiceRequestAccess sra = new ServiceRequestAccess();
-        sra.makeExternalRequest(Description.getText(), Location.getText(), Destination.getText(), Type.getValue(), PhoneNumber.getText());
+        sra.makeSecurityRequest(Description.getText(), Location.getText(),Identifiers.getText(), Type.getValue(), Level.getValue());
         System.out.println("Submit Pressed");
         backPressed();
     }
@@ -121,6 +119,7 @@ public class ExternalTransportationController {
     protected void backPressed() throws IOException {
         timeout.stop();
         FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("ServiceRequest.fxml"));
+
         Parent sceneMain = loader.load();
 
         Stage theStage = (Stage) Back.getScene().getWindow();

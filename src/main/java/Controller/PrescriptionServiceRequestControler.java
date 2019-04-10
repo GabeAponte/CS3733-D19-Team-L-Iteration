@@ -1,11 +1,8 @@
 package Controller;
 
-import Access.ExternalTransportAccess;
-import Access.ReligiousRequestAccess;
+import com.jfoenix.controls.JFXTextArea;
 import Access.ServiceRequestAccess;
 import Object.Singleton;
-import com.jfoenix.controls.JFXComboBox;
-import com.jfoenix.controls.JFXTextArea;
 import com.jfoenix.controls.JFXTextField;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
@@ -21,33 +18,32 @@ import javafx.util.Duration;
 
 import java.io.IOException;
 
-public class ExternalTransportationController {
+public class PrescriptionServiceRequestControler {
+
     private boolean signedIn;
     private String uname;
 
     @FXML
-    public Button Back;
+    private Button submitButton;
 
     @FXML
-    public Button Submit;
+    private Button backButton;
 
     @FXML
-    public JFXTextField Name;
+    private JFXTextField destinationField;
 
     @FXML
-    public JFXTextField Location;
+    private JFXTextField medicineTypeField;
 
     @FXML
-    public JFXTextField Destination;
+    private JFXTextField deliveryTimeField;
 
     @FXML
-    public JFXTextField PhoneNumber;
+    private JFXTextField amountField;
 
     @FXML
-    public JFXComboBox<String> Type;
+    private JFXTextArea commentsField;
 
-    @FXML
-    public JFXTextArea Description;
 
     Timeline timeout;
 
@@ -67,8 +63,8 @@ public class ExternalTransportationController {
 
             @Override
             public void handle(ActionEvent event) {
-                if((System.currentTimeMillis() - single.getLastTime()) > single.getTimeoutSec()){
-                    try{
+                if ((System.currentTimeMillis() - single.getLastTime()) > single.getTimeoutSec()) {
+                    try {
                         single.setLastTime();
                         single.setLoggedIn(false);
                         single.setUsername("");
@@ -78,12 +74,12 @@ public class ExternalTransportationController {
                         Parent sceneMain = loader.load();
                         HomeScreenController controller = loader.<HomeScreenController>getController();
                         controller.displayPopup();
-                        Stage thisStage = (Stage) Type.getScene().getWindow();
+                        Stage thisStage = (Stage) submitButton.getScene().getWindow();
 
                         Scene newScene = new Scene(sceneMain);
                         thisStage.setScene(newScene);
                         timeout.stop();
-                    } catch (IOException io){
+                    } catch (IOException io) {
                         System.out.println(io.getMessage());
                     }
                 }
@@ -91,41 +87,36 @@ public class ExternalTransportationController {
         }));
         timeout.setCycleCount(Timeline.INDEFINITE);
         timeout.play();
-        Submit.setDisable(true);
-        Type.getItems().addAll(
-                "Bus", "Taxi", "Uber", "Lyft", "Train");
-    }
+        submitButton.setDisable(true);
 
+    }
     @FXML
     private void reenableSubmit() {
-        Singleton single = Singleton.getInstance();
-        single.setLastTime();
-        if (Description.getText().trim().isEmpty() || Type.getValue() == null || Location.getText().trim().isEmpty() || Destination.getText().trim().isEmpty() || Name.getText().trim().isEmpty() || PhoneNumber.getText().trim().isEmpty()) {
-            Submit.setDisable(true);
+        if (destinationField.getText().trim().isEmpty() || medicineTypeField.getText().trim().isEmpty() || deliveryTimeField.getText().trim().isEmpty() || amountField.getText().trim().isEmpty()) {
+            submitButton.setDisable(true);
         } else {
-            Submit.setDisable(false);
+            submitButton.setDisable(false);
         }
     }
-
     @FXML
     private void submitClicked() throws IOException {
         Singleton single = Singleton.getInstance();
         single.setLastTime();
         ServiceRequestAccess sra = new ServiceRequestAccess();
-        sra.makeExternalRequest(Description.getText(), Location.getText(), Destination.getText(), Type.getValue(), PhoneNumber.getText());
-        System.out.println("Submit Pressed");
+        sra.makePrescriptionRequest(commentsField.getText(),destinationField.getText(), medicineTypeField.getText(), destinationField.getText(), deliveryTimeField.getText(), amountField.getText());
         backPressed();
     }
 
     @FXML
     protected void backPressed() throws IOException {
-        timeout.stop();
         FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("ServiceRequest.fxml"));
+
         Parent sceneMain = loader.load();
 
-        Stage theStage = (Stage) Back.getScene().getWindow();
+        Stage theStage = (Stage) backButton.getScene().getWindow();
 
         Scene scene = new Scene(sceneMain);
         theStage.setScene(scene);
     }
+
 }

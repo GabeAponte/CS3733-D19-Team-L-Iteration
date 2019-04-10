@@ -146,22 +146,22 @@ public class ServiceRequestController {
             serviceFXML = "FloristDeliveryServiceRequest.fxml";
         }
         else if(e.getSource() == AudioVisual) {
-            serviceFXML = "ReligiousServiceRequest.fxml";
+            serviceFXML = "AudioVisualRequest.fxml";
         }
         else if(e.getSource() == FacilitiesMaintenance) {
-            serviceFXML = "ReligiousServiceRequest.fxml";
+            serviceFXML = "ServiceRequestMaintenance.fxml";
         }
         else if(e.getSource() == SecurityStaff) {
-            serviceFXML = "ReligiousServiceRequest.fxml";
+            serviceFXML = "SecurityServiceRequest.fxml";
         }
         else if(e.getSource() == SanitationServices) {
             serviceFXML = "sanitationServiceRequest.fxml";
         }
         else if(e.getSource() == InternalTransportation) {
-            serviceFXML = "ReligiousServiceRequest.fxml";
+            serviceFXML = "InternalTransport.fxml";
         }
         else if(e.getSource() == PrescriptionServices) {
-            serviceFXML = "ReligiousServiceRequest.fxml";
+            serviceFXML = "PrescriptionServiceRequest.fxml";
         }
         else if(e.getSource() == GiftStoreServices) {
             serviceFXML = "ReligiousServiceRequest.fxml";
@@ -222,6 +222,20 @@ public class ServiceRequestController {
         Scene scene = new Scene(sceneMain);
         theStage.setScene(scene);
 
+    }
+
+    @FXML
+    private void changeToMaintenanceRequest() throws IOException {
+        Stage theStage = (Stage) Back.getScene().getWindow();
+        AnchorPane root;
+        FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("ServiceRequestMaintenance.fxml"));
+
+        Parent sceneMain = loader.load();
+
+        theStage = (Stage) SanitationServices.getScene().getWindow();
+
+        Scene scene = new Scene(sceneMain);
+        theStage.setScene(scene);
     }
 
 }

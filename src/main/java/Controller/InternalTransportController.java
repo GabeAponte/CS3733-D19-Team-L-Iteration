@@ -155,23 +155,13 @@ public class InternalTransportController {
         InternalTransportAccess ita = new InternalTransportAccess();
         ita.makeRequest(comment, startNode, endNode, type, phone);
 
-        if(single.isLoggedIn()){
-            FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("LoggedInHome.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("ServiceRequest.fxml"));
 
-            Parent sceneMain = loader.load();
-            Stage theStage = (Stage) backBtn.getScene().getWindow();
+        Parent sceneMain = loader.load();
+        Stage theStage = (Stage) backBtn.getScene().getWindow();
 
-            Scene scene = new Scene(sceneMain);
-            theStage.setScene(scene);
-        } else {
-            FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("HospitalHome.fxml"));
-
-            Parent sceneMain = loader.load();
-            Stage theStage = (Stage) backBtn.getScene().getWindow();
-
-            Scene scene = new Scene(sceneMain);
-            theStage.setScene(scene);
-        }
+        Scene scene = new Scene(sceneMain);
+        theStage.setScene(scene);
 
     }
 

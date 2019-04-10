@@ -55,8 +55,6 @@ public class SuggestionBoxController {
                         single.setDoPopup(true);
                         FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("HospitalHome.fxml"));
                         Parent sceneMain = loader.load();
-                        HomeScreenController controller = loader.<HomeScreenController>getController();
-                        controller.displayPopup();
                         Stage thisStage = (Stage) submitFeedback.getScene().getWindow();
 
                         Scene newScene = new Scene(sceneMain);

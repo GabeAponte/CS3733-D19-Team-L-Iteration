@@ -344,11 +344,74 @@ public class ActiveServiceRequestsController {
             root.getChildren().clear();
             activeRequests.setRoot(null);
 
+            ServiceRequestAccess sra = new ServiceRequestAccess();
+
+            int count;
+            count = sra.countAudioRecords()-1;
+            while (count >= 0) {
+                TreeItem<ServiceRequestTable> rrt = sra.getAudioVisualRequests(count);
+                root.getChildren().add(rrt);
+                count--;
+            }
+
+            timeRequested.setCellValueFactory(cellData -> {
+                if (cellData.getValue().getValue() instanceof ServiceRequestTable) {
+                    return new ReadOnlyObjectWrapper(cellData.getValue().getValue().getCreationTime());
+                }
+                return new ReadOnlyObjectWrapper(cellData.getValue().getValue());
+            });
+
+
+            dateRequested.setCellValueFactory(cellData -> {
+                if (cellData.getValue().getValue() instanceof ServiceRequestTable) {
+                    return new ReadOnlyObjectWrapper(cellData.getValue().getValue().getCreationDate());
+                }
+                return new ReadOnlyObjectWrapper(cellData.getValue().getValue());
+            });
+
+
+            hi.setCellValueFactory(cellData -> {
+                if (cellData.getValue().getValue() instanceof ServiceRequestTable) {
+                    return new ReadOnlyObjectWrapper(cellData.getValue().getValue().getLocation());
+                }
+                return new ReadOnlyObjectWrapper(cellData.getValue().getValue());
+            });
+
+            type.setCellValueFactory(cellData -> {
+                if (cellData.getValue().getValue() instanceof ServiceRequestTable) {
+                    return new ReadOnlyObjectWrapper(cellData.getValue().getValue().getType());
+                }
+                return new ReadOnlyObjectWrapper(cellData.getValue().getValue());
+            });
+
+            field1.setCellValueFactory(cellData -> {
+                if (cellData.getValue().getValue() instanceof ServiceRequestTable) {
+                    return new ReadOnlyObjectWrapper(cellData.getValue().getValue().getDestination());
+                }
+                return new ReadOnlyObjectWrapper(cellData.getValue().getValue());
+            });
+
+            comment.setCellValueFactory(cellData -> {
+                if (cellData.getValue().getValue() instanceof ServiceRequestTable) {
+                    return new ReadOnlyObjectWrapper(cellData.getValue().getValue().getComment());
+                }
+                return new ReadOnlyObjectWrapper(cellData.getValue().getValue());
+            });
+
+            assignedEmployee.setCellValueFactory(cellData -> {
+                if (cellData.getValue().getValue() instanceof ServiceRequestTable) {
+                    return new ReadOnlyObjectWrapper(cellData.getValue().getValue().getAssignedEmployee());
+                }
+                return new ReadOnlyObjectWrapper(cellData.getValue().getValue());
+            });
+
+            field1.setText("Name");
             activeRequests.getColumns().clear();
             activeRequests.getColumns().add(timeRequested);
             activeRequests.getColumns().add(dateRequested);
             activeRequests.getColumns().add(hi);
             activeRequests.getColumns().add(type);
+            activeRequests.getColumns().add(field1);
             activeRequests.getColumns().add(comment);
             activeRequests.getColumns().add(assignedEmployee);
             activeRequests.setRoot(root);
@@ -357,6 +420,74 @@ public class ActiveServiceRequestsController {
         if (filter.getValue() == "External Transportation") {
             root.getChildren().clear();
             activeRequests.setRoot(null);
+
+            ServiceRequestAccess sra = new ServiceRequestAccess();
+
+            int count;
+            count = sra.countExternalRecords()-1;
+            while (count >= 0) {
+                TreeItem<ServiceRequestTable> rrt = sra.getExternalRequests(count);
+                root.getChildren().add(rrt);
+                count--;
+            }
+
+            timeRequested.setCellValueFactory(cellData -> {
+                if (cellData.getValue().getValue() instanceof ServiceRequestTable) {
+                    return new ReadOnlyObjectWrapper(cellData.getValue().getValue().getCreationTime());
+                }
+                return new ReadOnlyObjectWrapper(cellData.getValue().getValue());
+            });
+
+
+            dateRequested.setCellValueFactory(cellData -> {
+                if (cellData.getValue().getValue() instanceof ServiceRequestTable) {
+                    return new ReadOnlyObjectWrapper(cellData.getValue().getValue().getCreationDate());
+                }
+                return new ReadOnlyObjectWrapper(cellData.getValue().getValue());
+            });
+
+
+            field1.setCellValueFactory(cellData -> {
+                if (cellData.getValue().getValue() instanceof ServiceRequestTable) {
+                    return new ReadOnlyObjectWrapper(cellData.getValue().getValue().getLocation());
+                }
+                return new ReadOnlyObjectWrapper(cellData.getValue().getValue());
+            });
+
+            field2.setCellValueFactory(cellData -> {
+                if (cellData.getValue().getValue() instanceof ServiceRequestTable) {
+                    return new ReadOnlyObjectWrapper(cellData.getValue().getValue().getDestination());
+                }
+                return new ReadOnlyObjectWrapper(cellData.getValue().getValue());
+            });
+
+            type.setCellValueFactory(cellData -> {
+                if (cellData.getValue().getValue() instanceof ServiceRequestTable) {
+                    return new ReadOnlyObjectWrapper(cellData.getValue().getValue().getType());
+                }
+                return new ReadOnlyObjectWrapper(cellData.getValue().getValue());
+            });
+
+            field3.setCellValueFactory(cellData -> {
+                if (cellData.getValue().getValue() instanceof ServiceRequestTable) {
+                    return new ReadOnlyObjectWrapper(cellData.getValue().getValue().getPhoneNumber());
+                }
+                return new ReadOnlyObjectWrapper(cellData.getValue().getValue());
+            });
+
+            comment.setCellValueFactory(cellData -> {
+                if (cellData.getValue().getValue() instanceof ServiceRequestTable) {
+                    return new ReadOnlyObjectWrapper(cellData.getValue().getValue().getComment());
+                }
+                return new ReadOnlyObjectWrapper(cellData.getValue().getValue());
+            });
+
+            assignedEmployee.setCellValueFactory(cellData -> {
+                if (cellData.getValue().getValue() instanceof ServiceRequestTable) {
+                    return new ReadOnlyObjectWrapper(cellData.getValue().getValue().getAssignedEmployee());
+                }
+                return new ReadOnlyObjectWrapper(cellData.getValue().getValue());
+            });
 
             field1.setText("Start Location");
             field2.setText("End Location");
@@ -377,6 +508,67 @@ public class ActiveServiceRequestsController {
             root.getChildren().clear();
             activeRequests.setRoot(null);
 
+            ServiceRequestAccess sra = new ServiceRequestAccess();
+
+            int count;
+            count = sra.countFloristRecords()-1;
+            while (count >= 0) {
+                TreeItem<ServiceRequestTable> rrt = sra.getFloristRequests(count);
+                root.getChildren().add(rrt);
+                count--;
+            }
+
+            timeRequested.setCellValueFactory(cellData -> {
+                if (cellData.getValue().getValue() instanceof ServiceRequestTable) {
+                    return new ReadOnlyObjectWrapper(cellData.getValue().getValue().getCreationTime());
+                }
+                return new ReadOnlyObjectWrapper(cellData.getValue().getValue());
+            });
+
+
+            dateRequested.setCellValueFactory(cellData -> {
+                if (cellData.getValue().getValue() instanceof ServiceRequestTable) {
+                    return new ReadOnlyObjectWrapper(cellData.getValue().getValue().getCreationDate());
+                }
+                return new ReadOnlyObjectWrapper(cellData.getValue().getValue());
+            });
+
+
+            name.setCellValueFactory(cellData -> {
+                if (cellData.getValue().getValue() instanceof ServiceRequestTable) {
+                    return new ReadOnlyObjectWrapper(cellData.getValue().getValue().getReceiverName());
+                }
+                return new ReadOnlyObjectWrapper(cellData.getValue().getValue());
+            });
+
+            field1.setCellValueFactory(cellData -> {
+                if (cellData.getValue().getValue() instanceof ServiceRequestTable) {
+                    return new ReadOnlyObjectWrapper(cellData.getValue().getValue().getFlowerName());
+                }
+                return new ReadOnlyObjectWrapper(cellData.getValue().getValue());
+            });
+
+            hi.setCellValueFactory(cellData -> {
+                if (cellData.getValue().getValue() instanceof ServiceRequestTable) {
+                    return new ReadOnlyObjectWrapper(cellData.getValue().getValue().getLocation());
+                }
+                return new ReadOnlyObjectWrapper(cellData.getValue().getValue());
+            });
+
+            comment.setCellValueFactory(cellData -> {
+                if (cellData.getValue().getValue() instanceof ServiceRequestTable) {
+                    return new ReadOnlyObjectWrapper(cellData.getValue().getValue().getComment());
+                }
+                return new ReadOnlyObjectWrapper(cellData.getValue().getValue());
+            });
+
+            assignedEmployee.setCellValueFactory(cellData -> {
+                if (cellData.getValue().getValue() instanceof ServiceRequestTable) {
+                    return new ReadOnlyObjectWrapper(cellData.getValue().getValue().getAssignedEmployee());
+                }
+                return new ReadOnlyObjectWrapper(cellData.getValue().getValue());
+            });
+
             field1.setText("Flower");
             activeRequests.getColumns().clear();
             activeRequests.getColumns().add(timeRequested);
@@ -392,6 +584,67 @@ public class ActiveServiceRequestsController {
         if (filter.getValue() == "IT") {
             root.getChildren().clear();
             activeRequests.setRoot(null);
+
+            ServiceRequestAccess sra = new ServiceRequestAccess();
+
+            int count;
+            count = sra.countITRecords()-1;
+            while (count >= 0) {
+                TreeItem<ServiceRequestTable> rrt = sra.getITRequests(count);
+                root.getChildren().add(rrt);
+                count--;
+            }
+
+            timeRequested.setCellValueFactory(cellData -> {
+                if (cellData.getValue().getValue() instanceof ServiceRequestTable) {
+                    return new ReadOnlyObjectWrapper(cellData.getValue().getValue().getCreationTime());
+                }
+                return new ReadOnlyObjectWrapper(cellData.getValue().getValue());
+            });
+
+
+            dateRequested.setCellValueFactory(cellData -> {
+                if (cellData.getValue().getValue() instanceof ServiceRequestTable) {
+                    return new ReadOnlyObjectWrapper(cellData.getValue().getValue().getCreationDate());
+                }
+                return new ReadOnlyObjectWrapper(cellData.getValue().getValue());
+            });
+
+
+            hi.setCellValueFactory(cellData -> {
+                if (cellData.getValue().getValue() instanceof ServiceRequestTable) {
+                    return new ReadOnlyObjectWrapper(cellData.getValue().getValue().getLocation());
+                }
+                return new ReadOnlyObjectWrapper(cellData.getValue().getValue());
+            });
+
+            field1.setCellValueFactory(cellData -> {
+                if (cellData.getValue().getValue() instanceof ServiceRequestTable) {
+                    return new ReadOnlyObjectWrapper(cellData.getValue().getValue().getDevice());
+                }
+                return new ReadOnlyObjectWrapper(cellData.getValue().getValue());
+            });
+
+            field2.setCellValueFactory(cellData -> {
+                if (cellData.getValue().getValue() instanceof ServiceRequestTable) {
+                    return new ReadOnlyObjectWrapper(cellData.getValue().getValue().getProblem());
+                }
+                return new ReadOnlyObjectWrapper(cellData.getValue().getValue());
+            });
+
+            comment.setCellValueFactory(cellData -> {
+                if (cellData.getValue().getValue() instanceof ServiceRequestTable) {
+                    return new ReadOnlyObjectWrapper(cellData.getValue().getValue().getComment());
+                }
+                return new ReadOnlyObjectWrapper(cellData.getValue().getValue());
+            });
+
+            assignedEmployee.setCellValueFactory(cellData -> {
+                if (cellData.getValue().getValue() instanceof ServiceRequestTable) {
+                    return new ReadOnlyObjectWrapper(cellData.getValue().getValue().getAssignedEmployee());
+                }
+                return new ReadOnlyObjectWrapper(cellData.getValue().getValue());
+            });
 
             field1.setText("Device");
             field2.setText("Problem");
@@ -409,6 +662,74 @@ public class ActiveServiceRequestsController {
         if (filter.getValue() == "Language Assistance") {
             root.getChildren().clear();
             activeRequests.setRoot(null);
+
+            ServiceRequestAccess sra = new ServiceRequestAccess();
+
+            int count;
+            count = sra.countLanguageRecords()-1;
+            while (count >= 0) {
+                TreeItem<ServiceRequestTable> rrt = sra.getLanguageRequests(count);
+                root.getChildren().add(rrt);
+                count--;
+            }
+
+            timeRequested.setCellValueFactory(cellData -> {
+                if (cellData.getValue().getValue() instanceof ServiceRequestTable) {
+                    return new ReadOnlyObjectWrapper(cellData.getValue().getValue().getCreationTime());
+                }
+                return new ReadOnlyObjectWrapper(cellData.getValue().getValue());
+            });
+
+
+            dateRequested.setCellValueFactory(cellData -> {
+                if (cellData.getValue().getValue() instanceof ServiceRequestTable) {
+                    return new ReadOnlyObjectWrapper(cellData.getValue().getValue().getCreationDate());
+                }
+                return new ReadOnlyObjectWrapper(cellData.getValue().getValue());
+            });
+
+
+            hi.setCellValueFactory(cellData -> {
+                if (cellData.getValue().getValue() instanceof ServiceRequestTable) {
+                    return new ReadOnlyObjectWrapper(cellData.getValue().getValue().getLocation());
+                }
+                return new ReadOnlyObjectWrapper(cellData.getValue().getValue());
+            });
+
+            field1.setCellValueFactory(cellData -> {
+                if (cellData.getValue().getValue() instanceof ServiceRequestTable) {
+                    return new ReadOnlyObjectWrapper(cellData.getValue().getValue().getLanguage());
+                }
+                return new ReadOnlyObjectWrapper(cellData.getValue().getValue());
+            });
+
+            field2.setCellValueFactory(cellData -> {
+                if (cellData.getValue().getValue() instanceof ServiceRequestTable) {
+                    return new ReadOnlyObjectWrapper(cellData.getValue().getValue().getLevel());
+                }
+                return new ReadOnlyObjectWrapper(cellData.getValue().getValue());
+            });
+
+            field3.setCellValueFactory(cellData -> {
+                if (cellData.getValue().getValue() instanceof ServiceRequestTable) {
+                    return new ReadOnlyObjectWrapper(cellData.getValue().getValue().getInterpreters());
+                }
+                return new ReadOnlyObjectWrapper(cellData.getValue().getValue());
+            });
+
+            comment.setCellValueFactory(cellData -> {
+                if (cellData.getValue().getValue() instanceof ServiceRequestTable) {
+                    return new ReadOnlyObjectWrapper(cellData.getValue().getValue().getComment());
+                }
+                return new ReadOnlyObjectWrapper(cellData.getValue().getValue());
+            });
+
+            assignedEmployee.setCellValueFactory(cellData -> {
+                if (cellData.getValue().getValue() instanceof ServiceRequestTable) {
+                    return new ReadOnlyObjectWrapper(cellData.getValue().getValue().getAssignedEmployee());
+                }
+                return new ReadOnlyObjectWrapper(cellData.getValue().getValue());
+            });
 
             field1.setText("Language");
             field2.setText("Their Proficiency");
@@ -429,6 +750,67 @@ public class ActiveServiceRequestsController {
             root.getChildren().clear();
             activeRequests.setRoot(null);
 
+            ServiceRequestAccess sra = new ServiceRequestAccess();
+
+            int count;
+            count = sra.countMaintenanceRecords()-1;
+            while (count >= 0) {
+                TreeItem<ServiceRequestTable> rrt = sra.getMaintenanceRequests(count);
+                root.getChildren().add(rrt);
+                count--;
+            }
+
+            timeRequested.setCellValueFactory(cellData -> {
+                if (cellData.getValue().getValue() instanceof ServiceRequestTable) {
+                    return new ReadOnlyObjectWrapper(cellData.getValue().getValue().getCreationTime());
+                }
+                return new ReadOnlyObjectWrapper(cellData.getValue().getValue());
+            });
+
+
+            dateRequested.setCellValueFactory(cellData -> {
+                if (cellData.getValue().getValue() instanceof ServiceRequestTable) {
+                    return new ReadOnlyObjectWrapper(cellData.getValue().getValue().getCreationDate());
+                }
+                return new ReadOnlyObjectWrapper(cellData.getValue().getValue());
+            });
+
+
+            hi.setCellValueFactory(cellData -> {
+                if (cellData.getValue().getValue() instanceof ServiceRequestTable) {
+                    return new ReadOnlyObjectWrapper(cellData.getValue().getValue().getLocation());
+                }
+                return new ReadOnlyObjectWrapper(cellData.getValue().getValue());
+            });
+
+            type.setCellValueFactory(cellData -> {
+                if (cellData.getValue().getValue() instanceof ServiceRequestTable) {
+                    return new ReadOnlyObjectWrapper(cellData.getValue().getValue().getType());
+                }
+                return new ReadOnlyObjectWrapper(cellData.getValue().getValue());
+            });
+
+            field1.setCellValueFactory(cellData -> {
+                if (cellData.getValue().getValue() instanceof ServiceRequestTable) {
+                    return new ReadOnlyObjectWrapper(cellData.getValue().getValue().getIsHazard());
+                }
+                return new ReadOnlyObjectWrapper(cellData.getValue().getValue());
+            });
+
+            comment.setCellValueFactory(cellData -> {
+                if (cellData.getValue().getValue() instanceof ServiceRequestTable) {
+                    return new ReadOnlyObjectWrapper(cellData.getValue().getValue().getComment());
+                }
+                return new ReadOnlyObjectWrapper(cellData.getValue().getValue());
+            });
+
+            assignedEmployee.setCellValueFactory(cellData -> {
+                if (cellData.getValue().getValue() instanceof ServiceRequestTable) {
+                    return new ReadOnlyObjectWrapper(cellData.getValue().getValue().getAssignedEmployee());
+                }
+                return new ReadOnlyObjectWrapper(cellData.getValue().getValue());
+            });
+
             field1.setText("Hazardous?");
             activeRequests.getColumns().clear();
             activeRequests.getColumns().add(timeRequested);
@@ -444,6 +826,74 @@ public class ActiveServiceRequestsController {
         if (filter.getValue() == "Prescriptions") {
             root.getChildren().clear();
             activeRequests.setRoot(null);
+
+            ServiceRequestAccess sra = new ServiceRequestAccess();
+
+            int count;
+            count = sra.countPrescriptionRecords()-1;
+            while (count >= 0) {
+                TreeItem<ServiceRequestTable> rrt = sra.getPrescriptionRequests(count);
+                root.getChildren().add(rrt);
+                count--;
+            }
+
+            timeRequested.setCellValueFactory(cellData -> {
+                if (cellData.getValue().getValue() instanceof ServiceRequestTable) {
+                    return new ReadOnlyObjectWrapper(cellData.getValue().getValue().getCreationTime());
+                }
+                return new ReadOnlyObjectWrapper(cellData.getValue().getValue());
+            });
+
+
+            dateRequested.setCellValueFactory(cellData -> {
+                if (cellData.getValue().getValue() instanceof ServiceRequestTable) {
+                    return new ReadOnlyObjectWrapper(cellData.getValue().getValue().getCreationDate());
+                }
+                return new ReadOnlyObjectWrapper(cellData.getValue().getValue());
+            });
+
+
+            hi.setCellValueFactory(cellData -> {
+                if (cellData.getValue().getValue() instanceof ServiceRequestTable) {
+                    return new ReadOnlyObjectWrapper(cellData.getValue().getValue().getLocation());
+                }
+                return new ReadOnlyObjectWrapper(cellData.getValue().getValue());
+            });
+
+            field1.setCellValueFactory(cellData -> {
+                if (cellData.getValue().getValue() instanceof ServiceRequestTable) {
+                    return new ReadOnlyObjectWrapper(cellData.getValue().getValue().getMedicineType());
+                }
+                return new ReadOnlyObjectWrapper(cellData.getValue().getValue());
+            });
+
+            field2.setCellValueFactory(cellData -> {
+                if (cellData.getValue().getValue() instanceof ServiceRequestTable) {
+                    return new ReadOnlyObjectWrapper(cellData.getValue().getValue().getAmmount());
+                }
+                return new ReadOnlyObjectWrapper(cellData.getValue().getValue());
+            });
+
+            field3.setCellValueFactory(cellData -> {
+                if (cellData.getValue().getValue() instanceof ServiceRequestTable) {
+                    return new ReadOnlyObjectWrapper(cellData.getValue().getValue().getDeliveryTime());
+                }
+                return new ReadOnlyObjectWrapper(cellData.getValue().getValue());
+            });
+
+            comment.setCellValueFactory(cellData -> {
+                if (cellData.getValue().getValue() instanceof ServiceRequestTable) {
+                    return new ReadOnlyObjectWrapper(cellData.getValue().getValue().getComment());
+                }
+                return new ReadOnlyObjectWrapper(cellData.getValue().getValue());
+            });
+
+            assignedEmployee.setCellValueFactory(cellData -> {
+                if (cellData.getValue().getValue() instanceof ServiceRequestTable) {
+                    return new ReadOnlyObjectWrapper(cellData.getValue().getValue().getAssignedEmployee());
+                }
+                return new ReadOnlyObjectWrapper(cellData.getValue().getValue());
+            });
 
             field1.setText("Medicine");
             field2.setText("Amount");
@@ -464,6 +914,68 @@ public class ActiveServiceRequestsController {
             root.getChildren().clear();
             activeRequests.setRoot(null);
 
+            ServiceRequestAccess sra = new ServiceRequestAccess();
+
+            int count;
+            count = sra.countSanitationRecords()-1;
+            while (count >= 0) {
+                TreeItem<ServiceRequestTable> rrt = sra.getSanitationRequests(count);
+                root.getChildren().add(rrt);
+                count--;
+            }
+
+            timeRequested.setCellValueFactory(cellData -> {
+                if (cellData.getValue().getValue() instanceof ServiceRequestTable) {
+                    return new ReadOnlyObjectWrapper(cellData.getValue().getValue().getCreationTime());
+                }
+                return new ReadOnlyObjectWrapper(cellData.getValue().getValue());
+            });
+
+
+            dateRequested.setCellValueFactory(cellData -> {
+                if (cellData.getValue().getValue() instanceof ServiceRequestTable) {
+                    return new ReadOnlyObjectWrapper(cellData.getValue().getValue().getCreationDate());
+                }
+                return new ReadOnlyObjectWrapper(cellData.getValue().getValue());
+            });
+
+
+            hi.setCellValueFactory(cellData -> {
+                if (cellData.getValue().getValue() instanceof ServiceRequestTable) {
+                    return new ReadOnlyObjectWrapper(cellData.getValue().getValue().getLocation());
+                }
+                return new ReadOnlyObjectWrapper(cellData.getValue().getValue());
+            });
+
+            type.setCellValueFactory(cellData -> {
+                if (cellData.getValue().getValue() instanceof ServiceRequestTable) {
+                    return new ReadOnlyObjectWrapper(cellData.getValue().getValue().getType());
+                }
+                return new ReadOnlyObjectWrapper(cellData.getValue().getValue());
+            });
+
+            field1.setCellValueFactory(cellData -> {
+                if (cellData.getValue().getValue() instanceof ServiceRequestTable) {
+                    return new ReadOnlyObjectWrapper(cellData.getValue().getValue().getUrgenecyLevel());
+                }
+                return new ReadOnlyObjectWrapper(cellData.getValue().getValue());
+            });
+
+
+            comment.setCellValueFactory(cellData -> {
+                if (cellData.getValue().getValue() instanceof ServiceRequestTable) {
+                    return new ReadOnlyObjectWrapper(cellData.getValue().getValue().getComment());
+                }
+                return new ReadOnlyObjectWrapper(cellData.getValue().getValue());
+            });
+
+            assignedEmployee.setCellValueFactory(cellData -> {
+                if (cellData.getValue().getValue() instanceof ServiceRequestTable) {
+                    return new ReadOnlyObjectWrapper(cellData.getValue().getValue().getAssignedEmployee());
+                }
+                return new ReadOnlyObjectWrapper(cellData.getValue().getValue());
+            });
+
             field1.setText("Urgency");
             activeRequests.getColumns().clear();
             activeRequests.getColumns().add(timeRequested);
@@ -480,13 +992,84 @@ public class ActiveServiceRequestsController {
             root.getChildren().clear();
             activeRequests.setRoot(null);
 
+            ServiceRequestAccess sra = new ServiceRequestAccess();
+
+            int count;
+            count = sra.countSecurityRecords()-1;
+            while (count >= 0) {
+                TreeItem<ServiceRequestTable> rrt = sra.getSecurityRequests(count);
+                root.getChildren().add(rrt);
+                count--;
+            }
+
+            timeRequested.setCellValueFactory(cellData -> {
+                if (cellData.getValue().getValue() instanceof ServiceRequestTable) {
+                    return new ReadOnlyObjectWrapper(cellData.getValue().getValue().getCreationTime());
+                }
+                return new ReadOnlyObjectWrapper(cellData.getValue().getValue());
+            });
+
+
+            dateRequested.setCellValueFactory(cellData -> {
+                if (cellData.getValue().getValue() instanceof ServiceRequestTable) {
+                    System.out.println("Setcell factory date set");
+                    return new ReadOnlyObjectWrapper(cellData.getValue().getValue().getCreationDate());
+                }
+                return new ReadOnlyObjectWrapper(cellData.getValue().getValue());
+            });
+
+
+            hi.setCellValueFactory(cellData -> {
+                if (cellData.getValue().getValue() instanceof ServiceRequestTable) {
+                    return new ReadOnlyObjectWrapper(cellData.getValue().getValue().getLocation());
+                }
+                return new ReadOnlyObjectWrapper(cellData.getValue().getValue());
+            });
+
+            type.setCellValueFactory(cellData -> {
+                if (cellData.getValue().getValue() instanceof ServiceRequestTable) {
+                    return new ReadOnlyObjectWrapper(cellData.getValue().getValue().getType());
+                }
+                return new ReadOnlyObjectWrapper(cellData.getValue().getValue());
+            });
+
+            field1.setCellValueFactory(cellData -> {
+                if (cellData.getValue().getValue() instanceof ServiceRequestTable) {
+                    return new ReadOnlyObjectWrapper(cellData.getValue().getValue().getName());
+                }
+                return new ReadOnlyObjectWrapper(cellData.getValue().getValue());
+            });
+
+            field2.setCellValueFactory(cellData -> {
+                if (cellData.getValue().getValue() instanceof ServiceRequestTable) {
+                    return new ReadOnlyObjectWrapper(cellData.getValue().getValue().getThreatLevel());
+                }
+                return new ReadOnlyObjectWrapper(cellData.getValue().getValue());
+            });
+
+            comment.setCellValueFactory(cellData -> {
+                if (cellData.getValue().getValue() instanceof ServiceRequestTable) {
+                    return new ReadOnlyObjectWrapper(cellData.getValue().getValue().getComment());
+                }
+                return new ReadOnlyObjectWrapper(cellData.getValue().getValue());
+            });
+
+            assignedEmployee.setCellValueFactory(cellData -> {
+                if (cellData.getValue().getValue() instanceof ServiceRequestTable) {
+                    return new ReadOnlyObjectWrapper(cellData.getValue().getValue().getAssignedEmployee());
+                }
+                return new ReadOnlyObjectWrapper(cellData.getValue().getValue());
+            });
+
             field1.setText("Identifier");
+            field2.setText("ThreatLevel");
             activeRequests.getColumns().clear();
             activeRequests.getColumns().add(timeRequested);
             activeRequests.getColumns().add(dateRequested);
             activeRequests.getColumns().add(hi);
             activeRequests.getColumns().add(type);
             activeRequests.getColumns().add(field1);
+            activeRequests.getColumns().add(field2);
             activeRequests.getColumns().add(comment);
             activeRequests.getColumns().add(assignedEmployee);
             activeRequests.setRoot(root);

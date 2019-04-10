@@ -1,7 +1,9 @@
 package Controller;
 
+import API.ChildThread;
 import Access.ReligiousRequestAccess;
-import com.jfoenix.controls.JFXButton;
+import Access.ServiceRequestAccess;
+import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXTextArea;
 import com.jfoenix.controls.JFXTextField;
 import javafx.animation.KeyFrame;
@@ -12,36 +14,50 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.scene.control.TextField;
+import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 import Object.*;
 
 import java.io.IOException;
 
-
 public class FloristDeliveryController {
-    @FXML
-    private JFXTextField receiverName;
+    private boolean signedIn;
+    private String uname;
+
 
     @FXML
-    private JFXTextField Location;
+    public Button backBtn;
 
     @FXML
-    private JFXTextField flowerName;
+    public Button Submit;
+
 
     @FXML
-    private JFXTextField senderName;
+    public JFXTextField Location;
 
     @FXML
-    private JFXTextArea comment;
+    public JFXTextField receiverName;
 
     @FXML
-    private JFXButton submit;
+    public JFXTextField flowerName;
+
 
     @FXML
-    private JFXButton backBtn;
+    public JFXTextArea comment;
 
     Timeline timeout;
+
+    public void init(boolean loggedIn) {
+        signedIn = loggedIn;
+    }
+
+    public void init(boolean loggedIn, String username) {
+        uname = username;
+        init(loggedIn);
+    }
 
     public void initialize(){
         Singleton single = Singleton.getInstance();
@@ -53,17 +69,15 @@ public class FloristDeliveryController {
                 if((System.currentTimeMillis() - single.getLastTime()) > single.getTimeoutSec()){
                     try{
                         single.setLastTime();
-                        single.setDoPopup(true);
                         single.setLoggedIn(false);
                         single.setUsername("");
                         single.setIsAdmin(false);
+                        single.setDoPopup(true);
                         FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("HospitalHome.fxml"));
-
                         Parent sceneMain = loader.load();
                         HomeScreenController controller = loader.<HomeScreenController>getController();
                         controller.displayPopup();
-
-                        Stage thisStage = (Stage) flowerName.getScene().getWindow();
+                        Stage thisStage = (Stage) receiverName.getScene().getWindow();
 
                         Scene newScene = new Scene(sceneMain);
                         thisStage.setScene(newScene);
@@ -76,45 +90,40 @@ public class FloristDeliveryController {
         }));
         timeout.setCycleCount(Timeline.INDEFINITE);
         timeout.play();
-        submit.setDisable(true);
+        Submit.setDisable(true);
+
     }
 
     @FXML
     private void reenableSubmit() {
         Singleton single = Singleton.getInstance();
         single.setLastTime();
-        if (receiverName.getText().trim().isEmpty() ||  Location.getText().trim().isEmpty() ||
-                senderName.getText().trim().isEmpty() || flowerName.getText().trim().isEmpty() ||
-                comment.getText().trim().isEmpty()) {
-            System.out.println(receiverName.getText().trim().isEmpty());
-            System.out.println(Location.getText().trim().isEmpty());
-            System.out.println(senderName.getText().trim().isEmpty());
-            System.out.println(flowerName.getText().trim().isEmpty());
-            System.out.println(comment.getText().trim().isEmpty());
-            System.out.println(" aaa sadad");
-            submit.setDisable(true);
+        if (comment.getText().trim().isEmpty() || flowerName.getText().trim().isEmpty() || Location.getText().trim().isEmpty() || receiverName.getText().trim().isEmpty()) {
+            Submit.setDisable(true);
         } else {
-            submit.setDisable(false);
+            Submit.setDisable(false);
         }
     }
     @FXML
-    private void backPressed() throws IOException {
+    private void submitClicked() throws IOException {
+        Singleton single = Singleton.getInstance();
+        single.setLastTime();
+        ServiceRequestAccess sra = new ServiceRequestAccess();
+        sra.makeFloristRequest(comment.getText(), receiverName.getText(), Location.getText(), flowerName.getText());
+        System.out.println("Submit Pressed");
+        backPressed();
+    }
+
+    @FXML
+    protected void backPressed() throws IOException {
         timeout.stop();
         FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("ServiceRequest.fxml"));
 
         Parent sceneMain = loader.load();
+
         Stage theStage = (Stage) backBtn.getScene().getWindow();
 
         Scene scene = new Scene(sceneMain);
         theStage.setScene(scene);
     }
-
-    @FXML
-    private void submitClicked() throws IOException {
-        Singleton single = Singleton.getInstance();
-        single.setLastTime();
-        System.out.println("Submit Pressed");
-        backPressed();
-    }
-
 }

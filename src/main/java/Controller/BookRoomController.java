@@ -134,9 +134,9 @@ public class BookRoomController {
     @FXML
     private void backPressed() throws IOException {
         timeout.stop();
-        FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("LoggedInHome.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("EmployeeLoggedInHome.fxml"));
         Parent sceneMain = loader.load();
-        LoggedInHomeController controller = loader.<LoggedInHomeController>getController();
+        //LoggedInHomeController controller = loader.<LoggedInHomeController>getController();
         Stage theStage = (Stage) bookRoomBack.getScene().getWindow();
         Scene scene = new Scene(sceneMain);
         theStage.setScene(scene);

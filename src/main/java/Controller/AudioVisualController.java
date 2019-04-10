@@ -1,7 +1,5 @@
 package Controller;
 
-import Access.ExternalTransportAccess;
-import Access.ReligiousRequestAccess;
 import Access.ServiceRequestAccess;
 import Object.Singleton;
 import com.jfoenix.controls.JFXComboBox;
@@ -21,7 +19,7 @@ import javafx.util.Duration;
 
 import java.io.IOException;
 
-public class ExternalTransportationController {
+public class AudioVisualController {
     private boolean signedIn;
     private String uname;
 
@@ -36,12 +34,6 @@ public class ExternalTransportationController {
 
     @FXML
     public JFXTextField Location;
-
-    @FXML
-    public JFXTextField Destination;
-
-    @FXML
-    public JFXTextField PhoneNumber;
 
     @FXML
     public JFXComboBox<String> Type;
@@ -93,14 +85,14 @@ public class ExternalTransportationController {
         timeout.play();
         Submit.setDisable(true);
         Type.getItems().addAll(
-                "Bus", "Taxi", "Uber", "Lyft", "Train");
+                "Hearing Aids", "Walking Stick", "Guide", "Service Dog", "Other");
     }
 
     @FXML
     private void reenableSubmit() {
         Singleton single = Singleton.getInstance();
         single.setLastTime();
-        if (Description.getText().trim().isEmpty() || Type.getValue() == null || Location.getText().trim().isEmpty() || Destination.getText().trim().isEmpty() || Name.getText().trim().isEmpty() || PhoneNumber.getText().trim().isEmpty()) {
+        if (Description.getText().trim().isEmpty() || Type.getValue() == null || Name.getText().trim().isEmpty() || Location.getText().trim().isEmpty()) {
             Submit.setDisable(true);
         } else {
             Submit.setDisable(false);
@@ -112,7 +104,7 @@ public class ExternalTransportationController {
         Singleton single = Singleton.getInstance();
         single.setLastTime();
         ServiceRequestAccess sra = new ServiceRequestAccess();
-        sra.makeExternalRequest(Description.getText(), Location.getText(), Destination.getText(), Type.getValue(), PhoneNumber.getText());
+        sra.makeAudioRequest(Description.getText(), Name.getText(), Location.getText(), Type.getValue());
         System.out.println("Submit Pressed");
         backPressed();
     }
