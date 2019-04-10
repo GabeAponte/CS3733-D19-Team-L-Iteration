@@ -244,6 +244,8 @@ public class BookRoomController {
         }
     }
 
+    //todo checks if fields are null and populates table here
+    // RA.getAvailRooms returns list of available rooms
     @FXML
     public void fieldsEntered(){
         Singleton single = Singleton.getInstance();
