@@ -222,5 +222,9 @@ public class AdminLoggedInHomeController {
         theStage.setScene(scene);
     }
 
+    @FXML
+    private void selectedEdge() {
 
+        deleteEdge.setDisable(false);
+    }
 }
