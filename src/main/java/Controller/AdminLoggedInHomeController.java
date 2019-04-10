@@ -171,8 +171,6 @@ public class AdminLoggedInHomeController {
 
         Parent sceneMain = loader.load();
 
-        EditLocationController controller = loader.<EditLocationController>getController();
-
         Stage theStage = (Stage) fufillServiceRequest.getScene().getWindow();
 
         Scene scene = new Scene(sceneMain);
