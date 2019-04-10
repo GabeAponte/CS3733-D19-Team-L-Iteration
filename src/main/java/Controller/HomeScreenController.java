@@ -37,8 +37,8 @@ public class HomeScreenController {
     @FXML
     Label timeLabel;
 
-    //@FXML
-    //ImageView weatherIcon;
+    @FXML
+    ImageView weatherIcon;
 
     @FXML
     Label tempDisplay;
@@ -47,11 +47,11 @@ public class HomeScreenController {
 
 
     public void initialize(){
-        /*Weather weatherBoy = new Weather();
+        Weather weatherBoy = new Weather();
         String icon = weatherBoy.getIcon();
         Image img = new Image(icon);
         weatherIcon.setImage(img);
-        tempDisplay.setText(weatherBoy.getActTemp());*/
+        tempDisplay.setText(weatherBoy.getActTemp());
 
         clock = new Timeline(new KeyFrame(Duration.ZERO, e -> {
             long second = LocalDateTime.now().getSecond();
@@ -60,7 +60,7 @@ public class HomeScreenController {
             if((hour = hour%12) == 0){
                 hour = 12;
             }
-            System.out.println("yo");
+            //System.out.println("yo");
             if(minute < 10) {
                 if(second > 9) {
                     timeLabel.setText("The Time is: " + hour + ":0" + (minute) + ":" + second);
@@ -87,8 +87,6 @@ public class HomeScreenController {
         FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("HospitalPathFinding.fxml"));
 
         Parent sceneMain = loader.load();
-
-        PathFindingController controller = loader.getController();
 
         Stage theStage = (Stage) HomeFindPath.getScene().getWindow();
 

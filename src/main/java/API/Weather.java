@@ -54,7 +54,7 @@ public class Weather {
         } else if(type.contains("rain") || type.contains("sleet")){
             return "weatherIcons/rainImage.jpg";
         } else if(type.contains("partly") || type.contains("wind")){
-            return "weatherIcons/partlyCloudyImage.jpg";
+            return "weatherIcons/partlyCloudImage.jpg";
         } else if(type.contains("cloudy") || type.contains("fog")){
             return "weatherIcons/cloudyImage.jpg";
         } else if(type.contains("snow")){
