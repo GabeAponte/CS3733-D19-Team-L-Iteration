@@ -122,8 +122,6 @@ public class HomeScreenController {
 
         Parent sceneMain = loader.load();
 
-        PathFindingController controller = loader.getController();
-
         Stage theStage = (Stage) HomeFindPath.getScene().getWindow();
 
         Scene scene = new Scene(sceneMain);

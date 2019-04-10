@@ -79,6 +79,7 @@ public class SuggestionBoxController {
         timeout.stop();
         Singleton single = Singleton.getInstance();
         single.setLastTime();
+        single.setDoPopup(true);
         FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("HospitalHome.fxml"));
         Parent sceneMain = loader.load();
         Stage thisStage = (Stage) submitFeedback.getScene().getWindow();
