@@ -40,13 +40,13 @@ public class PrescriptionAccess extends DBAccess{
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
             Date date = new Date();
             pstmt.setString(1, desc);
-            pstmt.setString(2, medicineType);
             pstmt.setString(3, location);
+            pstmt.setString(7, medicineType);
             pstmt.setInt(4, Integer.parseInt(tdf.format(date.getTime())));
             pstmt.setString(5, sdf.format(date));
             pstmt.setString(6, destination);
-            pstmt.setInt(7, Integer.parseInt(deliveryTime));
-            pstmt.setInt(8, Integer.parseInt(amount));
+            pstmt.setString(2,deliveryTime);
+            pstmt.setString(8, amount);
             pstmt.executeUpdate();
         } catch (SQLException e) {
             System.out.println(e.getMessage());

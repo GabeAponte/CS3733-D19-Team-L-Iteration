@@ -92,7 +92,7 @@ public class AudioVisualController {
     private void reenableSubmit() {
         Singleton single = Singleton.getInstance();
         single.setLastTime();
-        if (Description.getText().trim().isEmpty() || Type.getValue() == null || Location.getText().trim().isEmpty() || Name.getText().trim().isEmpty()) {
+        if (Description.getText().trim().isEmpty() || Type.getValue() == null || Name.getText().trim().isEmpty() || Location.getText().trim().isEmpty()) {
             Submit.setDisable(true);
         } else {
             Submit.setDisable(false);
@@ -104,7 +104,7 @@ public class AudioVisualController {
         Singleton single = Singleton.getInstance();
         single.setLastTime();
         ServiceRequestAccess sra = new ServiceRequestAccess();
-        sra.makeAudioRequest(Description.getText(), Location.getText(), Location.getText(), Type.getValue());
+        sra.makeAudioRequest(Description.getText(), Name.getText(), Location.getText(), Type.getValue());
         System.out.println("Submit Pressed");
         backPressed();
     }

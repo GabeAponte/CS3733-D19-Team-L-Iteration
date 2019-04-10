@@ -34,8 +34,6 @@ public class FloristDeliveryController {
     @FXML
     public Button Submit;
 
-    @FXML
-    public JFXTextField senderName;
 
     @FXML
     public JFXTextField Location;
@@ -79,7 +77,7 @@ public class FloristDeliveryController {
                         Parent sceneMain = loader.load();
                         HomeScreenController controller = loader.<HomeScreenController>getController();
                         controller.displayPopup();
-                        Stage thisStage = (Stage) senderName.getScene().getWindow();
+                        Stage thisStage = (Stage) receiverName.getScene().getWindow();
 
                         Scene newScene = new Scene(sceneMain);
                         thisStage.setScene(newScene);
@@ -100,7 +98,7 @@ public class FloristDeliveryController {
     private void reenableSubmit() {
         Singleton single = Singleton.getInstance();
         single.setLastTime();
-        if (comment.getText().trim().isEmpty() || flowerName.getText().trim().isEmpty() || Location.getText().trim().isEmpty() || receiverName.getText().trim().isEmpty() || senderName.getText().trim().isEmpty()) {
+        if (comment.getText().trim().isEmpty() || flowerName.getText().trim().isEmpty() || Location.getText().trim().isEmpty() || receiverName.getText().trim().isEmpty()) {
             Submit.setDisable(true);
         } else {
             Submit.setDisable(false);

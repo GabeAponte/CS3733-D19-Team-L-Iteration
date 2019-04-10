@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXComboBox?>
 <?import com.jfoenix.controls.JFXTextArea?>
 <?import com.jfoenix.controls.JFXTextField?>
 <?import com.jfoenix.controls.JFXToolbar?>
@@ -18,11 +19,11 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" style="-fx-background-color: #012D5A;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.PrescriptionServiceRequestControler">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" style="-fx-background-color: #012D5A;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.AudioVisualController">
    <children>
       <VBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
-            <JFXToolbar prefHeight="107.0" prefWidth="1280.0" style="-fx-background-color: WHITE;">
+            <JFXToolbar prefHeight="100.0" prefWidth="1280.0" style="-fx-background-color: WHITE;">
                <left>
                   <ImageView fitHeight="75.0" fitWidth="325.0" BorderPane.alignment="CENTER">
                      <image>
@@ -31,7 +32,7 @@
                   </ImageView>
                </left>
                <right>
-                  <JFXButton fx:id="backButton" buttonType="RAISED" prefHeight="75.0" prefWidth="150.0" style="-fx-background-radius: 50;" text="Back" BorderPane.alignment="CENTER">
+                  <JFXButton fx:id="Back" buttonType="RAISED" onAction="#backPressed" prefHeight="75.0" prefWidth="150.0" style="-fx-background-radius: 50;" text="Back" BorderPane.alignment="CENTER">
                      <font>
                         <Font size="40.0" />
                      </font>
@@ -59,55 +60,23 @@
                   <RowConstraints maxHeight="59.111358642578125" minHeight="0.0" prefHeight="0.0" valignment="CENTER" vgrow="ALWAYS" />
               </rowConstraints>
                <children>
-                  <JFXTextField fx:id="destinationField" focusColor="#f6bd38" onAction="#reenableSubmit" promptText="Destination" style="-jfx-prompt-text: WHITE;" unFocusColor="WHITE" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" GridPane.vgrow="ALWAYS">
+                  <JFXTextField fx:id="Name" focusColor="#f6bd38" onAction="#reenableSubmit" promptText="Name" style="-jfx-prompt-text: WHITE;" stylesheets="@modify-prompt-text.css" unFocusColor="WHITE" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" GridPane.vgrow="ALWAYS">
                      <GridPane.margin>
                         <Insets left="100.0" right="100.0" />
                      </GridPane.margin>
                      <font>
                         <Font size="20.0" />
                      </font>
-                     <stylesheets>
-                        <URL value="@CS3733-D19-Team-L-Iterations/src/main/resources/modify-prompt-text.css" />
-                        <URL value="@modify-prompt-text.css" />
-                     </stylesheets>
                   </JFXTextField>
-                  <JFXTextField fx:id="deliveryTimeField" focusColor="#f6bd38" onAction="#reenableSubmit" promptText="Medicine Type" style="-jfx-prompt-text: WHITE;" unFocusColor="WHITE" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="2" GridPane.vgrow="ALWAYS">
+                  <JFXTextField fx:id="Location" focusColor="#f6bd38" onAction="#reenableSubmit" promptText="Location" style="-jfx-prompt-text: WHITE;" stylesheets="@modify-prompt-text.css" unFocusColor="WHITE" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" GridPane.vgrow="ALWAYS">
                      <GridPane.margin>
                         <Insets left="100.0" right="100.0" />
                      </GridPane.margin>
                      <font>
                         <Font size="20.0" />
                      </font>
-                     <stylesheets>
-                        <URL value="@CS3733-D19-Team-L-Iterations/src/main/resources/modify-prompt-text.css" />
-                        <URL value="@modify-prompt-text.css" />
-                     </stylesheets>
                   </JFXTextField>
-                  <JFXTextField fx:id="medicineTypeField" focusColor="#f6bd38" onAction="#reenableSubmit" promptText="Delivery Time" style="-jfx-prompt-text: WHITE;" unFocusColor="WHITE" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" GridPane.vgrow="ALWAYS">
-                     <GridPane.margin>
-                        <Insets left="100.0" right="100.0" />
-                     </GridPane.margin>
-                     <font>
-                        <Font size="20.0" />
-                     </font>
-                     <stylesheets>
-                        <URL value="@CS3733-D19-Team-L-Iterations/src/main/resources/modify-prompt-text.css" />
-                        <URL value="@modify-prompt-text.css" />
-                     </stylesheets>
-                  </JFXTextField>
-                  <JFXTextField fx:id="amountField" focusColor="#f6bd38" onAction="#reenableSubmit" promptText="Amount" style="-jfx-prompt-text: WHITE;" unFocusColor="WHITE" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="2" GridPane.vgrow="ALWAYS">
-                     <GridPane.margin>
-                        <Insets left="100.0" right="100.0" />
-                     </GridPane.margin>
-                     <font>
-                        <Font size="20.0" />
-                     </font>
-                     <stylesheets>
-                        <URL value="@CS3733-D19-Team-L-Iterations/src/main/resources/modify-prompt-text.css" />
-                        <URL value="@modify-prompt-text.css" />
-                     </stylesheets>
-                  </JFXTextField>
-                  <Label text="Perscription Service Request" textFill="#f5d96b" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
+                  <Label text="Audio/Visual Service Request" textFill="#f5d96b" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
                      <font>
                         <Font size="30.0" />
                      </font>
@@ -115,7 +84,7 @@
                         <Blend />
                      </effect>
                   </Label>
-                  <JFXTextArea fx:id="commentsField" focusColor="#f6bd38" onInputMethodTextChanged="#reenableSubmit" onKeyPressed="#reenableSubmit" onKeyReleased="#reenableSubmit" onKeyTyped="#reenableSubmit" promptText="List Any Additional Details:" style="-fx-background-color: WHITE;" unFocusColor="WHITE" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.hgrow="SOMETIMES" GridPane.rowIndex="3" GridPane.rowSpan="2" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
+                  <JFXTextArea fx:id="Description" focusColor="#f6bd38" onInputMethodTextChanged="#reenableSubmit" onKeyPressed="#reenableSubmit" onKeyReleased="#reenableSubmit" onKeyTyped="#reenableSubmit" promptText="Add a description here" style="-fx-background-color: WHITE;" unFocusColor="WHITE" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.hgrow="SOMETIMES" GridPane.rowIndex="3" GridPane.rowSpan="2" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
                      <font>
                         <Font size="20.0" />
                      </font>
@@ -123,7 +92,7 @@
                         <Insets left="200.0" right="200.0" />
                      </GridPane.margin>
                   </JFXTextArea>
-                  <JFXButton fx:id="submitButton" buttonType="RAISED" onAction="#submitClicked" prefHeight="7.0" prefWidth="138.0" style="-fx-border-color: F5D96B; -fx-border-width: 2; -fx-border-radius: 50; -fx-background-radius: 50;" text="Submit" textFill="WHITE" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="5" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
+                  <JFXButton fx:id="Submit" buttonType="RAISED" onAction="#submitClicked" prefHeight="7.0" prefWidth="138.0" style="-fx-border-color: F5D96B; -fx-border-width: 2; -fx-border-radius: 50; -fx-background-radius: 50;" text="Submit" textFill="WHITE" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="5" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
                      <font>
                         <Font size="30.0" />
                      </font>
@@ -131,6 +100,15 @@
                         <Insets top="25.0" />
                      </GridPane.margin>
                   </JFXButton>
+                  <JFXComboBox fx:id="Type" onAction="#reenableSubmit" prefHeight="44.0" prefWidth="253.0" promptText="Type" GridPane.columnSpan="2147483647" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="2" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
+                     <stylesheets>
+                        <URL value="@modify-prompt-text.css" />
+                        <URL value="@size.css" />
+                     </stylesheets>
+                     <GridPane.margin>
+                        <Insets />
+                     </GridPane.margin>
+                  </JFXComboBox>
                </children>
                <opaqueInsets>
                   <Insets />

@@ -33,7 +33,7 @@ public class FloristDeliveryAccess extends DBAccess{
      */
     public void makeRequest(String desc, String recieverName, String location, String flowerName){
         String sql = "insert into floristDeliveryRequest(" +
-                "comment, receiverName, room/location, creationTime, creationDate, flowerName)" +
+                "comment, receiverName, room, creationTime, creationDate, flowerName)" +
                 "values (?, ?, ?, ?, ?, ?)";
 
         try (Connection conn = this.connect();
@@ -100,7 +100,7 @@ public class FloristDeliveryAccess extends DBAccess{
                     data.add(rs.getString("comment"));
                     data.add(rs.getString("receiverName"));
                     data.add(rs.getString("flowerName"));
-                    data.add(rs.getString("room/location"));
+                    data.add(rs.getString("room"));
                     data.add(rs.getString("creationDate"));
                     data.add(rs.getString("completionDate"));
                     nodeRoot = new TreeItem<>(new ServiceRequestTable(data.get(0), data.get(1), 4, data.get(2), data.get(3), data.get(4), data.get(5), data.get(6), data.get(7), data.get(8), data.get(9), data.get(10)));
