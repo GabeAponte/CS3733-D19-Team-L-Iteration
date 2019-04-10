@@ -58,19 +58,19 @@ public class ITController {
     }
 
     public void initialize(){
-        NodesAccess na = new NodesAccess();
+
         submit.setDisable(true);
-        device.getItems().addAll("Desktop Computer", "Laptop Computer", "Tablet", "Smartphone", "Kiosk", "Television");
+        device.getItems().addAll("Desktop Computer", "Laptop Computer", "Tablet", "Smartphone", "Kiosk", "Television", "Other");
         floor.getItems().addAll("L1", "L2", "G", "1", "2", "3");
-        ArrayList<String> theRooms = na.getValidITLocations("2");
-        for(int i = 0; i < theRooms.size(); i++){
-            loc.getItems().add(theRooms.get(i));
-        }
+
     }
 
     @FXML
     private void submitRequest(){
+        ServiceRequestAccess sra = new ServiceRequestAccess();
+        //sra.makeITRequest(description.getText(), loc.getValue(), device.getValue(), problem.getValue());
         System.out.println("Submit pressed with this info");
+
     }
 
     @FXML
@@ -99,6 +99,21 @@ public class ITController {
             problem.getItems().clear();
             problem.getItems().addAll("TV not powering", "TV Frozen", "Display not powering on or working","Internet or network connectivity issues","Need HDMI", "Need coaxial cable", "Remote out of batteries", "Remote not working", "Picture quality poor", "Cable box not working", "Other");
         }
+        else if(device.getValue().equals("Other")){
+            problem.getItems().clear();
+            problem.getItems().add("Other");
+        }
+    }
+
+    @FXML
+    private void floorSelected(){
+        loc.getItems().clear();
+        NodesAccess na = new NodesAccess();
+        String theFloor = floor.getValue().toString();
+        ArrayList<String> theRooms = na.getValidITLocations(theFloor);
+        for(int i = 0; i < theRooms.size(); i++){
+            loc.getItems().add(theRooms.get(i));
+        }
     }
 
     @FXML
@@ -112,5 +127,17 @@ public class ITController {
         Scene scene = new Scene(sceneMain);
         theStage.setScene(scene);
     }
+
+    @FXML
+    private void checkIfNull() {
+        if(device.getValue() != null && problem.getValue() != null && floor.getValue() != null && loc.getValue() != null && (description.getText() != null && !description.getText().equals("Please explain your problem in more detail."))){
+            submit.setDisable(false);
+        }
+        else{
+            submit.setDisable(true);
+        }
+    }
+
+
 
 }
