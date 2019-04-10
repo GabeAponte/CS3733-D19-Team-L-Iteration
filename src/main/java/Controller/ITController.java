@@ -1,11 +1,13 @@
 package Controller;
 
 import API.ChildThread;
+import Access.NodesAccess;
 import Access.ReligiousRequestAccess;
 import Access.ServiceRequestAccess;
 import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXTextArea;
 import com.jfoenix.controls.JFXTextField;
+import com.sun.javafx.scene.NodeHelper;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -17,6 +19,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 
 public class ITController {
@@ -55,8 +58,14 @@ public class ITController {
     }
 
     public void initialize(){
+        NodesAccess na = new NodesAccess();
         submit.setDisable(true);
         device.getItems().addAll("Desktop Computer", "Laptop Computer", "Tablet", "Smartphone", "Kiosk", "Television");
+        floor.getItems().addAll("L1", "L2", "G", "1", "2", "3");
+        ArrayList<String> theRooms = na.getValidITLocations("2");
+        for(int i = 0; i < theRooms.size(); i++){
+            loc.getItems().add(theRooms.get(i));
+        }
     }
 
     @FXML
@@ -84,11 +93,11 @@ public class ITController {
         }
         else if(device.getValue().equals("Kiosk")){
             problem.getItems().clear();
-            problem.getItems().addAll("Kiosk powered off", "Kiosk touch screen not working", "Display not powering on or working","WiFi Problems","Need HDMI");
+            problem.getItems().addAll("Kiosk not powering on", "Kiosk running", "Kiosk frozen", "Kiosk touch screen not working", "Display not powering on or working","Keyboard/Mouse malfunctioning", "Strange noises coming from kiosk", "Other");
         }
         else if(device.getValue().equals("Television")){
             problem.getItems().clear();
-            problem.getItems().addAll("Computer not powering", "Computer Frozen", "Display not powering on or working","WiFi Problems","Need HDMI", "Remote out of batteries", "Remote not working", "Other");
+            problem.getItems().addAll("TV not powering", "TV Frozen", "Display not powering on or working","Internet or network connectivity issues","Need HDMI", "Need coaxial cable", "Remote out of batteries", "Remote not working", "Picture quality poor", "Cable box not working", "Other");
         }
     }
 
