@@ -121,10 +121,8 @@ public class ActiveServiceRequestsController {
 
             @Override
             public void handle(ActionEvent event) {
-                System.out.println("checking if");
                 if ((System.currentTimeMillis() - single.getLastTime()) > single.getTimeoutSec()) {
                     try {
-                        System.out.println("did it");
                         single.setLastTime();
                         single.setLoggedIn(false);
                         single.setUsername("");

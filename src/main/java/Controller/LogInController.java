@@ -56,8 +56,6 @@ public class LogInController {
                         FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("HospitalHome.fxml"));
 
                         Parent sceneMain = loader.load();
-                        HomeScreenController controller = loader.<HomeScreenController>getController();
-                        controller.displayPopup();
 
                         Stage thisStage = (Stage) username.getScene().getWindow();
 
