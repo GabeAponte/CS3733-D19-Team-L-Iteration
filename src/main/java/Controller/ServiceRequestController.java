@@ -152,7 +152,7 @@ public class ServiceRequestController {
             serviceFXML = "ServiceRequestMaintenance.fxml";
         }
         else if(e.getSource() == SecurityStaff) {
-            serviceFXML = "ReligiousServiceRequest.fxml";
+            serviceFXML = "SecurityServiceRequest.fxml";
         }
         else if(e.getSource() == SanitationServices) {
             serviceFXML = "sanitationServiceRequest.fxml";
