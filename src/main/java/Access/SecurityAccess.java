@@ -31,10 +31,10 @@ public class SecurityAccess extends DBAccess{
      * adds a new religious request to the database
      *
      */
-    public void makeRequest(String desc, String location, String name, String type){
+    public void makeRequest(String desc, String location, String name, String type, String threatLevel){
         String sql = "insert into securityRequest(" +
-                "comment, name/identifier, location, creationTime, creationDate, type)" +
-                "values (?, ?, ?, ?, ?, ?)";
+                "comment, identifiers, location, creationTime, creationDate, type, threatLevel)" +
+                "values (?, ?, ?, ?, ?, ?, ?)";
 
         try (Connection conn = this.connect();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
@@ -45,6 +45,7 @@ public class SecurityAccess extends DBAccess{
             pstmt.setInt(4, Integer.parseInt(tdf.format(date.getTime())));
             pstmt.setString(5, sdf.format(date));
             pstmt.setString(6, type);
+            pstmt.setString(7, threatLevel);
             pstmt.executeUpdate();
         } catch (SQLException e) {
             System.out.println(e.getMessage());
@@ -99,11 +100,12 @@ public class SecurityAccess extends DBAccess{
                     data.add(Integer.toString(rs.getInt("creationTime")));
                     data.add(Integer.toString(rs.getInt("completionTime")));
                     data.add(rs.getString("comment"));
-                    data.add(rs.getString("name/identifier"));
+                    data.add(rs.getString("identifiers"));
                     data.add(rs.getString("type"));
                     data.add(rs.getString("creationDate"));
                     data.add(rs.getString("completionDate"));
-                    nodeRoot = new TreeItem<>(new ServiceRequestTable(data.get(0), data.get(1), data.get(2), 5, data.get(3), data.get(4), data.get(5), data.get(6), data.get(7), data.get(8), data.get(9), data.get(10)));
+                    data.add(rs.getString("threatLevel"));
+                    nodeRoot = new TreeItem<>(new ServiceRequestTable(data.get(0), data.get(1), data.get(2), data.get(3), 5, data.get(4), data.get(5), data.get(6), data.get(7), data.get(8), data.get(9), data.get(10), data.get(11)));
                 }
                 count++;
             }

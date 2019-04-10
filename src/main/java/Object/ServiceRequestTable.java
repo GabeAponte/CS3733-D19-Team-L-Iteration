@@ -31,6 +31,7 @@ public class ServiceRequestTable  {
     String personDesc;
     String denomination;
     String name;
+    String threatLevel;
 
     //sanitation
     public ServiceRequestTable(String requestID, String assignedEmployee, String fulfilled, String location, int k, String creationTime, String completionTime, String comment, String type, String urgenecyLevel, String creationDate, String completionDate) {
@@ -189,7 +190,7 @@ public class ServiceRequestTable  {
     }
 
     //securityRequest
-    public ServiceRequestTable(String requestID, String assignedEmployee, String fulfilled, int k, String location, String creationTime, String completionTime, String comment, String name, String type, String creationDate, String completionDate) {
+    public ServiceRequestTable(String requestID, String assignedEmployee, String fulfilled, String location, int k,String creationTime, String completionTime, String comment, String name, String type, String threatLevel, String creationDate, String completionDate) {
         this.requestID = requestID;
         this.assignedEmployee = assignedEmployee;
         this.fulfilled = fulfilled;
@@ -201,6 +202,7 @@ public class ServiceRequestTable  {
         this.location = location;
         this.type = type;
         this.name = name;
+        this.threatLevel = threatLevel;
     }
 
 
