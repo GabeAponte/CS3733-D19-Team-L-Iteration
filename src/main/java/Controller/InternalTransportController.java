@@ -72,7 +72,9 @@ public class InternalTransportController {
 
                         Parent sceneMain = loader.load();
                         HomeScreenController controller = loader.<HomeScreenController>getController();
+                        single.setLastTime();
                         controller.displayPopup();
+                        single.setLastTime();
 
                         Stage thisStage = (Stage) commentBox.getScene().getWindow();
 
@@ -147,6 +149,7 @@ public class InternalTransportController {
     private void submitPressed() throws IOException{
         timeout.stop();
         Singleton single = Singleton.getInstance();
+        single.setLastTime();
         Location startNode = single.lookup.get(startBox.getValue().getLocID());
         Location endNode = single.lookup.get(endBox.getValue().getLocID());
         String comment = commentBox.getText();
@@ -167,6 +170,9 @@ public class InternalTransportController {
 
     @FXML
     private void backPressed() throws IOException {
+        timeout.stop();
+        Singleton single = Singleton.getInstance();
+        single.setLastTime();
         FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("ServiceRequest.fxml"));
 
         Parent sceneMain = loader.load();

@@ -76,7 +76,9 @@ public class FloristDeliveryController {
                         FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("HospitalHome.fxml"));
                         Parent sceneMain = loader.load();
                         HomeScreenController controller = loader.<HomeScreenController>getController();
+                        single.setLastTime();
                         controller.displayPopup();
+                        single.setLastTime();
                         Stage thisStage = (Stage) receiverName.getScene().getWindow();
 
                         Scene newScene = new Scene(sceneMain);
@@ -110,13 +112,14 @@ public class FloristDeliveryController {
         single.setLastTime();
         ServiceRequestAccess sra = new ServiceRequestAccess();
         sra.makeFloristRequest(comment.getText(), receiverName.getText(), Location.getText(), flowerName.getText());
-        System.out.println("Submit Pressed");
         backPressed();
     }
 
     @FXML
     protected void backPressed() throws IOException {
         timeout.stop();
+        Singleton single = Singleton.getInstance();
+        single.setLastTime();
         FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("ServiceRequest.fxml"));
 
         Parent sceneMain = loader.load();

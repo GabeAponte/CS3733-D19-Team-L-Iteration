@@ -7,6 +7,7 @@ import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXDatePicker;
 import com.jfoenix.controls.JFXTimePicker;
+import com.sun.xml.internal.bind.v2.runtime.unmarshaller.XsiNilLoader;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.collections.FXCollections;
@@ -111,7 +112,9 @@ public class BookRoomController {
 
                         Parent sceneMain = loader.load();
                         HomeScreenController controller = loader.<HomeScreenController>getController();
+                        single.setLastTime();
                         controller.displayPopup();
+                        single.setLastTime();
 
                         Stage thisStage = (Stage) endTime.getScene().getWindow();
 
@@ -140,7 +143,6 @@ public class BookRoomController {
             loader = new FXMLLoader(getClass().getClassLoader().getResource("AdminLoggedInHome.fxml"));
         }
         Parent sceneMain = loader.load();
-        //LoggedInHomeController controller = loader.<LoggedInHomeController>getController();
         Stage theStage = (Stage) bookRoomBack.getScene().getWindow();
         Scene scene = new Scene(sceneMain);
         theStage.setScene(scene);
@@ -148,9 +150,11 @@ public class BookRoomController {
 
     @FXML
     private void switchToTable() throws IOException{
+        timeout.stop();
+        Singleton single = Singleton.getInstance();
+        single.setLastTime();
         FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("BookRoom2.fxml"));
         Parent sceneMain = loader.load();
-        BookRoom2Controller controller = loader.<BookRoom2Controller>getController();
         Stage theStage = (Stage) viewSchedule.getScene().getWindow();
         Scene scene = new Scene(sceneMain);
         theStage.setScene(scene);
@@ -299,6 +303,8 @@ public class BookRoomController {
 
     @FXML
     public void displayOccupiedRooms(){
+        Singleton single = Singleton.getInstance();
+        single.setLastTime();
         for(int i = 0; i< reverseListOfRooms.size(); i++){
             System.out.println("!");
             if(reverseListOfRooms.get(i).toString().equals("Classroom 1 (Computer)")){
@@ -331,7 +337,7 @@ public class BookRoomController {
         double scaleRatio = Math.min(roomImage.getFitWidth()/roomImage.getImage().getWidth(), roomImage.getFitHeight()/roomImage.getImage().getHeight());
         Circle c = new Circle();
 
-        System.out.println(x*scaleRatio);
+        //System.out.println(x*scaleRatio);
 
         c.setCenterX(x*scaleRatio);
         c.setCenterY(y*scaleRatio);

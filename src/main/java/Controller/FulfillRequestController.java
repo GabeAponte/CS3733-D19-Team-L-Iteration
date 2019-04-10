@@ -40,9 +40,6 @@ public class FulfillRequestController {
     @FXML
     private JFXComboBox<String> staffMember;
 
-    //@FXML
-    //private Label errorLabel;
-
     private int rid;
     private String table = "";
     @SuppressWarnings("Duplicates")
@@ -67,7 +64,9 @@ public class FulfillRequestController {
 
                         Parent sceneMain = loader.load();
                         HomeScreenController controller = loader.<HomeScreenController>getController();
+                        single.setLastTime();
                         controller.displayPopup();
+                        single.setLastTime();
 
                         Stage thisStage = (Stage) submit.getScene().getWindow();
 
@@ -89,6 +88,8 @@ public class FulfillRequestController {
      */
     private void backPressed() throws IOException {
         timeout.stop();
+        Singleton single = Singleton.getInstance();
+        single.setLastTime();
         FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("ActiveServiceRequests.fxml"));
         Parent roots = loader.load();
 
@@ -107,6 +108,7 @@ public class FulfillRequestController {
 
     public void setRid(int rid, String table){
         Singleton single = Singleton.getInstance();
+        single.setLastTime();
         this.rid = rid;
         if(table.equals("Religious")){
             this.table = "religiousRequest";
@@ -170,6 +172,8 @@ public class FulfillRequestController {
 
     @FXML
     private void submitPressed() throws IOException{
+        Singleton single = Singleton.getInstance();
+        single.setLastTime();
         ServiceRequestAccess sra = new ServiceRequestAccess();
         sra.assignEmployee(this.rid, staffMember.getValue().toString(), this.table);
         if(fulfill.isSelected()){
@@ -189,6 +193,8 @@ public class FulfillRequestController {
      */
     private void SwitchToAdminServiceRequestTable() throws IOException {
         timeout.stop();
+        Singleton single = Singleton.getInstance();
+        single.setLastTime();
         FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("ActiveServiceRequests.fxml"));
         Parent roots = loader.load();
 

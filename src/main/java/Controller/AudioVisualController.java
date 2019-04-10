@@ -69,7 +69,9 @@ public class AudioVisualController {
                         FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("HospitalHome.fxml"));
                         Parent sceneMain = loader.load();
                         HomeScreenController controller = loader.<HomeScreenController>getController();
+                        single.setLastTime();
                         controller.displayPopup();
+                        single.setLastTime();
                         Stage thisStage = (Stage) Type.getScene().getWindow();
 
                         Scene newScene = new Scene(sceneMain);
@@ -105,13 +107,14 @@ public class AudioVisualController {
         single.setLastTime();
         ServiceRequestAccess sra = new ServiceRequestAccess();
         sra.makeAudioRequest(Description.getText(), Name.getText(), Location.getText(), Type.getValue());
-        System.out.println("Submit Pressed");
         backPressed();
     }
 
     @FXML
     protected void backPressed() throws IOException {
         timeout.stop();
+        Singleton single = Singleton.getInstance();
+        single.setLastTime();
         FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("ServiceRequest.fxml"));
         Parent sceneMain = loader.load();
 
