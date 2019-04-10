@@ -1039,6 +1039,13 @@ public class ActiveServiceRequestsController {
                 return new ReadOnlyObjectWrapper(cellData.getValue().getValue());
             });
 
+            field2.setCellValueFactory(cellData -> {
+                if (cellData.getValue().getValue() instanceof ServiceRequestTable) {
+                    return new ReadOnlyObjectWrapper(cellData.getValue().getValue().getName());
+                }
+                return new ReadOnlyObjectWrapper(cellData.getValue().getValue());
+            });
+
             comment.setCellValueFactory(cellData -> {
                 if (cellData.getValue().getValue() instanceof ServiceRequestTable) {
                     return new ReadOnlyObjectWrapper(cellData.getValue().getValue().getComment());
@@ -1054,12 +1061,14 @@ public class ActiveServiceRequestsController {
             });
 
             field1.setText("Identifier");
+            field2.setText("ThreatLevel");
             activeRequests.getColumns().clear();
             activeRequests.getColumns().add(timeRequested);
             activeRequests.getColumns().add(dateRequested);
             activeRequests.getColumns().add(hi);
             activeRequests.getColumns().add(type);
             activeRequests.getColumns().add(field1);
+            activeRequests.getColumns().add(field2);
             activeRequests.getColumns().add(comment);
             activeRequests.getColumns().add(assignedEmployee);
             activeRequests.setRoot(root);
