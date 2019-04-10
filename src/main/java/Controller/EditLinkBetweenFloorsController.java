@@ -381,7 +381,7 @@ public class EditLinkBetweenFloorsController {
         Singleton single = Singleton.getInstance();
         single.setLastTime();
         if (Filter.getValue() != null) {
-            System.out.println(Filter);
+            //System.out.println(Filter);
             if (Filter.getValue().equals("Stairs")) {
                 type = "STAI";
             } else if (Filter.getValue().equals("Restrooms")) {
@@ -664,7 +664,7 @@ public class EditLinkBetweenFloorsController {
                         node2Name.setText(toConnectLoc.getLocID());
                     }
                     else {
-                        System.out.println("QUERY FAILED");
+                        //System.out.println("QUERY FAILED");
                     }
                 }
 

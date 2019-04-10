@@ -189,7 +189,7 @@
                                                         <Font size="15.0" />
                                                     </font>
                                                 </Label>
-                                                <JFXComboBox fx:id="edgeDropDown" focusColor="#f5d96b" onAction="#selectedEdge" promptText="Select or Make a Node" styleClass="jfx-combobox" stylesheets="@modify-prompt-text.css" unFocusColor="WHITE" />
+                                                <JFXComboBox fx:id="edgeDropDown" focusColor="#f5d96b" onAction="#selectedEdge" prefHeight="44.0" prefWidth="218.0" promptText="Select or Make a Node" styleClass="jfx-combobox" stylesheets="@size.css" unFocusColor="WHITE" />
                                                 <JFXButton fx:id="deleteEdge" buttonType="RAISED" onAction="#deleteEdgePress" ripplerFill="WHITE" text="Edge Delete" textFill="WHITE">
                                                     <font>
                                                         <Font name="Times New Roman" size="20.0" />

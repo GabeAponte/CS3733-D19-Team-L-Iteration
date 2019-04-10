@@ -371,8 +371,7 @@ public class EditLocationController {
             }
             UpdateLocationThread ul = new UpdateLocationThread();
             ul.start();
-            single.setData();
-            System.out.println(single.lookup.get("GHALL012L2").getEdges());
+            //System.out.println(single.lookup.get("GHALL012L2").getEdges());
             populateEdges(focusNode);
             deleteEdge.setDisable(true);
             edgeDropDown.setValue(null);
@@ -790,6 +789,7 @@ public class EditLocationController {
                     nodeInfoShort.setText("" + focusNode.getShortName());
                     populateEdges(focusNode);
                     deleteNode.setDisable(false);
+                    nodeInfoID.setDisable(true);
 
                 } else {
                     nodeInfoID.setText("");
@@ -802,6 +802,7 @@ public class EditLocationController {
                     nodeInfoShort.setText("");
                     double scaleRatio = Math.min(Map.getFitWidth() / Map.getImage().getWidth(),Map.getFitHeight()/Map.getImage().getHeight());
                     deleteNode.setDisable(true);
+                    nodeInfoID.setDisable(false);
 
                 //Setting the properties of the circle
                 thisCircle.setCenterX((mousePress.getX() - point.getX()) * scaleRatio * sceneGestures.getImageScale());
