@@ -76,7 +76,6 @@
                         <Insets left="200.0" right="200.0" />
                      </GridPane.margin>
                      <stylesheets>
-                        <URL value="@modify-prompt-text.css" />
                         <URL value="@size.css" />
                      </stylesheets>
                   </JFXTextArea>
@@ -91,7 +90,6 @@
                   <JFXComboBox fx:id="device" onAction="#deviceSelected" prefHeight="43.0" prefWidth="434.0" promptText="Select Device" stylesheets="@size.css" GridPane.rowIndex="1" />
                   <JFXComboBox fx:id="problem" prefHeight="43.0" prefWidth="434.0" promptText="Select the Problem" GridPane.columnIndex="1" GridPane.rowIndex="1">
                      <stylesheets>
-                        <URL value="@modify-prompt-text.css" />
                         <URL value="@size.css" />
                      </stylesheets></JFXComboBox>
                   <JFXComboBox fx:id="floor" onAction="#floorSelected" prefHeight="43.0" prefWidth="434.0" promptText="Select Floor" stylesheets="@size.css" GridPane.rowIndex="3" />

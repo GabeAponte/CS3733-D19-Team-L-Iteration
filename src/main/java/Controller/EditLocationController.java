@@ -46,10 +46,10 @@ public class EditLocationController {
     Button backButton;
 
     @FXML
-    ComboBox<Location> edgeDropDown;
+    Button downloadNode;
 
     @FXML
-    Button downloadNode;
+    ComboBox<Location> edgeDropDown;
 
     @FXML
     Button downloadEdge;
@@ -62,9 +62,6 @@ public class EditLocationController {
 
     @FXML
     Button addNode;
-
-    @FXML
-    Button addEdge;
 
     @FXML
     Button deleteNode;
@@ -117,6 +114,7 @@ public class EditLocationController {
     private JFXTextField nodeInfoShort;
 
     @FXML Button SubmitButton;
+    @FXML Button ButtonLinkBetweenScreens;
 
     @FXML
     private ImageView Map;
@@ -243,6 +241,10 @@ public class EditLocationController {
     public void initialize(){
         Singleton single = Singleton.getInstance();
         single.setLastTime();
+        addNode.setDisable(true);
+        deleteNode.setDisable(true);
+        deleteEdge.setDisable(true);
+        SubmitButton.setDisable(true);
         timeout = new Timeline(new KeyFrame(Duration.seconds(2), new EventHandler<ActionEvent>() {
 
             @Override
@@ -260,7 +262,7 @@ public class EditLocationController {
                         HomeScreenController controller = loader.<HomeScreenController>getController();
                         controller.displayPopup();
 
-                        Stage thisStage = (Stage) addEdge.getScene().getWindow();
+                        Stage thisStage = (Stage) backButton.getScene().getWindow();
 
                         Scene newScene = new Scene(sceneMain);
                         thisStage.setScene(newScene);
@@ -440,11 +442,10 @@ public class EditLocationController {
         //this is the dialogue popup
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Delete selected node?", ButtonType.YES, ButtonType.NO);
         alert.showAndWait();
-        single = Singleton.getInstance();
         if (alert.getResult() == ButtonType.YES) {
             single.lookup.get(focusNode.getLocID()).restitch();
             //delete the node here
-            NodesAccess na = new NodesAccess();
+            na = new NodesAccess();
             na.deleteNode(focusNode.getLocID());
             UpdateLocationThread ul = new UpdateLocationThread();
             ul.start();
@@ -515,6 +516,49 @@ public class EditLocationController {
     }
 
     @FXML
+    private void downloadNodes() {
+        Singleton single = Singleton.getInstance();
+        single.setLastTime();
+        NodesAccess na = new NodesAccess();
+        na.writeTableIntoCSV("");
+    }
+
+    @FXML
+    private void downloadEdges() {
+        Singleton single = Singleton.getInstance();
+        single.setLastTime();
+        EdgesAccess ea = new EdgesAccess();
+        ea.writeTableIntoCSV("");
+    }
+
+
+    /**
+     * Grace made these
+     *
+     */
+    private String floorNum() {
+
+        if(floorSelected == 3){
+            return "3";
+        }
+        else if(floorSelected == 2){
+            return "2";
+        }
+        else if(floorSelected == 1){
+            return "1";
+        }
+        else if(floorSelected == 0){
+            return "G";
+        }
+        else if(floorSelected == -1){
+            return "L1";
+        }
+        else {
+            return "L2";
+        }
+    }
+
+    @FXML
     private void nodeDisplayPress(){
         Singleton single = Singleton.getInstance();
         single.setLastTime();
@@ -549,101 +593,13 @@ public class EditLocationController {
             SubmitButton.setDisable(true);
         }
         else {
-            addNode.setDisable(false);
+            if (!single.lookup.containsKey(nodeInfoID.getText())) {
+                addNode.setDisable(false);
+            }
             SubmitButton.setDisable(false);
         }
     }
 
-    @FXML
-    private void downloadNodes() {
-        Singleton single = Singleton.getInstance();
-        single.setLastTime();
-        NodesAccess na = new NodesAccess();
-        na.writeTableIntoCSV("");
-    }
-
-    @FXML
-    private void downloadEdges() {
-        Singleton single = Singleton.getInstance();
-        single.setLastTime();
-        EdgesAccess ea = new EdgesAccess();
-        ea.writeTableIntoCSV("");
-    }
-
-    private void initializeTable(NodesAccess na, EdgesAccess ea) {
-        /*
-        ArrayList<String> edgeList;
-        int count;
-        count = 0;
-        while (count < na.countRecords()) {
-            ArrayList<String> arr = na.getNodes(count);
-            Location testx = new Location(arr.get(0), Integer.parseInt(arr.get(1)), Integer.parseInt(arr.get(2)), (arr.get(3)), arr.get(4), arr.get(5), arr.get(6), arr.get(7));
-            //only add the node if it hasn't been done yet
-            if (!(lookup.containsKey(arr.get(0)))) {
-                lookup.put((arr.get(0)), testx);
-                nodeData.add(testx);
-            }
-            count++;
-        }
-        count = 0;
-        while (count < ea.countRecords()) {
-            edgeList = ea.getEdges(count);
-            if (!edgeList.get(0).equals("edgeID")) {
-                Edge testy = new Edge(edgeList.get(0), lookup.get(edgeList.get(1)), lookup.get(edgeList.get(2)));
-                edgeData.add(testy);
-            }
-            count++;
-        }
-        */
-    }
-
-    private void populateEdges(Location x) {
-        ObservableList<Location> locsToAdd = FXCollections.observableArrayList();
-        Location l = single.lookup.get(x.getLocID());
-        for (Edge e: l.getEdges()) {
-            //System.out.println(e.getEdgeID());
-            if (!e.getStartNode().equals(l)) {
-                locsToAdd.add(e.getStartNode());
-            }
-            else {
-                locsToAdd.add(e.getEndNode());
-            }
-        }
-        edgeDropDown.setItems(locsToAdd);
-        if (!locsToAdd.isEmpty()) {
-            edgeDropDown.setValue(locsToAdd.get(0));
-        }
-        else {
-            edgeDropDown.setPromptText("NO EDGES");
-        }
-
-    }
-
-    /**
-     * Grace made these
-     *
-     */
-    private String floorNum() {
-
-        if(floorSelected == 3){
-            return "3";
-        }
-        else if(floorSelected == 2){
-            return "2";
-        }
-        else if(floorSelected == 1){
-            return "1";
-        }
-        else if(floorSelected == 0){
-            return "G";
-        }
-        else if(floorSelected == -1){
-            return "L1";
-        }
-        else {
-            return "L2";
-        }
-    }
 
     private void drawNodes(){
         double scaleRatio = Math.min(Map.getFitWidth() / Map.getImage().getWidth(), Map.getFitHeight() / Map.getImage().getHeight());
@@ -689,6 +645,12 @@ public class EditLocationController {
         double beforeRatio = Math.min(Map.getFitWidth()/Map.getImage().getWidth(), Map.getFitHeight()/Map.getImage().getHeight());
 
         double scaleRatio;
+        if(newSize >= oldSize){
+            scaleRatio = Math.max(beforeRatio, newRatio);
+        }
+        else{
+            scaleRatio = Math.max(beforeRatio, newRatio);
+        }
 
         scaleRatio = newRatio;
 
@@ -728,8 +690,8 @@ public class EditLocationController {
             thisCircle.setFill(Color.web("GREEN"));
         }
     }
-        
-        
+
+
     @FXML
     private void nodeInfoIDPress(){
         Singleton single = Singleton.getInstance();
@@ -783,6 +745,13 @@ public class EditLocationController {
 
     @FXML
     private void submitButtonPressed() {
+        na.updateNode(nodeInfoID.getText(), "xcoord", nodeInfoX.getText());
+        na.updateNode(nodeInfoID.getText(), "ycoord", nodeInfoY.getText());
+        na.updateNode(nodeInfoID.getText(), "floor", nodeInfoFloor.getText());
+        na.updateNode(nodeInfoID.getText(), "building", nodeInfoBuilding.getText());
+        na.updateNode(nodeInfoID.getText(), "nodeType", nodeInfoType.getText());
+        na.updateNode(nodeInfoID.getText(), "longName", nodeInfoLong.getText());
+        na.updateNode(nodeInfoID.getText(), "shortName", nodeInfoShort.getText());
         UpdateLocationThread ul = new UpdateLocationThread();
         ul.start();
     }
@@ -812,9 +781,10 @@ public class EditLocationController {
 
         @Override
         public void handle(MouseEvent event) {
-            Singleton single = Singleton.getInstance();
+            single = Singleton.getInstance();
             single.setLastTime();
-            mousePress = sceneGestures.imageViewToImage(Map, new Point2D(event.getX(), event.getY()));
+            Point2D mousePress = sceneGestures.imageViewToImage(Map, new Point2D(event.getX(), event.getY()));
+            sceneGestures.setMouseDown(mousePress);
             if(mousePress.getX() == sceneGestures.getMouseDown().getValue().getX() && mousePress.getY() == sceneGestures.getMouseDown().getValue().getY()) {
                 if (mousePress.getX() <= 5000 && mousePress.getY() <= 3400) {
                     int getX = (int) mousePress.getX();
@@ -833,6 +803,8 @@ public class EditLocationController {
                         nodeInfoShort.setText("" + focusNode.getShortName());
                         populateEdges(focusNode);
                         nodeInfoID.setDisable(true);
+                        deleteNode.setDisable(false);
+
                     } else {
                         nodeInfoID.setText("");
                         nodeInfoX.setText("" + (int) mousePress.getX());
@@ -843,6 +815,8 @@ public class EditLocationController {
                         nodeInfoLong.setText("");
                         nodeInfoShort.setText("");
                         circles.remove(thisCircle);
+                        nodeInfoID.setDisable(false);
+                        deleteNode.setDisable(true);
                         double scaleRatio = Math.min(Map.getFitWidth() / Map.getImage().getWidth(), Map.getFitHeight() / Map.getImage().getHeight());
 
                         //System.out.println(sceneGestures.getImageScale());
@@ -856,7 +830,6 @@ public class EditLocationController {
                         thisCircle.setFill(Color.web("GREEN"));
 
                         circles.add(thisCircle);
-                        nodeInfoID.setDisable(false);
                     }
                 }
             }
@@ -867,10 +840,32 @@ public class EditLocationController {
         return onMouseClickedEventHandler;
     }
 
+    private void populateEdges(Location x) {
+        ObservableList<Location> locsToAdd = FXCollections.observableArrayList();
+        Location l = single.lookup.get(x.getLocID());
+        for (Edge e: l.getEdges()) {
+            //System.out.println(e.getEdgeID());
+            if (!e.getStartNode().equals(l)) {
+                locsToAdd.add(e.getStartNode());
+            }
+            else {
+                locsToAdd.add(e.getEndNode());
+            }
+        }
+        edgeDropDown.setItems(locsToAdd);
+        if (!locsToAdd.isEmpty()) {
+            edgeDropDown.setValue(locsToAdd.get(0));
+        }
+        else {
+            edgeDropDown.setPromptText("NO EDGES");
+        }
+
+    }
+
     @FXML
     private void selectedEdge() {
 
         deleteEdge.setDisable(false);
     }
-}
 
+}

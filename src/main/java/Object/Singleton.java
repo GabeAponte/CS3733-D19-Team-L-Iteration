@@ -40,7 +40,7 @@ public class Singleton {
         kioskID = "";
         typePathfind = 1;
         isAdmin = false;
-        timeoutSec = 50000000;
+        timeoutSec = 30000;
         doPopup = true;
     }
 
