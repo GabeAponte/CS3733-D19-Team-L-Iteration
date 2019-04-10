@@ -325,18 +325,17 @@ public class PathFindingController {
             public void handle(ActionEvent event) {
                 if((System.currentTimeMillis() - single.getLastTime()) > single.getTimeoutSec()){
                     try{
+                        single.setDoPopup(true);
+                        FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("HospitalHome.fxml"));
+                        Parent sceneMain = loader.load();
+                        if(single.isLoggedIn()){
+                            HomeScreenController controller = loader.<HomeScreenController>getController();
+                            controller.displayPopup();
+                        }
                         single.setLastTime();
                         single.setLoggedIn(false);
                         single.setUsername("");
                         single.setIsAdmin(false);
-                        single.setDoPopup(true);
-                        System.out.println("transitioning");
-                        FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("HospitalHome.fxml"));
-                        System.out.println("Loading");
-                        Parent sceneMain = loader.load();
-                        System.out.println("hey");
-                        HomeScreenController controller = loader.<HomeScreenController>getController();
-                        controller.displayPopup();
                         Stage thisStage = (Stage) Up.getScene().getWindow();
 
                         Scene newScene = new Scene(sceneMain);
