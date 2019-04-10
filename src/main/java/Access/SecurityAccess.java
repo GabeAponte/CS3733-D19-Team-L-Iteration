@@ -102,9 +102,9 @@ public class SecurityAccess extends DBAccess{
                     data.add(rs.getString("comment"));
                     data.add(rs.getString("identifiers"));
                     data.add(rs.getString("type"));
+                    data.add(rs.getString("threatLevel"));
                     data.add(rs.getString("creationDate"));
                     data.add(rs.getString("completionDate"));
-                    data.add(rs.getString("threatLevel"));
                     nodeRoot = new TreeItem<>(new ServiceRequestTable(data.get(0), data.get(1), data.get(2), data.get(3), 5, data.get(4), data.get(5), data.get(6), data.get(7), data.get(8), data.get(9), data.get(10), data.get(11)));
                 }
                 count++;

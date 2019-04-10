@@ -1,6 +1,10 @@
 package Object;
 
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 public class ServiceRequestTable  {
     String requestID;
     String assignedEmployee;
@@ -33,14 +37,37 @@ public class ServiceRequestTable  {
     String name;
     String threatLevel;
 
+
     //sanitation
     public ServiceRequestTable(String requestID, String assignedEmployee, String fulfilled, String location, int k, String creationTime, String completionTime, String comment, String type, String urgenecyLevel, String creationDate, String completionDate) {
+        int milTime = Integer.parseInt(creationTime);
+        int endMilTime = Integer.parseInt(completionTime);
+
+        Date startDate = null;
+        try {
+            startDate = new SimpleDateFormat("hhmm").parse(String.format("%04d", milTime));
+        } catch (
+                ParseException e) {
+            e.printStackTrace();
+        }
+        SimpleDateFormat startSimpleDate = new SimpleDateFormat("hh:mm a");
+        System.out.println(startSimpleDate.format(startDate));
+
+        Date endDate = null;
+        try {
+            endDate = new SimpleDateFormat("hhmm").parse(String.format("%04d", endMilTime));
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        SimpleDateFormat endSimpleDate = new SimpleDateFormat("hh:mm a");
+        System.out.println(startSimpleDate.format(endDate));
+
         this.requestID = requestID;
         this.assignedEmployee = assignedEmployee;
         this.fulfilled = fulfilled;
         this.comment = comment;
-        this.creationTime = creationTime;
-        this.completionTime = completionTime;
+        this.creationTime = startSimpleDate.format(startDate);
+        this.completionTime = endSimpleDate.format(endDate);
         this.creationDate = creationDate;
         this.completionDate = completionDate;
         this.location = location;
@@ -50,12 +77,34 @@ public class ServiceRequestTable  {
 
     //religious
     public ServiceRequestTable(String requestID, String assignedEmployee, String fulfilled, String location, String creationTime, String completionTime, String comment, String denomination, String type,  String name, String creationDate, String completionDate) {
+        int milTime = Integer.parseInt(creationTime);
+        int endMilTime = Integer.parseInt(completionTime);
+
+        Date startDate = null;
+        try {
+            startDate = new SimpleDateFormat("hhmm").parse(String.format("%04d", milTime));
+        } catch (
+                ParseException e) {
+            e.printStackTrace();
+        }
+        SimpleDateFormat startSimpleDate = new SimpleDateFormat("hh:mm a");
+        System.out.println(startSimpleDate.format(startDate));
+
+        Date endDate = null;
+        try {
+            endDate = new SimpleDateFormat("hhmm").parse(String.format("%04d", endMilTime));
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        SimpleDateFormat endSimpleDate = new SimpleDateFormat("hh:mm a");
+        System.out.println(startSimpleDate.format(endDate));
+
         this.requestID = requestID;
         this.assignedEmployee = assignedEmployee;
         this.fulfilled = fulfilled;
         this.comment = comment;
-        this.creationTime = creationTime;
-        this.completionTime = completionTime;
+        this.creationTime = startSimpleDate.format(startDate);
+        this.completionTime = endSimpleDate.format(endDate);
         this.creationDate = creationDate;
         this.completionDate = completionDate;
         this.location = location;
@@ -68,12 +117,34 @@ public class ServiceRequestTable  {
 
     //prescription
     public ServiceRequestTable(String requestID, String assignedEmployee, String fulfilled, String location, String creationTime, String completionTime, String comment, String medicineType, String destination, String deliveryTime, String ammount, String creationDate, String completionDate) {
+        int milTime = Integer.parseInt(creationTime);
+        int endMilTime = Integer.parseInt(completionTime);
+
+        Date startDate = null;
+        try {
+            startDate = new SimpleDateFormat("hhmm").parse(String.format("%04d", milTime));
+        } catch (
+                ParseException e) {
+            e.printStackTrace();
+        }
+        SimpleDateFormat startSimpleDate = new SimpleDateFormat("hh:mm a");
+        System.out.println(startSimpleDate.format(startDate));
+
+        Date endDate = null;
+        try {
+            endDate = new SimpleDateFormat("hhmm").parse(String.format("%04d", endMilTime));
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        SimpleDateFormat endSimpleDate = new SimpleDateFormat("hh:mm a");
+        System.out.println(startSimpleDate.format(endDate));
+
         this.requestID = requestID;
         this.assignedEmployee = assignedEmployee;
         this.fulfilled = fulfilled;
         this.comment = comment;
-        this.creationTime = creationTime;
-        this.completionTime = completionTime;
+        this.creationTime = startSimpleDate.format(startDate);
+        this.completionTime = endSimpleDate.format(endDate);
         this.creationDate = creationDate;
         this.completionDate = completionDate;
         this.location = location;
@@ -84,12 +155,34 @@ public class ServiceRequestTable  {
     }
     //maintenanceRequest
     public ServiceRequestTable(String requestID, int k, String assignedEmployee, String fulfilled, String location, String creationTime, String completionTime, String comment, String type, String isHazard, String creationDate, String completionDate) {
+        int milTime = Integer.parseInt(creationTime);
+        int endMilTime = Integer.parseInt(completionTime);
+
+        Date startDate = null;
+        try {
+            startDate = new SimpleDateFormat("hhmm").parse(String.format("%04d", milTime));
+        } catch (
+                ParseException e) {
+            e.printStackTrace();
+        }
+        SimpleDateFormat startSimpleDate = new SimpleDateFormat("hh:mm a");
+        System.out.println(startSimpleDate.format(startDate));
+
+        Date endDate = null;
+        try {
+            endDate = new SimpleDateFormat("hhmm").parse(String.format("%04d", endMilTime));
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        SimpleDateFormat endSimpleDate = new SimpleDateFormat("hh:mm a");
+        System.out.println(startSimpleDate.format(endDate));
+
         this.requestID = requestID;
         this.assignedEmployee = assignedEmployee;
         this.fulfilled = fulfilled;
         this.comment = comment;
-        this.creationTime = creationTime;
-        this.completionTime = completionTime;
+        this.creationTime = startSimpleDate.format(startDate);
+        this.completionTime = endSimpleDate.format(endDate);
         this.creationDate = creationDate;
         this.completionDate = completionDate;
         this.location = location;
@@ -98,12 +191,34 @@ public class ServiceRequestTable  {
     }
     //Language
     public ServiceRequestTable(String requestID, String assignedEmployee, String fulfilled, int k, String location, String creationTime, String completionTime, String comment, String language, String level, String interpreters, String creationDate, String completionDate) {
+        int milTime = Integer.parseInt(creationTime);
+        int endMilTime = Integer.parseInt(completionTime);
+
+        Date startDate = null;
+        try {
+            startDate = new SimpleDateFormat("hhmm").parse(String.format("%04d", milTime));
+        } catch (
+                ParseException e) {
+            e.printStackTrace();
+        }
+        SimpleDateFormat startSimpleDate = new SimpleDateFormat("hh:mm a");
+        System.out.println(startSimpleDate.format(startDate));
+
+        Date endDate = null;
+        try {
+            endDate = new SimpleDateFormat("hhmm").parse(String.format("%04d", endMilTime));
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        SimpleDateFormat endSimpleDate = new SimpleDateFormat("hh:mm a");
+        System.out.println(startSimpleDate.format(endDate));
+
         this.requestID = requestID;
         this.assignedEmployee = assignedEmployee;
         this.fulfilled = fulfilled;
         this.comment = comment;
-        this.creationTime = creationTime;
-        this.completionTime = completionTime;
+        this.creationTime = startSimpleDate.format(startDate);
+        this.completionTime = endSimpleDate.format(endDate);
         this.creationDate = creationDate;
         this.completionDate = completionDate;
         this.location = location;
@@ -114,12 +229,34 @@ public class ServiceRequestTable  {
 
     //IT
     public ServiceRequestTable(int k, String requestID, String assignedEmployee, String fulfilled, String location, String creationTime, String completionTime, String comment, String device, String problem, String creationDate, String completionDate) {
+        int milTime = Integer.parseInt(creationTime);
+        int endMilTime = Integer.parseInt(completionTime);
+
+        Date startDate = null;
+        try {
+            startDate = new SimpleDateFormat("hhmm").parse(String.format("%04d", milTime));
+        } catch (
+                ParseException e) {
+            e.printStackTrace();
+        }
+        SimpleDateFormat startSimpleDate = new SimpleDateFormat("hh:mm a");
+        System.out.println(startSimpleDate.format(startDate));
+
+        Date endDate = null;
+        try {
+            endDate = new SimpleDateFormat("hhmm").parse(String.format("%04d", endMilTime));
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        SimpleDateFormat endSimpleDate = new SimpleDateFormat("hh:mm a");
+        System.out.println(startSimpleDate.format(endDate));
+
         this.requestID = requestID;
         this.assignedEmployee = assignedEmployee;
         this.fulfilled = fulfilled;
         this.comment = comment;
-        this.creationTime = creationTime;
-        this.completionTime = completionTime;
+        this.creationTime = startSimpleDate.format(startDate);
+        this.completionTime = endSimpleDate.format(endDate);
         this.creationDate = creationDate;
         this.completionDate = completionDate;
         this.location = location;
@@ -129,12 +266,34 @@ public class ServiceRequestTable  {
 
     //internal transportation
     public ServiceRequestTable(int k, String requestID, String assignedEmployee, String fulfilled, String creationTime, String completionTime,String comment, String startLocation, String endLocation, String type, String phoneNumber, String creationDate, String completionDate) {
+        int milTime = Integer.parseInt(creationTime);
+        int endMilTime = Integer.parseInt(completionTime);
+
+        Date startDate = null;
+        try {
+            startDate = new SimpleDateFormat("hhmm").parse(String.format("%04d", milTime));
+        } catch (
+                ParseException e) {
+            e.printStackTrace();
+        }
+        SimpleDateFormat startSimpleDate = new SimpleDateFormat("hh:mm a");
+        System.out.println(startSimpleDate.format(startDate));
+
+        Date endDate = null;
+        try {
+            endDate = new SimpleDateFormat("hhmm").parse(String.format("%04d", endMilTime));
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        SimpleDateFormat endSimpleDate = new SimpleDateFormat("hh:mm a");
+        System.out.println(startSimpleDate.format(endDate));
+
         this.requestID = requestID;
         this.assignedEmployee = assignedEmployee;
         this.fulfilled = fulfilled;
         this.comment = comment;
-        this.creationTime = creationTime;
-        this.completionTime = completionTime;
+        this.creationTime = startSimpleDate.format(startDate);
+        this.completionTime = endSimpleDate.format(endDate);
         this.creationDate = creationDate;
         this.completionDate = completionDate;
         this.type = type;
@@ -145,12 +304,34 @@ public class ServiceRequestTable  {
 
     //florist
     public ServiceRequestTable(String requestID, String assignedEmployee, int k, String fulfilled, String creationTime, String completionTime, String comment, String receiverName, String flowerName, String location, String creationDate, String completionDate) {
+        int milTime = Integer.parseInt(creationTime);
+        int endMilTime = Integer.parseInt(completionTime);
+
+        Date startDate = null;
+        try {
+            startDate = new SimpleDateFormat("hhmm").parse(String.format("%04d", milTime));
+        } catch (
+                ParseException e) {
+            e.printStackTrace();
+        }
+        SimpleDateFormat startSimpleDate = new SimpleDateFormat("hh:mm a");
+        System.out.println(startSimpleDate.format(startDate));
+
+        Date endDate = null;
+        try {
+            endDate = new SimpleDateFormat("hhmm").parse(String.format("%04d", endMilTime));
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        SimpleDateFormat endSimpleDate = new SimpleDateFormat("hh:mm a");
+        System.out.println(startSimpleDate.format(endDate));
+
         this.requestID = requestID;
         this.assignedEmployee = assignedEmployee;
         this.fulfilled = fulfilled;
         this.comment = comment;
-        this.creationTime = creationTime;
-        this.completionTime = completionTime;
+        this.creationTime = startSimpleDate.format(startDate);
+        this.completionTime = endSimpleDate.format(endDate);
         this.creationDate = creationDate;
         this.completionDate = completionDate;
         this.location = location;
@@ -160,12 +341,34 @@ public class ServiceRequestTable  {
 
     //externalTrans
     public ServiceRequestTable(String requestID, int k, String assignedEmployee, String fulfilled, String location, String creationTime, String completionTime, String comment, String type, String destination, String phoneNumber, String creationDate, String completionDate) {
+        int milTime = Integer.parseInt(creationTime);
+        int endMilTime = Integer.parseInt(completionTime);
+
+        Date startDate = null;
+        try {
+            startDate = new SimpleDateFormat("hhmm").parse(String.format("%04d", milTime));
+        } catch (
+                ParseException e) {
+            e.printStackTrace();
+        }
+        SimpleDateFormat startSimpleDate = new SimpleDateFormat("hh:mm a");
+        System.out.println(startSimpleDate.format(startDate));
+
+        Date endDate = null;
+        try {
+            endDate = new SimpleDateFormat("hhmm").parse(String.format("%04d", endMilTime));
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        SimpleDateFormat endSimpleDate = new SimpleDateFormat("hh:mm a");
+        System.out.println(startSimpleDate.format(endDate));
+
         this.requestID = requestID;
         this.assignedEmployee = assignedEmployee;
         this.fulfilled = fulfilled;
         this.comment = comment;
-        this.creationTime = creationTime;
-        this.completionTime = completionTime;
+        this.creationTime = startSimpleDate.format(startDate);
+        this.completionTime = endSimpleDate.format(endDate);
         this.creationDate = creationDate;
         this.completionDate = completionDate;
         this.location = location;
@@ -176,12 +379,34 @@ public class ServiceRequestTable  {
 
    //audio visual
    public ServiceRequestTable(String requestID, String assignedEmployee, String fulfilled, String location, String creationTime, String completionTime, String comment, String destination, String type, String creationDate, String completionDate) {
+       int milTime = Integer.parseInt(creationTime);
+       int endMilTime = Integer.parseInt(completionTime);
+
+       Date startDate = null;
+       try {
+           startDate = new SimpleDateFormat("hhmm").parse(String.format("%04d", milTime));
+       } catch (
+               ParseException e) {
+           e.printStackTrace();
+       }
+       SimpleDateFormat startSimpleDate = new SimpleDateFormat("hh:mm a");
+       System.out.println(startSimpleDate.format(startDate));
+
+       Date endDate = null;
+       try {
+           endDate = new SimpleDateFormat("hhmm").parse(String.format("%04d", endMilTime));
+       } catch (ParseException e) {
+           e.printStackTrace();
+       }
+       SimpleDateFormat endSimpleDate = new SimpleDateFormat("hh:mm a");
+       System.out.println(startSimpleDate.format(endDate));
+
         this.requestID = requestID;
         this.assignedEmployee = assignedEmployee;
         this.fulfilled = fulfilled;
         this.comment = comment;
-        this.creationTime = creationTime;
-        this.completionTime = completionTime;
+       this.creationTime = startSimpleDate.format(startDate);
+       this.completionTime = endSimpleDate.format(endDate);
         this.creationDate = creationDate;
         this.completionDate = completionDate;
         this.location = location;
@@ -191,12 +416,34 @@ public class ServiceRequestTable  {
 
     //securityRequest
     public ServiceRequestTable(String requestID, String assignedEmployee, String fulfilled, String location, int k,String creationTime, String completionTime, String comment, String name, String type, String threatLevel, String creationDate, String completionDate) {
+        int milTime = Integer.parseInt(creationTime);
+        int endMilTime = Integer.parseInt(completionTime);
+
+        Date startDate = null;
+        try {
+            startDate = new SimpleDateFormat("hhmm").parse(String.format("%04d", milTime));
+        } catch (
+                ParseException e) {
+            e.printStackTrace();
+        }
+        SimpleDateFormat startSimpleDate = new SimpleDateFormat("hh:mm a");
+        System.out.println(startSimpleDate.format(startDate));
+
+        Date endDate = null;
+        try {
+            endDate = new SimpleDateFormat("hhmm").parse(String.format("%04d", endMilTime));
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        SimpleDateFormat endSimpleDate = new SimpleDateFormat("hh:mm a");
+        System.out.println(startSimpleDate.format(endDate));
+
         this.requestID = requestID;
         this.assignedEmployee = assignedEmployee;
         this.fulfilled = fulfilled;
         this.comment = comment;
-        this.creationTime = creationTime;
-        this.completionTime = completionTime;
+        this.creationTime = startSimpleDate.format(startDate);
+        this.completionTime = endSimpleDate.format(endDate);
         this.creationDate = creationDate;
         this.completionDate = completionDate;
         this.location = location;

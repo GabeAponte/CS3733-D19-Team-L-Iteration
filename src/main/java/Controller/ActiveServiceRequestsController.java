@@ -1012,6 +1012,7 @@ public class ActiveServiceRequestsController {
 
             dateRequested.setCellValueFactory(cellData -> {
                 if (cellData.getValue().getValue() instanceof ServiceRequestTable) {
+                    System.out.println("Setcell factory date set");
                     return new ReadOnlyObjectWrapper(cellData.getValue().getValue().getCreationDate());
                 }
                 return new ReadOnlyObjectWrapper(cellData.getValue().getValue());
