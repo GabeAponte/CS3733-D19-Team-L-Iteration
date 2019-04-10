@@ -248,7 +248,7 @@ public class Location implements Comparable<Location>{
 
     public int convertToNum() {
         int fl;
-        if(floor.equals("G")){
+        if(floor.equals("L2")){
             fl = 0;
             return fl;
         }
@@ -256,7 +256,7 @@ public class Location implements Comparable<Location>{
             fl = 1;
             return fl;
         }
-        if(floor.equals("L2")){
+        if(floor.equals("G")){
             fl = 2;
             return fl;
         }

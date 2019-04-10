@@ -1,5 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import com.jfoenix.controls.*?>
+<?import java.lang.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.effect.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 <?import com.jfoenix.controls.JFXButton?>
 <?import com.jfoenix.controls.JFXToolbar?>
 <?import com.jfoenix.controls.JFXTreeTableView?>
@@ -16,9 +24,9 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
-
 <?import javafx.stage.Screen?>
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" style="-fx-background-color: #012D5A;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.EmployeeTableController">
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" style="-fx-background-color: #012D5A;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.EmployeeTableController">
     <children>
       <VBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
@@ -63,13 +71,13 @@
                         <Blend />
                      </effect>
                   </Label>
-                  <JFXTreeTableView fx:id="employees" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
+                  <JFXTreeTableView fx:id="employees" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" onMouseClicked="#SwitchToCreateEditAccount" style="-fx-border-color: F5D96B; -fx-border-radius: 5; -fx-border-width: 5;" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
                      <columns>
-                        <TreeTableColumn fx:id="ID" minWidth="0.0" prefWidth="225.0" text="ID" />
-                        <TreeTableColumn fx:id="name" prefWidth="350.0" text="Name" />
-                        <TreeTableColumn fx:id="department" minWidth="-1.0" prefWidth="250.0" resizable="false" text="Department" />
+                        <TreeTableColumn fx:id="ID" minWidth="0.0" prefWidth="147.0" text="ID" />
+                        <TreeTableColumn fx:id="firstName" prefWidth="246.0" text="First Name" />
+                        <TreeTableColumn fx:id="lastName" prefWidth="220.0" text="Last Name" />
+                        <TreeTableColumn fx:id="department" minWidth="-1.0" prefWidth="340.0" resizable="false" text="Department" />
                         <TreeTableColumn fx:id="position" minWidth="7.198272705078125" prefWidth="225.0" text="Position" />
-                        <TreeTableColumn fx:id="isAdmin" maxWidth="2000.0" minWidth="7.198272705078125" prefWidth="127.755615234375" text="Is Admin?" />
                      </columns>
                      <GridPane.margin>
                         <Insets left="50.0" right="50.0" />

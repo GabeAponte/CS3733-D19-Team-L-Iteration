@@ -8,6 +8,7 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -32,25 +33,35 @@ public class SuggestionBoxController {
     @FXML
     private Stage thestage;
 
-    @FXML
-    private Label error;
+    //@FXML
+    //private Label error;
 
     @FXML
     private Button SuggestionBack;
 
     public void initialize(){
         Singleton single = Singleton.getInstance();
+        single.setLastTime();
         timeout = new Timeline(new KeyFrame(Duration.seconds(2), new EventHandler<ActionEvent>() {
 
             @Override
             public void handle(ActionEvent event) {
-                System.out.println("checking if");
-                if((System.currentTimeMillis() - single.getLastTime()) > 10000){
-                    System.out.println("if successfull");
+                if((System.currentTimeMillis() - single.getLastTime()) > single.getTimeoutSec()){
                     try{
                         single.setLastTime();
-                        System.out.println("set time");
-                        backPressed();
+                        single.setLoggedIn(false);
+                        single.setUsername("");
+                        single.setIsAdmin(false);
+                        single.setDoPopup(true);
+                        FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("HospitalHome.fxml"));
+                        Parent sceneMain = loader.load();
+                        HomeScreenController controller = loader.<HomeScreenController>getController();
+                        controller.displayPopup();
+                        Stage thisStage = (Stage) submitFeedback.getScene().getWindow();
+
+                        Scene newScene = new Scene(sceneMain);
+                        thisStage.setScene(newScene);
+                        timeout.stop();
                     } catch (IOException io){
                         System.out.println(io.getMessage());
                     }
@@ -66,11 +77,14 @@ public class SuggestionBoxController {
      */
     private void backPressed() throws IOException {
         timeout.stop();
-        thestage = (Stage) SuggestionBack.getScene().getWindow();
-        AnchorPane root;
-        root = FXMLLoader.load(getClass().getClassLoader().getResource("HospitalHome.fxml"));
-        Scene scene = new Scene(root);
-        thestage.setScene(scene);
+        Singleton single = Singleton.getInstance();
+        single.setLastTime();
+        FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("HospitalHome.fxml"));
+        Parent sceneMain = loader.load();
+        Stage thisStage = (Stage) submitFeedback.getScene().getWindow();
+
+        Scene newScene = new Scene(sceneMain);
+        thisStage.setScene(newScene);
     }
 
     @FXML
@@ -79,17 +93,19 @@ public class SuggestionBoxController {
      * value is valid.
      */
     private void submitPressed() {
-        timeout.stop();
+        Singleton single = Singleton.getInstance();
+        single.setLastTime();
         SuggestionBasicAccess sga = new SuggestionBasicAccess();
 
         //Gabe - checks if the comment is nothing and that it isn't the prompt text
         if (feedbackComments.getText().trim().isEmpty() || feedbackComments.getText().equals("Type suggestions here")) {
-            error.setText("Please enter your feedback");
+            //timeout.stop();
+            //error.setText("Please enter your feedback");
 
         } else {
             //Gabe - valid suggestion and is added to database
             sga.addSuggestion(feedbackComments.getText());
-            error.setText("Thank you for your feedback");
+            //error.setText("Thank you for your feedback");
             feedbackComments.setText("");
         }
     }

@@ -30,9 +30,9 @@
                         </ImageView>
                     </left>
                     <right>
-                        <JFXButton fx:id="back" buttonType="RAISED" onAction="#backPressed" ripplerFill="#b0b0b0" text="Back" BorderPane.alignment="CENTER">
+                        <JFXButton fx:id="back" buttonType="RAISED" maxHeight="1.7976931348623157E308" onAction="#backPressed" ripplerFill="#b0b0b0" text="Back" BorderPane.alignment="CENTER">
                             <font>
-                                <Font name="Times New Roman" size="40.0" />
+                                <Font size="40.0" />
                             </font>
                         </JFXButton>
                     </right>
@@ -55,9 +55,9 @@
                         <RowConstraints maxHeight="72.5" minHeight="10.0" prefHeight="62.0" vgrow="SOMETIMES" />
                     </rowConstraints>
                     <children>
-                        <JFXTextField fx:id="username" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onKeyReleased="#enableLogin" prefHeight="44.0" prefWidth="295.0" promptText="Username" style="-fx-background-color: fff;" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
+                        <JFXTextField fx:id="username" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onAction="#enterKeyPressToLogin" onKeyReleased="#enableLogin" prefHeight="44.0" prefWidth="295.0" promptText="Username" style="-fx-background-color: fff;" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
                             <font>
-                                <Font name="Times New Roman" size="24.0" />
+                                <Font name="System" size="25.0" />
                             </font>
                             <GridPane.margin>
                                 <Insets />
@@ -65,7 +65,7 @@
                         </JFXTextField>
                         <JFXButton fx:id="login" buttonType="RAISED" disable="true" onAction="#LogIn" ripplerFill="WHITE" style="-fx-background-color: fff;" text="Log In" GridPane.halignment="CENTER" GridPane.rowIndex="3">
                             <font>
-                                <Font name="Times New Roman" size="24.0" />
+                                <Font name="System" size="25.0" />
                             </font>
                             <GridPane.margin>
                                 <Insets />
@@ -73,12 +73,12 @@
                         </JFXButton>
                         <JFXPasswordField fx:id="password" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onAction="#enterKeyPressToLogin" onKeyReleased="#enableLogin" prefHeight="44.0" prefWidth="295.0" promptText="Password" style="-fx-background-color: fff;" GridPane.halignment="CENTER" GridPane.rowIndex="2">
                             <font>
-                                <Font name="Times New Roman" size="24.0" />
+                                <Font name="System" size="25.0" />
                             </font>
                         </JFXPasswordField>
                         <Label alignment="CENTER" contentDisplay="CENTER" maxWidth="1.7976931348623157E308" text="Log In" textFill="#f5d96b">
                             <font>
-                                <Font name="Times New Roman Bold" size="48.0" />
+                                <Font name="System" size="45.0" />
                             </font>
                         </Label>
                     </children>

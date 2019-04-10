@@ -1,9 +1,11 @@
 package Controller;
 
 import API.Weather;
+import Object.*;
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -14,6 +16,7 @@ import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
@@ -43,43 +46,78 @@ public class HomeScreenController {
     @FXML
     Label tempDisplay;
 
+    @FXML
+    Button yes;
 
-    public void initialize(){
+    Timeline clock;
+
+    Stage editStage;
+
+    public void initialize() throws IOException{
+        Singleton single = Singleton.getInstance();
         /*Weather weatherBoy = new Weather();
         String icon = weatherBoy.getIcon();
         Image img = new Image(icon);
         weatherIcon.setImage(img);
         tempDisplay.setText(weatherBoy.getActTemp());*/
-
-        Timeline clock = new Timeline(new KeyFrame(Duration.ZERO, e -> {
-            long second = LocalDateTime.now().getSecond();
-            long minute = LocalDateTime.now().getMinute();
-            long hour = LocalDateTime.now().getHour();
-            if((hour = hour%12) == 0){
-                hour = 12;
-            }
-            if(minute < 10) {
-                if(second > 9) {
-                    timeLabel.setText("The Time is: " + hour + ":0" + (minute) + ":" + second);
-                } else {
-                    timeLabel.setText("The Time is: " + hour + ":0" + (minute) + ":0" + second);
+        if(single.isDoPopup()) {
+            single.setDoPopup(false);
+            clock = new Timeline(new KeyFrame(Duration.ZERO, e -> {
+                long second = LocalDateTime.now().getSecond();
+                long minute = LocalDateTime.now().getMinute();
+                long hour = LocalDateTime.now().getHour();
+                if ((hour = hour % 12) == 0) {
+                    hour = 12;
                 }
-            } else {
-                if(second > 9) {
-                    timeLabel.setText("The Time is: " + hour + ":" + (minute) + ":" + second);
+                if (minute < 10) {
+                    if (second > 9) {
+                        timeLabel.setText(hour + ":0" + (minute) + ":" + second);
+                    } else {
+                        timeLabel.setText(hour + ":0" + (minute) + ":0" + second);
+                    }
                 } else {
-                    timeLabel.setText("The Time is: " + hour + ":" + (minute) + ":0" + second);
+                    if (second > 9) {
+                        timeLabel.setText(hour + ":" + (minute) + ":" + second);
+                    } else {
+                        timeLabel.setText(hour + ":" + (minute) + ":0" + second);
+                    }
                 }
-            }
-        }),
-                new KeyFrame(Duration.seconds(1))
-        );
-        clock.setCycleCount(Animation.INDEFINITE);
-        clock.play();
+            }),
+                    new KeyFrame(Duration.seconds(1))
+            );
+            clock.setCycleCount(Animation.INDEFINITE);
+            clock.play();
+        }
     }
 
+    public void displayPopup(){
+        Singleton single = Singleton.getInstance();
+        try {
+                clock.pause();
+                Stage stage;
+                Parent root;
+                stage = new Stage();
+                root = FXMLLoader.load(getClass().getClassLoader().getResource("TimeoutPopup.fxml"));
+                stage.setScene(new Scene(root));
+                stage.setTitle("Inactivity Popup");
+                stage.initModality(Modality.APPLICATION_MODAL);
+                stage.show();
+                single = Singleton.getInstance();
+                single.setLastTime();
+                clock.play();
+        } catch (Exception e){
+            System.out.println(e.getMessage());
+        }
+    }
+    @FXML
+    private void yesPressed(){
+        Stage stage = (Stage) yes.getScene().getWindow();
+        //clock.stop();
+        stage.close();
+    }
     @FXML
     private void SwitchToPathfindScreen() throws IOException{
+        clock.stop();
         FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("HospitalPathFinding.fxml"));
 
         Parent sceneMain = loader.load();
@@ -94,6 +132,7 @@ public class HomeScreenController {
 
     @FXML
     private void SwitchToSuggestionBox() throws IOException{
+        clock.stop();
             Stage thestage = (Stage) HomeSuggestions.getScene().getWindow();
             AnchorPane root;
             root = FXMLLoader.load(getClass().getClassLoader().getResource("SuggestionBox.fxml"));
@@ -103,6 +142,7 @@ public class HomeScreenController {
 
     @FXML
     private void SwitchToServiceScreen() throws IOException{
+        clock.stop();
         FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("ServiceRequest.fxml"));
 
         Parent sceneMain = loader.load();
@@ -117,6 +157,7 @@ public class HomeScreenController {
 
     @FXML
     private void SwitchToLoginScreen(ActionEvent event){
+        clock.stop();
         try {
             Stage thestage = (Stage) LogIn.getScene().getWindow();
             AnchorPane root;

@@ -5,13 +5,19 @@ import Access.SanitationAccess;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXTextArea;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import Object.*;
+import javafx.util.Duration;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -42,10 +48,41 @@ public class ServiceRequestLanguageController {
         private final ObservableList<Location> data = FXCollections.observableArrayList();
         private HashMap<String, Location> lookup = new HashMap<String, Location>();
 */
+        Timeline timeout;
         /**Andrew made this
          * Initializes the items that the controller uses and adds fields to combo boxes
          */
         public void initialize(){
+            Singleton single = Singleton.getInstance();
+            single.setLastTime();
+            timeout = new Timeline(new KeyFrame(Duration.seconds(2), new EventHandler<ActionEvent>() {
+
+                @Override
+                public void handle(ActionEvent event) {
+                    if((System.currentTimeMillis() - single.getLastTime()) > single.getTimeoutSec()){
+                        try{
+                            single.setLastTime();
+                            single.setLoggedIn(false);
+                            single.setUsername("");
+                            single.setIsAdmin(false);
+                            single.setDoPopup(true);
+                            FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("HospitalHome.fxml"));
+                            Parent sceneMain = loader.load();
+                            HomeScreenController controller = loader.<HomeScreenController>getController();
+                            controller.displayPopup();
+                            Stage thisStage = (Stage) comment1.getScene().getWindow();
+
+                            Scene newScene = new Scene(sceneMain);
+                            thisStage.setScene(newScene);
+                            timeout.stop();
+                        } catch (IOException io){
+                            System.out.println(io.getMessage());
+                        }
+                    }
+                }
+            }));
+            timeout.setCycleCount(Timeline.INDEFINITE);
+            timeout.play();
             na = new NodesAccess();
             initializeTable(na);
 //            location1.setItems(data);
@@ -90,23 +127,9 @@ public class ServiceRequestLanguageController {
          */
         @FXML
         private void checkSubmit(){
-/*
-            if(comment1 == null || comment1.getText().trim().isEmpty()){
-                submit1.setDisable(true);
-                return;
-            }else if(typeBox1.getValue() == null){
-                submit1.setDisable(true);
-                return;
-            }else if(location1.getValue() == null){
-                submit1.setDisable(true);
-                return;
-            }else if(urgencyLevel1.getValue() == null){
-                submit1.setDisable(true);
-                return;
-            }
-            //System.out.println("nathan gay");
-
-*/            submit1.setDisable(false);
+            Singleton single = Singleton.getInstance();
+            single.setLastTime();
+            submit1.setDisable(false);
         }
 
         /**Andrew made this
@@ -114,21 +137,17 @@ public class ServiceRequestLanguageController {
          */
         @FXML
         private void makeRequest(){
-            /*
-            SanitationAccess sa = new SanitationAccess();
-            sa.makeRequest(location1.getValue().getLocID(), comment1.getText(), typeBox1.getValue(), urgencyLevel1.getValue());
-            */
+            Singleton single = Singleton.getInstance();
+            single.setLastTime();
         }
 
         //Nathan - changes screen to service sub screen, param "service" determines label on sub screen
         @FXML
         private void backPressed() throws IOException {
+            timeout.stop();
             FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("ServiceRequest.fxml"));
- //           Singleton single = Singleton.getInstance();
 
             Parent sceneMain = loader.load();
-
-            ServiceRequestController controller = loader.<ServiceRequestController>getController();
 
             Stage theStage = (Stage) Back2.getScene().getWindow();
 
