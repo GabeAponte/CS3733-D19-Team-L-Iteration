@@ -23,6 +23,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.input.ScrollEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Line;
@@ -59,6 +60,15 @@ public class EditLinkBetweenFloorsController {
 
     @FXML
     private AnchorPane anchorPaneWindow;
+
+    @FXML
+    private Pane mapPane;
+
+    @FXML
+    private Pane upperPane;
+
+    @FXML
+    private Pane lowerPane;
 
     @FXML
     private ImageView Map;
@@ -171,9 +181,9 @@ public class EditLinkBetweenFloorsController {
         Floor.setItems(floorList);
         map();
         //initializeTable(na, ea);
-        sceneGestureMain = setUpImage(anchorPaneMain, sceneGestureMain, Map, zoomPropertyMain, deltaYMain, 431, 115);
-        sceneGestureUpper = setUpImage(anchorPaneUpper, sceneGestureUpper, MapUpper, zoomPropertyUpper, deltaYUpper, 830, 417);
-        sceneGestureLower = setUpImage(anchorPaneLower, sceneGestureLower, MapLower, zoomPropertyLower, deltaYLower, 25, 417);
+        sceneGestureMain = setUpImage(anchorPaneMain, sceneGestureMain, Map, zoomPropertyMain, deltaYMain, mapPane, 0, 0);
+        sceneGestureUpper = setUpImage(anchorPaneUpper, sceneGestureUpper, MapUpper, zoomPropertyUpper, deltaYUpper, upperPane, 0, 0);
+        sceneGestureLower = setUpImage(anchorPaneLower, sceneGestureLower, MapLower, zoomPropertyLower, deltaYLower, lowerPane, 0, 0);
 
 
         sceneGestureMain.setDrawPath(circles, lines);
@@ -251,12 +261,12 @@ public class EditLinkBetweenFloorsController {
 
     @FXML
     private void floor() {
-        floorList.add("Ground");
+        floorList.add("3");
+        floorList.add("2");
+        floorList.add("1");
+        floorList.add("G");
         floorList.add("L1");
         floorList.add("L2");
-        floorList.add("1");
-        floorList.add("2");
-        floorList.add("3");
     }
 
     @FXML
@@ -300,7 +310,7 @@ public class EditLinkBetweenFloorsController {
     /*
     Author: PJ Mara. Sets up a pan and scroll image!
      */
-    private SceneGesturesForEditing setUpImage(AnchorPane anchorPanePath, SceneGesturesForEditing sceneGestures, ImageView Map1, DoubleProperty zoomProperty, DoubleProperty deltaY, int x, int y) {
+    private SceneGesturesForEditing setUpImage(AnchorPane anchorPanePath, SceneGesturesForEditing sceneGestures, ImageView Map1, DoubleProperty zoomProperty, DoubleProperty deltaY, Pane pane, int x, int y) {
         anchorPanePath.setLayoutX(x);
         anchorPanePath.setLayoutY(y);
         anchorPanePath.setPrefSize(420, 285.6);
@@ -329,8 +339,17 @@ public class EditLinkBetweenFloorsController {
         zoomPaneImage.setLayoutX(x);
         zoomPaneImage.setLayoutY(y);
 
-        anchorPaneWindow.getChildren().add(zoomPaneImage);
-        anchorPaneWindow.getChildren().add(anchorPanePath);
+        Map.fitWidthProperty().bind(mapPane.widthProperty());
+        Map.fitHeightProperty().bind(mapPane.heightProperty());
+
+        MapUpper.fitWidthProperty().bind(upperPane.widthProperty());
+        MapUpper.fitHeightProperty().bind(upperPane.heightProperty());
+
+        MapLower.fitWidthProperty().bind(lowerPane.widthProperty());
+        MapLower.fitHeightProperty().bind(lowerPane.heightProperty());
+
+        pane.getChildren().add(zoomPaneImage);
+        pane.getChildren().add(anchorPanePath);
         sceneGestures.reset(Map1, Map1.getImage().getWidth(), Map1.getImage().getHeight());
 
         return sceneGestures;
