@@ -68,7 +68,7 @@ public class ITController {
     @FXML
     private void submitRequest(){
         ServiceRequestAccess sra = new ServiceRequestAccess();
-        //sra.makeITRequest(description.getText(), loc.getValue(), device.getValue(), problem.getValue());
+        sra.makeITRequest(description.getText(), loc.getValue(), device.getValue(), problem.getValue());
         System.out.println("Submit pressed with this info");
 
     }
