@@ -69,7 +69,6 @@ public class HomeScreenController {
                 if ((hour = hour % 12) == 0) {
                     hour = 12;
                 }
-                System.out.println("yo");
                 if (minute < 10) {
                     if (second > 9) {
                         timeLabel.setText(hour + ":0" + (minute) + ":" + second);
