@@ -437,4 +437,12 @@ public class ServiceRequestTable  {
     public void setName(String name) {
         this.name = name;
     }
+
+    public String getThreatLevel() {
+        return threatLevel;
+    }
+
+    public void setThreatLevel(String threatLevel) {
+        this.threatLevel = threatLevel;
+    }
 }
