@@ -864,5 +864,11 @@ public class EditLocationController {
     private EventHandler<MouseEvent> getOnMouseClickedEventHandler(){
         return onMouseClickedEventHandler;
     }
+
+    @FXML
+    private void selectedEdge() {
+
+        deleteEdge.setDisable(false);
+    }
 }
 
