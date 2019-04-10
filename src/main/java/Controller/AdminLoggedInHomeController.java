@@ -1,5 +1,6 @@
 package Controller;
 
+import Access.EmployeeAccess;
 import Object.Singleton;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
@@ -62,10 +63,16 @@ public class AdminLoggedInHomeController {
                     System.out.println("if successfull");
                     try{
                         single.setLastTime();
+                        Stage thestage = (Stage) findPath.getScene().getWindow();
+                        AnchorPane root;
+                        Singleton single = Singleton.getInstance();
                         single.setLoggedIn(false);
                         single.setUsername("");
                         single.setIsAdmin(false);
-                        logOut();
+                        root = FXMLLoader.load(getClass().getClassLoader().getResource("HospitalHome.fxml"));
+                        Scene scene = new Scene(root);
+                        thestage.setScene(scene);
+                        timeout.stop();
                     } catch (IOException io){
                         System.out.println(io.getMessage());
                     }
@@ -74,6 +81,10 @@ public class AdminLoggedInHomeController {
         }));
         timeout.setCycleCount(Timeline.INDEFINITE);
         timeout.play();
+
+        EmployeeAccess ea = new EmployeeAccess();
+        welcome.setText("Welcome, " + ea.getEmployeeInformation(single.getUsername()).get(3));
+
     }
     // TODO Make label display "Welcome, [nickname of admin signed in]"
     //   New Account button should to create/edit account screen with title changed to Create Account and all the input fields are blank
@@ -86,7 +97,7 @@ public class AdminLoggedInHomeController {
     @FXML
     private void logOut() throws IOException {
         timeout.stop();
-        Stage thestage = (Stage) logOut.getScene().getWindow();
+        Stage thestage = (Stage) findPath.getScene().getWindow();
         AnchorPane root;
         Singleton single = Singleton.getInstance();
         single.setLoggedIn(false);
@@ -163,5 +174,51 @@ public class AdminLoggedInHomeController {
         Scene scene = new Scene(sceneMain);
         theStage.setScene(scene);
     }
+
+    @FXML
+    private void SwitchToAddAccountScreen() throws IOException{
+        timeout.stop();
+        FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("CreateEditAccount.fxml"));
+
+        Parent sceneMain = loader.load();
+
+        CreateEditAccountController controller = loader.<CreateEditAccountController>getController();
+        controller.setType(1, "");
+        Stage theStage = (Stage) fufillServiceRequest.getScene().getWindow();
+
+        Scene scene = new Scene(sceneMain);
+        theStage.setScene(scene);
+    }
+
+    @FXML
+    private void SwitchToEditAccountScreen() throws IOException{
+        timeout.stop();
+        FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("EmployeeTable.fxml"));
+
+        Parent sceneMain = loader.load();
+
+        EmployeeTableController controller = loader.<EmployeeTableController>getController();
+
+        Stage theStage = (Stage) fufillServiceRequest.getScene().getWindow();
+
+        Scene scene = new Scene(sceneMain);
+        theStage.setScene(scene);
+    }
+    /*
+    @FXML
+    private void SwitchToSuggestionScreen() throws IOException{
+    timeout.stop();
+        FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("SuggestionBox.fxml"));
+
+        Parent sceneMain = loader.load();
+
+        SuggestionBoxController controller = loader.<SuggestionBoxController>getController();
+
+        Stage theStage = (Stage) fufillServiceRequest.getScene().getWindow();
+
+        Scene scene = new Scene(sceneMain);
+        theStage.setScene(scene);
+    }
+     */
 
 }
