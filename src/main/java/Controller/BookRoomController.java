@@ -240,7 +240,9 @@ public class BookRoomController {
                     roomID = rooms.get(i - 1);
                 }
             }
-            roomReq.makeReservation(roomID, employeeID, date, endDate, startTimeMil, endTimeMil);
+            System.out.println("Start Time (MIL): " + startTimeMil + "End Time (MIL): " + endTimeMil);
+            RoomAccess ra = new RoomAccess();
+            roomReq.makeReservation(ra.getRoomID(roomID), employeeID, date, endDate, startTimeMil, endTimeMil);
         }
     }
 

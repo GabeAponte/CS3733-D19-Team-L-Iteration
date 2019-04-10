@@ -127,10 +127,13 @@ public class BookRoom2Controller {
         int startTime = 0;
         int endTime = 30;
         for(int i = 0; i < 47; i++){
-            System.out.println("Start Time: " + startTime + " End Time: " + endTime);
+           // System.out.println("Start Time: " + startTime + " End Time: " + endTime);
             TreeItem<Room> bookedRooms = new TreeItem<Room>(new Room(Integer.toString(startTime), Integer.toString(endTime), ra.getAvailRooms(theDate, theDate, startTime, endTime)));
             Root.getChildren().add(bookedRooms);
-            System.out.println(bookedRooms.getValue().getTime());
+            //System.out.println(bookedRooms.getValue().getTime());
+            if(i == 33) {
+                System.out.println("Start Time: " + startTime + "End Time: " +endTime);
+            }
             if(i == 0){
                 startTime += 30;
                 endTime += 70;
@@ -146,7 +149,7 @@ public class BookRoom2Controller {
             startTime %= 2400;
             endTime %= 2400;
         }
-        System.out.println("Start Time: " + startTime + " End Time: " + endTime);
+        //System.out.println("Start Time: " + startTime + " End Time: " + endTime);
         TreeItem<Room> bookedRooms2 = new TreeItem<Room>(new Room(Integer.toString(startTime), Integer.toString(endTime), ra.getAvailRooms(theDate, theDate, startTime, endTime)));
         Root.getChildren().add(bookedRooms2);
 

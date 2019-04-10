@@ -61,14 +61,20 @@ public class RoomAccess extends DBAccess {
      */
     public ArrayList<String> getAvailRooms(String startDate, String endDate, int startTime, int endTime){
         //TODO Should make this not ugly
-        String sql = "select name from room left outer join (select rID from reservation where ((? between startDate and endDate) or (? between startDate and endDate)) and ((? between startTime and endTime) and (? between startTime and endTime))) on roomID = rID where rID is null;";
+        String sql = "select name from room left outer join (select rID from reservation where ((? between startDate and endDate) or (? between startDate and endDate)) and ((? between startTime and endTime) and (? != endTime and (? between startTime and endTime))) or ((? between startTime and endTime) and (? != startTime and (? between startTime and endTime))) or (? < startTime and ? > endTime)) on roomID = rID where rID is null;";
         ArrayList<String> data = new ArrayList<String>();
         try (Connection conn = this.connect();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
             pstmt.setString(1, startDate);
             pstmt.setString(2, endDate);
-            pstmt.setInt(3, endTime);
+            pstmt.setInt(3, startTime);
             pstmt.setInt(4, startTime);
+            pstmt.setInt(5, endTime);
+            pstmt.setInt(6, endTime);
+            pstmt.setInt(7, endTime);
+            pstmt.setInt(8, startTime);
+            pstmt.setInt(9, startTime);
+            pstmt.setInt(10, endTime);
 
             ResultSet rs = pstmt.executeQuery();
             while(rs.next()){
@@ -105,6 +111,32 @@ public class RoomAccess extends DBAccess {
 
         return null;
     }
+
+    /**ANDREW MADE THIS
+     * returns the record fields for the given index in room
+     * @return
+     */
+    public String getRoomID(String roomName){
+        String sql = "SELECT roomID FROM room where name = ?";
+        //noinspection Convert2Diamond
+        String data = "";
+        try (Connection conn = this.connect();
+             PreparedStatement pstmt = conn.prepareStatement(sql)){
+            pstmt.setString(1, roomName);
+            ResultSet rs = pstmt.executeQuery();
+            while (rs.next()) {
+                data = (rs.getString("roomID"));
+            }
+            return data;
+
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+
+        return data;
+    }
+
+
 
     public static void main(String[] args) {
         ArrayList<String> temp = new ArrayList<>();
