@@ -215,6 +215,9 @@ public class BookRoomController {
         else if (roomDate.compareTo(curDate) < 0) {
             error.setText("Please select a time for today or a future day.");
         }
+        else if (endRoomDate.compareTo(roomDate) < 0) {
+            error.setText("Please select a start date that is not after the end date.");
+        }
         else if (availableRooms.getValue() == null) {
             error.setText("Please pick a room.");
         }
