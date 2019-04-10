@@ -41,6 +41,11 @@
                <GridPane.margin>
                   <Insets bottom="20.0" left="10.0" />
                </GridPane.margin>
+               <ImageView fx:id="Map" fitHeight="507.0" fitWidth="754.0" pickOnBounds="true" preserveRatio="true">
+                  <image>
+                     <Image url="@SoftEng_UI_Mockup_Pics/00_thegroundfloor.png" />
+                  </image>
+               </ImageView>
             </Pane>
             <JFXButton fx:id="G" buttonType="RAISED" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" onAction="#clickedG" style="-fx-border-color: white; -fx-border-radius: 100; -fx-background-radius: 100;" text="G" textFill="WHITE" GridPane.columnIndex="2" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" GridPane.vgrow="ALWAYS">
                <font>
@@ -177,7 +182,13 @@
                   <Font size="15.0" />
                </font>
             </JFXButton>
-            <VBox fx:id="scrollVBox" prefHeight="550.0" prefWidth="242.0" GridPane.columnIndex="6" GridPane.rowIndex="2" GridPane.rowSpan="2" />
+            <VBox fx:id="scrollVBox" prefHeight="550.0" prefWidth="242.0" GridPane.columnIndex="6" GridPane.rowIndex="2" GridPane.rowSpan="2">
+               <children>
+                  <Label fx:id="Direction" alignment="TOP_LEFT" prefHeight="529.0" prefWidth="242.0" textFill="WHITE" wrapText="true">
+                     <font>
+                        <Font name="Courier New" size="10.0" />
+                     </font></Label>
+               </children></VBox>
             <Label fx:id="directions" alignment="CENTER" prefHeight="146.0" prefWidth="411.0" text="Directions" textAlignment="CENTER" textFill="#f5d96b" underline="true" GridPane.columnIndex="6" GridPane.rowIndex="1">
                <font>
                   <Font size="35.0" />
@@ -185,10 +196,5 @@
             </Label>
          </children>
       </GridPane>
-      <ImageView fx:id="Map" fitHeight="464.0" fitWidth="685.0" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@SoftEng_UI_Mockup_Pics/00_thegroundfloor.png" />
-         </image>
-      </ImageView>
    </children>
 </AnchorPane>
