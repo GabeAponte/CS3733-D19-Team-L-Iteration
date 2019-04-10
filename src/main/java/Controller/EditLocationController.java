@@ -799,7 +799,7 @@ public class EditLocationController {
         }
         Parent sceneMain = loader.load();
 
-        Stage theStage = (Stage) addEdge.getScene().getWindow();
+        Stage theStage = (Stage) backButton.getScene().getWindow();
 
         Scene scene = new Scene(sceneMain);
         theStage.setScene(scene);
