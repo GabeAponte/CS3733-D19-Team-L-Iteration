@@ -13,6 +13,7 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import Object.*;
 
 public class FulfillRequestController {
 
@@ -44,33 +45,40 @@ public class FulfillRequestController {
     public void init(){
         EmployeeAccess ea = new EmployeeAccess();
         String field = "";
-        if(this.table.equals("audioVisualRequest")){
+        Singleton single = Singleton.getInstance();
+        if (this.table.equals("audioVisualRequest")) {
             field = "Audio Visual";
-        }else if(this.table.equals("externalTransportationRequest")){
+        } else if (this.table.equals("externalTransportationRequest")) {
             field = "External Transportation";
-        }else if(this.table.equals("floristDeliveryRequest")){
+        } else if (this.table.equals("floristDeliveryRequest")) {
             field = "Florist Delivery";
-        }else if(this.table.equals("internalTransportationRequest")){
+        } else if (this.table.equals("internalTransportationRequest")) {
             field = "Internal Transportation";
-        }else if(this.table.equals("ITRequest")){
+        } else if (this.table.equals("ITRequest")) {
             field = "IT";
-        }else if(this.table.equals("languageRequest")){
+        } else if (this.table.equals("languageRequest")) {
             field = "Language";
-        }else if(this.table.equals("maintenanceRequest")){
+        } else if (this.table.equals("maintenanceRequest")) {
             field = "Maintenance";
-        }else if(this.table.equals("prescriptionRequest")){
+        } else if (this.table.equals("prescriptionRequest")) {
             field = "Prescription";
-        }else if(this.table.equals("religiousRequest")){
+        } else if (this.table.equals("religiousRequest")) {
             field = "Religious";
-        }else if(this.table.equals("sanitationRequest")){
+        } else if (this.table.equals("sanitationRequest")) {
             field = "Sanitation";
-        }else if(this.table.equals("securityRequest")){
+        } else if (this.table.equals("securityRequest")) {
             field = "Security";
         }
         ArrayList<ArrayList<String>> list = ea.getEmployees("department", field);
-        for(int i = 0; i < list.size(); i++){
+        for (int i = 0; i < list.size(); i++) {
             staffMember.getItems().add(list.get(i).get(0));
         }
+        if(!single.isIsAdmin()){
+            field = ea.getEmployeeInformation(single.getUsername()).get(1);
+            staffMember.setValue(ea.getEmployeeInformation(single.getUsername()).get(0));
+            staffMember.setDisable(true);
+        }
+
     }
 
     @FXML
@@ -124,12 +132,15 @@ public class FulfillRequestController {
     }
 
     @FXML
-    private void submitPressed(){
+    private void submitPressed() throws IOException{
         ServiceRequestAccess sra = new ServiceRequestAccess();
         sra.assignEmployee(this.rid, staffMember.getValue().toString(), this.table);
         if(fulfill.isSelected()){
             System.out.println("we got here");
             sra.fulfillRequest(this.rid,this.table);
+        }
+        if(staffMember.getValue() != null){
+            backPressed();
         }
     }
 
