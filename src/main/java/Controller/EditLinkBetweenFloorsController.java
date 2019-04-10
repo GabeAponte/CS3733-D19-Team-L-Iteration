@@ -200,7 +200,7 @@ public class EditLinkBetweenFloorsController {
         mapURLlookup.put("3", "/SoftEng_UI_Mockup_Pics/03_thethirdfloor.png");
         mapURLlookup.put("2", "/SoftEng_UI_Mockup_Pics/02_thesecondfloor.png");
         mapURLlookup.put("1", "/SoftEng_UI_Mockup_Pics/01_thefirstfloor.png");
-        mapURLlookup.put("Ground", "/SoftEng_UI_Mockup_Pics/00_thegroundfloor.png");
+        mapURLlookup.put("G", "/SoftEng_UI_Mockup_Pics/00_thegroundfloor.png");
         mapURLlookup.put("L1", "/SoftEng_UI_Mockup_Pics/00_thelowerlevel1.png");
         mapURLlookup.put("L2", "/SoftEng_UI_Mockup_Pics/00_thelowerlevel2.png");
     }
@@ -287,7 +287,7 @@ public class EditLinkBetweenFloorsController {
     private void filterFloor() {
         Singleton single = Singleton.getInstance();
         single.setLastTime();
-        if (Floor.getValue() == "Ground") {
+        if (Floor.getValue() == "G") {
             pickedFloor = "G";
         }
         if (Floor.getValue() == "L1") {
@@ -391,12 +391,12 @@ public class EditLinkBetweenFloorsController {
         } else if (Floor.getValue().equals("1")) {
             Map.setImage(new Image(mapURLlookup.get("1")));
             MapUpper.setImage(new Image(mapURLlookup.get("2")));
-            MapLower.setImage(new Image(mapURLlookup.get("Ground")));
+            MapLower.setImage(new Image(mapURLlookup.get("G")));
             currentMap = "1";
             currentMapAbove = "2";
             currentMapBelow = "G";
-        } else if (Floor.getValue().equals("Ground")) {
-            Map.setImage(new Image(mapURLlookup.get("Ground")));
+        } else if (Floor.getValue().equals("G")) {
+            Map.setImage(new Image(mapURLlookup.get("G")));
             MapUpper.setImage(new Image(mapURLlookup.get("1")));
             MapLower.setImage(new Image(mapURLlookup.get("L1")));
             currentMap = "G";
@@ -404,7 +404,7 @@ public class EditLinkBetweenFloorsController {
             currentMapBelow = "L1";
         } else if (Floor.getValue().equals("L1")) {
             Map.setImage(new Image(mapURLlookup.get("L1")));
-            MapUpper.setImage(new Image(mapURLlookup.get("Ground")));
+            MapUpper.setImage(new Image(mapURLlookup.get("G")));
             MapLower.setImage(new Image(mapURLlookup.get("L2")));
             currentMap = "L1";
             currentMapAbove = "G";
@@ -453,7 +453,7 @@ public class EditLinkBetweenFloorsController {
         ArrayList<Location> nodes = new ArrayList<Location>();
         //want to fill nodes w/ floor = currrentFloor
         int temp = 0;
-        double scaleRatio = Map.getFitWidth() / Map.getImage().getWidth();
+        double scaleRatio = Math.min(Map.getFitWidth() / Map.getImage().getWidth(),Map.getFitHeight()/Map.getImage().getHeight());
         Point2D point = sceneGestureMain.getImageLocation();
         for (int i = 0; i < single.getData().size(); i++) {
             if (single.getData().get(i).getFloor().equals(currentMap) && single.getData().get(i).getNodeType().equals(type)) {
