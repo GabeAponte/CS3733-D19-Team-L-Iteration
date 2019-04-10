@@ -293,6 +293,10 @@ public class BookRoomController {
     @FXML
     public void displayOccupiedRooms(){
 
+        for(int i = 0; i< reverseListOfRooms.size(); i++){
+            System.out.println(reverseListOfRooms.get(i).toString());
+        }
+        /*
         //Point2D point = sceneGestures.getImageLocation();
         //double scaleRatio = roomImage.getFitWidth()/roomImage.getImage().getWidth();
 
@@ -310,9 +314,9 @@ public class BookRoomController {
                 thisCircle.setFill(Color.web("RED"));
                 System.out.println("We reach this");
            // }
-
+*/
 
 
         }
     }
-}
+
