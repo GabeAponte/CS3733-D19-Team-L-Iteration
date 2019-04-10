@@ -7,6 +7,7 @@ import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.SimpleDoubleProperty;
+import javafx.beans.value.ChangeListener;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -360,10 +361,14 @@ public class PathFindingController {
         //initializeTable(na, ea);
 
         anchorPanePath = new AnchorPane();
-        anchorPanePath.setLayoutX(79);
-        anchorPanePath.setLayoutY(189);
-        anchorPanePath.setPrefSize(685,464);
-        Rectangle clip = new Rectangle();
+
+//        Map.fitWidthProperty().bind(imagePane.widthProperty());
+//        Map.fitHeightProperty().bind(imagePane.heightProperty());
+
+        Map.setFitWidth(610);
+        Map.setFitHeight(415);
+
+        clip = new Rectangle();
         clip.widthProperty().bind(Map.fitWidthProperty());
         clip.heightProperty().bind(Map.fitHeightProperty());
         anchorPanePath.setClip(clip);
@@ -374,18 +379,51 @@ public class PathFindingController {
         deltaY.bind(zoomPaneImage.deltaY);
         zoomPaneImage.getChildren().add(Map);
 
-        sceneGestures = new SceneGestures(zoomPaneImage, Map);
-        anchorPanePath.addEventFilter( MouseEvent.MOUSE_CLICKED, sceneGestures.getOnMouseClickedEventHandler());
-        anchorPanePath.addEventFilter( MouseEvent.MOUSE_PRESSED, sceneGestures.getOnMousePressedEventHandler());
-        anchorPanePath.addEventFilter( MouseEvent.MOUSE_DRAGGED, sceneGestures.getOnMouseDraggedEventHandler());
-        anchorPanePath.addEventFilter( ScrollEvent.ANY, sceneGestures.getOnScrollEventHandler());
-        zoomPaneImage.setLayoutX(79);
-        zoomPaneImage.setLayoutY(189);
+        sceneGestures = new SceneGesturesForEditing(zoomPaneImage, Map);
 
-        anchorPaneWindow.getChildren().add(zoomPaneImage);
-        anchorPaneWindow.getChildren().add(anchorPanePath);
+        imagePane.addEventFilter( MouseEvent.MOUSE_CLICKED, getOnMouseClickedEventHandler());
+        imagePane.addEventFilter( MouseEvent.MOUSE_PRESSED, sceneGestures.getOnMousePressedEventHandler());
+        imagePane.addEventFilter( MouseEvent.MOUSE_DRAGGED, sceneGestures.getOnMouseDraggedEventHandler());
+        imagePane.addEventFilter( ScrollEvent.ANY, sceneGestures.getOnScrollEventHandler());
+
+
+        Map.sceneProperty().addListener((observableScene, oldScene, newScene) -> {
+            if (oldScene == null && newScene != null) {
+                // scene is set for the first time. Now its the time to listen stage changes.
+                newScene.windowProperty().addListener((observableWindow, oldWindow, newWindow) -> {
+                    if (oldWindow == null && newWindow != null) {
+                        // stage is set. now is the right time to do whatever we need to the stage in the controller.
+                        ChangeListener<Number> stageSizeListenerWidth = (observable, oldValue, newValue) -> {
+                            eraseNodes();
+                            drawNodesResize(oldValue.doubleValue(), newValue.doubleValue());
+
+                            Map.setFitWidth(Map.getFitWidth()/oldValue.doubleValue()*newValue.doubleValue());
+                        };
+
+                        ChangeListener<Number> stageSizeListenerHeight = (observable, oldValue, newValue) -> {
+                            eraseNodes();
+                            drawNodesResize(oldValue.doubleValue(), newValue.doubleValue());
+
+                            Map.setFitHeight(Map.getFitHeight()/oldValue.doubleValue()*newValue.doubleValue());
+                        };
+
+                        ((Stage) newWindow).widthProperty().addListener(stageSizeListenerWidth);
+                        ((Stage) newWindow).heightProperty().addListener(stageSizeListenerHeight);
+                    }
+                });
+            }
+        });
+
+        imagePane.getChildren().add(zoomPaneImage);
+        imagePane.getChildren().add(anchorPanePath);
+
+        thisCircle = new Circle();
+        anchorPanePath.getChildren().add(thisCircle);
 
         sceneGestures.reset(Map, Map.getImage().getWidth(), Map.getImage().getHeight());
+        sceneGestures.setDrawPath(circles, lines);
+
+        drawNodes();
 
     }
 

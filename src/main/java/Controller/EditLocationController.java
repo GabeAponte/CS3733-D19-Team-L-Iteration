@@ -299,6 +299,8 @@ public class EditLocationController {
         imagePane.addEventFilter( MouseEvent.MOUSE_PRESSED, sceneGestures.getOnMousePressedEventHandler());
         imagePane.addEventFilter( MouseEvent.MOUSE_DRAGGED, sceneGestures.getOnMouseDraggedEventHandler());
         imagePane.addEventFilter( ScrollEvent.ANY, sceneGestures.getOnScrollEventHandler());
+
+
         Map.sceneProperty().addListener((observableScene, oldScene, newScene) -> {
             if (oldScene == null && newScene != null) {
                 // scene is set for the first time. Now its the time to listen stage changes.
@@ -781,44 +783,46 @@ public class EditLocationController {
             single.setLastTime();
             mousePress = sceneGestures.imageViewToImage(Map, new Point2D(event.getX(), event.getY()));
             if(mousePress.getX() == sceneGestures.getMouseDown().getValue().getX() && mousePress.getY() == sceneGestures.getMouseDown().getValue().getY()) {
-                int getX = (int) mousePress.getX();
-                int getY = (int) mousePress.getY();
-                String newQuery = na.getNodebyCoordNoType(getX, getY, floorNum(), 5);
-                Point2D point = sceneGestures.getImageLocation();
-                if (newQuery != null) {
-                    Location focusLoc = single.lookup.get(newQuery);
-                    nodeInfoID.setText(focusLoc.getLocID());
-                    nodeInfoX.setText("" + focusLoc.getXcoord());
-                    nodeInfoY.setText("" + focusLoc.getYcoord());
-                    nodeInfoType.setText("" + focusLoc.getNodeType());
-                    nodeInfoBuilding.setText("" + focusLoc.getBuilding());
-                    nodeInfoFloor.setText("" + focusLoc.getFloor());
-                    nodeInfoLong.setText("" + focusLoc.getLongName());
-                    nodeInfoShort.setText("" + focusLoc.getShortName());
+                if (mousePress.getX() <= 5000 && mousePress.getY() <= 3400) {
+                    int getX = (int) mousePress.getX();
+                    int getY = (int) mousePress.getY();
+                    String newQuery = na.getNodebyCoordNoType(getX, getY, floorNum(), 5);
+                    Point2D point = sceneGestures.getImageLocation();
+                    if (newQuery != null) {
+                        Location focusLoc = single.lookup.get(newQuery);
+                        nodeInfoID.setText(focusLoc.getLocID());
+                        nodeInfoX.setText("" + focusLoc.getXcoord());
+                        nodeInfoY.setText("" + focusLoc.getYcoord());
+                        nodeInfoType.setText("" + focusLoc.getNodeType());
+                        nodeInfoBuilding.setText("" + focusLoc.getBuilding());
+                        nodeInfoFloor.setText("" + focusLoc.getFloor());
+                        nodeInfoLong.setText("" + focusLoc.getLongName());
+                        nodeInfoShort.setText("" + focusLoc.getShortName());
 
-                } else {
-                    nodeInfoID.setText("");
-                    nodeInfoX.setText("" + (int) mousePress.getX());
-                    nodeInfoY.setText("" + (int) mousePress.getY());
-                    nodeInfoType.setText("");
-                    nodeInfoBuilding.setText("");
-                    nodeInfoFloor.setText("");
-                    nodeInfoLong.setText("");
-                    nodeInfoShort.setText("");
-                    circles.remove(thisCircle);
-                    double scaleRatio = Math.min(Map.getFitWidth() / Map.getImage().getWidth(),Map.getFitHeight()/Map.getImage().getHeight());
+                    } else {
+                        nodeInfoID.setText("");
+                        nodeInfoX.setText("" + (int) mousePress.getX());
+                        nodeInfoY.setText("" + (int) mousePress.getY());
+                        nodeInfoType.setText("");
+                        nodeInfoBuilding.setText("");
+                        nodeInfoFloor.setText("");
+                        nodeInfoLong.setText("");
+                        nodeInfoShort.setText("");
+                        circles.remove(thisCircle);
+                        double scaleRatio = Math.min(Map.getFitWidth() / Map.getImage().getWidth(), Map.getFitHeight() / Map.getImage().getHeight());
 
-                    //System.out.println(sceneGestures.getImageScale());
-                    //System.out.println((mousePress.getX() - point.getX()) * scaleRatio * sceneGestures.getImageScale());
+                        //System.out.println(sceneGestures.getImageScale());
+                        //System.out.println((mousePress.getX() - point.getX()) * scaleRatio * sceneGestures.getImageScale());
 
-                    //Setting the properties of the circle
-                    thisCircle.setCenterX((mousePress.getX() - point.getX()) * scaleRatio * sceneGestures.getImageScale());
-                    thisCircle.setCenterY((mousePress.getY() - point.getY()) * scaleRatio * sceneGestures.getImageScale());
-                    thisCircle.setRadius(Math.max(2.5, 2.5f * (sceneGestures.getImageScale() / 5)));
-                    thisCircle.setStroke(Color.web("GREEN")); //#f5d96b
-                    thisCircle.setFill(Color.web("GREEN"));
+                        //Setting the properties of the circle
+                        thisCircle.setCenterX((mousePress.getX() - point.getX()) * scaleRatio * sceneGestures.getImageScale());
+                        thisCircle.setCenterY((mousePress.getY() - point.getY()) * scaleRatio * sceneGestures.getImageScale());
+                        thisCircle.setRadius(Math.max(2.5, 2.5f * (sceneGestures.getImageScale() / 5)));
+                        thisCircle.setStroke(Color.web("GREEN")); //#f5d96b
+                        thisCircle.setFill(Color.web("GREEN"));
 
-                    circles.add(thisCircle);
+                        circles.add(thisCircle);
+                    }
                 }
             }
         }
