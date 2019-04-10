@@ -140,14 +140,17 @@ public class EditLinkBetweenFloorsController {
                 if((System.currentTimeMillis() - single.getLastTime()) > single.getTimeoutSec()){
                     try{
                         single.setLastTime();
+                        single.setDoPopup(true);
                         single.setLoggedIn(false);
                         single.setUsername("");
                         single.setIsAdmin(false);
                         FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("HospitalHome.fxml"));
 
                         Parent sceneMain = loader.load();
+                        HomeScreenController controller = loader.<HomeScreenController>getController();
+                        controller.displayPopup();
 
-                        Stage thisStage = (Stage) Map.getScene().getWindow();
+                        Stage thisStage = (Stage) node2X.getScene().getWindow();
 
                         Scene newScene = new Scene(sceneMain);
                         thisStage.setScene(newScene);
@@ -547,7 +550,6 @@ public class EditLinkBetweenFloorsController {
         Point2D point = sceneGestureUpper.getImageLocation();
         for (int i = 0; i < single.getData().size(); i++) {
             if (single.getData().get(i).getFloor().equals(currentMapAbove) && single.getData().get(i).getNodeType().equals(type)) {
-                //System.out.println(currentMap);
                 nodes.add(single.getData().get(i));
 
                 Circle thisCircle = new Circle();
@@ -571,7 +573,6 @@ public class EditLinkBetweenFloorsController {
         Point2D pointLower = sceneGestureLower.getImageLocation();
         for (int i = 0; i < single.getData().size(); i++) {
             if (single.getData().get(i).getFloor().equals(currentMapBelow) && single.getData().get(i).getNodeType().equals(type)) {
-                //System.out.println(currentMap);
                 nodesLower.add(single.getData().get(i));
 
                 Circle thisCircle = new Circle();
