@@ -388,10 +388,10 @@ public class EditLocationController {
 
         sceneGestures = new SceneGesturesForEditing(zoomPaneImage, Map);
 
-        zoomPaneImage.addEventFilter( MouseEvent.MOUSE_CLICKED, getOnMouseClickedEventHandler());
-        zoomPaneImage.addEventFilter( MouseEvent.MOUSE_PRESSED, sceneGestures.getOnMousePressedEventHandler());
-        zoomPaneImage.addEventFilter( MouseEvent.MOUSE_DRAGGED, sceneGestures.getOnMouseDraggedEventHandler());
-        zoomPaneImage.addEventFilter( ScrollEvent.ANY, sceneGestures.getOnScrollEventHandler());
+        imagePane.addEventFilter( MouseEvent.MOUSE_CLICKED, getOnMouseClickedEventHandler());
+        imagePane.addEventFilter( MouseEvent.MOUSE_PRESSED, sceneGestures.getOnMousePressedEventHandler());
+        imagePane.addEventFilter( MouseEvent.MOUSE_DRAGGED, sceneGestures.getOnMouseDraggedEventHandler());
+        imagePane.addEventFilter( ScrollEvent.ANY, sceneGestures.getOnScrollEventHandler());
         Map.sceneProperty().addListener((observableScene, oldScene, newScene) -> {
             if (oldScene == null && newScene != null) {
                 // scene is set for the first time. Now its the time to listen stage changes.
@@ -423,6 +423,8 @@ public class EditLocationController {
 
         sceneGestures.reset(Map, Map.getImage().getWidth(), Map.getImage().getHeight());
         sceneGestures.setDrawPath(circles, lines);
+
+        drawNodes();
     }
 
 
@@ -836,10 +838,7 @@ public class EditLocationController {
                 nodeInfoY.setText("" + (int) mousePress.getY());
 
                 Point2D point = sceneGestures.getImageLocation();
-                double scaleRatio = Map.getFitWidth() / Map.getImage().getWidth();
-
-                System.out.println(sceneGestures.getImageScale());
-                System.out.println((mousePress.getX() - point.getX()) * scaleRatio * sceneGestures.getImageScale());
+                double scaleRatio = Math.min(Map.getFitWidth() / Map.getImage().getWidth(),Map.getFitHeight()/Map.getImage().getHeight());
 
                 //thisCircle = new Circle();
 
