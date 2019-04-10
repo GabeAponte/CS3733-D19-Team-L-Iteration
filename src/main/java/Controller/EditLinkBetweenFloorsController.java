@@ -550,7 +550,6 @@ public class EditLinkBetweenFloorsController {
         Point2D point = sceneGestureUpper.getImageLocation();
         for (int i = 0; i < single.getData().size(); i++) {
             if (single.getData().get(i).getFloor().equals(currentMapAbove) && single.getData().get(i).getNodeType().equals(type)) {
-                //System.out.println(currentMap);
                 nodes.add(single.getData().get(i));
 
                 Circle thisCircle = new Circle();
@@ -574,7 +573,6 @@ public class EditLinkBetweenFloorsController {
         Point2D pointLower = sceneGestureLower.getImageLocation();
         for (int i = 0; i < single.getData().size(); i++) {
             if (single.getData().get(i).getFloor().equals(currentMapBelow) && single.getData().get(i).getNodeType().equals(type)) {
-                //System.out.println(currentMap);
                 nodesLower.add(single.getData().get(i));
 
                 Circle thisCircle = new Circle();
