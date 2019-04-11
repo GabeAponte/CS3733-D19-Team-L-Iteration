@@ -3,7 +3,6 @@ package edu.wpi.cs3733.d19.teamL.ServiceRequest.MakeServiceRequest;
 import edu.wpi.cs3733.d19.teamL.HomeScreens.HomeScreenController;
 import edu.wpi.cs3733.d19.teamL.ServiceRequest.ServiceRequestDBAccess.InternalTransportAccess;
 import edu.wpi.cs3733.d19.teamL.Pathfinding.NodesAccess;
-import Object.*;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXTextArea;

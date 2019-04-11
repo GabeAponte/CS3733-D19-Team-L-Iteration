@@ -19,7 +19,6 @@ import javafx.scene.layout.AnchorPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.util.Duration;
-import Object.*;
 
 import javax.mail.internet.AddressException;
 import javax.mail.internet.InternetAddress;

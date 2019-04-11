@@ -1,6 +1,5 @@
 package edu.wpi.cs3733.d19.teamL.ServiceRequest.MakeServiceRequest;
-import Access.*;
-import Object.*;
+
 import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXTextArea;
 import edu.wpi.cs3733.d19.teamL.HomeScreens.HomeScreenController;

@@ -1,6 +1,5 @@
 package edu.wpi.cs3733.d19.teamL.Suggestion;
 
-import Object.*;
 import edu.wpi.cs3733.d19.teamL.Singleton;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;

@@ -7,7 +7,6 @@ import edu.wpi.cs3733.d19.teamL.Map.Location;
 import edu.wpi.cs3733.d19.teamL.ImageInteraction.PanAndZoomPane;
 import edu.wpi.cs3733.d19.teamL.Pathfinding.EdgesAccess;
 import edu.wpi.cs3733.d19.teamL.Pathfinding.NodesAccess;
-import Object.*;
 
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXTextField;

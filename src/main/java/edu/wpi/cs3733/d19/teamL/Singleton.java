@@ -14,7 +14,6 @@ import edu.wpi.cs3733.d19.teamL.Pathfinding.EdgesAccess;
 import edu.wpi.cs3733.d19.teamL.Pathfinding.NodesAccess;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import Object.*;
 
 import java.util.ArrayList;
 import java.util.HashMap;

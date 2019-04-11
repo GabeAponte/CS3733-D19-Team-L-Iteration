@@ -9,7 +9,6 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
-import Object.*;
 
 public class ITAccess extends DBAccess {
     private static final DateFormat sdf = new SimpleDateFormat("yyyy/MM/dd");

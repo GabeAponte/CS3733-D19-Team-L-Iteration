@@ -36,8 +36,6 @@ import javafx.scene.shape.Circle;
 import javafx.scene.shape.Line;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
-
-import Object.*;
 import javafx.util.Duration;
 
 

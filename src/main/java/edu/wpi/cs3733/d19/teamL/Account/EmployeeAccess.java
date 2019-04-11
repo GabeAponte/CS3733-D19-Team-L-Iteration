@@ -2,7 +2,6 @@ package edu.wpi.cs3733.d19.teamL.Account;
 
 import java.sql.*;
 import java.util.ArrayList;
-import Object.*;
 import edu.wpi.cs3733.d19.teamL.DBAccess;
 import javafx.scene.control.TreeItem;
 
