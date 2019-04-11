@@ -1,12 +1,12 @@
-package edu.wpi.cs3733.d19.teamL.MapEditing;
+package edu.wpi.cs3733.d19.teamL.Map.MapEditing;
 
 import edu.wpi.cs3733.d19.teamL.API.UpdateLocationThread;
-import edu.wpi.cs3733.d19.teamL.ImageInteraction.SceneGesturesForEditing;
-import edu.wpi.cs3733.d19.teamL.Map.Edge;
-import edu.wpi.cs3733.d19.teamL.Map.Location;
-import edu.wpi.cs3733.d19.teamL.ImageInteraction.PanAndZoomPane;
-import edu.wpi.cs3733.d19.teamL.Pathfinding.EdgesAccess;
-import edu.wpi.cs3733.d19.teamL.Pathfinding.NodesAccess;
+import edu.wpi.cs3733.d19.teamL.Map.ImageInteraction.SceneGesturesForEditing;
+import edu.wpi.cs3733.d19.teamL.Map.MapLocations.Edge;
+import edu.wpi.cs3733.d19.teamL.Map.MapLocations.Location;
+import edu.wpi.cs3733.d19.teamL.Map.ImageInteraction.PanAndZoomPane;
+import edu.wpi.cs3733.d19.teamL.Map.Pathfinding.EdgesAccess;
+import edu.wpi.cs3733.d19.teamL.Map.Pathfinding.NodesAccess;
 
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXTextField;

@@ -8,10 +8,10 @@ package edu.wpi.cs3733.d19.teamL;
   int check = single.getNum();
  */
 
-import edu.wpi.cs3733.d19.teamL.Map.Edge;
-import edu.wpi.cs3733.d19.teamL.Map.Location;
-import edu.wpi.cs3733.d19.teamL.Pathfinding.EdgesAccess;
-import edu.wpi.cs3733.d19.teamL.Pathfinding.NodesAccess;
+import edu.wpi.cs3733.d19.teamL.Map.MapLocations.Edge;
+import edu.wpi.cs3733.d19.teamL.Map.MapLocations.Location;
+import edu.wpi.cs3733.d19.teamL.Map.Pathfinding.EdgesAccess;
+import edu.wpi.cs3733.d19.teamL.Map.Pathfinding.NodesAccess;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 

@@ -1,10 +1,10 @@
-package edu.wpi.cs3733.d19.teamL.Pathfinding;
+package edu.wpi.cs3733.d19.teamL.Map.Pathfinding;
 
 import edu.wpi.cs3733.d19.teamL.HomeScreens.HomeScreenController;
-import edu.wpi.cs3733.d19.teamL.ImageInteraction.SceneGestures;
-import edu.wpi.cs3733.d19.teamL.Map.Location;
-import edu.wpi.cs3733.d19.teamL.Map.Path;
-import edu.wpi.cs3733.d19.teamL.ImageInteraction.PanAndZoomPane;
+import edu.wpi.cs3733.d19.teamL.Map.ImageInteraction.SceneGestures;
+import edu.wpi.cs3733.d19.teamL.Map.MapLocations.Location;
+import edu.wpi.cs3733.d19.teamL.Map.MapLocations.Path;
+import edu.wpi.cs3733.d19.teamL.Map.ImageInteraction.PanAndZoomPane;
 import edu.wpi.cs3733.d19.teamL.SearchingAlgorithms.AStarStrategy;
 import edu.wpi.cs3733.d19.teamL.SearchingAlgorithms.BreadthFirstStrategy;
 import edu.wpi.cs3733.d19.teamL.SearchingAlgorithms.DepthFirstStrategy;

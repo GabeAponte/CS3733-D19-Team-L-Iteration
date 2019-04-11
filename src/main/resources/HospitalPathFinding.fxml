@@ -18,7 +18,7 @@
 <?import javafx.scene.text.Font?>
 
 <?import javafx.stage.Screen?>
-<AnchorPane fx:id="anchorPaneWindow" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="720" prefWidth="1280" style="-fx-background-color: #012D5A;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.d19.teamL.Pathfinding.PathFindingController">
+<AnchorPane fx:id="anchorPaneWindow" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="720" prefWidth="1280" style="-fx-background-color: #012D5A;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.d19.teamL.Map.Pathfinding.PathFindingController">
    <fx:define>
       <Screen fx:factory="getPrimary" fx:id="screen"/>
    </fx:define>

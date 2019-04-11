@@ -1,6 +1,6 @@
-package edu.wpi.cs3733.d19.teamL.Map;
+package edu.wpi.cs3733.d19.teamL.Map.MapLocations;
 
-import edu.wpi.cs3733.d19.teamL.Pathfinding.EdgesAccess;
+import edu.wpi.cs3733.d19.teamL.Map.Pathfinding.EdgesAccess;
 
 import java.util.ArrayList;
 import java.util.PriorityQueue;

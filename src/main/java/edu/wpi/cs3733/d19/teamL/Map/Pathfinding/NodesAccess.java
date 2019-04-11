@@ -1,4 +1,4 @@
-package edu.wpi.cs3733.d19.teamL.Pathfinding;
+package edu.wpi.cs3733.d19.teamL.Map.Pathfinding;
 
 import edu.wpi.cs3733.d19.teamL.DBAccess;
 

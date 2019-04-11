@@ -1,4 +1,4 @@
-package edu.wpi.cs3733.d19.teamL.Map;
+package edu.wpi.cs3733.d19.teamL.Map.MapLocations;
 
 public class Edge {
 

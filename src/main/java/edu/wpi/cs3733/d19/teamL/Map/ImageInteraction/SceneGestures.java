@@ -1,4 +1,4 @@
-package edu.wpi.cs3733.d19.teamL.ImageInteraction;
+package edu.wpi.cs3733.d19.teamL.Map.ImageInteraction;
 
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
@@ -13,7 +13,7 @@ import javafx.scene.shape.Line;
 
 import java.util.ArrayList;
 
-public class SceneGesturesForEditing {
+public class SceneGestures {
 
     PanAndZoomPane panAndZoomPane;
 
@@ -25,13 +25,11 @@ public class SceneGesturesForEditing {
     private ArrayList<Line> lines;
 
     ObjectProperty<Point2D> mouseDown = new SimpleObjectProperty<>();
-    ObjectProperty<Point2D> mouseDownOrig = new SimpleObjectProperty<>();
-
 
     private static final int MIN_PIXELS = 235;
 
 
-    public SceneGesturesForEditing(PanAndZoomPane canvas, ImageView i) {
+    public SceneGestures( PanAndZoomPane canvas, ImageView i) {
         this.panAndZoomPane = canvas;
         imageView = i;
         height = imageView.getImage().getHeight();
@@ -62,7 +60,6 @@ public class SceneGesturesForEditing {
         public void handle(MouseEvent event) {
             Point2D mousePress = imageViewToImage(imageView, new Point2D(event.getX(), event.getY()));
             mouseDown.set(mousePress);
-            mouseDownOrig.set(mousePress);
         }
 
     };
@@ -70,6 +67,8 @@ public class SceneGesturesForEditing {
     private EventHandler<MouseEvent> onMouseDraggedEventHandler = new EventHandler<MouseEvent>() {
         public void handle(MouseEvent event) {
             Point2D oldPoint = getImageLocation();
+
+
             Point2D dragPoint = imageViewToImage(imageView, new Point2D(event.getX(), event.getY()));
             shift(imageView, dragPoint.subtract(mouseDown.get()));
             mouseDown.set(imageViewToImage(imageView, new Point2D(event.getX(), event.getY())));
@@ -109,7 +108,7 @@ public class SceneGesturesForEditing {
     }
 
     // convert mouse coordinates in the imageView to coordinates in the actual imageView:
-    public Point2D imageViewToImage(ImageView imageView, Point2D imageViewCoordinates) {
+    private Point2D imageViewToImage(ImageView imageView, Point2D imageViewCoordinates) {
         double xProportion = imageViewCoordinates.getX() / imageView.getBoundsInLocal().getWidth();
         double yProportion = imageViewCoordinates.getY() / imageView.getBoundsInLocal().getHeight();
 
@@ -200,13 +199,9 @@ public class SceneGesturesForEditing {
     }
 
     @SuppressWarnings("Duplicates")
-    public void redrawPath(Point2D oldPointUpper, double oldScale){
+    private void redrawPath(Point2D oldPointUpper, double oldScale){
         if(circles != null && lines != null) {
-            
             double scaleRatio = Math.min(imageView.getFitWidth()/imageView.getImage().getWidth(),imageView.getFitHeight()/imageView.getImage().getHeight());
-
-            //System.out.println(scaleRatio);
-
             for (int i = 0; i < circles.size(); i++) {
                 Circle c = circles.get(i);
 
@@ -226,13 +221,5 @@ public class SceneGesturesForEditing {
                 line.setStrokeWidth(Math.max(1,getImageScale()/8));
             }
         }
-    }
-
-    public void setMouseDown(Point2D mousePress){
-        mouseDown.set(mousePress);
-    }
-
-    public ObjectProperty<Point2D> getMouseDown(){
-        return mouseDownOrig;
     }
 }

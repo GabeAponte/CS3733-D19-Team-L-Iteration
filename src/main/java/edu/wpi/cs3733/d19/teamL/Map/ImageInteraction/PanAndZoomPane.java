@@ -1,4 +1,4 @@
-package edu.wpi.cs3733.d19.teamL.ImageInteraction;
+package edu.wpi.cs3733.d19.teamL.Map.ImageInteraction;
 
 import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;

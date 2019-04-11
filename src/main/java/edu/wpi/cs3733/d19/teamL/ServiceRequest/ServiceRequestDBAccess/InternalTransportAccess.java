@@ -6,7 +6,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import edu.wpi.cs3733.d19.teamL.DBAccess;
-import edu.wpi.cs3733.d19.teamL.Map.Location;
+import edu.wpi.cs3733.d19.teamL.Map.MapLocations.Location;
 import edu.wpi.cs3733.d19.teamL.ServiceRequest.FulfillServiceRequest.ServiceRequestTable;
 import javafx.scene.control.TreeItem;
 

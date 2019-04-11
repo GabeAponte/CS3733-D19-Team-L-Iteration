@@ -1,7 +1,7 @@
 package edu.wpi.cs3733.d19.teamL.SearchingAlgorithms;
-import edu.wpi.cs3733.d19.teamL.Pathfinding.EdgesAccess;
-import edu.wpi.cs3733.d19.teamL.Map.Location;
-import edu.wpi.cs3733.d19.teamL.Map.Path;
+import edu.wpi.cs3733.d19.teamL.Map.Pathfinding.EdgesAccess;
+import edu.wpi.cs3733.d19.teamL.Map.MapLocations.Location;
+import edu.wpi.cs3733.d19.teamL.Map.MapLocations.Path;
 
 import java.util.ArrayList;
 import java.util.HashMap;

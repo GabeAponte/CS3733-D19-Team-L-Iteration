@@ -1,7 +1,7 @@
 package edu.wpi.cs3733.d19.teamL.ServiceRequest.MakeServiceRequest;
 
 import edu.wpi.cs3733.d19.teamL.HomeScreens.HomeScreenController;
-import edu.wpi.cs3733.d19.teamL.Pathfinding.NodesAccess;
+import edu.wpi.cs3733.d19.teamL.Map.Pathfinding.NodesAccess;
 import edu.wpi.cs3733.d19.teamL.ServiceRequest.ServiceRequestDBAccess.ServiceRequestAccess;
 import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXTextArea;

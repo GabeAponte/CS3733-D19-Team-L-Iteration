@@ -1,6 +1,6 @@
 package edu.wpi.cs3733.d19.teamL;
-import edu.wpi.cs3733.d19.teamL.Pathfinding.EdgesAccess;
-import edu.wpi.cs3733.d19.teamL.Pathfinding.NodesAccess;
+import edu.wpi.cs3733.d19.teamL.Map.Pathfinding.EdgesAccess;
+import edu.wpi.cs3733.d19.teamL.Map.Pathfinding.NodesAccess;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
