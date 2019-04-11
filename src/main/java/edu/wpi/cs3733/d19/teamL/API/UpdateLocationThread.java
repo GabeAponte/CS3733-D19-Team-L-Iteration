@@ -1,6 +1,6 @@
 package edu.wpi.cs3733.d19.teamL.API;
 import Object.*;
-import edu.wpi.cs3733.d19.teamL.Object.Singleton;
+import edu.wpi.cs3733.d19.teamL.Singleton;
 
 public class UpdateLocationThread extends Thread {
 

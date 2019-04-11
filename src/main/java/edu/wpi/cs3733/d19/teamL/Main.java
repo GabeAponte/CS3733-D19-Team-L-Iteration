@@ -2,9 +2,8 @@ package edu.wpi.cs3733.d19.teamL;
 
 import Access.*;
 import Object.*;
-import edu.wpi.cs3733.d19.teamL.Access.EdgesAccess;
-import edu.wpi.cs3733.d19.teamL.Access.NodesAccess;
-import edu.wpi.cs3733.d19.teamL.Object.Singleton;
+import edu.wpi.cs3733.d19.teamL.Pathfinding.EdgesAccess;
+import edu.wpi.cs3733.d19.teamL.Pathfinding.NodesAccess;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
