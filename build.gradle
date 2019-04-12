@@ -58,7 +58,8 @@ dependencies {
             [group: 'com.jfoenix', name: 'jfoenix', version: '8.0.3'],
             [group: 'org.xerial', name: 'sqlite-jdbc', version: '3.27.2'],
             [group: 'javax.mail', name: 'mail', version: '1.4.7'],
-            [group: 'com.github.dvdme', name: 'ForecastIOLib', version: '1.5.2']
+            [group: 'com.github.dvdme', name: 'ForecastIOLib', version: '1.5.2'],
+            [group: 'de.jensd', name: 'fontawesomefx', version: '8.9']
 
     )
 }
