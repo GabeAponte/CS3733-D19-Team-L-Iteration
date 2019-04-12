@@ -1,8 +1,8 @@
 .button:hover{
     -fx-background-color: white;
-    -fx-text-fill: blue;
+    -fx-text-fill: #f5d96b ;
 }
 
-.glyph-icon{
-    -fx-fill: blue;
+.button:hover .glyph-icon{
+    -fx-fill:  #f5d96b;
 }

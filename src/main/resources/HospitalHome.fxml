@@ -83,45 +83,45 @@
                   <Insets />
                </VBox.margin>
                <children>
-                  <JFXButton fx:id="HomeFindPath" alignment="CENTER" buttonType="RAISED" contentDisplay="GRAPHIC_ONLY" onAction="#SwitchToPathfindScreen" prefHeight="280.0" prefWidth="300.0" ripplerFill="WHITE" style="-fx-border-color: #f5d96b; -fx-border-width: 5;" text=" " textFill="WHITE" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                  <JFXButton fx:id="HomeFindPath" alignment="CENTER" buttonType="RAISED" contentDisplay="TOP" focusTraversable="false" onAction="#SwitchToPathfindScreen" prefHeight="280.0" prefWidth="300.0" ripplerFill="WHITE" style="-fx-border-color: #f5d96b; -fx-border-width: 5;" stylesheets="@HomeButtonStyle.css" text="Navigation" textFill="WHITE" GridPane.columnIndex="1" GridPane.rowIndex="1">
                      <font>
-                        <Font size="48.0" />
+                        <Font size="36.0" />
                      </font>
                      <GridPane.margin>
                         <Insets left="100.0" />
                      </GridPane.margin>
                      <graphic>
-                        <FontAwesomeIconView fill="WHITE" glyphName="MAP_ALT" size="200" />
+                        <FontAwesomeIconView fill="WHITE" glyphName="MAP_ALT" size="150" />
                      </graphic>
                   </JFXButton>
-                  <JFXButton fx:id="HomeServiceRequest" alignment="CENTER" buttonType="RAISED" contentDisplay="GRAPHIC_ONLY" onAction="#SwitchToServiceScreen" prefHeight="280.0" prefWidth="300.0" ripplerFill="WHITE" style="-fx-border-color: #f5d96b; -fx-border-width: 5;" text=" " textFill="WHITE" GridPane.columnIndex="2" GridPane.rowIndex="1">
+                  <JFXButton fx:id="HomeServiceRequest" alignment="CENTER" buttonType="RAISED" contentDisplay="TOP" focusTraversable="false" onAction="#SwitchToServiceScreen" prefHeight="280.0" prefWidth="300.0" ripplerFill="WHITE" style="-fx-border-color: #f5d96b; -fx-border-width: 5;" stylesheets="@HomeButtonStyle.css" text="Request" textFill="WHITE" GridPane.columnIndex="2" GridPane.rowIndex="1">
                      <font>
-                        <Font size="44.0" />
+                        <Font size="36.0" />
                      </font>
                      <GridPane.margin>
                         <Insets right="100.0" />
                      </GridPane.margin>
                      <graphic>
-                        <FontAwesomeIconView fill="WHITE" glyphName="BELL_ALT" size="200" />
+                        <FontAwesomeIconView fill="WHITE" glyphName="BELL_ALT" size="150" />
                      </graphic>
                   </JFXButton>
-                  <JFXButton fx:id="HomeSuggestions" alignment="CENTER" buttonType="RAISED" contentDisplay="GRAPHIC_ONLY" onAction="#SwitchToSuggestionBox" prefHeight="280.0" prefWidth="300.0" ripplerFill="#b0b0b0" style="-fx-border-color: #f5d96b; -fx-border-width: 5;" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                  <JFXButton fx:id="HomeSuggestions" alignment="CENTER" buttonType="RAISED" contentDisplay="TOP" focusTraversable="false" onAction="#SwitchToSuggestionBox" prefHeight="280.0" prefWidth="300.0" ripplerFill="#b0b0b0" style="-fx-border-color: #f5d96b; -fx-border-width: 5;" stylesheets="@HomeButtonStyle.css" text="Suggestion" textFill="WHITE" GridPane.columnIndex="1" GridPane.rowIndex="2">
                      <font>
-                        <Font size="48.0" />
+                        <Font size="36.0" />
                      </font>
                      <graphic>
-                        <FontAwesomeIconView fill="WHITE" glyphName="COMMENTING" size="200" />
+                        <FontAwesomeIconView fill="WHITE" glyphName="COMMENTING" size="150" />
                      </graphic>
                      <GridPane.margin>
                         <Insets left="100.0" />
                      </GridPane.margin>
                   </JFXButton>
-                  <JFXButton fx:id="LogIn" alignment="CENTER" buttonType="RAISED" contentDisplay="GRAPHIC_ONLY" onAction="#SwitchToLoginScreen" prefHeight="280.0" prefWidth="300.0" ripplerFill="#b0b0b0" style="-fx-border-color: #f5d96b; -fx-border-width: 5;" text=" " GridPane.columnIndex="2" GridPane.rowIndex="2">
+                  <JFXButton fx:id="LogIn" alignment="CENTER" buttonType="RAISED" contentDisplay="TOP" focusTraversable="false" onAction="#SwitchToLoginScreen" prefHeight="280.0" prefWidth="300.0" ripplerFill="#b0b0b0" style="-fx-border-color: #f5d96b; -fx-border-width: 5;" stylesheets="@HomeButtonStyle.css" text="Log In" textFill="WHITE" GridPane.columnIndex="2" GridPane.rowIndex="2">
                      <font>
-                        <Font size="33.0" />
+                        <Font size="36.0" />
                      </font>
                      <graphic>
-                        <FontAwesomeIconView fill="WHITE" glyphName="USER" size="200" />
+                        <FontAwesomeIconView fill="WHITE" glyphName="USER" size="150" />
                      </graphic>
                      <GridPane.margin>
                         <Insets right="100.0" />
