@@ -112,7 +112,7 @@ public class BookRoom2Controller {
                         controller.displayPopup();
                         single.setLastTime();
 
-                        Stage thisStage = (Stage) requestRoom.getScene().getWindow();
+                        Stage thisStage = (Stage) bookRoom2Back.getScene().getWindow();
 
                         Scene newScene = new Scene(sceneMain);
                         thisStage.setScene(newScene);

@@ -363,14 +363,14 @@ public class PathFindingController {
                             HomeScreenController controller = loader.<HomeScreenController>getController();
                             controller.displayPopup();
                         }
+                        Stage thisStage = (Stage) PathFindBack.getScene().getWindow();
+
+                        Scene newScene = new Scene(sceneMain);
+                        thisStage.setScene(newScene);
                         single.setLastTime();
                         single.setLoggedIn(false);
                         single.setUsername("");
                         single.setIsAdmin(false);
-                        Stage thisStage = (Stage) Up.getScene().getWindow();
-
-                        Scene newScene = new Scene(sceneMain);
-                        thisStage.setScene(newScene);
                         timeout.stop();
                     } catch (IOException io){
                         System.out.println(io.getMessage());
