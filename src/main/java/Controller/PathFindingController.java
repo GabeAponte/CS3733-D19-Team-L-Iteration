@@ -1,9 +1,6 @@
 package Controller;
 
-import SearchingAlgorithms.AStarStrategy;
-import SearchingAlgorithms.BreadthFirstStrategy;
-import SearchingAlgorithms.DepthFirstStrategy;
-import SearchingAlgorithms.PathfindingStrategy;
+import SearchingAlgorithms.*;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.beans.property.DoubleProperty;
@@ -341,7 +338,9 @@ public class PathFindingController {
         Singleton single = Singleton.getInstance();
         single.setLastTime();
         ObservableList<PathfindingStrategy> strategies = FXCollections.observableArrayList();
-        AStarStrategy aStarStrategy = new AStarStrategy(single.lookup);
+        TemplatePathFinder aStarStrategy = new AStarStrategy(single.lookup);
+        TemplatePathFinder dijkstraStrategy = new DijkstraStrategy(single.lookup);
+        strategies.add(dijkstraStrategy);
         strategies.add(aStarStrategy);
         strategies.add(new DepthFirstStrategy(single.lookup));
         strategies.add(new BreadthFirstStrategy(single.lookup));

@@ -5,7 +5,7 @@ import Object.*;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-public class AStarStrategy extends  TemplatePathFinder implements PathfindingStrategy {
+public class DijkstraStrategy extends TemplatePathFinder implements PathfindingStrategy {
 
     private HashMap<String, Location> lookup;
     private Location start, end;
@@ -13,7 +13,7 @@ public class AStarStrategy extends  TemplatePathFinder implements PathfindingStr
     private ArrayList<Location> openList;
     private ArrayList<Location> closeList;
 
-    public AStarStrategy(HashMap<String, Location> hash) {
+    public DijkstraStrategy(HashMap<String, Location> hash) {
         this.lookup = hash;
         //this.start = start;
         //this.end = end;
@@ -22,6 +22,6 @@ public class AStarStrategy extends  TemplatePathFinder implements PathfindingStr
     }
 
     public void calculateTotalScore(Location l, Location end, double gscore) {
-        l.setScore(l.calculateScore(gscore, end));
+        l.setScore(l.getGScore()); //djikstra doesn't use H score
     }
 }
