@@ -280,6 +280,10 @@ public class Location implements Comparable<Location>{
         return longName + "(" + floor + ")";
     }
 
+    public void removeEdge(Edge e) {
+        connectedEdges.remove(e);
+    }
+
     public void restitch() {
         EdgesAccess ea = new EdgesAccess();
         if (this.checkIfEasyHallway()) {

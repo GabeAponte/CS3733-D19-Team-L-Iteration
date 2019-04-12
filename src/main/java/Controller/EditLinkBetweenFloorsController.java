@@ -265,8 +265,10 @@ public class EditLinkBetweenFloorsController {
         String start = focusLoc.getLocID();
         String end = toConnectLoc.getLocID();
         ea.addEdge(start, end);
-        UpdateLocationThread ul = new UpdateLocationThread();
-        ul.start();
+        Edge e = new Edge(focusLoc.getLocID()+"_"+toConnectLoc.getLocID(), focusLoc, toConnectLoc);
+        single.addEdge(focusLoc, toConnectLoc,  e);
+        //UpdateLocationThread ul = new UpdateLocationThread();
+        //ul.start();
         //single.setData();
     }
 
