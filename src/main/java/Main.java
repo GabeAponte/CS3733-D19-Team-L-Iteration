@@ -1,6 +1,6 @@
-package edu.wpi.cs3733.d19.teamL;
 import edu.wpi.cs3733.d19.teamL.Map.Pathfinding.EdgesAccess;
 import edu.wpi.cs3733.d19.teamL.Map.Pathfinding.NodesAccess;
+import edu.wpi.cs3733.d19.teamL.Singleton;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -22,6 +22,7 @@ public class Main extends Application {
 
     @SuppressWarnings("RedundantThrows")
     public static void main(String[] args) throws URISyntaxException {
+        System.out.println("Main has been run");
         Singleton single = Singleton.getInstance();
         NodesAccess na = new NodesAccess();
         EdgesAccess ea = new EdgesAccess();

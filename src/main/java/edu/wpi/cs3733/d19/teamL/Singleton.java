@@ -62,6 +62,7 @@ public class Singleton {
     }
 
     public synchronized void setData() {
+        System.out.println("Data has been set");
         lookup.clear();
         data.clear();
         NodesAccess na = new NodesAccess();
