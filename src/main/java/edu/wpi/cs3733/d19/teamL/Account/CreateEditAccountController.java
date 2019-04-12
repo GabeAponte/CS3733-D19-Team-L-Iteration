@@ -1,5 +1,4 @@
 package edu.wpi.cs3733.d19.teamL.Account;
-
 import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXRadioButton;
 import edu.wpi.cs3733.d19.teamL.HomeScreens.HomeScreenController;
@@ -19,13 +18,13 @@ import javafx.scene.layout.AnchorPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.util.Duration;
-
 import javax.mail.internet.AddressException;
 import javax.mail.internet.InternetAddress;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+@SuppressWarnings({"Duplicates", "FieldCanBeLocal", "AccessStaticViaInstance", "WeakerAccess", "ConstantConditions"})
 public class CreateEditAccountController {
 
     private Stage thestage;
@@ -92,11 +91,9 @@ public class CreateEditAccountController {
 
     private boolean hasPrivelege;
 
-    private boolean onScreen;
-
     private static boolean clickedDelete = false;
 
-    Timeline timeout;
+    private Timeline timeout;
 
     public void initialize(){
         Singleton single = Singleton.getInstance();
@@ -115,7 +112,7 @@ public class CreateEditAccountController {
                         FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("HospitalHome.fxml"));
 
                         Parent sceneMain = loader.load();
-                        HomeScreenController controller = loader.<HomeScreenController>getController();
+                        HomeScreenController controller = loader.getController();
                         single.setLastTime();
                         controller.displayPopup();
                         single.setLastTime();
@@ -147,7 +144,6 @@ public class CreateEditAccountController {
                 "Language", "Maintenance", "Prescription", "Florist Delivery");
     }
 
-    @SuppressWarnings("Duplicates")
     @FXML
     private void backPressed() throws IOException {
         timeout.stop();
@@ -167,11 +163,11 @@ public class CreateEditAccountController {
 
     }
 
-
     /**ANDREW MADE THIS
      * sets the type of the controller when dealing with editing or creating an account
      * type = 1 when creating, type = 2 when editing your employee account, type = 3 when admin editing any account
-     * @param check
+     * @param check check
+     * @param user current user
      */
     public void setType(int check, String user){
         type = check;
@@ -226,7 +222,7 @@ public class CreateEditAccountController {
 
     /**Andrew made this
      * deletes an employee
-     * @throws IOException
+     * @throws IOException throwsException
      */
     @FXML
     public void deleteClicked() throws IOException{
@@ -234,7 +230,6 @@ public class CreateEditAccountController {
         Singleton single = Singleton.getInstance();
         single.setLastTime();
         Stage editStage = (Stage) delete.getScene().getWindow();
-        onScreen = false;
         Stage stage;
         Parent root;
         edu.wpi.cs3733.d19.teamL.Account.employeeID ID = new employeeID(empID);
@@ -258,13 +253,10 @@ public class CreateEditAccountController {
             timeout.play();
         }
 
-        /*EmployeeAccess ea = new EmployeeAccess();
-        ea.deleteEmployee(empID);
-        backPressed(); */
     }
 
     @FXML
-    public void yesPressed() throws IOException{
+    public void yesPressed() {
         clickedDelete = true;
         Stage stage = (Stage) yes.getScene().getWindow();
         stage.close();
@@ -272,7 +264,7 @@ public class CreateEditAccountController {
     }
 
     @FXML
-    public void noPressed() throws IOException{
+    public void noPressed() {
         clickedDelete = false;
         Stage stage = (Stage) no.getScene().getWindow();
         stage.close();
@@ -280,7 +272,7 @@ public class CreateEditAccountController {
 
 
     @FXML
-    public void deleteEmployee(Stage stage) throws IOException {
+    public void deleteEmployee(Stage stage) {
         EmployeeAccess ea = new EmployeeAccess();
         ea.deleteEmployee(stage.getUserData().toString());
 
@@ -288,8 +280,8 @@ public class CreateEditAccountController {
 
     /**ANDREW MADE THIS
      * helper method that validates an email address
-     * @param email
-     * @return
+     * @param email employee email
+     * @return boolean
      */
     public static boolean isValidEmailAddress(String email) {
         Singleton single = Singleton.getInstance();
@@ -375,11 +367,11 @@ public class CreateEditAccountController {
                 errorLabel.setText("The Username or Employee ID is taken");
                 return;
             }
-            ArrayList<String> list = new ArrayList<String>();
+            ArrayList<String> list = new ArrayList<>();
             list.add(employeeID.getText());
             list.add(username.getText());
             list.add(password.getText());
-            list.add(department.getValue().toString());
+            list.add(department.getValue());
             list.add(position.getText());
             list.add(firstName.getText());
             list.add(lastName.getText());
@@ -405,7 +397,7 @@ public class CreateEditAccountController {
             ea.changeAdmin(employeeID.getText(), isAdmin.isSelected());
             try {
                 ea.updateEmployee(employeeID.getText(), "password", password.getText());
-                ea.updateEmployee(employeeID.getText(), "department", department.getValue().toString());
+                ea.updateEmployee(employeeID.getText(), "department", department.getValue());
                 ea.updateEmployee(employeeID.getText(), "type", position.getText());
                 ea.updateEmployee(employeeID.getText(), "firstName", firstName.getText());
                 ea.updateEmployee(employeeID.getText(), "lastName", lastName.getText());
@@ -428,7 +420,7 @@ public class CreateEditAccountController {
             ea.changeAdmin(employeeID.getText(), isAdmin.isSelected());
             try {
                 ea.updateEmployee(employeeID.getText(), "password", password.getText());
-                ea.updateEmployee(employeeID.getText(), "department", department.getValue().toString());
+                ea.updateEmployee(employeeID.getText(), "department", department.getValue());
                 ea.updateEmployee(employeeID.getText(), "type", position.getText());
                 ea.updateEmployee(employeeID.getText(), "firstName", firstName.getText());
                 ea.updateEmployee(employeeID.getText(), "lastName", lastName.getText());
