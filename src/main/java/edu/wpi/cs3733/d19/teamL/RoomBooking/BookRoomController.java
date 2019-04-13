@@ -25,6 +25,7 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
+import javafx.scene.shape.Polygon;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -80,6 +81,7 @@ public class BookRoomController {
     //ArrayList<ArrayList<String>> myLocations = new ArrayList<ArrayList<String>>();
     private SceneGestures sceneGestures;
     private ArrayList<Circle> circles = new ArrayList<Circle>();
+    private ArrayList<Polygon> polygons = new ArrayList<Polygon>();
     private ArrayList<String> myListOfRooms = new ArrayList<String>();
     private ArrayList<String> reverseListOfRooms = new ArrayList<String>();
 
@@ -260,8 +262,12 @@ public class BookRoomController {
         for (Circle c: circles) {
             imagePane.getChildren().remove(c);
         }
+        for (Polygon p: polygons){
+            imagePane.getChildren().remove(p);
+        }
 
         circles.clear();
+        polygons.clear();
 
         if(startTime.getValue() != null && endTime != null && datePicker.getValue() != null){
             startTimeMil = startTime.getValue().getHour() * 100 + startTime.getValue().getMinute();
@@ -290,87 +296,93 @@ public class BookRoomController {
             }
 
             availableRooms.setItems(listOfRooms);
-            displayAvailableRooms();
-            displayOccupiedRooms();
+            displayAllRooms();
         }
     }
 
     @FXML
-    public void displayOccupiedRooms(){
+    public void displayAllRooms(){
         Singleton single = Singleton.getInstance();
         single.setLastTime();
-        for(int i = 0; i< reverseListOfRooms.size(); i++){
+
+        double room1[] = {};
+        double room2[] = {};
+        double room3[] = {};
+        double room4[] = {2420,180,2610,180,2730,540,2420,540};
+        double room5[] = {};
+        double room6[] = {2090,180,2410,180,2410,540,2090,540};
+        double room7[] = {};
+        double room8[] = {1750,180,2080,180,2080,540,1750,540};
+        double room9[] = {1775,710,1840,710,1840,750,1980,750,1980,930,1775,930};
+        double auditorium[] = {};
+
+        for(int i = 0; i< listOfRooms.size(); i++){
            // System.out.println("!");
-            if(reverseListOfRooms.get(i).toString().equals("Classroom 1 (Computer)")){
-               // System.out.println("Hello world");
-                makeDot(2420,1775);
-            }else if(reverseListOfRooms.get(i).toString().equals("Classroom 2 (Computer)")){
-                makeDot(3020,1290);
-            }else if(reverseListOfRooms.get(i).toString().equals("Classroom 3 (Computer)")){
-                makeDot(2880,900);
-            }else if(reverseListOfRooms.get(i).toString().equals("Classroom 4 (Classroom)")){
-                makeDot(2545,370);
-            }else if(reverseListOfRooms.get(i).toString().equals("Classroom 5 (Computer)")){
-                makeDot(2390,920);
-            }else if(reverseListOfRooms.get(i).toString().equals("Classroom 6 (Classroom)")){
-                makeDot(2255,370);
-            }else if(reverseListOfRooms.get(i).toString().equals("Classroom 7 (Computer)")){
-                makeDot(2115,920);
-            }else if(reverseListOfRooms.get(i).toString().equals("Classroom 8 (Classroom)")){
-                makeDot(1922,370);
-            }else if(reverseListOfRooms.get(i).toString().equals("Classroom 9 (Computer)")){
-                makeDot(1870,825);
-            }else if(reverseListOfRooms.get(i).toString().equals("Mission Hall Auditorium")){
-                makeDot(3125,1840);
+            if(listOfRooms.get(i).toString().equals("Classroom 1 (Computer)")){
+                makePolygon(room1, true);
+            }else if(listOfRooms.get(i).toString().equals("Classroom 2 (Computer)")){
+                makePolygon(room2, true);
+            }else if(listOfRooms.get(i).toString().equals("Classroom 3 (Computer)")){
+                makePolygon(room3, true);
+            }else if(listOfRooms.get(i).toString().equals("Classroom 4 (Classroom)")){
+                makePolygon(room4, true);
+            }else if(listOfRooms.get(i).toString().equals("Classroom 5 (Computer)")){
+                makePolygon(room5, true);
+            }else if(listOfRooms.get(i).toString().equals("Classroom 6 (Classroom)")){
+                makePolygon(room6, true);
+            }else if(listOfRooms.get(i).toString().equals("Classroom 7 (Computer)")){
+                makePolygon(room7, true);
+            }else if(listOfRooms.get(i).toString().equals("Classroom 8 (Classroom)")){
+                makePolygon(room8, true);
+            }else if(listOfRooms.get(i).toString().equals("Classroom 9 (Computer)")){
+                makePolygon(room9, true);
+            }else if(listOfRooms.get(i).toString().equals("Mission Hall Auditorium")){
+                makePolygon(auditorium, true);
             }
         }
 
+        for(int i = 0; i< reverseListOfRooms.size(); i++){
+            // System.out.println("!");
+            if(reverseListOfRooms.get(i).toString().equals("Classroom 1 (Computer)")){
+                makePolygon(room1, false);
+            }else if(reverseListOfRooms.get(i).toString().equals("Classroom 2 (Computer)")){
+                makePolygon(room2, false);
+            }else if(reverseListOfRooms.get(i).toString().equals("Classroom 3 (Computer)")){
+                makePolygon(room3, false);
+            }else if(reverseListOfRooms.get(i).toString().equals("Classroom 4 (Classroom)")){
+                makePolygon(room4, false);
+            }else if(reverseListOfRooms.get(i).toString().equals("Classroom 5 (Computer)")){
+                makePolygon(room5, false);
+            }else if(reverseListOfRooms.get(i).toString().equals("Classroom 6 (Classroom)")){
+                makePolygon(room6, false);
+            }else if(reverseListOfRooms.get(i).toString().equals("Classroom 7 (Computer)")){
+                makePolygon(room7, false);
+            }else if(reverseListOfRooms.get(i).toString().equals("Classroom 8 (Classroom)")){
+                makePolygon(room8, false);
+            }else if(reverseListOfRooms.get(i).toString().equals("Classroom 9 (Computer)")){
+                makePolygon(room9, false);
+            }else if(reverseListOfRooms.get(i).toString().equals("Mission Hall Auditorium")){
+                makePolygon(auditorium, false);
+            }
         }
-
-    private void makeDot(double x, double y){
-        double scaleRatio = Math.min(roomImage.getFitWidth()/roomImage.getImage().getWidth(), roomImage.getFitHeight()/roomImage.getImage().getHeight());
-        Circle c = new Circle();
-
-        //System.out.println(x*scaleRatio);
-
-        c.setCenterX(x*scaleRatio);
-        c.setCenterY(y*scaleRatio);
-        c.setRadius(10);
-        c.setStroke(Color.web("RED"));
-        c.setFill(Color.web("RED"));
-        imagePane.getChildren().add(c);
-        circles.add(c);
     }
 
-    @FXML
-    public void displayAvailableRooms(){
-        for(int i = 0; i< myListOfRooms.size(); i++){
-                makeGreenDot(2420,1775);
-                makeGreenDot(3020,1290);
-                makeGreenDot(2880,900);
-                makeGreenDot(2545,370);
-                makeGreenDot(2390,920);
-                makeGreenDot(2255,370);
-                makeGreenDot(2115,920);
-                makeGreenDot(1922,370);
-                makeGreenDot(1870,825);
-                makeGreenDot(3125,1840);
-            }
-        }
-
-    private void makeGreenDot(double x, double y){
+    private void makePolygon(double points[], boolean green){
         double scaleRatio = Math.min(roomImage.getFitWidth()/roomImage.getImage().getWidth(), roomImage.getFitHeight()/roomImage.getImage().getHeight());
-        Circle c = new Circle();
-
-       // System.out.println(x*scaleRatio);
-
-        c.setCenterX(x*scaleRatio);
-        c.setCenterY(y*scaleRatio);
-        c.setRadius(10);
-        c.setStroke(Color.web("GREEN"));
-        c.setFill(Color.web("GREEN"));
-        imagePane.getChildren().add(c);
-        circles.add(c);
+        for(int i = 0; i < points.length; i++){
+            points[i] = points[i]*scaleRatio;
+        }
+        Polygon p = new Polygon(points);
+        if(green) {
+            p.setStroke(Color.web("GREEN"));
+            p.setFill(Color.web("GREEN"));
+        }else{
+            p.setStroke(Color.web("RED"));
+            p.setFill(Color.web("RED"));
+        }
+        p.setOpacity(0.3);
+        imagePane.getChildren().add(p);
+        polygons.add(p);
     }
 
 }
