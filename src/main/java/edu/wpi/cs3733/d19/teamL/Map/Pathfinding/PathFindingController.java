@@ -1,5 +1,8 @@
 package edu.wpi.cs3733.d19.teamL.Map.Pathfinding;
 
+import com.jfoenix.controls.JFXButton;
+import com.jfoenix.controls.JFXScrollPane;
+import com.jfoenix.controls.JFXTextArea;
 import edu.wpi.cs3733.d19.teamL.HomeScreens.HomeScreenController;
 import edu.wpi.cs3733.d19.teamL.Map.ImageInteraction.SceneGestures;
 import edu.wpi.cs3733.d19.teamL.Map.MapLocations.Location;
@@ -12,6 +15,7 @@ import edu.wpi.cs3733.d19.teamL.SearchingAlgorithms.PathfindingStrategy;
 import edu.wpi.cs3733.d19.teamL.Singleton;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
+import javafx.application.Platform;
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.value.ChangeListener;
@@ -35,18 +39,21 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Line;
 import javafx.scene.shape.Rectangle;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
 
+import javax.xml.soap.Text;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.ListIterator;
 
 @SuppressWarnings("Duplicates")
 public class PathFindingController {
+
     @FXML
-    private Label Direction;
+    private JFXButton TextDirction;
 
     @FXML
     private Stage thestage;
@@ -156,6 +163,27 @@ public class PathFindingController {
     private String type = "test";
     private String type2 = "";
     private String currentMap = "G"; //defaults to floor G
+    //Larry - This will show up the text direction in pop up screen when you click on the text direction button
+    @FXML
+    private void PopupText(ActionEvent event) throws IOException{
+        Stage stage;
+        Parent root;
+        stage = new Stage();
+        //root = FXMLLoader.load(getClass().getClassLoader().getResource("PopUpTextDirection.fxml"));
+        //stage.setScene(new Scene(root));
+        //stage.setTitle("I am Text Direction");
+        //stage.initModality(Modality.APPLICATION_MODAL);
+        //stage.show();
+        FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("PopUpTextDirection.fxml"));
+        Parent sceneMain = loader.load();
+        TextDirectionController controller = loader.<TextDirectionController>getController();
+        controller.setTextOfDirection(printPath(path.getPath()));
+        Scene scene = new Scene(sceneMain);
+        stage.setScene(scene);
+       // stage.setTitle("I am Text Direction");
+        stage.initModality(Modality.APPLICATION_MODAL);
+        stage.showAndWait();
+    }
 
     @FXML
     private void clickedG(){
@@ -490,6 +518,7 @@ public class PathFindingController {
         }
         else{
             PathFindSubmit.setDisable(true);
+            TextDirction.setDisable(true);
         }
     }
 
@@ -508,10 +537,9 @@ public class PathFindingController {
 
         displayPath();
         //printPath(path.getPath());
-        Direction.setText(printPath(path.getPath()));
-
 
         sceneGestures.setDrawPath(circles,lines);
+        TextDirction.setDisable(false);
     }
 
     public void displayPath(){
