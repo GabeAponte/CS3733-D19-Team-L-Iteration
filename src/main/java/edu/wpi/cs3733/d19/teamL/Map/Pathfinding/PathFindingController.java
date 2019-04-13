@@ -1,5 +1,6 @@
 package edu.wpi.cs3733.d19.teamL.Map.Pathfinding;
 
+import com.jfoenix.controls.JFXButton;
 import edu.wpi.cs3733.d19.teamL.HomeScreens.HomeScreenController;
 import edu.wpi.cs3733.d19.teamL.Map.ImageInteraction.SceneGestures;
 import edu.wpi.cs3733.d19.teamL.Map.MapLocations.Location;
@@ -1120,7 +1121,8 @@ public class PathFindingController {
                 }
             }
 
-            displayPath(closestPath.getPath(), kioskTemp, closestLOC);
+            //displayPath(closestPath.getPath(), kioskTemp, closestLOC);
+            displayPath();
             printPath(closestPath.getPath());
 
             sceneGestures.setDrawPath(circles,lines);
