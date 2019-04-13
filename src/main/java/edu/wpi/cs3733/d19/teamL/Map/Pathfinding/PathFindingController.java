@@ -126,6 +126,7 @@ public class PathFindingController {
 
     private Rectangle clip;
     private boolean displayingPath;
+    private ArrayList<Button> buttons = new ArrayList<Button>();
     private Path path;
 
     private PanAndZoomPane zoomPaneImage;
@@ -514,9 +515,13 @@ public class PathFindingController {
         sceneGestures.setDrawPath(circles,lines);
     }
 
+    /**
+     * @author: Nikhil: Displays start node, end node and line in between
+     * Also contains code that will generate buttons above transitions between floors
+     */
     public void displayPath(){
         single.setLastTime();
-
+        //Clears the lines and circles to avoid any duplicates or reproducing data.
         if(displayingPath) {
             path.getPath().add(0,startNode);
 
@@ -526,13 +531,18 @@ public class PathFindingController {
             for (Line l : lines) {
                 anchorPanePath.getChildren().remove(l);
             }
+            for (Button b : buttons) {
+                anchorPanePath.getChildren().remove(b);
+            }
 
             circles.clear();
             lines.clear();
+            buttons.clear();
 
+            //Deals with the zoom pane and changing screen size.
             Point2D point = sceneGestures.getImageLocation();
             double scaleRatio = Math.min(Map.getFitWidth() / Map.getImage().getWidth(), Map.getFitHeight() / Map.getImage().getHeight());
-
+            //Creates the path for the user to follow, and displays based on the current floor.
             for (int i = 0; i < path.getPath().size() - 1; i++) {
                 Line line = new Line();
 
@@ -540,14 +550,81 @@ public class PathFindingController {
                 line.setStartY((path.getPath().get(i).getYcoord() - point.getY()) * scaleRatio * sceneGestures.getImageScale());
                 line.setEndX((path.getPath().get(i + 1).getXcoord() - point.getX()) * scaleRatio * sceneGestures.getImageScale());
                 line.setEndY((path.getPath().get(i + 1).getYcoord() - point.getY()) * scaleRatio * sceneGestures.getImageScale());
-
+                //Toggles visibility based on current floor to adjust for travelling across multiple floors.
                 if (!(path.getPath().get(i).getFloor().equals(currentMap)) || !(path.getPath().get(i + 1).getFloor().equals(currentMap))) {
                     line.setVisible(false);
+                }
+                //Creates buttons to transition between floors on the map
+                int f = path.getPath().size() - 1;
+                if((!(path.getPath().get(i + 1).getFloor().equals(currentMap)))){
+                    Button nBut = new Button();
+                    buttons.add(nBut);
+                    nBut.setLayoutX((path.getPath().get(i).getXcoord() - point.getX()) * scaleRatio * sceneGestures.getImageScale());
+                    nBut.setLayoutY((path.getPath().get(i).getYcoord() - point.getY()) * scaleRatio * sceneGestures.getImageScale());
+                    if(!(path.getPath().get(f).getFloor().equals(currentMap))) {
+                        final int transit = i + 1;
+                        String transition = path.getPath().get(transit).getFloor();
+                        String display = "Transition to ";
+                        if (transition.equals("L2"))
+                            display += "Floor Lower 2";
+                        if (transition.equals("L1"))
+                            display += "Floor Lower 1";
+                        if (transition.equals("G"))
+                            display += "Ground Floor";
+                        if (transition.equals("1"))
+                            display += "First Floor";
+                        if (transition.equals("2"))
+                            display += "Second Floor";
+                        if (transition.equals("3"))
+                            display += "Third Floor";
+                        nBut.setText(display);
+                        nBut.setOnAction(event -> {
+                            if (transition.equals("L2"))
+                                clickedL2();
+                            if (transition.equals("L1"))
+                                clickedL1();
+                            if (transition.equals("G"))
+                                clickedG();
+                            if (transition.equals("1"))
+                                clicked1();
+                            if (transition.equals("2"))
+                                clicked2();
+                            if (transition.equals("3"))
+                                clicked3();
+                        });
+                        anchorPanePath.getChildren().add(nBut);
+                    }
+//                    else
+//                    {
+//                        Button nBut2 = new Button();
+//                        buttons.add(nBut2);
+//                        nBut2.setLayoutX((path.getPath().get(i).getXcoord() - point.getX()) * scaleRatio * sceneGestures.getImageScale());
+//                        nBut2.setLayoutY((path.getPath().get(i).getYcoord() - point.getY()) * scaleRatio * sceneGestures.getImageScale());
+//                        final int b = i-1;
+//                        String back = path.getPath().get(b).getFloor();
+//                        String backTo  = "Show the starting floor.";
+//                        nBut2.setText(backTo);
+//                        nBut2.setOnAction(event -> {
+//                            if (back.equals("L2"))
+//                                clickedL2();
+//                            if (back.equals("L1"))
+//                                clickedL1();
+//                            if (back.equals("G"))
+//                                clickedG();
+//                            if (back.equals("1"))
+//                                clicked1();
+//                            if (back.equals("2"))
+//                                clicked2();
+//                            if (back.equals("3"))
+//                                clicked3();
+//                        });
+//                    }
                 }
                 anchorPanePath.getChildren().add(line);
 
                 lines.add(line);
             }
+            //Creates the start and end nodes to display them and sets colors.
             Circle StartCircle = new Circle();
 
             //Setting the properties of the circle
