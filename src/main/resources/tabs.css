@@ -1,0 +1,25 @@
+/*
+    The tab bar
+*/
+
+.jfx-tab-pane .headers-region {
+    -fx-background-color: #f5d96b;
+}
+.jfx-tab-pane .tab-header-background {
+    -fx-background-color: #f5d96b;
+}
+.jfx-tab-pane .tab-selected-line {
+    -fx-background-color: BLACK;
+    -fx-stroke-width: 3pt;
+}
+
+.tab .tab-label {
+    -fx-alignment: CENTER;
+    -fx-text-fill: BLACK;
+
+}
+
+.tab:selected .tab-label {
+    -fx-alignment: CENTER;
+    -fx-text-fill: WHITE;
+}

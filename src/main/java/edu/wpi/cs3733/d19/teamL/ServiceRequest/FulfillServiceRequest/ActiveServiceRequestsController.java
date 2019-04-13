@@ -1,5 +1,6 @@
 package edu.wpi.cs3733.d19.teamL.ServiceRequest.FulfillServiceRequest;
 
+import com.jfoenix.controls.JFXTabPane;
 import edu.wpi.cs3733.d19.teamL.Account.EmployeeAccess;
 import edu.wpi.cs3733.d19.teamL.HomeScreens.HomeScreenController;
 import edu.wpi.cs3733.d19.teamL.ServiceRequest.ServiceRequestDBAccess.InternalTransportAccess;
@@ -35,7 +36,13 @@ public class ActiveServiceRequestsController {
     private Button back;
 
     @FXML
+    private Tab tab;
+
+    @FXML
     private ComboBox filter;
+
+    @FXML
+    JFXTabPane requestType;
 
     @FXML
     TreeTableColumn<ServiceRequestTable, String> dateRequested;
@@ -138,11 +145,11 @@ public class ActiveServiceRequestsController {
         timeout.setCycleCount(Timeline.INDEFINITE);
         timeout.play();
 
-        filter.getItems().addAll(
+     /*   filter.getItems().addAll(
                 "Religious", "Internal Transportation", "Audio/Visual",
                 "External Transportation", "Florist Delivery", "IT",
-                "Language Assistance", "Maintenance", "Prescriptions", "Sanitation", "Security");
-        activeRequests.getColumns().clear();
+                "Language Assistance", "Maintenance", "Prescriptions", "Sanitation", "Security"); */
+       activeRequests.getColumns().clear();
     }
 
     /**@author Gabe
@@ -155,7 +162,8 @@ public class ActiveServiceRequestsController {
 
         activeRequests.setEditable(false);
 
-        if (filter.getValue() == "Internal Transportation") {
+        if (requestType.getSelectionModel().getSelectedItem().getText().equals("Internal Trans.")){
+            System.out.println(requestType.getSelectionModel().getSelectedItem().getText());
             root.getChildren().clear();
             activeRequests.setRoot(null);
             InternalTransportAccess it = new InternalTransportAccess();
@@ -243,7 +251,8 @@ public class ActiveServiceRequestsController {
             });
 
         }
-        if (filter.getValue() == "Religious") {
+        else if (requestType.getSelectionModel().getSelectedItem().getText().equals("Religious")) {
+            System.out.println(requestType.getSelectionModel().getSelectedItem().getText());
             root.getChildren().clear();
             activeRequests.setRoot(null);
 
@@ -332,7 +341,8 @@ public class ActiveServiceRequestsController {
 
         }
 
-        if (filter.getValue() == "Audio/Visual") {
+        else if (requestType.getSelectionModel().getSelectedItem().getText().equals("Audio/Visual")) {
+            System.out.println(requestType.getSelectionModel().getSelectedItem().getText());
             root.getChildren().clear();
             activeRequests.setRoot(null);
 
@@ -409,7 +419,8 @@ public class ActiveServiceRequestsController {
             activeRequests.setRoot(root);
             activeRequests.setShowRoot(false);
         }
-        if (filter.getValue() == "External Transportation") {
+       else  if (requestType.getSelectionModel().getSelectedItem().getText().equals("External Trans.")) {
+            System.out.println(requestType.getSelectionModel().getSelectedItem().getText());
             root.getChildren().clear();
             activeRequests.setRoot(null);
 
@@ -496,7 +507,8 @@ public class ActiveServiceRequestsController {
             activeRequests.setRoot(root);
             activeRequests.setShowRoot(false);
         }
-        if (filter.getValue() == "Florist Delivery") {
+        else if (requestType.getSelectionModel().getSelectedItem().getText().equals("Florist")) {
+            System.out.println(requestType.getSelectionModel().getSelectedItem().getText());
             root.getChildren().clear();
             activeRequests.setRoot(null);
 
@@ -573,7 +585,8 @@ public class ActiveServiceRequestsController {
             activeRequests.setRoot(root);
             activeRequests.setShowRoot(false);
         }
-        if (filter.getValue() == "IT") {
+        else if (requestType.getSelectionModel().getSelectedItem().getText().equals("IT")) {
+            System.out.println(requestType.getSelectionModel().getSelectedItem().getText());
             root.getChildren().clear();
             activeRequests.setRoot(null);
 
@@ -651,7 +664,8 @@ public class ActiveServiceRequestsController {
             activeRequests.setRoot(root);
             activeRequests.setShowRoot(false);
         }
-        if (filter.getValue() == "Language Assistance") {
+       else if (requestType.getSelectionModel().getSelectedItem().getText().equals("Language Assistance")) {
+            System.out.println(requestType.getSelectionModel().getSelectedItem().getText());
             root.getChildren().clear();
             activeRequests.setRoot(null);
 
@@ -738,7 +752,8 @@ public class ActiveServiceRequestsController {
             activeRequests.setRoot(root);
             activeRequests.setShowRoot(false);
         }
-        if (filter.getValue() == "Maintenance") {
+        else if (requestType.getSelectionModel().getSelectedItem().getText().equals("Maintenance")){
+            System.out.println(requestType.getSelectionModel().getSelectedItem().getText());
             root.getChildren().clear();
             activeRequests.setRoot(null);
 
@@ -815,7 +830,8 @@ public class ActiveServiceRequestsController {
             activeRequests.setRoot(root);
             activeRequests.setShowRoot(false);
         }
-        if (filter.getValue() == "Prescriptions") {
+        else if (requestType.getSelectionModel().getSelectedItem().getText().equals("Prescriptions")) {
+            System.out.println(requestType.getSelectionModel().getSelectedItem().getText());
             root.getChildren().clear();
             activeRequests.setRoot(null);
 
@@ -902,7 +918,9 @@ public class ActiveServiceRequestsController {
             activeRequests.setRoot(root);
             activeRequests.setShowRoot(false);
         }
-        if (filter.getValue() == "Sanitation") {
+       else if (requestType.getSelectionModel().getSelectedItem().getText().equals("Sanitation")) {
+            System.out.println(requestType.getSelectionModel().getSelectedItem().getText());
+            System.out.println(requestType.getSelectionModel().getSelectedItem().getText());
             root.getChildren().clear();
             activeRequests.setRoot(null);
 
@@ -979,8 +997,10 @@ public class ActiveServiceRequestsController {
             activeRequests.getColumns().add(assignedEmployee);
             activeRequests.setRoot(root);
             activeRequests.setShowRoot(false);
+            System.out.println("this ran");
         }
-        if (filter.getValue() == "Security") {
+       else if (requestType.getSelectionModel().getSelectedItem().getText().equals("Security")) {
+            System.out.println(requestType.getSelectionModel().getSelectedItem().getText());
             root.getChildren().clear();
             activeRequests.setRoot(null);
 

@@ -129,7 +129,7 @@ public class FulfillRequestController {
         }else if(table.equals("External Transportation")){
             this.table = "externalTransportationRequest";
         }else if(table.equals("Florist Delivery")){
-            this.table = "floristDelivery";
+            this.table = "floristDeliveryRequest";
         }else if(table.equals("IT")){
             this.table = "ITRequest";
         }else if(table.equals("Language Assistance")){
