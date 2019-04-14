@@ -43,7 +43,7 @@ public class DepthFirstStrategy implements PathfindingStrategy{
                     Location l = lookup.get(neighboursID.get(i));
                     if(l != null && !(visited.contains(l))){
                         //if child and parent node are restricted type, continue
-                        if(l.getNodeType().equals(restrictions) && A.getNodeType().equals(restrictions)){
+                        if(l.getNodeType().equals(restrictions) && A.getNodeType().equals(restrictions) && !l.getFloor().equals(A.getFloor())){
                             continue;
                         }
                         stack.add(l);

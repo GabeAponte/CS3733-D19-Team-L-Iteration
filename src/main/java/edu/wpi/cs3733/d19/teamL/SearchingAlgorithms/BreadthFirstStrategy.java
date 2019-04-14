@@ -43,7 +43,7 @@ public class BreadthFirstStrategy implements PathfindingStrategy{
                     if (!queue.contains(l)) {
                         l.setParentID(p.getLocID());
                         //if child and parent node are restricted type, continue
-                        if(l.getNodeType().equals(restrictions) && p.getNodeType().equals(restrictions)){
+                        if(l.getNodeType().equals(restrictions) && p.getNodeType().equals(restrictions) && !l.getFloor().equals(p.getFloor())){
                             continue;
                         }
                         queue.add(l);

@@ -51,7 +51,7 @@ public class AStarStrategy implements PathfindingStrategy {
             for (Edge e : edge) {
                 if (!(closeList.contains(e.getEndNode())) && !(openList.contains(e.getEndNode()))) {
                     //if start and end node for this edge takes us between floors using restricted node type, continue
-                    if(q.getNodeType().equals(restrictions) && e.getEndNode().getNodeType().equals(restrictions)){
+                    if(q.getNodeType().equals(restrictions) && e.getEndNode().getNodeType().equals(restrictions) && !q.getFloor().equals(e.getEndNode().getFloor())){
                         continue;
                     }
                     children.add(e.getEndNode());
