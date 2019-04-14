@@ -1,5 +1,8 @@
 package edu.wpi.cs3733.d19.teamL.Map.Pathfinding;
 
+import com.jfoenix.controls.JFXButton;
+import com.jfoenix.controls.JFXScrollPane;
+import com.jfoenix.controls.JFXTextArea;
 import edu.wpi.cs3733.d19.teamL.HomeScreens.HomeScreenController;
 import edu.wpi.cs3733.d19.teamL.Map.ImageInteraction.SceneGestures;
 import edu.wpi.cs3733.d19.teamL.Map.MapLocations.Location;
@@ -12,6 +15,7 @@ import edu.wpi.cs3733.d19.teamL.SearchingAlgorithms.PathfindingStrategy;
 import edu.wpi.cs3733.d19.teamL.Singleton;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
+import javafx.application.Platform;
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.value.ChangeListener;
@@ -35,10 +39,12 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Line;
 import javafx.scene.shape.Rectangle;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
 
+import javax.xml.soap.Text;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -46,8 +52,9 @@ import java.util.ListIterator;
 
 @SuppressWarnings("Duplicates")
 public class PathFindingController {
+
     @FXML
-    private Label Direction;
+    private JFXButton TextDirction;
 
     @FXML
     private Stage thestage;
@@ -158,6 +165,27 @@ public class PathFindingController {
     private String type = "test";
     private String type2 = "";
     private String currentMap = "G"; //defaults to floor G
+    //Larry - This will show up the text direction in pop up screen when you click on the text direction button
+    @FXML
+    private void PopupText(ActionEvent event) throws IOException{
+        Stage stage;
+        Parent root;
+        stage = new Stage();
+        //root = FXMLLoader.load(getClass().getClassLoader().getResource("PopUpTextDirection.fxml"));
+        //stage.setScene(new Scene(root));
+        //stage.setTitle("I am Text Direction");
+        //stage.initModality(Modality.APPLICATION_MODAL);
+        //stage.show();
+        FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("PopUpTextDirection.fxml"));
+        Parent sceneMain = loader.load();
+        TextDirectionController controller = loader.<TextDirectionController>getController();
+        controller.setTextOfDirection(printPath(path.getPath()));
+        Scene scene = new Scene(sceneMain);
+        stage.setScene(scene);
+       // stage.setTitle("I am Text Direction");
+        stage.initModality(Modality.APPLICATION_MODAL);
+        stage.showAndWait();
+    }
 
     @FXML
     private void clickedG(){
@@ -492,6 +520,7 @@ public class PathFindingController {
         }
         else{
             PathFindSubmit.setDisable(true);
+            TextDirction.setDisable(true);
         }
     }
 
@@ -510,10 +539,9 @@ public class PathFindingController {
 
         displayPath();
         //printPath(path.getPath());
-        Direction.setText(printPath(path.getPath()));
-
 
         sceneGestures.setDrawPath(circles,lines);
+        TextDirction.setDisable(false);
     }
 
     /**
@@ -1188,8 +1216,16 @@ public class PathFindingController {
             text += "You are already at your destination :)\n";
             return text;
         }
+        double time = estimateTime(A);
+        text += "The estimate time for the whole path : " + estimateTime(A);
+        if(time > 1){
+            text += " minutes \n";
+        }
+        else {
+            text += " minute \n";
+        }
        // System.out.println("Begin from " + A.get(0).getLongName());
-        text += "Begin from " + A.get(0).getLongName() + "\n";
+        text += " Begin from " + A.get(0).getLongName() + "\n";
         //when size is two, but two location are different
         if(A.size() == 2){
             aType = A.get(0).getNodeType();
@@ -1322,7 +1358,7 @@ public class PathFindingController {
                     else if(curDirection ==8){
                         if(nextDirection == 1 || nextDirection == 2 || nextDirection == 3){
                        //     System.out.println("Turn right");
-                            text += "Turn right\n";
+                            text += "\u21E8 Turn right\n";
                         }
                         else if(nextDirection == 5 || nextDirection == 6 || nextDirection == 7){
                       //      System.out.println("Turn left");
@@ -1355,5 +1391,21 @@ public class PathFindingController {
         }
 
         return text;
+    }
+    //Larry - Calculate estimate time to finish the whole path
+    private double estimateTime(ArrayList<Location> A){
+        double totalDistance = 0.0;
+        double currentDistance = 0.0;
+        double minutes = 0.0;
+        for(int i = 0; i<A.size()-1; i++){
+            currentDistance = A.get(i).findDistance(A.get(i+1));
+            totalDistance += currentDistance;
+        }
+        //on average, walking speed 4.6 ft / sec
+        minutes = convertToExact(totalDistance) / (4.6 * 60);
+
+        System.out.println(minutes);
+        return (int) (minutes * 100) / 100.0;
+
     }
 }
