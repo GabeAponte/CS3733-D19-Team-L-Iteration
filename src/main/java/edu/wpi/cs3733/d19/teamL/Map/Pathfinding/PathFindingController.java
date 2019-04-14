@@ -597,6 +597,7 @@ public class PathFindingController {
                     if (buttons.isEmpty() && (currentMap.equals(startNode.getFloor()) || currentMap.equals(endNode.getFloor()))) {
                         buttons.add(nBut);
                         nBut.setVisible(true);
+                        //Change the display of the button based on which floor you're on
                         if(currentMap.equals(startNode.getFloor())) {
                             nBut.setStyle("-fx-text-fill: WHITE; -fx-font-size: 13; -fx-background-color: GREEN; -fx-border-color: WHITE; -fx-background-radius: 18; -fx-border-radius: 18; -fx-border-width: 3");
 
