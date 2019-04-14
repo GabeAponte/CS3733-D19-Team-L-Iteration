@@ -451,8 +451,10 @@ public class EditLocationController {
             single.lookup.get(focusNode.getLocID()).restitch();
             //delete the node here
             na = new NodesAccess();
-            na.deleteNode(focusNode.getLocID());
             single.deleteNode(focusNode);
+            System.out.println("STARTING NEXT TASK");
+            na.deleteNode(focusNode.getLocID());
+
             //UpdateLocationThread ul = new UpdateLocationThread();
             //ul.start();
             edgeDropDown.setItems(null);

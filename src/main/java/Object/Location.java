@@ -280,8 +280,8 @@ public class Location implements Comparable<Location>{
         return longName + "(" + floor + ")";
     }
 
-    public void removeEdge(Edge e) {
-        connectedEdges.remove(e);
+    public void removeEdge(ArrayList<Edge> e) {
+        connectedEdges.removeAll(e);
     }
 
     public void restitch() {

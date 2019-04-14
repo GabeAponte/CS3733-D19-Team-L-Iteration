@@ -56,6 +56,16 @@ public class Edge {
         return edgeID;
     }
 
+    //@Override
+    public boolean equals(Edge equalEdge) {
+        if (equalEdge.getEdgeID().equals(edgeID) || (equalEdge.getEndID().equals(startID) && equalEdge.getStartID().equals(edgeID)))  {
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
+
     //Edited by Nikhil- Accounts for z-axis now
     //Nathan - finds distance between two nodes, used in constructors
     public double findDistance(Location startNode, Location endNode){
