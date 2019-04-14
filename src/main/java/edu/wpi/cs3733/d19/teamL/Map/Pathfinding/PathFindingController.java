@@ -20,6 +20,7 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Point2D;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
@@ -423,7 +424,12 @@ public class PathFindingController {
         gesturePane.setHBarEnabled(false);
         gesturePane.setVBarEnabled(false);
 
-        gridPane.add(gesturePane,0,2,6,2);
+        gridPane.add(gesturePane,0,0, 7, GridPane.REMAINING);
+        gesturePane.zoomTo(2.0,new Point2D(Map.getImage().getWidth(), Map.getImage().getHeight()));
+
+        AnchorPane temp = new AnchorPane();
+//        gridPane.add(temp,0,0);
+//        temp.heightProperty();
 
         Map.fitHeightProperty().bind(gesturePane.heightProperty());
         Map.fitWidthProperty().bind(gesturePane.widthProperty());
