@@ -559,7 +559,6 @@ public class PathFindingController {
                 int f = path.getPath().size() - 1;
                 if((!(path.getPath().get(i + 1).getFloor().equals(currentMap)))){
                     Button nBut = new Button();
-                    buttons.add(nBut);
                     nBut.setLayoutX((path.getPath().get(i).getXcoord() - point.getX()) * scaleRatio * sceneGestures.getImageScale());
                     nBut.setLayoutY((path.getPath().get(i).getYcoord() - point.getY()) * scaleRatio * sceneGestures.getImageScale());
                    // if(!(path.getPath().get(f).getFloor().equals(currentMap))) {
@@ -610,13 +609,20 @@ public class PathFindingController {
 //                            }
 //                        }
                     for(Button b: buttons) {
-                        System.out.println("" + buttonFloor.get(b));
+                        if(b.equals(nBut))
+                            b.setVisible(false);
 //                        if(buttonFloor.get(b).equals(startNode.getFloor())) {
 //                            b.setVisible(true);
 //                        }
 //                        else
 //                            b.setVisible(false);
                     }
+                    if(buttons.isEmpty()) {
+                        buttons.add(nBut);
+                        nBut.setVisible(true);
+                    }
+                    else
+                        nBut.setVisible(false);
                     anchorPanePath.getChildren().add(nBut);
                     }
 //                    else
