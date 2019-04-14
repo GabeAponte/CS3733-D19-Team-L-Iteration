@@ -10,6 +10,7 @@ import edu.wpi.cs3733.d19.teamL.SearchingAlgorithms.PathfindingStrategy;
 import edu.wpi.cs3733.d19.teamL.Singleton;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
+import javafx.animation.TranslateTransition;
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.value.ChangeListener;
@@ -37,8 +38,10 @@ import javafx.util.Duration;
 
 import net.kurobako.gesturefx.GesturePane;
 import java.io.IOException;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.ListIterator;
+import java.util.ResourceBundle;
 
 @SuppressWarnings("Duplicates")
 public class PathFindingController {
@@ -148,6 +151,35 @@ public class PathFindingController {
     private String type = "test";
     private String type2 = "";
     private String currentMap = "G"; //defaults to floor G
+
+    @FXML
+    private Button menu;
+    @FXML
+    private AnchorPane navList;
+
+    public void initialize(URL url, ResourceBundle rb) {
+        this.prepareSlideMenuAnimation();
+    }
+
+    @FXML
+    private void prepareSlideMenuAnimation() {
+        TranslateTransition openNav = new TranslateTransition(new Duration(300.0D), this.navList);
+        openNav.setToX(0.0D);
+        TranslateTransition closeNav = new TranslateTransition(new Duration(300.0D), this.navList);
+        this.menu.setOnAction((evt) -> {
+            System.out.println("clicked");
+            if (this.navList.getTranslateX() != 62.0D) {
+                openNav.setToX(62);
+                openNav.play();
+                System.out.println("if open");
+            } else {
+                closeNav.setToX(-this.navList.getWidth());
+                closeNav.play();
+                System.out.println("if close");
+            }
+
+        });
+    }
 
     @FXML
     private void clickedG(){
@@ -334,6 +366,7 @@ public class PathFindingController {
     public void initialize() {
         Singleton single = Singleton.getInstance();
         single.setLastTime();
+        prepareSlideMenuAnimation();
         ObservableList<PathfindingStrategy> strategies = FXCollections.observableArrayList();
         AStarStrategy aStarStrategy = new AStarStrategy(single.lookup);
         strategies.add(aStarStrategy);
@@ -543,7 +576,7 @@ public class PathFindingController {
      */
     private void filterFloor() {
         single.setLastTime();
-        if (Floor.getValue() == "Ground") {
+        if (Floor.getValue() == "G") {
             pickedFloor = "G";
         }
         if (Floor.getValue() == "L1") {
@@ -937,7 +970,7 @@ public class PathFindingController {
     @FXML
     private void floor() {
         floorList.add("All");
-        floorList.add("Ground");
+        floorList.add("G");
         floorList.add("L1");
         floorList.add("L2");
         floorList.add("1");
