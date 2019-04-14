@@ -555,7 +555,7 @@ public class PathFindingController {
                 if (!(path.getPath().get(i).getFloor().equals(currentMap)) || !(path.getPath().get(i + 1).getFloor().equals(currentMap))) {
                     line.setVisible(false);
                 }
-                //Creates buttons to transition between floors on the map
+                //Creates buttons to transition between floors on the map 
                 int f = path.getPath().size() - 1;
                 if((!(path.getPath().get(i + 1).getFloor().equals(currentMap)))) {
                     Button nBut = new Button();
