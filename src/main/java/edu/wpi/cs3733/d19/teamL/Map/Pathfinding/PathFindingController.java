@@ -41,6 +41,7 @@ import javafx.util.Duration;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.ListIterator;
 
 @SuppressWarnings("Duplicates")
@@ -561,7 +562,7 @@ public class PathFindingController {
                     buttons.add(nBut);
                     nBut.setLayoutX((path.getPath().get(i).getXcoord() - point.getX()) * scaleRatio * sceneGestures.getImageScale());
                     nBut.setLayoutY((path.getPath().get(i).getYcoord() - point.getY()) * scaleRatio * sceneGestures.getImageScale());
-                    if(!(path.getPath().get(f).getFloor().equals(currentMap))) {
+                   // if(!(path.getPath().get(f).getFloor().equals(currentMap))) {
                         final int transit = i + 1;
                         String transition = path.getPath().get(transit).getFloor();
                         String display = "Transition to ";
@@ -578,6 +579,8 @@ public class PathFindingController {
                         if (transition.equals("3"))
                             display += "Third Floor";
                         nBut.setText(display);
+                    HashMap<Button, String> buttonFloor = new HashMap<Button, String>();
+                    buttonFloor.put(nBut, startNode.getFloor());
                         nBut.setOnAction(event -> {
                             if (transition.equals("L2"))
                                 clickedL2();
@@ -592,7 +595,29 @@ public class PathFindingController {
                             if (transition.equals("3"))
                                 clicked3();
                         });
-                        anchorPanePath.getChildren().add(nBut);
+//                        boolean vis = true;
+//                        int count = 0;
+//                        for(Button b: buttons) {
+//                            if(b.equals(nBut)) {
+//                                if(count == 0 && (vis==true)) {
+//                                    b.setVisible(true);
+//                                    count++;
+//                                }
+//                                else {
+//                                    b.setVisible(false);
+//                                    vis = false;
+//                                }
+//                            }
+//                        }
+                    for(Button b: buttons) {
+                        System.out.println("" + buttonFloor.get(b));
+//                        if(buttonFloor.get(b).equals(startNode.getFloor())) {
+//                            b.setVisible(true);
+//                        }
+//                        else
+//                            b.setVisible(false);
+                    }
+                    anchorPanePath.getChildren().add(nBut);
                     }
 //                    else
 //                    {
@@ -619,7 +644,7 @@ public class PathFindingController {
 //                                clicked3();
 //                        });
 //                    }
-                }
+               // }
                 anchorPanePath.getChildren().add(line);
 
                 lines.add(line);
