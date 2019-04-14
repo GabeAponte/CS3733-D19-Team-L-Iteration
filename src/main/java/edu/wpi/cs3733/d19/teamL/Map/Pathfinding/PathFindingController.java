@@ -1193,11 +1193,8 @@ public class PathFindingController {
 
     //Larry - Print the textual direction based on the path return from algorithm
     private String printPath(ArrayList<Location> A){
-       // System.out.println(A);
         for(Location a: A){
-         //   System.out.print(a.getNodeType() + "  ");
        }
-      //  System.out.println(" ");
         String aType;
         String bType;
         String aFloor;
@@ -1209,10 +1206,6 @@ public class PathFindingController {
         int d = 0; // count for the start location for exact location
         //same start and end location
         if(A.size() == 2 && A.get(0) == A.get(1)){
-           // System.out.println(A.size());
-           // System.out.println(A.size() == 2);
-//
-         //   System.out.println("You are already at your destination");
             text += "You are already at your destination :)\n";
             return text;
         }
@@ -1224,7 +1217,6 @@ public class PathFindingController {
         else {
             text += " minute \n";
         }
-       // System.out.println("Begin from " + A.get(0).getLongName());
         text += " Begin from " + A.get(0).getLongName() + "\n";
         //when size is two, but two location are different
         if(A.size() == 2){
@@ -1240,8 +1232,6 @@ public class PathFindingController {
                             return text;
                 }
                 else{
-                     //   System.out.println("Go straight to " + A.get(1).getLongName() + " (" +
-                     //       convertToExact(A.get(0).findDistance(A.get(1))) + " ft) \n");
                         text += "\u21E7 Go straight to " + A.get(1).getLongName() + " (" +
                             convertToExact(A.get(0).findDistance(A.get(1))) + " ft) \n";
                         return text;
@@ -1261,8 +1251,7 @@ public class PathFindingController {
                 curDirection = directionPath(a,b);
                 nextDirection = directionPath(b,c);
 
-            //    System.out.println("Go straight to " + b.getLongName()
-                 //       + " (" + convertToExact(start.findDistance(b)) + " ft) " );
+
                 text += "\u21E7 Go straight to " + b.getLongName()
                         + " (" + convertToExact(start.findDistance(b)) + " ft) \n";
 
@@ -1273,21 +1262,17 @@ public class PathFindingController {
                 if(curDirection == nextDirection){
                     if(curDirection == 2 || curDirection == 6){
                         if(Math.abs(slopeBC)> Math.abs(slopeAB)){
-                         //   System.out.println("Turn left");
                             text += "\u21E6 Turn left \n";
                         }
                         else{
-                         //   System.out.println("Turn right");
                             text += "\u21E8 Turn right\n";
                         }
                     }
                     else if(curDirection == 4 || curDirection ==8){
                         if(Math.abs(slopeBC)> Math.abs(slopeAB)){
-                      //      System.out.println("Turn right");
                             text += "\u21E8 Turn right\n";
                         }
                         else{
-                    //        System.out.println("Turn left");
                             text += "\u21E6 Turn left \n";
                         }
 
@@ -1296,11 +1281,9 @@ public class PathFindingController {
                 }
                 else if((curDirection == 2 && nextDirection ==6) || (curDirection == 6 && nextDirection ==2)){
                     if(Math.abs(slopeBC)>Math.abs(slopeAB)){
-                   //     System.out.println("Turn right");
                         text += "\u21E8 Turn right\n";
                     }
                     else{
-                  //      System.out.println("Turn left");
                         text += "\u21E6 Turn left\n";
                     }
 
@@ -1308,11 +1291,9 @@ public class PathFindingController {
 
                 else if((curDirection == 8 && nextDirection ==4) || (curDirection == 6 && nextDirection ==2)){
                     if(Math.abs(slopeBC)>Math.abs(slopeAB)){
-                //        System.out.println("Turn left");
                         text += "\u21E6 Turn left\n";
                     }
                     else{
-              //          System.out.println("Turn right");
                         text += "\u21E8 Turn right\n";
                     }
 
@@ -1320,22 +1301,19 @@ public class PathFindingController {
 
                 else if(curDirection <= 5){
                     if(nextDirection < curDirection + 4 && nextDirection > curDirection){
-              //          System.out.println("Turn right");
                         text += "\u21E8 Turn right\n";
                     }
                     else {
-              //          System.out.println("Turn left");
+
                         text += "\u21E6 Turn left\n";
                     }
                 }
                 else{
                     if(curDirection == 6){
                         if(nextDirection == 7 || nextDirection == 8 || nextDirection == 1){
-                     //       System.out.println("Turn right");
                             text += "\u21E8 Turn right\n";
                         }
                         if(nextDirection == 5 || nextDirection == 4 || nextDirection == 3){
-                    //        System.out.println("Turn left");
                             text += "\u21E6 Turn left\n";
                         }
 
@@ -1343,17 +1321,11 @@ public class PathFindingController {
                     }
                     else if (curDirection ==7){
                         if(nextDirection == 8 || nextDirection == 1 || nextDirection == 2){
-                       //     System.out.println("Turn right");
                             text += "\u21E8 Turn right\n";
                         }
                         else if(nextDirection == 6 || nextDirection == 5 || nextDirection == 4){
-                        //    System.out.println("Turn left");
                             text += "\u21E6 Turn left\n";
                         }
-                        else {
-
-                        }
-
                     }
                     else if(curDirection ==8){
                         if(nextDirection == 1 || nextDirection == 2 || nextDirection == 3){
