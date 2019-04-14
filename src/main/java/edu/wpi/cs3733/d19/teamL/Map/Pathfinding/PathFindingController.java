@@ -1148,8 +1148,16 @@ public class PathFindingController {
             text += "You are already at your destination :)\n";
             return text;
         }
+        double time = estimateTime(A);
+        text += "The estimate time for the whole path : " + estimateTime(A);
+        if(time > 1){
+            text += " minutes \n";
+        }
+        else {
+            text += " minute \n";
+        }
        // System.out.println("Begin from " + A.get(0).getLongName());
-        text += "Begin from " + A.get(0).getLongName() + "\n";
+        text += " Begin from " + A.get(0).getLongName() + "\n";
         //when size is two, but two location are different
         if(A.size() == 2){
             aType = A.get(0).getNodeType();
@@ -1282,7 +1290,7 @@ public class PathFindingController {
                     else if(curDirection ==8){
                         if(nextDirection == 1 || nextDirection == 2 || nextDirection == 3){
                        //     System.out.println("Turn right");
-                            text += "Turn right\n";
+                            text += "\u21E8 Turn right\n";
                         }
                         else if(nextDirection == 5 || nextDirection == 6 || nextDirection == 7){
                       //      System.out.println("Turn left");
@@ -1315,5 +1323,21 @@ public class PathFindingController {
         }
 
         return text;
+    }
+    //Larry - Calculate estimate time to finish the whole path
+    private double estimateTime(ArrayList<Location> A){
+        double totalDistance = 0.0;
+        double currentDistance = 0.0;
+        double minutes = 0.0;
+        for(int i = 0; i<A.size()-1; i++){
+            currentDistance = A.get(i).findDistance(A.get(i+1));
+            totalDistance += currentDistance;
+        }
+        //on average, walking speed 4.6 ft / sec
+        minutes = convertToExact(totalDistance) / (4.6 * 60);
+
+        System.out.println(minutes);
+        return (int) (minutes * 100) / 100.0;
+
     }
 }
