@@ -17,7 +17,6 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<?import javafx.stage.Screen?>
 <AnchorPane fx:id="anchorPaneWindow" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="720" prefWidth="1280" style="-fx-background-color: #012D5A;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.d19.teamL.Map.Pathfinding.PathFindingController">
 
    <children>
@@ -29,14 +28,14 @@
             <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="10.0" prefWidth="100.0" />
             <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="10.0" prefWidth="100.0" />
             <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="10.0" prefWidth="100.0" />
-            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="20.0" prefWidth="100.0" />
-            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="20.0" prefWidth="100.0" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="-Infinity" minWidth="10.0" percentWidth="40.0" prefWidth="300.0" />
+            <ColumnConstraints />
          </columnConstraints>
          <rowConstraints>
             <RowConstraints minHeight="10.0" percentHeight="15.0" prefHeight="30.0" vgrow="SOMETIMES" />
             <RowConstraints minHeight="10.0" percentHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-            <RowConstraints minHeight="10.0" percentHeight="50.0" prefHeight="30.0" vgrow="SOMETIMES" />
-            <RowConstraints minHeight="10.0" percentHeight="25.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" percentHeight="40.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" percentHeight="35.0" prefHeight="30.0" vgrow="SOMETIMES" />
          </rowConstraints>
          <children>
             <Pane fx:id="imagePane" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" GridPane.columnSpan="6" GridPane.hgrow="ALWAYS" GridPane.rowIndex="2" GridPane.rowSpan="2" GridPane.vgrow="ALWAYS">
@@ -89,83 +88,6 @@
                   <Insets />
                </GridPane.margin>
             </JFXButton>
-            <GridPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" GridPane.columnIndex="7" GridPane.rowIndex="1" GridPane.rowSpan="3">
-               <columnConstraints>
-                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-               </columnConstraints>
-               <rowConstraints>
-                  <RowConstraints maxHeight="230.3646240234375" minHeight="9.810775756835938" vgrow="SOMETIMES" />
-                  <RowConstraints maxHeight="270.6965637207031" minHeight="0.0" prefHeight="68.3743896484375" vgrow="SOMETIMES" />
-                  <RowConstraints maxHeight="317.8482666015625" minHeight="10.0" prefHeight="78.6199951171875" vgrow="SOMETIMES" />
-                  <RowConstraints maxHeight="317.8482666015625" minHeight="10.0" prefHeight="78.6199951171875" vgrow="SOMETIMES" />
-                  <RowConstraints maxHeight="240.98046875" minHeight="10.0" prefHeight="61.3499755859375" vgrow="SOMETIMES" />
-                  <RowConstraints maxHeight="240.98046875" minHeight="10.0" prefHeight="240.98046875" vgrow="SOMETIMES" />
-               </rowConstraints>
-               <children>
-                  <JFXComboBox fx:id="PathFindStartDrop" onAction="#locationsSelected" prefHeight="43.0" prefWidth="300.0" promptText="Starting Location" GridPane.columnSpan="3" GridPane.rowIndex="2">
-                     <stylesheets>
-                        <URL value="@modify-prompt-text.css" />
-                        <URL value="@size.css" />
-                        <URL value="@pathfind.css" />
-                     </stylesheets>
-                     <GridPane.margin>
-                        <Insets left="10.0" right="10.0" />
-                     </GridPane.margin>
-                  </JFXComboBox>
-                  <JFXComboBox fx:id="PathFindEndDrop" onAction="#locationsSelected" prefHeight="43.0" prefWidth="300.0" promptText="Ending Location" GridPane.columnSpan="3" GridPane.rowIndex="3">
-                     <GridPane.margin>
-                        <Insets left="10.0" right="10.0" />
-                     </GridPane.margin>
-                     <stylesheets>
-                        <URL value="@size.css" />
-                        <URL value="@pathfind.css" />
-                     </stylesheets>
-                  </JFXComboBox>
-                  <JFXButton buttonType="RAISED" onAction="#clearStart" text="Clear" textFill="WHITE" GridPane.columnIndex="3" GridPane.rowIndex="2" />
-                  <JFXButton buttonType="RAISED" onAction="#clearEnd" text="Clear" textFill="WHITE" GridPane.columnIndex="3" GridPane.rowIndex="3" />
-                  <JFXButton fx:id="PathFindSubmit" buttonType="RAISED" disable="true" onAction="#submitPressed" prefHeight="66.0" prefWidth="164.0" ripplerFill="WHITE" style="-fx-background-color: #7fb1ff;" text="Submit" textFill="WHITE" GridPane.columnSpan="4" GridPane.halignment="CENTER" GridPane.rowIndex="5">
-                     <font>
-                        <Font name="Times New Roman" size="30.0" />
-                     </font>
-                     <GridPane.margin>
-                        <Insets bottom="120.0" />
-                     </GridPane.margin>
-                  </JFXButton>
-                  <JFXComboBox fx:id="Filter" onAction="#noHall" prefHeight="31.0" prefWidth="205.0" promptText="Type" style="-jfx-focus-color: white;" styleClass="jfx-combo-box" GridPane.columnSpan="2" GridPane.rowIndex="1">
-                     <stylesheets>
-                        <URL value="@size.css" />
-                        <URL value="@modify-prompt-text.css" />
-                        <URL value="@pathfind.css" />
-                     </stylesheets>
-                     <GridPane.margin>
-                        <Insets left="10.0" right="10.0" />
-                     </GridPane.margin>
-                  </JFXComboBox>
-                  <JFXComboBox fx:id="Floor" onAction="#noHall" prefHeight="31.0" prefWidth="105.0" promptText="Floor" style="-jfx-focus-color: white;" styleClass="jfx-combo-box" GridPane.columnIndex="2" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
-                     <stylesheets>
-                        <URL value="@size.css" />
-                        <URL value="@modify-prompt-text.css" />
-                        <URL value="@pathfind.css" />
-                     </stylesheets>
-                     <padding>
-                        <Insets right="10.0" />
-                     </padding>
-                  </JFXComboBox>
-                  <Label alignment="CENTER" prefHeight="74.0" prefWidth="242.0" text="Set Path" textAlignment="CENTER" textFill="#f5d96b" underline="true" GridPane.columnSpan="4" GridPane.valignment="CENTER">
-                     <font>
-                        <Font size="30.0" />
-                     </font>
-                  </Label>
-                  <JFXComboBox fx:id="strategySelector" onAction="#strategySelected" prefHeight="37.0" prefWidth="121.0" promptText="Algorithm" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="4" GridPane.valignment="CENTER">
-                     <stylesheets>
-                        <URL value="@size.css" />
-                        <URL value="@pathfind.css" />
-                     </stylesheets></JFXComboBox>
-               </children>
-            </GridPane>
             <JFXToolbar style="-fx-background-color: white;" GridPane.columnSpan="8">
                <left>
                   <ImageView fitHeight="91.0" fitWidth="325.0" pickOnBounds="true" preserveRatio="true" BorderPane.alignment="CENTER">
@@ -193,18 +115,108 @@
                   <Font size="15.0" />
                </font>
             </JFXButton>
-            <VBox fx:id="scrollVBox" prefHeight="550.0" prefWidth="242.0" GridPane.columnIndex="6" GridPane.rowIndex="2" GridPane.rowSpan="2">
+            <VBox fx:id="scrollVBox" prefHeight="527.0" prefWidth="176.0" GridPane.columnIndex="6" GridPane.rowIndex="2" GridPane.rowSpan="2">
                <children>
-                  <Label fx:id="Direction" alignment="TOP_LEFT" prefHeight="529.0" prefWidth="242.0" textFill="WHITE" wrapText="true">
-                     <font>
-                        <Font name="Courier New" size="12.0" />
-                     </font></Label>
+                  <GridPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308">
+                     <columnConstraints>
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                     </columnConstraints>
+                     <rowConstraints>
+                        <RowConstraints maxHeight="230.3646240234375" minHeight="9.810775756835938" vgrow="SOMETIMES" />
+                        <RowConstraints maxHeight="270.6965637207031" minHeight="0.0" prefHeight="68.3743896484375" vgrow="SOMETIMES" />
+                        <RowConstraints maxHeight="317.8482666015625" minHeight="10.0" prefHeight="78.6199951171875" vgrow="SOMETIMES" />
+                        <RowConstraints maxHeight="317.8482666015625" minHeight="10.0" prefHeight="78.6199951171875" vgrow="SOMETIMES" />
+                        <RowConstraints maxHeight="240.98046875" minHeight="10.0" prefHeight="61.3499755859375" vgrow="SOMETIMES" />
+                        <RowConstraints maxHeight="50.0" minHeight="10.0" prefHeight="240.98046875" vgrow="SOMETIMES" />
+                        <RowConstraints maxHeight="140.0" minHeight="10.0" prefHeight="240.98046875" vgrow="SOMETIMES" />
+                     </rowConstraints>
+                     <children>
+                        <JFXComboBox fx:id="PathFindStartDrop" onAction="#locationsSelected" prefHeight="40.0" prefWidth="300.0" promptText="Starting Location" GridPane.columnSpan="4" GridPane.rowIndex="2">
+                           <stylesheets>
+                              <URL value="@modify-prompt-text.css" />
+                              <URL value="@size.css" />
+                              <URL value="@pathfind.css" />
+                           </stylesheets>
+                           <GridPane.margin>
+                              <Insets left="10.0" right="10.0" />
+                           </GridPane.margin>
+                        </JFXComboBox>
+                        <JFXComboBox fx:id="PathFindEndDrop" onAction="#locationsSelected" prefHeight="40.0" prefWidth="300.0" promptText="Ending Location" GridPane.columnIndex="4" GridPane.columnSpan="4" GridPane.rowIndex="2">
+                           <GridPane.margin>
+                              <Insets left="10.0" right="10.0" />
+                           </GridPane.margin>
+                           <stylesheets>
+                              <URL value="@size.css" />
+                              <URL value="@pathfind.css" />
+                           </stylesheets>
+                        </JFXComboBox>
+                        <JFXButton buttonType="RAISED" onAction="#clearStart" text="Clear" textFill="WHITE" GridPane.rowIndex="1">
+                           <GridPane.margin>
+                              <Insets bottom="50.0" top="100.0" />
+                           </GridPane.margin>
+                           <padding>
+                              <Insets left="20.0" />
+                           </padding>
+                        </JFXButton>
+                        <JFXButton buttonType="RAISED" onAction="#clearEnd" text="Clear" textFill="WHITE" GridPane.columnIndex="7" GridPane.rowIndex="1">
+                           <GridPane.margin>
+                              <Insets bottom="50.0" top="100.0" />
+                           </GridPane.margin>
+                        </JFXButton>
+                        <JFXButton fx:id="PathFindSubmit" buttonType="RAISED" disable="true" onAction="#submitPressed" ripplerFill="WHITE" style="-fx-background-color: #7fb1ff;" text="Submit" textFill="WHITE" GridPane.columnIndex="2" GridPane.columnSpan="4" GridPane.halignment="CENTER" GridPane.rowIndex="4">
+                           <font>
+                              <Font name="Times New Roman" size="30.0" />
+                           </font>
+                           <GridPane.margin>
+                              <Insets bottom="120.0" />
+                           </GridPane.margin>
+                        </JFXButton>
+                        <JFXComboBox fx:id="Filter" onAction="#noHall" prefHeight="40.0" prefWidth="150.0" promptText="Type" style="-jfx-focus-color: white;" styleClass="jfx-combo-box" GridPane.columnIndex="1" GridPane.columnSpan="3" GridPane.rowIndex="1">
+                           <stylesheets>
+                              <URL value="@size.css" />
+                              <URL value="@modify-prompt-text.css" />
+                              <URL value="@pathfind.css" />
+                           </stylesheets>
+                           <GridPane.margin>
+                              <Insets left="10.0" right="10.0" />
+                           </GridPane.margin>
+                        </JFXComboBox>
+                        <JFXComboBox fx:id="Floor" onAction="#noHall" prefHeight="40.0" prefWidth="150.0" promptText="Floor" style="-jfx-focus-color: white;" styleClass="jfx-combo-box" GridPane.columnIndex="4" GridPane.columnSpan="3" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
+                           <stylesheets>
+                              <URL value="@size.css" />
+                              <URL value="@modify-prompt-text.css" />
+                              <URL value="@pathfind.css" />
+                           </stylesheets>
+                           <GridPane.margin>
+                              <Insets left="10.0" right="10.0" />
+                           </GridPane.margin>
+                        </JFXComboBox>
+                        <Label alignment="CENTER" prefHeight="74.0" prefWidth="242.0" text="Navigation" textAlignment="CENTER" textFill="#f5d96b" underline="true" GridPane.columnIndex="2" GridPane.columnSpan="4" GridPane.valignment="CENTER">
+                           <font>
+                              <Font size="30.0" />
+                           </font>
+                        </Label>
+                        <JFXComboBox fx:id="strategySelector" onAction="#strategySelected" prefHeight="37.0" prefWidth="121.0" promptText="Algorithm" GridPane.columnIndex="6" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="3" GridPane.valignment="CENTER">
+                           <stylesheets>
+                              <URL value="@size.css" />
+                              <URL value="@pathfind.css" />
+                           </stylesheets>
+                        </JFXComboBox>
+                        <JFXButton fx:id="TextDirction" buttonType="RAISED" disable="true" onAction="#PopupText" prefHeight="54.0" prefWidth="243.0" ripplerFill="WHITE" style="-fx-background-color: #7fb1ff;" text="Text Direction" textFill="WHITE" GridPane.columnIndex="2" GridPane.columnSpan="5" GridPane.rowIndex="4" GridPane.rowSpan="3">
+                           <font>
+                              <Font name="Times New Roman" size="30.0" />
+                           </font>
+                        </JFXButton>
+                     </children>
+                  </GridPane>
                </children></VBox>
-            <Label fx:id="directions" alignment="CENTER" prefHeight="146.0" prefWidth="411.0" text="Directions" textAlignment="CENTER" textFill="#f5d96b" underline="true" GridPane.columnIndex="6" GridPane.rowIndex="1" GridPane.valignment="CENTER">
-               <font>
-                  <Font size="30.0" />
-               </font>
-            </Label>
          </children>
       </GridPane>
    </children>
