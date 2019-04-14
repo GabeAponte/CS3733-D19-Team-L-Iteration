@@ -22,7 +22,8 @@ public class DepthFirstStrategy implements PathfindingStrategy{
     }
 
     //Larry - Using Depth First Search (DFS) to find the path from given start position to end position
-    public Path findPath(Location start, Location end) {
+    //Nathan modified this to include path prefernece (restrictions)
+    public Path findPath(Location start, Location end, String restrictions) {
         EdgesAccess ea = new EdgesAccess();
         ArrayList<Location> path = new ArrayList<Location>();
         stack.push(start);
@@ -41,6 +42,10 @@ public class DepthFirstStrategy implements PathfindingStrategy{
                 for(int i = 0; i < neighboursID.size(); i++ ){
                     Location l = lookup.get(neighboursID.get(i));
                     if(l != null && !(visited.contains(l))){
+                        //if child and parent node are restricted type, continue
+                        if(l.getNodeType().equals(restrictions) && A.getNodeType().equals(restrictions)){
+                            continue;
+                        }
                         stack.add(l);
                         visited.add(l);
                         l.setParentID(A.getLocID());

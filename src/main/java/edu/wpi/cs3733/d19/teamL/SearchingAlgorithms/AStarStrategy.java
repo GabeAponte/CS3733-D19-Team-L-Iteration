@@ -23,7 +23,8 @@ public class AStarStrategy implements PathfindingStrategy {
         closeList = new ArrayList<Location>();
     }
 
-    public Path findPath(Location start, Location end) {
+    //Nathan modified this to include path preference (restrictions)
+    public Path findPath(Location start, Location end, String restrictions) {
         Singleton single = Singleton.getInstance();
         openList.add(start);
         start.setParentID("START");
@@ -44,8 +45,15 @@ public class AStarStrategy implements PathfindingStrategy {
             q = lookup.get(q.getLocID());
             ArrayList<Edge> edge = q.getEdges();
             ArrayList<Location> children = new ArrayList<Location>();
+            /*if(q.getNodeType().equals(restrictions)){
+                continue;
+            }*/
             for (Edge e : edge) {
                 if (!(closeList.contains(e.getEndNode())) && !(openList.contains(e.getEndNode()))) {
+                    //if start and end node for this edge takes us between floors using restricted node type, continue
+                    if(q.getNodeType().equals(restrictions) && e.getEndNode().getNodeType().equals(restrictions)){
+                        continue;
+                    }
                     children.add(e.getEndNode());
                     e.getEndNode().setGScore(e.findDistance(q, e.getEndNode()));
                 }
