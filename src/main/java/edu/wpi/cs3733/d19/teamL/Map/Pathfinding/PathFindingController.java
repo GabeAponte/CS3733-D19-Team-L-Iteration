@@ -44,6 +44,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.ListIterator;
 
+import static javafx.scene.paint.Color.BLUE;
+
 @SuppressWarnings("Duplicates")
 public class PathFindingController {
     @FXML
@@ -551,6 +553,8 @@ public class PathFindingController {
                 line.setStartY((path.getPath().get(i).getYcoord() - point.getY()) * scaleRatio * sceneGestures.getImageScale());
                 line.setEndX((path.getPath().get(i + 1).getXcoord() - point.getX()) * scaleRatio * sceneGestures.getImageScale());
                 line.setEndY((path.getPath().get(i + 1).getYcoord() - point.getY()) * scaleRatio * sceneGestures.getImageScale());
+                line.setStrokeWidth(2.5);
+                line.setStroke(BLUE);
                 //Toggles visibility based on current floor to adjust for travelling across multiple floors.
                 if (!(path.getPath().get(i).getFloor().equals(currentMap)) || !(path.getPath().get(i + 1).getFloor().equals(currentMap))) {
                     line.setVisible(false);
@@ -563,8 +567,12 @@ public class PathFindingController {
                     nBut.setLayoutY((path.getPath().get(i).getYcoord() - point.getY()) * scaleRatio * sceneGestures.getImageScale());
                     final int transit = i + 1;
                     String transition = path.getPath().get(transit).getFloor();
+                    String display = "Take Elevator to ";
+                    if(!path.getPath().get(i+1).getFloor().equals(endNode.getFloor()))
+                    {
+                        display = "Take Stairs to ";
+                    }
                     //Sets button text
-                    String display = "Transition to ";
                     if (transition.equals("L2"))
                         display += "Floor Lower 2";
                     if (transition.equals("L1"))
@@ -594,13 +602,16 @@ public class PathFindingController {
                             clicked3();
                     });
                     //Sets button visibility to only display on start and end floors
-                    if (buttons.isEmpty() && (currentMap.equals(startNode.getFloor()) || currentMap.equals(endNode.getFloor()))) {
+                    if (buttons.isEmpty() && (path.getPath().get(i).getFloor().equals(currentMap) ||currentMap.equals(startNode.getFloor()) || currentMap.equals(endNode.getFloor()))) {
                         buttons.add(nBut);
                         nBut.setVisible(true);
                         //Change the display of the button based on which floor you're on
                         if(currentMap.equals(startNode.getFloor())) {
                             nBut.setStyle("-fx-text-fill: WHITE; -fx-font-size: 13; -fx-background-color: GREEN; -fx-border-color: WHITE; -fx-background-radius: 18; -fx-border-radius: 18; -fx-border-width: 3");
 
+                        }
+                        else if(path.getPath().get(i).getFloor().equals(currentMap)){
+                            nBut.setStyle("-fx-text-fill: WHITE; -fx-font-size: 13; -fx-background-color: GREEN; -fx-border-color: WHITE; -fx-background-radius: 18; -fx-border-radius: 18; -fx-border-width: 3");
                         }
                         else {
                             nBut.setStyle("-fx-text-fill: WHITE;-fx-font-size: 13; -fx-background-color: RED; -fx-border-color: WHITE; -fx-background-radius: 18; -fx-border-radius: 18; -fx-border-width: 3");
