@@ -557,100 +557,52 @@ public class PathFindingController {
                 }
                 //Creates buttons to transition between floors on the map
                 int f = path.getPath().size() - 1;
-                if((!(path.getPath().get(i + 1).getFloor().equals(currentMap)))){
+                if((!(path.getPath().get(i + 1).getFloor().equals(currentMap)))) {
                     Button nBut = new Button();
                     nBut.setLayoutX((path.getPath().get(i).getXcoord() - point.getX()) * scaleRatio * sceneGestures.getImageScale());
                     nBut.setLayoutY((path.getPath().get(i).getYcoord() - point.getY()) * scaleRatio * sceneGestures.getImageScale());
-                   // if(!(path.getPath().get(f).getFloor().equals(currentMap))) {
-                        final int transit = i + 1;
-                        String transition = path.getPath().get(transit).getFloor();
-                        String display = "Transition to ";
+                    final int transit = i + 1;
+                    String transition = path.getPath().get(transit).getFloor();
+                    //Sets button text
+                    String display = "Transition to ";
+                    if (transition.equals("L2"))
+                        display += "Floor Lower 2";
+                    if (transition.equals("L1"))
+                        display += "Floor Lower 1";
+                    if (transition.equals("G"))
+                        display += "Ground Floor";
+                    if (transition.equals("1"))
+                        display += "First Floor";
+                    if (transition.equals("2"))
+                        display += "Second Floor";
+                    if (transition.equals("3"))
+                        display += "Third Floor";
+                    nBut.setText(display);
+                    //Sets the action to be performed when the button is pressed
+                    nBut.setOnAction(event -> {
                         if (transition.equals("L2"))
-                            display += "Floor Lower 2";
+                            clickedL2();
                         if (transition.equals("L1"))
-                            display += "Floor Lower 1";
+                            clickedL1();
                         if (transition.equals("G"))
-                            display += "Ground Floor";
+                            clickedG();
                         if (transition.equals("1"))
-                            display += "First Floor";
+                            clicked1();
                         if (transition.equals("2"))
-                            display += "Second Floor";
+                            clicked2();
                         if (transition.equals("3"))
-                            display += "Third Floor";
-                        nBut.setText(display);
-                    HashMap<Button, String> buttonFloor = new HashMap<Button, String>();
-                    buttonFloor.put(nBut, startNode.getFloor());
-                        nBut.setOnAction(event -> {
-                            if (transition.equals("L2"))
-                                clickedL2();
-                            if (transition.equals("L1"))
-                                clickedL1();
-                            if (transition.equals("G"))
-                                clickedG();
-                            if (transition.equals("1"))
-                                clicked1();
-                            if (transition.equals("2"))
-                                clicked2();
-                            if (transition.equals("3"))
-                                clicked3();
-                        });
-//                        boolean vis = true;
-//                        int count = 0;
-//                        for(Button b: buttons) {
-//                            if(b.equals(nBut)) {
-//                                if(count == 0 && (vis==true)) {
-//                                    b.setVisible(true);
-//                                    count++;
-//                                }
-//                                else {
-//                                    b.setVisible(false);
-//                                    vis = false;
-//                                }
-//                            }
-//                        }
-                    for(Button b: buttons) {
-                        if(b.equals(nBut))
-                            b.setVisible(false);
-//                        if(buttonFloor.get(b).equals(startNode.getFloor())) {
-//                            b.setVisible(true);
-//                        }
-//                        else
-//                            b.setVisible(false);
-                    }
-                    if(buttons.isEmpty()) {
+                            clicked3();
+                    });
+                    //Sets button visibility to only display on start and end floors
+                    if (buttons.isEmpty() && (currentMap.equals(startNode.getFloor()) || currentMap.equals(endNode.getFloor()))) {
                         buttons.add(nBut);
                         nBut.setVisible(true);
                     }
-                    else
+                    else {
                         nBut.setVisible(false);
-                    anchorPanePath.getChildren().add(nBut);
                     }
-//                    else
-//                    {
-//                        Button nBut2 = new Button();
-//                        buttons.add(nBut2);
-//                        nBut2.setLayoutX((path.getPath().get(i).getXcoord() - point.getX()) * scaleRatio * sceneGestures.getImageScale());
-//                        nBut2.setLayoutY((path.getPath().get(i).getYcoord() - point.getY()) * scaleRatio * sceneGestures.getImageScale());
-//                        final int b = i-1;
-//                        String back = path.getPath().get(b).getFloor();
-//                        String backTo  = "Show the starting floor.";
-//                        nBut2.setText(backTo);
-//                        nBut2.setOnAction(event -> {
-//                            if (back.equals("L2"))
-//                                clickedL2();
-//                            if (back.equals("L1"))
-//                                clickedL1();
-//                            if (back.equals("G"))
-//                                clickedG();
-//                            if (back.equals("1"))
-//                                clicked1();
-//                            if (back.equals("2"))
-//                                clicked2();
-//                            if (back.equals("3"))
-//                                clicked3();
-//                        });
-//                    }
-               // }
+                    anchorPanePath.getChildren().add(nBut);
+                }
                 anchorPanePath.getChildren().add(line);
 
                 lines.add(line);
