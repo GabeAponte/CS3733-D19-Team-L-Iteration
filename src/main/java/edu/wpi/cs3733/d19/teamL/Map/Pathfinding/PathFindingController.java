@@ -598,10 +598,11 @@ public class PathFindingController {
                         buttons.add(nBut);
                         nBut.setVisible(true);
                         if(currentMap.equals(startNode.getFloor())) {
-                            nBut.setStyle("-fx-text-fill: WHITE; -fx-font-size: 13; -fx-background-color: GREEN");
+                            nBut.setStyle("-fx-text-fill: WHITE; -fx-font-size: 13; -fx-background-color: GREEN; -fx-border-color: WHITE; -fx-background-radius: 18; -fx-border-radius: 18; -fx-border-width: 3");
+
                         }
                         else {
-                            nBut.setStyle("-fx-text-fill: WHITE;-fx-font-size: 13; -fx-background-color: RED;");
+                            nBut.setStyle("-fx-text-fill: WHITE;-fx-font-size: 13; -fx-background-color: RED; -fx-border-color: WHITE; -fx-background-radius: 18; -fx-border-radius: 18; -fx-border-width: 3");
                             nBut.setText("Go to Starting Floor");
                         }
                     }
