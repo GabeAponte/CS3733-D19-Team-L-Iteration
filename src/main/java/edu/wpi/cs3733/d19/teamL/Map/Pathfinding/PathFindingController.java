@@ -50,7 +50,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.ListIterator;
 
-import static javafx.scene.paint.Color.BLUE;
+import static javafx.scene.paint.Color.*;
 
 @SuppressWarnings("Duplicates")
 public class PathFindingController {
@@ -582,7 +582,7 @@ public class PathFindingController {
                 line.setEndX((path.getPath().get(i + 1).getXcoord() - point.getX()) * scaleRatio * sceneGestures.getImageScale());
                 line.setEndY((path.getPath().get(i + 1).getYcoord() - point.getY()) * scaleRatio * sceneGestures.getImageScale());
                 line.setStrokeWidth(2.5);
-                line.setStroke(BLUE);
+                line.setStroke(DODGERBLUE);
                 //Toggles visibility based on current floor to adjust for travelling across multiple floors.
                 if (!(path.getPath().get(i).getFloor().equals(currentMap)) || !(path.getPath().get(i + 1).getFloor().equals(currentMap))) {
                     line.setVisible(false);
