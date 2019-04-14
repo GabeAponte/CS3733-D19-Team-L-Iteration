@@ -597,6 +597,13 @@ public class PathFindingController {
                     if (buttons.isEmpty() && (currentMap.equals(startNode.getFloor()) || currentMap.equals(endNode.getFloor()))) {
                         buttons.add(nBut);
                         nBut.setVisible(true);
+                        if(currentMap.equals(startNode.getFloor())) {
+                            nBut.setStyle("-fx-text-fill: WHITE; -fx-font-size: 13; -fx-background-color: GREEN");
+                        }
+                        else {
+                            nBut.setStyle("-fx-text-fill: WHITE;-fx-font-size: 13; -fx-background-color: RED;");
+                            nBut.setText("Go to Starting Floor");
+                        }
                     }
                     else {
                         nBut.setVisible(false);
