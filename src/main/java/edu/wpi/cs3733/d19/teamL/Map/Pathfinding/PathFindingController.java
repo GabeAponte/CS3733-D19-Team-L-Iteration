@@ -117,9 +117,6 @@ public class PathFindingController {
     @FXML
     private ImageView Map;
 
-    @FXML
-    private Pane imagePane;
-
     private Rectangle clip;
     private boolean displayingPath;
     private Path path;
@@ -128,11 +125,6 @@ public class PathFindingController {
     private StackPane childPane;
     private AnchorPane pathPane;
 
-//    private PanAndZoomPane zoomPaneImage;
-//    private SceneGestures sceneGestures;
-//    private AnchorPane anchorPanePath;
-    private final DoubleProperty zoomProperty = new SimpleDoubleProperty(1.0d);
-    private final DoubleProperty deltaY = new SimpleDoubleProperty(0.0d);
     private PathfindingStrategy strategyAlgorithm;
 
     private NodesAccess na;

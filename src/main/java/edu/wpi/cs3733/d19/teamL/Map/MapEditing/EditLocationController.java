@@ -268,12 +268,14 @@ public class EditLocationController {
         ea = new EdgesAccess();
 
         pathPane = new AnchorPane();
+        pathPane.setOnMouseClicked(onMouseClickedEventHandler);
         childPane = new StackPane();
         childPane.getChildren().add(Map);
         childPane.getChildren().add(pathPane);
         gesturePane = new GesturePane(childPane);
         gesturePane.setHBarEnabled(false);
         gesturePane.setVBarEnabled(false);
+        gesturePane.setFitHeight(true);
         gridPane.add(gesturePane,0,0);
         Map.fitWidthProperty().bind(gesturePane.widthProperty());
         Map.fitHeightProperty().bind(gesturePane.heightProperty());
@@ -450,7 +452,6 @@ public class EditLocationController {
         ul.start();
         addNode.setDisable(true);
         pathPane.getChildren().remove(thisCircle);
-
     }
 
     @FXML
@@ -555,11 +556,10 @@ public class EditLocationController {
 
                     Circle thisCircle = new Circle();
 
-
                     //Setting the properties of the circle
                     thisCircle.setCenterX(nodes.get(temp).getXcoord()*scaleRatio);
                     thisCircle.setCenterY(nodes.get(temp).getYcoord()*scaleRatio);
-                    thisCircle.setRadius(Math.max(2.5, 2.5f * gesturePane.getCurrentScale()/5));
+                    thisCircle.setRadius(Math.max(2.0, 2.0f * gesturePane.getCurrentScale()/20));
                     thisCircle.setStroke(Color.web("RED")); //#f5d96b
                     thisCircle.setFill(Color.web("RED"));
 
@@ -571,9 +571,9 @@ public class EditLocationController {
             }
         }
         if(thisCircle != null && mousePress != null) {
-            thisCircle.setCenterX(mousePress.getX() * scaleRatio);
-            thisCircle.setCenterY(mousePress.getY() * scaleRatio);
-            thisCircle.setRadius(Math.max(2.5, 2.5f * gesturePane.getCurrentScale() / 5));
+            thisCircle.setCenterX(mousePress.getX() *Map.getImage().getWidth()*scaleRatio/Map.getFitWidth());
+            thisCircle.setCenterY(mousePress.getY() *Map.getImage().getHeight()*scaleRatio/Map.getFitHeight());
+            thisCircle.setRadius(Math.max(2.0, 2.0f * gesturePane.getCurrentScale() / 20));
             thisCircle.setStroke(Color.web("GREEN")); //#f5d96b
             thisCircle.setFill(Color.web("GREEN"));
         }
@@ -675,10 +675,12 @@ public class EditLocationController {
             single = Singleton.getInstance();
             single.setLastTime();
             mousePress = new Point2D(event.getX(), event.getY());
+            double scaleRatio = Math.min(Map.getFitWidth() / Map.getImage().getWidth(), Map.getFitHeight() / Map.getImage().getHeight());
+
             if (mousePress.getX() <= 5000 && mousePress.getY() <= 3400) {
-                int getX = (int) mousePress.getX();
-                int getY = (int) mousePress.getY();
-                String newQuery = na.getNodebyCoordNoType(getX, getY, floorNum(), 5);
+                int getX = (int) (mousePress.getX()/scaleRatio);
+                int getY = (int) (mousePress.getY()/scaleRatio);
+                String newQuery = na.getNodebyCoordNoType(getX, getY, floorNum(), 20);
                 if (newQuery != null) {
                     focusNode = single.lookup.get(newQuery);
                     nodeInfoID.setText(focusNode.getLocID());
@@ -693,10 +695,12 @@ public class EditLocationController {
                     nodeInfoID.setDisable(true);
                     deleteNode.setDisable(false);
 
+                    pathPane.getChildren().remove(thisCircle);
                 } else {
+
                     nodeInfoID.setText("");
-                    nodeInfoX.setText("" + (int) mousePress.getX());
-                    nodeInfoY.setText("" + (int) mousePress.getY());
+                    nodeInfoX.setText("" + (int) (mousePress.getX()/scaleRatio));
+                    nodeInfoY.setText("" + (int) (mousePress.getY()/scaleRatio));
                     nodeInfoType.setText("");
                     nodeInfoBuilding.setText("");
                     nodeInfoFloor.setText("");
@@ -705,27 +709,25 @@ public class EditLocationController {
                     circles.remove(thisCircle);
                     nodeInfoID.setDisable(false);
                     deleteNode.setDisable(true);
-                    double scaleRatio = Math.min(Map.getFitWidth() / Map.getImage().getWidth(), Map.getFitHeight() / Map.getImage().getHeight());
 
                     //System.out.println(sceneGestures.getImageScale());
                     //System.out.println((mousePress.getX() - point.getX()) * scaleRatio * sceneGestures.getImageScale());
 
                     //Setting the properties of the circle
-                    thisCircle.setCenterX(mousePress.getX()*scaleRatio);
-                    thisCircle.setCenterY(mousePress.getY()*scaleRatio);
-                    thisCircle.setRadius(Math.max(2.5, 2.5f * (gesturePane.getCurrentScale() / 5)));
+                    thisCircle.setCenterX(mousePress.getX()*Map.getImage().getWidth()*scaleRatio/Map.getFitWidth());
+                    thisCircle.setCenterY(mousePress.getY()*Map.getImage().getHeight()*scaleRatio/Map.getFitHeight());
+                    thisCircle.setRadius(Math.max(2.0, 2.0f * (gesturePane.getCurrentScale() / 20)));
                     thisCircle.setStroke(Color.web("GREEN")); //#f5d96b
                     thisCircle.setFill(Color.web("GREEN"));
 
+                    if(!pathPane.getChildren().contains(thisCircle)) {
+                        pathPane.getChildren().add(thisCircle);
+                    }
                     circles.add(thisCircle);
                 }
             }
         }
     };
-
-    private EventHandler<MouseEvent> getOnMouseClickedEventHandler(){
-        return onMouseClickedEventHandler;
-    }
 
     private void populateEdges(Location x) {
         ObservableList<Location> locsToAdd = FXCollections.observableArrayList();
