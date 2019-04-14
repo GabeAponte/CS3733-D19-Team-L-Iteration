@@ -1329,11 +1329,9 @@ public class PathFindingController {
                     }
                     else if(curDirection ==8){
                         if(nextDirection == 1 || nextDirection == 2 || nextDirection == 3){
-                       //     System.out.println("Turn right");
                             text += "\u21E8 Turn right\n";
                         }
                         else if(nextDirection == 5 || nextDirection == 6 || nextDirection == 7){
-                      //      System.out.println("Turn left");
                             text += "\u21E6 Turn left\n";
                         }
                         else {
@@ -1348,16 +1346,12 @@ public class PathFindingController {
 
             }
             if(i == A.size() - 3){
-             //   System.out.println("Go straight to your destination " + A.get(A.size()-1).getLongName() +
-                   //     " (" + convertToExact(b.findDistance(c)) + " ft) " );
                 text += "\u21E7 Go straight to your destination " + A.get(A.size()-1).getLongName() +
                                 " (" + convertToExact(b.findDistance(c)) + " ft) \n";
                 return text;
             }
             if(isStairELe(a) && isStairELe(b)){
-        //        System.out.println("Go to floor " + b.getFloor() + " by " + a.getLongName());
                 text += "Go to floor " + b.getFloor() + " by " + a.getLongName();
-
             }
 
         }
@@ -1375,8 +1369,6 @@ public class PathFindingController {
         }
         //on average, walking speed 4.6 ft / sec
         minutes = convertToExact(totalDistance) / (4.6 * 60);
-
-        System.out.println(minutes);
         return (int) (minutes * 100) / 100.0;
 
     }
