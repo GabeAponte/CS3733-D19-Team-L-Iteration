@@ -167,6 +167,7 @@ public class PathFindingController {
         single.setLastTime();
         Map.setImage(new Image("/SoftEng_UI_Mockup_Pics/00_thegroundfloor.png"));
         currentMap = "G";
+        resetRadButts();
         if(PathFindStartDrop.getValue() != null && PathFindEndDrop.getValue() != null){
             submitPressed();
         }
@@ -176,6 +177,7 @@ public class PathFindingController {
         single.setLastTime();
         Map.setImage(new Image("/SoftEng_UI_Mockup_Pics/00_thelowerlevel1.png"));
         currentMap = "L1";
+        resetRadButts();
         if(PathFindStartDrop.getValue() != null && PathFindEndDrop.getValue() != null){
             submitPressed();
         }
@@ -185,6 +187,7 @@ public class PathFindingController {
         single.setLastTime();
         Map.setImage(new Image("/SoftEng_UI_Mockup_Pics/00_thelowerlevel2.png"));
         currentMap = "L2";
+        resetRadButts();
         if(PathFindStartDrop.getValue() != null && PathFindEndDrop.getValue() != null){
             submitPressed();
         }
@@ -194,6 +197,7 @@ public class PathFindingController {
         single.setLastTime();
         Map.setImage(new Image("/SoftEng_UI_Mockup_Pics/01_thefirstfloor.png"));
         currentMap = "1";
+        resetRadButts();
         if(PathFindStartDrop.getValue() != null && PathFindEndDrop.getValue() != null){
             submitPressed();
         }
@@ -203,6 +207,7 @@ public class PathFindingController {
         single.setLastTime();
         Map.setImage(new Image("/SoftEng_UI_Mockup_Pics/02_thesecondfloor.png"));
         currentMap = "2";
+        resetRadButts();
         if(PathFindStartDrop.getValue() != null && PathFindEndDrop.getValue() != null){
             submitPressed();
         }
@@ -212,6 +217,7 @@ public class PathFindingController {
         single.setLastTime();
         Map.setImage(new Image("/SoftEng_UI_Mockup_Pics/03_thethirdfloor.png"));
         currentMap = "3";
+        resetRadButts();
         if(PathFindStartDrop.getValue() != null && PathFindEndDrop.getValue() != null){
             submitPressed();
         }
@@ -1109,11 +1115,11 @@ public class PathFindingController {
                 length = sqrt((m*m)+(n+n));
                 //a^2 + b^2 = c^2 therefore sqrt gets the length of the distance between kiosk and this node
 
-                System.out.println("n:"+n+" m:"+m+" length:"+length);
+                //System.out.println("n:"+n+" m:"+m+" length:"+length);
 
                 if(length < smallestDistance){
                     smallestDistance = length;
-                    System.out.println("xxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"+"  smallest distance: "+smallestDistance);
+                    //System.out.println("xxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"+"  smallest distance: "+smallestDistance);
                     //set this node to be for pathing
                     closestLOC = nodes.get(i);
                     closestPath = findAbstractPath(astar,kioskTemp, closestLOC);
@@ -1122,13 +1128,20 @@ public class PathFindingController {
             }
 
             //displayPath(closestPath.getPath(), kioskTemp, closestLOC);
+
+            displayingPath = true;
+
+
+            path = findAbstractPath(strategyAlgorithm, startNode, endNode);
+
             displayPath();
-            printPath(closestPath.getPath());
+            //printPath(path.getPath());
+            Direction.setText(printPath(path.getPath()));
+
 
             sceneGestures.setDrawPath(circles,lines);
-            //System.out.println("just pretend it prints out the path to closest");
         }
-
+        //do not display any path
     }
 
     /**
@@ -1143,6 +1156,27 @@ public class PathFindingController {
             //set kioskTemp to that^
         }
 
+    }
+
+
+    /**Grace Made this
+     * just resets the radio buttons
+     */
+    public void resetRadButts(){
+        for (Circle c: circles) {
+            anchorPanePath.getChildren().remove(c);
+        }
+        for (Line l: lines) {
+            anchorPanePath.getChildren().remove(l);
+        }
+        bathroomRadButton.setSelected(false);
+        bathroomRadButton.setTextFill(Color.web("#ffffff"));
+        cafeRadButton.setSelected(false);
+        cafeRadButton.setTextFill(Color.web("#ffffff"));
+        eleRadButton.setSelected(false);
+        eleRadButton.setTextFill(Color.web("#ffffff"));
+        stairsRadButton.setSelected(false);
+        stairsRadButton.setTextFill(Color.web("#ffffff"));
     }
     /** GRACE MADE THIS
      *display and find closest bathroom

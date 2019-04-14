@@ -2,13 +2,11 @@
 
 <?import com.jfoenix.controls.JFXButton?>
 <?import com.jfoenix.controls.JFXComboBox?>
-<?import com.jfoenix.controls.JFXToolbar?>
 <?import com.jfoenix.controls.JFXRadioButton?>
+<?import com.jfoenix.controls.JFXToolbar?>
 <?import java.net.URL?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.control.ToolBar?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -18,11 +16,8 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
-<?import javafx.scene.layout.VBox?>
-<?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 
-<?import javafx.stage.Screen?>
 <AnchorPane fx:id="anchorPaneWindow" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="720" prefWidth="1280" style="-fx-background-color: #012D5A;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.d19.teamL.Map.Pathfinding.PathFindingController">
 
    <children>
@@ -94,33 +89,6 @@
                   <Insets />
                </GridPane.margin>
             </JFXButton>
-
-             <VBox alignment="CENTER_LEFT" layoutX="1114.0" layoutY="527.0" prefHeight="195.0" prefWidth="255.0">
-                 <children>
-                     <Label text="Points Of Interest" textFill="WHITE">
-                         <font>
-                             <Font size="30.0" />
-                         </font>
-                     </Label>
-                     <JFXButton fx:id="setKioskButton" onAction="#setKioskButtPress" style="-fx-border-color: WHITE; -fx-border-radius: 50; -fx-background-radius: 50;" text="Set Kiosk" textFill="WHITE" />
-                     <JFXRadioButton fx:id="bathroomRadButton" onAction="#bathRadButtPressed" style="-jfx-selected-color: #f5d96b; -jfx-unselected-color: WHITE;" text="Bathroom" textFill="WHITE">
-                         <font>
-                             <Font size="20.0" />
-                         </font></JFXRadioButton>
-                     <JFXRadioButton fx:id="cafeRadButton" onAction="#cafeRadButtPressed" style="-jfx-selected-color: #f5d96b; -jfx-unselected-color: WHITE;" text="Retail" textFill="WHITE">
-                         <font>
-                             <Font size="20.0" />
-                         </font></JFXRadioButton>
-                     <JFXRadioButton fx:id="eleRadButton" onAction="#eleRadButtPressed" style="-jfx-selected-color: #f5d96b; -jfx-unselected-color: WHITE;" text="Elevator" textFill="WHITE">
-                         <font>
-                             <Font size="20.0" />
-                         </font></JFXRadioButton>
-                     <JFXRadioButton fx:id="stairsRadButton" onAction="#stairsRadButtPressed" style="-jfx-selected-color: #f5d96b; -jfx-unselected-color: WHITE;" text="Stairs" textFill="WHITE">
-                         <font>
-                             <Font size="20.0" />
-                         </font></JFXRadioButton>
-                 </children>
-             </VBox>
 
             <GridPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" GridPane.columnIndex="7" GridPane.rowIndex="1" GridPane.rowSpan="3">
                <columnConstraints>
@@ -232,6 +200,37 @@
                      <font>
                         <Font name="Courier New" size="12.0" />
                      </font></Label>
+      
+                   <VBox alignment="CENTER_LEFT" prefHeight="195.0" prefWidth="255.0">
+                       <children>
+                           <Label text="Points Of Interest" textFill="WHITE">
+                               <font>
+                                   <Font size="30.0" />
+                               </font>
+                           </Label>
+                           <JFXButton fx:id="setKioskButton" onAction="#setKioskButtPress" style="-fx-border-color: WHITE; -fx-border-radius: 50; -fx-background-radius: 50;" text="Set Kiosk" textFill="WHITE" />
+                           <JFXRadioButton fx:id="bathroomRadButton" onAction="#bathRadButtPressed" style="-jfx-selected-color: #f5d96b; -jfx-unselected-color: WHITE;" text="Bathroom" textFill="WHITE">
+                               <font>
+                                   <Font size="20.0" />
+                               </font>
+                        </JFXRadioButton>
+                           <JFXRadioButton fx:id="cafeRadButton" onAction="#cafeRadButtPressed" style="-jfx-selected-color: #f5d96b; -jfx-unselected-color: WHITE;" text="Retail" textFill="WHITE">
+                               <font>
+                                   <Font size="20.0" />
+                               </font>
+                        </JFXRadioButton>
+                           <JFXRadioButton fx:id="eleRadButton" onAction="#eleRadButtPressed" style="-jfx-selected-color: #f5d96b; -jfx-unselected-color: WHITE;" text="Elevator" textFill="WHITE">
+                               <font>
+                                   <Font size="20.0" />
+                               </font>
+                        </JFXRadioButton>
+                           <JFXRadioButton fx:id="stairsRadButton" onAction="#stairsRadButtPressed" style="-jfx-selected-color: #f5d96b; -jfx-unselected-color: WHITE;" text="Stairs" textFill="WHITE">
+                               <font>
+                                   <Font size="20.0" />
+                               </font>
+                        </JFXRadioButton>
+                       </children>
+                   </VBox>
                </children></VBox>
             <Label fx:id="directions" alignment="CENTER" prefHeight="146.0" prefWidth="411.0" text="Directions" textAlignment="CENTER" textFill="#f5d96b" underline="true" GridPane.columnIndex="6" GridPane.rowIndex="1" GridPane.valignment="CENTER">
                <font>
