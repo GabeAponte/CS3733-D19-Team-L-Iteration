@@ -17,7 +17,7 @@ public abstract class TemplatePathFinder implements PathfindingStrategy{
 
     abstract void calculateTotalScore(Location l, Location end, double gscore);
 
-    public final Path findPath(Location start, Location end) {
+    public final Path findPath(Location start, Location end, String restrictions) {
         ArrayList<Location> openList = new ArrayList<Location>();
         ArrayList<Location> closeList = new ArrayList<Location>();
         Singleton single = Singleton.getInstance();
@@ -60,6 +60,9 @@ public abstract class TemplatePathFinder implements PathfindingStrategy{
                     l.setParentID(q.getLocID());
                     lookup.get(l.getLocID()).setParentID(q.getLocID());
                     if (!openList.contains(l) && !closeList.contains(l)) {
+                        if(l.getNodeType().equals(restrictions) && q.getNodeType().equals(restrictions) && !l.getFloor().equals(q.getFloor())){
+                            continue;
+                        }
                         openList.add(l);
                     }
                 }

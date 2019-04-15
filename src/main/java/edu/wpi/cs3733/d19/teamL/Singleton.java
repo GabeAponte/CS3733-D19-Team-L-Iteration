@@ -23,7 +23,7 @@ public class Singleton {
     private static boolean loggedIn;
     private static String username;
     private static int num;
-    private static String kioskID;
+    private static String kioskID = "";
     private static long lastTime;
     private static int typePathfind;
     private static boolean isAdmin;
@@ -41,7 +41,7 @@ public class Singleton {
         kioskID = ""; //kiosk node ID
         typePathfind = 1; //which strategy selection for pathfinding
         isAdmin = false; //is signedin employee an admin
-        timeoutSec = 4500000; //how long before timeout (in ms) 1000 = 1 second
+        timeoutSec = 500000; //how long before timeout (in ms) 1000 = 1 second
         doPopup = true; //should be more appropriately named initializeClock
     }
 

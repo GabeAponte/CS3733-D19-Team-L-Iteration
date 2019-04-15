@@ -1,8 +1,10 @@
 package edu.wpi.cs3733.d19.teamL.Map.Pathfinding;
 
 import com.jfoenix.controls.JFXButton;
+import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXScrollPane;
 import com.jfoenix.controls.JFXTextArea;
+import com.jfoenix.controls.JFXComboBox;
 import edu.wpi.cs3733.d19.teamL.HomeScreens.HomeScreenController;
 import edu.wpi.cs3733.d19.teamL.Map.ImageInteraction.SceneGestures;
 import edu.wpi.cs3733.d19.teamL.Map.MapLocations.Location;
@@ -10,8 +12,9 @@ import edu.wpi.cs3733.d19.teamL.Map.MapLocations.Path;
 import edu.wpi.cs3733.d19.teamL.Map.ImageInteraction.PanAndZoomPane;
 import edu.wpi.cs3733.d19.teamL.SearchingAlgorithms.*;
 import edu.wpi.cs3733.d19.teamL.Singleton;
-import javafx.animation.KeyFrame;
-import javafx.animation.Timeline;
+import javafx.animation.*;
+import javafx.beans.binding.Bindings;
+import javafx.beans.binding.NumberBinding;
 import javafx.application.Platform;
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.SimpleDoubleProperty;
@@ -38,23 +41,32 @@ import javafx.scene.shape.Line;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-
 import javafx.util.Duration;
+import javafx.scene.layout.GridPane;
+import javafx.scene.layout.Pane;
+import javafx.scene.layout.StackPane;
 
+import net.kurobako.gesturefx.GesturePane;
+
+import javax.xml.soap.Text;
 
 import javax.xml.soap.Text;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.ListIterator;
+import java.net.URL;
+import java.util.ResourceBundle;
 
 import static javafx.scene.paint.Color.*;
+
+import static java.lang.Math.sqrt;
 
 @SuppressWarnings("Duplicates")
 public class PathFindingController {
 
     @FXML
-    private JFXButton TextDirction;
+    private TextArea direction;
 
     @FXML
     private Stage thestage;
@@ -73,6 +85,9 @@ public class PathFindingController {
 
     @FXML
     private Button Down;
+
+    @FXML
+    private JFXComboBox<String> restrictChoice;
 
     @FXML
     private Button L1;
@@ -99,13 +114,15 @@ public class PathFindingController {
     private TextField PathFindStartSearch;
 
     @FXML
-    private RadioButton PathFindStairsPOI;
-
+    private RadioButton bathroomRadButton;
     @FXML
-    private RadioButton PathFindElevatorPOI;
-
+    private RadioButton cafeRadButton;
     @FXML
-    private RadioButton PathFindBrPOI;
+    private RadioButton eleRadButton;
+    @FXML
+    private RadioButton stairsRadButton;
+    @FXML
+    private JFXButton setKioskButton; //setKioskButtPress
 
     @FXML
     private ComboBox<String> Filter;
@@ -124,7 +141,7 @@ public class PathFindingController {
 
 
     @FXML
-    private AnchorPane anchorPaneWindow;
+    private GridPane gridPane;
 
     @FXML
     private ImageView Map;
@@ -132,16 +149,17 @@ public class PathFindingController {
     @FXML
     private Pane imagePane;
 
+    Location kioskTemp;
+
     private Rectangle clip;
     private boolean displayingPath;
     private ArrayList<Button> buttons = new ArrayList<Button>();
     private Path path;
 
-    private PanAndZoomPane zoomPaneImage;
-    private SceneGestures sceneGestures;
-    private AnchorPane anchorPanePath;
-    private final DoubleProperty zoomProperty = new SimpleDoubleProperty(1.0d);
-    private final DoubleProperty deltaY = new SimpleDoubleProperty(0.0d);
+    private GesturePane gesturePane;
+    private StackPane childPane;
+    private AnchorPane pathPane;
+
     private PathfindingStrategy strategyAlgorithm;
 
     private NodesAccess na;
@@ -188,10 +206,41 @@ public class PathFindingController {
     }
 
     @FXML
+    private Button menu;
+    @FXML
+    private AnchorPane navList;
+
+    public void initialize(URL url, ResourceBundle rb) {
+        this.prepareSlideMenuAnimation();
+        direction.setEditable(false);
+    }
+
+    @FXML
+    private void prepareSlideMenuAnimation() {
+        TranslateTransition openNav = new TranslateTransition(new Duration(300.0D), this.navList);
+        openNav.setToX(0.0D);
+        TranslateTransition closeNav = new TranslateTransition(new Duration(300.0D), this.navList);
+        this.menu.setOnAction((evt) -> {
+            System.out.println("clicked");
+            if (this.navList.getTranslateX() != 130.0D) {
+                openNav.setToX(130);
+                openNav.play();
+                System.out.println("if open");
+            } else {
+                closeNav.setToX(-this.navList.getWidth());
+                closeNav.play();
+                System.out.println("if close");
+            }
+
+        });
+    }
+
+    @FXML
     private void clickedG(){
         single.setLastTime();
         Map.setImage(new Image("/SoftEng_UI_Mockup_Pics/00_thegroundfloor.png"));
         currentMap = "G";
+        resetRadButts();
         if(PathFindStartDrop.getValue() != null && PathFindEndDrop.getValue() != null){
             submitPressed();
         }
@@ -201,6 +250,7 @@ public class PathFindingController {
         single.setLastTime();
         Map.setImage(new Image("/SoftEng_UI_Mockup_Pics/00_thelowerlevel1.png"));
         currentMap = "L1";
+        resetRadButts();
         if(PathFindStartDrop.getValue() != null && PathFindEndDrop.getValue() != null){
             submitPressed();
         }
@@ -210,6 +260,7 @@ public class PathFindingController {
         single.setLastTime();
         Map.setImage(new Image("/SoftEng_UI_Mockup_Pics/00_thelowerlevel2.png"));
         currentMap = "L2";
+        resetRadButts();
         if(PathFindStartDrop.getValue() != null && PathFindEndDrop.getValue() != null){
             submitPressed();
         }
@@ -219,6 +270,7 @@ public class PathFindingController {
         single.setLastTime();
         Map.setImage(new Image("/SoftEng_UI_Mockup_Pics/01_thefirstfloor.png"));
         currentMap = "1";
+        resetRadButts();
         if(PathFindStartDrop.getValue() != null && PathFindEndDrop.getValue() != null){
             submitPressed();
         }
@@ -228,6 +280,7 @@ public class PathFindingController {
         single.setLastTime();
         Map.setImage(new Image("/SoftEng_UI_Mockup_Pics/02_thesecondfloor.png"));
         currentMap = "2";
+        resetRadButts();
         if(PathFindStartDrop.getValue() != null && PathFindEndDrop.getValue() != null){
             submitPressed();
         }
@@ -237,6 +290,7 @@ public class PathFindingController {
         single.setLastTime();
         Map.setImage(new Image("/SoftEng_UI_Mockup_Pics/03_thethirdfloor.png"));
         currentMap = "3";
+        resetRadButts();
         if(PathFindStartDrop.getValue() != null && PathFindEndDrop.getValue() != null){
             submitPressed();
         }
@@ -372,16 +426,21 @@ public class PathFindingController {
     public void initialize() {
         Singleton single = Singleton.getInstance();
         single.setLastTime();
+        prepareSlideMenuAnimation();
         ObservableList<PathfindingStrategy> strategies = FXCollections.observableArrayList();
+        ObservableList<String> preference = FXCollections.observableArrayList();
         TemplatePathFinder aStarStrategy = new AStarStrategy(single.lookup);
         TemplatePathFinder dijkstraStrategy = new DijkstraStrategy(single.lookup);
         strategies.add(dijkstraStrategy);
         strategies.add(aStarStrategy);
         strategies.add(new DepthFirstStrategy(single.lookup));
         strategies.add(new BreadthFirstStrategy(single.lookup));
+        preference.addAll("STAI", "ELEV", "NONE");
         strategySelector.setItems(strategies);
         strategySelector.setValue(aStarStrategy);
+        restrictChoice.setItems(preference);
         strategyAlgorithm = strategySelector.getValue();
+        direction.setEditable(false);
         timeout = new Timeline(new KeyFrame(Duration.seconds(2), new EventHandler<ActionEvent>() {
 
             @Override
@@ -422,63 +481,23 @@ public class PathFindingController {
         Floor.setItems(floorList);
         //initializeTable(na, ea);
 
-        anchorPanePath = new AnchorPane();
+        pathPane = new AnchorPane();
+        childPane = new StackPane();
+        childPane.getChildren().add(Map);
+        childPane.getChildren().add(pathPane);
+        gesturePane = new GesturePane(childPane);
+        gesturePane.setHBarEnabled(false);
+        gesturePane.setVBarEnabled(false);
 
-//        Map.fitWidthProperty().bind(imagePane.widthProperty());
-//        Map.fitHeightProperty().bind(imagePane.heightProperty());
+        gridPane.add(gesturePane,0,0, 1, GridPane.REMAINING);
+       // gesturePane.zoomTo(2.0,new Point2D(Map.getImage().getWidth(), Map.getImage().getHeight()));
 
-        Map.setFitWidth(754);
-        Map.setFitHeight(507);
+        //NumberBinding nb = Bindings.min(gesturePane.widthProperty().multiply(0.8), gesturePane.heightProperty().multiply(5000).divide(3400).multiply(720.0/610.0));
+       // gesturePane.minScaleProperty().bind(nb);
 
-        clip = new Rectangle();
-        clip.widthProperty().bind(Map.fitWidthProperty());
-        clip.heightProperty().bind(Map.fitHeightProperty());
-        anchorPanePath.setClip(clip);
+        Map.fitHeightProperty().bind(gesturePane.heightProperty());
+        Map.fitWidthProperty().bind(gesturePane.widthProperty());
 
-        zoomPaneImage = new PanAndZoomPane();
-
-        zoomProperty.bind(zoomPaneImage.myScale);
-        deltaY.bind(zoomPaneImage.deltaY);
-        zoomPaneImage.getChildren().add(Map);
-
-        sceneGestures = new SceneGestures(zoomPaneImage, Map);
-
-        imagePane.addEventFilter( MouseEvent.MOUSE_CLICKED, sceneGestures.getOnMouseClickedEventHandler());
-        imagePane.addEventFilter( MouseEvent.MOUSE_PRESSED, sceneGestures.getOnMousePressedEventHandler());
-        imagePane.addEventFilter( MouseEvent.MOUSE_DRAGGED, sceneGestures.getOnMouseDraggedEventHandler());
-        imagePane.addEventFilter( ScrollEvent.ANY, sceneGestures.getOnScrollEventHandler());
-
-
-        Map.sceneProperty().addListener((observableScene, oldScene, newScene) -> {
-            if (oldScene == null && newScene != null) {
-                // scene is set for the first time. Now its the time to listen stage changes.
-                newScene.windowProperty().addListener((observableWindow, oldWindow, newWindow) -> {
-                    if (oldWindow == null && newWindow != null) {
-                        // stage is set. now is the right time to do whatever we need to the stage in the controller.
-                        ChangeListener<Number> stageSizeListenerWidth = (observable, oldValue, newValue) -> {
-                            displayPath();
-
-                            Map.setFitWidth(Map.getFitWidth()/oldValue.doubleValue()*newValue.doubleValue());
-                        };
-
-                        ChangeListener<Number> stageSizeListenerHeight = (observable, oldValue, newValue) -> {
-                            displayPath();
-
-                            Map.setFitHeight(Map.getFitHeight()/oldValue.doubleValue()*newValue.doubleValue());
-                        };
-
-                        ((Stage) newWindow).widthProperty().addListener(stageSizeListenerWidth);
-                        ((Stage) newWindow).heightProperty().addListener(stageSizeListenerHeight);
-                    }
-                });
-            }
-        });
-
-        imagePane.getChildren().add(zoomPaneImage);
-        imagePane.getChildren().add(anchorPanePath);
-
-        sceneGestures.reset(Map, Map.getImage().getWidth(), Map.getImage().getHeight());
-        sceneGestures.setDrawPath(circles, lines);
     }
 
     @FXML
@@ -522,28 +541,39 @@ public class PathFindingController {
         }
         else{
             PathFindSubmit.setDisable(true);
-            TextDirction.setDisable(true);
+            direction.setDisable(true);
+            direction.setEditable(false);
         }
     }
 
+    /**Nathan modified this to include a path preference choice (restriction)
+     *
+     */
     @FXML
     private void submitPressed(){
         single.setLastTime();
         startNode = single.lookup.get(PathFindStartDrop.getValue().getLocID());
         endNode = single.lookup.get(PathFindEndDrop.getValue().getLocID());
-
+        String restriction = restrictChoice.getValue();
+        if(restriction == null || restriction.trim().equals("") || restriction.equals("NONE")){
+            restriction = "    ";
+        }
 
 
         displayingPath = true;
 
 
-        path = findAbstractPath(strategyAlgorithm, startNode, endNode);
+        path = findAbstractPath(strategyAlgorithm, startNode, endNode, restriction);
 
         displayPath();
         //printPath(path.getPath());
+        direction.setText(printPath(path.getPath()));
 
-        sceneGestures.setDrawPath(circles,lines);
-        TextDirction.setDisable(false);
+
+//        sceneGestures.setDrawPath(circles,lines);
+       // sceneGestures.setDrawPath(circles,lines);
+        direction.setDisable(false);
+        direction.setEditable(false);
     }
 
     /**
@@ -557,46 +587,44 @@ public class PathFindingController {
             path.getPath().add(0,startNode);
 
             for (Circle c : circles) {
-                anchorPanePath.getChildren().remove(c);
+                pathPane.getChildren().remove(c);
             }
             for (Line l : lines) {
-                anchorPanePath.getChildren().remove(l);
+                pathPane.getChildren().remove(l);
             }
             for (Button b : buttons) {
-                anchorPanePath.getChildren().remove(b);
+                pathPane.getChildren().remove(b);
             }
 
             circles.clear();
             lines.clear();
             buttons.clear();
 
-            //Deals with the zoom pane and changing screen size.
-            Point2D point = sceneGestures.getImageLocation();
-            double scaleRatio = Math.min(Map.getFitWidth() / Map.getImage().getWidth(), Map.getFitHeight() / Map.getImage().getHeight());
             //Creates the path for the user to follow, and displays based on the current floor.
             for (int i = 0; i < path.getPath().size() - 1; i++) {
                 Line line = new Line();
 
-                line.setStartX((path.getPath().get(i).getXcoord() - point.getX()) * scaleRatio * sceneGestures.getImageScale());
-                line.setStartY((path.getPath().get(i).getYcoord() - point.getY()) * scaleRatio * sceneGestures.getImageScale());
-                line.setEndX((path.getPath().get(i + 1).getXcoord() - point.getX()) * scaleRatio * sceneGestures.getImageScale());
-                line.setEndY((path.getPath().get(i + 1).getYcoord() - point.getY()) * scaleRatio * sceneGestures.getImageScale());
+
+                line.setStartX(path.getPath().get(i).getXcoord()*childPane.getWidth()/Map.getImage().getWidth());
+                line.setStartY(path.getPath().get(i).getYcoord()*childPane.getHeight()/Map.getImage().getHeight());
+                line.setEndX(path.getPath().get(i+1).getXcoord()*childPane.getWidth()/Map.getImage().getWidth());
+                line.setEndY(path.getPath().get(i+1).getYcoord()*childPane.getHeight()/Map.getImage().getHeight());
                 line.setStrokeWidth(2.5);
                 line.setStroke(DODGERBLUE);
                 //Toggles visibility based on current floor to adjust for travelling across multiple floors.
                 if (!(path.getPath().get(i).getFloor().equals(currentMap)) || !(path.getPath().get(i + 1).getFloor().equals(currentMap))) {
                     line.setVisible(false);
                 }
-                //Creates buttons to transition between floors on the map 
+                //Creates buttons to transition between floors on the map
                 int f = path.getPath().size() - 1;
                 if((!(path.getPath().get(i + 1).getFloor().equals(currentMap)))) {
                     Button nBut = new Button();
-                    nBut.setLayoutX((path.getPath().get(i).getXcoord() - point.getX()) * scaleRatio * sceneGestures.getImageScale());
-                    nBut.setLayoutY((path.getPath().get(i).getYcoord() - point.getY()) * scaleRatio * sceneGestures.getImageScale());
+                    nBut.setLayoutX((path.getPath().get(i).getXcoord()*childPane.getWidth()/Map.getImage().getWidth()));
+                    nBut.setLayoutY((path.getPath().get(i).getYcoord()*childPane.getHeight()/Map.getImage().getHeight()));
                     final int transit = i + 1;
                     String transition = path.getPath().get(transit).getFloor();
                     String display = "Take Elevator to ";
-                    if(!path.getPath().get(i+1).getFloor().equals(endNode.getFloor()))
+                    if(!path.getPath().get(i+1).getFloor().equals(endNode.getFloor()) && path.getPath().get(i).getNodeType().equals("STAI"))
                     {
                         display = "Take Stairs to ";
                     }
@@ -629,16 +657,16 @@ public class PathFindingController {
                         if (transition.equals("3"))
                             clicked3();
                     });
-                    //Sets button visibility to only display on start and end floors
-                    if (buttons.isEmpty() && (path.getPath().get(i).getFloor().equals(currentMap) ||currentMap.equals(startNode.getFloor()) || currentMap.equals(endNode.getFloor()))) {
+                    //Sets button visibility
+                    if (buttons.isEmpty() && (path.getPath().get(i).getFloor().equals(currentMap) || currentMap.equals(startNode.getFloor()) || currentMap.equals(endNode.getFloor()))) {
                         buttons.add(nBut);
                         nBut.setVisible(true);
                         //Change the display of the button based on which floor you're on
-                        if(currentMap.equals(startNode.getFloor())) {
+                        if(currentMap.equals(startNode.getFloor()) || path.getPath().get(i).getFloor().equals(currentMap)) {
                             nBut.setStyle("-fx-text-fill: WHITE; -fx-font-size: 13; -fx-background-color: GREEN; -fx-border-color: WHITE; -fx-background-radius: 18; -fx-border-radius: 18; -fx-border-width: 3");
 
                         }
-                        else if(path.getPath().get(i).getFloor().equals(currentMap)){
+                        else if(path.getPath().get(i).getFloor().equals(currentMap) && transition.equals(startNode.getFloor())){
                             nBut.setStyle("-fx-text-fill: WHITE; -fx-font-size: 13; -fx-background-color: GREEN; -fx-border-color: WHITE; -fx-background-radius: 18; -fx-border-radius: 18; -fx-border-width: 3");
                         }
                         else {
@@ -649,9 +677,9 @@ public class PathFindingController {
                     else {
                         nBut.setVisible(false);
                     }
-                    anchorPanePath.getChildren().add(nBut);
+                    pathPane.getChildren().add(nBut);
                 }
-                anchorPanePath.getChildren().add(line);
+                pathPane.getChildren().add(line);
 
                 lines.add(line);
             }
@@ -659,32 +687,37 @@ public class PathFindingController {
             Circle StartCircle = new Circle();
 
             //Setting the properties of the circle
-            StartCircle.setCenterX((startNode.getXcoord() - point.getX()) * scaleRatio * sceneGestures.getImageScale());
-            StartCircle.setCenterY((startNode.getYcoord() - point.getY()) * scaleRatio * sceneGestures.getImageScale());
-            StartCircle.setRadius(Math.max(2.5, 2.5f * (sceneGestures.getImageScale() / 5)));
+            StartCircle.setCenterX(startNode.getXcoord()*childPane.getWidth()/Map.getImage().getWidth());
+            StartCircle.setCenterY(startNode.getYcoord()*childPane.getHeight()/Map.getImage().getHeight());
+            StartCircle.setRadius(Math.max(1.5, 1.5f * (gesturePane.getCurrentScale() / 4)));
             StartCircle.setStroke(Color.GREEN);
             StartCircle.setFill(Color.GREEN);
             if (!startNode.getFloor().equals(currentMap)) {
                 StartCircle.setVisible(false);
             }
 
+            pathPane.getChildren().add(StartCircle);
 
-            anchorPanePath.getChildren().add(StartCircle);
 
             Circle EndCircle = new Circle();
 
             //Setting the properties of the circle
-            EndCircle.setCenterX((endNode.getXcoord() - point.getX()) * scaleRatio * sceneGestures.getImageScale());
-            EndCircle.setCenterY((endNode.getYcoord() - point.getY()) * scaleRatio * sceneGestures.getImageScale());
-            EndCircle.setRadius(Math.max(2.5, 2.5f * (sceneGestures.getImageScale() / 5)));
+            EndCircle.setCenterX(endNode.getXcoord()*childPane.getWidth()/Map.getImage().getWidth());
+            EndCircle.setCenterY(endNode.getYcoord()*childPane.getHeight()/Map.getImage().getHeight());
+            EndCircle.setRadius(Math.max(1.5, 1.5f * (gesturePane.getCurrentScale() / 5)));
             EndCircle.setStroke(Color.RED);
             EndCircle.setFill(Color.RED);
             if (!endNode.getFloor().equals(currentMap)) {
                 EndCircle.setVisible(false);
             }
 
-            anchorPanePath.getChildren().add(EndCircle);
+            pathPane.getChildren().add(EndCircle);
 
+            pathPane.setPrefSize(childPane.getWidth(), childPane.getHeight());
+
+            System.out.println(StartCircle.getCenterX()+ "   " + EndCircle.getCenterX());
+            System.out.println(startNode.getXcoord()+ "   " + endNode.getYcoord());
+            System.out.println(pathPane.getPrefWidth());
 
             circles.add(StartCircle);
             circles.add(EndCircle);
@@ -698,7 +731,7 @@ public class PathFindingController {
      */
     private void filterFloor() {
         single.setLastTime();
-        if (Floor.getValue() == "Ground") {
+        if (Floor.getValue() == "G") {
             pickedFloor = "G";
         }
         if (Floor.getValue() == "L1") {
@@ -862,7 +895,7 @@ public class PathFindingController {
                 PathFindEndDrop.setItems(noHallEnd);
             }
 
-        } else if (Filter.getValue() == ("All") && Floor.getValue() != null) { 
+        } else if (Filter.getValue() == ("All") && Floor.getValue() != null) {
             if (PathFindStartDrop.getValue() == null) {
                 noHallStart.clear();
                 for (int j = 0; j < single.getData().size(); j++) {
@@ -1077,9 +1110,17 @@ public class PathFindingController {
         }
     }
 
-    public Path findAbstractPath(PathfindingStrategy strategy, Location start, Location end) {
+    /**Nathan modified this to include path preference (restriction)
+     *
+     * @param strategy
+     * @param start
+     * @param end
+     * @param restriction
+     * @return
+     */
+    public Path findAbstractPath(PathfindingStrategy strategy, Location start, Location end, String restriction) {
         single.setLastTime();
-        Path p = strategy.findPath(start, end);
+        Path p = strategy.findPath(start, end, restriction);
         return p;
     }
 
@@ -1092,7 +1133,7 @@ public class PathFindingController {
     @FXML
     private void floor() {
         floorList.add("All");
-        floorList.add("Ground");
+        floorList.add("G");
         floorList.add("L1");
         floorList.add("L2");
         floorList.add("1");
@@ -1118,6 +1159,321 @@ public class PathFindingController {
         filterList.add("Labs");
         filterList.add("Information");
     }
+
+
+
+    /** GRACE MADE THIS
+     * display all nodes whose nodeType contains("keyword") && nodeFloor = currentKioskFloor
+     */
+    public void displayPOINodes(String keyword){
+        ArrayList<Location> nodes = new ArrayList<Location>();
+        //want to fill nodes w/ floor = currrentKioskFloor && nodeLongName? or nodeType? .contains(keyword)
+        int temp = 0;
+
+        double scaleRatio = gesturePane.getWidth() / Map.getImage().getWidth();
+       // Point2D point = sceneGestures.getImageLocation();
+
+        for(int i=0; i<single.getData().size(); i++){
+            //if nodetype contains keyword
+            //System.out.println(currentMap);
+
+            if(single.getData().get(i).getNodeType().contains(keyword) && single.getData().get(i).getFloor().equals(currentMap)/* && data.get(i).getFloor() == kioskNode.getFloor*/){
+                nodes.add(single.getData().get(i));
+
+                //System.out.println("ok at least one node gets here");
+
+                Circle thisCircle = new Circle();
+
+                pathPane.getChildren().add(thisCircle);
+
+                //Setting the properties of the circle
+                thisCircle.setCenterX((nodes.get(temp).getXcoord())*gesturePane.getWidth() / Map.getImage().getWidth());
+                thisCircle.setCenterY((nodes.get(temp).getYcoord())*gesturePane.getHeight() / Map.getImage().getHeight());
+                thisCircle.setRadius(Math.max(1.5,1.5f*(gesturePane.getCurrentScale()/5)));
+                thisCircle.setStroke(Color.web("RED"));
+                thisCircle.setFill(Color.web("RED"));
+
+                circles.add(thisCircle);
+                temp++;
+            }
+        }
+        //System.out.println("displaying all "+ keyword +"s on this floor");
+
+    }
+
+    /** GRACE MADE THIS
+     * display path to nearest keyword
+     */
+    public void displayClosestPOI(String keyword){
+        checkAndSetKiosk();
+
+        ArrayList<Location> nodes = new ArrayList<Location>();
+        //want to fill nodes w/ relevent POI
+
+        for(int i=0; i<single.getData().size(); i++) {
+            //if nodetype contains keyword
+            if (single.getData().get(i).getNodeType().contains(keyword) && single.getData().get(i).getFloor().equals(kioskTemp.getFloor())) {
+                nodes.add(single.getData().get(i));
+                //System.out.println("node added");
+            }
+        }
+        //if there are no nodes, dont do anything
+        if(! nodes.isEmpty()){
+
+            AStarStrategy astar = new AStarStrategy(single.lookup);
+
+            //get closest node
+            int nodeAx=0;
+            int nodeAy=0;
+
+            int nodeBx= kioskTemp.getXcoord();
+            int nodeBy= kioskTemp.getYcoord();
+
+            int m=0; //x coord stuff
+            int n=0; //y coord stuff
+
+            double smallestDistance = 500000;
+            double length =0;
+
+            Location closestLOC = nodes.get(0);
+            Path closestPath = findAbstractPath(astar,kioskTemp, nodes.get(0), "    "); //?
+
+            for(int i=0; i<nodes.size(); i++){
+
+                //kiosk is B
+                nodeAx = nodes.get(i).getXcoord();
+                nodeAy = nodes.get(i).getYcoord();
+
+                n = nodeAx - nodeBx;
+                n = Math.abs(n);
+                //absolute val in case its negative
+                m = nodeAy -nodeBy;
+                m = Math.abs(m);
+                //abs val
+                //length
+                length = sqrt((m*m)+(n+n));
+                //a^2 + b^2 = c^2 therefore sqrt gets the length of the distance between kiosk and this node
+
+                //System.out.println("n:"+n+" m:"+m+" length:"+length);
+
+                if(length < smallestDistance){
+                    smallestDistance = length;
+                    //System.out.println("xxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"+"  smallest distance: "+smallestDistance);
+                    //set this node to be for pathing
+                    closestLOC = nodes.get(i);
+                    closestPath = findAbstractPath(astar,kioskTemp, closestLOC, "    ");
+
+                    System.out.println(closestLOC);
+                }
+            }
+
+            //displayPath(closestPath.getPath(), kioskTemp, closestLOC);
+
+            displayingPath = true;
+
+            startNode = kioskTemp;
+            endNode = closestLOC;
+            path = closestPath;
+
+            displayPath();
+            //printPath(path.getPath());
+            direction.setText(printPath(path.getPath()));
+
+
+        //    sceneGestures.setDrawPath(circles,lines);
+        }
+        //do not display any path
+    }
+
+    /**Grace Made this
+     * just resets the radio buttons
+     */
+    public void resetRadButts(){
+        for (Circle c: circles) {
+            pathPane.getChildren().remove(c);
+        }
+        for (Line l: lines) {
+            pathPane.getChildren().remove(l);
+        }
+        bathroomRadButton.setSelected(false);
+        bathroomRadButton.setTextFill(Color.web("#ffffff"));
+        cafeRadButton.setSelected(false);
+        cafeRadButton.setTextFill(Color.web("#ffffff"));
+        eleRadButton.setSelected(false);
+        eleRadButton.setTextFill(Color.web("#ffffff"));
+        stairsRadButton.setSelected(false);
+        stairsRadButton.setTextFill(Color.web("#ffffff"));
+    }
+
+    /**Grace made this
+     * just sets the kiosk to an actual location
+     */
+    public void checkAndSetKiosk(){
+        //if kisosk was initiated its fine
+        //if not set kiosk to random (first location stuff) things
+        if(single.getKioskID().equals("")){
+            //Location kioskTemp = single.getData().get(0); //initially at floor 2
+            single.setKioskID(single.getData().get(0).getLocID());
+        }
+        //find actual "location" of kiosk
+        for(int i=0; i<single.getData().size(); i++){
+            if(single.getData().get(i).getLocID().equals(single.getKioskID())){
+                kioskTemp = single.getData().get(i);
+            }
+        }
+    }
+
+    /** GRACE MADE THIS
+     *display and find closest bathroom
+     */
+    @FXML
+    private void bathRadButtPressed(){
+        checkAndSetKiosk();
+        //when pressed, change color to #f5d96b (gold/yellow), to do later
+        //display and find closest bathroom
+        //System.out.println("find closest bathroom selected");
+        for (Circle c: circles) {
+            pathPane.getChildren().remove(c);
+        }
+        for (Line l: lines) {
+            pathPane.getChildren().remove(l);
+        }
+        if(bathroomRadButton.isSelected()) {
+            bathroomRadButton.setTextFill(Color.web("#f5d96b"));
+            cafeRadButton.setSelected(false);
+            cafeRadButton.setTextFill(Color.web("#ffffff"));
+            eleRadButton.setSelected(false);
+            eleRadButton.setTextFill(Color.web("#ffffff"));
+            stairsRadButton.setSelected(false);
+            stairsRadButton.setTextFill(Color.web("#ffffff"));
+
+            if((currentMap.equals(kioskTemp.getFloor()))){
+                displayClosestPOI("REST");
+            }
+            displayPOINodes("REST");
+            // for some reason displaying poi nodes cannot go before displaying the closest path
+        }
+        else if(!bathroomRadButton.isSelected()){
+            bathroomRadButton.setTextFill(Color.web("#ffffff"));
+            for (Circle c: circles) {
+                pathPane.getChildren().remove(c);
+            }
+        }
+    }
+    /** GRACE MADE THIS
+     *display and find closest cafe/vending/retail
+     */
+    @FXML
+    private void cafeRadButtPressed(){
+        checkAndSetKiosk();
+        //when pressed, change color to #f5d96b (gold/yellow)
+        //display and find closest cafe - nodeType is RETL
+        //System.out.println("find closest retail/food selected");
+        for (Circle c: circles) {
+            pathPane.getChildren().remove(c);
+        }
+        for (Line l: lines) {
+            pathPane.getChildren().remove(l);
+        }
+        if(cafeRadButton.isSelected()) {
+            cafeRadButton.setTextFill(Color.web("#f5d96b"));
+            bathroomRadButton.setSelected(false);
+            bathroomRadButton.setTextFill(Color.web("#ffffff"));
+            eleRadButton.setSelected(false);
+            eleRadButton.setTextFill(Color.web("#ffffff"));
+            stairsRadButton.setSelected(false);
+            stairsRadButton.setTextFill(Color.web("#ffffff"));
+
+            if((currentMap.equals(kioskTemp.getFloor()))) {
+                System.out.println("");
+                displayClosestPOI("RETL");
+            }
+            displayPOINodes("RETL");
+        }
+        if(!cafeRadButton.isSelected()){
+            cafeRadButton.setTextFill(Color.web("#ffffff"));
+            for (Circle c: circles) {
+                pathPane.getChildren().remove(c);
+            }
+        }
+    }
+    /** GRACE MADE THIS
+     *display and find closest elevator
+     */
+    @FXML
+    private void eleRadButtPressed(){
+        checkAndSetKiosk();
+        //when pressed, change color to #f5d96b (gold/yellow)
+        //display and find closest elevator
+        //System.out.println("find closest elevator selected");
+        for (Circle c: circles) {
+            pathPane.getChildren().remove(c);
+        }
+        for (Line l: lines) {
+            pathPane.getChildren().remove(l);
+        }
+        if(eleRadButton.isSelected()) {
+            eleRadButton.setTextFill(Color.web("#f5d96b"));
+            cafeRadButton.setSelected(false);
+            cafeRadButton.setTextFill(Color.web("#ffffff"));
+            bathroomRadButton.setSelected(false);
+            bathroomRadButton.setTextFill(Color.web("#ffffff"));
+            stairsRadButton.setSelected(false);
+            stairsRadButton.setTextFill(Color.web("#ffffff"));
+
+            if((currentMap.equals(kioskTemp.getFloor()))) {
+                displayClosestPOI("ELEV");
+            }
+            displayPOINodes("ELEV");
+        }
+        if(!eleRadButton.isSelected()){
+            eleRadButton.setTextFill(Color.web("#ffffff"));
+            for (Circle c: circles) {
+                pathPane.getChildren().remove(c);
+            }
+        }
+    }
+    /** GRACE MADE THIS
+     *display and find closest stairs
+     */
+    @FXML
+    private void stairsRadButtPressed(){
+        checkAndSetKiosk();
+        //when pressed, change color to #f5d96b (gold/yellow)
+        //display and find closest stairs
+        //System.out.println("find closest stairs selected");
+        for (Circle c: circles) {
+            pathPane.getChildren().remove(c);
+        }
+        for (Line l: lines) {
+            pathPane.getChildren().remove(l);
+        }
+        if(stairsRadButton.isSelected()) {
+            stairsRadButton.setTextFill(Color.web("#f5d96b"));
+            cafeRadButton.setSelected(false);
+            cafeRadButton.setTextFill(Color.web("#ffffff"));
+            eleRadButton.setSelected(false);
+            eleRadButton.setTextFill(Color.web("#ffffff"));
+            bathroomRadButton.setSelected(false);
+            bathroomRadButton.setTextFill(Color.web("#ffffff"));
+
+            if((currentMap.equals(kioskTemp.getFloor()))) {
+                displayClosestPOI("STAI");
+            }
+            displayPOINodes("STAI");
+        }
+        if(!stairsRadButton.isSelected()){
+            stairsRadButton.setTextFill(Color.web("#ffffff"));
+            for (Circle c: circles) {
+                pathPane.getChildren().remove(c);
+            }
+        }
+    }
+
+
+
+
+
     //Larry - To calculate the angele of turning
     private double calculateAngle(Location a, Location b, Location c){
         double distanceA, distanceB,distanceC;
@@ -1181,12 +1537,12 @@ public class PathFindingController {
             }
         }
         else{
-             if(ya < yb){
-                 return 5;
-             }
-             else {
-                 return 1;
-             }
+            if(ya < yb){
+                return 5;
+            }
+            else {
+                return 1;
+            }
         }
 
     }
@@ -1222,7 +1578,7 @@ public class PathFindingController {
             return text;
         }
         double time = estimateTime(A);
-        text += "The estimate time for the whole path : " + estimateTime(A);
+        text += "Your estimated travel time is: " + estimateTime(A);
         if(time > 1){
             text += " minutes \n";
         }
@@ -1237,16 +1593,16 @@ public class PathFindingController {
             aFloor = A.get(0).getFloor();
             bFloor = A.get(1).getFloor();
             if((aType=="STAI" || aType == "ELEV") && (bType == "STAI" || bType =="ELEV") && !aFloor.equals(bFloor) ){
-                    if(A.get(1).getNodeType() == "STAI" ||A.get(1).getNodeType() == "ELEV" ){
-                      //  System.out.println("Go to floor " + bFloor + " by " + bType);
-                        text += "Go to floor " + bFloor + " by " + bType + "\n";
+                if(A.get(1).getNodeType() == "STAI" ||A.get(1).getNodeType() == "ELEV" ){
+                    //  System.out.println("Go to floor " + bFloor + " by " + bType);
+                    text += "Go to floor " + bFloor + " by " + bType + "\n";
 
-                            return text;
+                    return text;
                 }
                 else{
                         text += "\u21E7 Go straight to " + A.get(1).getLongName() + " (" +
                             convertToExact(A.get(0).findDistance(A.get(1))) + " ft) \n";
-                        return text;
+                    return text;
                 }
             }
         }
@@ -1359,11 +1715,13 @@ public class PathFindingController {
             }
             if(i == A.size() - 3){
                 text += "\u21E7 Go straight to your destination " + A.get(A.size()-1).getLongName() +
-                                " (" + convertToExact(b.findDistance(c)) + " ft) \n";
+                        " (" + convertToExact(b.findDistance(c)) + " ft) \n";
                 return text;
             }
             if(isStairELe(a) && isStairELe(b)){
-                text += "Go to floor " + b.getFloor() + " by " + a.getLongName();
+                //        System.out.println("Go to floor " + b.getFloor() + " by " + a.getLongName());
+                text += "Go to floor " + b.getFloor() + " by " + a.getLongName() +"\n";
+
             }
 
         }
