@@ -492,16 +492,15 @@ public class EditLocationController {
                 //floor,building,nodeType,longName,shortName
                 @Override
                 public void handle(MouseEvent t) {
+                    if (!(lastCircle == null)) {
+                        pathPane.getChildren().remove(lastCircle.getSp());
+                        lastCircle.setSp(null);
+                        lastCircle.setStroke(Color.web("RED"));
+                        lastCircle.setFill(Color.web("RED"));
+                        lastCircle.setCenterX(lastCircle.getLocation().getXcoord()*childPane.getWidth()/Map.getImage().getWidth());
+                        lastCircle.setCenterY(lastCircle.getLocation().getYcoord()*childPane.getHeight()/Map.getImage().getHeight());
+                    }
                     if (!(t.isShiftDown())) {
-                        if (!(lastCircle == null)) {
-                            pathPane.getChildren().remove(lastCircle.getSp());
-                            lastCircle.setSp(null);
-                            lastCircle.setStroke(Color.web("RED"));
-                            lastCircle.setFill(Color.web("RED"));
-                            lastCircle.setCenterX(lastCircle.getLocation().getXcoord()*childPane.getWidth()/Map.getImage().getWidth());
-                            lastCircle.setCenterY(lastCircle.getLocation().getYcoord()*childPane.getHeight()/Map.getImage().getHeight());
-                        }
-
                         ((Circle)(t.getSource())).setStroke(Color.web("GREEN"));
                         ((Circle)(t.getSource())).setFill(Color.web("GREEN"));
 
@@ -664,6 +663,7 @@ public class EditLocationController {
                         }
                     }
                     else {
+                        //draw the lines here, shift has been clicked
                         System.out.println("EDGE SELECTION MODE");
                         if (focusNode == null) {
                             focusNode = ((CircleLocation) t.getSource()).getLocation();
