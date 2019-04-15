@@ -15,9 +15,7 @@ import edu.wpi.cs3733.d19.teamL.SearchingAlgorithms.BreadthFirstStrategy;
 import edu.wpi.cs3733.d19.teamL.SearchingAlgorithms.DepthFirstStrategy;
 import edu.wpi.cs3733.d19.teamL.SearchingAlgorithms.PathfindingStrategy;
 import edu.wpi.cs3733.d19.teamL.Singleton;
-import javafx.animation.KeyFrame;
-import javafx.animation.Timeline;
-import javafx.animation.TranslateTransition;
+import javafx.animation.*;
 import javafx.beans.binding.Bindings;
 import javafx.beans.binding.NumberBinding;
 import javafx.application.Platform;
@@ -501,6 +499,7 @@ public class PathFindingController {
 
         Map.fitHeightProperty().bind(gesturePane.heightProperty());
         Map.fitWidthProperty().bind(gesturePane.widthProperty());
+
     }
 
     @FXML
@@ -627,7 +626,7 @@ public class PathFindingController {
                     final int transit = i + 1;
                     String transition = path.getPath().get(transit).getFloor();
                     String display = "Take Elevator to ";
-                    if(!path.getPath().get(i+1).getFloor().equals(endNode.getFloor()))
+                    if(!path.getPath().get(i+1).getFloor().equals(endNode.getFloor()) && path.getPath().get(i).getNodeType().equals("STAI"))
                     {
                         display = "Take Stairs to ";
                     }
@@ -660,16 +659,16 @@ public class PathFindingController {
                         if (transition.equals("3"))
                             clicked3();
                     });
-                    //Sets button visibility to only display on start and end floors
-                    if (buttons.isEmpty() && (path.getPath().get(i).getFloor().equals(currentMap) ||currentMap.equals(startNode.getFloor()) || currentMap.equals(endNode.getFloor()))) {
+                    //Sets button visibility
+                    if (buttons.isEmpty() && (path.getPath().get(i).getFloor().equals(currentMap) || currentMap.equals(startNode.getFloor()) || currentMap.equals(endNode.getFloor()))) {
                         buttons.add(nBut);
                         nBut.setVisible(true);
                         //Change the display of the button based on which floor you're on
-                        if(currentMap.equals(startNode.getFloor())) {
+                        if(currentMap.equals(startNode.getFloor()) || path.getPath().get(i).getFloor().equals(currentMap)) {
                             nBut.setStyle("-fx-text-fill: WHITE; -fx-font-size: 13; -fx-background-color: GREEN; -fx-border-color: WHITE; -fx-background-radius: 18; -fx-border-radius: 18; -fx-border-width: 3");
 
                         }
-                        else if(path.getPath().get(i).getFloor().equals(currentMap)){
+                        else if(path.getPath().get(i).getFloor().equals(currentMap) && transition.equals(startNode.getFloor())){
                             nBut.setStyle("-fx-text-fill: WHITE; -fx-font-size: 13; -fx-background-color: GREEN; -fx-border-color: WHITE; -fx-background-radius: 18; -fx-border-radius: 18; -fx-border-width: 3");
                         }
                         else {
