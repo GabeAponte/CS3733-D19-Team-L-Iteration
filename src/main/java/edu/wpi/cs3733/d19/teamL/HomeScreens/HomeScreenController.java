@@ -18,7 +18,9 @@ import javafx.stage.Stage;
 import javafx.util.Duration;
 
 import java.io.IOException;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 public class HomeScreenController {
 
@@ -44,6 +46,9 @@ public class HomeScreenController {
     Label tempDisplay;
 
     @FXML
+    Label dateLabel;
+
+    @FXML
     Button yes;
 
     Timeline clock;
@@ -67,15 +72,15 @@ public class HomeScreenController {
                 }
                 if (minute < 10) {
                     if (second > 9) {
-                        timeLabel.setText(hour + ":0" + (minute) + ":" + second);
+                        timeLabel.setText(hour + ":0" + (minute));
                     } else {
-                        timeLabel.setText(hour + ":0" + (minute) + ":0" + second);
+                        timeLabel.setText(hour + ":0" + (minute));
                     }
                 } else {
                     if (second > 9) {
-                        timeLabel.setText(hour + ":" + (minute) + ":" + second);
+                        timeLabel.setText(hour + ":" + (minute));
                     } else {
-                        timeLabel.setText(hour + ":" + (minute) + ":0" + second);
+                        timeLabel.setText(hour + ":" + (minute));
                     }
                 }
             }),
@@ -84,6 +89,9 @@ public class HomeScreenController {
             clock.setCycleCount(Animation.INDEFINITE);
             clock.play();
         }
+        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("MM/dd/yyyy");
+        LocalDate localDate = LocalDate.now();
+        dateLabel.setText(dtf.format(localDate));
     }
 
     public void displayPopup(){
