@@ -13,6 +13,8 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
@@ -38,8 +40,8 @@ public class HomeScreenController {
     @FXML
     Label timeLabel;
 
-    //@FXML
-    //ImageView weatherIcon;
+    @FXML
+    ImageView weatherIcon;
 
     @FXML
     Label tempDisplay;
@@ -68,6 +70,9 @@ public class HomeScreenController {
         } else {
             icon = "weatherIcons/ThunderImage.png";
         }
+        Image img = new Image(icon);
+        weatherIcon.setImage(img);
+        tempDisplay.setText(weatherBoy.getActTemp());
 
 
         if(single.isDoPopup()) {

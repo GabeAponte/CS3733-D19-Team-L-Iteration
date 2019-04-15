@@ -57,7 +57,9 @@ public class Weather {
      * @return the "actual" temp
      */
     public String getActTemp() {
-        return currently.get().getByKey("temperature");
+        String userFriendlyTemp = currently.get().getByKey("temperature");
+        userFriendlyTemp = userFriendlyTemp.substring(0, userFriendlyTemp.indexOf("."));
+        return userFriendlyTemp+ " \u00b0 F";
     }
 
     /**@author Nathan
