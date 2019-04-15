@@ -1,8 +1,6 @@
 package edu.wpi.cs3733.d19.teamL.Map.MapEditing;
 
 import com.jfoenix.controls.JFXScrollPane;
-import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
-import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
 import edu.wpi.cs3733.d19.teamL.API.UpdateLocationThread;
 import edu.wpi.cs3733.d19.teamL.Map.MapLocations.CircleLocation;
 import edu.wpi.cs3733.d19.teamL.Map.MapLocations.Edge;
@@ -16,6 +14,7 @@ import edu.wpi.cs3733.d19.teamL.HomeScreens.HomeScreenController;
 import edu.wpi.cs3733.d19.teamL.Singleton;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
+import javafx.beans.property.DoubleProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -47,8 +46,6 @@ import net.kurobako.gesturefx.GesturePane;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
-
-import static de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon.DEDENT;
 
 public class EditLocationController {
 
@@ -107,6 +104,8 @@ public class EditLocationController {
     private boolean displayingNodes = true;
     private CircleLocation thisCircle;
 
+    private CircleLocation lastCircle;
+
     private ArrayList<String> mapURLs = new ArrayList<String>();
     private ArrayList<CircleLocation> circles = new ArrayList<CircleLocation>();
 
@@ -127,6 +126,8 @@ public class EditLocationController {
     private Edge focusEdge;
 
     double orgSceneX, orgSceneY;
+
+    double oldCircleX, oldCircleY;
 
     Timeline timeout;
 
@@ -330,7 +331,7 @@ public class EditLocationController {
 
 
     private void drawNodes(){
-        Singleton single = Singleton.getInstance();
+
         single.setLastTime();
 
         if(displayingNodes) {
@@ -355,16 +356,24 @@ public class EditLocationController {
                     //set the mouse drag to move the circle
                     thisCircle.setOnMouseDragged((t) -> {
                         if (t.isControlDown()) {
+
+
                             double offsetX = (t.getSceneX() - orgSceneX)/gesturePane.getCurrentScale();
                             double offsetY = (t.getSceneY() - orgSceneY)/gesturePane.getCurrentScale();
 
                             CircleLocation c = (CircleLocation) (t.getSource());
+                            oldCircleX = c.getCenterX();
+                            oldCircleY = c.getCenterY();
 
                             c.setCenterX(c.getCenterX() + offsetX);
                             c.setCenterY(c.getCenterY() + offsetY);
 
                             c.getSp().setLayoutX(c.getCenterX());
                             c.getSp().setLayoutY(c.getCenterY());
+                            int newX = (int) (c.getCenterX()*(Map.getImage().getWidth()/childPane.getWidth()));
+                            int newY = (int) (c.getCenterY()*(Map.getImage().getHeight()/childPane.getHeight()));
+                            c.getxField().setText(Integer.toString(newX));
+                            c.getyField().setText(Integer.toString(newY));
 
 
                             orgSceneX = t.getSceneX();
@@ -482,14 +491,23 @@ public class EditLocationController {
 
     EventHandler<MouseEvent> circleOnMousePressedEventHandler =
             new EventHandler<MouseEvent>() {
-            //floor,building,nodeType,longName,shortName
+                //floor,building,nodeType,longName,shortName
                 @Override
                 public void handle(MouseEvent t) {
-                    ((Circle)(t.getSource())).setStroke(Color.web("GREEN"));
-                    ((Circle)(t.getSource())).setFill(Color.web("GREEN"));
+                    if (!(lastCircle == null)) {
+                        pathPane.getChildren().remove(lastCircle.getSp());
+                        lastCircle.setSp(null);
+                        lastCircle.setStroke(Color.web("RED"));
+                        lastCircle.setFill(Color.web("RED"));
+                        lastCircle.setCenterX(lastCircle.getLocation().getXcoord()*childPane.getWidth()/Map.getImage().getWidth());
+                        lastCircle.setCenterY(lastCircle.getLocation().getYcoord()*childPane.getHeight()/Map.getImage().getHeight());
+                    }
+                    if (!(t.isShiftDown())) {
+                        ((Circle)(t.getSource())).setStroke(Color.web("GREEN"));
+                        ((Circle)(t.getSource())).setFill(Color.web("GREEN"));
 
-                    orgSceneX = t.getSceneX();
-                    orgSceneY = t.getSceneY();
+                        orgSceneX = t.getSceneX();
+                        orgSceneY = t.getSceneY();
 
                     CircleLocation c = (CircleLocation) (t.getSource());
                     c.toFront();
@@ -510,19 +528,24 @@ public class EditLocationController {
                         JFXButton Update = new JFXButton("\u2713");
                         Update.setPrefWidth(50);
 
-                        close.setOnAction(event -> {
-                                    pathPane.getChildren().remove(sp);
-                                    c.setSp(null);
-                                    ((Circle) (t.getSource())).setStroke(Color.web("RED"));
-                                    ((Circle) (t.getSource())).setFill(Color.web("RED"));
-                                }
-                        );
                         gp.add(close,1,0);
                         gp.add(Update,0,0);
-                       // StackPane container = new StackPane(gp);
-                       // container.setPadding(new Insets(24));
-                       // container.getChildren().add(gp);
-                        Font f = new Font("System", 8);
+
+                            //if user didn't press cancel or submit...
+
+
+                            close.setOnAction(event -> {
+                                pathPane.getChildren().remove(sp);
+                                c.setSp(null);
+                                ((Circle) (t.getSource())).setStroke(Color.web("RED"));
+                                ((Circle) (t.getSource())).setFill(Color.web("RED"));
+                                    }
+                            );
+
+                            // StackPane container = new StackPane(gp);
+                            // container.setPadding(new Insets(24));
+                            // container.getChildren().add(gp);
+                            Font f = new Font("System", 8);
 
                         Label lb = new Label("X coordinate : ");
                         lb.setFont(f);
@@ -597,7 +620,7 @@ public class EditLocationController {
                         //sp.getMainHeader().setMaxHeight(0);
                         //sp.getTopBar().setMaxHeight(0);
                         //sp.setVmax(440);
-                        sp.setPrefSize(125, 125);
+                        sp.setPrefSize(125, 100);
 
 
                         sp.setLayoutX(((Circle) (t.getSource())).getCenterX());
@@ -605,18 +628,67 @@ public class EditLocationController {
                         //sp.getChildren().add(gp);
                         //ToolBar tb = new ToolBar();
                         sp.setContent(gp);
+                            Update.setOnAction(event ->  {
+                                String id = c.getLocation().getLocID();
+                                int x = Integer.parseInt(tf.getText());
+                                int y = Integer.parseInt(tf1.getText());
+                                String floor = tf2.getText();
+                                String building = tf3.getText();
+                                String type = tf4.getText();
+                                String longName = tf5.getText();
+                                String shortName = tf6.getText();
+
+
+                                Location newLoc = new Location(id, x, y, floor, building, type, longName, shortName);
+                                c.setLocation(newLoc);
+                                Location oldLoc = single.lookup.get(id);
+                                single.modifyNode(oldLoc, newLoc);
+                                na.updateNode(id, "xcoord", x);
+                                na.updateNode(id, "ycoord", y);
+                                na.updateNode(id, "floor", floor);
+                                na.updateNode(id, "building", building);
+                                na.updateNode(id, "nodeType", type);
+                                na.updateNode(id, "longName", longName);
+                                na.updateNode(id, "shortName", shortName);
+                                pathPane.getChildren().remove(sp);
+                                c.setSp(null);
+                                ((Circle) (t.getSource())).setStroke(Color.web("RED"));
+                                ((Circle) (t.getSource())).setFill(Color.web("RED"));
+                                lastCircle = null;
+                            });
+
+
+                            sp.setLayoutX(((Circle) (t.getSource())).getCenterX());
+                            sp.setLayoutY(((Circle) (t.getSource())).getCenterY());
+                            //sp.getChildren().add(gp);
+                            sp.setContent(gp);
 
 
                         pathPane.getChildren().add(sp);
                         c.setSp(sp);
+                            pathPane.getChildren().add(sp);
+                            c.setSp(sp);
+                            lastCircle = c;
+                            c.setxField(tf);
+                            c.setyField(tf1);
 
-                        System.out.println("Xcor "+ ((Circle)(t.getSource())).getCenterX());
-                        System.out.println("Ycor "+ ((Circle)(t.getSource())).getCenterY());
-                        System.out.println("successful scroll pane");
+                            System.out.println("Xcor "+ ((Circle)(t.getSource())).getCenterX());
+                            System.out.println("Ycor "+ ((Circle)(t.getSource())).getCenterY());
+                            System.out.println("successful scroll pane");
+                        }
+                        else {
+                            System.out.println("DETECTED PREVIOUS PANE");
+                        }
                     }
                     else {
-                        System.out.println("DETECTED PREVIOUS PANE");
+                        //draw the lines here, shift has been clicked
+                        System.out.println("EDGE SELECTION MODE");
+                        if (focusNode == null) {
+                            focusNode = ((CircleLocation) t.getSource()).getLocation();
+                        }
+
                     }
+
                 }
             };
 

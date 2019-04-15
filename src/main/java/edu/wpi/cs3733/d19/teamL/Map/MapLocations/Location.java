@@ -279,13 +279,17 @@ public class Location implements Comparable<Location>{
         return longName + "(" + floor + ")";
     }
 
+    public void removeEdge(ArrayList<Edge> e) {
+        connectedEdges.removeAll(e);
+    }
+
     public void restitch() {
         EdgesAccess ea = new EdgesAccess();
         if (this.checkIfEasyHallway()) {
             Location[] locs = new Location[2];
             for (int i = 0; i <connectedEdges.size(); i ++) {
                 if (!connectedEdges.get(i).getStartNode().equals(this)) {
-                   locs[i] = connectedEdges.get(i).getStartNode();
+                    locs[i] = connectedEdges.get(i).getStartNode();
                 }
                 else {
                     locs[i] = connectedEdges.get(i).getEndNode();
