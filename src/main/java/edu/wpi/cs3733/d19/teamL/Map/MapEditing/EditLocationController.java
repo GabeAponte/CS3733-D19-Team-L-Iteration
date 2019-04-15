@@ -339,10 +339,11 @@ public class EditLocationController {
                     thisCircle.setFill(Color.web("RED"));
                     thisCircle.setLocation(single.getData().get(i));
                     thisCircle.setOnMousePressed(circleOnMousePressedEventHandler);
+
                     thisCircle.setOnMouseDragged((t) -> {
                         if (t.isControlDown()) {
-                            double offsetX = (t.getSceneX() - orgSceneX)*childPane.getWidth()/Map.getImage().getWidth();
-                            double offsetY = (t.getSceneY() - orgSceneY)*childPane.getHeight()/Map.getImage().getHeight();
+                            double offsetX = (t.getSceneX() - orgSceneX)/gesturePane.getCurrentScale();
+                            double offsetY = (t.getSceneY() - orgSceneY)/gesturePane.getCurrentScale();
 
                             Circle c = (Circle) (t.getSource());
 
