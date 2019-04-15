@@ -29,7 +29,6 @@ public class FulfillRequestController {
     @FXML
     private Button back;
 
-
     @FXML
     private ToggleButton fulfill;
 
@@ -85,7 +84,7 @@ public class FulfillRequestController {
     }
     @FXML
     /**@author Gabe
-     * Returns user to the Logged In Home screen when the back button is pressed
+     * Returns user to the Active Requests screen when the back button is pressed
      */
     private void backPressed() throws IOException {
         timeout.stop();
@@ -185,7 +184,7 @@ public class FulfillRequestController {
         Singleton single = Singleton.getInstance();
         single.setLastTime();
         ServiceRequestAccess sra = new ServiceRequestAccess();
-        sra.assignEmployee(this.rid, staffMember.getValue().toString(), this.table);
+        sra.assignEmployee(this.rid, staffMember.getValue(), this.table);
         if(fulfill.isSelected()){
             sra.fulfillRequest(this.rid,this.table);
         }

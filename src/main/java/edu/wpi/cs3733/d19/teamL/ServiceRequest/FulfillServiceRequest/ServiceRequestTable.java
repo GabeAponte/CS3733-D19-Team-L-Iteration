@@ -405,8 +405,8 @@ public class ServiceRequestTable  {
         this.assignedEmployee = assignedEmployee;
         this.fulfilled = fulfilled;
         this.comment = comment;
-       this.creationTime = startSimpleDate.format(startDate);
-       this.completionTime = endSimpleDate.format(endDate);
+        this.creationTime = startSimpleDate.format(startDate);
+        this.completionTime = endSimpleDate.format(endDate);
         this.creationDate = creationDate;
         this.completionDate = completionDate;
         this.location = location;
