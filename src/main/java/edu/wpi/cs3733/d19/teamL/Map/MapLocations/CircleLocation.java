@@ -1,18 +1,19 @@
 package edu.wpi.cs3733.d19.teamL.Map.MapLocations;
 
+import com.jfoenix.controls.JFXScrollPane;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.shape.Circle;
 
 public class CircleLocation extends Circle {
 
     Location location;
-    ScrollPane sp;
+    JFXScrollPane sp;
 
-    public ScrollPane getSp() {
+    public JFXScrollPane getSp() {
         return sp;
     }
 
-    public void setSp(ScrollPane sp) {
+    public void setSp(JFXScrollPane sp) {
         this.sp = sp;
     }
 
