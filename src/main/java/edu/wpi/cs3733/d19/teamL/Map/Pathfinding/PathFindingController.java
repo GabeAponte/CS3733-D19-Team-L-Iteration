@@ -569,6 +569,7 @@ public class PathFindingController {
         startNode = single.lookup.get(PathFindStartDrop.getValue().getLocID());
         endNode = single.lookup.get(PathFindEndDrop.getValue().getLocID());
         String restriction = restrictChoice.getValue();
+        System.out.println(restriction);
         if(restriction == null || restriction.trim().equals("") || restriction.equals("NONE")){
             restriction = "    ";
         }
