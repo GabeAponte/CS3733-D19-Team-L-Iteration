@@ -1,6 +1,7 @@
 package edu.wpi.cs3733.d19.teamL.ServiceRequest.FulfillServiceRequest;
 
 import com.jfoenix.controls.JFXTabPane;
+import edu.wpi.cs3733.d19.teamL.Account.CreateEditAccountController;
 import edu.wpi.cs3733.d19.teamL.Account.EmployeeAccess;
 import edu.wpi.cs3733.d19.teamL.HomeScreens.HomeScreenController;
 import edu.wpi.cs3733.d19.teamL.ServiceRequest.ServiceRequestDBAccess.InternalTransportAccess;
@@ -41,8 +42,7 @@ public class ActiveServiceRequestsController {
     @FXML
     private Tab tab;
 
-    @FXML
-    private ComboBox filter;
+    private String filter;
 
     @FXML
     JFXTabPane requestType;
@@ -73,7 +73,6 @@ public class ActiveServiceRequestsController {
 
     @FXML
     TreeTableColumn<ServiceRequestTable, String> field3;
-
 
     @FXML
     TreeTableColumn<ServiceRequestTable, String> hi;
@@ -148,6 +147,10 @@ public class ActiveServiceRequestsController {
     public void initialize() {
         Singleton single = Singleton.getInstance();
         single.setLastTime();
+        //TODO: DELETE FOLLOWING SINGLETON LINES
+        single.setUsername("Nathan");
+        single.setIsAdmin(true);
+        single.setLoggedIn(true);
         timeout = new Timeline(new KeyFrame(Duration.seconds(2), new EventHandler<ActionEvent>() {
 
             @Override
@@ -281,7 +284,6 @@ public class ActiveServiceRequestsController {
 
         }
         else if (requestType.getSelectionModel().getSelectedItem().getText().equals("Religious")) {
-            System.out.println(requestType.getSelectionModel().getSelectedItem().getText());
             root.getChildren().clear();
             ReligiousRequests.setRoot(null);
 
@@ -371,7 +373,6 @@ public class ActiveServiceRequestsController {
         }
 
         else if (requestType.getSelectionModel().getSelectedItem().getText().equals("Audio/Visual")) {
-            System.out.println(requestType.getSelectionModel().getSelectedItem().getText());
             root.getChildren().clear();
             AVRequests.setRoot(null);
 
@@ -449,7 +450,6 @@ public class ActiveServiceRequestsController {
             AVRequests.setShowRoot(false);
         }
        else  if (requestType.getSelectionModel().getSelectedItem().getText().equals("External Trans.")) {
-            System.out.println(requestType.getSelectionModel().getSelectedItem().getText());
             root.getChildren().clear();
             ExternalRequests.setRoot(null);
 
@@ -537,7 +537,6 @@ public class ActiveServiceRequestsController {
             ExternalRequests.setShowRoot(false);
         }
         else if (requestType.getSelectionModel().getSelectedItem().getText().equals("Florist")) {
-            System.out.println(requestType.getSelectionModel().getSelectedItem().getText());
             root.getChildren().clear();
             FloristRequest.setRoot(null);
 
@@ -615,7 +614,6 @@ public class ActiveServiceRequestsController {
             FloristRequest.setShowRoot(false);
         }
         else if (requestType.getSelectionModel().getSelectedItem().getText().equals("IT")) {
-            System.out.println(requestType.getSelectionModel().getSelectedItem().getText());
             root.getChildren().clear();
             ITRequest.setRoot(null);
 
@@ -694,7 +692,6 @@ public class ActiveServiceRequestsController {
             ITRequest.setShowRoot(false);
         }
        else if (requestType.getSelectionModel().getSelectedItem().getText().equals("Language Assistance")) {
-            System.out.println(requestType.getSelectionModel().getSelectedItem().getText());
             root.getChildren().clear();
             LanguageRequests.setRoot(null);
 
@@ -782,7 +779,6 @@ public class ActiveServiceRequestsController {
             LanguageRequests.setShowRoot(false);
         }
         else if (requestType.getSelectionModel().getSelectedItem().getText().equals("Maintenance")){
-            System.out.println(requestType.getSelectionModel().getSelectedItem().getText());
             root.getChildren().clear();
             MaintenanceRequests.setRoot(null);
 
@@ -860,7 +856,6 @@ public class ActiveServiceRequestsController {
             MaintenanceRequests.setShowRoot(false);
         }
         else if (requestType.getSelectionModel().getSelectedItem().getText().equals("Prescriptions")) {
-            System.out.println(requestType.getSelectionModel().getSelectedItem().getText());
             root.getChildren().clear();
             PrescriptionsRequests.setRoot(null);
 
@@ -948,7 +943,6 @@ public class ActiveServiceRequestsController {
             PrescriptionsRequests.setShowRoot(false);
         }
        else if (requestType.getSelectionModel().getSelectedItem().getText().equals("Sanitation")) {
-            System.out.println(requestType.getSelectionModel().getSelectedItem().getText());
             root.getChildren().clear();
             SanitationRequests.setRoot(null);
 
@@ -1027,7 +1021,6 @@ public class ActiveServiceRequestsController {
             SanitationRequests.setShowRoot(false);
         }
        else if (requestType.getSelectionModel().getSelectedItem().getText().equals("Security")) {
-            System.out.println(requestType.getSelectionModel().getSelectedItem().getText());
             root.getChildren().clear();
             SecurityRequests.setRoot(null);
 
@@ -1119,7 +1112,7 @@ public class ActiveServiceRequestsController {
 
 
    public void setNext(TreeItem<ServiceRequestTable> request){
-     this.selectedRequest = request;
+       this.selectedRequest = request;
     }
 
     //Gabe - Switches to fulfill screen when mouse double clicks a row in the table
@@ -1133,19 +1126,120 @@ public class ActiveServiceRequestsController {
     @FXML
     private void SwitchToFulfillRequestScreen() throws IOException {
         timeout.stop();
-        activeRequests.setOnMouseClicked(event -> {
-            Singleton single = Singleton.getInstance();
+        Singleton single = Singleton.getInstance();
+
+        AVRequests.setOnMouseClicked(event -> {
+            filter = "Audio/Visual";
             single.setLastTime();
-            setNext(activeRequests.getSelectionModel().getSelectedItem());
             if (event.getButton().equals(MouseButton.PRIMARY) && event.getClickCount() == 2) {
-                EmployeeAccess ea = new EmployeeAccess();
-                if(single.isIsAdmin()) {
-                    yooo();
-                }else if(single.getUsername().equals(ea.getEmployeeUsername(activeRequests.getSelectionModel().getSelectedItem().getValue().getAssignedEmployee()))){
-                    yooo();
-                }
+                setNext(AVRequests.getSelectionModel().getSelectedItem());
+                switchScreen();
             }
         });
+
+        ExternalRequests.setOnMouseClicked(event -> {
+            filter = "External Transportation";
+            single.setLastTime();
+            if (event.getButton().equals(MouseButton.PRIMARY) && event.getClickCount() == 2) {
+                setNext(ExternalRequests.getSelectionModel().getSelectedItem());
+                switchScreen();
+            }
+        });
+
+        FloristRequest.setOnMouseClicked(event -> {
+            filter = "Florist Delivery";
+            single.setLastTime();
+            if (event.getButton().equals(MouseButton.PRIMARY) && event.getClickCount() == 2) {
+                setNext(FloristRequest.getSelectionModel().getSelectedItem());
+                switchScreen();
+            }
+        });
+
+        InternalRequests.setOnMouseClicked(event -> {
+            filter = "Internal Transportation";
+            single.setLastTime();
+            if (event.getButton().equals(MouseButton.PRIMARY) && event.getClickCount() == 2) {
+                setNext(InternalRequests.getSelectionModel().getSelectedItem());
+                switchScreen();
+            }
+        });
+
+        ITRequest.setOnMouseClicked(event -> {
+            filter = "IT";
+            single.setLastTime();
+            if (event.getButton().equals(MouseButton.PRIMARY) && event.getClickCount() == 2) {
+                setNext(ITRequest.getSelectionModel().getSelectedItem());
+                switchScreen();
+            }
+        });
+
+        MaintenanceRequests.setOnMouseClicked(event -> {
+            filter = "Maintenance";
+            single.setLastTime();
+            if (event.getButton().equals(MouseButton.PRIMARY) && event.getClickCount() == 2) {
+                setNext(MaintenanceRequests.getSelectionModel().getSelectedItem());
+                switchScreen();
+            }
+        });
+
+        PrescriptionsRequests.setOnMouseClicked(event -> {
+            filter = "Prescriptions";
+            single.setLastTime();
+            if (event.getButton().equals(MouseButton.PRIMARY) && event.getClickCount() == 2) {
+                setNext(PrescriptionsRequests.getSelectionModel().getSelectedItem());
+                switchScreen();
+            }
+        });
+
+        ReligiousRequests.setOnMouseClicked(event -> {
+            filter = "Religious";
+            single.setLastTime();
+            if (event.getButton().equals(MouseButton.PRIMARY) && event.getClickCount() == 2) {
+                setNext(ReligiousRequests.getSelectionModel().getSelectedItem());
+                switchScreen();
+            }
+        });
+
+        SanitationRequests.setOnMouseClicked(event -> {
+            filter = "Sanitations";
+            single.setLastTime();
+            if (event.getButton().equals(MouseButton.PRIMARY) && event.getClickCount() == 2) {
+                setNext(SanitationRequests.getSelectionModel().getSelectedItem());
+                switchScreen();
+            }
+        });
+
+        SecurityRequests.setOnMouseClicked(event -> {
+            filter = "Security";
+            single.setLastTime();
+            if (event.getButton().equals(MouseButton.PRIMARY) && event.getClickCount() == 2) {
+                setNext(SecurityRequests.getSelectionModel().getSelectedItem());
+                switchScreen();
+            }
+        });
+
+        LanguageRequests.setOnMouseClicked(event -> {
+            filter = "Language Assistance";
+            single.setLastTime();
+            if (event.getButton().equals(MouseButton.PRIMARY) && event.getClickCount() == 2) {
+                setNext(LanguageRequests.getSelectionModel().getSelectedItem());
+                switchScreen();
+            }
+        });
+
+    }
+
+    private void switchScreen(){
+        Singleton single = Singleton.getInstance();
+        EmployeeAccess ea = new EmployeeAccess();
+        if(single.isIsAdmin()) {
+            yooo();
+        }else if(single.getUsername().equals(ea.getEmployeeUsername(selectedRequest.getValue().getAssignedEmployee()))){
+            yooo();
+        } else {
+            //TODO: Delete this ELSE branch
+            yooo();
+        }
     }
 
     private void yooo(){
@@ -1156,7 +1250,7 @@ public class ActiveServiceRequestsController {
             Parent sceneMain = loader.load();
 
             FulfillRequestController controller = loader.<FulfillRequestController>getController();
-            controller.setRid(Integer.parseInt(selectedRequest.getValue().getRequestID()), filter.getValue().toString());
+            controller.setRid(Integer.parseInt(selectedRequest.getValue().getRequestID()), filter);
 
             Stage theStage = (Stage) back.getScene().getWindow();
 
@@ -1168,6 +1262,7 @@ public class ActiveServiceRequestsController {
             System.err.println(ex);
         }
     }
+
 }
 
 

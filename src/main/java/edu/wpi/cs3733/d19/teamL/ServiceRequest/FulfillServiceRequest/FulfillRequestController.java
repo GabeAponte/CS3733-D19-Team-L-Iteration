@@ -91,7 +91,7 @@ public class FulfillRequestController {
         timeout.stop();
         Singleton single = Singleton.getInstance();
         single.setLastTime();
-        FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("ActiveServiceRequests.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("NewActiveServiceRequests.fxml"));
         Parent roots = loader.load();
 
         Scene scene = new Scene(roots);
@@ -174,7 +174,7 @@ public class FulfillRequestController {
             staffMember.getItems().add(list.get(i).get(0));
         }
         if(!single.isIsAdmin()){
-            field = ea.getEmployeeInformation(single.getUsername()).get(1);
+            //field = ea.getEmployeeInformation(single.getUsername()).get(1);
             staffMember.setValue(ea.getEmployeeInformation(single.getUsername()).get(0));
             staffMember.setDisable(true);
         }
@@ -205,7 +205,7 @@ public class FulfillRequestController {
         timeout.stop();
         Singleton single = Singleton.getInstance();
         single.setLastTime();
-        FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("ActiveServiceRequests.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("NewActiveServiceRequests.fxml"));
         Parent roots = loader.load();
 
         //Get controller of scene2
