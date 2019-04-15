@@ -15,10 +15,10 @@ public class ServiceRequestThread extends Thread{
     public ServiceRequestThread(ServiceRequestTable sr, String recEmail, String type) {
         recipient = recEmail;
         srt = sr;
-        type = type;
+        this.type = type;
     }
 
-    //Nathan - sends email with given type and comment
+    //Nathan - sends email with given type and SRT details to a recipient
     @SuppressWarnings("deprecation")
     @Override
     public void run() {
@@ -67,10 +67,13 @@ public class ServiceRequestThread extends Thread{
 
             // Send message
             Transport.send(message);
+
+            // Thread kills itself
             Thread.currentThread().stop();
 
         } catch (MessagingException mex) {
             mex.printStackTrace();
+            Thread.currentThread().stop();
         }
     }
 }
