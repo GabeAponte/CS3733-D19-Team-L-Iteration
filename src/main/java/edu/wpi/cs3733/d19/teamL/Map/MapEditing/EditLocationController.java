@@ -526,13 +526,11 @@ public class EditLocationController {
                                 CircleLocation endcl = new CircleLocation();
                                 for (Edge e: edgeslist){
                                     Line line = new Line();
-                                    System.out.println("circles " + circles);
                                     for(int i = 1; i< circles.size(); i++){
                                         String ID = circles.get(i).getLocation().getLocID();
                                         if(ID.equals(e.getEndID())||ID.equals(e.getStartID())&&
                                                 !(ID.equals(loc.getLocation().getLocID()))){
                                             endcl = circles.get(i);
-                                            System.out.println(endcl);
                                         }
 
                                     }
@@ -545,30 +543,6 @@ public class EditLocationController {
                                     line.startYProperty().bind(loc.centerYProperty());
                                     line.endXProperty().bind(endcl.centerXProperty());
                                     line.endYProperty().bind(endcl.centerYProperty());
-//                                     if(loc.getLocation().getLocID().equals(e.getEndNode())){
-//                                        line.startXProperty().bind(loc.centerXProperty());
-//                                        line.startYProperty().bind(loc.centerYProperty());
-//                                        for(CircleLocation cl: circles){
-//                                            if(cl.getLocation().getLocID().equals(e.getStartID())){
-//                                                line.endXProperty().bind(cl.centerXProperty());
-//                                                line.endYProperty().bind(cl.centerYProperty());
-//                                            }
-//                                        }
-//
-//                                     }
-//                                     else{
-//                                         line.endXProperty().bind(loc.centerXProperty());
-//                                         line.endYProperty().bind(loc.centerYProperty());
-//                                         for(CircleLocation cl: circles){
-//                                             if(cl.getLocation().getLocID().equals(e.getEndID())){
-//                                                 line.startXProperty().bind(cl.centerXProperty());
-//                                                 line.startYProperty().bind(cl.centerYProperty());
-//                                             }
-//                                         }
-//
-//                                     }
-
-
 
                                     loc.getLineList().add(line);
                                     pathPane.getChildren().add(line);
@@ -623,7 +597,7 @@ public class EditLocationController {
                                         c.setSp(null);
                                         ((Circle) (t.getSource())).setStroke(Color.web("RED"));
                                         ((Circle) (t.getSource())).setFill(Color.web("RED"));
-                                    }
+                                }
                             );
 
                             // StackPane container = new StackPane(gp);
