@@ -1026,7 +1026,7 @@ public class PathFindingController {
         //want to fill nodes w/ floor = currrentKioskFloor && nodeLongName? or nodeType? .contains(keyword)
         int temp = 0;
 
-        double scaleRatio = Map.getFitWidth() / Map.getImage().getWidth();
+        double scaleRatio = gesturePane.getWidth() / Map.getImage().getWidth();
        // Point2D point = sceneGestures.getImageLocation();
 
         for(int i=0; i<single.getData().size(); i++){
@@ -1043,8 +1043,8 @@ public class PathFindingController {
                 pathPane.getChildren().add(thisCircle);
 
                 //Setting the properties of the circle
-                thisCircle.setCenterX((nodes.get(temp).getXcoord()));
-                thisCircle.setCenterY((nodes.get(temp).getYcoord()));
+                thisCircle.setCenterX((nodes.get(temp).getXcoord())*gesturePane.getWidth() / Map.getImage().getWidth());
+                thisCircle.setCenterY((nodes.get(temp).getYcoord())*gesturePane.getHeight() / Map.getImage().getHeight());
                 thisCircle.setRadius(Math.max(1.5,1.5f*(gesturePane.getCurrentScale()/5)));
                 thisCircle.setStroke(Color.web("RED"));
                 thisCircle.setFill(Color.web("RED"));
@@ -1119,6 +1119,7 @@ public class PathFindingController {
                     closestLOC = nodes.get(i);
                     closestPath = findAbstractPath(astar,kioskTemp, closestLOC);
 
+                    System.out.println(closestLOC);
                 }
             }
 

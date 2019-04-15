@@ -130,62 +130,68 @@
                                           <Insets bottom="10.0" top="10.0" />
                                        </GridPane.margin>
                                     </Label>
-                                    <VBox alignment="CENTER_LEFT" GridPane.halignment="CENTER" GridPane.rowIndex="3" GridPane.valignment="CENTER">
+                                    <VBox alignment="CENTER_LEFT" prefHeight="126.0" prefWidth="205.0" GridPane.columnSpan="2147483647" GridPane.halignment="CENTER" GridPane.rowIndex="3" GridPane.valignment="CENTER">
                                        <children>
                                           <JFXRadioButton fx:id="bathroomRadButton" contentDisplay="CENTER" onAction="#bathRadButtPressed" style="-jfx-selected-color: #f5d96b; -jfx-unselected-color: WHITE;" text="Bathroom" textFill="WHITE">
                                              <font>
                                                 <Font size="15.0" />
                                              </font>
-                                             <padding>
-                                                <Insets bottom="2.0" />
-                                             </padding>
+                                             <VBox.margin>
+                                                <Insets bottom="5.0" />
+                                             </VBox.margin>
                                           </JFXRadioButton>
                                           <JFXRadioButton layoutX="10.0" layoutY="175.0" style="-jfx-selected-color: #f5d96b; -jfx-unselected-color: WHITE;" text="Cafe" textFill="WHITE">
                                              <font>
                                                 <Font size="15.0" />
                                              </font>
-                                             <padding>
-                                                <Insets bottom="2.0" />
-                                             </padding>
+                                             <VBox.margin>
+                                                <Insets bottom="5.0" />
+                                             </VBox.margin>
                                           </JFXRadioButton>
                                           <JFXRadioButton fx:id="eleRadButton" onAction="#eleRadButtPressed" style="-jfx-selected-color: #f5d96b; -jfx-unselected-color: WHITE;" text="Elevator" textFill="WHITE">
                                              <font>
                                                 <Font size="15.0" />
                                              </font>
-                                             <padding>
-                                                <Insets bottom="2.0" />
-                                             </padding>
+                                             <VBox.margin>
+                                                <Insets bottom="5.0" />
+                                             </VBox.margin>
                                           </JFXRadioButton>
                                           <JFXRadioButton fx:id="cafeRadButton" onAction="#cafeRadButtPressed" style="-jfx-selected-color: #f5d96b; -jfx-unselected-color: WHITE;" text="Retail" textFill="WHITE">
                                              <font>
                                                 <Font size="15.0" />
                                              </font>
-                                             <padding>
-                                                <Insets bottom="2.0" />
-                                             </padding>
+                                             <VBox.margin>
+                                                <Insets bottom="5.0" />
+                                             </VBox.margin>
                                           </JFXRadioButton>
                                           <JFXRadioButton fx:id="stairsRadButton" onAction="#stairsRadButtPressed" style="-jfx-selected-color: #f5d96b; -jfx-unselected-color: WHITE;" text="Stairs" textFill="WHITE">
                                              <font>
                                                 <Font size="15.0" />
                                              </font>
-                                             <padding>
-                                                <Insets bottom="2.0" />
-                                             </padding>
+                                             <VBox.margin>
+                                                <Insets bottom="5.0" />
+                                             </VBox.margin>
                                           </JFXRadioButton>
                                           <JFXRadioButton style="-jfx-selected-color: #f5d96b; -jfx-unselected-color: WHITE;" text="Vending Machine" textFill="WHITE">
                                              <font>
                                                 <Font size="15.0" />
                                              </font>
-                                             <padding>
-                                                <Insets bottom="2.0" />
-                                             </padding>
+                                             <VBox.margin>
+                                                <Insets bottom="5.0" />
+                                             </VBox.margin>
                                           </JFXRadioButton>
                                        </children>
                                        <GridPane.margin>
-                                          <Insets bottom="10.0" left="70.0" top="10.0" />
+                                          <Insets bottom="10.0" left="70.0" top="5.0" />
                                        </GridPane.margin>
                                     </VBox>
-                                    <JFXTextArea fx:id="direction" GridPane.columnSpan="2147483647" GridPane.rowIndex="4" GridPane.vgrow="ALWAYS" />
+                                    <JFXTextArea fx:id="direction" stylesheets="@pathfind.css" unFocusColor="TRANSPARENT" GridPane.columnSpan="2147483647" GridPane.rowIndex="4" GridPane.vgrow="ALWAYS">
+                                       <GridPane.margin>
+                                          <Insets bottom="5.0" left="5.0" right="5.0" />
+                                       </GridPane.margin>
+                                       <font>
+                                          <Font size="15.0" />
+                                       </font></JFXTextArea>
                                  </children>
                               </GridPane>
                            </children>
@@ -252,7 +258,7 @@
                               <Insets left="14.0" />
                            </padding>
                         </GridPane>
-                        <VBox maxWidth="-Infinity" minWidth="-Infinity" prefHeight="200.0" prefWidth="3.5" style="-fx-background-color: f5d96b;" GridPane.columnIndex="1" />
+                        <VBox maxWidth="-Infinity" minWidth="-Infinity" prefHeight="200.0" prefWidth="3.25" style="-fx-background-color: f5d96b;" GridPane.columnIndex="1" />
                      </children>
                      <StackPane.margin>
                         <Insets />
