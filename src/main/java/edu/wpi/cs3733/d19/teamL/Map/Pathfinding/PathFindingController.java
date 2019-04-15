@@ -1,14 +1,9 @@
 package edu.wpi.cs3733.d19.teamL.Map.Pathfinding;
 
 import com.jfoenix.controls.JFXButton;
-import com.jfoenix.controls.JFXButton;
-import com.jfoenix.controls.JFXScrollPane;
-import com.jfoenix.controls.JFXTextArea;
 import edu.wpi.cs3733.d19.teamL.HomeScreens.HomeScreenController;
-import edu.wpi.cs3733.d19.teamL.Map.ImageInteraction.SceneGestures;
 import edu.wpi.cs3733.d19.teamL.Map.MapLocations.Location;
 import edu.wpi.cs3733.d19.teamL.Map.MapLocations.Path;
-import edu.wpi.cs3733.d19.teamL.Map.ImageInteraction.PanAndZoomPane;
 import edu.wpi.cs3733.d19.teamL.SearchingAlgorithms.AStarStrategy;
 import edu.wpi.cs3733.d19.teamL.SearchingAlgorithms.BreadthFirstStrategy;
 import edu.wpi.cs3733.d19.teamL.SearchingAlgorithms.DepthFirstStrategy;
@@ -17,44 +12,33 @@ import edu.wpi.cs3733.d19.teamL.Singleton;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.animation.TranslateTransition;
-import javafx.beans.binding.Bindings;
-import javafx.beans.binding.NumberBinding;
-import javafx.application.Platform;
-import javafx.beans.property.DoubleProperty;
-import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.value.ChangeListener;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
+import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.geometry.Point2D;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.MouseEvent;
-import javafx.scene.input.ScrollEvent;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Line;
-import javafx.scene.shape.Rectangle;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 import javafx.scene.layout.GridPane;
-import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 
 import net.kurobako.gesturefx.GesturePane;
+import org.controlsfx.control.textfield.TextFields;
 
-import javax.xml.soap.Text;
-
-import javax.xml.soap.Text;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -63,8 +47,6 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 import static javafx.scene.paint.Color.*;
-
-import static java.lang.Math.sqrt;
 
 @SuppressWarnings("Duplicates")
 public class PathFindingController {
@@ -140,6 +122,8 @@ public class PathFindingController {
     @FXML
     private ComboBox<PathfindingStrategy> strategySelector;
 
+    @FXML
+    private TextField searchField;
 
     @FXML
     private GridPane gridPane;
@@ -152,7 +136,6 @@ public class PathFindingController {
 
     Location kioskTemp;
 
-    private Rectangle clip;
     private boolean displayingPath;
     private ArrayList<Button> buttons = new ArrayList<Button>();
     private Path path;
@@ -165,6 +148,7 @@ public class PathFindingController {
 
     private NodesAccess na;
     private EdgesAccess ea;
+    private HashMap<String, Location> nameToLoc = new HashMap<>();;
     private final ObservableList<Location> noHallStart = FXCollections.observableArrayList();
     private final ObservableList<Location> noHallEnd = FXCollections.observableArrayList();
     private final ObservableList<String> filterList = FXCollections.observableArrayList();
@@ -519,6 +503,12 @@ public class PathFindingController {
 
         Map.fitHeightProperty().bind(gesturePane.heightProperty());
         Map.fitWidthProperty().bind(gesturePane.widthProperty());
+
+        nameToLoc.clear();
+        for (Location l: PathFindStartDrop.getItems()) {
+            nameToLoc.put(l.toString(), l);
+        }
+        TextFields.bindAutoCompletion(searchField,nameToLoc.keySet());
     }
 
     @FXML
@@ -1258,7 +1248,7 @@ public class PathFindingController {
                 m = Math.abs(m);
                 //abs val
                 //length
-                length = sqrt((m*m)+(n+n));
+                length = Math.sqrt((m*m)+(n+n));
                 //a^2 + b^2 = c^2 therefore sqrt gets the length of the distance between kiosk and this node
 
                 //System.out.println("n:"+n+" m:"+m+" length:"+length);
@@ -1781,5 +1771,23 @@ public class PathFindingController {
         System.out.println(minutes);
         return (int) (minutes * 100) / 100.0;
 
+    }
+
+
+    //Alex
+    @FXML
+    public void submitSearchField(Event ae) throws IOException {
+        if(PathFindStartDrop.getValue() == null){
+            if(nameToLoc.get(searchField.getText()) != null) {
+                PathFindStartDrop.setValue(nameToLoc.get(searchField.getText()));
+                searchField.setText("");
+            }
+        }
+        else{
+            if(nameToLoc.get(searchField.getText()) != null) {
+                PathFindEndDrop.setValue(nameToLoc.get(searchField.getText()));
+                searchField.setText("");
+            }
+        }
     }
 }
