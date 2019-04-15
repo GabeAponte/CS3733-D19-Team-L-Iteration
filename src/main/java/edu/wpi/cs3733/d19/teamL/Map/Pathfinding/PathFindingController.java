@@ -492,10 +492,9 @@ public class PathFindingController {
         gesturePane.setVBarEnabled(false);
 
         gridPane.add(gesturePane,0,0, 1, GridPane.REMAINING);
-       // gesturePane.zoomTo(2.0,new Point2D(Map.getImage().getWidth(), Map.getImage().getHeight()));
-
         //NumberBinding nb = Bindings.min(gesturePane.widthProperty().multiply(0.8), gesturePane.heightProperty().multiply(5000).divide(3400).multiply(720.0/610.0));
        // gesturePane.minScaleProperty().bind(nb);
+        displayKiosk();
 
         Map.fitHeightProperty().bind(gesturePane.heightProperty());
         Map.fitWidthProperty().bind(gesturePane.widthProperty());
@@ -578,6 +577,15 @@ public class PathFindingController {
         direction.setEditable(false);
     }
 
+    public void displayKiosk() {
+        checkAndSetKiosk();
+        Circle kiosk = new Circle();
+        kiosk.setCenterX(kioskTemp.getXcoord()*childPane.getWidth()/Map.getImage().getWidth());
+        kiosk.setCenterY(kioskTemp.getYcoord()*childPane.getHeight()/Map.getImage().getHeight());
+        kiosk.setRadius(Math.max(1.5, 1.5f * (gesturePane.getCurrentScale() / 4)));
+        circles.add(kiosk);
+    }
+
     /**
      * @author: Nikhil: Displays start node, end node and line in between
      * Also contains code that will generate buttons above transitions between floors
@@ -626,7 +634,7 @@ public class PathFindingController {
                     final int transit = i + 1;
                     String transition = path.getPath().get(transit).getFloor();
                     String display = "Take Elevator to ";
-                    if(!path.getPath().get(i+1).getFloor().equals(endNode.getFloor()) && path.getPath().get(i).getNodeType().equals("STAI"))
+                    if((path.getPath().get(i).getNodeType().equals("STAI")))
                     {
                         display = "Take Stairs to ";
                     }
@@ -1311,7 +1319,7 @@ public class PathFindingController {
      * just sets the kiosk to an actual location
      */
     public void checkAndSetKiosk(){
-        //if kisosk was initiated its fine
+        //if kiosk was initiated its fine
         //if not set kiosk to random (first location stuff) things
         if(single.getKioskID().equals("")){
             //Location kioskTemp = single.getData().get(0); //initially at floor 2
