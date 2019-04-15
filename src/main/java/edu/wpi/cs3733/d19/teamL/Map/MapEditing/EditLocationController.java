@@ -662,10 +662,7 @@ public class EditLocationController {
                             sp.setLayoutY(((Circle) (t.getSource())).getCenterY());
                             //sp.getChildren().add(gp);
                             sp.setContent(gp);
-
-
-                        pathPane.getChildren().add(sp);
-                        c.setSp(sp);
+                            
                             pathPane.getChildren().add(sp);
                             c.setSp(sp);
                             lastCircle = c;
