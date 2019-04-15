@@ -300,29 +300,33 @@ public class EditLocationController {
 
     @FXML
     private void deleteEdgePress() {
+        //updated 4/12 for singleton efficiency changes
         single = Singleton.getInstance();
         single.setLastTime();
 
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Delete selected edge?", ButtonType.YES, ButtonType.NO);
         alert.showAndWait();
-
+        EdgesAccess ea = new EdgesAccess();
         if (alert.getResult() == ButtonType.YES) {
             //EdgesAccess ea = new EdgesAccess();
             String focusNodeFirst = focusNode.getLocID()+"_"+edgeDropDown.getValue().getLocID();
             String focusNodeSecond = edgeDropDown.getValue().getLocID()+"_"+focusNode.getLocID();
+            Edge toDelete;
             if(ea.containsEdge(focusNodeFirst)) {
                 ea.deleteEdge(focusNodeFirst);
-                //System.out.println("DELETING FIRST");
+                toDelete = new Edge(focusNodeFirst, focusNode, edgeDropDown.getValue());
             }
             else if (ea.containsEdge(focusNodeSecond)){
                 ea.deleteEdge(focusNodeSecond);
-                //System.out.println("DELETING SECOND");
+                toDelete = new Edge(focusNodeSecond, edgeDropDown.getValue(), focusNode);
             }
             else {
                 System.out.println("COULD NOT FIND EDGE");
+                return;
             }
-            UpdateLocationThread ul = new UpdateLocationThread();
-            ul.start();
+            single.deleteEdge(toDelete);
+            //UpdateLocationThread ul = new UpdateLocationThread();
+            //ul.start();
             //System.out.println(single.lookup.get("GHALL012L2").getEdges());
             populateEdges(focusNode);
             deleteEdge.setDisable(true);
@@ -386,9 +390,12 @@ public class EditLocationController {
             single.lookup.get(focusNode.getLocID()).restitch();
             //delete the node here
             na = new NodesAccess();
+            single.deleteNode(focusNode);
+            System.out.println("STARTING NEXT TASK");
             na.deleteNode(focusNode.getLocID());
-            UpdateLocationThread ul = new UpdateLocationThread();
-            ul.start();
+
+            //UpdateLocationThread ul = new UpdateLocationThread();
+            //ul.start();
             edgeDropDown.setItems(null);
             edgeDropDown.setPromptText("DELETED");
             nodeInfoID.setText("");
@@ -448,8 +455,12 @@ public class EditLocationController {
         data.add(nodeInfoLong.getText());
         data.add(nodeInfoShort.getText());
         na.addNode(data);
-        UpdateLocationThread ul = new UpdateLocationThread();
-        ul.start();
+        Location newLoc = new Location(nodeInfoID.getText(), Integer.parseInt(nodeInfoX.getText()), Integer.parseInt(nodeInfoY.getText()),
+                                        nodeInfoFloor.getText(), nodeInfoBuilding.getText(), nodeInfoType.getText(), nodeInfoLong.getText(),
+                                        nodeInfoShort.getText());
+        single.addNode(newLoc);
+        //UpdateLocationThread ul = new UpdateLocationThread();
+        //ul.start();
         addNode.setDisable(true);
         pathPane.getChildren().remove(thisCircle);
     }
@@ -633,7 +644,7 @@ public class EditLocationController {
 
     @FXML
     private void submitButtonPressed() {
-        Singleton single = Singleton.getInstance();
+        //Singleton single = Singleton.getInstance();
         single.setLastTime();
         na.updateNode(nodeInfoID.getText(), "xcoord", nodeInfoX.getText());
         na.updateNode(nodeInfoID.getText(), "ycoord", nodeInfoY.getText());
@@ -642,8 +653,12 @@ public class EditLocationController {
         na.updateNode(nodeInfoID.getText(), "nodeType", nodeInfoType.getText());
         na.updateNode(nodeInfoID.getText(), "longName", nodeInfoLong.getText());
         na.updateNode(nodeInfoID.getText(), "shortName", nodeInfoShort.getText());
-        UpdateLocationThread ul = new UpdateLocationThread();
-        ul.start();
+        Location newLoc = new Location(nodeInfoID.getText(), Integer.parseInt(nodeInfoX.getText()), Integer.parseInt(nodeInfoY.getText()),
+                nodeInfoFloor.getText(), nodeInfoBuilding.getText(), nodeInfoType.getText(), nodeInfoLong.getText(),
+                nodeInfoShort.getText());
+        single.modifyNode(focusNode, newLoc);
+        //UpdateLocationThread ul = new UpdateLocationThread();
+        //ul.start();
     }
 
     @FXML
