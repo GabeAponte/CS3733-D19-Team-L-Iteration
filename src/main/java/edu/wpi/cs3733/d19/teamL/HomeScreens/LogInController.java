@@ -4,6 +4,7 @@ import com.github.sarxos.webcam.Webcam;
 import com.github.sarxos.webcam.WebcamPanel;
 import com.github.sarxos.webcam.WebcamResolution;
 import com.jfoenix.controls.JFXButton;
+import edu.wpi.cs3733.d19.teamL.API.FaceDetector;
 import edu.wpi.cs3733.d19.teamL.API.ImageComparison;
 import edu.wpi.cs3733.d19.teamL.API.faceDetectionJavaFXX;
 import edu.wpi.cs3733.d19.teamL.Account.EmployeeAccess;
@@ -170,11 +171,14 @@ public class LogInController {
         ImageIO.write(image, "JPG", new File("TempOutput.jpg"));
         webcam.close();
 
+        //FaceDetector fd = new FaceDetector();
+        //fd.doIt();
+
         ImageComparison ic = new ImageComparison();
         double diff = ic.doIT(username.getText());
         Singleton single = Singleton.getInstance();
         EmployeeAccess ea = new EmployeeAccess();
-        if(diff < 15){
+        if(diff < 18){
             System.out.println("successful login");
             single.setLoggedIn(true);
             single.setUsername(username.getText());
