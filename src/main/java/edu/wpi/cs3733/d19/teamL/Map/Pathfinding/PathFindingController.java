@@ -206,15 +206,12 @@ public class PathFindingController {
         openNav.setToX(0.0D);
         TranslateTransition closeNav = new TranslateTransition(new Duration(300.0D), this.navList);
         this.menu.setOnAction((evt) -> {
-            System.out.println("clicked");
             if (this.navList.getTranslateX() != 62.0D) {
                 openNav.setToX(62);
                 openNav.play();
-                System.out.println("if open");
             } else {
                 closeNav.setToX(-this.navList.getWidth());
                 closeNav.play();
-                System.out.println("if close");
             }
 
         });
@@ -719,10 +716,6 @@ public class PathFindingController {
             pathPane.getChildren().add(EndCircle);
 
             pathPane.setPrefSize(childPane.getWidth(), childPane.getHeight());
-
-            System.out.println(StartCircle.getCenterX()+ "   " + EndCircle.getCenterX());
-            System.out.println(startNode.getXcoord()+ "   " + endNode.getYcoord());
-            System.out.println(pathPane.getPrefWidth());
 
             circles.add(StartCircle);
             circles.add(EndCircle);
@@ -1259,8 +1252,6 @@ public class PathFindingController {
                     //set this node to be for pathing
                     closestLOC = nodes.get(i);
                     closestPath = findAbstractPath(astar,kioskTemp, closestLOC);
-
-                    System.out.println(closestLOC);
                 }
             }
 
@@ -1382,7 +1373,6 @@ public class PathFindingController {
             stairsRadButton.setTextFill(Color.web("#ffffff"));
 
             if((currentMap.equals(kioskTemp.getFloor()))) {
-                System.out.println("");
                 displayClosestPOI("RETL");
             }
             displayPOINodes("RETL");
@@ -1768,7 +1758,7 @@ public class PathFindingController {
         //on average, walking speed 4.6 ft / sec
         minutes = convertToExact(totalDistance) / (4.6 * 60);
 
-        System.out.println(minutes);
+//        System.out.println(minutes);
         return (int) (minutes * 100) / 100.0;
 
     }
