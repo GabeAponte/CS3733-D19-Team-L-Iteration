@@ -11,7 +11,11 @@ import edu.wpi.cs3733.d19.teamL.Singleton;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.animation.TranslateTransition;
+import javafx.beans.binding.Bindings;
+import javafx.beans.binding.NumberBinding;
 import javafx.beans.property.DoubleProperty;
+import javafx.beans.property.ReadOnlyDoubleProperty;
+import javafx.beans.property.ReadOnlyDoubleWrapper;
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.value.ChangeListener;
 import javafx.collections.FXCollections;
@@ -427,9 +431,8 @@ public class PathFindingController {
         gridPane.add(gesturePane,0,0, 7, GridPane.REMAINING);
         gesturePane.zoomTo(2.0,new Point2D(Map.getImage().getWidth(), Map.getImage().getHeight()));
 
-        AnchorPane temp = new AnchorPane();
-//        gridPane.add(temp,0,0);
-//        temp.heightProperty();
+//        NumberBinding nb = Bindings.min(gesturePane.widthProperty().multiply(0.8), gesturePane.heightProperty().multiply(5000).divide(3400).multiply(720.0/610.0));
+//        gesturePane.minScaleProperty().bind(nb);
 
         Map.fitHeightProperty().bind(gesturePane.heightProperty());
         Map.fitWidthProperty().bind(gesturePane.widthProperty());
