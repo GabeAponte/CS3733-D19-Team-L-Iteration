@@ -207,6 +207,12 @@ public class Singleton {
     public void modifyNode(Location oldLoc, Location newLoc) {
         ArrayList<Edge> edges = oldLoc.getEdges();
         for (Edge e : edges) {
+            if (e.getEndNode().getLocID().equals(oldLoc)) {
+                e.setEndNode(newLoc);
+            }
+            else {
+                e.setStartNode(newLoc);
+            }
             newLoc.addEdge(e);
         }
         data.remove(lookup.get(oldLoc.getLocID()));
