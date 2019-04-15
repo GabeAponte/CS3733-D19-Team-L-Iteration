@@ -62,6 +62,8 @@ dependencies {
             [group: 'com.github.dvdme', name: 'ForecastIOLib', version: '1.5.2'],
             [group: 'net.kurobako', name: 'gesturefx', version: '0.3.0'],
             [group: 'de.jensd', name: 'fontawesomefx', version: '8.9'],
+            [group: 'net.kurobako', name: 'gesturefx', version: '0.3.0'],
+            [group: 'org.controlsfx', name: 'controlsfx', version: '8.40.13']
     )
 }
 

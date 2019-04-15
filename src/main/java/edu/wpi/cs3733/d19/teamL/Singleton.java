@@ -205,8 +205,13 @@ public class Singleton {
     Changes out the current node with the ID with the new passed in loc
      */
     public void modifyNode(Location oldLoc, Location newLoc) {
+        ArrayList<Edge> edges = oldLoc.getEdges();
+        for (Edge e : edges) {
+            newLoc.addEdge(e);
+        }
         data.remove(lookup.get(oldLoc.getLocID()));
         data.add(newLoc);
+
         lookup.remove(oldLoc.getLocID(), oldLoc);
         lookup.put(newLoc.getLocID(), newLoc);
     }
