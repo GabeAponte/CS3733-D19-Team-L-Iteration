@@ -125,7 +125,7 @@ public class LogInController {
 
     @FXML
     private void tryFR() throws IOException{
-        /*Webcam webcam;
+        Webcam webcam;
         webcam = Webcam.getDefault();
         webcam.setViewSize(WebcamResolution.VGA.getSize());
         WebcamPanel wp = new WebcamPanel(webcam);
@@ -153,9 +153,7 @@ public class LogInController {
         WritableImage bi = fjfxx.capureFrame();
         if(bi == null){
             System.out.println("No Face Detected");
-            return;
         }
-        fjfxx.saveImage();
 
         ImageComparison ic = new ImageComparison();
         double diff = ic.doIT(username.getText());

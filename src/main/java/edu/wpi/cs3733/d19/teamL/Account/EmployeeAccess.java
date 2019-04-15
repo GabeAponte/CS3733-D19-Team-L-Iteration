@@ -317,7 +317,6 @@ public class EmployeeAccess extends DBAccess {
     /**@author Nathan
      * Updates and employee's image file
      * @param employeeID
-     * @param field
      * @param data
      * @throws SQLException
      */

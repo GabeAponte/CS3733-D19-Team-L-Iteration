@@ -26,50 +26,13 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 
 //TAKES PICTURE USING WEBCAM AND DETECTS FACE IN IT
-public class faceDetectionJavaFXX extends Application {
+public class faceDetectionJavaFXX {
     static{
         System.loadLibrary(Core.NATIVE_LIBRARY_NAME);
     }
     Mat matrix = null;
 
-    @Override
-    public void start(Stage stage) throws FileNotFoundException, IOException {
-        /*System.out.println("going");
-        // Capturing the snapshot from the camera
-        faceDetectionJavaFXX obj = new faceDetectionJavaFXX();
-        WritableImage writableImage = obj.capureFrame();
-
-        // Saving the image
-        obj.saveImage();
-
-
-        // Setting the image view
-        ImageView imageView = new ImageView(writableImage);
-
-        // setting the fit height and width of the image view
-        imageView.setFitHeight(400);
-        imageView.setFitWidth(600);
-
-        // Setting the preserve ratio of the image view
-        imageView.setPreserveRatio(true);
-
-        // Creating a Group object
-        Group root = new Group(imageView);
-
-        // Creating a scene object
-        Scene scene = new Scene(root, 600, 400);
-
-        // Setting title to the Stage
-        stage.setTitle("Capturing an image");
-
-        // Adding scene to the stage
-        stage.setScene(scene);
-
-        // Displaying the contents of the stage
-        stage.show();*/
-    }
     public WritableImage capureFrame() {
-        System.out.println("capturing");
         WritableImage writableImage = null;
 
         // Loading the OpenCV core library
@@ -83,28 +46,23 @@ public class faceDetectionJavaFXX extends Application {
         capture.read(matrix);
 
         // If camera is opened
-        if(!capture.isOpened()) {
+        /*if(!capture.isOpened()) {
             System.out.println("camera not detected");
         } else
-            System.out.println("Camera detected ");
+            System.out.println("Camera detected ");*/
 
         // If there is next video frame
         if (capture.read(matrix)) {
             /////// Detecting the face in the snap /////
-            System.out.println("Test");
             File f = new File("lbpcascade_frontalface.xml");
             String file = f.getAbsolutePath();
             file = file.replace('\\', '/');
             CascadeClassifier classifier = new CascadeClassifier(file);
-            System.out.println("Test 2");
 
             MatOfRect faceDetections = new MatOfRect();
             classifier.detectMultiScale(matrix, faceDetections);
             System.out.println(String.format("Detected %s faces",
                     faceDetections.toArray().length));
-            if(faceDetections.toArray().length == 0){
-                return null;
-            }
 
             // Drawing boxes
             for (Rect rect : faceDetections.toArray()) {
@@ -128,10 +86,14 @@ public class faceDetectionJavaFXX extends Application {
 
             // Creating the Writable Image
             writableImage = SwingFXUtils.toFXImage(image, null);
+            if(faceDetections.toArray().length == 0){
+                saveImage();
+                return null;
+            }
             capture.release();
         }
-        System.out.println("DONE");
         saveImage();
+
         return writableImage;
     }
     public void saveImage() {
@@ -139,7 +101,6 @@ public class faceDetectionJavaFXX extends Application {
         File f = new File("TempOutput.jpg");
         String file = f.getAbsolutePath();
         file = file.replace('\\', '/');
-        System.out.println(file);
 
         // Instantiating the imagecodecs class
         Imgcodecs imageCodecs = new Imgcodecs();
