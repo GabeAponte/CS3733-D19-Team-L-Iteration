@@ -339,7 +339,7 @@ public class EditLocationController {
                     thisCircle.setFill(Color.web("RED"));
                     thisCircle.setLocation(single.getData().get(i));
                     thisCircle.setOnMousePressed(circleOnMousePressedEventHandler);
-
+                    //set the mouse drag to move the circle
                     thisCircle.setOnMouseDragged((t) -> {
                         if (t.isControlDown()) {
                             double offsetX = (t.getSceneX() - orgSceneX)/gesturePane.getCurrentScale();
@@ -352,8 +352,9 @@ public class EditLocationController {
 
                             orgSceneX = t.getSceneX();
                             orgSceneY = t.getSceneY();
+                            //System.out.println(c.getCenterX()*(Map.getImage().getWidth()/childPane.getWidth()));
+                            //System.out.println(c.getCenterY()*(Map.getImage().getHeight()/childPane.getHeight()));
                             t.consume();
-
                         }
                     });
 
@@ -477,6 +478,8 @@ public class EditLocationController {
                     c.toFront();
 
                     ScrollPane sp = new ScrollPane();
+                    sp.setLayoutX(c.getLayoutX());
+                    sp.setLayoutY(c.getLayoutY());
                     GridPane gp = new GridPane();
                     Button close = new Button("Close");
                     close.setPrefWidth(50);
