@@ -111,6 +111,8 @@ public class EditLocationController {
     private ArrayList<CircleLocation> circles = new ArrayList<CircleLocation>();
     private ArrayList<Line> lines = new ArrayList<Line>();
 
+    private ArrayList<CircleLocation> shiftClick = new ArrayList<CircleLocation>();
+
     private Point2D mousePress;
     private GesturePane gesturePane;
     private StackPane childPane;
@@ -498,26 +500,41 @@ public class EditLocationController {
 
                 @Override
                 public void handle(MouseEvent t) {
+
+
                     if(t.isShiftDown()){
                         CircleLocation loc = (CircleLocation) (t.getSource());
-                        loc.setStroke(Color.web("GREEN"));
-                        loc.setFill(Color.web("GREEN"));
-                        ArrayList<Edge> edgeslist = loc.getLocation().getEdges();
-                        if(edgeslist.isEmpty()){
-                            //nothing
-                        }
-                        else {
-                            for (Edge e: edgeslist){
-                                Line line = new Line();
-                                line.setStartX(e.getEndNode().getXcoord()*childPane.getWidth()/Map.getImage().getWidth());
-                                line.setStartY(e.getEndNode().getYcoord()*childPane.getHeight()/Map.getImage().getHeight());
-                                line.setEndX(e.getStartNode().getXcoord()*childPane.getWidth()/Map.getImage().getWidth());
-                                line.setEndY(e.getStartNode().getYcoord()*childPane.getHeight()/Map.getImage().getHeight());
-
-                                //line.setVisible(true);
-                                pathPane.getChildren().add(line);
-                                lines.add(line);
+                        if(shiftClick.contains(loc)){
+                            shiftClick.remove(loc);
+                            loc.setStroke(Color.web("RED"));
+                            loc.setFill(Color.web("RED"));
+                            for(Line A: loc.getLineList()){
+                                pathPane.getChildren().remove(A);
                             }
+                        }
+
+                        else {
+                             loc.setStroke(Color.web("GREEN"));
+                             loc.setFill(Color.web("GREEN"));
+                             ArrayList<Edge> edgeslist = loc.getLocation().getEdges();
+                             shiftClick.add(loc);
+
+                            if(edgeslist.isEmpty()){
+                            //nothing
+                             }
+                              else {
+                                  for (Edge e: edgeslist){
+                                     Line line = new Line();
+                                     line.setStartX(e.getEndNode().getXcoord()*childPane.getWidth()/Map.getImage().getWidth());
+                                     line.setStartY(e.getEndNode().getYcoord()*childPane.getHeight()/Map.getImage().getHeight());
+                                     line.setEndX(e.getStartNode().getXcoord()*childPane.getWidth()/Map.getImage().getWidth());
+                                     line.setEndY(e.getStartNode().getYcoord()*childPane.getHeight()/Map.getImage().getHeight());
+                                     loc.getLineList().add(line);
+                                     pathPane.getChildren().add(line);
+                                     lines.add(line);
+
+                            }
+                        }
                         }
                     }
                     if (!(lastCircle == null)) {

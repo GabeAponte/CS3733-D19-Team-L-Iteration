@@ -4,16 +4,29 @@ import com.jfoenix.controls.JFXScrollPane;
 import com.jfoenix.controls.JFXTextField;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.shape.Circle;
+import javafx.scene.shape.Line;
+
+import java.util.ArrayList;
 
 public class CircleLocation extends Circle {
 
     Location location;
     ScrollPane sp;
+    ArrayList<Line> lineList;
     private JFXTextField xField;
     private JFXTextField yField;
 
+    public ArrayList<Line> getLineList() {
+        return lineList;
+    }
+
+    public void setLineList(ArrayList<Line> lineList) {
+        this.lineList = lineList;
+    }
+
     public  CircleLocation() {
         this.location = location;
+        this.lineList = new ArrayList<Line>();
         //setRadius(radius);
     }
 
