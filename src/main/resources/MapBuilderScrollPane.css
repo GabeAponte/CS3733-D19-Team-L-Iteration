@@ -155,6 +155,3 @@
     -fx-background-color: transparent,rgb(96,96,96),rgb(96,96,96);
 }
 
-.scroll-pane > .corner {
-    -fx-background-color: greys ;
-}
