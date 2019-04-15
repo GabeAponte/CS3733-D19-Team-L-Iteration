@@ -41,7 +41,7 @@
                <right>
                   <HBox minHeight="-Infinity" prefHeight="8.0" prefWidth="200.0" BorderPane.alignment="CENTER">
                      <children>
-                        <JFXButton fx:id="LogIn" alignment="CENTER" buttonType="RAISED" contentDisplay="TOP" focusTraversable="false" minHeight="-Infinity" onAction="#SwitchToLoginScreen" prefHeight="89.0" prefWidth="200.0" ripplerFill="#b0b0b0" style="-fx-border-color: #f5d96b; -fx-border-width: 4; -fx-border-radius: 100;" text="Log In" textAlignment="CENTER" HBox.hgrow="NEVER">
+                        <JFXButton fx:id="LogIn" alignment="CENTER" buttonType="RAISED" contentDisplay="TOP" focusTraversable="false" minHeight="-Infinity" onAction="#SwitchToLoginScreen" prefHeight="89.0" prefWidth="200.0" ripplerFill="#b0b0b0" style="-fx-border-color: #f5d96b; -fx-border-width: 4; -fx-border-radius: 10; -fx-background-radius: 10;" text="Log In" textAlignment="CENTER" HBox.hgrow="NEVER">
                            <font>
                               <Font size="22.0" />
                            </font>
@@ -114,11 +114,27 @@
                      <children>
                         <HBox prefHeight="118.0" prefWidth="182.0">
                            <children>
-                              <Label fx:id="timeLabel" alignment="CENTER" contentDisplay="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="116.0" prefWidth="180.0" text="19:20" textAlignment="CENTER" textFill="WHITE">
-                                 <font>
-                                    <Font size="33.0" />
-                                 </font>
-                              </Label>
+                              <GridPane>
+                                <columnConstraints>
+                                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="182.0" />
+                                </columnConstraints>
+                                <rowConstraints>
+                                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                </rowConstraints>
+                                 <children>
+                                    <Label fx:id="timeLabel" alignment="CENTER" contentDisplay="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="65.0" prefWidth="182.0" text="19:20" textAlignment="CENTER" textFill="WHITE">
+                                       <font>
+                                          <Font size="33.0" />
+                                       </font>
+                                    </Label>
+                                    <Label fx:id="dateLabel" alignment="CENTER" contentDisplay="CENTER" prefHeight="52.0" prefWidth="186.0" textFill="WHITE" GridPane.rowIndex="1">
+                                       <font>
+                                          <Font size="28.0" />
+                                       </font>
+                                    </Label>
+                                 </children>
+                              </GridPane>
                            </children>
                         </HBox>
                         <VBox prefHeight="118.0" prefWidth="5.0" style="-fx-background-color: #f5d96b;" />

@@ -18,7 +18,9 @@ import javafx.stage.Stage;
 import javafx.util.Duration;
 
 import java.io.IOException;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 public class HomeScreenController {
 
@@ -42,6 +44,9 @@ public class HomeScreenController {
 
     @FXML
     Label tempDisplay;
+
+    @FXML
+    Label dateLabel;
 
     @FXML
     Button yes;
@@ -84,6 +89,9 @@ public class HomeScreenController {
             clock.setCycleCount(Animation.INDEFINITE);
             clock.play();
         }
+        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("MM/dd/yyyy");
+        LocalDate localDate = LocalDate.now();
+        dateLabel.setText(dtf.format(localDate));
     }
 
     public void displayPopup(){
