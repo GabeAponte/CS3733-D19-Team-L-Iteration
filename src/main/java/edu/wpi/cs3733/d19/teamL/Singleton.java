@@ -23,7 +23,7 @@ public class Singleton {
     private static boolean loggedIn;
     private static String username;
     private static int num;
-    private static String kioskID;
+    private static String kioskID = "";
     private static long lastTime;
     private static int typePathfind;
     private static boolean isAdmin;

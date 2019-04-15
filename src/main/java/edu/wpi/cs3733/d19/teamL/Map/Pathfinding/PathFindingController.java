@@ -148,6 +148,7 @@ public class PathFindingController {
     private final ObservableList<String> floorList = FXCollections.observableArrayList();
     private Singleton single = Singleton.getInstance();
 
+    Location kioskTemp;
 
     private ArrayList<String> mapURLs = new ArrayList<String>();
     private ArrayList<Circle> circles = new ArrayList<Circle>();
@@ -1066,8 +1067,9 @@ public class PathFindingController {
     /** GRACE MADE THIS
      * display path to nearest keyword
      */
-    Location kioskTemp = single.getData().get(0); //initially at floor 2
     public void displayClosestPOI(String keyword){
+        checkAndSetKiosk();
+
         ArrayList<Location> nodes = new ArrayList<Location>();
         //want to fill nodes w/ relevent POI
 
@@ -1131,8 +1133,9 @@ public class PathFindingController {
 
             displayingPath = true;
 
-
-            path = findAbstractPath(strategyAlgorithm, startNode, endNode);
+            startNode = kioskTemp;
+            endNode = closestLOC;
+            path = closestPath;
 
             displayPath();
             //printPath(path.getPath());
@@ -1178,11 +1181,31 @@ public class PathFindingController {
         stairsRadButton.setSelected(false);
         stairsRadButton.setTextFill(Color.web("#ffffff"));
     }
+
+    /**Grace made this
+     * just sets the kiosk to an actual location
+     */
+    public void checkAndSetKiosk(){
+        //if kisosk was initiated its fine
+        //if not set kiosk to random (first location stuff) things
+        if(single.getKioskID().equals("")){
+            //Location kioskTemp = single.getData().get(0); //initially at floor 2
+            single.setKioskID(single.getData().get(0).getLocID());
+        }
+        //find actual "location" of kiosk
+        for(int i=0; i<single.getData().size(); i++){
+            if(single.getData().get(i).getLocID().equals(single.getKioskID())){
+                kioskTemp = single.getData().get(i);
+            }
+        }
+    }
+
     /** GRACE MADE THIS
      *display and find closest bathroom
      */
     @FXML
     private void bathRadButtPressed(){
+        checkAndSetKiosk();
         //when pressed, change color to #f5d96b (gold/yellow), to do later
         //display and find closest bathroom
         //System.out.println("find closest bathroom selected");
@@ -1219,6 +1242,7 @@ public class PathFindingController {
      */
     @FXML
     private void cafeRadButtPressed(){
+        checkAndSetKiosk();
         //when pressed, change color to #f5d96b (gold/yellow)
         //display and find closest cafe - nodeType is RETL
         //System.out.println("find closest retail/food selected");
@@ -1255,6 +1279,7 @@ public class PathFindingController {
      */
     @FXML
     private void eleRadButtPressed(){
+        checkAndSetKiosk();
         //when pressed, change color to #f5d96b (gold/yellow)
         //display and find closest elevator
         //System.out.println("find closest elevator selected");
@@ -1290,6 +1315,7 @@ public class PathFindingController {
      */
     @FXML
     private void stairsRadButtPressed(){
+        checkAndSetKiosk();
         //when pressed, change color to #f5d96b (gold/yellow)
         //display and find closest stairs
         //System.out.println("find closest stairs selected");
