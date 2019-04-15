@@ -1,6 +1,7 @@
 package edu.wpi.cs3733.d19.teamL.Map.MapEditing;
 
 import edu.wpi.cs3733.d19.teamL.API.UpdateLocationThread;
+import edu.wpi.cs3733.d19.teamL.Map.MapLocations.CircleLocation;
 import edu.wpi.cs3733.d19.teamL.Map.MapLocations.Edge;
 import edu.wpi.cs3733.d19.teamL.Map.MapLocations.Location;
 import edu.wpi.cs3733.d19.teamL.Map.Pathfinding.EdgesAccess;
@@ -91,10 +92,10 @@ public class EditLocationController {
 
     private int floorSelected = -2;
     private boolean displayingNodes = true;
-    private Circle thisCircle;
+    private CircleLocation thisCircle;
 
     private ArrayList<String> mapURLs = new ArrayList<String>();
-    private ArrayList<Circle> circles = new ArrayList<Circle>();
+    private ArrayList<CircleLocation> circles = new ArrayList<CircleLocation>();
 
     private Point2D mousePress;
     private GesturePane gesturePane;
@@ -227,6 +228,7 @@ public class EditLocationController {
                     }
                 }
             }
+
         }));
         timeout.setCycleCount(Timeline.INDEFINITE);
         timeout.play();
@@ -252,7 +254,7 @@ public class EditLocationController {
         Map.fitHeightProperty().bind(gesturePane.heightProperty());
 
 
-        thisCircle = new Circle();
+        thisCircle = new CircleLocation();
     }
 
 
@@ -327,7 +329,7 @@ public class EditLocationController {
                 if (single.getData().get(i).getFloor().equals(floorNum())/* current Map floor*/) {
                     nodes.add(single.getData().get(i));
 
-                    Circle thisCircle = new Circle();
+                    CircleLocation thisCircle = new CircleLocation();
 
                     //Setting the properties of the circle
                     thisCircle.setCenterX(nodes.get(temp).getXcoord()*scaleRatio);
@@ -335,21 +337,25 @@ public class EditLocationController {
                     thisCircle.setRadius(Math.max(2.0, 2.0f * gesturePane.getCurrentScale()/20));
                     thisCircle.setStroke(Color.web("RED")); //#f5d96b
                     thisCircle.setFill(Color.web("RED"));
+                    thisCircle.setLocation(single.getData().get(i));
+                    thisCircle.setOnMousePressed(circleOnMousePressedEventHandler);
 
                     pathPane.getChildren().add(thisCircle);
+
 
                     circles.add(thisCircle);
                     temp++;
                 }
             }
         }
-        if(thisCircle != null && mousePress != null) {
-            thisCircle.setCenterX(mousePress.getX() *Map.getImage().getWidth()*scaleRatio/Map.getFitWidth());
-            thisCircle.setCenterY(mousePress.getY() *Map.getImage().getHeight()*scaleRatio/Map.getFitHeight());
-            thisCircle.setRadius(Math.max(2.0, 2.0f * gesturePane.getCurrentScale() / 20));
-            thisCircle.setStroke(Color.web("GREEN")); //#f5d96b
-            thisCircle.setFill(Color.web("GREEN"));
-        }
+//        if(thisCircle != null && mousePress != null) {
+//            thisCircle.setCenterX(mousePress.getX() *Map.getImage().getWidth()*scaleRatio/Map.getFitWidth());
+//            thisCircle.setCenterY(mousePress.getY() *Map.getImage().getHeight()*scaleRatio/Map.getFitHeight());
+//            thisCircle.setRadius(Math.max(2.0, 2.0f * gesturePane.getCurrentScale() / 20));
+//            thisCircle.setStroke(Color.web("GREEN")); //#f5d96b
+//            thisCircle.setFill(Color.web("GREEN"));
+//        }
+        //System.out.println(circles);
     }
 
 
@@ -437,5 +443,49 @@ public class EditLocationController {
         Scene scene = new Scene(sceneMain);
         theStage.setScene(scene);
     }
+    //Larry - Handler for pressing circle
+
+    EventHandler<MouseEvent> circleOnMousePressedEventHandler =
+            new EventHandler<MouseEvent>() {
+
+                @Override
+                public void handle(MouseEvent t) {
+                    ((Circle)(t.getSource())).setStroke(Color.web("GREEN"));
+                    ((Circle)(t.getSource())).setFill(Color.web("GREEN"));
+
+                    ScrollPane sp = new ScrollPane();
+                    GridPane gp = new GridPane();
+                    Label lb = new Label("Test");
+                    gp.add(lb,0,0);
+
+                    sp.setVmax(440);
+                    sp.setPrefSize(115, 150);
+
+
+                    //sp.setLayoutX(((Circle)(t.getSource())).getCenterX());
+                    //sp.setLayoutY(((Circle)(t.getSource())).getCenterY());
+                    sp.setContent(gp);
+
+                    sp.setLayoutX(100);
+                    sp.setLayoutY(100);
+
+                    sp.setVisible(true);
+
+                    Button nBut = new Button();
+                    nBut.setStyle("-fx-text-fill: WHITE; " +
+                            "-fx-font-size: 13; -fx-background-color: GREEN; -fx-border-color: WHITE;" +
+                            " -fx-background-radius: 18; -fx-border-radius: 18; -fx-border-width: 3");
+                    nBut.setLayoutX(((Circle)(t.getSource())).getCenterX());
+                    nBut.setLayoutY(((Circle)(t.getSource())).getCenterY());
+
+                    System.out.println("Xcor "+ ((Circle)(t.getSource())).getCenterX());
+                    System.out.println("Ycor "+ ((Circle)(t.getSource())).getCenterY());
+                    System.out.println("successful scroll pane");
+
+
+
+
+                }
+            };
 
 }
