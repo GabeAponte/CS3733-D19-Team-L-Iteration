@@ -43,7 +43,7 @@
                      <children>
                         <JFXButton fx:id="LogIn" alignment="CENTER" buttonType="RAISED" contentDisplay="TOP" focusTraversable="false" minHeight="-Infinity" onAction="#SwitchToLoginScreen" prefHeight="89.0" prefWidth="200.0" ripplerFill="#b0b0b0" style="-fx-border-color: #f5d96b; -fx-border-width: 4; -fx-border-radius: 10; -fx-background-radius: 10;" text="Log In" textAlignment="CENTER" HBox.hgrow="NEVER">
                            <font>
-                              <Font size="22.0" />
+                              <Font size="21.0" />
                            </font>
                            <graphic>
                               <FontAwesomeIconView glyphName="USER" size="35" textAlignment="CENTER" wrappingWidth="27.27392578125" />
