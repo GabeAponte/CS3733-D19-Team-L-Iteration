@@ -213,12 +213,17 @@
                                    <Font size="20.0" />
                                </font>
                         </JFXRadioButton>
-                           <JFXRadioButton fx:id="cafeRadButton" onAction="#cafeRadButtPressed" style="-jfx-selected-color: #f5d96b; -jfx-unselected-color: WHITE;" text="Retail" textFill="WHITE">
+                        <JFXRadioButton layoutX="10.0" layoutY="175.0" style="-jfx-selected-color: #f5d96b; -jfx-unselected-color: WHITE;" text="Cafe" textFill="WHITE">
+                           <font>
+                              <Font size="20.0" />
+                           </font>
+                        </JFXRadioButton>
+                           <JFXRadioButton fx:id="eleRadButton" onAction="#eleRadButtPressed" style="-jfx-selected-color: #f5d96b; -jfx-unselected-color: WHITE;" text="Elevator" textFill="WHITE">
                                <font>
                                    <Font size="20.0" />
                                </font>
                         </JFXRadioButton>
-                           <JFXRadioButton fx:id="eleRadButton" onAction="#eleRadButtPressed" style="-jfx-selected-color: #f5d96b; -jfx-unselected-color: WHITE;" text="Elevator" textFill="WHITE">
+                           <JFXRadioButton fx:id="cafeRadButton" onAction="#cafeRadButtPressed" style="-jfx-selected-color: #f5d96b; -jfx-unselected-color: WHITE;" text="Retail" textFill="WHITE">
                                <font>
                                    <Font size="20.0" />
                                </font>
@@ -227,6 +232,11 @@
                                <font>
                                    <Font size="20.0" />
                                </font>
+                        </JFXRadioButton>
+                        <JFXRadioButton style="-jfx-selected-color: #f5d96b; -jfx-unselected-color: WHITE;" text="Vending Machine" textFill="WHITE">
+                           <font>
+                              <Font size="20.0" />
+                           </font>
                         </JFXRadioButton>
                        </children>
                    </VBox>
