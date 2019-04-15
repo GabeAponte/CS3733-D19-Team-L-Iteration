@@ -122,7 +122,7 @@
                                        <GridPane.margin>
                                           <Insets bottom="10.0" top="10.0" />
                                        </GridPane.margin></JFXComboBox>
-                                    <Label alignment="CENTER" text="Points of Intrest" textAlignment="CENTER" textFill="#f5d96b" underline="true" GridPane.columnSpan="2147483647" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.vgrow="NEVER">
+                                    <Label alignment="CENTER" text="Find Nearest" textAlignment="CENTER" textFill="#f5d96b" underline="true" GridPane.columnSpan="2147483647" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.vgrow="NEVER">
                                        <font>
                                           <Font size="25.0" />
                                        </font>
@@ -258,7 +258,7 @@
                               <Insets left="14.0" />
                            </padding>
                         </GridPane>
-                        <VBox maxWidth="-Infinity" minWidth="-Infinity" prefHeight="200.0" prefWidth="3.25" style="-fx-background-color: f5d96b;" GridPane.columnIndex="1" />
+                        <VBox maxWidth="-Infinity" minWidth="-Infinity" prefHeight="200.0" prefWidth="3.0" style="-fx-background-color: f5d96b;" GridPane.columnIndex="1" />
                      </children>
                      <StackPane.margin>
                         <Insets />
@@ -271,7 +271,7 @@
             </StackPane>
          </children>
       </VBox>
-      <AnchorPane fx:id="navList" layoutX="-62.0" prefWidth="240.0" style="-fx-background-color:white" translateX="-180" AnchorPane.bottomAnchor="0.0" AnchorPane.topAnchor="110.0">
+      <AnchorPane fx:id="navList" layoutX="-62.0" prefWidth="240.0" style="-fx-background-color:white" translateX="-180" AnchorPane.bottomAnchor="15.0" AnchorPane.topAnchor="125.0">
          <children>
             <Label text="left side menu" />
             <GridPane alignment="CENTER" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">

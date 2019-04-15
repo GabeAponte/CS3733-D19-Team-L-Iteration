@@ -1477,7 +1477,7 @@ public class PathFindingController {
             return text;
         }
         double time = estimateTime(A);
-        text += "The estimate time for the whole path : " + estimateTime(A);
+        text += "Your estimated travel time is: " + estimateTime(A);
         if(time > 1){
             text += " minutes \n";
         }
