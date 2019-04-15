@@ -19,10 +19,12 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.image.WritableImage;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
 import javax.swing.*;
+import java.awt.image.BufferedImage;
 import java.io.IOException;
 
 import static java.lang.Thread.sleep;
@@ -148,16 +150,18 @@ public class LogInController {
         webcam.close();
         window.dispose();//*/
         faceDetectionJavaFXX fjfxx = new faceDetectionJavaFXX();
-        if(fjfxx.capureFrame() == null){
+        WritableImage bi = fjfxx.capureFrame();
+        if(bi == null){
             System.out.println("No Face Detected");
             return;
         }
+        fjfxx.saveImage();
 
         ImageComparison ic = new ImageComparison();
         double diff = ic.doIT(username.getText());
         Singleton single = Singleton.getInstance();
         EmployeeAccess ea = new EmployeeAccess();
-        if(diff < 15){
+        if(diff < 10){
             System.out.println("successful login");
             single.setLoggedIn(true);
             single.setUsername(username.getText());

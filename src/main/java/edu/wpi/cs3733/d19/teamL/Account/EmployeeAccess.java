@@ -321,8 +321,8 @@ public class EmployeeAccess extends DBAccess {
      * @param data
      * @throws SQLException
      */
-    public void updateEmployeeImg(String employeeID, String field, BufferedImage data) throws SQLException{
-        String sql = "update employee set " + field + "= ? where employeeID= ?;";
+    public void updateEmployeeImg(String employeeID, BufferedImage data) throws SQLException{
+        String sql = "update employee set image = ? where employeeID= ?;";
 
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
         try {
@@ -330,10 +330,10 @@ public class EmployeeAccess extends DBAccess {
         } catch (Exception e){
             e.printStackTrace();
         }
-        Blob blFile = new SerialBlob(baos.toByteArray());
+        //Blob blFile = new SerialBlob(baos.toByteArray());
         Connection conn = this.connect();
         PreparedStatement pstmt = conn.prepareStatement(sql);
-        pstmt.setBlob(1, blFile);
+        pstmt.setBytes(1, baos.toByteArray());
         pstmt.setString(2, employeeID);
         pstmt.executeUpdate();
     }
@@ -344,22 +344,25 @@ public class EmployeeAccess extends DBAccess {
      * @return
      */
     public BufferedImage getEmpImg(String username){
-        String sql = "select image from employee where username = ?";
+        System.out.println(username);
+        String sql = "select username, image from employee where username = ?";
         try (Connection conn = this.connect();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
             pstmt.setString(1, username);
             ResultSet rs = pstmt.executeQuery();
-            while(rs.next()){
+            while(rs.next() && rs != null){
                 if(rs.getString("username").equals(username)){
-                    Blob blob = rs.getBlob("image");
-                    if(blob == null){
+                    if(rs.getBinaryStream("image") == null){
+                        System.out.println("null");
                         return null;
                     }
-                    InputStream in = blob.getBinaryStream();
+                    System.out.println("not null");
+                    InputStream in = rs.getBinaryStream("image");
                     BufferedImage image = ImageIO.read(in);
                     return image;
                 }
             }
+            System.out.println("exit loop");
         } catch (Exception e) {
             e.printStackTrace();
         }

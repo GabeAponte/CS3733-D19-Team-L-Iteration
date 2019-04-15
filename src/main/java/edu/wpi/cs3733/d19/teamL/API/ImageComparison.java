@@ -9,16 +9,14 @@ import java.io.File;
 public class ImageComparison {
 
     public double doIT(String username) {
-        // https://rosettacode.org/mw/images/3/3c/Lenna50.jpg
-        // https://rosettacode.org/mw/images/b/b6/Lenna100.jpg
         try {
             EmployeeAccess ea = new EmployeeAccess();
             BufferedImage img1 = ea.getEmpImg(username);
             if(img1 == null){
+                System.out.println("img1 null");
                 return 100.0;
             }
-            //BufferedImage img1 = ImageIO.read(new File("output.jpg"));
-            BufferedImage img2 = ImageIO.read(new File("output2.jpg"));
+            BufferedImage img2 = ImageIO.read(new File("TempOutput.jpg"));
 
             if(img2 == null){
                 return 100.0;

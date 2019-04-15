@@ -7,7 +7,12 @@ import javafx.scene.Scene;
 import javafx.scene.image.ImageView;
 import javafx.scene.image.WritableImage;
 import javafx.stage.Stage;
-import org.opencv.core.*;
+import org.opencv.core.Core;
+import org.opencv.core.Mat;
+import org.opencv.core.MatOfRect;
+import org.opencv.core.Point;
+import org.opencv.core.Rect;
+import org.opencv.core.Scalar;
 import org.opencv.imgcodecs.Imgcodecs;
 import org.opencv.imgproc.Imgproc;
 import org.opencv.objdetect.CascadeClassifier;
@@ -16,17 +21,20 @@ import org.opencv.videoio.VideoCapture;
 import java.awt.image.BufferedImage;
 import java.awt.image.DataBufferByte;
 import java.awt.image.WritableRaster;
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 
 //TAKES PICTURE USING WEBCAM AND DETECTS FACE IN IT
 public class faceDetectionJavaFXX extends Application {
-    static{ System.loadLibrary(Core.NATIVE_LIBRARY_NAME); }
+    static{
+        System.loadLibrary(Core.NATIVE_LIBRARY_NAME);
+    }
     Mat matrix = null;
 
     @Override
     public void start(Stage stage) throws FileNotFoundException, IOException {
-        System.out.println("going");
+        /*System.out.println("going");
         // Capturing the snapshot from the camera
         faceDetectionJavaFXX obj = new faceDetectionJavaFXX();
         WritableImage writableImage = obj.capureFrame();
@@ -35,7 +43,7 @@ public class faceDetectionJavaFXX extends Application {
         obj.saveImage();
 
 
-        /*/ Setting the image view
+        // Setting the image view
         ImageView imageView = new ImageView(writableImage);
 
         // setting the fit height and width of the image view
@@ -84,8 +92,9 @@ public class faceDetectionJavaFXX extends Application {
         if (capture.read(matrix)) {
             /////// Detecting the face in the snap /////
             System.out.println("Test");
-            String file = "C:/Users/NWALZER/Desktop/SoftEng/EvenMoreFacialRecognition/src/lbpcascade_frontalface.xml";
-            //String file = getClass().getResource("/haarcascade_frontalface_alt.xml").getPath();
+            File f = new File("lbpcascade_frontalface.xml");
+            String file = f.getAbsolutePath();
+            file = file.replace('\\', '/');
             CascadeClassifier classifier = new CascadeClassifier(file);
             System.out.println("Test 2");
 
@@ -127,7 +136,10 @@ public class faceDetectionJavaFXX extends Application {
     }
     public void saveImage() {
         // Saving the Image
-        String file = "C:/Users/NWALZER/Desktop/SoftEng/EvenMoreFacialRecognition/output2.jpg";
+        File f = new File("TempOutput.jpg");
+        String file = f.getAbsolutePath();
+        file = file.replace('\\', '/');
+        System.out.println(file);
 
         // Instantiating the imagecodecs class
         Imgcodecs imageCodecs = new Imgcodecs();
@@ -135,7 +147,7 @@ public class faceDetectionJavaFXX extends Application {
         // Saving it again
         imageCodecs.imwrite(file, matrix);
     }
-    public static void main(String args[]) {
+    /*public static void main(String args[]) {
         launch(args);
-    }
+    }*/
 }
