@@ -244,6 +244,7 @@ public class PathFindingController {
         Map.setImage(new Image("/SoftEng_UI_Mockup_Pics/00_thegroundfloor.png"));
         currentMap = "G";
         resetRadButts();
+        displayKiosk();
         if(PathFindStartDrop.getValue() != null && PathFindEndDrop.getValue() != null){
             submitPressed();
         }
@@ -254,6 +255,7 @@ public class PathFindingController {
         Map.setImage(new Image("/SoftEng_UI_Mockup_Pics/00_thelowerlevel1.png"));
         currentMap = "L1";
         resetRadButts();
+        displayKiosk();
         if(PathFindStartDrop.getValue() != null && PathFindEndDrop.getValue() != null){
             submitPressed();
         }
@@ -264,6 +266,7 @@ public class PathFindingController {
         Map.setImage(new Image("/SoftEng_UI_Mockup_Pics/00_thelowerlevel2.png"));
         currentMap = "L2";
         resetRadButts();
+        displayKiosk();
         if(PathFindStartDrop.getValue() != null && PathFindEndDrop.getValue() != null){
             submitPressed();
         }
@@ -284,6 +287,7 @@ public class PathFindingController {
         Map.setImage(new Image("/SoftEng_UI_Mockup_Pics/02_thesecondfloor.png"));
         currentMap = "2";
         resetRadButts();
+        displayKiosk();
         if(PathFindStartDrop.getValue() != null && PathFindEndDrop.getValue() != null){
             submitPressed();
         }
@@ -294,6 +298,7 @@ public class PathFindingController {
         Map.setImage(new Image("/SoftEng_UI_Mockup_Pics/03_thethirdfloor.png"));
         currentMap = "3";
         resetRadButts();
+        displayKiosk();
         if(PathFindStartDrop.getValue() != null && PathFindEndDrop.getValue() != null){
             submitPressed();
         }
@@ -494,11 +499,16 @@ public class PathFindingController {
         gridPane.add(gesturePane,0,0, 1, GridPane.REMAINING);
         //NumberBinding nb = Bindings.min(gesturePane.widthProperty().multiply(0.8), gesturePane.heightProperty().multiply(5000).divide(3400).multiply(720.0/610.0));
        // gesturePane.minScaleProperty().bind(nb);
-        displayKiosk();
 
         Map.fitHeightProperty().bind(gesturePane.heightProperty());
         Map.fitWidthProperty().bind(gesturePane.widthProperty());
 
+        Platform.runLater(new Runnable() {
+            @Override
+            public void run() {
+                displayKiosk();
+            }
+        });
     }
 
     @FXML
@@ -577,13 +587,25 @@ public class PathFindingController {
         direction.setEditable(false);
     }
 
+    /**
+     * @author: Nikhil: Displays the kiosk location automatically on the path navigation screen.
+     */
     public void displayKiosk() {
         checkAndSetKiosk();
         Circle kiosk = new Circle();
         kiosk.setCenterX(kioskTemp.getXcoord()*childPane.getWidth()/Map.getImage().getWidth());
         kiosk.setCenterY(kioskTemp.getYcoord()*childPane.getHeight()/Map.getImage().getHeight());
         kiosk.setRadius(Math.max(1.5, 1.5f * (gesturePane.getCurrentScale() / 4)));
+        kiosk.setStroke(Color.BLUE);
+        kiosk.setFill(Color.BLUE);
         circles.add(kiosk);
+        pathPane.getChildren().add(kiosk);
+        if(currentMap.equals(kioskTemp.getFloor())) {
+            kiosk.setVisible(true);
+            gesturePane.zoomTo(2.048, new Point2D(kioskTemp.getXcoord() - 1350, kioskTemp.getYcoord() - 2000));
+        }
+        else
+            kiosk.setVisible(false);
     }
 
     /**
