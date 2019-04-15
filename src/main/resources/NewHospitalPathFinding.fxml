@@ -77,7 +77,7 @@
                <children>
                   <GridPane fx:id="gridPane" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                      <columnConstraints>
-                        <ColumnConstraints percentWidth="68.58906269" />
+                        <ColumnConstraints hgrow="ALWAYS" percentWidth="68.58906269" />
                         <ColumnConstraints percentWidth="31.41093731" />
                         <ColumnConstraints />
                         <ColumnConstraints />
@@ -133,7 +133,7 @@
                               </JFXButton>
                            </children>
                         </VBox>
-                        <ImageView fx:id="Map" fitHeight="610.0" fitWidth="878.0" pickOnBounds="true">
+                        <ImageView fx:id="Map" fitHeight="597.04" fitWidth="878.0" pickOnBounds="true">
                            <image>
                               <Image url="@SoftEng_UI_Mockup_Pics/00_thegroundfloor.png" />
                            </image>
