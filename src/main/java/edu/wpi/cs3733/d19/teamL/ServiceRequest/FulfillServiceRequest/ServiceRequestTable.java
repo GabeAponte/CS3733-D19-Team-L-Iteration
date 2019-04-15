@@ -692,4 +692,92 @@ public class ServiceRequestTable  {
     public void setThreatLevel(String threatLevel) {
         this.threatLevel = threatLevel;
     }
+
+    @Override
+    public String toString(){
+        String result = "";
+        if(requestID != null){
+            result += "Request ID: " + requestID + "\n";
+        }
+        if(assignedEmployee != null){
+            result += "Assigned Employee: " + assignedEmployee + "\n";
+        }
+        if(fulfilled != null){
+            result += "Fulfilled: " + fulfilled + "\n";
+        }
+        if(comment != null){
+            result += "Comment: " + comment + "\n";
+        }
+        if(creationTime != null){
+            result += "Creation Time: " + creationTime + "\n";
+        }
+        if(completionTime != null){
+            result += "Completion Time: " + completionTime + "\n";
+        }
+        if(creationDate != null){
+            result += "Creation Date: " + creationDate + "\n";
+        }
+        if(location != null){
+            result += "Location: " + location + "\n";
+        }
+        if(type != null){
+            result += "Type: " + type + "\n";
+        }
+        if(startLocation != null){
+            result += "Start Location: " + startLocation + "\n";
+        }
+        if(phoneNumber != null){
+            result += "Phone Number: " + phoneNumber + "\n";
+        }
+        if(destination != null){
+            result += "Destination: " + destination + "\n";
+        }
+        if(receiverName != null){
+            result += "Recipient: " + receiverName + "\n";
+        }
+        if(flowerName != null){
+            result += "Flower Name: " + flowerName + "\n";
+        }
+        if(device != null){
+            result += "Device: " + device + "\n";
+        }
+        if(problem != null){
+            result += "Problem: " + problem + "\n";
+        }
+        if(language != null){
+            result += "Language: " + language + "\n";
+        }
+        if(level != null){
+            result += "Competency: " + level + "\n";
+        }
+        if(interpreters != null){
+            result += "Interpreters: " + interpreters + "\n";
+        }
+        if(isHazard != null){
+            result += "Is a Hazard: " + isHazard + "\n";
+        }
+        if(medicineType != null){
+            result += "Type of Medicine: " + medicineType + "\n";
+        }
+        if(deliveryTime != null){
+            result += "Delivery Time: " + deliveryTime + "\n";
+        }
+        if(ammount != null){
+            result += "Amount of Interpreters: " + ammount + "\n";
+        }
+        if(urgenecyLevel != null){
+            result += "Urgency Level: " + urgenecyLevel + "\n";
+        }
+        if(personDesc != null){
+            result += "Desciption of Suspect: " + personDesc + "\n";
+        }
+        if(denomination != null){
+            result += "Denomination: " + denomination + "\n";
+        }
+        if(threatLevel != null){
+            result += "Threat Level: " + threatLevel + "\n";
+        }
+
+        return result;
+    }
 }

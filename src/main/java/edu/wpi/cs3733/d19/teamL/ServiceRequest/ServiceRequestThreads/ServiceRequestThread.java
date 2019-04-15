@@ -1,17 +1,21 @@
-package edu.wpi.cs3733.d19.teamL.API;
+package edu.wpi.cs3733.d19.teamL.ServiceRequest.ServiceRequestThreads;
+
+import edu.wpi.cs3733.d19.teamL.ServiceRequest.FulfillServiceRequest.ServiceRequestTable;
 
 import javax.mail.*;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 import java.util.Properties;
 
-public class ChildThread extends Thread {
+public class ServiceRequestThread extends Thread{
+    String recipient;
+    ServiceRequestTable srt;
     String type;
-    String comment;
 
-    public ChildThread(String type, String comment) {
-        this.type = type;
-        this.comment = comment;
+    public ServiceRequestThread(ServiceRequestTable sr, String recEmail, String type) {
+        recipient = recEmail;
+        srt = sr;
+        type = type;
     }
 
     //Nathan - sends email with given type and comment
@@ -20,7 +24,7 @@ public class ChildThread extends Thread {
     public void run() {
         // RECIPIENT EMAIL
         // Note: while you DO need sender username and password you do NOT need recipients (obviously)
-        String to = "nwalzer007@gmail.com";
+        String to = recipient;
 
         // SENDER EMAIL
         String from = "lavenderloraxcs3733@gmail.com";
@@ -59,18 +63,14 @@ public class ChildThread extends Thread {
             message.setSubject("New " + type + " Service Request");
 
             // THIS STRING IS THE BODY OF THE EMAIL
-            message.setText("Hello,\n" + "There is an outstanding service request with the following information:\n\n" + comment);
+            message.setText("Hello,\n" + "You have been assigned to a service request with the following information:\n\n" + srt.toString());
 
             // Send message
             Transport.send(message);
             Thread.currentThread().stop();
-            //Thread.currentThread().join();
 
         } catch (MessagingException mex) {
             mex.printStackTrace();
-           // System.out.println("Failed to send: Messaging Exception");
-        } /*catch (InterruptedException ie){
-            ie.printStackTrace();
-        }*/
+        }
     }
-} 
+}
