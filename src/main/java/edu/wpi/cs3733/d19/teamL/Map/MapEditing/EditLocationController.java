@@ -610,7 +610,7 @@ public class EditLocationController {
                             //sp.getMainHeader().setMaxHeight(0);
                             //sp.getTopBar().setMaxHeight(0);
                             //sp.setVmax(440);
-                            sp.setPrefSize(125, 100);
+                            sp.setPrefSize(125, 125);
 
 
                             Update.setOnAction(event ->  {
