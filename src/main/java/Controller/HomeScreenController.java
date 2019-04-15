@@ -49,6 +49,20 @@ public class HomeScreenController {
     public void initialize(){
         Weather weatherBoy = new Weather();
         String icon = weatherBoy.getIcon();
+        if(icon.contains("clear")){
+            icon = "weatherIcons/sunImage.jpg";
+        } else if(icon.contains("rain") || icon.contains("sleet")){
+            icon = "weatherIcons/rainImage.jpg";
+        } else if(icon.contains("partly") || icon.contains("wind")){
+            icon = "weatherIcons/partlyCloudImage.jpg";
+        } else if(icon.contains("cloudy") || icon.contains("fog")){
+            icon = "weatherIcons/cloudyImage.jpg";
+        } else if(icon.contains("snow")){
+            icon = "weatherIcons/snowImage.jpg";
+        } else {
+            icon = "weatherIcons/thunderImage.jpg";
+        }
+
         Image img = new Image(icon);
         weatherIcon.setImage(img);
         tempDisplay.setText(weatherBoy.getActTemp());
