@@ -862,7 +862,7 @@ public class PathFindingController {
                 PathFindEndDrop.setItems(noHallEnd);
             }
 
-        } else if (Filter.getValue() == ("All") && Floor.getValue() != null) {
+        } else if (Filter.getValue() == ("All") && Floor.getValue() != null) { 
             if (PathFindStartDrop.getValue() == null) {
                 noHallStart.clear();
                 for (int j = 0; j < single.getData().size(); j++) {
