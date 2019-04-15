@@ -5,8 +5,10 @@ import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXScrollPane;
 import com.jfoenix.controls.JFXTextArea;
 import edu.wpi.cs3733.d19.teamL.HomeScreens.HomeScreenController;
+import edu.wpi.cs3733.d19.teamL.Map.ImageInteraction.SceneGestures;
 import edu.wpi.cs3733.d19.teamL.Map.MapLocations.Location;
 import edu.wpi.cs3733.d19.teamL.Map.MapLocations.Path;
+import edu.wpi.cs3733.d19.teamL.Map.ImageInteraction.PanAndZoomPane;
 import edu.wpi.cs3733.d19.teamL.SearchingAlgorithms.AStarStrategy;
 import edu.wpi.cs3733.d19.teamL.SearchingAlgorithms.BreadthFirstStrategy;
 import edu.wpi.cs3733.d19.teamL.SearchingAlgorithms.DepthFirstStrategy;
@@ -19,8 +21,6 @@ import javafx.beans.binding.Bindings;
 import javafx.beans.binding.NumberBinding;
 import javafx.application.Platform;
 import javafx.beans.property.DoubleProperty;
-import javafx.beans.property.ReadOnlyDoubleProperty;
-import javafx.beans.property.ReadOnlyDoubleWrapper;
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.value.ChangeListener;
 import javafx.collections.FXCollections;
@@ -34,11 +34,11 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.input.ScrollEvent;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
-import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Line;
@@ -46,15 +46,23 @@ import javafx.scene.shape.Rectangle;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.util.Duration;
+import javafx.scene.layout.GridPane;
+import javafx.scene.layout.Pane;
+import javafx.scene.layout.StackPane;
 
 import net.kurobako.gesturefx.GesturePane;
 
 import javax.xml.soap.Text;
+
+import javax.xml.soap.Text;
 import java.io.IOException;
-import java.net.URL;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.ListIterator;
+import java.net.URL;
 import java.util.ResourceBundle;
+
+import static javafx.scene.paint.Color.*;
 
 import static java.lang.Math.sqrt;
 
@@ -132,14 +140,21 @@ public class PathFindingController {
     @FXML
     private ComboBox<PathfindingStrategy> strategySelector;
 
+
     @FXML
     private GridPane gridPane;
 
     @FXML
     private ImageView Map;
 
+    @FXML
+    private Pane imagePane;
+
+    Location kioskTemp;
+
     private Rectangle clip;
     private boolean displayingPath;
+    private ArrayList<Button> buttons = new ArrayList<Button>();
     private Path path;
 
     private GesturePane gesturePane;
@@ -156,7 +171,6 @@ public class PathFindingController {
     private final ObservableList<String> floorList = FXCollections.observableArrayList();
     private Singleton single = Singleton.getInstance();
 
-    Location kioskTemp;
 
     private ArrayList<String> mapURLs = new ArrayList<String>();
     private ArrayList<Circle> circles = new ArrayList<Circle>();
@@ -551,9 +565,13 @@ public class PathFindingController {
         direction.setEditable(false);
     }
 
+    /**
+     * @author: Nikhil: Displays start node, end node and line in between
+     * Also contains code that will generate buttons above transitions between floors
+     */
     public void displayPath(){
         single.setLastTime();
-
+        //Clears the lines and circles to avoid any duplicates or reproducing data.
         if(displayingPath) {
             path.getPath().add(0,startNode);
 
@@ -563,10 +581,15 @@ public class PathFindingController {
             for (Line l : lines) {
                 pathPane.getChildren().remove(l);
             }
+            for (Button b : buttons) {
+                pathPane.getChildren().remove(b);
+            }
 
             circles.clear();
             lines.clear();
+            buttons.clear();
 
+            //Creates the path for the user to follow, and displays based on the current floor.
             for (int i = 0; i < path.getPath().size() - 1; i++) {
                 Line line = new Line();
 
@@ -575,15 +598,81 @@ public class PathFindingController {
                 line.setStartY(path.getPath().get(i).getYcoord()*childPane.getHeight()/Map.getImage().getHeight());
                 line.setEndX(path.getPath().get(i+1).getXcoord()*childPane.getWidth()/Map.getImage().getWidth());
                 line.setEndY(path.getPath().get(i+1).getYcoord()*childPane.getHeight()/Map.getImage().getHeight());
-
+                line.setStrokeWidth(2.5);
+                line.setStroke(DODGERBLUE);
+                //Toggles visibility based on current floor to adjust for travelling across multiple floors.
                 if (!(path.getPath().get(i).getFloor().equals(currentMap)) || !(path.getPath().get(i + 1).getFloor().equals(currentMap))) {
                     line.setVisible(false);
                 }
+                //Creates buttons to transition between floors on the map
+                int f = path.getPath().size() - 1;
+                if((!(path.getPath().get(i + 1).getFloor().equals(currentMap)))) {
+                    Button nBut = new Button();
+                    nBut.setLayoutX((path.getPath().get(i).getXcoord()*childPane.getWidth()/Map.getImage().getWidth()));
+                    nBut.setLayoutY((path.getPath().get(i).getYcoord()*childPane.getHeight()/Map.getImage().getHeight()));
+                    final int transit = i + 1;
+                    String transition = path.getPath().get(transit).getFloor();
+                    String display = "Take Elevator to ";
+                    if(!path.getPath().get(i+1).getFloor().equals(endNode.getFloor()))
+                    {
+                        display = "Take Stairs to ";
+                    }
+                    //Sets button text
+                    if (transition.equals("L2"))
+                        display += "Floor Lower 2";
+                    if (transition.equals("L1"))
+                        display += "Floor Lower 1";
+                    if (transition.equals("G"))
+                        display += "Ground Floor";
+                    if (transition.equals("1"))
+                        display += "First Floor";
+                    if (transition.equals("2"))
+                        display += "Second Floor";
+                    if (transition.equals("3"))
+                        display += "Third Floor";
+                    nBut.setText(display);
+                    //Sets the action to be performed when the button is pressed
+                    nBut.setOnAction(event -> {
+                        if (transition.equals("L2"))
+                            clickedL2();
+                        if (transition.equals("L1"))
+                            clickedL1();
+                        if (transition.equals("G"))
+                            clickedG();
+                        if (transition.equals("1"))
+                            clicked1();
+                        if (transition.equals("2"))
+                            clicked2();
+                        if (transition.equals("3"))
+                            clicked3();
+                    });
+                    //Sets button visibility to only display on start and end floors
+                    if (buttons.isEmpty() && (path.getPath().get(i).getFloor().equals(currentMap) ||currentMap.equals(startNode.getFloor()) || currentMap.equals(endNode.getFloor()))) {
+                        buttons.add(nBut);
+                        nBut.setVisible(true);
+                        //Change the display of the button based on which floor you're on
+                        if(currentMap.equals(startNode.getFloor())) {
+                            nBut.setStyle("-fx-text-fill: WHITE; -fx-font-size: 13; -fx-background-color: GREEN; -fx-border-color: WHITE; -fx-background-radius: 18; -fx-border-radius: 18; -fx-border-width: 3");
 
+                        }
+                        else if(path.getPath().get(i).getFloor().equals(currentMap)){
+                            nBut.setStyle("-fx-text-fill: WHITE; -fx-font-size: 13; -fx-background-color: GREEN; -fx-border-color: WHITE; -fx-background-radius: 18; -fx-border-radius: 18; -fx-border-width: 3");
+                        }
+                        else {
+                            nBut.setStyle("-fx-text-fill: WHITE;-fx-font-size: 13; -fx-background-color: RED; -fx-border-color: WHITE; -fx-background-radius: 18; -fx-border-radius: 18; -fx-border-width: 3");
+                            nBut.setText("Go to Starting Floor");
+                        }
+                    }
+                    else {
+                        nBut.setVisible(false);
+                    }
+                    pathPane.getChildren().add(nBut);
+                }
                 pathPane.getChildren().add(line);
 
                 lines.add(line);
             }
+            //Creates the start and end nodes to display them and sets colors.
             Circle StartCircle = new Circle();
 
             //Setting the properties of the circle
@@ -1484,7 +1573,6 @@ public class PathFindingController {
         else {
             text += " minute \n";
         }
-       // System.out.println("Begin from " + A.get(0).getLongName());
         text += " Begin from " + A.get(0).getLongName() + "\n";
         //when size is two, but two location are different
         if(A.size() == 2){
@@ -1644,7 +1732,7 @@ public class PathFindingController {
             }
             if(isStairELe(a) && isStairELe(b)){
                 //        System.out.println("Go to floor " + b.getFloor() + " by " + a.getLongName());
-                text += "Go to floor " + b.getFloor() + " by " + a.getLongName();
+                text += "Go to floor " + b.getFloor() + " by " + a.getLongName() +"\n";
 
             }
 
