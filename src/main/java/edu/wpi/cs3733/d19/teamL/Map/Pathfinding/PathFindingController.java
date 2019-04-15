@@ -83,6 +83,9 @@ public class PathFindingController {
     private Button PathFindSubmit;
 
     @FXML
+    private Button menuBack;
+
+    @FXML
     private Button G;
 
     @FXML
@@ -218,26 +221,6 @@ public class PathFindingController {
     public void initialize(URL url, ResourceBundle rb) {
         this.prepareSlideMenuAnimation();
         direction.setEditable(false);
-    }
-
-    @FXML
-    private void prepareSlideMenuAnimation() {
-        TranslateTransition openNav = new TranslateTransition(new Duration(300.0D), this.navList);
-        openNav.setToX(0.0D);
-        TranslateTransition closeNav = new TranslateTransition(new Duration(300.0D), this.navList);
-        this.menu.setOnAction((evt) -> {
-            System.out.println("clicked");
-            if (this.navList.getTranslateX() != 130.0D) {
-                openNav.setToX(130);
-                openNav.play();
-                System.out.println("if open");
-            } else {
-                closeNav.setToX(-this.navList.getWidth());
-                closeNav.play();
-                System.out.println("if close");
-            }
-
-        });
     }
 
     @FXML
@@ -431,7 +414,8 @@ public class PathFindingController {
     public void initialize() {
         Singleton single = Singleton.getInstance();
         single.setLastTime();
-        prepareSlideMenuAnimation();
+       // prepareSlideMenuAnimation();
+       // prepareSlideMenuAnimation();
         ObservableList<PathfindingStrategy> strategies = FXCollections.observableArrayList();
         ObservableList<String> preference = FXCollections.observableArrayList();
 
@@ -527,6 +511,7 @@ public class PathFindingController {
 
         Map.fitHeightProperty().bind(gesturePane.heightProperty());
         Map.fitWidthProperty().bind(gesturePane.widthProperty());
+        menu.toFront();
     }
 
     @FXML
@@ -603,6 +588,52 @@ public class PathFindingController {
        // sceneGestures.setDrawPath(circles,lines);
         direction.setDisable(false);
         direction.setEditable(false);
+       prepareSlideMenuAnimation();
+    }
+
+    @FXML
+    private void prepareSlideMenuAnimation() {
+        TranslateTransition openNav = new TranslateTransition(new Duration(300.0D), this.navList);
+        openNav.setToX(0.0D);
+        TranslateTransition closeNav = new TranslateTransition(new Duration(300.0D), this.navList);
+        this.menu.setOnAction((evt) -> {
+            System.out.println("clicked");
+            if (this.navList.getTranslateX() != 130.0D) {
+                openNav.setToX(130);
+                openNav.play();
+                System.out.println("if open");
+            } else {
+                closeNav.setToX(-this.navList.getWidth());
+                closeNav.play();
+                System.out.println("if close");
+            }
+
+        });
+
+        this.menuBack.setOnAction((evt) -> {
+            System.out.println("clicked");
+            if (this.navList.getTranslateX() != 130.0D) {
+                openNav.setToX(130);
+                openNav.play();
+                System.out.println("if open");
+            } else {
+                closeNav.setToX(-this.navList.getWidth());
+                closeNav.play();
+                System.out.println("if close");
+            }
+
+        });
+            if (this.navList.getTranslateX() != 130.0D) {
+                openNav.setToX(130);
+                openNav.play();
+                System.out.println("if open");
+            } else {
+                closeNav.setToX(-this.navList.getWidth());
+                closeNav.play();
+                System.out.println("if close");
+            }
+
+
     }
 
     /**
@@ -861,6 +892,32 @@ public class PathFindingController {
                 noHallEnd.clear();
                 for (int j = 0; j < single.getData().size(); j++) {
                     if (!(single.getData().get(j).getNodeType().contains("HALL"))) {
+                        noHallEnd.add(single.getData().get(j));
+                    }
+                }
+            }
+
+            if (PathFindStartDrop.getValue() == null) {
+                PathFindStartDrop.setItems(noHallStart);
+            }
+            if (PathFindEndDrop.getValue() == null) {
+                PathFindEndDrop.setItems(noHallEnd);
+            }
+
+        } else if (Filter.getValue() == (null) && Floor.getValue() != null) {
+            if (PathFindStartDrop.getValue() == null) {
+                noHallStart.clear();
+                for (int j = 0; j < single.getData().size(); j++) {
+                    if (!(single.getData().get(j).getNodeType().contains("HALL")) && (single.getData().get(j).getFloor().equals(pickedFloor))) {
+                        noHallStart.add(single.getData().get(j));
+                    }
+                }
+            }
+            if (PathFindEndDrop.getValue() == null) {
+                PathFindEndDrop.setItems(noHallEnd);
+                noHallEnd.clear();
+                for (int j = 0; j < single.getData().size(); j++) {
+                    if (!(single.getData().get(j).getNodeType().contains("HALL")) && (single.getData().get(j).getFloor().equals(pickedFloor))) {
                         noHallEnd.add(single.getData().get(j));
                     }
                 }
