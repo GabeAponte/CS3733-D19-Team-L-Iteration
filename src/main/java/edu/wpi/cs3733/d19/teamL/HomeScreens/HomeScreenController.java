@@ -67,15 +67,15 @@ public class HomeScreenController {
                 }
                 if (minute < 10) {
                     if (second > 9) {
-                        timeLabel.setText(hour + ":0" + (minute) + ":" + second);
+                        timeLabel.setText(hour + ":0" + (minute));
                     } else {
-                        timeLabel.setText(hour + ":0" + (minute) + ":0" + second);
+                        timeLabel.setText(hour + ":0" + (minute));
                     }
                 } else {
                     if (second > 9) {
-                        timeLabel.setText(hour + ":" + (minute) + ":" + second);
+                        timeLabel.setText(hour + ":" + (minute));
                     } else {
-                        timeLabel.setText(hour + ":" + (minute) + ":0" + second);
+                        timeLabel.setText(hour + ":" + (minute));
                     }
                 }
             }),
