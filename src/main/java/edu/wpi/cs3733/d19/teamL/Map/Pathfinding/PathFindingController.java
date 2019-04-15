@@ -4,6 +4,7 @@ import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXScrollPane;
 import com.jfoenix.controls.JFXTextArea;
+import com.jfoenix.controls.JFXComboBox;
 import edu.wpi.cs3733.d19.teamL.HomeScreens.HomeScreenController;
 import edu.wpi.cs3733.d19.teamL.Map.ImageInteraction.SceneGestures;
 import edu.wpi.cs3733.d19.teamL.Map.MapLocations.Location;
@@ -89,6 +90,9 @@ public class PathFindingController {
 
     @FXML
     private Button Down;
+
+    @FXML
+    private JFXComboBox<String> restrictChoice;
 
     @FXML
     private Button L1;
@@ -223,8 +227,8 @@ public class PathFindingController {
         TranslateTransition closeNav = new TranslateTransition(new Duration(300.0D), this.navList);
         this.menu.setOnAction((evt) -> {
             System.out.println("clicked");
-            if (this.navList.getTranslateX() != 62.0D) {
-                openNav.setToX(62);
+            if (this.navList.getTranslateX() != 130.0D) {
+                openNav.setToX(130);
                 openNav.play();
                 System.out.println("if open");
             } else {
@@ -429,12 +433,16 @@ public class PathFindingController {
         single.setLastTime();
         prepareSlideMenuAnimation();
         ObservableList<PathfindingStrategy> strategies = FXCollections.observableArrayList();
+        ObservableList<String> preference = FXCollections.observableArrayList();
+
         AStarStrategy aStarStrategy = new AStarStrategy(single.lookup);
         strategies.add(aStarStrategy);
         strategies.add(new DepthFirstStrategy(single.lookup));
         strategies.add(new BreadthFirstStrategy(single.lookup));
+        preference.addAll("STAI", "ELEV", "NONE");
         strategySelector.setItems(strategies);
         strategySelector.setValue(aStarStrategy);
+        restrictChoice.setItems(preference);
         strategyAlgorithm = strategySelector.getValue();
         direction.setEditable(false);
         timeout = new Timeline(new KeyFrame(Duration.seconds(2), new EventHandler<ActionEvent>() {
@@ -541,18 +549,24 @@ public class PathFindingController {
         }
     }
 
+    /**Nathan modified this to include a path preference choice (restriction)
+     *
+     */
     @FXML
     private void submitPressed(){
         single.setLastTime();
         startNode = single.lookup.get(PathFindStartDrop.getValue().getLocID());
         endNode = single.lookup.get(PathFindEndDrop.getValue().getLocID());
-
+        String restriction = restrictChoice.getValue();
+        if(restriction == null || restriction.trim().equals("") || restriction.equals("NONE")){
+            restriction = "    ";
+        }
 
 
         displayingPath = true;
 
 
-        path = findAbstractPath(strategyAlgorithm, startNode, endNode);
+        path = findAbstractPath(strategyAlgorithm, startNode, endNode, restriction);
 
         displayPath();
         //printPath(path.getPath());
@@ -1099,9 +1113,17 @@ public class PathFindingController {
         }
     }
 
-    public Path findAbstractPath(PathfindingStrategy strategy, Location start, Location end) {
+    /**Nathan modified this to include path preference (restriction)
+     *
+     * @param strategy
+     * @param start
+     * @param end
+     * @param restriction
+     * @return
+     */
+    public Path findAbstractPath(PathfindingStrategy strategy, Location start, Location end, String restriction) {
         single.setLastTime();
-        Path p = strategy.findPath(start, end);
+        Path p = strategy.findPath(start, end, restriction);
         return p;
     }
 
@@ -1217,7 +1239,7 @@ public class PathFindingController {
             double length =0;
 
             Location closestLOC = nodes.get(0);
-            Path closestPath = findAbstractPath(astar,kioskTemp, nodes.get(0)); //?
+            Path closestPath = findAbstractPath(astar,kioskTemp, nodes.get(0), "    "); //?
 
             for(int i=0; i<nodes.size(); i++){
 
@@ -1242,7 +1264,7 @@ public class PathFindingController {
                     //System.out.println("xxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"+"  smallest distance: "+smallestDistance);
                     //set this node to be for pathing
                     closestLOC = nodes.get(i);
-                    closestPath = findAbstractPath(astar,kioskTemp, closestLOC);
+                    closestPath = findAbstractPath(astar,kioskTemp, closestLOC, "    ");
 
                     System.out.println(closestLOC);
                 }
