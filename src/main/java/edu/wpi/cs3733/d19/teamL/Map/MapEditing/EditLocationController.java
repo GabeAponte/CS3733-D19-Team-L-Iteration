@@ -90,7 +90,7 @@ public class EditLocationController {
     private GridPane gridPane;
 
     private int floorSelected = -2;
-    private boolean displayingNodes = false;
+    private boolean displayingNodes = true;
     private Circle thisCircle;
 
     private ArrayList<String> mapURLs = new ArrayList<String>();

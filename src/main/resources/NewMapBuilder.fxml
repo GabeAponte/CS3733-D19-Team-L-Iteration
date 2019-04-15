@@ -78,36 +78,6 @@
                                  <Image url="@SoftEng_UI_Mockup_Pics/00_thegroundfloor.png" />
                               </image>
                            </ImageView>
-                           <JFXButton fx:id="L2" buttonType="RAISED" layoutX="19.0" layoutY="338.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" onAction="#clickedL2" style="-fx-border-color: f5d96b; -fx-border-radius: 100; -fx-background-radius: 100;" text="L2" textFill="WHITE">
-                              <font>
-                                 <Font size="15.0" />
-                              </font>
-                           </JFXButton>
-                           <JFXButton fx:id="L1" buttonType="RAISED" layoutX="114.0" layoutY="324.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" onAction="#clickedL1" style="-fx-border-color: f5d96b; -fx-border-radius: 100; -fx-background-radius: 100;" text="L1" textFill="WHITE">
-                              <font>
-                                 <Font size="15.0" />
-                              </font>
-                           </JFXButton>
-                           <JFXButton fx:id="G" buttonType="RAISED" layoutX="260.0" layoutY="301.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" onAction="#clickedG" style="-fx-border-color: f5d96b; -fx-border-radius: 100; -fx-background-radius: 100;" text="G" textFill="WHITE">
-                              <font>
-                                 <Font size="15.0" />
-                              </font>
-                           </JFXButton>
-                           <JFXButton fx:id="F1" buttonType="RAISED" layoutX="360.0" layoutY="313.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" onAction="#clicked1" style="-fx-border-color: f5d96b; -fx-border-radius: 100; -fx-background-radius: 100;" text="F1" textFill="WHITE">
-                              <font>
-                                 <Font size="15.0" />
-                              </font>
-                           </JFXButton>
-                           <JFXButton fx:id="F2" buttonType="RAISED" layoutX="445.0" layoutY="308.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" onAction="#clicked2" style="-fx-border-color: f5d96b; -fx-border-radius: 100; -fx-background-radius: 100;" text="F2" textFill="WHITE">
-                              <font>
-                                 <Font size="15.0" />
-                              </font>
-                           </JFXButton>
-                           <JFXButton fx:id="F3" buttonType="RAISED" layoutX="580.0" layoutY="325.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" onAction="#clicked3" style="-fx-border-color: f5d96b; -fx-border-radius: 100; -fx-background-radius: 100;" text="F3" textFill="WHITE">
-                              <font>
-                                 <Font size="15.0" />
-                              </font>
-                           </JFXButton>
                         </Pane>
                         <VBox fx:id="scrollVBox" prefHeight="550.0" prefWidth="242.0" GridPane.columnIndex="7" GridPane.rowSpan="2">
                            <children>
@@ -123,6 +93,36 @@
                                  <VBox.margin>
                                     <Insets top="100.0" />
                                  </VBox.margin>
+                              </JFXButton>
+                              <JFXButton fx:id="F3" buttonType="RAISED" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" onAction="#clicked3" style="-fx-border-color: f5d96b; -fx-border-radius: 100; -fx-background-radius: 100;" text="F3" textFill="WHITE">
+                                 <font>
+                                    <Font size="15.0" />
+                                 </font>
+                              </JFXButton>
+                              <JFXButton fx:id="F2" buttonType="RAISED" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" onAction="#clicked2" style="-fx-border-color: f5d96b; -fx-border-radius: 100; -fx-background-radius: 100;" text="F2" textFill="WHITE">
+                                 <font>
+                                    <Font size="15.0" />
+                                 </font>
+                              </JFXButton>
+                              <JFXButton fx:id="F1" buttonType="RAISED" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" onAction="#clicked1" style="-fx-border-color: f5d96b; -fx-border-radius: 100; -fx-background-radius: 100;" text="F1" textFill="WHITE">
+                                 <font>
+                                    <Font size="15.0" />
+                                 </font>
+                              </JFXButton>
+                              <JFXButton fx:id="G" buttonType="RAISED" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" onAction="#clickedG" style="-fx-border-color: f5d96b; -fx-border-radius: 100; -fx-background-radius: 100;" text="G" textFill="WHITE">
+                                 <font>
+                                    <Font size="15.0" />
+                                 </font>
+                              </JFXButton>
+                              <JFXButton fx:id="L1" buttonType="RAISED" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" onAction="#clickedL1" style="-fx-border-color: f5d96b; -fx-border-radius: 100; -fx-background-radius: 100;" text="L1" textFill="WHITE">
+                                 <font>
+                                    <Font size="15.0" />
+                                 </font>
+                              </JFXButton>
+                              <JFXButton fx:id="L2" buttonType="RAISED" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" onAction="#clickedL2" style="-fx-border-color: f5d96b; -fx-border-radius: 100; -fx-background-radius: 100;" text="L2" textFill="WHITE">
+                                 <font>
+                                    <Font size="15.0" />
+                                 </font>
                               </JFXButton>
                            </children>
                         </VBox>
