@@ -345,10 +345,14 @@ public class EditLocationController {
                             double offsetX = (t.getSceneX() - orgSceneX)/gesturePane.getCurrentScale();
                             double offsetY = (t.getSceneY() - orgSceneY)/gesturePane.getCurrentScale();
 
-                            Circle c = (Circle) (t.getSource());
+                            CircleLocation c = (CircleLocation) (t.getSource());
 
                             c.setCenterX(c.getCenterX() + offsetX);
                             c.setCenterY(c.getCenterY() + offsetY);
+
+                            c.getSp().setLayoutX(c.getCenterX());
+                            c.getSp().setLayoutY(c.getCenterY());
+
 
                             orgSceneX = t.getSceneX();
                             orgSceneY = t.getSceneY();
@@ -474,89 +478,94 @@ public class EditLocationController {
                     orgSceneX = t.getSceneX();
                     orgSceneY = t.getSceneY();
 
-                    Circle c = (Circle) (t.getSource());
+                    CircleLocation c = (CircleLocation) (t.getSource());
                     c.toFront();
+                    if (c.getSp() == null) {
 
-                    ScrollPane sp = new ScrollPane();
-                    sp.setLayoutX(c.getLayoutX());
-                    sp.setLayoutY(c.getLayoutY());
-                    GridPane gp = new GridPane();
-                    Button close = new Button("Close");
-                    close.setPrefWidth(50);
-                    close.setOnAction(event-> {
-                        pathPane.getChildren().remove(sp);
-                        ((Circle)(t.getSource())).setStroke(Color.web("RED"));
-                        ((Circle)(t.getSource())).setFill(Color.web("RED"));}
+                        ScrollPane sp = new ScrollPane();
+                        sp.setLayoutX(c.getLayoutX());
+                        sp.setLayoutY(c.getLayoutY());
+                        GridPane gp = new GridPane();
+                        Button close = new Button("Close");
+                        close.setPrefWidth(50);
+                        close.setOnAction(event -> {
+                                    pathPane.getChildren().remove(sp);
+                                    //thisCircle.setSp(null);
+                                    ((Circle) (t.getSource())).setStroke(Color.web("RED"));
+                                    ((Circle) (t.getSource())).setFill(Color.web("RED"));
+                                }
                         );
 
-                    Label lb = new Label("X coordinate : ");
-                    String txt = "" + ((CircleLocation)(t.getSource())).getLocation().getXcoord();
-                    TextField tf = new TextField(txt);
-                    tf.setPrefWidth(100);
-                    gp.add(lb,0,0);
-                    gp.add(tf,1,0);
+                        Label lb = new Label("X coordinate : ");
+                        String txt = "" + ((CircleLocation) (t.getSource())).getLocation().getXcoord();
+                        TextField tf = new TextField(txt);
+                        tf.setPrefWidth(100);
+                        gp.add(lb, 0, 0);
+                        gp.add(tf, 1, 0);
 
-                    Label lb1 = new Label("Y coordinate : ");
-                    String txt1 = "" + ((CircleLocation)(t.getSource())).getLocation().getYcoord();
-                    TextField tf1 = new TextField(txt1);
-                    tf1.setPrefWidth(100);
-                    gp.add(lb1,0,1);
-                    gp.add(tf1,1,1);
+                        Label lb1 = new Label("Y coordinate : ");
+                        String txt1 = "" + ((CircleLocation) (t.getSource())).getLocation().getYcoord();
+                        TextField tf1 = new TextField(txt1);
+                        tf1.setPrefWidth(100);
+                        gp.add(lb1, 0, 1);
+                        gp.add(tf1, 1, 1);
 
-                    Label lb2 = new Label("Floor : ");
-                    String txt2 = "" + ((CircleLocation)(t.getSource())).getLocation().getFloor();
-                    TextField tf2 = new TextField(txt2);
-                    tf2.setPrefWidth(100);
-                    gp.add(lb2,0,2);
-                    gp.add(tf2,1,2);
+                        Label lb2 = new Label("Floor : ");
+                        String txt2 = "" + ((CircleLocation) (t.getSource())).getLocation().getFloor();
+                        TextField tf2 = new TextField(txt2);
+                        tf2.setPrefWidth(100);
+                        gp.add(lb2, 0, 2);
+                        gp.add(tf2, 1, 2);
 
-                    Label lb3 = new Label("Building : ");
-                    String txt3 = "" + ((CircleLocation)(t.getSource())).getLocation().getBuilding();
-                    TextField tf3 = new TextField(txt3);
-                    tf3.setPrefWidth(100);
-                    gp.add(lb3,0,3);
-                    gp.add(tf3,1,3);
+                        Label lb3 = new Label("Building : ");
+                        String txt3 = "" + ((CircleLocation) (t.getSource())).getLocation().getBuilding();
+                        TextField tf3 = new TextField(txt3);
+                        tf3.setPrefWidth(100);
+                        gp.add(lb3, 0, 3);
+                        gp.add(tf3, 1, 3);
 
-                    Label lb4 = new Label("NodeType : ");
-                    String txt4 = "" + ((CircleLocation)(t.getSource())).getLocation().getNodeType();
-                    TextField tf4 = new TextField(txt4);
-                    tf4.setPrefWidth(100);
-                    gp.add(lb4,0,4);
-                    gp.add(tf4,1,4);
+                        Label lb4 = new Label("NodeType : ");
+                        String txt4 = "" + ((CircleLocation) (t.getSource())).getLocation().getNodeType();
+                        TextField tf4 = new TextField(txt4);
+                        tf4.setPrefWidth(100);
+                        gp.add(lb4, 0, 4);
+                        gp.add(tf4, 1, 4);
 
-                    Label lb5 = new Label("LongName : ");
-                    String txt5 = "" + ((CircleLocation)(t.getSource())).getLocation().getLongName();
-                    TextField tf5 = new TextField(txt5);
-                    tf5.setPrefWidth(100);
-                    gp.add(lb5,0,5);
-                    gp.add(tf5,1,5);
+                        Label lb5 = new Label("LongName : ");
+                        String txt5 = "" + ((CircleLocation) (t.getSource())).getLocation().getLongName();
+                        TextField tf5 = new TextField(txt5);
+                        tf5.setPrefWidth(100);
+                        gp.add(lb5, 0, 5);
+                        gp.add(tf5, 1, 5);
 
-                    Label lb6 = new Label("ShortName : ");
-                    String txt6 = "" + ((CircleLocation)(t.getSource())).getLocation().getShortName();
-                    TextField tf6 = new TextField(txt6);
-                    tf6.setPrefWidth(100);
-                    gp.add(lb6,0,6);
-                    gp.add(tf6,1,6);
+                        Label lb6 = new Label("ShortName : ");
+                        String txt6 = "" + ((CircleLocation) (t.getSource())).getLocation().getShortName();
+                        TextField tf6 = new TextField(txt6);
+                        tf6.setPrefWidth(100);
+                        gp.add(lb6, 0, 6);
+                        gp.add(tf6, 1, 6);
 
-                    gp.add(close,1,7);
-
-
-                    sp.setVmax(440);
-                    sp.setPrefSize(200, 150);
+                        gp.add(close, 1, 7);
 
 
-                    sp.setLayoutX(((Circle)(t.getSource())).getCenterX());
-                    sp.setLayoutY(((Circle)(t.getSource())).getCenterY());
-                    sp.setContent(gp);
-
-                    pathPane.getChildren().add(sp);
+                        sp.setVmax(440);
+                        sp.setPrefSize(200, 150);
 
 
-                    System.out.println("Xcor "+ ((Circle)(t.getSource())).getCenterX());
-                    System.out.println("Ycor "+ ((Circle)(t.getSource())).getCenterY());
-                    System.out.println("successful scroll pane");
+                        sp.setLayoutX(((Circle) (t.getSource())).getCenterX());
+                        sp.setLayoutY(((Circle) (t.getSource())).getCenterY());
+                        sp.setContent(gp);
 
+                        pathPane.getChildren().add(sp);
+                        c.setSp(sp);
 
+                        System.out.println("Xcor "+ ((Circle)(t.getSource())).getCenterX());
+                        System.out.println("Ycor "+ ((Circle)(t.getSource())).getCenterY());
+                        System.out.println("successful scroll pane");
+                    }
+                    else {
+                        System.out.println("DETECTED PREVIOUS PANE");
+                    }
                 }
             };
 
