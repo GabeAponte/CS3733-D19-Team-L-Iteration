@@ -29,6 +29,7 @@ public class Main extends Application {
         //na.readCSVintoTable();
         //ea.readCSVintoTable();
         single.setData();
+        single.populateTweets();
         launch(args);
     }
 }

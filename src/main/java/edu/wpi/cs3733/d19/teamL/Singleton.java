@@ -12,11 +12,21 @@ import edu.wpi.cs3733.d19.teamL.Map.MapLocations.Edge;
 import edu.wpi.cs3733.d19.teamL.Map.MapLocations.Location;
 import edu.wpi.cs3733.d19.teamL.Map.Pathfinding.EdgesAccess;
 import edu.wpi.cs3733.d19.teamL.Map.Pathfinding.NodesAccess;
+import javafx.animation.Animation;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.animation.Animation.*;
+import javafx.scene.text.TextFlow;
 
+import javax.xml.soap.Text;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
+
+import twitter4j.Status;
+import twitter4j.Twitter;
+import twitter4j.TwitterException;
+import twitter4j.TwitterFactory;
 
 public class Singleton {
 
@@ -29,6 +39,7 @@ public class Singleton {
     private static boolean isAdmin;
     private static int timeoutSec;
     private static boolean doPopup;
+    private static Text txt;
 
     private ObservableList<Location> data = FXCollections.observableArrayList();
     public HashMap<String, Location> lookup = new HashMap<String, Location>();
@@ -43,6 +54,18 @@ public class Singleton {
         isAdmin = false; //is signedin employee an admin
         timeoutSec = 45000; //how long before timeout (in ms) 1000 = 1 second
         doPopup = true; //should be more appropriately named initializeClock
+    }
+
+    public void populateTweets(){
+        System.out.println("populating");
+        List<Status> statuses = null;
+        statuses = searchtweets();
+        Text temp;
+        for (Animation.Status status : statuses) {
+            temp = new javafx.scene.text.Text(status.getText());
+            //text = new Text(status.getUser().getName() + ":" + status.getText());
+            txt = new javafx.scene.text.Text(temp.getText() + "\t" + txt.getText());
+        }
     }
 
     public static boolean isDoPopup(){
