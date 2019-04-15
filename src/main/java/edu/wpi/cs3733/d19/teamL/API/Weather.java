@@ -49,19 +49,7 @@ public class Weather {
     public String getIcon(){
         String type = currently.get().getByKey("icon");
       //  System.out.println(type);
-        if(type.contains("clear")){
-            return "weatherIcons/sunImage.jpg";
-        } else if(type.contains("rain") || type.contains("sleet")){
-            return "weatherIcons/rainImage.jpg";
-        } else if(type.contains("partly") || type.contains("wind")){
-            return "weatherIcons/partlyCloudyImage.jpg";
-        } else if(type.contains("cloudy") || type.contains("fog")){
-            return "weatherIcons/cloudyImage.jpg";
-        } else if(type.contains("snow")){
-            return "weatherIcons/snowImage.jpg";
-        } else {
-            return "weatherIcons/thunderImage.jpg";
-        }
+        return type;
     }
 
     /**@author Nathan

@@ -2,6 +2,7 @@ package edu.wpi.cs3733.d19.teamL.HomeScreens;
 
 import edu.wpi.cs3733.d19.teamL.ServiceRequest.MakeServiceRequest.ServiceRequestController;
 import edu.wpi.cs3733.d19.teamL.Singleton;
+import edu.wpi.cs3733.d19.teamL.API.Weather;
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
@@ -51,11 +52,24 @@ public class HomeScreenController {
 
     public void initialize() throws IOException{
         Singleton single = Singleton.getInstance();
-        /*Weather weatherBoy = new Weather();
+
+        Weather weatherBoy = new Weather();
         String icon = weatherBoy.getIcon();
-        Image img = new Image(icon);
-        weatherIcon.setImage(img);
-        tempDisplay.setText(weatherBoy.getActTemp());*/
+        if(icon.contains("clear")){
+            icon = "weatherIcons/SunImage.png";
+        } else if(icon.contains("rain") || icon.contains("sleet")){
+            icon = "weatherIcons/RainImage.png";
+        } else if(icon.contains("partly") || icon.contains("wind")){
+            icon = "weatherIcons/PartlyCloudImage.png";
+        } else if(icon.contains("cloudy") || icon.contains("fog")){
+            icon = "weatherIcons/CloudyImage.png";
+        } else if(icon.contains("snow")){
+            icon = "weatherIcons/SnowImage.png";
+        } else {
+            icon = "weatherIcons/ThunderImage.png";
+        }
+
+
         if(single.isDoPopup()) {
             single.setDoPopup(false);
             clock = new Timeline(new KeyFrame(Duration.ZERO, e -> {
