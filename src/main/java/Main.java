@@ -1,5 +1,6 @@
-import Access.*;
-import Object.*;
+import edu.wpi.cs3733.d19.teamL.Map.Pathfinding.EdgesAccess;
+import edu.wpi.cs3733.d19.teamL.Map.Pathfinding.NodesAccess;
+import edu.wpi.cs3733.d19.teamL.Singleton;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -14,7 +15,7 @@ public class Main extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception {
         Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getClassLoader().getResource("HospitalHome.fxml")));
-        primaryStage.setTitle("Team L Iteration 1");
+        primaryStage.setTitle("Team L Iteration 3");
         primaryStage.setScene(new Scene(root));
         primaryStage.show();
     }

@@ -17,7 +17,9 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="anchorPaneWindow" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="720.0" prefWidth="1280.0" style="-fx-background-color: #012D5A;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.PathFindingController">
+<?import javafx.stage.Screen?>
+<AnchorPane fx:id="anchorPaneWindow" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="720" prefWidth="1280" style="-fx-background-color: #012D5A;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.d19.teamL.Map.Pathfinding.PathFindingController">
+
    <children>
       <GridPane hgap="10.0" vgap="10.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <columnConstraints>
@@ -47,7 +49,7 @@
                   </image>
                </ImageView>
             </Pane>
-            <JFXButton fx:id="G" buttonType="RAISED" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" onAction="#clickedG" style="-fx-border-color: white; -fx-border-radius: 100; -fx-background-radius: 100;" text="G" textFill="WHITE" GridPane.columnIndex="2" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" GridPane.vgrow="ALWAYS">
+            <JFXButton fx:id="G" buttonType="RAISED" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" onAction="#clickedG" style="-fx-border-color: f5d96b; -fx-border-radius: 100; -fx-background-radius: 100;" text="G" textFill="WHITE" GridPane.columnIndex="2" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" GridPane.vgrow="ALWAYS">
                <font>
                   <Font size="15.0" />
                </font>
@@ -55,7 +57,7 @@
                   <Insets />
                </GridPane.margin>
             </JFXButton>
-            <JFXButton fx:id="L2" buttonType="RAISED" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" onAction="#clickedL2" style="-fx-border-color: white; -fx-border-radius: 100; -fx-background-radius: 100;" text="L2" textFill="WHITE" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
+            <JFXButton fx:id="L2" buttonType="RAISED" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" onAction="#clickedL2" prefHeight="50.0" prefWidth="97.0" style="-fx-border-color: f5d96b; -fx-border-radius: 100; -fx-background-radius: 100;" text="L2" textFill="WHITE" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
                <font>
                   <Font size="15.0" />
                </font>
@@ -63,7 +65,7 @@
                   <Insets left="5.0" />
                </GridPane.margin>
             </JFXButton>
-            <JFXButton fx:id="F1" buttonType="RAISED" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" onAction="#clicked1" style="-fx-border-color: white; -fx-border-radius: 100; -fx-background-radius: 100;" text="F1" textFill="WHITE" GridPane.columnIndex="3" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" GridPane.vgrow="ALWAYS">
+            <JFXButton fx:id="F1" buttonType="RAISED" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" onAction="#clicked1" style="-fx-border-color: f5d96b; -fx-border-radius: 100; -fx-background-radius: 100;" text="F1" textFill="WHITE" GridPane.columnIndex="3" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" GridPane.vgrow="ALWAYS">
                <font>
                   <Font size="15.0" />
                </font>
@@ -71,7 +73,7 @@
                   <Insets />
                </GridPane.margin>
             </JFXButton>
-            <JFXButton fx:id="F2" buttonType="RAISED" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" onAction="#clicked2" style="-fx-border-color: white; -fx-border-radius: 100; -fx-background-radius: 100;" text="F2" textFill="WHITE" GridPane.columnIndex="4" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" GridPane.vgrow="ALWAYS">
+            <JFXButton fx:id="F2" buttonType="RAISED" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" onAction="#clicked2" style="-fx-border-color: f5d96b; -fx-border-radius: 100; -fx-background-radius: 100;" text="F2" textFill="WHITE" GridPane.columnIndex="4" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" GridPane.vgrow="ALWAYS">
                <font>
                   <Font size="15.0" />
                </font>
@@ -79,7 +81,7 @@
                   <Insets />
                </GridPane.margin>
             </JFXButton>
-            <JFXButton fx:id="F3" buttonType="RAISED" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" onAction="#clicked3" style="-fx-border-color: white; -fx-border-radius: 100; -fx-background-radius: 100;" text="F3" textFill="WHITE" GridPane.columnIndex="5" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
+            <JFXButton fx:id="F3" buttonType="RAISED" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" onAction="#clicked3" style="-fx-border-color: f5d96b; -fx-border-radius: 100; -fx-background-radius: 100;" text="F3" textFill="WHITE" GridPane.columnIndex="5" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
                <font>
                   <Font size="15.0" />
                </font>
@@ -95,7 +97,7 @@
                   <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                </columnConstraints>
                <rowConstraints>
-                  <RowConstraints maxHeight="230.3646240234375" minHeight="9.810775756835938" prefHeight="94.90048217773438" vgrow="SOMETIMES" />
+                  <RowConstraints maxHeight="230.3646240234375" minHeight="9.810775756835938" vgrow="SOMETIMES" />
                   <RowConstraints maxHeight="270.6965637207031" minHeight="0.0" prefHeight="68.3743896484375" vgrow="SOMETIMES" />
                   <RowConstraints maxHeight="317.8482666015625" minHeight="10.0" prefHeight="78.6199951171875" vgrow="SOMETIMES" />
                   <RowConstraints maxHeight="317.8482666015625" minHeight="10.0" prefHeight="78.6199951171875" vgrow="SOMETIMES" />
@@ -103,37 +105,40 @@
                   <RowConstraints maxHeight="240.98046875" minHeight="10.0" prefHeight="240.98046875" vgrow="SOMETIMES" />
                </rowConstraints>
                <children>
-                  <JFXComboBox fx:id="PathFindStartDrop" onAction="#locationsSelected" prefHeight="43.0" prefWidth="300.0" promptText="Starting Loc." GridPane.columnSpan="3" GridPane.rowIndex="2">
+                  <JFXComboBox fx:id="PathFindStartDrop" onAction="#locationsSelected" prefHeight="43.0" prefWidth="300.0" promptText="Starting Location" GridPane.columnSpan="3" GridPane.rowIndex="2">
                      <stylesheets>
                         <URL value="@modify-prompt-text.css" />
                         <URL value="@size.css" />
+                        <URL value="@pathfind.css" />
                      </stylesheets>
                      <GridPane.margin>
                         <Insets left="10.0" right="10.0" />
                      </GridPane.margin>
                   </JFXComboBox>
-                  <JFXComboBox fx:id="PathFindEndDrop" onAction="#locationsSelected" prefHeight="43.0" prefWidth="300.0" promptText="Ending Loc." stylesheets="@size.css" GridPane.columnSpan="3" GridPane.rowIndex="3">
+                  <JFXComboBox fx:id="PathFindEndDrop" onAction="#locationsSelected" prefHeight="43.0" prefWidth="300.0" promptText="Ending Location" GridPane.columnSpan="3" GridPane.rowIndex="3">
                      <GridPane.margin>
                         <Insets left="10.0" right="10.0" />
                      </GridPane.margin>
+                     <stylesheets>
+                        <URL value="@size.css" />
+                        <URL value="@pathfind.css" />
+                     </stylesheets>
                   </JFXComboBox>
                   <JFXButton buttonType="RAISED" onAction="#clearStart" text="Clear" textFill="WHITE" GridPane.columnIndex="3" GridPane.rowIndex="2" />
                   <JFXButton buttonType="RAISED" onAction="#clearEnd" text="Clear" textFill="WHITE" GridPane.columnIndex="3" GridPane.rowIndex="3" />
-                  <JFXButton fx:id="PathFindSubmit" buttonType="RAISED" disable="true" onAction="#submitPressed" prefHeight="66.0" prefWidth="143.0" ripplerFill="WHITE" style="-fx-background-color: #7fb1ff;" text="Submit" textFill="WHITE" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="5">
+                  <JFXButton fx:id="PathFindSubmit" buttonType="RAISED" disable="true" onAction="#submitPressed" prefHeight="66.0" prefWidth="164.0" ripplerFill="WHITE" style="-fx-background-color: #7fb1ff;" text="Submit" textFill="WHITE" GridPane.columnSpan="4" GridPane.halignment="CENTER" GridPane.rowIndex="5">
                      <font>
                         <Font name="Times New Roman" size="30.0" />
                      </font>
+                     <GridPane.margin>
+                        <Insets bottom="120.0" />
+                     </GridPane.margin>
                   </JFXButton>
-                  <JFXButton fx:id="Up" onAction="#upClicked" text="FLOOR UP" textFill="WHITE" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="4" GridPane.valignment="CENTER">
-                     <font>
-                        <Font size="15.0" />
-                     </font>
-                  </JFXButton>
-                  <JFXButton fx:id="Down" onAction="#downClicked" text="FLOOR DOWN" textFill="WHITE" GridPane.columnIndex="2" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="4" GridPane.valignment="CENTER" />
                   <JFXComboBox fx:id="Filter" onAction="#noHall" prefHeight="31.0" prefWidth="205.0" promptText="Type" style="-jfx-focus-color: white;" styleClass="jfx-combo-box" GridPane.columnSpan="2" GridPane.rowIndex="1">
                      <stylesheets>
                         <URL value="@size.css" />
                         <URL value="@modify-prompt-text.css" />
+                        <URL value="@pathfind.css" />
                      </stylesheets>
                      <GridPane.margin>
                         <Insets left="10.0" right="10.0" />
@@ -143,22 +148,27 @@
                      <stylesheets>
                         <URL value="@size.css" />
                         <URL value="@modify-prompt-text.css" />
+                        <URL value="@pathfind.css" />
                      </stylesheets>
                      <padding>
                         <Insets right="10.0" />
                      </padding>
                   </JFXComboBox>
-                  <Label alignment="CENTER" prefHeight="74.0" prefWidth="242.0" text="Set Path" textAlignment="CENTER" textFill="#f5d96b" underline="true" GridPane.columnSpan="4" GridPane.valignment="TOP">
+                  <Label alignment="CENTER" prefHeight="74.0" prefWidth="242.0" text="Set Path" textAlignment="CENTER" textFill="#f5d96b" underline="true" GridPane.columnSpan="4" GridPane.valignment="CENTER">
                      <font>
-                        <Font size="35.0" />
+                        <Font size="30.0" />
                      </font>
                   </Label>
-                  <JFXComboBox fx:id="strategySelector" onAction="#strategySelected" promptText="PathFind" stylesheets="@size.css" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="5" GridPane.valignment="TOP" />
+                  <JFXComboBox fx:id="strategySelector" onAction="#strategySelected" prefHeight="37.0" prefWidth="121.0" promptText="Algorithm" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="4" GridPane.valignment="CENTER">
+                     <stylesheets>
+                        <URL value="@size.css" />
+                        <URL value="@pathfind.css" />
+                     </stylesheets></JFXComboBox>
                </children>
             </GridPane>
             <JFXToolbar style="-fx-background-color: white;" GridPane.columnSpan="8">
                <left>
-                  <ImageView fitHeight="91.0" fitWidth="395.0" pickOnBounds="true" preserveRatio="true" BorderPane.alignment="CENTER">
+                  <ImageView fitHeight="91.0" fitWidth="325.0" pickOnBounds="true" preserveRatio="true" BorderPane.alignment="CENTER">
                      <image>
                         <Image url="@SoftEng_UI_Mockup_Pics/BWHlogo.png" />
                      </image>
@@ -168,9 +178,9 @@
                   <JFXToolbar maxHeight="-Infinity" prefHeight="10.0" style="-fx-background-color: #f5d96b;" BorderPane.alignment="CENTER" />
                </bottom>
                <right>
-                  <JFXButton fx:id="PathFindBack" buttonType="RAISED" onAction="#backPressed" prefHeight="102.0" prefWidth="286.0" ripplerFill="#b0b0b0" text="Back" BorderPane.alignment="CENTER">
+                  <JFXButton fx:id="PathFindBack" buttonType="RAISED" onAction="#backPressed" prefHeight="89.0" prefWidth="170.0" ripplerFill="#b0b0b0" text="Back" BorderPane.alignment="CENTER">
                      <font>
-                        <Font name="Avenir Book" size="48.0" />
+                        <Font size="40.0" />
                      </font>
                   </JFXButton>
                </right>
@@ -178,7 +188,7 @@
                   <Insets bottom="5.0" />
                </GridPane.margin>
             </JFXToolbar>
-            <JFXButton fx:id="L1" buttonType="RAISED" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" onAction="#clickedL1" style="-fx-border-color: white; -fx-border-radius: 100; -fx-background-radius: 100;" text="L1" textFill="WHITE" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
+            <JFXButton fx:id="L1" buttonType="RAISED" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" onAction="#clickedL1" style="-fx-border-color: f5d96b; -fx-border-radius: 100; -fx-background-radius: 100;" text="L1" textFill="WHITE" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
                <font>
                   <Font size="15.0" />
                </font>
@@ -187,12 +197,12 @@
                <children>
                   <Label fx:id="Direction" alignment="TOP_LEFT" prefHeight="529.0" prefWidth="242.0" textFill="WHITE" wrapText="true">
                      <font>
-                        <Font name="Courier New" size="10.0" />
+                        <Font name="Courier New" size="12.0" />
                      </font></Label>
                </children></VBox>
-            <Label fx:id="directions" alignment="CENTER" prefHeight="146.0" prefWidth="411.0" text="Directions" textAlignment="CENTER" textFill="#f5d96b" underline="true" GridPane.columnIndex="6" GridPane.rowIndex="1">
+            <Label fx:id="directions" alignment="CENTER" prefHeight="146.0" prefWidth="411.0" text="Directions" textAlignment="CENTER" textFill="#f5d96b" underline="true" GridPane.columnIndex="6" GridPane.rowIndex="1" GridPane.valignment="CENTER">
                <font>
-                  <Font size="35.0" />
+                  <Font size="30.0" />
                </font>
             </Label>
          </children>

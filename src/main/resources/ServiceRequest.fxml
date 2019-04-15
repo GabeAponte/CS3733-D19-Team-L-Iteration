@@ -15,7 +15,9 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" style="-fx-background-color: #012D5A;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.ServiceRequestController">
+<?import javafx.stage.Screen?>
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720" prefWidth="1280" style="-fx-background-color: #012D5A;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.d19.teamL.ServiceRequest.MakeServiceRequest.ServiceRequestController">
+
     <children>
         <VBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
             <children>
@@ -105,7 +107,7 @@
                                 <Insets left="100.0" right="100.0" />
                             </GridPane.margin>
                         </JFXButton>
-                        <JFXButton fx:id="ExternalTransportation" buttonType="RAISED" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" onAction="#makeRequest" style="-fx-border-color: white; -fx-border-radius: 100; -fx-background-radius: 100;" text="External Transportation (Isabella" textFill="WHITE" GridPane.rowIndex="4">
+                        <JFXButton fx:id="ExternalTransportation" buttonType="RAISED" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" onAction="#makeRequest" style="-fx-border-color: white; -fx-border-radius: 100; -fx-background-radius: 100;" text="External Transportation (Isabella)" textFill="WHITE" GridPane.rowIndex="4">
                             <font>
                                 <Font size="25.0" />
                             </font>
@@ -121,12 +123,12 @@
                                 <Insets left="100.0" right="100.0" />
                             </GridPane.margin>
                         </JFXButton>
-                        <JFXButton fx:id="AudioVisual" buttonType="RAISED" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" onAction="#makeRequest" style="-fx-border-color: white; -fx-border-radius: 100; -fx-background-radius: 100;" text="Audio/Visual (Nikhil)" textFill="WHITE" GridPane.rowIndex="6">
+                        <JFXButton fx:id="AudioVisual" buttonType="RAISED" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" onAction="#makeRequest" style="-fx-border-color: white; -fx-border-radius: 100; -fx-background-radius: 100;" text="Audio/Visual (Nikhil)" textFill="WHITE" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="6">
                             <font>
                                 <Font size="25.0" />
                             </font>
                             <GridPane.margin>
-                                <Insets left="100.0" right="100.0" />
+                                <Insets left="400.0" right="400.0" />
                             </GridPane.margin>
                         </JFXButton>
                         <JFXButton fx:id="Florist" buttonType="RAISED" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" onAction="#makeRequest" style="-fx-border-color: white; -fx-border-radius: 100; -fx-background-radius: 100;" text="Florist (Lile)" textFill="WHITE" GridPane.rowIndex="5">
@@ -138,14 +140,6 @@
                             </GridPane.margin>
                         </JFXButton>
                         <JFXButton fx:id="PrescriptionServices" buttonType="RAISED" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" onAction="#makeRequest" style="-fx-border-color: white; -fx-border-radius: 100; -fx-background-radius: 100;" text="Prescription Services (Alex)" textFill="WHITE" GridPane.columnIndex="1" GridPane.rowIndex="5">
-                            <font>
-                                <Font size="25.0" />
-                            </font>
-                            <GridPane.margin>
-                                <Insets left="100.0" right="100.0" />
-                            </GridPane.margin>
-                        </JFXButton>
-                        <JFXButton fx:id="GiftStoreServices" buttonType="RAISED" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" onAction="#makeRequest" style="-fx-border-color: white; -fx-border-radius: 100; -fx-background-radius: 100;" text="Gift Store Services  " textFill="WHITE" GridPane.columnIndex="1" GridPane.rowIndex="6">
                             <font>
                                 <Font size="25.0" />
                             </font>

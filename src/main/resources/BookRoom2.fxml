@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXDatePicker?>
+<?import com.jfoenix.controls.JFXToolbar?>
+<?import com.jfoenix.controls.JFXTreeTableView?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TreeTableColumn?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<?import javafx.stage.Screen?>
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720" prefWidth="1280" style="-fx-background-color: #012d5a;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.d19.teamL.RoomBooking.BookRoom2Controller">
+
+    <children>
+        <GridPane fx:id="gridPane" layoutX="8.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <columnConstraints>
+                <ColumnConstraints hgrow="ALWAYS" minWidth="10.0" percentWidth="30.0" prefWidth="483.0" />
+                <ColumnConstraints hgrow="ALWAYS" minWidth="10.0" percentWidth="30.0" prefWidth="376.0" />
+                <ColumnConstraints hgrow="ALWAYS" minWidth="10.0" percentWidth="20.0" prefWidth="285.0" />
+                <ColumnConstraints hgrow="ALWAYS" minWidth="10.0" percentWidth="20.0" prefWidth="306.0" />
+                <ColumnConstraints />
+            </columnConstraints>
+            <rowConstraints>
+                <RowConstraints maxHeight="-Infinity" minHeight="10.0" prefHeight="100.0" vgrow="ALWAYS" />
+                <RowConstraints minHeight="10.0" percentHeight="10.0" prefHeight="30.0" vgrow="ALWAYS" />
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="ALWAYS" />
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="ALWAYS" />
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="ALWAYS" />
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="ALWAYS" />
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="ALWAYS" />
+            </rowConstraints>
+            <children>
+                <JFXToolbar style="-fx-background-color: white;" GridPane.columnSpan="4">
+                    <left>
+                        <ImageView fitHeight="91.0" fitWidth="395.0" pickOnBounds="true" preserveRatio="true" BorderPane.alignment="CENTER">
+                            <image>
+                                <Image url="@SoftEng_UI_Mockup_Pics/BWHlogo.png" />
+                            </image>
+                        </ImageView>
+                    </left>
+                    <bottom>
+                        <JFXToolbar maxHeight="-Infinity" prefHeight="10.0" style="-fx-background-color: #f5d96b;" BorderPane.alignment="CENTER" />
+                    </bottom>
+                    <right>
+                        <JFXButton fx:id="bookRoom2Back" buttonType="RAISED" onAction="#backPressed" prefHeight="102.0" prefWidth="286.0" ripplerFill="#b0b0b0" text="Back" BorderPane.alignment="CENTER">
+                            <font>
+                                <Font name="Avenir Book" size="48.0" />
+                            </font>
+                        </JFXButton>
+                    </right>
+                </JFXToolbar>
+                <Label alignment="BOTTOM_CENTER" contentDisplay="BOTTOM" style="-fx-background-color: #ffeeeb9;" text="Booked Rooms" textFill="#f5d96b" GridPane.columnSpan="3" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" GridPane.valignment="CENTER">
+                    <font>
+                        <Font name="Avenir Book" size="36.0" />
+                    </font>
+                    <GridPane.margin>
+                        <Insets left="30.0" />
+                    </GridPane.margin>
+                </Label>
+                <VBox alignment="CENTER" layoutX="874.0" layoutY="200.0" prefHeight="200.0" prefWidth="100.0" spacing="30.0" GridPane.columnIndex="3" GridPane.rowIndex="2">
+                    <children>
+                        <JFXDatePicker fx:id="datePicker" defaultColor="#f5d96b" prefHeight="51.0" prefWidth="200.0" promptText="Select Date" style="-fx-background-color: white;" />
+                  <JFXButton fx:id="selectSchedule" onAction="#findRooms" prefHeight="57.0" prefWidth="187.0" style="-fx-border-color: #f5d96b; -fx-border-radius: 50; -fx-background-radius: 50;" text="View Schedule" textFill="#f5d96b">
+                     <font>
+                        <Font name="Avenir Book" size="18.0" />
+                     </font>
+                  </JFXButton>
+                    </children>
+                </VBox>
+            <JFXButton fx:id="goToBookRoom" onAction="#switchToBookScreen" prefHeight="63.0" prefWidth="187.0" style="-fx-border-color: #f5d96b; -fx-border-radius: 50; -fx-background-radius: 50;" text="Go to Book Room" textFill="#f5d96b" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.rowIndex="4">
+               <font>
+                  <Font name="Avenir Book" size="18.0" />
+               </font>
+            </JFXButton>
+            <JFXTreeTableView fx:id="bookedTime" style="-fx-background-radius: 20; -fx-border-color: #f5d96b; -fx-border-radius: 20; -fx-border-width: 5;" GridPane.columnSpan="3" GridPane.rowIndex="2" GridPane.rowSpan="4">
+               <columns>
+                  <TreeTableColumn fx:id="timeCol" prefWidth="125.0" text="Time" />
+                  <TreeTableColumn fx:id="class1Col" editable="false" minWidth="116.0" prefWidth="150.0" sortable="false" text="Classroom 1" />
+                  <TreeTableColumn fx:id="class2Col" editable="false" minWidth="150.0" prefWidth="150.0" sortable="false" text="Classroom 2" />
+                  <TreeTableColumn fx:id="class3Col" editable="false" minWidth="150.0" prefWidth="150.0" sortable="false" text="Classroom 3" />
+                  <TreeTableColumn fx:id="class4Col" editable="false" minWidth="150.0" prefWidth="150.0" sortable="false" text="Classroom 4" />
+                  <TreeTableColumn fx:id="class5Col" editable="false" minWidth="150.0" prefWidth="150.0" sortable="false" text="Classroom 5" />
+                  <TreeTableColumn fx:id="class6Col" editable="false" minWidth="150.0" prefWidth="150.0" sortable="false" text="Classroom 6" />
+                  <TreeTableColumn fx:id="class7Col" editable="false" minWidth="150.0" prefWidth="150.0" sortable="false" text="Classroom 7" />
+                  <TreeTableColumn fx:id="class8Col" editable="false" minWidth="150.0" prefWidth="150.0" sortable="false" text="Classroom 8" />
+                  <TreeTableColumn fx:id="class9Col" editable="false" minWidth="150.0" prefWidth="150.0" sortable="false" text="Classroom 9" />
+                  <TreeTableColumn fx:id="auditorium" editable="false" minWidth="150.0" prefWidth="150.0" sortable="false" text="Auditorium" />
+               </columns>
+               <GridPane.margin>
+                  <Insets left="30.0" />
+               </GridPane.margin>
+            </JFXTreeTableView>
+            </children>
+        </GridPane>
+    </children>
+</AnchorPane>
