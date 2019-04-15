@@ -78,7 +78,6 @@ public class HomeScreenController {
             // Get the Width of the Scene and the Text
             double sceneWidth = 1500;
             double textWidth = tweetBox.getLayoutBounds().getWidth();
-            System.out.println(textWidth);
 
             // Define the Durations
             Duration startDuration = Duration.ZERO;

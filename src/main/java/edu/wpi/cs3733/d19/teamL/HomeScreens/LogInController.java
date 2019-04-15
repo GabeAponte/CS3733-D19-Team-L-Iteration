@@ -1,6 +1,11 @@
 package edu.wpi.cs3733.d19.teamL.HomeScreens;
 
+import com.github.sarxos.webcam.Webcam;
+import com.github.sarxos.webcam.WebcamPanel;
+import com.github.sarxos.webcam.WebcamResolution;
 import com.jfoenix.controls.JFXButton;
+import edu.wpi.cs3733.d19.teamL.API.ImageComparison;
+import edu.wpi.cs3733.d19.teamL.API.faceDetectionJavaFXX;
 import edu.wpi.cs3733.d19.teamL.Account.EmployeeAccess;
 import edu.wpi.cs3733.d19.teamL.Singleton;
 import javafx.animation.KeyFrame;
@@ -17,7 +22,10 @@ import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
+import javax.swing.*;
 import java.io.IOException;
+
+import static java.lang.Thread.sleep;
 
 public class LogInController {
 
@@ -114,8 +122,55 @@ public class LogInController {
     }
 
     @FXML
-    private void tryFR() {
+    private void tryFR() throws IOException{
+        /*Webcam webcam;
+        webcam = Webcam.getDefault();
+        webcam.setViewSize(WebcamResolution.VGA.getSize());
+        WebcamPanel wp = new WebcamPanel(webcam);
+        wp.setFPSDisplayed(true);
+        wp.setDisplayDebugInfo(true);
+        wp.setImageSizeDisplayed(true);
+        wp.setMirrored(true);
+        JFrame window = new JFrame("Hold still for 5 seconds");
+        window.add(wp);
+        window.setResizable(true);
+        window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        window.pack();
+        window.setLocationRelativeTo(null);
+        window.setVisible(true);
+        try {
+            sleep(5000);
+        } catch (InterruptedException e){
+            System.out.println(e);
+            System.out.println(e.getMessage());
+        }
+        wp.stop();
+        webcam.close();
+        window.dispose();//*/
+        faceDetectionJavaFXX fjfxx = new faceDetectionJavaFXX();
+        if(fjfxx.capureFrame() == null){
+            System.out.println("No Face Detected");
+            return;
+        }
 
+        ImageComparison ic = new ImageComparison();
+        double diff = ic.doIT(username.getText());
+        Singleton single = Singleton.getInstance();
+        EmployeeAccess ea = new EmployeeAccess();
+        if(diff < 15){
+            System.out.println("successful login");
+            single.setLoggedIn(true);
+            single.setUsername(username.getText());
+            single.setIsAdmin(false);
+            if(ea.getEmployeeInformation(username.getText()).get(2).equals("true")){
+                single.setIsAdmin(true);
+                SwitchToSignedIn("AdminLoggedInHome.fxml");
+                return;
+            }
+            SwitchToSignedIn("EmployeeLoggedInHome.fxml");
+        } else {
+            displayError();
+        }
     }
 
     @FXML
