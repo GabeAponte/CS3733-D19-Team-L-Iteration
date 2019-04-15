@@ -12,20 +12,18 @@ import edu.wpi.cs3733.d19.teamL.Map.MapLocations.Edge;
 import edu.wpi.cs3733.d19.teamL.Map.MapLocations.Location;
 import edu.wpi.cs3733.d19.teamL.Map.Pathfinding.EdgesAccess;
 import edu.wpi.cs3733.d19.teamL.Map.Pathfinding.NodesAccess;
-import javafx.animation.Animation;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.scene.text.TextFlow;
 
 import javafx.scene.text.Text;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-
 import twitter4j.Status;
 import twitter4j.Twitter;
 import twitter4j.TwitterException;
 import twitter4j.TwitterFactory;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 
 public class Singleton {
 

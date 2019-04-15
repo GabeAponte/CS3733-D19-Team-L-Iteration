@@ -27,16 +27,16 @@ import java.io.IOException;
 
 //TAKES PICTURE USING WEBCAM AND DETECTS FACE IN IT
 public class faceDetectionJavaFXX {
-    static{
-        System.loadLibrary(Core.NATIVE_LIBRARY_NAME);
-    }
+    //static{
+        //System.loadLibrary(Core.NATIVE_LIBRARY_NAME);
+    //}
     Mat matrix = null;
 
     public WritableImage capureFrame() {
         WritableImage writableImage = null;
 
         // Loading the OpenCV core library
-        System.loadLibrary( Core.NATIVE_LIBRARY_NAME );
+        //System.loadLibrary( Core.NATIVE_LIBRARY_NAME );
 
         // Instantiating the VideoCapture class (camera:: 0)
         VideoCapture capture = new VideoCapture(0);
@@ -44,12 +44,6 @@ public class faceDetectionJavaFXX {
         // Reading the next video frame from the camera
         Mat matrix = new Mat();
         capture.read(matrix);
-
-        // If camera is opened
-        /*if(!capture.isOpened()) {
-            System.out.println("camera not detected");
-        } else
-            System.out.println("Camera detected ");*/
 
         // If there is next video frame
         if (capture.read(matrix)) {

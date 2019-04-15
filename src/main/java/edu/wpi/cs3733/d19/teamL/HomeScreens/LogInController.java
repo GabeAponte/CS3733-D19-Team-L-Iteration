@@ -22,12 +22,21 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.WritableImage;
 import javafx.stage.Stage;
 import javafx.util.Duration;
+import org.bytedeco.javacv.Frame;
+import org.bytedeco.javacv.FrameGrabber;
+import org.bytedeco.javacv.OpenCVFrameConverter;
+import org.bytedeco.javacv.VideoInputFrameGrabber;
+import org.bytedeco.opencv.opencv_core.IplImage;
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.image.BufferedImage;
+import java.io.File;
 import java.io.IOException;
 
 import static java.lang.Thread.sleep;
+import static org.bytedeco.opencv.global.opencv_core.cvFlip;
+import static org.bytedeco.opencv.helper.opencv_imgcodecs.cvSaveImage;
 
 public class LogInController {
 
@@ -125,7 +134,7 @@ public class LogInController {
 
     @FXML
     private void tryFR() throws IOException{
-        Webcam webcam;
+        /*Webcam webcam;
         webcam = Webcam.getDefault();
         webcam.setViewSize(WebcamResolution.VGA.getSize());
         WebcamPanel wp = new WebcamPanel(webcam);
@@ -149,11 +158,17 @@ public class LogInController {
         wp.stop();
         webcam.close();
         window.dispose();//*/
-        faceDetectionJavaFXX fjfxx = new faceDetectionJavaFXX();
+
+        /*faceDetectionJavaFXX fjfxx = new faceDetectionJavaFXX();
         WritableImage bi = fjfxx.capureFrame();
         if(bi == null){
             System.out.println("No Face Detected");
-        }
+        }*/
+        Webcam webcam = Webcam.getDefault();
+        webcam.open();
+        BufferedImage image = webcam.getImage();
+        ImageIO.write(image, "JPG", new File("TempOutput.jpg"));
+        webcam.close();
 
         ImageComparison ic = new ImageComparison();
         double diff = ic.doIT(username.getText());
@@ -172,7 +187,7 @@ public class LogInController {
             SwitchToSignedIn("EmployeeLoggedInHome.fxml");
         } else {
             displayError();
-        }
+        }//*/
     }
 
     @FXML
