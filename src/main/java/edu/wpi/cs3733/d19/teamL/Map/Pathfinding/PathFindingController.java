@@ -409,7 +409,7 @@ public class PathFindingController {
     public void initialize() {
         Singleton single = Singleton.getInstance();
         single.setLastTime();
-        prepareSlideMenuAnimation();
+      
         ObservableList<PathfindingStrategy> strategies = FXCollections.observableArrayList();
         ObservableList<String> preference = FXCollections.observableArrayList();
         TemplatePathFinder aStarStrategy = new AStarStrategy(single.lookup);
