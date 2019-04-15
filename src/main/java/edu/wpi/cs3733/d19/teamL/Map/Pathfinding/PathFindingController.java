@@ -1801,7 +1801,7 @@ public class PathFindingController {
             currentDistance = A.get(i).findDistance(A.get(i+1));
             totalDistance += currentDistance;
         }
-        //on average, walking speed 4.6 ft / sec
+        //on average, walking speed 4.6 ft / sec 
         minutes = convertToExact(totalDistance) / (4.6 * 60);
 
         return (int) (minutes * 100) / 100.0;
