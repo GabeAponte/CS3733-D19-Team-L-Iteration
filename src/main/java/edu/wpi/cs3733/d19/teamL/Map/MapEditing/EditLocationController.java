@@ -36,6 +36,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
+import javafx.scene.shape.Line;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
@@ -108,6 +109,7 @@ public class EditLocationController {
 
     private ArrayList<String> mapURLs = new ArrayList<String>();
     private ArrayList<CircleLocation> circles = new ArrayList<CircleLocation>();
+    private ArrayList<Line> lines = new ArrayList<Line>();
 
     private Point2D mousePress;
     private GesturePane gesturePane;
@@ -492,8 +494,32 @@ public class EditLocationController {
     EventHandler<MouseEvent> circleOnMousePressedEventHandler =
             new EventHandler<MouseEvent>() {
                 //floor,building,nodeType,longName,shortName
+
+
                 @Override
                 public void handle(MouseEvent t) {
+                    if(t.isShiftDown()){
+                        CircleLocation loc = (CircleLocation) (t.getSource());
+                        loc.setStroke(Color.web("GREEN"));
+                        loc.setFill(Color.web("GREEN"));
+                        ArrayList<Edge> edgeslist = loc.getLocation().getEdges();
+                        if(edgeslist.isEmpty()){
+                            //nothing
+                        }
+                        else {
+                            for (Edge e: edgeslist){
+                                Line line = new Line();
+                                line.setStartX(e.getEndNode().getXcoord()*childPane.getWidth()/Map.getImage().getWidth());
+                                line.setStartY(e.getEndNode().getYcoord()*childPane.getHeight()/Map.getImage().getHeight());
+                                line.setEndX(e.getStartNode().getXcoord()*childPane.getWidth()/Map.getImage().getWidth());
+                                line.setEndY(e.getStartNode().getYcoord()*childPane.getHeight()/Map.getImage().getHeight());
+
+                                //line.setVisible(true);
+                                pathPane.getChildren().add(line);
+                                lines.add(line);
+                            }
+                        }
+                    }
                     if (!(lastCircle == null)) {
                         pathPane.getChildren().remove(lastCircle.getSp());
                         lastCircle.setSp(null);
