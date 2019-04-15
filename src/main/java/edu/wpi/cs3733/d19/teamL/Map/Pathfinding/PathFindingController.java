@@ -589,7 +589,6 @@ public class PathFindingController {
        // sceneGestures.setDrawPath(circles,lines);
         direction.setDisable(false);
         direction.setEditable(false);
-       prepareSlideMenuAnimation();
     }
 
     @FXML

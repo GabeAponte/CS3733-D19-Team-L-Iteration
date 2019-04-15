@@ -336,7 +336,7 @@
                         <URL value="@pathfind.css" />
                      </stylesheets>
                   </JFXComboBox>
-                  <JFXButton fx:id="PathFindSubmit" buttonType="RAISED" disable="true" onAction="#submitPressed" prefHeight="66.0" prefWidth="164.0" ripplerFill="WHITE" style="-fx-background-color: #7fb1ff;" text="Submit" textFill="WHITE" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="5">
+                  <JFXButton fx:id="PathFindSubmit" buttonType="RAISED" disable="true" onAction="#submitPressed" onMouseClicked="#prepareSlideMenuAnimation" prefHeight="66.0" prefWidth="164.0" ripplerFill="WHITE" style="-fx-background-color: #7fb1ff;" text="Submit" textFill="WHITE" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="5">
                      <font>
                         <Font name="Times New Roman" size="30.0" />
                      </font>
