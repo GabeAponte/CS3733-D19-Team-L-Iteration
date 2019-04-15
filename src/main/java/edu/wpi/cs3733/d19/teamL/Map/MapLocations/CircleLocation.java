@@ -7,13 +7,13 @@ import javafx.scene.shape.Circle;
 public class CircleLocation extends Circle {
 
     Location location;
-    JFXScrollPane sp;
+    ScrollPane sp;
 
-    public JFXScrollPane getSp() {
+    public ScrollPane getSp() {
         return sp;
     }
 
-    public void setSp(JFXScrollPane sp) {
+    public void setSp(ScrollPane sp) {
         this.sp = sp;
     }
 

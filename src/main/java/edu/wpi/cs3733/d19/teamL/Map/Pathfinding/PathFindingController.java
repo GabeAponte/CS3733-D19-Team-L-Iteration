@@ -1274,7 +1274,7 @@ public class PathFindingController {
             }
             if(isStairELe(a) && isStairELe(b)){
                 //        System.out.println("Go to floor " + b.getFloor() + " by " + a.getLongName());
-                text += "Go to floor " + b.getFloor() + " by " + a.getLongName();
+                text += "Go to floor " + b.getFloor() + " by " + a.getLongName() + "\n";
 
             }
 
