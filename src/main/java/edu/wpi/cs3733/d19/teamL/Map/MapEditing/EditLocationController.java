@@ -1,6 +1,8 @@
 package edu.wpi.cs3733.d19.teamL.Map.MapEditing;
 
 import com.jfoenix.controls.JFXScrollPane;
+import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
+import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
 import edu.wpi.cs3733.d19.teamL.API.UpdateLocationThread;
 import edu.wpi.cs3733.d19.teamL.Map.MapLocations.CircleLocation;
 import edu.wpi.cs3733.d19.teamL.Map.MapLocations.Edge;
@@ -22,6 +24,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
 import javafx.geometry.Point2D;
+import javafx.geometry.Pos;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
@@ -35,6 +38,7 @@ import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.text.Font;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 import net.kurobako.gesturefx.GesturePane;
@@ -43,6 +47,8 @@ import net.kurobako.gesturefx.GesturePane;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
+
+import static de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon.DEDENT;
 
 public class EditLocationController {
 
@@ -487,17 +493,18 @@ public class EditLocationController {
 
                     CircleLocation c = (CircleLocation) (t.getSource());
                     c.toFront();
-                    if (c.getSp() == null) {
+                   if (c.getSp() == null) {
 
                         ScrollPane sp = new ScrollPane();
-                        //sp.setStyle("-fx-background: #FFFFFF;-fx-background-color: #FFFFFF");
                         sp.getStylesheets().add("MapBuilderScrollPane.css");
-
 
                         sp.setLayoutX(c.getLayoutX());
                         sp.setLayoutY(c.getLayoutY());
                         GridPane gp = new GridPane();
-                        JFXButton close = new JFXButton("X");
+
+
+
+                        JFXButton close = new JFXButton("\u274C");
                         close.setPrefWidth(50);
 
                         JFXButton Update = new JFXButton("\u2713");
@@ -510,7 +517,8 @@ public class EditLocationController {
                                     ((Circle) (t.getSource())).setFill(Color.web("RED"));
                                 }
                         );
-
+                        gp.add(close,1,0);
+                        gp.add(Update,0,0);
                        // StackPane container = new StackPane(gp);
                        // container.setPadding(new Insets(24));
                        // container.getChildren().add(gp);
@@ -521,77 +529,83 @@ public class EditLocationController {
                         String txt = "" + ((CircleLocation) (t.getSource())).getLocation().getXcoord();
                         JFXTextField tf = new JFXTextField(txt);
                         tf.setFont(f);
+                        tf.setAlignment(Pos.CENTER);
                         tf.setPrefWidth(50);
-                        gp.add(lb, 0, 0);
-                        gp.add(tf, 1, 0);
+                        gp.add(lb, 0, 1);
+                        gp.add(tf, 1, 1);
 
                         Label lb1 = new Label("Y coordinate : ");
                         lb1.setFont(f);
                         String txt1 = "" + ((CircleLocation) (t.getSource())).getLocation().getYcoord();
                         JFXTextField tf1 = new JFXTextField(txt1);
                         tf1.setFont(f);
+                        tf1.setAlignment(Pos.CENTER);
                         tf1.setPrefWidth(50);
-                        gp.add(lb1, 0, 1);
-                        gp.add(tf1, 1, 1);
+                        gp.add(lb1, 0, 2);
+                        gp.add(tf1, 1, 2);
 
                         Label lb2 = new Label("Floor : ");
                         lb2.setFont(f);
                         String txt2 = "" + ((CircleLocation) (t.getSource())).getLocation().getFloor();
                         JFXTextField tf2 = new JFXTextField(txt2);
                         tf2.setFont(f);
+                        tf2.setAlignment(Pos.CENTER);
                         tf2.setPrefWidth(50);
-                        gp.add(lb2, 0, 2);
-                        gp.add(tf2, 1, 2);
+                        gp.add(lb2, 0, 3);
+                        gp.add(tf2, 1, 3);
 
                         Label lb3 = new Label("Building : ");
                         lb3.setFont(f);
                         String txt3 = "" + ((CircleLocation) (t.getSource())).getLocation().getBuilding();
                         JFXTextField tf3 = new JFXTextField(txt3);
                         tf3.setFont(f);
+                        tf3.setAlignment(Pos.CENTER);
                         tf3.setPrefWidth(50);
-                        gp.add(lb3, 0, 3);
-                        gp.add(tf3, 1, 3);
+                        gp.add(lb3, 0, 4);
+                        gp.add(tf3, 1, 4);
 
                         Label lb4 = new Label("NodeType : ");
                         lb4.setFont(f);
                         String txt4 = "" + ((CircleLocation) (t.getSource())).getLocation().getNodeType();
                         JFXTextField tf4 = new JFXTextField(txt4);
                         tf4.setFont(f);
+                        tf4.setAlignment(Pos.CENTER);
                         tf4.setPrefWidth(50);
-                        gp.add(lb4, 0, 4);
-                        gp.add(tf4, 1, 4);
+                        gp.add(lb4, 0, 5);
+                        gp.add(tf4, 1, 5);
 
                         Label lb5 = new Label("LongName : ");
                         lb5.setFont(f);
                         String txt5 = "" + ((CircleLocation) (t.getSource())).getLocation().getLongName();
                         JFXTextField tf5 = new JFXTextField(txt5);
                         tf5.setFont(f);
+                        tf5.setAlignment(Pos.CENTER);
                         tf5.setPrefWidth(50);
-                        gp.add(lb5, 0, 5);
-                        gp.add(tf5, 1, 5);
+                        gp.add(lb5, 0, 6);
+                        gp.add(tf5, 1, 6);
 
                         Label lb6 = new Label("ShortName : ");
                         lb6.setFont(f);
                         String txt6 = "" + ((CircleLocation) (t.getSource())).getLocation().getShortName();
                         JFXTextField tf6 = new JFXTextField(txt6);
                         tf6.setFont(f);
+                        tf6.setAlignment(Pos.CENTER);
                         tf6.setPrefWidth(50);
-                        gp.add(lb6, 0, 6);
-                        gp.add(tf6, 1, 6);
-
-                        gp.add(close, 2, 0);
-                        gp.add(Update, 2, 6);
+                        gp.add(lb6, 0, 7);
+                        gp.add(tf6, 1, 7);
 
                         //sp.getMainHeader().setMaxHeight(0);
                         //sp.getTopBar().setMaxHeight(0);
                         //sp.setVmax(440);
-                        sp.setPrefSize(125, 100);
+                        sp.setPrefSize(125, 125);
 
 
                         sp.setLayoutX(((Circle) (t.getSource())).getCenterX());
                         sp.setLayoutY(((Circle) (t.getSource())).getCenterY());
                         //sp.getChildren().add(gp);
+                        //ToolBar tb = new ToolBar();
                         sp.setContent(gp);
+
 
                         pathPane.getChildren().add(sp);
                         c.setSp(sp);
