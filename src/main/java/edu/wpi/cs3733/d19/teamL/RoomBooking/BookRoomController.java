@@ -41,9 +41,6 @@ public class BookRoomController {
     private JFXDatePicker datePicker;
 
     @FXML
-    private JFXDatePicker datePicker1;
-
-    @FXML
     private JFXComboBox<String> availableRooms;
 
     @FXML
@@ -347,8 +344,8 @@ public class BookRoomController {
         @Override
         public void handle(MouseEvent event) {
             displayAllRooms();
+            int z = 0;
             for (int k = 0; k < DisplayRooms.size(); k++) {
-
                 Point2D mousePress = new Point2D(event.getX(), event.getY());
                 if (DisplayRooms.get(k).p.contains(mousePress)) {
                     imagePane.getChildren().remove(DisplayRooms.get(k).getPolygon());
@@ -364,7 +361,13 @@ public class BookRoomController {
 
     };
 
-}
+    //public void highlightRoom(){
+
+    //    availableRooms.getValue().equals(DisplayRooms.get(i).getRoomName());
+
+    }
+
+
 
 
 

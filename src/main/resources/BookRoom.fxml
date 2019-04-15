@@ -113,7 +113,7 @@
                   <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
               </rowConstraints>
                <children>
-                      <JFXComboBox fx:id="availableRooms" focusColor="#f5d96b" prefHeight="54.0" prefWidth="184.0" promptText="Select Room" stylesheets="@book room.css" unFocusColor="#f5d96b" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="1">
+                      <JFXComboBox fx:id="availableRooms"  focusColor="#f5d96b" prefHeight="54.0" prefWidth="184.0" promptText="Select Room" stylesheets="@book room.css" unFocusColor="#f5d96b" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="1">
                           <effect>
                               <ColorAdjust contrast="-1.0" />
                           </effect>
