@@ -174,7 +174,7 @@ public class LogInController {
         double diff = ic.doIT(username.getText());
         Singleton single = Singleton.getInstance();
         EmployeeAccess ea = new EmployeeAccess();
-        if(diff < 10){
+        if(diff < 15){
             System.out.println("successful login");
             single.setLoggedIn(true);
             single.setUsername(username.getText());

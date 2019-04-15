@@ -1,6 +1,7 @@
 package edu.wpi.cs3733.d19.teamL.API;
 
 import edu.wpi.cs3733.d19.teamL.Account.EmployeeAccess;
+import org.opencv.imgcodecs.Imgcodecs;
 
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
@@ -16,6 +17,10 @@ public class ImageComparison {
                 System.out.println("img1 null");
                 return 100.0;
             }
+
+            File outputfile = new File("DBInput.jpg");
+            ImageIO.write(img1, "jpg", outputfile);
+
             BufferedImage img2 = ImageIO.read(new File("TempOutput.jpg"));
 
             if(img2 == null){

@@ -36,13 +36,14 @@ public class Main extends Application {
         single.setData();
         single.populateTweets();
         EmployeeAccess empA = new EmployeeAccess();
-        try {
-            Image image = ImageIO.read(new File("DBInput.jpg"));
+        /*try {
+            Image image = ImageIO.read(new File("TempOutput.jpg"));
             BufferedImage buffered = (BufferedImage) image;
-            empA.updateEmployeeImg("nwalker", buffered);
+            empA.updateEmployeeImg("alate", buffered);
         } catch (Exception e){
             e.printStackTrace();
         }//*/
+        //return;
         launch(args);
     }
 }
