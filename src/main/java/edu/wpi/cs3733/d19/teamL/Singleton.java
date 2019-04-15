@@ -60,7 +60,7 @@ public class Singleton {
         List<Status> statuses = searchtweets();
         for (Status status : statuses) {
             Text temp = new Text(status.getText());
-            txt = new Text(txt.getText() + "\t" + temp.getText());
+            txt = new Text(txt.getText() + "     " + temp.getText());
         }
     }
 

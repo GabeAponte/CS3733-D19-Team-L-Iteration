@@ -78,6 +78,7 @@ public class HomeScreenController {
             // Get the Width of the Scene and the Text
             double sceneWidth = 1500;
             double textWidth = tweetBox.getLayoutBounds().getWidth();
+            System.out.println(textWidth);
 
             // Define the Durations
             Duration startDuration = Duration.ZERO;
@@ -86,13 +87,14 @@ public class HomeScreenController {
             // Create the start and end Key Frames
             KeyValue startKeyValue = new KeyValue(tweetBox.translateXProperty(), sceneWidth);
             KeyFrame startKeyFrame = new KeyFrame(startDuration, startKeyValue);
-            KeyValue endKeyValue = new KeyValue(tweetBox.translateXProperty(), -1.5 * sceneWidth - textWidth);
+            KeyValue endKeyValue = new KeyValue(tweetBox.translateXProperty(), -3.5 * sceneWidth - textWidth * 2);
             KeyFrame endKeyFrame = new KeyFrame(endDuration, endKeyValue);
 
             // Create a Timeline
             tweets = new Timeline(startKeyFrame, endKeyFrame);
             // Let the animation run forever
             tweets.setCycleCount(Timeline.INDEFINITE);
+            //tweets.setRate(2.5);
             // Run the animation
             System.out.println("Starting tweets");
             tweets.play();

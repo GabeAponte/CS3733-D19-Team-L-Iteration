@@ -1,5 +1,6 @@
 package edu.wpi.cs3733.d19.teamL.HomeScreens;
 
+import com.jfoenix.controls.JFXButton;
 import edu.wpi.cs3733.d19.teamL.Account.EmployeeAccess;
 import edu.wpi.cs3733.d19.teamL.Singleton;
 import javafx.animation.KeyFrame;
@@ -37,8 +38,12 @@ public class LogInController {
     @FXML
     private Label errorLabel;
 
+    @FXML
+    private JFXButton facialRec;
+
     Timeline timeout;
     public void initialize(){
+        facialRec.setDisable(true);
         Singleton single = Singleton.getInstance();
         single.setLastTime();
         timeout = new Timeline(new KeyFrame(Duration.seconds(2), new EventHandler<ActionEvent>() {
@@ -100,10 +105,17 @@ public class LogInController {
         single.setLastTime();
         Boolean disable = (username.getText().isEmpty() || username.getText().trim().isEmpty() || password.getText().isEmpty() || password.getText().trim().isEmpty());
         if(!disable){
+            facialRec.setDisable(false);
             login.setDisable(false);
         } else {
+            facialRec.setDisable(true);
             login.setDisable(true);
         }
+    }
+
+    @FXML
+    private void tryFR() {
+
     }
 
     @FXML

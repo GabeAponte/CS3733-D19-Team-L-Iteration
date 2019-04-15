@@ -1,9 +1,15 @@
 package edu.wpi.cs3733.d19.teamL.Account;
 
+import java.awt.image.BufferedImage;
+import java.io.ByteArrayOutputStream;
+import java.io.InputStream;
 import java.sql.*;
 import java.util.ArrayList;
 import edu.wpi.cs3733.d19.teamL.DBAccess;
 import javafx.scene.control.TreeItem;
+
+import javax.imageio.ImageIO;
+import javax.sql.rowset.serial.SerialBlob;
 
 public class EmployeeAccess extends DBAccess {
     /**ANDREW MADE THIS
@@ -305,6 +311,58 @@ public class EmployeeAccess extends DBAccess {
             System.out.println(e.getMessage());
         }
 
+        return null;
+    }
+
+    /**@author Nathan
+     * Updates and employee's image file
+     * @param employeeID
+     * @param field
+     * @param data
+     * @throws SQLException
+     */
+    public void updateEmployeeImg(String employeeID, String field, BufferedImage data) throws SQLException{
+        String sql = "update employee set " + field + "= ? where employeeID= ?;";
+
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        try {
+            ImageIO.write(data, "jpg", baos);
+        } catch (Exception e){
+            e.printStackTrace();
+        }
+        Blob blFile = new SerialBlob(baos.toByteArray());
+        Connection conn = this.connect();
+        PreparedStatement pstmt = conn.prepareStatement(sql);
+        pstmt.setBlob(1, blFile);
+        pstmt.setString(2, employeeID);
+        pstmt.executeUpdate();
+    }
+
+    /**@author Nathan
+     * retrieves the image version of the blob stored in the given employee's image field
+     * @param username
+     * @return
+     */
+    public BufferedImage getEmpImg(String username){
+        String sql = "select image from employee where username = ?";
+        try (Connection conn = this.connect();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            pstmt.setString(1, username);
+            ResultSet rs = pstmt.executeQuery();
+            while(rs.next()){
+                if(rs.getString("username").equals(username)){
+                    Blob blob = rs.getBlob("image");
+                    if(blob == null){
+                        return null;
+                    }
+                    InputStream in = blob.getBinaryStream();
+                    BufferedImage image = ImageIO.read(in);
+                    return image;
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         return null;
     }
 
