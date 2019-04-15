@@ -15,10 +15,9 @@ import edu.wpi.cs3733.d19.teamL.Map.Pathfinding.NodesAccess;
 import javafx.animation.Animation;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.animation.Animation.*;
 import javafx.scene.text.TextFlow;
 
-import javax.xml.soap.Text;
+import javafx.scene.text.Text;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -54,18 +53,37 @@ public class Singleton {
         isAdmin = false; //is signedin employee an admin
         timeoutSec = 45000; //how long before timeout (in ms) 1000 = 1 second
         doPopup = true; //should be more appropriately named initializeClock
+        txt = new Text();
     }
 
     public void populateTweets(){
-        System.out.println("populating");
-        List<Status> statuses = null;
-        statuses = searchtweets();
-        Text temp;
-        for (Animation.Status status : statuses) {
-            temp = new javafx.scene.text.Text(status.getText());
-            //text = new Text(status.getUser().getName() + ":" + status.getText());
-            txt = new javafx.scene.text.Text(temp.getText() + "\t" + txt.getText());
+        List<Status> statuses = searchtweets();
+        for (Status status : statuses) {
+            Text temp = new Text(status.getText());
+            txt = new Text(txt.getText() + "\t" + temp.getText());
         }
+    }
+
+    private static List<Status> searchtweets() {
+        // The factory instance is re-useable and thread safe.
+        try {
+            Twitter twitter = TwitterFactory.getSingleton();
+            List<Status> statuses = twitter.getHomeTimeline();
+            for (Status status : statuses) {
+                System.out.println(status.getUser().getName() + ":" +
+                        status.getText());
+            }
+            System.out.println("finished search");
+            return statuses;
+        } catch (TwitterException e){
+            System.out.println("ERROR");
+            System.out.println(e.getCause());
+            return null;
+        }
+    }
+
+    public static Text getTxt(){
+        return txt;
     }
 
     public static boolean isDoPopup(){
