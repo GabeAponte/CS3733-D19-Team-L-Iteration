@@ -39,9 +39,9 @@
                   <HBox alignment="CENTER_RIGHT" prefHeight="100.0" prefWidth="397.0" BorderPane.alignment="CENTER" />
                </center>
                <right>
-                  <HBox minHeight="-Infinity" prefHeight="8.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+                  <HBox minHeight="-Infinity" prefHeight="100.0" prefWidth="148.0" BorderPane.alignment="CENTER">
                      <children>
-                        <JFXButton fx:id="LogIn" alignment="CENTER" buttonType="RAISED" contentDisplay="TOP" focusTraversable="false" minHeight="-Infinity" onAction="#SwitchToLoginScreen" prefHeight="89.0" prefWidth="200.0" ripplerFill="#b0b0b0" style="-fx-border-color: #f5d96b; -fx-border-width: 4; -fx-border-radius: 10; -fx-background-radius: 10;" text="Log In" textAlignment="CENTER" HBox.hgrow="NEVER">
+                        <JFXButton fx:id="LogIn" alignment="CENTER" buttonType="RAISED" contentDisplay="TOP" focusTraversable="false" minHeight="-Infinity" onAction="#SwitchToLoginScreen" prefHeight="89.0" prefWidth="146.0" ripplerFill="#b0b0b0" style="-fx-border-color: #f5d96b; -fx-border-width: 4; -fx-border-radius: 10; -fx-background-radius: 10;" text="Log In" textAlignment="CENTER" HBox.hgrow="NEVER">
                            <font>
                               <Font size="21.0" />
                            </font>
@@ -96,7 +96,7 @@
                         <FontAwesomeIconView fill="WHITE" glyphName="BELL_ALT" size="150" text="" />
                      </graphic>
                   </JFXButton>
-                  <JFXButton fx:id="HomeSuggestions" alignment="CENTER" buttonType="RAISED" contentDisplay="TOP" focusTraversable="false" onAction="#SwitchToSuggestionBox" prefHeight="280.0" prefWidth="300.0" ripplerFill="#b0b0b0" style="-fx-border-color: #f5d96b; -fx-border-width: 5; -fx-border-radius: 10; -fx-background-radius: 10;" stylesheets="@HomeButtonStyle.css" text="Feedback" textFill="WHITE" GridPane.rowIndex="1">
+                  <JFXButton fx:id="HomeSuggestions" alignment="CENTER" buttonType="RAISED" contentDisplay="TOP" focusTraversable="false" onAction="#SwitchToSuggestionBox" prefHeight="300.0" prefWidth="300.0" ripplerFill="#b0b0b0" style="-fx-border-color: #f5d96b; -fx-border-width: 5; -fx-border-radius: 10; -fx-background-radius: 10;" stylesheets="@HomeButtonStyle.css" text="Feedback" textFill="WHITE" GridPane.rowIndex="1">
                      <font>
                         <Font size="36.0" />
                      </font>
