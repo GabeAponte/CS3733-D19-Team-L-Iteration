@@ -39,7 +39,7 @@ public class Main extends Application {
         /*try {
             Image image = ImageIO.read(new File("TempOutput.jpg"));
             BufferedImage buffered = (BufferedImage) image;
-            empA.updateEmployeeImg("abell", buffered);
+            empA.updateEmployeeImg("nwalker", buffered);
         } catch (Exception e){
             e.printStackTrace();
         }//*/

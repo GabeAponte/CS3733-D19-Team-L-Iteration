@@ -320,8 +320,8 @@ public class EmployeeAccess extends DBAccess {
      * @param data
      * @throws SQLException
      */
-    public void updateEmployeeImg(String employeeID, BufferedImage data) throws SQLException{
-        String sql = "update employee set image = ? where employeeID= ?;";
+    public void updateEmployeeImg(String username, BufferedImage data) throws SQLException{
+        String sql = "update employee set image = ? where username = ?;";
 
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
         try {
@@ -333,7 +333,7 @@ public class EmployeeAccess extends DBAccess {
         Connection conn = this.connect();
         PreparedStatement pstmt = conn.prepareStatement(sql);
         pstmt.setBytes(1, baos.toByteArray());
-        pstmt.setString(2, employeeID);
+        pstmt.setString(2, username);
         pstmt.executeUpdate();
     }
 

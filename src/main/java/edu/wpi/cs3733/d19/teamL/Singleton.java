@@ -67,11 +67,6 @@ public class Singleton {
         try {
             Twitter twitter = TwitterFactory.getSingleton();
             List<Status> statuses = twitter.getHomeTimeline();
-            for (Status status : statuses) {
-                System.out.println(status.getUser().getName() + ":" +
-                        status.getText());
-            }
-            System.out.println("finished search");
             return statuses;
         } catch (TwitterException e){
             System.out.println("ERROR");

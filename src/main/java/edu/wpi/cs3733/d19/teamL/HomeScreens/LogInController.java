@@ -135,8 +135,10 @@ public class LogInController {
 
     @FXML
     private void tryFR() throws IOException{
-        /*Webcam webcam;
+        Webcam webcam;
         webcam = Webcam.getDefault();
+        //THE VIEW SIZE WILL PROBABLY CHANGE DEPENDING ON THE COMPUTER
+        //IMAGE COMPARISON WILL FAIL IMMEDIATELY IF SIZE CHANGES
         webcam.setViewSize(WebcamResolution.VGA.getSize());
         WebcamPanel wp = new WebcamPanel(webcam);
         wp.setFPSDisplayed(true);
@@ -165,7 +167,7 @@ public class LogInController {
         if(bi == null){
             System.out.println("No Face Detected");
         }*/
-        Webcam webcam = Webcam.getDefault();
+        //Webcam webcam = Webcam.getDefault();
         webcam.open();
         BufferedImage image = webcam.getImage();
         ImageIO.write(image, "JPG", new File("TempOutput.jpg"));
@@ -178,8 +180,7 @@ public class LogInController {
         double diff = ic.doIT(username.getText());
         Singleton single = Singleton.getInstance();
         EmployeeAccess ea = new EmployeeAccess();
-        if(diff < 18){
-            System.out.println("successful login");
+        if(diff < 10){
             single.setLoggedIn(true);
             single.setUsername(username.getText());
             single.setIsAdmin(false);
