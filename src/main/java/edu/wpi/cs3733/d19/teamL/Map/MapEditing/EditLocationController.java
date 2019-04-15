@@ -318,7 +318,6 @@ public class EditLocationController {
     private void drawNodes(){
         Singleton single = Singleton.getInstance();
         single.setLastTime();
-        double scaleRatio = Math.min(childPane.getWidth() / Map.getImage().getWidth(), childPane.getHeight() / Map.getImage().getHeight());
 
         if(displayingNodes) {
             //display all nodes on that floor!!!
@@ -332,8 +331,8 @@ public class EditLocationController {
                     CircleLocation thisCircle = new CircleLocation();
 
                     //Setting the properties of the circle
-                    thisCircle.setCenterX(nodes.get(temp).getXcoord()*scaleRatio);
-                    thisCircle.setCenterY(nodes.get(temp).getYcoord()*scaleRatio);
+                    thisCircle.setCenterX(nodes.get(temp).getXcoord()*childPane.getWidth()/Map.getImage().getWidth());
+                    thisCircle.setCenterY(nodes.get(temp).getYcoord()*childPane.getHeight()/Map.getImage().getHeight());
                     thisCircle.setRadius(Math.max(2.0, 2.0f * gesturePane.getCurrentScale()/20));
                     thisCircle.setStroke(Color.web("RED")); //#f5d96b
                     thisCircle.setFill(Color.web("RED"));

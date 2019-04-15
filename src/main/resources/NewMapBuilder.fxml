@@ -74,7 +74,7 @@
                            <GridPane.margin>
                               <Insets left="10.0" />
                            </GridPane.margin>
-                           <ImageView fx:id="Map" fitHeight="597.0" fitWidth="951.0" pickOnBounds="true" preserveRatio="true">
+                           <ImageView fx:id="Map" fitHeight="597.04" fitWidth="878.0" pickOnBounds="true">
                               <image>
                                  <Image url="@SoftEng_UI_Mockup_Pics/00_thegroundfloor.png" />
                               </image>
