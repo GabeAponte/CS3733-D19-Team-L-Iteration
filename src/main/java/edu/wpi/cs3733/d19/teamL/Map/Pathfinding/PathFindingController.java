@@ -428,11 +428,11 @@ public class PathFindingController {
         gesturePane.setHBarEnabled(false);
         gesturePane.setVBarEnabled(false);
 
-        gridPane.add(gesturePane,0,0, 7, GridPane.REMAINING);
+        gridPane.add(gesturePane,0,0, 1, GridPane.REMAINING);
         gesturePane.zoomTo(2.0,new Point2D(Map.getImage().getWidth(), Map.getImage().getHeight()));
 
-//        NumberBinding nb = Bindings.min(gesturePane.widthProperty().multiply(0.8), gesturePane.heightProperty().multiply(5000).divide(3400).multiply(720.0/610.0));
-//        gesturePane.minScaleProperty().bind(nb);
+        //NumberBinding nb = Bindings.min(gesturePane.widthProperty().multiply(0.8), gesturePane.heightProperty().multiply(5000).divide(3400).multiply(720.0/610.0));
+       // gesturePane.minScaleProperty().bind(nb);
 
         Map.fitHeightProperty().bind(gesturePane.heightProperty());
         Map.fitWidthProperty().bind(gesturePane.widthProperty());
