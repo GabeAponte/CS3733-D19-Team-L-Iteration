@@ -8,10 +8,7 @@ import edu.wpi.cs3733.d19.teamL.Map.ImageInteraction.SceneGestures;
 import edu.wpi.cs3733.d19.teamL.Map.MapLocations.Location;
 import edu.wpi.cs3733.d19.teamL.Map.MapLocations.Path;
 import edu.wpi.cs3733.d19.teamL.Map.ImageInteraction.PanAndZoomPane;
-import edu.wpi.cs3733.d19.teamL.SearchingAlgorithms.AStarStrategy;
-import edu.wpi.cs3733.d19.teamL.SearchingAlgorithms.BreadthFirstStrategy;
-import edu.wpi.cs3733.d19.teamL.SearchingAlgorithms.DepthFirstStrategy;
-import edu.wpi.cs3733.d19.teamL.SearchingAlgorithms.PathfindingStrategy;
+import edu.wpi.cs3733.d19.teamL.SearchingAlgorithms.*;
 import edu.wpi.cs3733.d19.teamL.Singleton;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
@@ -41,6 +38,7 @@ import javafx.scene.shape.Line;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+
 import javafx.util.Duration;
 
 
@@ -375,7 +373,9 @@ public class PathFindingController {
         Singleton single = Singleton.getInstance();
         single.setLastTime();
         ObservableList<PathfindingStrategy> strategies = FXCollections.observableArrayList();
-        AStarStrategy aStarStrategy = new AStarStrategy(single.lookup);
+        TemplatePathFinder aStarStrategy = new AStarStrategy(single.lookup);
+        TemplatePathFinder dijkstraStrategy = new DijkstraStrategy(single.lookup);
+        strategies.add(dijkstraStrategy);
         strategies.add(aStarStrategy);
         strategies.add(new DepthFirstStrategy(single.lookup));
         strategies.add(new BreadthFirstStrategy(single.lookup));
