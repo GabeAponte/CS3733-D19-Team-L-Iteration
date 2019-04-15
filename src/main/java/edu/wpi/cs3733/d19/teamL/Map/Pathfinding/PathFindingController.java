@@ -510,10 +510,10 @@ public class PathFindingController {
             path.getPath().add(0,startNode);
 
             for (Circle c : circles) {
-                childPane.getChildren().remove(c);
+                pathPane.getChildren().remove(c);
             }
             for (Line l : lines) {
-                childPane.getChildren().remove(l);
+                pathPane.getChildren().remove(l);
             }
 
             circles.clear();
@@ -525,10 +525,10 @@ public class PathFindingController {
                 Line line = new Line();
 
 
-                line.setStartX(path.getPath().get(i).getXcoord()*scaleFactor);
-                line.setStartY(path.getPath().get(i).getYcoord()*scaleFactor);
-                line.setEndX(path.getPath().get(i+1).getXcoord()*scaleFactor);
-                line.setEndY(path.getPath().get(i+1).getYcoord()*scaleFactor);
+                line.setStartX(path.getPath().get(i).getXcoord()*childPane.getWidth()/Map.getImage().getWidth());
+                line.setStartY(path.getPath().get(i).getYcoord()*childPane.getHeight()/Map.getImage().getHeight());
+                line.setEndX(path.getPath().get(i+1).getXcoord()*childPane.getWidth()/Map.getImage().getWidth());
+                line.setEndY(path.getPath().get(i+1).getYcoord()*childPane.getHeight()/Map.getImage().getHeight());
 
                 if (!(path.getPath().get(i).getFloor().equals(currentMap)) || !(path.getPath().get(i + 1).getFloor().equals(currentMap))) {
                     line.setVisible(false);
@@ -541,9 +541,9 @@ public class PathFindingController {
             Circle StartCircle = new Circle();
 
             //Setting the properties of the circle
-            StartCircle.setCenterX(startNode.getXcoord()*scaleFactor);
-            StartCircle.setCenterY(startNode.getYcoord()*scaleFactor);
-            StartCircle.setRadius(Math.max(2.5, 2.5f * (gesturePane.getCurrentScale() / 4)));
+            StartCircle.setCenterX(startNode.getXcoord()*childPane.getWidth()/Map.getImage().getWidth());
+            StartCircle.setCenterY(startNode.getYcoord()*childPane.getHeight()/Map.getImage().getHeight());
+            StartCircle.setRadius(Math.max(1.5, 1.5f * (gesturePane.getCurrentScale() / 4)));
             StartCircle.setStroke(Color.GREEN);
             StartCircle.setFill(Color.GREEN);
             if (!startNode.getFloor().equals(currentMap)) {
@@ -556,9 +556,9 @@ public class PathFindingController {
             Circle EndCircle = new Circle();
 
             //Setting the properties of the circle
-            EndCircle.setCenterX(endNode.getXcoord()*scaleFactor);
-            EndCircle.setCenterY(endNode.getYcoord()*scaleFactor);
-            EndCircle.setRadius(Math.max(2.5, 2.5f * (gesturePane.getCurrentScale() / 5)));
+            EndCircle.setCenterX(endNode.getXcoord()*childPane.getWidth()/Map.getImage().getWidth());
+            EndCircle.setCenterY(endNode.getYcoord()*childPane.getHeight()/Map.getImage().getHeight());
+            EndCircle.setRadius(Math.max(1.5, 1.5f * (gesturePane.getCurrentScale() / 5)));
             EndCircle.setStroke(Color.RED);
             EndCircle.setFill(Color.RED);
             if (!endNode.getFloor().equals(currentMap)) {
@@ -1068,12 +1068,12 @@ public class PathFindingController {
             }
         }
         else{
-             if(ya < yb){
-                 return 5;
-             }
-             else {
-                 return 1;
-             }
+            if(ya < yb){
+                return 5;
+            }
+            else {
+                return 1;
+            }
         }
 
     }
@@ -1092,11 +1092,11 @@ public class PathFindingController {
 
     //Larry - Print the textual direction based on the path return from algorithm
     private String printPath(ArrayList<Location> A){
-       // System.out.println(A);
+        // System.out.println(A);
         for(Location a: A){
-         //   System.out.print(a.getNodeType() + "  ");
-       }
-      //  System.out.println(" ");
+            //   System.out.print(a.getNodeType() + "  ");
+        }
+        //  System.out.println(" ");
         String aType;
         String bType;
         String aFloor;
@@ -1108,14 +1108,14 @@ public class PathFindingController {
         int d = 0; // count for the start location for exact location
         //same start and end location
         if(A.size() == 2 && A.get(0) == A.get(1)){
-           // System.out.println(A.size());
-           // System.out.println(A.size() == 2);
+            // System.out.println(A.size());
+            // System.out.println(A.size() == 2);
 //
-         //   System.out.println("You are already at your destination");
+            //   System.out.println("You are already at your destination");
             text += "You are already at your destination :)\n";
             return text;
         }
-       // System.out.println("Begin from " + A.get(0).getLongName());
+        // System.out.println("Begin from " + A.get(0).getLongName());
         text += "Begin from " + A.get(0).getLongName() + "\n";
         //when size is two, but two location are different
         if(A.size() == 2){
@@ -1124,18 +1124,18 @@ public class PathFindingController {
             aFloor = A.get(0).getFloor();
             bFloor = A.get(1).getFloor();
             if((aType=="STAI" || aType == "ELEV") && (bType == "STAI" || bType =="ELEV") && !aFloor.equals(bFloor) ){
-                    if(A.get(1).getNodeType() == "STAI" ||A.get(1).getNodeType() == "ELEV" ){
-                      //  System.out.println("Go to floor " + bFloor + " by " + bType);
-                        text += "Go to floor " + bFloor + " by " + bType + "\n";
+                if(A.get(1).getNodeType() == "STAI" ||A.get(1).getNodeType() == "ELEV" ){
+                    //  System.out.println("Go to floor " + bFloor + " by " + bType);
+                    text += "Go to floor " + bFloor + " by " + bType + "\n";
 
-                            return text;
+                    return text;
                 }
                 else{
-                     //   System.out.println("Go straight to " + A.get(1).getLongName() + " (" +
-                     //       convertToExact(A.get(0).findDistance(A.get(1))) + " ft) \n");
-                        text += "\u21E7 Go straight to " + A.get(1).getLongName() + " (" +
+                    //   System.out.println("Go straight to " + A.get(1).getLongName() + " (" +
+                    //       convertToExact(A.get(0).findDistance(A.get(1))) + " ft) \n");
+                    text += "\u21E7 Go straight to " + A.get(1).getLongName() + " (" +
                             convertToExact(A.get(0).findDistance(A.get(1))) + " ft) \n";
-                        return text;
+                    return text;
                 }
             }
         }
@@ -1152,8 +1152,8 @@ public class PathFindingController {
                 curDirection = directionPath(a,b);
                 nextDirection = directionPath(b,c);
 
-            //    System.out.println("Go straight to " + b.getLongName()
-                 //       + " (" + convertToExact(start.findDistance(b)) + " ft) " );
+                //    System.out.println("Go straight to " + b.getLongName()
+                //       + " (" + convertToExact(start.findDistance(b)) + " ft) " );
                 text += "\u21E7 Go straight to " + b.getLongName()
                         + " (" + convertToExact(start.findDistance(b)) + " ft) \n";
 
@@ -1164,21 +1164,21 @@ public class PathFindingController {
                 if(curDirection == nextDirection){
                     if(curDirection == 2 || curDirection == 6){
                         if(Math.abs(slopeBC)> Math.abs(slopeAB)){
-                         //   System.out.println("Turn left");
+                            //   System.out.println("Turn left");
                             text += "\u21E6 Turn left \n";
                         }
                         else{
-                         //   System.out.println("Turn right");
+                            //   System.out.println("Turn right");
                             text += "\u21E8 Turn right\n";
                         }
                     }
                     else if(curDirection == 4 || curDirection ==8){
                         if(Math.abs(slopeBC)> Math.abs(slopeAB)){
-                      //      System.out.println("Turn right");
+                            //      System.out.println("Turn right");
                             text += "\u21E8 Turn right\n";
                         }
                         else{
-                    //        System.out.println("Turn left");
+                            //        System.out.println("Turn left");
                             text += "\u21E6 Turn left \n";
                         }
 
@@ -1187,11 +1187,11 @@ public class PathFindingController {
                 }
                 else if((curDirection == 2 && nextDirection ==6) || (curDirection == 6 && nextDirection ==2)){
                     if(Math.abs(slopeBC)>Math.abs(slopeAB)){
-                   //     System.out.println("Turn right");
+                        //     System.out.println("Turn right");
                         text += "\u21E8 Turn right\n";
                     }
                     else{
-                  //      System.out.println("Turn left");
+                        //      System.out.println("Turn left");
                         text += "\u21E6 Turn left\n";
                     }
 
@@ -1199,11 +1199,11 @@ public class PathFindingController {
 
                 else if((curDirection == 8 && nextDirection ==4) || (curDirection == 6 && nextDirection ==2)){
                     if(Math.abs(slopeBC)>Math.abs(slopeAB)){
-                //        System.out.println("Turn left");
+                        //        System.out.println("Turn left");
                         text += "\u21E6 Turn left\n";
                     }
                     else{
-              //          System.out.println("Turn right");
+                        //          System.out.println("Turn right");
                         text += "\u21E8 Turn right\n";
                     }
 
@@ -1211,22 +1211,22 @@ public class PathFindingController {
 
                 else if(curDirection <= 5){
                     if(nextDirection < curDirection + 4 && nextDirection > curDirection){
-              //          System.out.println("Turn right");
+                        //          System.out.println("Turn right");
                         text += "\u21E8 Turn right\n";
                     }
                     else {
-              //          System.out.println("Turn left");
+                        //          System.out.println("Turn left");
                         text += "\u21E6 Turn left\n";
                     }
                 }
                 else{
                     if(curDirection == 6){
                         if(nextDirection == 7 || nextDirection == 8 || nextDirection == 1){
-                     //       System.out.println("Turn right");
+                            //       System.out.println("Turn right");
                             text += "\u21E8 Turn right\n";
                         }
                         if(nextDirection == 5 || nextDirection == 4 || nextDirection == 3){
-                    //        System.out.println("Turn left");
+                            //        System.out.println("Turn left");
                             text += "\u21E6 Turn left\n";
                         }
 
@@ -1234,11 +1234,11 @@ public class PathFindingController {
                     }
                     else if (curDirection ==7){
                         if(nextDirection == 8 || nextDirection == 1 || nextDirection == 2){
-                       //     System.out.println("Turn right");
+                            //     System.out.println("Turn right");
                             text += "\u21E8 Turn right\n";
                         }
                         else if(nextDirection == 6 || nextDirection == 5 || nextDirection == 4){
-                        //    System.out.println("Turn left");
+                            //    System.out.println("Turn left");
                             text += "\u21E6 Turn left\n";
                         }
                         else {
@@ -1248,11 +1248,11 @@ public class PathFindingController {
                     }
                     else if(curDirection ==8){
                         if(nextDirection == 1 || nextDirection == 2 || nextDirection == 3){
-                       //     System.out.println("Turn right");
+                            //     System.out.println("Turn right");
                             text += "Turn right\n";
                         }
                         else if(nextDirection == 5 || nextDirection == 6 || nextDirection == 7){
-                      //      System.out.println("Turn left");
+                            //      System.out.println("Turn left");
                             text += "\u21E6 Turn left\n";
                         }
                         else {
@@ -1267,14 +1267,14 @@ public class PathFindingController {
 
             }
             if(i == A.size() - 3){
-             //   System.out.println("Go straight to your destination " + A.get(A.size()-1).getLongName() +
-                   //     " (" + convertToExact(b.findDistance(c)) + " ft) " );
+                //   System.out.println("Go straight to your destination " + A.get(A.size()-1).getLongName() +
+                //     " (" + convertToExact(b.findDistance(c)) + " ft) " );
                 text += "\u21E7 Go straight to your destination " + A.get(A.size()-1).getLongName() +
-                                " (" + convertToExact(b.findDistance(c)) + " ft) \n";
+                        " (" + convertToExact(b.findDistance(c)) + " ft) \n";
                 return text;
             }
             if(isStairELe(a) && isStairELe(b)){
-        //        System.out.println("Go to floor " + b.getFloor() + " by " + a.getLongName());
+                //        System.out.println("Go to floor " + b.getFloor() + " by " + a.getLongName());
                 text += "Go to floor " + b.getFloor() + " by " + a.getLongName();
 
             }
