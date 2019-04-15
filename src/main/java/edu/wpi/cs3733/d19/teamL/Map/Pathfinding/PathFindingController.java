@@ -1077,7 +1077,7 @@ public class PathFindingController {
             //if nodetype contains keyword
             if (single.getData().get(i).getNodeType().contains(keyword) && single.getData().get(i).getFloor().equals(kioskTemp.getFloor())) {
                 nodes.add(single.getData().get(i));
-                System.out.println("node added");
+                //System.out.println("node added");
             }
         }
         //if there are no nodes, dont do anything
@@ -1146,21 +1146,6 @@ public class PathFindingController {
         }
         //do not display any path
     }
-
-    /**
-     * Grace made this
-     * sets the kiosk to the "Start Location" dropdown location
-     */
-    @FXML
-    private void setKioskButtPress(){
-        //get start location from dropdown
-        if(!(PathFindStartDrop.getValue() == null)){
-            kioskTemp = PathFindStartDrop.getValue();
-            //set kioskTemp to that^
-        }
-
-    }
-
 
     /**Grace Made this
      * just resets the radio buttons

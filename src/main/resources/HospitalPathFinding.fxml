@@ -208,7 +208,6 @@
                                    <Font size="30.0" />
                                </font>
                            </Label>
-                           <JFXButton fx:id="setKioskButton" onAction="#setKioskButtPress" style="-fx-border-color: WHITE; -fx-border-radius: 50; -fx-background-radius: 50;" text="Set Kiosk" textFill="WHITE" />
                            <JFXRadioButton fx:id="bathroomRadButton" onAction="#bathRadButtPressed" style="-jfx-selected-color: #f5d96b; -jfx-unselected-color: WHITE;" text="Bathroom" textFill="WHITE">
                                <font>
                                    <Font size="20.0" />
