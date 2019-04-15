@@ -99,15 +99,15 @@ public class BookRoomController {
         double room9[] = {1775, 710, 1840, 710, 1840, 750, 1980, 750, 1980, 930, 1775, 930};
         double auditorium[] = {};
 
-        DisplayRooms.add(new RoomDisplay("CLassroom 1 (Computer)", room1));
-        DisplayRooms.add(new RoomDisplay("CLassroom 2 (Computer)", room2));
-        DisplayRooms.add(new RoomDisplay("CLassroom 3 (Computer)", room3));
-        DisplayRooms.add(new RoomDisplay("CLassroom 4 (Classroom)", room4));
-        DisplayRooms.add(new RoomDisplay("CLassroom 5 (Computer)", room5));
-        DisplayRooms.add(new RoomDisplay("CLassroom 6 (Classroom)", room6));
-        DisplayRooms.add(new RoomDisplay("CLassroom 7 (Computer)", room7));
-        DisplayRooms.add(new RoomDisplay("CLassroom 8 (Classroom)", room8));
-        DisplayRooms.add(new RoomDisplay("CLassroom 9 (Computer)", room9));
+        DisplayRooms.add(new RoomDisplay("Classroom 1 (Computer)", room1));
+        DisplayRooms.add(new RoomDisplay("Classroom 2 (Computer)", room2));
+        DisplayRooms.add(new RoomDisplay("Classroom 3 (Computer)", room3));
+        DisplayRooms.add(new RoomDisplay("Classroom 4 (Classroom)", room4));
+        DisplayRooms.add(new RoomDisplay("Classroom 5 (Computer)", room5));
+        DisplayRooms.add(new RoomDisplay("Classroom 6 (Classroom)", room6));
+        DisplayRooms.add(new RoomDisplay("Classroom 7 (Computer)", room7));
+        DisplayRooms.add(new RoomDisplay("Classroom 8 (Classroom)", room8));
+        DisplayRooms.add(new RoomDisplay("Classroom 9 (Computer)", room9));
         DisplayRooms.add(new RoomDisplay("Mission Hall Auditorium", auditorium));
 
         roomImage.fitWidthProperty().bind(imagePane.widthProperty());
@@ -292,16 +292,22 @@ public class BookRoomController {
 
             listOfRooms.clear();
 
-            //System.out.println("startTimeMil: " + startTimeMil + "\n endTimeMil:" + endTimeMil);
+            for (int i = 0; i < DisplayRooms.size(); i++) {
+                DisplayRooms.get(i).setAvailable(false);
+            }
+
+                //System.out.println("startTimeMil: " + startTimeMil + "\n endTimeMil:" + endTimeMil);
             rooms = ra.getAvailRooms(date, date, startTimeMil, endTimeMil);
 
             for(int j = 0; j < rooms.size(); j ++) {
                 listOfRooms.add(rooms.get(j));
                 for (int i = 0; i < DisplayRooms.size(); i++) {
-                    if (DisplayRooms.get(i).roomName.equals(rooms.get(j)))
+
+                    if (DisplayRooms.get(i).roomName.equals(rooms.get(j))) {
                         DisplayRooms.get(i).setAvailable(true);
-                    else
-                        DisplayRooms.get(i).setAvailable(false);
+                        System.out.println("True: " + i);
+                        break;
+                    }
                 }
             }
 
@@ -325,16 +331,14 @@ public class BookRoomController {
         }
 
         for (int i = 0; i < DisplayRooms.size(); i++) {
+
             if(DisplayRooms.get(i).isAvailable()){
-                DisplayRooms.get(i).getPolygon().setStroke(Color.web("GREEN"));
-                DisplayRooms.get(i).getPolygon().setFill(Color.web("GREEN"));
+                DisplayRooms.get(i).changePolygonColor("GREEN");
             } else {
-                DisplayRooms.get(i).getPolygon().setStroke(Color.web("RED"));
-                DisplayRooms.get(i).getPolygon().setFill(Color.web("RED"));
+                DisplayRooms.get(i).changePolygonColor("RED");
             }
-            DisplayRooms.get(i).getPolygon().setOpacity(0.3);
             DisplayRooms.get(i).getPolygon().setVisible(true);
-            System.out.println(DisplayRooms.get(i).getPolygon());
+            //System.out.println(DisplayRooms.get(i).getPolygon());
         }
     }
 
@@ -348,11 +352,11 @@ public class BookRoomController {
                 Point2D mousePress = new Point2D(event.getX(), event.getY());
                 if (DisplayRooms.get(k).p.contains(mousePress)) {
                     imagePane.getChildren().remove(DisplayRooms.get(k).getPolygon());
-                    availableRooms.getSelectionModel().select(listOfRooms.get(k));
                     fieldsEntered();
+                    availableRooms.getSelectionModel().select(listOfRooms.get(k));
                     DisplayRooms.get(k).changePolygonColor("BLUE");
                     imagePane.getChildren().add(DisplayRooms.get(k).getPolygon());
-                    System.out.println("Room" + (DisplayRooms.get(k).getRoomName()));
+                    //System.out.println("Room" + (DisplayRooms.get(k).getRoomName()));
                 }
             }
 
