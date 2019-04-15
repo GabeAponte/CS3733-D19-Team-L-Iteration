@@ -1,17 +1,22 @@
 package edu.wpi.cs3733.d19.teamL.Map.Pathfinding;
 
 import com.jfoenix.controls.JFXButton;
+import com.jfoenix.controls.JFXButton;
+import com.jfoenix.controls.JFXScrollPane;
+import com.jfoenix.controls.JFXTextArea;
+import com.jfoenix.controls.JFXComboBox;
 import edu.wpi.cs3733.d19.teamL.HomeScreens.HomeScreenController;
 import edu.wpi.cs3733.d19.teamL.Map.MapLocations.Location;
 import edu.wpi.cs3733.d19.teamL.Map.MapLocations.Path;
-import edu.wpi.cs3733.d19.teamL.SearchingAlgorithms.AStarStrategy;
-import edu.wpi.cs3733.d19.teamL.SearchingAlgorithms.BreadthFirstStrategy;
-import edu.wpi.cs3733.d19.teamL.SearchingAlgorithms.DepthFirstStrategy;
-import edu.wpi.cs3733.d19.teamL.SearchingAlgorithms.PathfindingStrategy;
+import edu.wpi.cs3733.d19.teamL.Map.ImageInteraction.PanAndZoomPane;
+import edu.wpi.cs3733.d19.teamL.SearchingAlgorithms.*;
 import edu.wpi.cs3733.d19.teamL.Singleton;
-import javafx.animation.KeyFrame;
-import javafx.animation.Timeline;
-import javafx.animation.TranslateTransition;
+import javafx.animation.*;
+import javafx.beans.binding.Bindings;
+import javafx.beans.binding.NumberBinding;
+import javafx.application.Platform;
+import javafx.beans.property.DoubleProperty;
+import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.value.ChangeListener;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -48,6 +53,8 @@ import java.util.ResourceBundle;
 
 import static javafx.scene.paint.Color.*;
 
+import static java.lang.Math.sqrt;
+
 @SuppressWarnings("Duplicates")
 public class PathFindingController {
 
@@ -64,6 +71,9 @@ public class PathFindingController {
     private Button PathFindSubmit;
 
     @FXML
+    private Button menuBack;
+
+    @FXML
     private Button G;
 
     @FXML
@@ -71,6 +81,9 @@ public class PathFindingController {
 
     @FXML
     private Button Down;
+
+    @FXML
+    private JFXComboBox<String> restrictChoice;
 
     @FXML
     private Button L1;
@@ -198,23 +211,6 @@ public class PathFindingController {
     public void initialize(URL url, ResourceBundle rb) {
         this.prepareSlideMenuAnimation();
         direction.setEditable(false);
-    }
-
-    @FXML
-    private void prepareSlideMenuAnimation() {
-        TranslateTransition openNav = new TranslateTransition(new Duration(300.0D), this.navList);
-        openNav.setToX(0.0D);
-        TranslateTransition closeNav = new TranslateTransition(new Duration(300.0D), this.navList);
-        this.menu.setOnAction((evt) -> {
-            if (this.navList.getTranslateX() != 62.0D) {
-                openNav.setToX(62);
-                openNav.play();
-            } else {
-                closeNav.setToX(-this.navList.getWidth());
-                closeNav.play();
-            }
-
-        });
     }
 
     @FXML
@@ -408,14 +404,19 @@ public class PathFindingController {
     public void initialize() {
         Singleton single = Singleton.getInstance();
         single.setLastTime();
-        prepareSlideMenuAnimation();
+
         ObservableList<PathfindingStrategy> strategies = FXCollections.observableArrayList();
-        AStarStrategy aStarStrategy = new AStarStrategy(single.lookup);
+        ObservableList<String> preference = FXCollections.observableArrayList();
+        TemplatePathFinder aStarStrategy = new AStarStrategy(single.lookup);
+        TemplatePathFinder dijkstraStrategy = new DijkstraStrategy(single.lookup);
+        strategies.add(dijkstraStrategy);
         strategies.add(aStarStrategy);
         strategies.add(new DepthFirstStrategy(single.lookup));
         strategies.add(new BreadthFirstStrategy(single.lookup));
+        preference.addAll("STAI", "ELEV", "NONE");
         strategySelector.setItems(strategies);
         strategySelector.setValue(aStarStrategy);
+        restrictChoice.setItems(preference);
         strategyAlgorithm = strategySelector.getValue();
         direction.setEditable(false);
         timeout = new Timeline(new KeyFrame(Duration.seconds(2), new EventHandler<ActionEvent>() {
@@ -500,6 +501,7 @@ public class PathFindingController {
 
         Map.fitHeightProperty().bind(gesturePane.heightProperty());
         Map.fitWidthProperty().bind(gesturePane.widthProperty());
+        menu.toFront();
 
         nameToLoc.clear();
         for (Location l: PathFindStartDrop.getItems()) {
@@ -554,18 +556,24 @@ public class PathFindingController {
         }
     }
 
+    /**Nathan modified this to include a path preference choice (restriction)
+     *
+     */
     @FXML
     private void submitPressed(){
         single.setLastTime();
         startNode = single.lookup.get(PathFindStartDrop.getValue().getLocID());
         endNode = single.lookup.get(PathFindEndDrop.getValue().getLocID());
-
+        String restriction = restrictChoice.getValue();
+        if(restriction == null || restriction.trim().equals("") || restriction.equals("NONE")){
+            restriction = "    ";
+        }
 
 
         displayingPath = true;
 
 
-        path = findAbstractPath(strategyAlgorithm, startNode, endNode);
+        path = findAbstractPath(strategyAlgorithm, startNode, endNode, restriction);
 
         displayPath();
         //printPath(path.getPath());
@@ -576,6 +584,43 @@ public class PathFindingController {
        // sceneGestures.setDrawPath(circles,lines);
         direction.setDisable(false);
         direction.setEditable(false);
+    }
+
+    @FXML
+    private void prepareSlideMenuAnimation() {
+        TranslateTransition openNav = new TranslateTransition(new Duration(300.0D), this.navList);
+        openNav.setToX(0.0D);
+        TranslateTransition closeNav = new TranslateTransition(new Duration(300.0D), this.navList);
+        this.menu.setOnAction((evt) -> {
+            if (this.navList.getTranslateX() != 130.0D) {
+                openNav.setToX(130);
+                openNav.play();
+            } else {
+                closeNav.setToX(-this.navList.getWidth());
+                closeNav.play();
+            }
+
+        });
+
+        this.menuBack.setOnAction((evt) -> {
+            if (this.navList.getTranslateX() != 130.0D) {
+                openNav.setToX(130);
+                openNav.play();
+            } else {
+                closeNav.setToX(-this.navList.getWidth());
+                closeNav.play();
+            }
+
+        });
+            if (this.navList.getTranslateX() != 130.0D) {
+                openNav.setToX(130);
+                openNav.play();
+            } else {
+                closeNav.setToX(-this.navList.getWidth());
+                closeNav.play();
+            }
+
+
     }
 
     /**
@@ -626,7 +671,7 @@ public class PathFindingController {
                     final int transit = i + 1;
                     String transition = path.getPath().get(transit).getFloor();
                     String display = "Take Elevator to ";
-                    if(!path.getPath().get(i+1).getFloor().equals(endNode.getFloor()))
+                    if(!path.getPath().get(i+1).getFloor().equals(endNode.getFloor()) && path.getPath().get(i).getNodeType().equals("STAI"))
                     {
                         display = "Take Stairs to ";
                     }
@@ -659,16 +704,16 @@ public class PathFindingController {
                         if (transition.equals("3"))
                             clicked3();
                     });
-                    //Sets button visibility to only display on start and end floors
-                    if (buttons.isEmpty() && (path.getPath().get(i).getFloor().equals(currentMap) ||currentMap.equals(startNode.getFloor()) || currentMap.equals(endNode.getFloor()))) {
+                    //Sets button visibility
+                    if (buttons.isEmpty() && (path.getPath().get(i).getFloor().equals(currentMap) || currentMap.equals(startNode.getFloor()) || currentMap.equals(endNode.getFloor()))) {
                         buttons.add(nBut);
                         nBut.setVisible(true);
                         //Change the display of the button based on which floor you're on
-                        if(currentMap.equals(startNode.getFloor())) {
+                        if(currentMap.equals(startNode.getFloor()) || path.getPath().get(i).getFloor().equals(currentMap)) {
                             nBut.setStyle("-fx-text-fill: WHITE; -fx-font-size: 13; -fx-background-color: GREEN; -fx-border-color: WHITE; -fx-background-radius: 18; -fx-border-radius: 18; -fx-border-width: 3");
 
                         }
-                        else if(path.getPath().get(i).getFloor().equals(currentMap)){
+                        else if(path.getPath().get(i).getFloor().equals(currentMap) && transition.equals(startNode.getFloor())){
                             nBut.setStyle("-fx-text-fill: WHITE; -fx-font-size: 13; -fx-background-color: GREEN; -fx-border-color: WHITE; -fx-background-radius: 18; -fx-border-radius: 18; -fx-border-width: 3");
                         }
                         else {
@@ -830,6 +875,32 @@ public class PathFindingController {
                 noHallEnd.clear();
                 for (int j = 0; j < single.getData().size(); j++) {
                     if (!(single.getData().get(j).getNodeType().contains("HALL"))) {
+                        noHallEnd.add(single.getData().get(j));
+                    }
+                }
+            }
+
+            if (PathFindStartDrop.getValue() == null) {
+                PathFindStartDrop.setItems(noHallStart);
+            }
+            if (PathFindEndDrop.getValue() == null) {
+                PathFindEndDrop.setItems(noHallEnd);
+            }
+
+        } else if (Filter.getValue() == (null) && Floor.getValue() != null) {
+            if (PathFindStartDrop.getValue() == null) {
+                noHallStart.clear();
+                for (int j = 0; j < single.getData().size(); j++) {
+                    if (!(single.getData().get(j).getNodeType().contains("HALL")) && (single.getData().get(j).getFloor().equals(pickedFloor))) {
+                        noHallStart.add(single.getData().get(j));
+                    }
+                }
+            }
+            if (PathFindEndDrop.getValue() == null) {
+                PathFindEndDrop.setItems(noHallEnd);
+                noHallEnd.clear();
+                for (int j = 0; j < single.getData().size(); j++) {
+                    if (!(single.getData().get(j).getNodeType().contains("HALL")) && (single.getData().get(j).getFloor().equals(pickedFloor))) {
                         noHallEnd.add(single.getData().get(j));
                     }
                 }
@@ -1108,9 +1179,17 @@ public class PathFindingController {
         }
     }
 
-    public Path findAbstractPath(PathfindingStrategy strategy, Location start, Location end) {
+    /**Nathan modified this to include path preference (restriction)
+     *
+     * @param strategy
+     * @param start
+     * @param end
+     * @param restriction
+     * @return
+     */
+    public Path findAbstractPath(PathfindingStrategy strategy, Location start, Location end, String restriction) {
         single.setLastTime();
-        Path p = strategy.findPath(start, end);
+        Path p = strategy.findPath(start, end, restriction);
         return p;
     }
 
@@ -1226,7 +1305,7 @@ public class PathFindingController {
             double length =0;
 
             Location closestLOC = nodes.get(0);
-            Path closestPath = findAbstractPath(astar,kioskTemp, nodes.get(0)); //?
+            Path closestPath = findAbstractPath(astar,kioskTemp, nodes.get(0), "    "); //?
 
             for(int i=0; i<nodes.size(); i++){
 
@@ -1241,7 +1320,7 @@ public class PathFindingController {
                 m = Math.abs(m);
                 //abs val
                 //length
-                length = Math.sqrt((m*m)+(n+n));
+                length = sqrt((m*m)+(n+n));
                 //a^2 + b^2 = c^2 therefore sqrt gets the length of the distance between kiosk and this node
 
                 //System.out.println("n:"+n+" m:"+m+" length:"+length);
@@ -1251,7 +1330,7 @@ public class PathFindingController {
                     //System.out.println("xxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"+"  smallest distance: "+smallestDistance);
                     //set this node to be for pathing
                     closestLOC = nodes.get(i);
-                    closestPath = findAbstractPath(astar,kioskTemp, closestLOC);
+                    closestPath = findAbstractPath(astar,kioskTemp, closestLOC, "    ");
                 }
             }
 
@@ -1548,11 +1627,6 @@ public class PathFindingController {
 
     //Larry - Print the textual direction based on the path return from algorithm
     private String printPath(ArrayList<Location> A){
-        // System.out.println(A);
-        for(Location a: A){
-            //   System.out.print(a.getNodeType() + "  ");
-        }
-        //  System.out.println(" ");
         String aType;
         String bType;
         String aFloor;
@@ -1564,10 +1638,6 @@ public class PathFindingController {
         int d = 0; // count for the start location for exact location
         //same start and end location
         if(A.size() == 2 && A.get(0) == A.get(1)){
-            // System.out.println(A.size());
-            // System.out.println(A.size() == 2);
-//
-            //   System.out.println("You are already at your destination");
             text += "You are already at your destination :)\n";
             return text;
         }
@@ -1594,9 +1664,7 @@ public class PathFindingController {
                     return text;
                 }
                 else{
-                    //   System.out.println("Go straight to " + A.get(1).getLongName() + " (" +
-                    //       convertToExact(A.get(0).findDistance(A.get(1))) + " ft) \n");
-                    text += "\u21E7 Go straight to " + A.get(1).getLongName() + " (" +
+                        text += "\u21E7 Go straight to " + A.get(1).getLongName() + " (" +
                             convertToExact(A.get(0).findDistance(A.get(1))) + " ft) \n";
                     return text;
                 }
@@ -1615,8 +1683,7 @@ public class PathFindingController {
                 curDirection = directionPath(a,b);
                 nextDirection = directionPath(b,c);
 
-                //    System.out.println("Go straight to " + b.getLongName()
-                //       + " (" + convertToExact(start.findDistance(b)) + " ft) " );
+
                 text += "\u21E7 Go straight to " + b.getLongName()
                         + " (" + convertToExact(start.findDistance(b)) + " ft) \n";
 
@@ -1627,21 +1694,17 @@ public class PathFindingController {
                 if(curDirection == nextDirection){
                     if(curDirection == 2 || curDirection == 6){
                         if(Math.abs(slopeBC)> Math.abs(slopeAB)){
-                            //   System.out.println("Turn left");
                             text += "\u21E6 Turn left \n";
                         }
                         else{
-                            //   System.out.println("Turn right");
                             text += "\u21E8 Turn right\n";
                         }
                     }
                     else if(curDirection == 4 || curDirection ==8){
                         if(Math.abs(slopeBC)> Math.abs(slopeAB)){
-                            //      System.out.println("Turn right");
                             text += "\u21E8 Turn right\n";
                         }
                         else{
-                            //        System.out.println("Turn left");
                             text += "\u21E6 Turn left \n";
                         }
 
@@ -1650,11 +1713,9 @@ public class PathFindingController {
                 }
                 else if((curDirection == 2 && nextDirection ==6) || (curDirection == 6 && nextDirection ==2)){
                     if(Math.abs(slopeBC)>Math.abs(slopeAB)){
-                        //     System.out.println("Turn right");
                         text += "\u21E8 Turn right\n";
                     }
                     else{
-                        //      System.out.println("Turn left");
                         text += "\u21E6 Turn left\n";
                     }
 
@@ -1662,11 +1723,9 @@ public class PathFindingController {
 
                 else if((curDirection == 8 && nextDirection ==4) || (curDirection == 6 && nextDirection ==2)){
                     if(Math.abs(slopeBC)>Math.abs(slopeAB)){
-                        //        System.out.println("Turn left");
                         text += "\u21E6 Turn left\n";
                     }
                     else{
-                        //          System.out.println("Turn right");
                         text += "\u21E8 Turn right\n";
                     }
 
@@ -1674,22 +1733,19 @@ public class PathFindingController {
 
                 else if(curDirection <= 5){
                     if(nextDirection < curDirection + 4 && nextDirection > curDirection){
-                        //          System.out.println("Turn right");
                         text += "\u21E8 Turn right\n";
                     }
                     else {
-                        //          System.out.println("Turn left");
+
                         text += "\u21E6 Turn left\n";
                     }
                 }
                 else{
                     if(curDirection == 6){
                         if(nextDirection == 7 || nextDirection == 8 || nextDirection == 1){
-                            //       System.out.println("Turn right");
                             text += "\u21E8 Turn right\n";
                         }
                         if(nextDirection == 5 || nextDirection == 4 || nextDirection == 3){
-                            //        System.out.println("Turn left");
                             text += "\u21E6 Turn left\n";
                         }
 
@@ -1697,25 +1753,17 @@ public class PathFindingController {
                     }
                     else if (curDirection ==7){
                         if(nextDirection == 8 || nextDirection == 1 || nextDirection == 2){
-                            //     System.out.println("Turn right");
                             text += "\u21E8 Turn right\n";
                         }
                         else if(nextDirection == 6 || nextDirection == 5 || nextDirection == 4){
-                            //    System.out.println("Turn left");
                             text += "\u21E6 Turn left\n";
                         }
-                        else {
-
-                        }
-
                     }
                     else if(curDirection ==8){
                         if(nextDirection == 1 || nextDirection == 2 || nextDirection == 3){
-                       //     System.out.println("Turn right");
                             text += "\u21E8 Turn right\n";
                         }
                         else if(nextDirection == 5 || nextDirection == 6 || nextDirection == 7){
-                            //      System.out.println("Turn left");
                             text += "\u21E6 Turn left\n";
                         }
                         else {
@@ -1730,8 +1778,6 @@ public class PathFindingController {
 
             }
             if(i == A.size() - 3){
-                //   System.out.println("Go straight to your destination " + A.get(A.size()-1).getLongName() +
-                //     " (" + convertToExact(b.findDistance(c)) + " ft) " );
                 text += "\u21E7 Go straight to your destination " + A.get(A.size()-1).getLongName() +
                         " (" + convertToExact(b.findDistance(c)) + " ft) \n";
                 return text;
@@ -1758,7 +1804,6 @@ public class PathFindingController {
         //on average, walking speed 4.6 ft / sec
         minutes = convertToExact(totalDistance) / (4.6 * 60);
 
-//        System.out.println(minutes);
         return (int) (minutes * 100) / 100.0;
 
     }
@@ -1766,7 +1811,7 @@ public class PathFindingController {
 
     //Alex
     @FXML
-    public void submitSearchField(Event ae) throws IOException {
+    public void submitSearchField(Event ae) {
         if(PathFindStartDrop.getValue() == null){
             if(nameToLoc.get(searchField.getText()) != null) {
                 PathFindStartDrop.setValue(nameToLoc.get(searchField.getText()));
