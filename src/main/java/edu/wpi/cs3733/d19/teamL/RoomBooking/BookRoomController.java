@@ -85,16 +85,16 @@ public class BookRoomController {
 
     public void initialize() {
 
-        double room1[] = {};
-        double room2[] = {};
-        double room3[] = {};
+        double room1[] = {2230, 1630, 2650, 1630, 2650, 1880, 2230, 1880};
+        double room2[] = {2860, 1130, 3040, 1070, 3180, 1430, 2990, 1500};
+        double room3[] = {2720, 750, 2850, 1120, 3040, 1060, 2970, 850, 3000, 840, 2970, 770, 2900, 720, 2810, 690};
         double room4[] = {2420, 180, 2610, 180, 2730, 540, 2420, 540};
-        double room5[] = {};
+        double room5[] = {2240, 755, 2540, 755, 2540, 1080, 2240, 1080};
         double room6[] = {2090, 180, 2410, 180, 2410, 540, 2090, 540};
-        double room7[] = {};
+        double room7[] = {2000, 755, 2230, 755, 2230, 1080, 2000, 1080};
         double room8[] = {1750, 180, 2080, 180, 2080, 540, 1750, 540};
         double room9[] = {1775, 710, 1840, 710, 1840, 750, 1980, 750, 1980, 930, 1775, 930};
-        double auditorium[] = {};
+        double auditorium[] = {2860, 1920, 2860, 2030, 3130, 2030, 3150, 2060, 3240, 2000, 3320, 1870, 3330, 1770, 3310, 1730, 3270, 1720, 3190, 1460, 3040, 1500, 3070, 1590, 3030, 1600};
 
         DisplayRooms.add(new RoomDisplay("Classroom 1 (Computer)", room1));
         DisplayRooms.add(new RoomDisplay("Classroom 2 (Computer)", room2));
@@ -344,13 +344,18 @@ public class BookRoomController {
         @Override
         public void handle(MouseEvent event) {
             displayAllRooms();
-            int z = 0;
             for (int k = 0; k < DisplayRooms.size(); k++) {
                 Point2D mousePress = new Point2D(event.getX(), event.getY());
                 if (DisplayRooms.get(k).p.contains(mousePress)) {
                     imagePane.getChildren().remove(DisplayRooms.get(k).getPolygon());
                     fieldsEntered();
-                    availableRooms.getSelectionModel().select(listOfRooms.get(k));
+                    for(int z = 0; z<listOfRooms.size(); z++){
+                        if(DisplayRooms.get(k).getRoomName().equals(listOfRooms.get(z))){
+                            if(DisplayRooms.get(k).isAvailable()) {
+                                availableRooms.getSelectionModel().select(listOfRooms.get(z));
+                            }
+                        }
+                    }
                     DisplayRooms.get(k).changePolygonColor("BLUE");
                     imagePane.getChildren().add(DisplayRooms.get(k).getPolygon());
                     //System.out.println("Room" + (DisplayRooms.get(k).getRoomName()));
