@@ -4,6 +4,7 @@ import com.jfoenix.controls.JFXTabPane;
 import edu.wpi.cs3733.d19.teamL.Account.EmployeeAccess;
 import edu.wpi.cs3733.d19.teamL.HomeScreens.HomeScreenController;
 import edu.wpi.cs3733.d19.teamL.ServiceRequest.ServiceRequestDBAccess.InternalTransportAccess;
+import edu.wpi.cs3733.d19.teamL.ServiceRequest.ServiceRequestDBAccess.LanguageAccess;
 import edu.wpi.cs3733.d19.teamL.ServiceRequest.ServiceRequestDBAccess.ReligiousRequestAccess;
 import edu.wpi.cs3733.d19.teamL.ServiceRequest.ServiceRequestDBAccess.ServiceRequestAccess;
 
@@ -21,8 +22,10 @@ import javafx.scene.control.*;
 import javafx.scene.input.MouseButton;
 import javafx.stage.Stage;
 import javafx.util.Duration;
+import sun.util.locale.provider.AvailableLanguageTags;
 
 import java.io.IOException;
+import java.util.Locale;
 
 
 public class ActiveServiceRequestsController {
@@ -77,6 +80,39 @@ public class ActiveServiceRequestsController {
 
     @FXML
     private TreeTableView<ServiceRequestTable> activeRequests;
+
+    @FXML
+    private TreeTableView<ServiceRequestTable> ReligiousRequests;
+
+    @FXML
+    private TreeTableView<ServiceRequestTable> AVRequests;
+
+    @FXML
+    private TreeTableView<ServiceRequestTable> ExternalRequests;
+
+    @FXML
+    private TreeTableView<ServiceRequestTable> FloristRequest;
+
+    @FXML
+    private TreeTableView<ServiceRequestTable> InternalRequests;
+
+    @FXML
+    private TreeTableView<ServiceRequestTable> ITRequest;
+
+    @FXML
+    private TreeTableView<ServiceRequestTable> PrescriptionsRequests;
+
+    @FXML
+    private TreeTableView<ServiceRequestTable> SecurityRequests;
+
+    @FXML
+    private TreeTableView<ServiceRequestTable> SanitationRequests;
+
+    @FXML
+    private TreeTableView<ServiceRequestTable> LanguageRequests;
+
+    @FXML
+    private TreeTableView<ServiceRequestTable> MaintenanceRequests;
 
     Timeline timeout;
 
@@ -144,12 +180,6 @@ public class ActiveServiceRequestsController {
         }));
         timeout.setCycleCount(Timeline.INDEFINITE);
         timeout.play();
-
-     /*   filter.getItems().addAll(
-                "Religious", "Internal Transportation", "Audio/Visual",
-                "External Transportation", "Florist Delivery", "IT",
-                "Language Assistance", "Maintenance", "Prescriptions", "Sanitation", "Security"); */
-       activeRequests.getColumns().clear();
     }
 
     /**@author Gabe
@@ -160,12 +190,11 @@ public class ActiveServiceRequestsController {
         Singleton single = Singleton.getInstance();
         single.setLastTime();
 
-        activeRequests.setEditable(false);
-
         if (requestType.getSelectionModel().getSelectedItem().getText().equals("Internal Trans.")){
+            InternalRequests.setEditable(false);
             System.out.println(requestType.getSelectionModel().getSelectedItem().getText());
             root.getChildren().clear();
-            activeRequests.setRoot(null);
+            InternalRequests.setRoot(null);
             InternalTransportAccess it = new InternalTransportAccess();
 
             int count;
@@ -179,17 +208,17 @@ public class ActiveServiceRequestsController {
             field1.setText("Start Location");
             field2.setText("End Location");
             field3.setText("Phone Number");
-            activeRequests.getColumns().clear();
-            activeRequests.getColumns().add(timeRequested);
-            activeRequests.getColumns().add(dateRequested);
-            activeRequests.getColumns().add(field1);
-            activeRequests.getColumns().add(field2);
-            activeRequests.getColumns().add(type);
-            activeRequests.getColumns().add(field3);
-            activeRequests.getColumns().add(comment);
-            activeRequests.getColumns().add(assignedEmployee);
-            activeRequests.setRoot(root);
-            activeRequests.setShowRoot(false);
+            InternalRequests.getColumns().clear();
+            InternalRequests.getColumns().add(timeRequested);
+            InternalRequests.getColumns().add(dateRequested);
+            InternalRequests.getColumns().add(field1);
+            InternalRequests.getColumns().add(field2);
+            InternalRequests.getColumns().add(type);
+            InternalRequests.getColumns().add(field3);
+            InternalRequests.getColumns().add(comment);
+            InternalRequests.getColumns().add(assignedEmployee);
+            InternalRequests.setRoot(root);
+            InternalRequests.setShowRoot(false);
 
             timeRequested.setCellValueFactory(cellData -> {
                 if (cellData.getValue().getValue() instanceof ServiceRequestTable) {
@@ -254,7 +283,7 @@ public class ActiveServiceRequestsController {
         else if (requestType.getSelectionModel().getSelectedItem().getText().equals("Religious")) {
             System.out.println(requestType.getSelectionModel().getSelectedItem().getText());
             root.getChildren().clear();
-            activeRequests.setRoot(null);
+            ReligiousRequests.setRoot(null);
 
             ReligiousRequestAccess rr = new ReligiousRequestAccess();
 
@@ -326,25 +355,25 @@ public class ActiveServiceRequestsController {
             });
 
             field1.setText("Denomination");
-            activeRequests.getColumns().clear();
-            activeRequests.getColumns().add(timeRequested);
-            activeRequests.getColumns().add(dateRequested);
-            activeRequests.getColumns().add(name);
-            activeRequests.getColumns().add(field1);
-            activeRequests.getColumns().add(type);
-            activeRequests.getColumns().add(hi);
-            activeRequests.getColumns().add(comment);
-            activeRequests.getColumns().add(assignedEmployee);
-            activeRequests.setTreeColumn(timeRequested);
-            activeRequests.setRoot(root);
-            activeRequests.setShowRoot(false);
+            ReligiousRequests.getColumns().clear();
+            ReligiousRequests.getColumns().add(timeRequested);
+            ReligiousRequests.getColumns().add(dateRequested);
+            ReligiousRequests.getColumns().add(name);
+            ReligiousRequests.getColumns().add(field1);
+            ReligiousRequests.getColumns().add(type);
+            ReligiousRequests.getColumns().add(hi);
+            ReligiousRequests.getColumns().add(comment);
+            ReligiousRequests.getColumns().add(assignedEmployee);
+            ReligiousRequests.setTreeColumn(timeRequested);
+            ReligiousRequests.setRoot(root);
+            ReligiousRequests.setShowRoot(false);
 
         }
 
         else if (requestType.getSelectionModel().getSelectedItem().getText().equals("Audio/Visual")) {
             System.out.println(requestType.getSelectionModel().getSelectedItem().getText());
             root.getChildren().clear();
-            activeRequests.setRoot(null);
+            AVRequests.setRoot(null);
 
             ServiceRequestAccess sra = new ServiceRequestAccess();
 
@@ -408,21 +437,21 @@ public class ActiveServiceRequestsController {
             });
 
             field1.setText("Name");
-            activeRequests.getColumns().clear();
-            activeRequests.getColumns().add(timeRequested);
-            activeRequests.getColumns().add(dateRequested);
-            activeRequests.getColumns().add(hi);
-            activeRequests.getColumns().add(type);
-            activeRequests.getColumns().add(field1);
-            activeRequests.getColumns().add(comment);
-            activeRequests.getColumns().add(assignedEmployee);
-            activeRequests.setRoot(root);
-            activeRequests.setShowRoot(false);
+            AVRequests.getColumns().clear();
+            AVRequests.getColumns().add(timeRequested);
+            AVRequests.getColumns().add(dateRequested);
+            AVRequests.getColumns().add(hi);
+            AVRequests.getColumns().add(type);
+            AVRequests.getColumns().add(field1);
+            AVRequests.getColumns().add(comment);
+            AVRequests.getColumns().add(assignedEmployee);
+            AVRequests.setRoot(root);
+            AVRequests.setShowRoot(false);
         }
        else  if (requestType.getSelectionModel().getSelectedItem().getText().equals("External Trans.")) {
             System.out.println(requestType.getSelectionModel().getSelectedItem().getText());
             root.getChildren().clear();
-            activeRequests.setRoot(null);
+            ExternalRequests.setRoot(null);
 
             ServiceRequestAccess sra = new ServiceRequestAccess();
 
@@ -495,22 +524,22 @@ public class ActiveServiceRequestsController {
             field1.setText("Start Location");
             field2.setText("End Location");
             field3.setText("Phone Number");
-            activeRequests.getColumns().clear();
-            activeRequests.getColumns().add(timeRequested);
-            activeRequests.getColumns().add(dateRequested);
-            activeRequests.getColumns().add(field1);
-            activeRequests.getColumns().add(field2);
-            activeRequests.getColumns().add(type);
-            activeRequests.getColumns().add(field3);
-            activeRequests.getColumns().add(comment);
-            activeRequests.getColumns().add(assignedEmployee);
-            activeRequests.setRoot(root);
-            activeRequests.setShowRoot(false);
+            ExternalRequests.getColumns().clear();
+            ExternalRequests.getColumns().add(timeRequested);
+            ExternalRequests.getColumns().add(dateRequested);
+            ExternalRequests.getColumns().add(field1);
+            ExternalRequests.getColumns().add(field2);
+            ExternalRequests.getColumns().add(type);
+            ExternalRequests.getColumns().add(field3);
+            ExternalRequests.getColumns().add(comment);
+            ExternalRequests.getColumns().add(assignedEmployee);
+            ExternalRequests.setRoot(root);
+            ExternalRequests.setShowRoot(false);
         }
         else if (requestType.getSelectionModel().getSelectedItem().getText().equals("Florist")) {
             System.out.println(requestType.getSelectionModel().getSelectedItem().getText());
             root.getChildren().clear();
-            activeRequests.setRoot(null);
+            FloristRequest.setRoot(null);
 
             ServiceRequestAccess sra = new ServiceRequestAccess();
 
@@ -574,21 +603,21 @@ public class ActiveServiceRequestsController {
             });
 
             field1.setText("Flower");
-            activeRequests.getColumns().clear();
-            activeRequests.getColumns().add(timeRequested);
-            activeRequests.getColumns().add(dateRequested);
-            activeRequests.getColumns().add(name);
-            activeRequests.getColumns().add(field1);
-            activeRequests.getColumns().add(hi);
-            activeRequests.getColumns().add(comment);
-            activeRequests.getColumns().add(assignedEmployee);
-            activeRequests.setRoot(root);
-            activeRequests.setShowRoot(false);
+            FloristRequest.getColumns().clear();
+            FloristRequest.getColumns().add(timeRequested);
+            FloristRequest.getColumns().add(dateRequested);
+            FloristRequest.getColumns().add(name);
+            FloristRequest.getColumns().add(field1);
+            FloristRequest.getColumns().add(hi);
+            FloristRequest.getColumns().add(comment);
+            FloristRequest.getColumns().add(assignedEmployee);
+            FloristRequest.setRoot(root);
+            FloristRequest.setShowRoot(false);
         }
         else if (requestType.getSelectionModel().getSelectedItem().getText().equals("IT")) {
             System.out.println(requestType.getSelectionModel().getSelectedItem().getText());
             root.getChildren().clear();
-            activeRequests.setRoot(null);
+            ITRequest.setRoot(null);
 
             ServiceRequestAccess sra = new ServiceRequestAccess();
 
@@ -653,21 +682,21 @@ public class ActiveServiceRequestsController {
 
             field1.setText("Device");
             field2.setText("Problem");
-            activeRequests.getColumns().clear();
-            activeRequests.getColumns().add(timeRequested);
-            activeRequests.getColumns().add(dateRequested);
-            activeRequests.getColumns().add(hi);
-            activeRequests.getColumns().add(field1);
-            activeRequests.getColumns().add(field2);
-            activeRequests.getColumns().add(comment);
-            activeRequests.getColumns().add(assignedEmployee);
-            activeRequests.setRoot(root);
-            activeRequests.setShowRoot(false);
+            ITRequest.getColumns().clear();
+            ITRequest.getColumns().add(timeRequested);
+            ITRequest.getColumns().add(dateRequested);
+            ITRequest.getColumns().add(hi);
+            ITRequest.getColumns().add(field1);
+            ITRequest.getColumns().add(field2);
+            ITRequest.getColumns().add(comment);
+            ITRequest.getColumns().add(assignedEmployee);
+            ITRequest.setRoot(root);
+            ITRequest.setShowRoot(false);
         }
        else if (requestType.getSelectionModel().getSelectedItem().getText().equals("Language Assistance")) {
             System.out.println(requestType.getSelectionModel().getSelectedItem().getText());
             root.getChildren().clear();
-            activeRequests.setRoot(null);
+            LanguageRequests.setRoot(null);
 
             ServiceRequestAccess sra = new ServiceRequestAccess();
 
@@ -740,22 +769,22 @@ public class ActiveServiceRequestsController {
             field1.setText("Language");
             field2.setText("Their Proficiency");
             field3.setText("Interpreters Needed");
-            activeRequests.getColumns().clear();
-            activeRequests.getColumns().add(timeRequested);
-            activeRequests.getColumns().add(dateRequested);
-            activeRequests.getColumns().add(hi);
-            activeRequests.getColumns().add(field1);
-            activeRequests.getColumns().add(field2);
-            activeRequests.getColumns().add(field3);
-            activeRequests.getColumns().add(comment);
-            activeRequests.getColumns().add(assignedEmployee);
-            activeRequests.setRoot(root);
-            activeRequests.setShowRoot(false);
+            LanguageRequests.getColumns().clear();
+            LanguageRequests.getColumns().add(timeRequested);
+            LanguageRequests.getColumns().add(dateRequested);
+            LanguageRequests.getColumns().add(hi);
+            LanguageRequests.getColumns().add(field1);
+            LanguageRequests.getColumns().add(field2);
+            LanguageRequests.getColumns().add(field3);
+            LanguageRequests.getColumns().add(comment);
+            LanguageRequests.getColumns().add(assignedEmployee);
+            LanguageRequests.setRoot(root);
+            LanguageRequests.setShowRoot(false);
         }
         else if (requestType.getSelectionModel().getSelectedItem().getText().equals("Maintenance")){
             System.out.println(requestType.getSelectionModel().getSelectedItem().getText());
             root.getChildren().clear();
-            activeRequests.setRoot(null);
+            MaintenanceRequests.setRoot(null);
 
             ServiceRequestAccess sra = new ServiceRequestAccess();
 
@@ -819,21 +848,21 @@ public class ActiveServiceRequestsController {
             });
 
             field1.setText("Hazardous?");
-            activeRequests.getColumns().clear();
-            activeRequests.getColumns().add(timeRequested);
-            activeRequests.getColumns().add(dateRequested);
-            activeRequests.getColumns().add(hi);
-            activeRequests.getColumns().add(type);
-            activeRequests.getColumns().add(field1);
-            activeRequests.getColumns().add(comment);
-            activeRequests.getColumns().add(assignedEmployee);
-            activeRequests.setRoot(root);
-            activeRequests.setShowRoot(false);
+            MaintenanceRequests.getColumns().clear();
+            MaintenanceRequests.getColumns().add(timeRequested);
+            MaintenanceRequests.getColumns().add(dateRequested);
+            MaintenanceRequests.getColumns().add(hi);
+            MaintenanceRequests.getColumns().add(type);
+            MaintenanceRequests.getColumns().add(field1);
+            MaintenanceRequests.getColumns().add(comment);
+            MaintenanceRequests.getColumns().add(assignedEmployee);
+            MaintenanceRequests.setRoot(root);
+            MaintenanceRequests.setShowRoot(false);
         }
         else if (requestType.getSelectionModel().getSelectedItem().getText().equals("Prescriptions")) {
             System.out.println(requestType.getSelectionModel().getSelectedItem().getText());
             root.getChildren().clear();
-            activeRequests.setRoot(null);
+            PrescriptionsRequests.setRoot(null);
 
             ServiceRequestAccess sra = new ServiceRequestAccess();
 
@@ -906,23 +935,22 @@ public class ActiveServiceRequestsController {
             field1.setText("Medicine");
             field2.setText("Amount");
             field3.setText("Delivery Time");
-            activeRequests.getColumns().clear();
-            activeRequests.getColumns().add(timeRequested);
-            activeRequests.getColumns().add(dateRequested);
-            activeRequests.getColumns().add(hi);
-            activeRequests.getColumns().add(field1);
-            activeRequests.getColumns().add(field2);
-            activeRequests.getColumns().add(field3);
-            activeRequests.getColumns().add(comment);
-            activeRequests.getColumns().add(assignedEmployee);
-            activeRequests.setRoot(root);
-            activeRequests.setShowRoot(false);
+            PrescriptionsRequests.getColumns().clear();
+            PrescriptionsRequests.getColumns().add(timeRequested);
+            PrescriptionsRequests.getColumns().add(dateRequested);
+            PrescriptionsRequests.getColumns().add(hi);
+            PrescriptionsRequests.getColumns().add(field1);
+            PrescriptionsRequests.getColumns().add(field2);
+            PrescriptionsRequests.getColumns().add(field3);
+            PrescriptionsRequests.getColumns().add(comment);
+            PrescriptionsRequests.getColumns().add(assignedEmployee);
+            PrescriptionsRequests.setRoot(root);
+            PrescriptionsRequests.setShowRoot(false);
         }
        else if (requestType.getSelectionModel().getSelectedItem().getText().equals("Sanitation")) {
             System.out.println(requestType.getSelectionModel().getSelectedItem().getText());
-            System.out.println(requestType.getSelectionModel().getSelectedItem().getText());
             root.getChildren().clear();
-            activeRequests.setRoot(null);
+            SanitationRequests.setRoot(null);
 
             ServiceRequestAccess sra = new ServiceRequestAccess();
 
@@ -987,22 +1015,21 @@ public class ActiveServiceRequestsController {
             });
 
             field1.setText("Urgency");
-            activeRequests.getColumns().clear();
-            activeRequests.getColumns().add(timeRequested);
-            activeRequests.getColumns().add(dateRequested);
-            activeRequests.getColumns().add(hi);
-            activeRequests.getColumns().add(type);
-            activeRequests.getColumns().add(field1);
-            activeRequests.getColumns().add(comment);
-            activeRequests.getColumns().add(assignedEmployee);
-            activeRequests.setRoot(root);
-            activeRequests.setShowRoot(false);
-            System.out.println("this ran");
+            SanitationRequests.getColumns().clear();
+            SanitationRequests.getColumns().add(timeRequested);
+            SanitationRequests.getColumns().add(dateRequested);
+            SanitationRequests.getColumns().add(hi);
+            SanitationRequests.getColumns().add(type);
+            SanitationRequests.getColumns().add(field1);
+            SanitationRequests.getColumns().add(comment);
+            SanitationRequests.getColumns().add(assignedEmployee);
+            SanitationRequests.setRoot(root);
+            SanitationRequests.setShowRoot(false);
         }
        else if (requestType.getSelectionModel().getSelectedItem().getText().equals("Security")) {
             System.out.println(requestType.getSelectionModel().getSelectedItem().getText());
             root.getChildren().clear();
-            activeRequests.setRoot(null);
+            SecurityRequests.setRoot(null);
 
             ServiceRequestAccess sra = new ServiceRequestAccess();
 
@@ -1074,17 +1101,17 @@ public class ActiveServiceRequestsController {
 
             field1.setText("Identifier");
             field2.setText("ThreatLevel");
-            activeRequests.getColumns().clear();
-            activeRequests.getColumns().add(timeRequested);
-            activeRequests.getColumns().add(dateRequested);
-            activeRequests.getColumns().add(hi);
-            activeRequests.getColumns().add(type);
-            activeRequests.getColumns().add(field1);
-            activeRequests.getColumns().add(field2);
-            activeRequests.getColumns().add(comment);
-            activeRequests.getColumns().add(assignedEmployee);
-            activeRequests.setRoot(root);
-            activeRequests.setShowRoot(false);
+            SecurityRequests.getColumns().clear();
+            SecurityRequests.getColumns().add(timeRequested);
+            SecurityRequests.getColumns().add(dateRequested);
+            SecurityRequests.getColumns().add(hi);
+            SecurityRequests.getColumns().add(type);
+            SecurityRequests.getColumns().add(field1);
+            SecurityRequests.getColumns().add(field2);
+            SecurityRequests.getColumns().add(comment);
+            SecurityRequests.getColumns().add(assignedEmployee);
+            SecurityRequests.setRoot(root);
+            SecurityRequests.setShowRoot(false);
         }
 
     }
