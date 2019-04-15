@@ -113,6 +113,8 @@ public class EditLocationController {
     private Location focusNode;
     private Edge focusEdge;
 
+    double orgSceneX, orgSceneY;
+
     Timeline timeout;
 
     @FXML
@@ -248,7 +250,6 @@ public class EditLocationController {
         gridPane.add(gesturePane,0,0, 7, GridPane.REMAINING);
         gesturePane.zoomTo(2.0,new Point2D(Map.getImage().getWidth(), Map.getImage().getHeight()));
 
-
 //        gridPane.add(gesturePane,0,0);
         Map.fitWidthProperty().bind(gesturePane.widthProperty());
         Map.fitHeightProperty().bind(gesturePane.heightProperty());
@@ -338,6 +339,22 @@ public class EditLocationController {
                     thisCircle.setFill(Color.web("RED"));
                     thisCircle.setLocation(single.getData().get(i));
                     thisCircle.setOnMousePressed(circleOnMousePressedEventHandler);
+                    thisCircle.setOnMouseDragged((t) -> {
+                        if (t.isControlDown()) {
+                            double offsetX = (t.getSceneX() - orgSceneX)*childPane.getWidth()/Map.getImage().getWidth();
+                            double offsetY = (t.getSceneY() - orgSceneY)*childPane.getHeight()/Map.getImage().getHeight();
+
+                            Circle c = (Circle) (t.getSource());
+
+                            c.setCenterX(c.getCenterX() + offsetX);
+                            c.setCenterY(c.getCenterY() + offsetY);
+
+                            orgSceneX = t.getSceneX();
+                            orgSceneY = t.getSceneY();
+                            t.consume();
+
+                        }
+                    });
 
                     pathPane.getChildren().add(thisCircle);
 
@@ -452,6 +469,12 @@ public class EditLocationController {
                     ((Circle)(t.getSource())).setStroke(Color.web("GREEN"));
                     ((Circle)(t.getSource())).setFill(Color.web("GREEN"));
 
+                    orgSceneX = t.getSceneX();
+                    orgSceneY = t.getSceneY();
+
+                    Circle c = (Circle) (t.getSource());
+                    c.toFront();
+
                     ScrollPane sp = new ScrollPane();
                     GridPane gp = new GridPane();
                     Button close = new Button("Close");
@@ -477,7 +500,7 @@ public class EditLocationController {
                     gp.add(tf1,1,1);
 
                     Label lb2 = new Label("Floor : ");
-                    String txt2 = "" + ((CircleLocation)(t.getSource())).getLocation().getYcoord();
+                    String txt2 = "" + ((CircleLocation)(t.getSource())).getLocation().getFloor();
                     TextField tf2 = new TextField(txt2);
                     tf2.setPrefWidth(100);
                     gp.add(lb2,0,2);
@@ -505,7 +528,7 @@ public class EditLocationController {
                     gp.add(tf5,1,5);
 
                     Label lb6 = new Label("ShortName : ");
-                    String txt6 = "" + ((CircleLocation)(t.getSource())).getLocation().getLongName();
+                    String txt6 = "" + ((CircleLocation)(t.getSource())).getLocation().getShortName();
                     TextField tf6 = new TextField(txt6);
                     tf6.setPrefWidth(100);
                     gp.add(lb6,0,6);
