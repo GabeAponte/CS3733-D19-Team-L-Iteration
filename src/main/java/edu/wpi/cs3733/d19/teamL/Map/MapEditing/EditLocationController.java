@@ -623,6 +623,7 @@ public class EditLocationController {
                             cl.setFill(Color.web("RED"));
                         }
                         if(addEdgeList.size() == 2){
+                            System.out.println("adding edges successfully");
                             CircleLocation clStart = addEdgeList.get(0);
                             CircleLocation clEnd = addEdgeList.get(1);
                             ea =new EdgesAccess();
@@ -670,7 +671,7 @@ public class EditLocationController {
 
                     }
 
-                    else if(t.isShiftDown()){
+                    else if(t.isShiftDown()&& !(t.isSecondaryButtonDown())){
                         CircleLocation loc = (CircleLocation) (t.getSource());
                         if(shiftClick.contains(loc)){
                             shiftClick.remove(loc);
@@ -721,7 +722,8 @@ public class EditLocationController {
                             }
                         }
                     }
-                    else {
+
+                    else if (!t.isShiftDown()&&!t.isAltDown()&& !t.isSecondaryButtonDown()){
                         //((Circle)(t.getSource())).setStroke(Color.web("GREEN"));
                         ((Circle)(t.getSource())).setFill(Color.web("GREEN"));
 
@@ -895,6 +897,10 @@ public class EditLocationController {
                         else {
                             System.out.println("DETECTED PREVIOUS PANE");
                         }
+                    }
+
+                    else{
+
                     }
 
                     if (!(lastCircle == null) && !(t.isShiftDown())) {
