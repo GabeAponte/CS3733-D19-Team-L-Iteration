@@ -224,7 +224,7 @@ public class PathFindingController {
         currentMap = "G";
         resetRadButts();
         displayKiosk();
-        if(path.getPath().size() > 1){
+        if(path != null){
             displayPath();
         }
     }
@@ -235,7 +235,7 @@ public class PathFindingController {
         currentMap = "L1";
         resetRadButts();
         displayKiosk();
-        if(path.getPath().size() > 1){
+        if(path != null){
             displayPath();
         }
     }
@@ -246,7 +246,7 @@ public class PathFindingController {
         currentMap = "L2";
         resetRadButts();
         displayKiosk();
-        if(path.getPath().size() > 1){
+        if(path != null){
             displayPath();
         }
     }
@@ -256,7 +256,7 @@ public class PathFindingController {
         Map.setImage(new Image("/SoftEng_UI_Mockup_Pics/01_thefirstfloor.png"));
         currentMap = "1";
         resetRadButts();
-        if(path.getPath().size() > 1){
+        if(path != null){
             displayPath();
         }
     }
@@ -267,7 +267,7 @@ public class PathFindingController {
         currentMap = "2";
         resetRadButts();
         displayKiosk();
-        if(path.getPath().size() > 1){
+        if(path != null){
             displayPath();
         }
     }
@@ -278,7 +278,7 @@ public class PathFindingController {
         currentMap = "3";
         resetRadButts();
         displayKiosk();
-        if(path.getPath().size() > 1){
+        if(path != null){
             displayPath();
         }
     }
