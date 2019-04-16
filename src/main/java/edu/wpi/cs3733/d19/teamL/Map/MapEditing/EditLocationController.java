@@ -404,7 +404,9 @@ public class EditLocationController {
                     });
                     thisCircle.setOnMouseReleased((t) -> {
                         CircleLocation c = (CircleLocation) (t.getSource());
-                        c.getSp().setVisible(true);
+                        if (!(c.getSp() == null)) {
+                            c.getSp().setVisible(true);
+                        }
                             });
 
                     pathPane.getChildren().add(thisCircle);
