@@ -469,7 +469,7 @@ public class PathFindingController {
     }
 
     /**Nathan modified this to include a path preference choice (restriction)
-     *
+     * Nikhil modified this so it automatically switches the map to the starting floor.
      */
     @FXML
     private void submitPressed(){
@@ -578,6 +578,7 @@ public class PathFindingController {
     /**
      * @author: Nikhil: Displays start node, end node and line in between
      * Also contains code that will generate buttons above transitions between floors
+     * Now automatically zooms on the floor's path
      */
     public void displayPath(){
         single.setLastTime();
@@ -664,6 +665,16 @@ public class PathFindingController {
                         if (transition.equals("3"))
                             clicked3();
                     });
+                    System.out.println(nBut.getLayoutX() + " " + nBut.getPrefWidth() + " " +  pathPane.getWidth());
+                    if(nBut.getLayoutX() + 400 > pathPane.getWidth())
+                    {
+                        nBut.setLayoutX(nBut.getLayoutX() - 400);
+                        System.out.println(nBut.getLayoutX() + nBut.getPrefWidth() + " " +  pathPane.getWidth());
+                    }
+                    if(nBut.getLayoutY() + 50 > pathPane.getHeight())
+                    {
+                        nBut.setMaxHeight(pathPane.getHeight() - nBut.getLayoutY());
+                    }
                     //Sets button visibility
                     if (buttons.isEmpty() && (path.getPath().get(i).getFloor().equals(currentMap) || currentMap.equals(startNode.getFloor()) || currentMap.equals(endNode.getFloor()))) {
                         buttons.add(nBut);
@@ -683,11 +694,11 @@ public class PathFindingController {
                             nBut.setLayoutX((mid2.getXcoord()*childPane.getWidth()/Map.getImage().getWidth()));
                             nBut.setLayoutY((mid2.getYcoord()*childPane.getHeight()/Map.getImage().getHeight()));
                         }
+                        pathPane.getChildren().add(nBut);
                     }
-                    else {
-                        nBut.setVisible(false);
-                    }
-                    pathPane.getChildren().add(nBut);
+//                    else {
+//                        nBut.setVisible(false);
+//                    }
                     floorCount = 0;
                 }
                 pathPane.getChildren().add(line);
@@ -738,7 +749,8 @@ public class PathFindingController {
                 gesturePane.zoomTo(scale, gesturePane.targetPointAtViewportCentre());
                 double xSameVal = (startNode.getXcoord() + endNode.getXcoord()) / 2.0*childPane.getWidth()/Map.getImage().getWidth();
                 double ySameVal = (startNode.getYcoord() + endNode.getYcoord()) / 2.0*childPane.getHeight()/Map.getImage().getHeight();
-                gesturePane.translateBy(new Dimension2D(-(gesturePane.getWidth()/2-xSameVal),-(gesturePane.getHeight()/2-ySameVal)));
+                //gesturePane.translateBy(new Dimension2D(-(gesturePane.getWidth()/2-xSameVal),-(gesturePane.getHeight()/2-ySameVal)));
+                gesturePane.centreOn(new Point2D(xSameVal, ySameVal));
             }
             else if (mid.getFloor().equals(startNode.getFloor())){
                 double x = gesturePane.getWidth()/(Math.abs((mid.getXcoord() - startNode.getXcoord())));
@@ -748,7 +760,8 @@ public class PathFindingController {
                 gesturePane.zoomTo(scale, gesturePane.targetPointAtViewportCentre());
                 double xSameVal = (startNode.getXcoord() + mid.getXcoord()) / 2.0*childPane.getWidth()/Map.getImage().getWidth();
                 double ySameVal = (startNode.getYcoord() + mid.getYcoord()) / 2.0*childPane.getHeight()/Map.getImage().getHeight();
-                gesturePane.translateBy(new Dimension2D(-(gesturePane.getWidth()/2-xSameVal),-(gesturePane.getHeight()/2-ySameVal)));
+                //gesturePane.translateBy(new Dimension2D(-(gesturePane.getWidth()/2-xSameVal),-(gesturePane.getHeight()/2-ySameVal)));
+                gesturePane.centreOn(new Point2D(xSameVal, ySameVal));
             }
             else if (mid.getFloor().equals(endNode.getFloor())){
                 double x = gesturePane.getWidth()/(Math.abs((endNode.getXcoord() - mid.getXcoord())));
@@ -758,7 +771,8 @@ public class PathFindingController {
                 gesturePane.zoomTo(scale, gesturePane.targetPointAtViewportCentre());
                 double xSameVal = (endNode.getXcoord() + mid.getXcoord()) / 2.0*childPane.getWidth()/Map.getImage().getWidth();
                 double ySameVal = (endNode.getYcoord() + mid.getYcoord()) / 2.0*childPane.getHeight()/Map.getImage().getHeight();
-                gesturePane.translateBy(new Dimension2D(-(gesturePane.getWidth()/2-xSameVal),-(gesturePane.getHeight()/2-ySameVal)));
+                //gesturePane.translateBy(new Dimension2D(-(gesturePane.getWidth()/2-xSameVal),-(gesturePane.getHeight()/2-ySameVal)));
+                gesturePane.centreOn(new Point2D(xSameVal, ySameVal));
             }
             else {
                 double x = gesturePane.getWidth()/(Math.abs((mid.getXcoord() - mid2.getXcoord())));
@@ -768,7 +782,8 @@ public class PathFindingController {
                 gesturePane.zoomTo(scale, gesturePane.targetPointAtViewportCentre());
                 double xSameVal = (mid.getXcoord() + mid2.getXcoord()) / 2.0*childPane.getWidth()/Map.getImage().getWidth();
                 double ySameVal = (mid.getYcoord() + mid2.getYcoord()) / 2.0*childPane.getHeight()/Map.getImage().getHeight();
-                gesturePane.translateBy(new Dimension2D(-(gesturePane.getWidth()/2-xSameVal),-(gesturePane.getHeight()/2-ySameVal)));
+                //gesturePane.translateBy(new Dimension2D(-(gesturePane.getWidth()/2-xSameVal),-(gesturePane.getHeight()/2-ySameVal)));
+                gesturePane.centreOn(new Point2D(xSameVal, ySameVal));
             }
         }
     }
