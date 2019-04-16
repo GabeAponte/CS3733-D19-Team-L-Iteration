@@ -90,6 +90,8 @@ public class HomeScreenController {
         Image img = new Image(icon);
         weatherIcon.setImage(img);
         tempDisplay.setText(weatherBoy.getActTemp());
+
+
         if(single.isDoPopup()) {
             single.setDoPopup(false);
             Text fillBox = single.getTxt();
@@ -103,7 +105,7 @@ public class HomeScreenController {
 
             // Define the Durations
             Duration startDuration = Duration.ZERO;
-            Duration endDuration = Duration.seconds(60);
+            Duration endDuration = Duration.seconds(120);
 
             // Create the start and end Key Frames
             KeyValue startKeyValue = new KeyValue(tweetBox.translateXProperty(), sceneWidth);
