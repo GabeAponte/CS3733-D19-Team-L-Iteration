@@ -69,22 +69,30 @@ public class HomeScreenController {
     Timeline tweets;
 
 
-    public void initialize() throws IOException{
+    public void initialize() throws IOException {
         Singleton single = Singleton.getInstance();
 
         Weather weatherBoy = new Weather();
         String icon = weatherBoy.getIcon();
-        if(icon.contains("clear")){
+        if (icon.contains("clear") && icon.contains("day")) {
             icon = "weatherIcons/SunImage.png";
-        } else if(icon.contains("rain") || icon.contains("sleet")){
+        } else if(icon.contains("clear") && icon.contains("night")){
+            icon = "weatherIcons/MoonImage.png";
+        }else if(icon.contains("rain") || icon.contains("sleet")){
             icon = "weatherIcons/RainImage.png";
-        } else if(icon.contains("partly") || icon.contains("wind")){
+        } else if(icon.contains("partly") && icon.contains("day")){
             icon = "weatherIcons/PartlyCloudImage.png";
-        } else if(icon.contains("cloudy") || icon.contains("fog")){
+        } else if(icon.contains("partly") && icon.contains("night")){
+            icon = "weatherIcons/PartlyCloudNightImage.png";
+        } else if(icon.contains("cloudy")){
             icon = "weatherIcons/CloudyImage.png";
+        } else if(icon.contains("fog")){
+            icon = "weatherIcons/FogImage.png";
         } else if(icon.contains("snow")){
             icon = "weatherIcons/SnowImage.png";
-        } else {
+        } else if(icon.contains("wind")){
+            icon = "weatherIcons/WindImage.png";
+        }else{
             icon = "weatherIcons/ThunderImage.png";
         }
         Image img = new Image(icon);
