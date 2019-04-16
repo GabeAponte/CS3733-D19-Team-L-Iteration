@@ -60,7 +60,7 @@
             <GridPane alignment="CENTER" hgap="25.0" maxHeight="1.7976931348623157E308" prefHeight="610.0" prefWidth="1280.0" vgap="50.0" VBox.vgrow="ALWAYS">
                <columnConstraints>
                   <ColumnConstraints halignment="CENTER" hgrow="ALWAYS" maxWidth="1.7976931348623157E308" minWidth="-Infinity" percentWidth="33.3333" prefWidth="259.1164245605469" />
-                  <ColumnConstraints halignment="CENTER" hgrow="ALWAYS" maxWidth="1.7976931348623157E308" minWidth="-Infinity" percentWidth="33.3333" prefWidth="256.0" />
+                  <ColumnConstraints halignment="CENTER" hgrow="NEVER" maxWidth="1.7976931348623157E308" minWidth="-Infinity" percentWidth="33.3333" prefWidth="256.0" />
                   <ColumnConstraints halignment="CENTER" hgrow="ALWAYS" maxWidth="1.7976931348623157E308" minWidth="-Infinity" percentWidth="33.3333" prefWidth="243.5341796875" />
                </columnConstraints>
                <rowConstraints>
@@ -107,52 +107,39 @@
                         <Insets left="30.0" />
                      </GridPane.margin>
                   </JFXButton>
-                  <HBox prefHeight="168.0" prefWidth="525.0" style="-fx-border-color: #f5d96b; -fx-border-radius: 5; -fx-border-width: 5;" GridPane.columnIndex="1">
+                  <HBox prefHeight="168.0" prefWidth="525.0" spacing="5.0" style="-fx-border-color: #f5d96b; -fx-border-radius: 5; -fx-border-width: 5;" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.hgrow="NEVER" GridPane.valignment="CENTER" GridPane.vgrow="NEVER">
                      <GridPane.margin>
                         <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
                      </GridPane.margin>
                      <children>
-                        <HBox prefHeight="118.0" prefWidth="182.0">
-                           <children>
-                              <GridPane>
-                                <columnConstraints>
-                                  <ColumnConstraints halignment="CENTER" hgrow="ALWAYS" minWidth="10.0" prefWidth="262.5" />
-                                </columnConstraints>
-                                <rowConstraints>
-                                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                                </rowConstraints>
-                                 <children>
-                                    <Label fx:id="timeLabel" alignment="CENTER" contentDisplay="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="65.0" prefWidth="182.0" text="19:20" textAlignment="CENTER" textFill="WHITE">
-                                       <font>
-                                          <Font size="33.0" />
-                                       </font>
-                                    </Label>
-                                    <Label fx:id="dateLabel" alignment="CENTER" contentDisplay="CENTER" prefHeight="52.0" prefWidth="186.0" text="date" textAlignment="CENTER" textFill="WHITE" GridPane.rowIndex="1">
-                                       <font>
-                                          <Font size="28.0" />
-                                       </font>
-                                    </Label>
-                                 </children>
-                              </GridPane>
-                           </children>
-                        </HBox>
-                        <VBox prefHeight="118.0" prefWidth="5.0" style="-fx-background-color: #f5d96b;" />
-                        <GridPane prefHeight="118.0" prefWidth="172.0">
+                        <GridPane HBox.hgrow="ALWAYS">
                           <columnConstraints>
-                            <ColumnConstraints halignment="CENTER" hgrow="ALWAYS" maxWidth="1.7976931348623157E308" minWidth="-Infinity" prefWidth="100.0" />
+                            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                            <ColumnConstraints hgrow="SOMETIMES" maxWidth="5.0" minWidth="5.0" prefWidth="5.0" />
+                              <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                           </columnConstraints>
                           <rowConstraints>
                             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                           </rowConstraints>
                            <children>
-                               <Label fx:id="tempDisplay" alignment="CENTER" contentDisplay="CENTER" prefHeight="59.0" prefWidth="185.0" text="temp" textAlignment="CENTER" textFill="WHITE" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
+                              <VBox maxWidth="5.0" minWidth="5.0" prefWidth="5.0" style="-fx-background-color: #f5d96b;" GridPane.columnSpan="2147483647" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowSpan="2147483647" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS" />
+                              <Label fx:id="timeLabel" alignment="CENTER" contentDisplay="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="65.0" prefWidth="182.0" text="19:20" textAlignment="CENTER" textFill="WHITE" GridPane.halignment="CENTER" GridPane.hgrow="NEVER" GridPane.valignment="CENTER" GridPane.vgrow="NEVER">
+                                 <font>
+                                    <Font size="33.0" />
+                                 </font>
+                              </Label>
+                              <Label fx:id="dateLabel" alignment="CENTER" contentDisplay="CENTER" prefHeight="52.0" prefWidth="186.0" text="date" textAlignment="CENTER" textFill="WHITE" GridPane.halignment="CENTER" GridPane.hgrow="NEVER" GridPane.rowIndex="1" GridPane.valignment="CENTER" GridPane.vgrow="NEVER">
+                                 <font>
+                                    <Font size="28.0" />
+                                 </font>
+                              </Label>
+                              <ImageView fx:id="weatherIcon" fitHeight="54.0" fitWidth="174.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.hgrow="NEVER" GridPane.valignment="CENTER" GridPane.vgrow="NEVER" />
+                               <Label fx:id="tempDisplay" alignment="CENTER" contentDisplay="CENTER" prefHeight="59.0" prefWidth="100.0" text="temp" textAlignment="CENTER" textFill="WHITE" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.hgrow="NEVER" GridPane.rowIndex="1" GridPane.valignment="CENTER" GridPane.vgrow="NEVER">
                                  <font>
                                     <Font size="30.0" />
                                  </font>
                               </Label>
-                              <ImageView fx:id="weatherIcon" fitHeight="63.0" fitWidth="174.0" pickOnBounds="true" preserveRatio="true" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
                            </children>
                         </GridPane>
                      </children>
