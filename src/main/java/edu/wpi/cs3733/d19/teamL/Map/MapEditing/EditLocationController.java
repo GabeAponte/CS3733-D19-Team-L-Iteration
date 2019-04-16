@@ -317,8 +317,6 @@ public class EditLocationController {
         }
 
 
-
-
         for(Line l : lines){
             pathPane.getChildren().remove(l);
         }
@@ -429,7 +427,7 @@ public class EditLocationController {
                 @Override
                 public void handle(MouseEvent t) {
 
-                    if (t.isSecondaryButtonDown()) {
+                    if (t.isSecondaryButtonDown() && !(t.isShiftDown())) {
                         //System.out.println("COOL");
                         CircleLocation newCircle = new CircleLocation();
                         ScrollPane sp = new ScrollPane();
@@ -638,7 +636,7 @@ public class EditLocationController {
 
                     }
 
-                    if(t.isShiftDown()){
+                    if(t.isShiftDown() && !(t.isSecondaryButtonDown())){
                         CircleLocation loc = (CircleLocation) (t.getSource());
                         if(shiftClick.contains(loc)){
                             shiftClick.remove(loc);
