@@ -56,10 +56,14 @@ public class Singleton {
 
     public void populateTweets(){
         List<Status> statuses = searchtweets();
-        for (Status status : statuses) {
-            Text temp = new Text(status.getText());
-            txt = new Text(txt.getText() + "     " + temp.getText());
+        if(statuses != null) {
+            for (Status status : statuses) {
+                Text temp = new Text(status.getText());
+                txt = new Text(txt.getText() + "     " + temp.getText());
+            }
+            return;
         }
+        txt = new Text("No Tweets Today :)");
     }
 
     private static List<Status> searchtweets() {
