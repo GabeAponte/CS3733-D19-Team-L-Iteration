@@ -112,6 +112,8 @@ public class EditLocationController {
     private ArrayList<String> mapURLs = new ArrayList<String>();
     private ArrayList<CircleLocation> circles = new ArrayList<CircleLocation>();
     private ArrayList<Line> lines = new ArrayList<Line>();
+    private ArrayList<ScrollPane> sps = new ArrayList<ScrollPane>();
+
 
     private ArrayList<CircleLocation> shiftClick = new ArrayList<CircleLocation>();
 
@@ -329,8 +331,20 @@ public class EditLocationController {
             pathPane.getChildren().remove(c);
         }
 
-        circles.clear();
 
+
+
+        for(Line l : lines){
+            pathPane.getChildren().remove(l);
+        }
+
+        for (ScrollPane sp: sps){
+            pathPane.getChildren().remove(sp);
+        }
+
+        circles.clear();
+        lines.clear();
+        pathPane.getChildren().removeAll();
         circles.add(thisCircle);
         pathPane.getChildren().add(thisCircle);
     }
@@ -534,21 +548,26 @@ public class EditLocationController {
                                                 !(ID.equals(loc.getLocation().getLocID()))){
                                             endcl = circles.get(i);
                                         }
-
                                     }
-                                    line.setStartX(e.getEndNode().getXcoord()*childPane.getWidth()/Map.getImage().getWidth());
-                                    line.setStartY(e.getEndNode().getYcoord()*childPane.getHeight()/Map.getImage().getHeight());
-                                    line.setEndX(e.getStartNode().getXcoord()*childPane.getWidth()/Map.getImage().getWidth());
-                                    line.setEndY(e.getStartNode().getYcoord()*childPane.getHeight()/Map.getImage().getHeight());
+                                    System.out.println(endcl);
+                                    if(e.getStartNode().getFloor().equals(floorNum())&&
+                                            e.getEndNode().getFloor().equals(floorNum())&& endcl != null) {
+                                        System.out.println("Floor " + floorNum());
+                                        System.out.println("node floor " + e.getEndNode().getFloor() + " " + e.getStartNode().getFloor());
+                                        line.setStartX(e.getEndNode().getXcoord() * childPane.getWidth() / Map.getImage().getWidth());
+                                        line.setStartY(e.getEndNode().getYcoord() * childPane.getHeight() / Map.getImage().getHeight());
+                                        line.setEndX(e.getStartNode().getXcoord() * childPane.getWidth() / Map.getImage().getWidth());
+                                        line.setEndY(e.getStartNode().getYcoord() * childPane.getHeight() / Map.getImage().getHeight());
 
-                                    line.startXProperty().bind(loc.centerXProperty());
-                                    line.startYProperty().bind(loc.centerYProperty());
-                                    line.endXProperty().bind(endcl.centerXProperty());
-                                    line.endYProperty().bind(endcl.centerYProperty());
+                                        line.startXProperty().bind(loc.centerXProperty());
+                                        line.startYProperty().bind(loc.centerYProperty());
+                                        line.endXProperty().bind(endcl.centerXProperty());
+                                        line.endYProperty().bind(endcl.centerYProperty());
 
-                                    loc.getLineList().add(line);
-                                    pathPane.getChildren().add(line);
-                                    lines.add(line);
+                                        loc.getLineList().add(line);
+                                        pathPane.getChildren().add(line);
+                                        lines.add(line);
+                                    }
 
                                 }
                             }
@@ -723,6 +742,7 @@ public class EditLocationController {
                             sp.setContent(gp);
 
                             pathPane.getChildren().add(sp);
+                            sps.add(sp);
                             c.setSp(sp);
                             lastCircle = c;
                             c.setxField(tf);
