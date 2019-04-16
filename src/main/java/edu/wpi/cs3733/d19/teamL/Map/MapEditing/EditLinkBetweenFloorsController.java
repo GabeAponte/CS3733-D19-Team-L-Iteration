@@ -6,7 +6,7 @@ import edu.wpi.cs3733.d19.teamL.Map.Pathfinding.EdgesAccess;
 import edu.wpi.cs3733.d19.teamL.Map.Pathfinding.NodesAccess;
 import com.jfoenix.controls.JFXRadioButton;
 import edu.wpi.cs3733.d19.teamL.HomeScreens.HomeScreenController;
-import edu.wpi.cs3733.d19.teamL.Map.MapLocations.Location;
+import edu.wpi.cs3733.d19.teamL.Map.MapLocations.*;
 import edu.wpi.cs3733.d19.teamL.Map.ImageInteraction.PanAndZoomPane;
 import edu.wpi.cs3733.d19.teamL.Singleton;
 import javafx.animation.KeyFrame;
@@ -269,8 +269,10 @@ public class EditLinkBetweenFloorsController {
         String start = focusLoc.getLocID();
         String end = toConnectLoc.getLocID();
         ea.addEdge(start, end);
-        UpdateLocationThread ul = new UpdateLocationThread();
-        ul.start();
+        Edge e = new Edge(focusLoc.getLocID()+"_"+toConnectLoc.getLocID(), focusLoc, toConnectLoc);
+        single.addEdge(focusLoc, toConnectLoc,  e);
+        //UpdateLocationThread ul = new UpdateLocationThread();
+        //ul.start();
         //single.setData();
     }
 
