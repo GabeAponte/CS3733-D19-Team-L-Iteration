@@ -10,6 +10,7 @@ import edu.wpi.cs3733.d19.teamL.Map.ImageInteraction.SceneGestures;
 import edu.wpi.cs3733.d19.teamL.Singleton;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
+import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -80,6 +81,7 @@ public class BookRoomController {
     ArrayList<String> rooms = new ArrayList<>();
     ArrayList<String> allRooms = new ArrayList<String>();
     ArrayList<Boolean> availRooms = new ArrayList<Boolean>();
+    ArrayList<Polygon> flexSpaces = new ArrayList<Polygon>();
     private SceneGestures sceneGestures;
     private ArrayList<RoomDisplay> DisplayRooms = new ArrayList<RoomDisplay>();
 
@@ -149,7 +151,6 @@ public class BookRoomController {
 
         timeout.setCycleCount(Timeline.INDEFINITE);
         timeout.play();
-        //fieldsEntered();
 
     }
 
@@ -302,7 +303,7 @@ public class BookRoomController {
 
                     if (DisplayRooms.get(i).roomName.equals(rooms.get(j))) {
                         DisplayRooms.get(i).setAvailable(true);
-                        System.out.println("True: " + i);
+                        //System.out.println("True: " + i);
                         break;
                     }
                 }
@@ -366,11 +367,7 @@ public class BookRoomController {
 
     };
 
-    //public void highlightRoom(){
-
-    //    availableRooms.getValue().equals(DisplayRooms.get(i).getRoomName());
-
-    }
+}
 
 
 
