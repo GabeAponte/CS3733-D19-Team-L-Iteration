@@ -81,23 +81,6 @@ public class EditLocationController {
     private Button F3;
 
     @FXML
-    private JFXTextField nodeInfoID;
-    @FXML
-    private JFXTextField nodeInfoX;
-    @FXML
-    private JFXTextField nodeInfoY;
-    @FXML
-    private JFXTextField nodeInfoType;
-    @FXML
-    private JFXTextField nodeInfoBuilding;
-    @FXML
-    private JFXTextField nodeInfoFloor;
-    @FXML
-    private JFXTextField nodeInfoLong;
-    @FXML
-    private JFXTextField nodeInfoShort;
-
-    @FXML
     private ImageView Map;
 
     @FXML
@@ -420,20 +403,6 @@ public class EditLocationController {
 
     }
 
-    @FXML
-    private void submitButtonPressed() {
-        Singleton single = Singleton.getInstance();
-        single.setLastTime();
-        na.updateNode(nodeInfoID.getText(), "xcoord", nodeInfoX.getText());
-        na.updateNode(nodeInfoID.getText(), "ycoord", nodeInfoY.getText());
-        na.updateNode(nodeInfoID.getText(), "floor", nodeInfoFloor.getText());
-        na.updateNode(nodeInfoID.getText(), "building", nodeInfoBuilding.getText());
-        na.updateNode(nodeInfoID.getText(), "nodeType", nodeInfoType.getText());
-        na.updateNode(nodeInfoID.getText(), "longName", nodeInfoLong.getText());
-        na.updateNode(nodeInfoID.getText(), "shortName", nodeInfoShort.getText());
-        UpdateLocationThread ul = new UpdateLocationThread();
-        ul.start();
-    }
 
     @FXML
     private void backPressed() throws IOException{
@@ -642,14 +611,32 @@ public class EditLocationController {
                 @Override
                 public void handle(MouseEvent t) {
                     if(t.isAltDown()){
-                        Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Delete selected node?", ButtonType.YES, ButtonType.NO);
+                        single = Singleton.getInstance();
+                        single.setLastTime();
+                        focusNode = ((CircleLocation) (t.getSource())).getLocation();
+
+                        //this is the dialogue popup
+                        Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Delete node "+
+                                ((CircleLocation) (t.getSource())).getLocation().toString()+ "?", ButtonType.YES, ButtonType.NO);
                         alert.showAndWait();
+                        single.setLastTime();
+                        if (alert.getResult() == ButtonType.YES) {
+                            single.lookup.get(focusNode.getLocID()).restitch();
+                            //delete the node here
+                            na = new NodesAccess();
+                            single.deleteNode(focusNode);
+                            System.out.println("STARTING NEXT TASK");
+                            na.deleteNode(focusNode.getLocID());
+                            eraseNodes();
+                            drawNodes();
+
+                        }
+                        else if (alert.getResult() == ButtonType.NO) {
+                            //do nothing
+                        }
+
 
                     }
-
-                    CircleLocation circ = (CircleLocation) t.getSource();
-                    //System.out.println(circ.getCenterX());
-                    //System.out.println(circ.getCenterY());
 
                     if(t.isShiftDown()){
                         CircleLocation loc = (CircleLocation) (t.getSource());
