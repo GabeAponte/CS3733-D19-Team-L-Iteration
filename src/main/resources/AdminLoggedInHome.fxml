@@ -47,10 +47,9 @@
                               <Blend />
                            </effect>
                            <HBox.margin>
-                              <Insets />
+                              <Insets right="220.0" />
                            </HBox.margin>
                         </Label>
-                        <HBox alignment="CENTER_RIGHT" HBox.hgrow="ALWAYS" />
                      </children>
                   </HBox>
                </center>

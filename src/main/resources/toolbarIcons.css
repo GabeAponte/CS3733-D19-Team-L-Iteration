@@ -1,0 +1,15 @@
+
+.button:hover{
+    -fx-background-color: #012d5a;
+    -fx-text-fill: white;
+    /*
+    -fx-text-fill: #f5d96b ;
+    */
+}
+
+.button:hover .glyph-icon{
+    -fx-fill: white;
+    /*
+    -fx-fill:  #f5d96b;
+    */
+}
