@@ -265,6 +265,8 @@ public class EditLocationController {
         gesturePane.setVBarEnabled(false);
         gesturePane.setFitHeight(true);
 
+        gesturePane.setOnMousePressed(mouseClickedOnMap);
+
         gridPane.add(gesturePane,0,0, 7, GridPane.REMAINING);
         gesturePane.zoomTo(2.0,new Point2D(Map.getImage().getWidth(), Map.getImage().getHeight()));
 
@@ -406,58 +408,6 @@ public class EditLocationController {
         //System.out.println(circles);
     }
 
-
-    @FXML
-    private void nodeInfoIDPress(){
-        Singleton single = Singleton.getInstance();
-        single.setData();
-        //be able to modify the selected nodeID
-
-    }
-
-    @FXML
-    private void nodeInfoFloorPress(){
-        Singleton single = Singleton.getInstance();
-        single.setData();
-        //be able to modify the selected nodeID
-    }
-    @FXML
-    private void nodeInfoXPress(){
-        Singleton single = Singleton.getInstance();
-        single.setData();
-        //be able to modify the selected nodeID
-    }
-    @FXML
-    private void nodeInfoYPress(){
-        Singleton single = Singleton.getInstance();
-        single.setData();
-        //be able to modify the selected nodeID
-    }
-    @FXML
-    private void nodeInfoTypePress(){
-        Singleton single = Singleton.getInstance();
-        single.setData();
-        //be able to modify the selected nodeID
-    }
-    @FXML
-    private void nodeInfoBuildingPress(){
-        Singleton single = Singleton.getInstance();
-        single.setData();
-        //be able to modify the selected nodeID
-    }
-    @FXML
-    private void nodeInfoLongPress(){
-        Singleton single = Singleton.getInstance();
-        single.setData();
-        //be able to modify the selected nodeID
-    }
-    @FXML
-    private void nodeInfoShortPress(){
-        Singleton single = Singleton.getInstance();
-        single.setData();
-        //be able to modify the selected nodeID
-    }
-
     @FXML
     private void submitButtonPressed() {
         Singleton single = Singleton.getInstance();
@@ -493,6 +443,194 @@ public class EditLocationController {
     }
     //Larry - Handler for pressing circle
 
+    EventHandler<MouseEvent> mouseClickedOnMap =
+            new EventHandler<MouseEvent>() {
+                @Override
+                public void handle(MouseEvent t) {
+
+                    if (t.isSecondaryButtonDown()) {
+                        //System.out.println("COOL");
+                        CircleLocation newCircle = new CircleLocation();
+                        ScrollPane sp = new ScrollPane();
+                        sp.getStylesheets().add("MapBuilderScrollPane.css");
+                        Point2D point = gesturePane.targetPointAt(new Point2D(t.getX(), t.getY())).get();
+                        sp.setLayoutX(point.getX());
+                        sp.setLayoutY(point.getY());
+                        GridPane gp = new GridPane();
+
+
+                        JFXButton close = new JFXButton("\u274C");
+                        close.setPrefWidth(50);
+
+                        JFXButton Update = new JFXButton("\u2713");
+                        Update.setPrefWidth(50);
+
+                        gp.add(close, 1, 0);
+                        gp.add(Update, 0, 0);
+
+                        //if user didn't press cancel or submit...
+
+
+                        close.setOnAction(event -> {
+                                    pathPane.getChildren().remove(sp);
+                                    // newCircle.setStroke(Color.web("RED"));
+                                    //newCircle.setFill(Color.web("RED"));
+                                }
+                        );
+
+                        // StackPane container = new StackPane(gp);
+                        // container.setPadding(new Insets(24));
+                        // container.getChildren().add(gp);
+                        Font f = new Font("System", 8);
+
+                        Label idlb = new Label("X coordinate : ");
+                        idlb.setFont(f);
+                        String idtxt = "";
+                        JFXTextField idtf = new JFXTextField(idtxt);
+                        idtf.setFont(f);
+                        idtf.setAlignment(Pos.CENTER);
+                        idtf.setPrefWidth(50);
+                        gp.add(idlb, 0, 1);
+                        gp.add(idtf, 1, 1);
+
+                        Label lb = new Label("X coordinate : ");
+                        lb.setFont(f);
+                        String txt = "" + (int) (t.getX()*Map.getImage().getWidth()/childPane.getWidth());
+                        JFXTextField tf = new JFXTextField(txt);
+                        tf.setFont(f);
+                        tf.setAlignment(Pos.CENTER);
+                        tf.setPrefWidth(50);
+                        gp.add(lb, 0, 2);
+                        gp.add(tf, 1, 2);
+
+                        Label lb1 = new Label("Y coordinate : ");
+                        lb1.setFont(f);
+                        String txt1 = "" + (int)(t.getY()*Map.getImage().getHeight()/childPane.getHeight());
+                        JFXTextField tf1 = new JFXTextField(txt1);
+                        tf1.setFont(f);
+                        tf1.setAlignment(Pos.CENTER);
+                        tf1.setPrefWidth(50);
+                        gp.add(lb1, 0, 3);
+                        gp.add(tf1, 1, 3);
+
+                        Label lb2 = new Label("Floor : ");
+                        lb2.setFont(f);
+                        String txt2 = "" + floorNum();
+                        JFXTextField tf2 = new JFXTextField(txt2);
+                        tf2.setDisable(true);
+                        tf2.setFont(f);
+                        tf2.setAlignment(Pos.CENTER);
+                        tf2.setPrefWidth(50);
+                        gp.add(lb2, 0, 4);
+                        gp.add(tf2, 1, 4);
+
+                        Label lb3 = new Label("Building : ");
+                        lb3.setFont(f);
+                        String txt3 = "";
+                        JFXTextField tf3 = new JFXTextField(txt3);
+                        tf3.setFont(f);
+                        tf3.setAlignment(Pos.CENTER);
+                        tf3.setPrefWidth(50);
+                        gp.add(lb3, 0, 5);
+                        gp.add(tf3, 1, 5);
+
+                        Label lb4 = new Label("NodeType : ");
+                        lb4.setFont(f);
+                        String txt4 = "";
+                        JFXTextField tf4 = new JFXTextField(txt4);
+                        tf4.setFont(f);
+                        tf4.setAlignment(Pos.CENTER);
+                        tf4.setPrefWidth(50);
+                        gp.add(lb4, 0, 6);
+                        gp.add(tf4, 1, 6);
+
+                        Label lb5 = new Label("LongName : ");
+                        lb5.setFont(f);
+                        String txt5 = "";
+                        JFXTextField tf5 = new JFXTextField(txt5);
+                        tf5.setFont(f);
+                        tf5.setAlignment(Pos.CENTER);
+                        tf5.setPrefWidth(50);
+                        gp.add(lb5, 0, 7);
+                        gp.add(tf5, 1, 7);
+
+                        Label lb6 = new Label("ShortName : ");
+                        lb6.setFont(f);
+                        String txt6 = "";
+                        JFXTextField tf6 = new JFXTextField(txt6);
+                        tf6.setFont(f);
+                        tf6.setAlignment(Pos.CENTER);
+                        tf6.setPrefWidth(50);
+                        gp.add(lb6, 0, 8);
+                        gp.add(tf6, 1, 8);
+
+                        //sp.getMainHeader().setMaxHeight(0);
+                        //sp.getTopBar().setMaxHeight(0);
+                        //sp.setVmax(440);
+                        sp.setPrefSize(125, 100);
+
+                        //sp.setLayoutX(t.getX()*gesturePane.getCurrentScale());
+                        //sp.setLayoutY(t.getY()*gesturePane.getCurrentScale());
+                        //System.out.println("NON-CIRCLEX: " + t.getSceneX());
+                        //System.out.println("NON-CIRCLEY: " + t.getSceneY());
+                        //sp.setLayoutX(((Circle) (t.getSource())).getCenterX());
+                        //sp.setLayoutY(((Circle) (t.getSource())).getCenterY());
+                        //sp.getChildren().add(gp);
+                        //ToolBar tb = new ToolBar();
+                        sp.setContent(gp);
+                        Update.setOnAction(event -> {
+                            String id = idtf.getText();
+                            int x = Integer.parseInt(tf.getText());
+                            int y = Integer.parseInt(tf1.getText());
+                            String floor = tf2.getText();
+                            String building = tf3.getText();
+                            String type = tf4.getText();
+                            String longName = tf5.getText();
+                            String shortName = tf6.getText();
+
+
+                            Location newLoc = new Location(id, x, y, floor, building, type, longName, shortName);
+                            newCircle.setLocation(newLoc);
+                            Location oldLoc = single.lookup.get(id);
+                            single.addNode(newLoc);
+                            ArrayList<String> newData = new ArrayList<String >();
+                            newData.add(id);
+                            newData.add(Integer.toString(x));
+                            newData.add(Integer.toString(y));
+                            newData.add(floor);
+                            newData.add(building);
+                            newData.add(type);
+                            newData.add(longName);
+                            newData.add(shortName);
+                            na.addNode(newData);
+                            pathPane.getChildren().remove(sp);
+                            newCircle.setSp(null);
+                            newCircle.setStroke(Color.web("RED"));
+                            newCircle.setFill(Color.web("RED"));
+                            lastCircle = null;
+                            circles.add(newCircle);
+                        });
+
+                        //sp.getChildren().add(gp);
+                        sp.setContent(gp);
+
+                        pathPane.getChildren().add(sp);
+                        newCircle.setSp(sp);
+                        lastCircle = newCircle;
+                        newCircle.setxField(tf);
+                        newCircle.setyField(tf1);
+
+//                    System.out.println("Xcor "+ ((Circle)(t.getSource())).getCenterX());
+                        //                   System.out.println("Ycor "+ ((Circle)(t.getSource())).getCenterY());
+                        //System.out.println("successful scroll pane");
+
+                    }
+                    else {
+                        System.out.println("NOT COOL");
+                    }
+                }
+            };
+
     EventHandler<MouseEvent> circleOnMousePressedEventHandler =
             new EventHandler<MouseEvent>() {
                 //floor,building,nodeType,longName,shortName
@@ -500,7 +638,9 @@ public class EditLocationController {
 
                 @Override
                 public void handle(MouseEvent t) {
-
+                    CircleLocation circ = (CircleLocation) t.getSource();
+                    //System.out.println(circ.getCenterX());
+                    //System.out.println(circ.getCenterY());
 
                     if(t.isShiftDown()){
                         CircleLocation loc = (CircleLocation) (t.getSource());
@@ -514,27 +654,27 @@ public class EditLocationController {
                         }
 
                         else {
-                             loc.setStroke(Color.web("GREEN"));
-                             loc.setFill(Color.web("GREEN"));
-                             ArrayList<Edge> edgeslist = loc.getLocation().getEdges();
-                             shiftClick.add(loc);
+                            loc.setStroke(Color.web("GREEN"));
+                            loc.setFill(Color.web("GREEN"));
+                            ArrayList<Edge> edgeslist = loc.getLocation().getEdges();
+                            shiftClick.add(loc);
 
                             if(edgeslist.isEmpty()){
-                            //nothing
-                             }
-                              else {
-                                  for (Edge e: edgeslist){
-                                     Line line = new Line();
-                                     line.setStartX(e.getEndNode().getXcoord()*childPane.getWidth()/Map.getImage().getWidth());
-                                     line.setStartY(e.getEndNode().getYcoord()*childPane.getHeight()/Map.getImage().getHeight());
-                                     line.setEndX(e.getStartNode().getXcoord()*childPane.getWidth()/Map.getImage().getWidth());
-                                     line.setEndY(e.getStartNode().getYcoord()*childPane.getHeight()/Map.getImage().getHeight());
-                                     loc.getLineList().add(line);
-                                     pathPane.getChildren().add(line);
-                                     lines.add(line);
-
+                                //nothing
                             }
-                        }
+                            else {
+                                for (Edge e: edgeslist){
+                                    Line line = new Line();
+                                    line.setStartX(e.getEndNode().getXcoord()*childPane.getWidth()/Map.getImage().getWidth());
+                                    line.setStartY(e.getEndNode().getYcoord()*childPane.getHeight()/Map.getImage().getHeight());
+                                    line.setEndX(e.getStartNode().getXcoord()*childPane.getWidth()/Map.getImage().getWidth());
+                                    line.setEndY(e.getStartNode().getYcoord()*childPane.getHeight()/Map.getImage().getHeight());
+                                    loc.getLineList().add(line);
+                                    pathPane.getChildren().add(line);
+                                    lines.add(line);
+
+                                }
+                            }
                         }
                     }
                     if (!(lastCircle == null)) {
@@ -552,36 +692,36 @@ public class EditLocationController {
                         orgSceneX = t.getSceneX();
                         orgSceneY = t.getSceneY();
 
-                    CircleLocation c = (CircleLocation) (t.getSource());
-                    c.toFront();
-                   if (c.getSp() == null) {
+                        CircleLocation c = (CircleLocation) (t.getSource());
+                        c.toFront();
+                        if (c.getSp() == null) {
 
-                        ScrollPane sp = new ScrollPane();
-                        sp.getStylesheets().add("MapBuilderScrollPane.css");
+                            ScrollPane sp = new ScrollPane();
+                            sp.getStylesheets().add("MapBuilderScrollPane.css");
 
-                        sp.setLayoutX(c.getLayoutX());
-                        sp.setLayoutY(c.getLayoutY());
-                        GridPane gp = new GridPane();
+                            //sp.setLayoutX(c.getLayoutX());
+                            //sp.setLayoutY(c.getLayoutY());
+                            GridPane gp = new GridPane();
 
 
 
-                        JFXButton close = new JFXButton("\u274C");
-                        close.setPrefWidth(50);
+                            JFXButton close = new JFXButton("\u274C");
+                            close.setPrefWidth(50);
 
-                        JFXButton Update = new JFXButton("\u2713");
-                        Update.setPrefWidth(50);
+                            JFXButton Update = new JFXButton("\u2713");
+                            Update.setPrefWidth(50);
 
-                        gp.add(close,1,0);
-                        gp.add(Update,0,0);
+                            gp.add(close,1,0);
+                            gp.add(Update,0,0);
 
                             //if user didn't press cancel or submit...
 
 
                             close.setOnAction(event -> {
-                                pathPane.getChildren().remove(sp);
-                                c.setSp(null);
-                                ((Circle) (t.getSource())).setStroke(Color.web("RED"));
-                                ((Circle) (t.getSource())).setFill(Color.web("RED"));
+                                        pathPane.getChildren().remove(sp);
+                                        c.setSp(null);
+                                        ((Circle) (t.getSource())).setStroke(Color.web("RED"));
+                                        ((Circle) (t.getSource())).setFill(Color.web("RED"));
                                     }
                             );
 
@@ -590,87 +730,87 @@ public class EditLocationController {
                             // container.getChildren().add(gp);
                             Font f = new Font("System", 8);
 
-                        Label lb = new Label("X coordinate : ");
-                        lb.setFont(f);
-                        String txt = "" + ((CircleLocation) (t.getSource())).getLocation().getXcoord();
-                        JFXTextField tf = new JFXTextField(txt);
-                        tf.setFont(f);
-                        tf.setAlignment(Pos.CENTER);
-                        tf.setPrefWidth(50);
-                        gp.add(lb, 0, 1);
-                        gp.add(tf, 1, 1);
+                            Label lb = new Label("X coordinate : ");
+                            lb.setFont(f);
+                            String txt = "" + ((CircleLocation) (t.getSource())).getLocation().getXcoord();
+                            JFXTextField tf = new JFXTextField(txt);
+                            tf.setFont(f);
+                            tf.setAlignment(Pos.CENTER);
+                            tf.setPrefWidth(50);
+                            gp.add(lb, 0, 1);
+                            gp.add(tf, 1, 1);
 
-                        Label lb1 = new Label("Y coordinate : ");
-                        lb1.setFont(f);
-                        String txt1 = "" + ((CircleLocation) (t.getSource())).getLocation().getYcoord();
-                        JFXTextField tf1 = new JFXTextField(txt1);
-                        tf1.setFont(f);
-                        tf1.setAlignment(Pos.CENTER);
-                        tf1.setPrefWidth(50);
-                        gp.add(lb1, 0, 2);
-                        gp.add(tf1, 1, 2);
+                            Label lb1 = new Label("Y coordinate : ");
+                            lb1.setFont(f);
+                            String txt1 = "" + ((CircleLocation) (t.getSource())).getLocation().getYcoord();
+                            JFXTextField tf1 = new JFXTextField(txt1);
+                            tf1.setFont(f);
+                            tf1.setAlignment(Pos.CENTER);
+                            tf1.setPrefWidth(50);
+                            gp.add(lb1, 0, 2);
+                            gp.add(tf1, 1, 2);
 
-                        Label lb2 = new Label("Floor : ");
-                        lb2.setFont(f);
-                        String txt2 = "" + ((CircleLocation) (t.getSource())).getLocation().getFloor();
-                        JFXTextField tf2 = new JFXTextField(txt2);
-                        tf2.setFont(f);
-                        tf2.setAlignment(Pos.CENTER);
-                        tf2.setPrefWidth(50);
-                        gp.add(lb2, 0, 3);
-                        gp.add(tf2, 1, 3);
+                            Label lb2 = new Label("Floor : ");
+                            lb2.setFont(f);
+                            String txt2 = "" + ((CircleLocation) (t.getSource())).getLocation().getFloor();
+                            JFXTextField tf2 = new JFXTextField(txt2);
+                            tf2.setFont(f);
+                            tf2.setAlignment(Pos.CENTER);
+                            tf2.setPrefWidth(50);
+                            gp.add(lb2, 0, 3);
+                            gp.add(tf2, 1, 3);
 
-                        Label lb3 = new Label("Building : ");
-                        lb3.setFont(f);
-                        String txt3 = "" + ((CircleLocation) (t.getSource())).getLocation().getBuilding();
-                        JFXTextField tf3 = new JFXTextField(txt3);
-                        tf3.setFont(f);
-                        tf3.setAlignment(Pos.CENTER);
-                        tf3.setPrefWidth(50);
-                        gp.add(lb3, 0, 4);
-                        gp.add(tf3, 1, 4);
+                            Label lb3 = new Label("Building : ");
+                            lb3.setFont(f);
+                            String txt3 = "" + ((CircleLocation) (t.getSource())).getLocation().getBuilding();
+                            JFXTextField tf3 = new JFXTextField(txt3);
+                            tf3.setFont(f);
+                            tf3.setAlignment(Pos.CENTER);
+                            tf3.setPrefWidth(50);
+                            gp.add(lb3, 0, 4);
+                            gp.add(tf3, 1, 4);
 
-                        Label lb4 = new Label("NodeType : ");
-                        lb4.setFont(f);
-                        String txt4 = "" + ((CircleLocation) (t.getSource())).getLocation().getNodeType();
-                        JFXTextField tf4 = new JFXTextField(txt4);
-                        tf4.setFont(f);
-                        tf4.setAlignment(Pos.CENTER);
-                        tf4.setPrefWidth(50);
-                        gp.add(lb4, 0, 5);
-                        gp.add(tf4, 1, 5);
+                            Label lb4 = new Label("NodeType : ");
+                            lb4.setFont(f);
+                            String txt4 = "" + ((CircleLocation) (t.getSource())).getLocation().getNodeType();
+                            JFXTextField tf4 = new JFXTextField(txt4);
+                            tf4.setFont(f);
+                            tf4.setAlignment(Pos.CENTER);
+                            tf4.setPrefWidth(50);
+                            gp.add(lb4, 0, 5);
+                            gp.add(tf4, 1, 5);
 
-                        Label lb5 = new Label("LongName : ");
-                        lb5.setFont(f);
-                        String txt5 = "" + ((CircleLocation) (t.getSource())).getLocation().getLongName();
-                        JFXTextField tf5 = new JFXTextField(txt5);
-                        tf5.setFont(f);
-                        tf5.setAlignment(Pos.CENTER);
-                        tf5.setPrefWidth(50);
-                        gp.add(lb5, 0, 6);
-                        gp.add(tf5, 1, 6);
+                            Label lb5 = new Label("LongName : ");
+                            lb5.setFont(f);
+                            String txt5 = "" + ((CircleLocation) (t.getSource())).getLocation().getLongName();
+                            JFXTextField tf5 = new JFXTextField(txt5);
+                            tf5.setFont(f);
+                            tf5.setAlignment(Pos.CENTER);
+                            tf5.setPrefWidth(50);
+                            gp.add(lb5, 0, 6);
+                            gp.add(tf5, 1, 6);
 
-                        Label lb6 = new Label("ShortName : ");
-                        lb6.setFont(f);
-                        String txt6 = "" + ((CircleLocation) (t.getSource())).getLocation().getShortName();
-                        JFXTextField tf6 = new JFXTextField(txt6);
-                        tf6.setFont(f);
-                        tf6.setAlignment(Pos.CENTER);
-                        tf6.setPrefWidth(50);
-                        gp.add(lb6, 0, 7);
-                        gp.add(tf6, 1, 7);
+                            Label lb6 = new Label("ShortName : ");
+                            lb6.setFont(f);
+                            String txt6 = "" + ((CircleLocation) (t.getSource())).getLocation().getShortName();
+                            JFXTextField tf6 = new JFXTextField(txt6);
+                            tf6.setFont(f);
+                            tf6.setAlignment(Pos.CENTER);
+                            tf6.setPrefWidth(50);
+                            gp.add(lb6, 0, 7);
+                            gp.add(tf6, 1, 7);
 
-                        //sp.getMainHeader().setMaxHeight(0);
-                        //sp.getTopBar().setMaxHeight(0);
-                        //sp.setVmax(440);
-                        sp.setPrefSize(125, 100);
+                            //sp.getMainHeader().setMaxHeight(0);
+                            //sp.getTopBar().setMaxHeight(0);
+                            //sp.setVmax(440);
+                            sp.setPrefSize(125, 100);
 
 
-                        sp.setLayoutX(((Circle) (t.getSource())).getCenterX());
-                        sp.setLayoutY(((Circle) (t.getSource())).getCenterY());
-                        //sp.getChildren().add(gp);
-                        //ToolBar tb = new ToolBar();
-                        sp.setContent(gp);
+                            sp.setLayoutX(((Circle) (t.getSource())).getCenterX());
+                            sp.setLayoutY(((Circle) (t.getSource())).getCenterY());
+                            //sp.getChildren().add(gp);
+                            //ToolBar tb = new ToolBar();
+                            sp.setContent(gp);
                             Update.setOnAction(event ->  {
                                 String id = c.getLocation().getLocID();
                                 int x = Integer.parseInt(tf.getText());
@@ -705,7 +845,7 @@ public class EditLocationController {
                             sp.setLayoutY(((Circle) (t.getSource())).getCenterY());
                             //sp.getChildren().add(gp);
                             sp.setContent(gp);
-                            
+
                             pathPane.getChildren().add(sp);
                             c.setSp(sp);
                             lastCircle = c;
@@ -728,8 +868,11 @@ public class EditLocationController {
                         }
 
                     }
+                    t.consume();
 
                 }
+
             };
+
 
 }
