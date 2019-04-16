@@ -1,4 +1,8 @@
 package edu.wpi.cs3733.d19.teamL.Account;
+import com.github.sarxos.webcam.Webcam;
+import com.github.sarxos.webcam.WebcamPanel;
+import com.github.sarxos.webcam.WebcamResolution;
+import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXRadioButton;
 import edu.wpi.cs3733.d19.teamL.HomeScreens.HomeScreenController;
@@ -18,16 +22,28 @@ import javafx.scene.layout.AnchorPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.util.Duration;
+import org.bytedeco.javacv.FrameFilter;
+
+import javax.imageio.ImageIO;
 import javax.mail.internet.AddressException;
 import javax.mail.internet.InternetAddress;
+import javax.swing.*;
+import java.awt.*;
+import java.awt.image.BufferedImage;
+import java.io.File;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
+
+import static java.lang.Thread.sleep;
 
 @SuppressWarnings({"Duplicates", "FieldCanBeLocal", "AccessStaticViaInstance", "WeakerAccess", "ConstantConditions"})
 public class CreateEditAccountController {
 
     private Stage thestage;
+
+    @FXML
+    private JFXButton picbtn;
 
     @FXML
     private Button back;
@@ -142,6 +158,55 @@ public class CreateEditAccountController {
         errorLabel.setText("");
         department.getItems().addAll("Sanitation", "Security", "IT", "Religious", "Audio Visual", "External Transportation", "Internal Transportation",
                 "Language", "Maintenance", "Prescription", "Florist Delivery");
+    }
+
+    @FXML
+    private void takePic(){
+        Webcam webcam;
+        webcam = Webcam.getDefault();
+        //THE VIEW SIZE WILL PROBABLY CHANGE DEPENDING ON THE COMPUTER
+        //IMAGE COMPARISON WILL FAIL IMMEDIATELY IF SIZE CHANGES
+        webcam.setViewSize(WebcamResolution.VGA.getSize());
+        WebcamPanel wp = new WebcamPanel(webcam);
+        wp.setFPSDisplayed(true);
+        wp.setDisplayDebugInfo(true);
+        wp.setImageSizeDisplayed(true);
+        wp.setMirrored(true);
+        JFrame window = new JFrame("Hold still for 5 seconds");
+        window.add(wp);
+        window.setResizable(true);
+        window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        window.pack();
+        window.setLocationRelativeTo(null);
+        window.setVisible(true);
+        try {
+            sleep(5000);
+        } catch (InterruptedException e){
+            System.out.println(e);
+            System.out.println(e.getMessage());
+        }
+        wp.stop();
+        webcam.close();
+        window.dispose();
+
+        webcam.open();
+        try {
+            BufferedImage image = webcam.getImage();
+            ImageIO.write(image, "JPG", new File("TempOutput.jpg"));
+        } catch (Exception e){
+            e.printStackTrace();
+        }
+        webcam.close();
+
+        try {
+            Singleton single = Singleton.getInstance();
+            EmployeeAccess ea = new EmployeeAccess();
+            Image image = ImageIO.read(new File("TempOutput.jpg"));
+            BufferedImage buffered = (BufferedImage) image;
+            ea.updateEmployeeImg(single.getUsername(), buffered);
+        } catch (Exception e){
+            e.printStackTrace();
+        }
     }
 
     @FXML
