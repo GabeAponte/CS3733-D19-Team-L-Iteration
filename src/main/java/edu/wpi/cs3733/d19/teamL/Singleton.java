@@ -245,14 +245,14 @@ public class Singleton {
         Location second = lookup.get(edge.getEndID());
         ArrayList<Edge> toDel = new ArrayList<Edge>();
         for (Edge e: focus.getEdges()) {
-            if (e.getStartID().equals(focus.getLocID()) || e.getEndID().equals(focus.getLocID())) {
+            if (e.getEdgeID().equals(edge.getEdgeID())) {
                 toDel.add(e);
             }
         }
         focus.removeEdge(toDel);
         toDel.clear();
         for (Edge e : second.getEdges()) {
-            if (e.getStartID().equals(focus.getLocID()) || e.getEndID().equals(focus.getLocID())) {
+            if (e.getEdgeID().equals(edge.getEdgeID()) || (e.getEndID()+"_"+e.getStartID()).equals(edge.getEdgeID())) {
                 toDel.add(e);
             }
         }

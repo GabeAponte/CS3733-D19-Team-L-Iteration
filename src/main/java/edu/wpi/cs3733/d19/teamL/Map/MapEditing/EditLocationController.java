@@ -745,7 +745,6 @@ public class EditLocationController {
                         else {
                             loc.setStroke(Color.web("GREEN"));
                             ArrayList<Edge> edgeslist = loc.getLocation().getEdges();
-                            System.out.println("loc get edges " + loc.getLocation().getEdges());
                             shiftClick.add(loc);
 
                             if(edgeslist.isEmpty()){
@@ -1001,7 +1000,6 @@ public class EditLocationController {
 
                     if (!(lastCircle == null) && !(t.isShiftDown())) {
                         if (!(((CircleLocation) (t.getSource())).equals(lastCircle))) {
-                            System.out.println("YEEET");
                             pathPane.getChildren().remove(lastCircle.getSp());
                             lastCircle.setSp(null);
                             lastCircle.setFill(Color.web("RED"));
@@ -1022,21 +1020,15 @@ public class EditLocationController {
                 @Override
                 public void handle(MouseEvent t) {
                     if(t.isAltDown()){
-                        System.out.println("got line");
                         LineEdge l = (LineEdge) (t.getSource());
 
                         Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Delete Edge ?",
                                 ButtonType.YES, ButtonType.NO);
                         alert.showAndWait();
                         if (alert.getResult() == ButtonType.YES) {
-
+                        single.deleteEdge(l.getE());
                         ea = new EdgesAccess();
                         ea.deleteEdge(l.getE().getEdgeID());
-
-                            System.out.println("edge" + l.getE());
-                        System.out.println("edge id" + l.getE().getEndID());
-
-                        single.deleteEdge(l.getE());
                         pathPane.getChildren().remove(l);
 
                         System.out.println(" got line");
