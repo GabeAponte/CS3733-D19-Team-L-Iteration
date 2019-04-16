@@ -55,8 +55,6 @@ public class faceDetectionJavaFXX {
 
             MatOfRect faceDetections = new MatOfRect();
             classifier.detectMultiScale(matrix, faceDetections);
-            System.out.println(String.format("Detected %s faces",
-                    faceDetections.toArray().length));
 
             // Drawing boxes
             for (Rect rect : faceDetections.toArray()) {

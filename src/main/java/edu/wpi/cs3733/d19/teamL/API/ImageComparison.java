@@ -14,7 +14,6 @@ public class ImageComparison {
             EmployeeAccess ea = new EmployeeAccess();
             BufferedImage img1 = ea.getEmpImg(username);
             if(img1 == null){
-                System.out.println("img1 null");
                 return 100.0;
             }
 
@@ -27,7 +26,7 @@ public class ImageComparison {
                 return 100.0;
             }
             double p = getDifferencePercent(img1, img2);
-            System.out.println("diff percent: " + p);
+            //System.out.println("diff percent: " + p);
             return p;
         } catch (Exception e){
             e.printStackTrace();
