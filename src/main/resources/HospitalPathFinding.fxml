@@ -2,148 +2,334 @@
 
 <?import com.jfoenix.controls.JFXButton?>
 <?import com.jfoenix.controls.JFXComboBox?>
+<?import com.jfoenix.controls.JFXRadioButton?>
+<?import com.jfoenix.controls.JFXTextArea?>
 <?import com.jfoenix.controls.JFXToolbar?>
+<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
 <?import java.net.URL?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
-<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="anchorPaneWindow" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="720" prefWidth="1280" style="-fx-background-color: #012D5A;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.d19.teamL.Map.Pathfinding.PathFindingController">
-
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720" prefWidth="1280" style="-fx-background-color: #012D5A;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.d19.teamL.Map.Pathfinding.PathFindingController">
    <children>
-      <GridPane hgap="10.0" vgap="10.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-         <columnConstraints>
-            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="10.0" prefWidth="100.0" />
-            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="10.0" prefWidth="100.0" />
-            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="10.0" prefWidth="100.0" />
-            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="10.0" prefWidth="100.0" />
-            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="10.0" prefWidth="100.0" />
-            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="10.0" prefWidth="100.0" />
-            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="20.0" prefWidth="100.0" />
-            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="20.0" prefWidth="100.0" />
-         </columnConstraints>
-         <rowConstraints>
-            <RowConstraints minHeight="10.0" percentHeight="15.0" prefHeight="30.0" vgrow="SOMETIMES" />
-            <RowConstraints minHeight="10.0" percentHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-            <RowConstraints minHeight="10.0" percentHeight="50.0" prefHeight="30.0" vgrow="SOMETIMES" />
-            <RowConstraints minHeight="10.0" percentHeight="25.0" prefHeight="30.0" vgrow="SOMETIMES" />
-         </rowConstraints>
+      <VBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
-            <Pane fx:id="imagePane" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" GridPane.columnSpan="6" GridPane.hgrow="ALWAYS" GridPane.rowIndex="2" GridPane.rowSpan="2" GridPane.vgrow="ALWAYS">
-               <GridPane.margin>
-                  <Insets bottom="20.0" left="10.0" />
-               </GridPane.margin>
-               <ImageView fx:id="Map" fitHeight="507.0" fitWidth="754.0" pickOnBounds="true" preserveRatio="true">
-                  <image>
-                     <Image url="@SoftEng_UI_Mockup_Pics/00_thegroundfloor.png" />
-                  </image>
-               </ImageView>
-            </Pane>
-            <JFXButton fx:id="G" buttonType="RAISED" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" onAction="#clickedG" style="-fx-border-color: f5d96b; -fx-border-radius: 100; -fx-background-radius: 100;" text="G" textFill="WHITE" GridPane.columnIndex="2" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" GridPane.vgrow="ALWAYS">
-               <font>
-                  <Font size="15.0" />
-               </font>
-               <GridPane.margin>
+            <JFXToolbar prefHeight="100.0" prefWidth="1280.0" style="-fx-background-color: WHITE;">
+               <left>
+                  <ImageView fitHeight="75.0" fitWidth="325.0" BorderPane.alignment="CENTER">
+                     <image>
+                        <Image url="@SoftEng_UI_Mockup_Pics/BWHlogo.png" />
+                     </image>
+                  </ImageView>
+               </left>
+               <right>
+
+               </right>
+               <padding>
+                  <Insets left="10.0" right="10.0" />
+               </padding>
+               <center>
+                  <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="543.0" BorderPane.alignment="CENTER">
+                     <children>
+                        <HBox alignment="CENTER_RIGHT" HBox.hgrow="ALWAYS">
+                           <children>
+                              <JFXButton fx:id="logOut" alignment="CENTER" buttonType="RAISED" contentDisplay="TOP" focusTraversable="false" graphicTextGap="0.0" minHeight="-Infinity" onAction="#logOut" prefHeight="75.0" prefWidth="110.0" ripplerFill="#b0b0b0" style="-fx-border-color: #012d5a; -fx-border-width: 2; -fx-border-radius: 1000; -fx-background-radius: 1000000;" stylesheets="@toolbarIcons.css" text="Log Out" textAlignment="CENTER" textFill="#012d5a">
+                                 <font>
+                                    <Font name="System Bold" size="17.0" />
+                                 </font>
+                                 <graphic>
+                                    <FontAwesomeIconView fill="#012d5a" glyphName="USER" size="35" strokeMiterLimit="0.0" textAlignment="CENTER" wrappingWidth="27.27392578125" />
+                                 </graphic>
+                                 <HBox.margin>
+                                    <Insets right="25.0" />
+                                 </HBox.margin>
+                              </JFXButton>
+                              <JFXButton fx:id="homebtn" buttonType="RAISED" contentDisplay="GRAPHIC_ONLY" onAction="#backPressed" prefHeight="75.0" prefWidth="87.0" style="-fx-background-radius: 10000; -fx-border-radius: 1000; -fx-border-color: #012d5a; -fx-border-width: 2;" stylesheets="@toolbarIcons.css" textFill="#012d5a">
+                                 <graphic>
+                                    <FontAwesomeIconView fx:id="home" fill="#012d5a" glyphName="HOME" size="50" />
+                                 </graphic>
+                                 <HBox.margin>
+                                    <Insets right="25.0" />
+                                 </HBox.margin>
+                              </JFXButton>
+                              <JFXButton fx:id="about" buttonType="RAISED" contentDisplay="GRAPHIC_ONLY" prefHeight="75.0" prefWidth="87.0" style="-fx-background-radius: 100000; -fx-border-radius: 1000; -fx-border-color: #012d5a; -fx-border-width: 2;" stylesheets="@toolbarIcons.css">
+                                 <graphic>
+                                    <FontAwesomeIconView fill="#012d5a" glyphName="INFO" size="50" />
+                                 </graphic>
+                                 <HBox.margin>
+                                    <Insets right="30.0" />
+                                 </HBox.margin>
+                              </JFXButton>
+                           </children>
+                        </HBox>
+                     </children>
+                  </HBox>
+               </center>
+
+            </JFXToolbar>
+            <JFXToolbar minHeight="-Infinity" prefHeight="10.0" prefWidth="1280.0" style="-fx-background-color: F5D96B;" />
+            <StackPane fx:id="mainContent" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" style="-fx-background-color:rgba(0,0,0,0.30)" VBox.vgrow="ALWAYS">
+               <children>
+                  <GridPane fx:id="gridPane" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                     <columnConstraints>
+                        <ColumnConstraints percentWidth="68.58906269" />
+                        <ColumnConstraints percentWidth="31.41093731" />
+                        <ColumnConstraints />
+                        <ColumnConstraints />
+                        <ColumnConstraints maxWidth="0.0" minWidth="0.0" prefWidth="0.0" />
+                        <ColumnConstraints maxWidth="0.0" minWidth="0.0" prefWidth="0.0" />
+                     </columnConstraints>
+                     <rowConstraints>
+                        <RowConstraints percentHeight="100.0" vgrow="ALWAYS" />
+                        <RowConstraints />
+                     </rowConstraints>
+                     <children>
+                        <VBox fx:id="scrollVBox" alignment="TOP_CENTER" style="-fx-border-color: f5d96b; -fx-border-radius: 15; -fx-border-width: 2.25;" GridPane.columnIndex="1" GridPane.hgrow="ALWAYS" GridPane.rowSpan="2" GridPane.vgrow="ALWAYS">
+                           <children>
+                              <GridPane alignment="CENTER" style="-fx-border-width: 4;" VBox.vgrow="ALWAYS">
+                                 <columnConstraints>
+                                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                 </columnConstraints>
+                                 <rowConstraints>
+                                    <RowConstraints vgrow="NEVER" />
+                                    <RowConstraints vgrow="NEVER" />
+                                    <RowConstraints maxHeight="40.0" minHeight="0.0" prefHeight="0.0" vgrow="NEVER" />
+                                    <RowConstraints vgrow="NEVER" />
+                                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="NEVER" />
+                                    <RowConstraints vgrow="ALWAYS" />
+                                 </rowConstraints>
+                                 <children>
+                                    <Label alignment="CENTER" text="Find Nearest:" textAlignment="CENTER" textFill="#f5d96b" underline="true" GridPane.columnSpan="2147483647" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.vgrow="NEVER">
+                                       <font>
+                                          <Font size="25.0" />
+                                       </font>
+                                       <GridPane.margin>
+                                          <Insets bottom="5.0" top="10.0" />
+                                       </GridPane.margin>
+                                    </Label>
+                                    <VBox alignment="CENTER_LEFT" prefHeight="126.0" prefWidth="205.0" GridPane.columnSpan="2147483647" GridPane.halignment="CENTER" GridPane.rowIndex="3" GridPane.valignment="CENTER">
+                                       <children>
+                                          <JFXRadioButton fx:id="bathroomRadButton" contentDisplay="CENTER" onAction="#bathRadButtPressed" style="-jfx-selected-color: #f5d96b; -jfx-unselected-color: WHITE;" text="Bathroom" textFill="WHITE">
+                                             <font>
+                                                <Font size="18.0" />
+                                             </font>
+                                             <VBox.margin>
+                                                <Insets bottom="5.0" />
+                                             </VBox.margin>
+                                          </JFXRadioButton>
+                                          <JFXRadioButton layoutX="10.0" layoutY="175.0" style="-jfx-selected-color: #f5d96b; -jfx-unselected-color: WHITE;" text="Cafe" textFill="WHITE">
+                                             <font>
+                                                <Font size="18.0" />
+                                             </font>
+                                             <VBox.margin>
+                                                <Insets bottom="5.0" />
+                                             </VBox.margin>
+                                          </JFXRadioButton>
+                                          <JFXRadioButton fx:id="eleRadButton" onAction="#eleRadButtPressed" style="-jfx-selected-color: #f5d96b; -jfx-unselected-color: WHITE;" text="Elevator" textFill="WHITE">
+                                             <font>
+                                                <Font size="18.0" />
+                                             </font>
+                                             <VBox.margin>
+                                                <Insets bottom="5.0" />
+                                             </VBox.margin>
+                                          </JFXRadioButton>
+                                          <JFXRadioButton fx:id="cafeRadButton" onAction="#cafeRadButtPressed" style="-jfx-selected-color: #f5d96b; -jfx-unselected-color: WHITE;" text="Retail" textFill="WHITE">
+                                             <font>
+                                                <Font size="18.0" />
+                                             </font>
+                                             <VBox.margin>
+                                                <Insets bottom="5.0" />
+                                             </VBox.margin>
+                                          </JFXRadioButton>
+                                          <JFXRadioButton fx:id="stairsRadButton" onAction="#stairsRadButtPressed" style="-jfx-selected-color: #f5d96b; -jfx-unselected-color: WHITE;" text="Stairs" textFill="WHITE">
+                                             <font>
+                                                <Font size="18.0" />
+                                             </font>
+                                             <VBox.margin>
+                                                <Insets bottom="5.0" />
+                                             </VBox.margin>
+                                          </JFXRadioButton>
+                                          <JFXRadioButton style="-jfx-selected-color: #f5d96b; -jfx-unselected-color: WHITE;" text="Vending Machine" textFill="WHITE">
+                                             <font>
+                                                <Font size="18.0" />
+                                             </font>
+                                             <VBox.margin>
+                                                <Insets bottom="5.0" />
+                                             </VBox.margin>
+                                          </JFXRadioButton>
+                                       </children>
+                                       <GridPane.margin>
+                                          <Insets bottom="5.0" left="50.0" />
+                                       </GridPane.margin>
+                                    </VBox>
+                                    <JFXTextArea fx:id="direction" stylesheets="@pathfind.css" unFocusColor="TRANSPARENT" GridPane.columnSpan="2147483647" GridPane.rowIndex="5" GridPane.vgrow="ALWAYS">
+                                       <GridPane.margin>
+                                          <Insets bottom="5.0" left="10.0" right="10.0" top="5.0" />
+                                       </GridPane.margin>
+                                       <font>
+                                          <Font size="17.0" />
+                                       </font></JFXTextArea>
+                                    <Label alignment="CENTER" text="Text Directions:" textAlignment="CENTER" textFill="#f5d96b" underline="true" GridPane.columnSpan="2147483647" GridPane.halignment="CENTER" GridPane.rowIndex="4">
+                                       <font>
+                                          <Font size="25.0" />
+                                       </font>
+                                    </Label>
+                                 </children>
+                              </GridPane>
+                           </children>
+                           <GridPane.margin>
+                              <Insets bottom="30.0" left="40.0" right="40.0" top="30.0" />
+                           </GridPane.margin>
+                        </VBox>
+                        <ImageView fx:id="Map" fitHeight="610.0" fitWidth="878.0" pickOnBounds="true">
+                           <image>
+                              <Image url="@SoftEng_UI_Mockup_Pics/00_thegroundfloor.png" />
+                           </image>
+                        </ImageView>
+                        <JFXButton fx:id="menu" buttonType="RAISED" contentDisplay="GRAPHIC_ONLY" onAction="#prepareSlideMenuAnimation" prefHeight="46.0" prefWidth="80.0" style="-fx-border-radius: 100; -fx-border-color: #012d5a; -fx-background-radius: 1000; -fx-border-width: 2;" textFill="#012d5a" GridPane.valignment="TOP">
+                           <GridPane.margin>
+                              <Insets left="20.0" top="20.0" />
+                           </GridPane.margin>
+                           <font>
+                              <Font size="20.0" />
+                           </font>
+                           <graphic>
+                              <FontAwesomeIconView fill="#012d5a" glyphName="SEARCH" size="25" />
+                           </graphic>
+                           <stylesheets>
+                              <URL value="@pathfind.css" />
+                              <URL value="@toolbarIcons.css" />
+                           </stylesheets>
+                        </JFXButton>
+                        <Label fx:id="thisMap" alignment="CENTER" contentDisplay="CENTER" prefHeight="0.0" prefWidth="191.0" text="Lower Level 1" textFill="#012d5a" GridPane.halignment="CENTER" GridPane.valignment="TOP">
+                           <GridPane.margin>
+                              <Insets top="28.0" />
+                           </GridPane.margin>
+                           <font>
+                              <Font name="System Bold" size="25.0" />
+                           </font>
+                        </Label>
+                        <JFXButton fx:id="L2" alignment="CENTER" buttonType="RAISED" maxHeight="-Infinity" maxWidth="-Infinity" onAction="#clickedL2" prefHeight="46.0" prefWidth="80.0" style="-fx-border-color: #012d5a; -fx-border-radius: 100; -fx-background-radius: 100; -fx-border-width: 2;" stylesheets="@toolbarIcons.css" text="L2" textFill="#012d5a" GridPane.halignment="CENTER" GridPane.valignment="BOTTOM">
+                           <font>
+                              <Font name="System Bold" size="20.0" />
+                           </font>
+                           <GridPane.margin>
+                              <Insets bottom="24.0" right="600.0" />
+                           </GridPane.margin>
+                        </JFXButton>
+                        <JFXButton fx:id="L1" alignment="CENTER" buttonType="RAISED" maxHeight="-Infinity" maxWidth="-Infinity" onAction="#clickedL1" prefHeight="46.0" prefWidth="80.0" style="-fx-border-color: #012d5a; -fx-border-radius: 100; -fx-background-radius: 100; -fx-border-width: 2;" stylesheets="@toolbarIcons.css" text="L1" textFill="#012d5a" GridPane.halignment="CENTER" GridPane.valignment="BOTTOM">
+                           <font>
+                              <Font name="System Bold" size="20.0" />
+                           </font>
+                           <GridPane.margin>
+                              <Insets bottom="24.0" right="400.0" />
+                           </GridPane.margin>
+                        </JFXButton>
+                        <JFXButton fx:id="G" alignment="CENTER" buttonType="RAISED" maxHeight="-Infinity" maxWidth="-Infinity" onAction="#clickedG" prefHeight="46.0" prefWidth="80.0" style="-fx-border-color: #012d5a; -fx-border-radius: 100; -fx-background-radius: 100; -fx-border-width: 2;" stylesheets="@toolbarIcons.css" text="G" textFill="#012d5a" GridPane.halignment="CENTER" GridPane.valignment="BOTTOM">
+                           <font>
+                              <Font name="System Bold" size="20.0" />
+                           </font>
+                           <GridPane.margin>
+                              <Insets bottom="24.0" right="200.0" />
+                           </GridPane.margin>
+                        </JFXButton>
+                        <JFXButton fx:id="F1" alignment="CENTER" buttonType="RAISED" maxHeight="-Infinity" maxWidth="-Infinity" onAction="#clicked1" prefHeight="46.0" prefWidth="80.0" style="-fx-border-color: #012d5a; -fx-border-radius: 100; -fx-background-radius: 100; -fx-border-width: 2;" stylesheets="@toolbarIcons.css" text="F1" textFill="#012d5a" GridPane.halignment="CENTER" GridPane.valignment="BOTTOM">
+                           <font>
+                              <Font name="System Bold" size="20.0" />
+                           </font>
+                           <GridPane.margin>
+                              <Insets bottom="24.0" />
+                           </GridPane.margin>
+                        </JFXButton>
+                        <JFXButton fx:id="F2" alignment="CENTER" buttonType="RAISED" maxHeight="-Infinity" maxWidth="-Infinity" onAction="#clicked2" prefHeight="46.0" prefWidth="80.0" style="-fx-border-color: #012d5a; -fx-border-radius: 100; -fx-background-radius: 100; -fx-border-width: 2;" stylesheets="@toolbarIcons.css" text="F2" textFill="#012d5a" GridPane.halignment="CENTER" GridPane.valignment="BOTTOM">
+                           <font>
+                              <Font name="System Bold" size="20.0" />
+                           </font>
+                           <GridPane.margin>
+                              <Insets bottom="24.0" left="200.0" />
+                           </GridPane.margin>
+                        </JFXButton>
+                        <JFXButton fx:id="F3" alignment="CENTER" buttonType="RAISED" maxHeight="-Infinity" maxWidth="-Infinity" onAction="#clicked3" prefHeight="46.0" prefWidth="80.0" style="-fx-border-color: #012d5a; -fx-border-radius: 100; -fx-background-radius: 100; -fx-border-width: 2;" stylesheets="@toolbarIcons.css" text="F3" textFill="#012d5a" GridPane.halignment="CENTER" GridPane.valignment="BOTTOM">
+                           <font>
+                              <Font name="System Bold" size="20.0" />
+                           </font>
+                           <GridPane.margin>
+                              <Insets bottom="24.0" left="400.0" />
+                           </GridPane.margin>
+                        </JFXButton>
+                        <JFXButton fx:id="F4" alignment="CENTER" buttonType="RAISED" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="46.0" prefWidth="80.0" style="-fx-border-color: #012d5a; -fx-border-radius: 100; -fx-background-radius: 100; -fx-border-width: 2;" stylesheets="@toolbarIcons.css" text="F4" textFill="#012d5a" GridPane.halignment="CENTER" GridPane.valignment="BOTTOM">
+                           <font>
+                              <Font name="System Bold" size="20.0" />
+                           </font>
+                           <GridPane.margin>
+                              <Insets bottom="24.0" left="600.0" />
+                           </GridPane.margin>
+                        </JFXButton>
+                        <VBox fx:id="vLeft" maxWidth="-Infinity" minWidth="-Infinity" prefHeight="200.0" prefWidth="4.0" style="-fx-background-color: f5d96b;" GridPane.halignment="LEFT" />
+                        <HBox fx:id="vBottom" maxHeight="-Infinity" minHeight="-Infinity" prefHeight="4.0" prefWidth="200.0" style="-fx-background-color: f5d96b;" GridPane.valignment="BOTTOM" GridPane.vgrow="NEVER" />
+                        <VBox maxWidth="-Infinity" minWidth="-Infinity" prefHeight="200.0" prefWidth="3.25" style="-fx-background-color: f5d96b;" GridPane.columnIndex="1" />
+                     </children>
+                     <StackPane.margin>
+                        <Insets />
+                     </StackPane.margin>
+                  </GridPane>
+               </children>
+               <VBox.margin>
                   <Insets />
-               </GridPane.margin>
-            </JFXButton>
-            <JFXButton fx:id="L2" buttonType="RAISED" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" onAction="#clickedL2" prefHeight="50.0" prefWidth="97.0" style="-fx-border-color: f5d96b; -fx-border-radius: 100; -fx-background-radius: 100;" text="L2" textFill="WHITE" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
-               <font>
-                  <Font size="15.0" />
-               </font>
-               <GridPane.margin>
-                  <Insets left="5.0" />
-               </GridPane.margin>
-            </JFXButton>
-            <JFXButton fx:id="F1" buttonType="RAISED" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" onAction="#clicked1" style="-fx-border-color: f5d96b; -fx-border-radius: 100; -fx-background-radius: 100;" text="F1" textFill="WHITE" GridPane.columnIndex="3" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" GridPane.vgrow="ALWAYS">
-               <font>
-                  <Font size="15.0" />
-               </font>
-               <GridPane.margin>
-                  <Insets />
-               </GridPane.margin>
-            </JFXButton>
-            <JFXButton fx:id="F2" buttonType="RAISED" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" onAction="#clicked2" style="-fx-border-color: f5d96b; -fx-border-radius: 100; -fx-background-radius: 100;" text="F2" textFill="WHITE" GridPane.columnIndex="4" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" GridPane.vgrow="ALWAYS">
-               <font>
-                  <Font size="15.0" />
-               </font>
-               <GridPane.margin>
-                  <Insets />
-               </GridPane.margin>
-            </JFXButton>
-            <JFXButton fx:id="F3" buttonType="RAISED" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" onAction="#clicked3" style="-fx-border-color: f5d96b; -fx-border-radius: 100; -fx-background-radius: 100;" text="F3" textFill="WHITE" GridPane.columnIndex="5" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
-               <font>
-                  <Font size="15.0" />
-               </font>
-               <GridPane.margin>
-                  <Insets />
-               </GridPane.margin>
-            </JFXButton>
-            <GridPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" GridPane.columnIndex="7" GridPane.rowIndex="1" GridPane.rowSpan="3">
+               </VBox.margin>
+            </StackPane>
+         </children>
+      </VBox>
+      <AnchorPane fx:id="navList" layoutX="-62.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="470.0" prefWidth="300.0" style="-fx-background-color: #012D5A; -fx-background-radius: 20; -fx-border-color: F5D96B; -fx-border-radius: 15; -fx-border-width: 3;" translateX="-180" AnchorPane.leftAnchor="-122.0" AnchorPane.topAnchor="120.0">
+         <children>
+            <GridPane alignment="CENTER" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                <columnConstraints>
-                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                   <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                   <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                </columnConstraints>
                <rowConstraints>
-                  <RowConstraints maxHeight="230.3646240234375" minHeight="9.810775756835938" vgrow="SOMETIMES" />
-                  <RowConstraints maxHeight="270.6965637207031" minHeight="0.0" prefHeight="68.3743896484375" vgrow="SOMETIMES" />
-                  <RowConstraints maxHeight="317.8482666015625" minHeight="10.0" prefHeight="78.6199951171875" vgrow="SOMETIMES" />
-                  <RowConstraints maxHeight="317.8482666015625" minHeight="10.0" prefHeight="78.6199951171875" vgrow="SOMETIMES" />
-                  <RowConstraints maxHeight="240.98046875" minHeight="10.0" prefHeight="61.3499755859375" vgrow="SOMETIMES" />
-                  <RowConstraints maxHeight="240.98046875" minHeight="10.0" prefHeight="240.98046875" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="NEVER" />
+                  <RowConstraints vgrow="NEVER" />
+                  <RowConstraints vgrow="NEVER" />
+                  <RowConstraints vgrow="NEVER" />
+                  <RowConstraints vgrow="NEVER" />
+                  <RowConstraints vgrow="NEVER" />
+                  <RowConstraints vgrow="NEVER" />
+                  <RowConstraints vgrow="NEVER" />
                </rowConstraints>
                <children>
-                  <JFXComboBox fx:id="PathFindStartDrop" onAction="#locationsSelected" prefHeight="43.0" prefWidth="300.0" promptText="Starting Location" GridPane.columnSpan="3" GridPane.rowIndex="2">
-                     <stylesheets>
-                        <URL value="@modify-prompt-text.css" />
-                        <URL value="@size.css" />
-                        <URL value="@pathfind.css" />
-                     </stylesheets>
+                  <TextField fx:id="searchField" prefHeight="30.0" prefWidth="274.0" promptText="Search" GridPane.columnSpan="2147483647" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER">
                      <GridPane.margin>
-                        <Insets left="10.0" right="10.0" />
+                        <Insets bottom="20.0" left="10.0" right="10.0" top="20.0" />
                      </GridPane.margin>
-                  </JFXComboBox>
-                  <JFXComboBox fx:id="PathFindEndDrop" onAction="#locationsSelected" prefHeight="43.0" prefWidth="300.0" promptText="Ending Location" GridPane.columnSpan="3" GridPane.rowIndex="3">
-                     <GridPane.margin>
-                        <Insets left="10.0" right="10.0" />
-                     </GridPane.margin>
-                     <stylesheets>
-                        <URL value="@size.css" />
-                        <URL value="@pathfind.css" />
-                     </stylesheets>
-                  </JFXComboBox>
-                  <JFXButton buttonType="RAISED" onAction="#clearStart" text="Clear" textFill="WHITE" GridPane.columnIndex="3" GridPane.rowIndex="2" />
-                  <JFXButton buttonType="RAISED" onAction="#clearEnd" text="Clear" textFill="WHITE" GridPane.columnIndex="3" GridPane.rowIndex="3" />
-                  <JFXButton fx:id="PathFindSubmit" buttonType="RAISED" disable="true" onAction="#submitPressed" prefHeight="66.0" prefWidth="164.0" ripplerFill="WHITE" style="-fx-background-color: #7fb1ff;" text="Submit" textFill="WHITE" GridPane.columnSpan="4" GridPane.halignment="CENTER" GridPane.rowIndex="5">
                      <font>
-                        <Font name="Times New Roman" size="30.0" />
+                        <Font size="15.0" />
                      </font>
-                     <GridPane.margin>
-                        <Insets bottom="120.0" />
-                     </GridPane.margin>
-                  </JFXButton>
-                  <JFXComboBox fx:id="Filter" onAction="#noHall" prefHeight="31.0" prefWidth="205.0" promptText="Type" style="-jfx-focus-color: white;" styleClass="jfx-combo-box" GridPane.columnSpan="2" GridPane.rowIndex="1">
+                  </TextField>
+                  <JFXComboBox fx:id="Filter" onAction="#noHall" prefHeight="31.0" prefWidth="177.0" promptText="Type" style="-jfx-focus-color: white;" styleClass="jfx-combo-box" GridPane.columnSpan="2147483647" GridPane.rowIndex="3" GridPane.valignment="CENTER">
                      <stylesheets>
                         <URL value="@size.css" />
                         <URL value="@modify-prompt-text.css" />
                         <URL value="@pathfind.css" />
                      </stylesheets>
                      <GridPane.margin>
-                        <Insets left="10.0" right="10.0" />
+                        <Insets bottom="20.0" left="10.0" right="90.0" top="10.0" />
                      </GridPane.margin>
                   </JFXComboBox>
-                  <JFXComboBox fx:id="Floor" onAction="#noHall" prefHeight="31.0" prefWidth="105.0" promptText="Floor" style="-jfx-focus-color: white;" styleClass="jfx-combo-box" GridPane.columnIndex="2" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
+                  <JFXComboBox fx:id="Floor" onAction="#noHall" prefHeight="31.0" prefWidth="105.0" promptText="Floor" style="-jfx-focus-color: white;" styleClass="jfx-combo-box" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="3" GridPane.valignment="CENTER">
                      <stylesheets>
                         <URL value="@size.css" />
                         <URL value="@modify-prompt-text.css" />
@@ -152,65 +338,86 @@
                      <padding>
                         <Insets right="10.0" />
                      </padding>
+                     <GridPane.margin>
+                        <Insets bottom="20.0" left="40.0" right="10.0" top="10.0" />
+                     </GridPane.margin>
                   </JFXComboBox>
-                  <Label alignment="CENTER" prefHeight="74.0" prefWidth="242.0" text="Set Path" textAlignment="CENTER" textFill="#f5d96b" underline="true" GridPane.columnSpan="4" GridPane.valignment="CENTER">
-                     <font>
-                        <Font size="30.0" />
-                     </font>
-                  </Label>
-                  <JFXComboBox fx:id="strategySelector" onAction="#strategySelected" prefHeight="37.0" prefWidth="121.0" promptText="Algorithm" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="4" GridPane.valignment="CENTER">
+                  <JFXComboBox fx:id="PathFindStartDrop" onAction="#locationsSelected" prefHeight="29.0" prefWidth="223.0" promptText="Starting Location" GridPane.columnSpan="2" GridPane.rowIndex="4">
                      <stylesheets>
+                        <URL value="@modify-prompt-text.css" />
                         <URL value="@size.css" />
                         <URL value="@pathfind.css" />
-                     </stylesheets></JFXComboBox>
-                  <JFXComboBox fx:id="restrictChoice" prefHeight="29.0" prefWidth="88.0" promptText="Preference" GridPane.columnIndex="1" GridPane.rowIndex="5">
+                     </stylesheets>
+                     <GridPane.margin>
+                        <Insets bottom="20.0" left="10.0" right="60.0" top="10.0" />
+                     </GridPane.margin>
+                  </JFXComboBox>
+                  <JFXComboBox fx:id="PathFindEndDrop" onAction="#locationsSelected" prefHeight="29.0" prefWidth="225.0" promptText="Ending Location" GridPane.columnSpan="2" GridPane.rowIndex="5">
+                     <GridPane.margin>
+                        <Insets bottom="20.0" left="10.0" right="60.0" top="10.0" />
+                     </GridPane.margin>
                      <stylesheets>
                         <URL value="@size.css" />
                         <URL value="@pathfind.css" />
                      </stylesheets>
                   </JFXComboBox>
-               </children>
-            </GridPane>
-            <JFXToolbar style="-fx-background-color: white;" GridPane.columnSpan="8">
-               <left>
-                  <ImageView fitHeight="91.0" fitWidth="325.0" pickOnBounds="true" preserveRatio="true" BorderPane.alignment="CENTER">
-                     <image>
-                        <Image url="@SoftEng_UI_Mockup_Pics/BWHlogo.png" />
-                     </image>
-                  </ImageView>
-               </left>
-               <bottom>
-                  <JFXToolbar maxHeight="-Infinity" prefHeight="10.0" style="-fx-background-color: #f5d96b;" BorderPane.alignment="CENTER" />
-               </bottom>
-               <right>
-                  <JFXButton fx:id="PathFindBack" buttonType="RAISED" onAction="#backPressed" prefHeight="89.0" prefWidth="170.0" ripplerFill="#b0b0b0" text="Back" BorderPane.alignment="CENTER">
+                  <JFXButton fx:id="PathFindSubmit" buttonType="RAISED" disable="true" onAction="#submitPressed" onMouseClicked="#prepareSlideMenuAnimation" prefHeight="66.0" prefWidth="164.0" ripplerFill="WHITE" style="-fx-background-color: #7fb1ff;" text="Submit" textFill="#f5d96b" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="7">
                      <font>
-                        <Font size="40.0" />
+                        <Font size="30.0" />
+                     </font>
+                     <GridPane.margin>
+                        <Insets bottom="20.0" top="10.0" />
+                     </GridPane.margin>
+                  </JFXButton>
+                  <JFXButton buttonType="RAISED" contentDisplay="RIGHT" onAction="#clearStart" prefHeight="30.0" prefWidth="59.0" text="Clear" textFill="WHITE" GridPane.columnIndex="1" GridPane.rowIndex="4">
+                     <GridPane.margin>
+                        <Insets bottom="20.0" left="70.0" top="11.0" />
+                     </GridPane.margin>
+                     <font>
+                        <Font size="14.0" />
                      </font>
                   </JFXButton>
-               </right>
-               <GridPane.margin>
-                  <Insets bottom="5.0" />
-               </GridPane.margin>
-            </JFXToolbar>
-            <JFXButton fx:id="L1" buttonType="RAISED" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" onAction="#clickedL1" style="-fx-border-color: f5d96b; -fx-border-radius: 100; -fx-background-radius: 100;" text="L1" textFill="WHITE" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
-               <font>
-                  <Font size="15.0" />
-               </font>
-            </JFXButton>
-            <VBox fx:id="scrollVBox" prefHeight="550.0" prefWidth="242.0" GridPane.columnIndex="6" GridPane.rowIndex="2" GridPane.rowSpan="2">
-               <children>
-                  <Label fx:id="Direction" alignment="TOP_LEFT" prefHeight="529.0" prefWidth="242.0" textFill="WHITE" wrapText="true">
+                  <JFXButton buttonType="RAISED" contentDisplay="RIGHT" onAction="#clearEnd" prefHeight="30.0" prefWidth="85.0" text="Clear" textFill="WHITE" GridPane.columnIndex="1" GridPane.rowIndex="5">
+                     <GridPane.margin>
+                        <Insets bottom="20.0" left="70.0" top="11.0" />
+                     </GridPane.margin>
                      <font>
-                        <Font name="Courier New" size="12.0" />
-                     </font></Label>
-               </children></VBox>
-            <Label fx:id="directions" alignment="CENTER" prefHeight="146.0" prefWidth="411.0" text="Directions" textAlignment="CENTER" textFill="#f5d96b" underline="true" GridPane.columnIndex="6" GridPane.rowIndex="1" GridPane.valignment="CENTER">
-               <font>
-                  <Font size="30.0" />
-               </font>
-            </Label>
+                        <Font size="14.0" />
+                     </font>
+                  </JFXButton>
+                  <JFXButton fx:id="menuBack" buttonType="RAISED" contentDisplay="GRAPHIC_ONLY" onAction="#prepareSlideMenuAnimation" prefHeight="35.0" prefWidth="21.0" style="-fx-border-radius: 2; -fx-background-radius: 100000; -fx-border-color: WHITE; -fx-border-radius: 100; -fx-border-width: 1.5;" stylesheets="@backPath.css" text="Back" textFill="WHITE" GridPane.columnIndex="1" GridPane.halignment="RIGHT">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                     <graphic>
+                        <FontAwesomeIconView fill="WHITE" glyphName="ARROW_LEFT" size="20" wrappingWidth="17.5" />
+                     </graphic>
+                     <GridPane.margin>
+                        <Insets right="10.0" />
+                     </GridPane.margin>
+                  </JFXButton>
+                  <JFXComboBox fx:id="restrictChoice" prefHeight="29.0" prefWidth="219.0" promptText="Path Preference" GridPane.columnSpan="2147483647" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
+                     <stylesheets>
+                        <URL value="@modify-prompt-text.css" />
+                        <URL value="@pathfind.css" />
+                     </stylesheets>
+                     <GridPane.margin>
+                        <Insets bottom="5.0" left="30.0" right="30.0" top="20.0" />
+                     </GridPane.margin>
+                  </JFXComboBox>
+                  <Label contentDisplay="CENTER" text="Find a Path" textFill="#f5d96b" GridPane.columnSpan="2147483647" GridPane.halignment="CENTER">
+                     <font>
+                        <Font size="25.0" />
+                     </font>
+                     <GridPane.margin>
+                        <Insets top="3.0" />
+                     </GridPane.margin>
+                  </Label>
+               </children>
+            </GridPane>
          </children>
-      </GridPane>
+      </AnchorPane>
+
    </children>
+
 </AnchorPane>

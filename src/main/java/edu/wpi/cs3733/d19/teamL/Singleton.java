@@ -39,7 +39,7 @@ public class Singleton {
         username = ""; //username of logged in user
         num = 1; //for test classes only
         kioskID = ""; //kiosk node ID
-        typePathfind = 1; //which strategy selection for pathfinding
+        typePathfind = 0; //which strategy selection for pathfinding
         isAdmin = false; //is signedin employee an admin
         timeoutSec = 500000; //how long before timeout (in ms) 1000 = 1 second
         doPopup = true; //should be more appropriately named initializeClock
