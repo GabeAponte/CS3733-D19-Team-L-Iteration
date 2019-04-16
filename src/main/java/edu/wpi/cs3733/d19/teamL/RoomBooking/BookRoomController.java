@@ -75,6 +75,7 @@ public class BookRoomController {
     private Button bookRoomBack;
 
     Timeline timeout;
+    VisualSimulationThread sim;
     private boolean firstTimeRan = true;
 
     final ObservableList<String> listOfRooms = FXCollections.observableArrayList();
@@ -86,6 +87,8 @@ public class BookRoomController {
     private ArrayList<RoomDisplay> DisplayRooms = new ArrayList<RoomDisplay>();
 
     public void initialize() {
+        sim = new VisualSimulationThread(22);
+        sim.start();
 
         double room1[] = {2230, 1630, 2650, 1630, 2650, 1880, 2230, 1880};
         double room2[] = {2860, 1130, 3040, 1070, 3180, 1430, 2990, 1500};
@@ -117,10 +120,11 @@ public class BookRoomController {
         datePicker.setValue(LocalDate.now());
         Singleton single = Singleton.getInstance();
         single.setLastTime();
-        timeout = new Timeline(new KeyFrame(Duration.seconds(2), new EventHandler<ActionEvent>() {
+        timeout = new Timeline(new KeyFrame(Duration.millis(1500), new EventHandler<ActionEvent>() {
 
             @Override
             public void handle(ActionEvent event) {
+                displayFlexSpaces(sim.getSimulation());
                 if ((System.currentTimeMillis() - single.getLastTime()) > single.getTimeoutSec()) {
                     try {
                         single.setLastTime();
@@ -159,13 +163,12 @@ public class BookRoomController {
             }
         });
 //fieldsEntered();
-
-
     }
 
     @FXML
     private void backPressed() throws IOException {
         timeout.stop();
+        sim.end();
         Singleton single = Singleton.getInstance();
         FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("EmployeeLoggedInHome.fxml"));
         if (single.isIsAdmin()) {
@@ -180,6 +183,7 @@ public class BookRoomController {
     @FXML
     private void switchToTable() throws IOException {
         timeout.stop();
+        sim.end();
         Singleton single = Singleton.getInstance();
         single.setLastTime();
         FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("BookRoom2.fxml"));
@@ -377,6 +381,11 @@ public class BookRoomController {
     };
 
     public void displayFlexSpaces(ArrayList<Boolean> flexSpaceAvailable){
+        int i = 0;
+        for(i = 0; i < flexSpaces.size(); i++){
+            imagePane.getChildren().remove(flexSpaces.get(i));
+        }
+        flexSpaces.clear();
 
         double sr = Math.min(roomImage.getFitWidth() / roomImage.getImage().getWidth(), roomImage.getFitHeight() / roomImage.getImage().getHeight());
 
@@ -403,7 +412,7 @@ public class BookRoomController {
         flexSpaces.add(new Polygon(1740*sr, 2440*sr, 1800*sr, 2440*sr, 1800*sr, 2600*sr, 1740*sr, 2600*sr));
         flexSpaces.add(new Polygon(2220*sr, 2220*sr, 2290*sr, 2220*sr, 2290*sr, 2620*sr, 2220*sr, 2620*sr));
 
-        for(int i = 0; i < flexSpaces.size(); i++){
+        for(i = 0; i < flexSpaces.size(); i++){
             if(flexSpaceAvailable.get(i)) {
                 flexSpaces.get(i).setStroke(Color.web("TURQUOISE"));
                 flexSpaces.get(i).setFill(Color.web("TURQUOISE"));
