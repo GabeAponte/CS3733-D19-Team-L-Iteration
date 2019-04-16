@@ -680,7 +680,7 @@ public class EditLocationController {
                                             endcl = circles.get(i);
                                         }
                                     }
-                                    System.out.println(endcl);
+                                    //System.out.println(endcl);
                                     if(e.getStartNode().getFloor().equals(floorNum())&&
                                             e.getEndNode().getFloor().equals(floorNum())&& endcl != null) {
                                         line.setStartX(e.getEndNode().getXcoord() * childPane.getWidth() / Map.getImage().getWidth());
@@ -755,6 +755,8 @@ public class EditLocationController {
                                         c.setSp(null);
                                         //((Circle) (t.getSource())).setStroke(Color.web("RED"));
                                         ((Circle) (t.getSource())).setFill(Color.web("RED"));
+                                        eraseNodes();
+                                        drawNodes();
                                 }
                             );
 

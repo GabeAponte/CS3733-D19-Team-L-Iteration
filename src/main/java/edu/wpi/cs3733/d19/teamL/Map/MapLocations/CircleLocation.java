@@ -66,11 +66,9 @@ public class CircleLocation extends Circle {
 
     public boolean equals(CircleLocation test) {
         if(location.getLocID().equals(test.getLocation().getLocID())) {
-            System.out.println("IS EQUAL");
             return true;
         }
         else {
-            System.out.println("IS NOT EQUAL");
             return false;
         }
     }
