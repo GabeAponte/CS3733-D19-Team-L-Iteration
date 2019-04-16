@@ -16,6 +16,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.stage.Stage;
+import javafx.scene.control.Label;
 import javafx.util.Duration;
 
 import java.io.IOException;
@@ -34,15 +35,32 @@ public class SecurityRequestController {
     public JFXTextField Location;
 
     @FXML
-    public JFXComboBox<String> Level;
-
-    @FXML
     public JFXComboBox<String> Type;
 
     @FXML
     public JFXTextArea Description;
 
+    @FXML
+    public Button Level1;
+
+    @FXML
+    public Button Level2;
+
+    @FXML
+    public Button Level3;
+
+    @FXML
+    public Button Level4;
+
+    @FXML
+    public Button Level5;
+
+    @FXML
+    public Label UrgencyLabel;
+
     Timeline timeout;
+
+    String Level;
 
     public void initialize(){
         Singleton single = Singleton.getInstance();
@@ -80,15 +98,43 @@ public class SecurityRequestController {
         Submit.setDisable(true);
         Type.getItems().addAll(
                 "Altercations", "Suspicious Activity", "Guards/Escort", "Weapon Sighted", "Bag Unattended", "Other");
-        Level.getItems().addAll(
-                "5", "4", "3", "2", "1", "NA");
     }
+
+    @FXML
+    private void showUrgency1(){
+        UrgencyLabel.setText("Urgency Level : 1");
+        Level = "1";
+    }
+
+    @FXML
+    private void showUrgency2(){
+        UrgencyLabel.setText("Urgency Level : 2");
+        Level = "2";
+    }
+
+    @FXML
+    private void showUrgency3(){
+        UrgencyLabel.setText("Urgency Level : 3");
+        Level = "3";
+    }
+
+    @FXML
+    private void showUrgency4(){
+        UrgencyLabel.setText("Urgency Level : 4");
+        Level = "4";
+    }
+    @FXML
+    private void showUrgency5(){
+        UrgencyLabel.setText("Urgency Level : 5");
+        Level = "5";
+    }
+
 
     @FXML
     private void reenableSubmit() {
         Singleton single = Singleton.getInstance();
         single.setLastTime();
-        if (Description.getText().trim().isEmpty() || Type.getValue() == null || Location.getText().trim().isEmpty() || Identifiers.getText().trim().isEmpty() || Level.getValue() == null) {
+        if (Description.getText().trim().isEmpty() || Type.getValue() == null || Location.getText().trim().isEmpty() || Identifiers.getText().trim().isEmpty() || UrgencyLabel.getText().trim().isEmpty()) {
             Submit.setDisable(true);
         } else {
             Submit.setDisable(false);
@@ -99,7 +145,7 @@ public class SecurityRequestController {
         Singleton single = Singleton.getInstance();
         single.setLastTime();
         ServiceRequestAccess sra = new ServiceRequestAccess();
-        sra.makeSecurityRequest(Description.getText(), Location.getText(),Identifiers.getText(), Type.getValue(), Level.getValue());
+        sra.makeSecurityRequest(Description.getText(), Location.getText(),Identifiers.getText(), Type.getValue(), Level);
        // System.out.println("Submit Pressed");
         backPressed();
     }

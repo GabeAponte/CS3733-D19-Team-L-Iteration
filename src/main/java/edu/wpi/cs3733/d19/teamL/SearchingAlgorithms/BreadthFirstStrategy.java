@@ -13,8 +13,6 @@ public class BreadthFirstStrategy implements PathfindingStrategy{
     private ArrayList<Location> visited;
     private LinkedList<Location> queue;
 
-    private Location start, end;
-
     public BreadthFirstStrategy(HashMap<String, Location> hash) {
         this.lookup = hash;
         this.visited = new ArrayList<Location>();
@@ -22,7 +20,8 @@ public class BreadthFirstStrategy implements PathfindingStrategy{
     }
 
     //Author: PJ Mara
-    public Path findPath(Location start, Location end) {
+    //Nathan modified this to include path preference (restrictions)
+    public Path findPath(Location start, Location end, String restrictions) {
         EdgesAccess ea = new EdgesAccess();
         ArrayList<Location> path = new ArrayList<Location>();
         queue.add(start);
@@ -43,6 +42,10 @@ public class BreadthFirstStrategy implements PathfindingStrategy{
                 for (Location l : children) {
                     if (!queue.contains(l)) {
                         l.setParentID(p.getLocID());
+                        //if child and parent node are restricted type, continue
+                        if(l.getNodeType().equals(restrictions) && p.getNodeType().equals(restrictions) && !l.getFloor().equals(p.getFloor())){
+                            continue;
+                        }
                         queue.add(l);
                     }
                 }

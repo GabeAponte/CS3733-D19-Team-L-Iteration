@@ -47,19 +47,19 @@
                               <Blend />
                            </effect>
                            <HBox.margin>
-                              <Insets left="20.0" />
+                              <Insets right="220.0" />
                            </HBox.margin>
                         </Label>
                      </children>
                   </HBox>
                </center>
                <right>
-                  <JFXButton fx:id="logOut" alignment="CENTER" buttonType="RAISED" contentDisplay="TOP" focusTraversable="false" minHeight="-Infinity" onAction="#logOut" prefHeight="89.0" prefWidth="146.0" ripplerFill="#b0b0b0" style="-fx-border-color: #f5d96b; -fx-border-width: 4; -fx-border-radius: 10; -fx-background-radius: 10;" text="Log Out" textAlignment="CENTER" BorderPane.alignment="CENTER">
+                  <JFXButton fx:id="logOut" alignment="CENTER" buttonType="RAISED" contentDisplay="TOP" focusTraversable="false" graphicTextGap="0.0" minHeight="-Infinity" onAction="#logOut" prefHeight="75.0" prefWidth="110.0" ripplerFill="#b0b0b0" style="-fx-border-color: #012d5a; -fx-border-width: 2; -fx-border-radius: 1000; -fx-background-radius: 1000000;" stylesheets="@toolbarIcons.css" text="Log Out" textAlignment="CENTER" textFill="#012d5a" BorderPane.alignment="CENTER">
                      <font>
-                        <Font size="21.0" />
+                        <Font name="System Bold" size="17.0" />
                      </font>
                      <graphic>
-                        <FontAwesomeIconView glyphName="USER" size="35" textAlignment="CENTER" wrappingWidth="27.27392578125" />
+                        <FontAwesomeIconView fill="#012d5a" glyphName="USER" size="35" strokeMiterLimit="0.0" textAlignment="CENTER" wrappingWidth="27.27392578125" />
                      </graphic>
                   </JFXButton>
                </right>
@@ -132,7 +132,7 @@
                                     <Insets left="10.0" right="10.0" top="70.0" />
                                  </GridPane.margin>
                                  <graphic>
-                                    <FontAwesomeIconView fill="WHITE" size="55" />
+                                    <FontAwesomeIconView fill="WHITE" glyphName="USER" size="55" />
                                  </graphic>
                               </JFXButton>
                               <JFXButton fx:id="seeSuggestions" buttonType="RAISED" contentDisplay="TOP" onAction="#SwitchToSuggestionScreen" prefHeight="180.0" prefWidth="350.0" style="-fx-background-radius: 10; -fx-border-width: 5; -fx-border-color: F5D96B; -fx-border-radius: 10;" stylesheets="@HomeButtonStyle.css" text="See Suggestions" textFill="WHITE" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
@@ -147,9 +147,6 @@
                                  </graphic>
                               </JFXButton>
                            </children>
-                           <padding>
-                              <Insets bottom="50.0" />
-                           </padding>
                         </GridPane>
                      </children>
                   </VBox>
