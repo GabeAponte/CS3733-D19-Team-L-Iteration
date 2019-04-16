@@ -1,5 +1,6 @@
 package edu.wpi.cs3733.d19.teamL.HomeScreens;
 
+import com.sun.org.apache.xpath.internal.operations.Bool;
 import edu.wpi.cs3733.d19.teamL.ServiceRequest.MakeServiceRequest.ServiceRequestController;
 import edu.wpi.cs3733.d19.teamL.Singleton;
 import edu.wpi.cs3733.d19.teamL.API.Weather;
@@ -26,9 +27,11 @@ import javafx.stage.Stage;
 import javafx.util.Duration;
 
 import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.Date;
 
 public class HomeScreenController {
 
@@ -67,7 +70,7 @@ public class HomeScreenController {
 
     Timeline clock;
     Timeline tweets;
-
+    Boolean isAM = true;
 
     public void initialize() throws IOException {
         Singleton single = Singleton.getInstance();
@@ -131,12 +134,13 @@ public class HomeScreenController {
 
 
 
-
-
             clock = new Timeline(new KeyFrame(Duration.ZERO, e -> {
                 long second = LocalDateTime.now().getSecond();
                 long minute = LocalDateTime.now().getMinute();
                 long hour = LocalDateTime.now().getHour();
+                if(hour > 12){
+                    isAM = false;
+                }
                 if ((hour = hour % 12) == 0) {
                     hour = 12;
                 }
@@ -153,11 +157,20 @@ public class HomeScreenController {
                         timeLabel.setText(hour + ":" + (minute));
                     }
                 }
+
+                if(isAM){
+                    timeLabel.setText(timeLabel.getText()+" AM");
+                }
+                else if(! isAM){
+                    timeLabel.setText(timeLabel.getText()+" PM");
+                }
             }),
                     new KeyFrame(Duration.seconds(1))
             );
             clock.setCycleCount(Animation.INDEFINITE);
             clock.play();
+
+
         }
         DateTimeFormatter dtf = DateTimeFormatter.ofPattern("MM/dd/yyyy");
         LocalDate localDate = LocalDate.now();
