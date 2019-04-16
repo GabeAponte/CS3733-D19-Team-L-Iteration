@@ -98,7 +98,7 @@ public class HomeScreenController {
         }else{
             icon = "weatherIcons/ThunderImage.png";
         }
-        System.out.println("icon is being set to: "+icon);
+        //System.out.println("icon is being set to: "+icon);
         Image img = new Image(icon);
         weatherIcon.setImage(img);
         tempDisplay.setText(weatherBoy.getActTemp());
