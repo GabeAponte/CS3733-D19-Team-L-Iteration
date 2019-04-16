@@ -713,15 +713,13 @@ public class EditLocationController {
                         }
                     }
                     if (!(t.isShiftDown())) {
-                        ((Circle)(t.getSource())).setStroke(Color.web("GREEN"));
+                        //((Circle)(t.getSource())).setStroke(Color.web("GREEN"));
                         ((Circle)(t.getSource())).setFill(Color.web("GREEN"));
 
                         orgSceneX = t.getSceneX();
                         orgSceneY = t.getSceneY();
 
                         CircleLocation c = (CircleLocation) (t.getSource());
-                        System.out.println("X: " +c.getCenterX());
-                        System.out.println("Y: " +c.getCenterY());
                         c.toFront();
                         if (c.getSp() == null) {
 
@@ -756,7 +754,7 @@ public class EditLocationController {
                             close.setOnAction(event -> {
                                         pathPane.getChildren().remove(sp);
                                         c.setSp(null);
-                                        ((Circle) (t.getSource())).setStroke(Color.web("RED"));
+                                        //((Circle) (t.getSource())).setStroke(Color.web("RED"));
                                         ((Circle) (t.getSource())).setFill(Color.web("RED"));
                                 }
                             );
@@ -863,7 +861,7 @@ public class EditLocationController {
                                 na.updateNode(id, "shortName", shortName);
                                 pathPane.getChildren().remove(sp);
                                 c.setSp(null);
-                                ((Circle) (t.getSource())).setStroke(Color.web("RED"));
+                                //((Circle) (t.getSource())).setStroke(Color.web("RED"));
                                 ((Circle) (t.getSource())).setFill(Color.web("RED"));
                                 lastCircle = null;
                             });
@@ -882,6 +880,7 @@ public class EditLocationController {
                             c.setyField(tf1);
 
                         }
+
                         else {
                             System.out.println("DETECTED PREVIOUS PANE");
                         }
