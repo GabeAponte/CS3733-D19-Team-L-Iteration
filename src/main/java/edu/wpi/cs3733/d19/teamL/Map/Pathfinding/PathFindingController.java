@@ -179,6 +179,8 @@ public class PathFindingController {
 
     Timeline timeout;
 
+    private boolean first = false;
+
     private String pickedFloor = "test";
     private String type = "test";
     private String type2 = "";
@@ -222,8 +224,8 @@ public class PathFindingController {
         currentMap = "G";
         resetRadButts();
         displayKiosk();
-        if(PathFindStartDrop.getValue() != null && PathFindEndDrop.getValue() != null){
-            submitPressed();
+        if(path.getPath().size() > 1){
+            displayPath();
         }
     }
     @FXML
@@ -233,8 +235,8 @@ public class PathFindingController {
         currentMap = "L1";
         resetRadButts();
         displayKiosk();
-        if(PathFindStartDrop.getValue() != null && PathFindEndDrop.getValue() != null){
-            submitPressed();
+        if(path.getPath().size() > 1){
+            displayPath();
         }
     }
 
@@ -244,8 +246,8 @@ public class PathFindingController {
         currentMap = "L2";
         resetRadButts();
         displayKiosk();
-        if(PathFindStartDrop.getValue() != null && PathFindEndDrop.getValue() != null){
-            submitPressed();
+        if(path.getPath().size() > 1){
+            displayPath();
         }
     }
     @FXML
@@ -254,8 +256,8 @@ public class PathFindingController {
         Map.setImage(new Image("/SoftEng_UI_Mockup_Pics/01_thefirstfloor.png"));
         currentMap = "1";
         resetRadButts();
-        if(PathFindStartDrop.getValue() != null && PathFindEndDrop.getValue() != null){
-            submitPressed();
+        if(path.getPath().size() > 1){
+            displayPath();
         }
     }
     @FXML
@@ -265,8 +267,8 @@ public class PathFindingController {
         currentMap = "2";
         resetRadButts();
         displayKiosk();
-        if(PathFindStartDrop.getValue() != null && PathFindEndDrop.getValue() != null){
-            submitPressed();
+        if(path.getPath().size() > 1){
+            displayPath();
         }
     }
     @FXML
@@ -276,8 +278,8 @@ public class PathFindingController {
         currentMap = "3";
         resetRadButts();
         displayKiosk();
-        if(PathFindStartDrop.getValue() != null && PathFindEndDrop.getValue() != null){
-            submitPressed();
+        if(path.getPath().size() > 1){
+            displayPath();
         }
     }
 
@@ -482,8 +484,27 @@ public class PathFindingController {
 
         displayingPath = true;
 
-
         path = findAbstractPath(strategyAlgorithm, startNode, endNode, restriction);
+
+        //To switch the map displayed to the startNode map automatically
+        if (startNode.getFloor().equals("L2") && !currentMap.equals("L2")) {
+            clickedL2();
+        }
+        if (startNode.getFloor().equals("L1") && !currentMap.equals("L1")) {
+            clickedL1();
+        }
+        if (startNode.getFloor().equals("G") && !currentMap.equals("G")) {
+            clickedG();
+        }
+        if (startNode.getFloor().equals("1") && !currentMap.equals("1")) {
+            clicked1();
+        }
+        if (startNode.getFloor().equals("2") && !currentMap.equals("2")) {
+            clicked2();
+        }
+        if (startNode.getFloor().equals("3") && !currentMap.equals("3")) {
+            clicked3();
+        }
 
         displayPath();
         //printPath(path.getPath());
@@ -511,7 +532,7 @@ public class PathFindingController {
         pathPane.getChildren().add(kiosk);
         if(currentMap.equals(kioskTemp.getFloor())) {
             kiosk.setVisible(true);
-            gesturePane.zoomTo(2.048, new Point2D(kioskTemp.getXcoord() - 1350, kioskTemp.getYcoord() - 2000));
+            gesturePane.zoomTo(2, new Point2D(kioskTemp.getXcoord() - 1350, kioskTemp.getYcoord() - 2000));
         }
         else
             kiosk.setVisible(false);
@@ -577,6 +598,7 @@ public class PathFindingController {
             circles.clear();
             lines.clear();
             buttons.clear();
+
             //To figure out zooming
             Location mid = null;
             Location mid2 = null;
@@ -655,6 +677,7 @@ public class PathFindingController {
                             nBut.setStyle("-fx-text-fill: WHITE; -fx-font-size: 6; -fx-background-color: GREEN; -fx-border-color: WHITE; -fx-background-radius: 18; -fx-border-radius: 18; -fx-border-width: 3");
                         }
                         else {
+                            //Modified the return to start button position.
                             nBut.setStyle("-fx-text-fill: WHITE;-fx-font-size: 6; -fx-background-color: RED; -fx-border-color: WHITE; -fx-background-radius: 18; -fx-border-radius: 18; -fx-border-width: 3");
                             nBut.setText("Go to Starting Floor");
                             nBut.setLayoutX((mid2.getXcoord()*childPane.getWidth()/Map.getImage().getWidth()));
@@ -706,6 +729,7 @@ public class PathFindingController {
             circles.add(StartCircle);
             circles.add(EndCircle);
 
+            //Handles automatic zooming.
             if(startNode.getFloor().equals(endNode.getFloor())) {
                 double x = gesturePane.getWidth()/(Math.abs((endNode.getXcoord() - startNode.getXcoord())));
                 double y = gesturePane.getHeight()/Math.abs(((endNode.getYcoord() - startNode.getYcoord())));
