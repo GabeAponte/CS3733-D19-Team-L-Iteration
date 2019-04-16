@@ -685,6 +685,7 @@ public class EditLocationController {
                         else {
                             loc.setStroke(Color.web("GREEN"));
                             ArrayList<Edge> edgeslist = loc.getLocation().getEdges();
+                            System.out.println("loc get edges " + loc.getLocation().getEdges());
                             shiftClick.add(loc);
 
                             if(edgeslist.isEmpty()){
@@ -701,7 +702,6 @@ public class EditLocationController {
                                             endcl = circles.get(i);
                                         }
                                     }
-                                    //System.out.println(endcl);
                                     if(e.getStartNode().getFloor().equals(floorNum())&&
                                             e.getEndNode().getFloor().equals(floorNum())&& endcl != null) {
                                         line.setStartX(e.getEndNode().getXcoord() * childPane.getWidth() / Map.getImage().getWidth());
@@ -714,12 +714,17 @@ public class EditLocationController {
                                         line.endXProperty().bind(endcl.centerXProperty());
                                         line.endYProperty().bind(endcl.centerYProperty());
                                         line.setE(e);
-
-                                        line.setOnMousePressed(lineOnMousePressedEventHandler);
-
                                         loc.getLineList().add(line);
                                         pathPane.getChildren().add(line);
                                         lines.add(line);
+
+                                        line.setOnMousePressed(lineOnMousePressedEventHandler);
+//                                        System.out.println("Lines " + line);
+//                                        System.out.println("edge" + line.getE());
+
+//                                        loc.getLineList().add(line);
+//                                        pathPane.getChildren().add(line);
+//                                        lines.add(line);
                                     }
 
                                 }
@@ -940,14 +945,17 @@ public class EditLocationController {
                         ea = new EdgesAccess();
                         ea.deleteEdge(l.getE().getEdgeID());
 
+                            System.out.println("edge" + l.getE());
+                        System.out.println("edge id" + l.getE().getEndID());
+
                         single.deleteEdge(l.getE());
                         pathPane.getChildren().remove(l);
 
                         System.out.println(" got line");
                         System.out.println("Line is "  + l);
 
-                        eraseNodes();
-                        drawNodes();
+                            eraseNodes();
+                            drawNodes();
                         }
                         else if(alert.getResult() == ButtonType.NO){
                             //nothing
