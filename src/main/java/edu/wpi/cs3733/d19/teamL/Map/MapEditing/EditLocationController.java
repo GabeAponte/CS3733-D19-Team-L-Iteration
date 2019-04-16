@@ -712,6 +712,7 @@ public class EditLocationController {
                                         line.startYProperty().bind(loc.centerYProperty());
                                         line.endXProperty().bind(endcl.centerXProperty());
                                         line.endYProperty().bind(endcl.centerYProperty());
+                                        line.setOnMousePressed(lineOnMousePressedEventHandler);
 
                                         loc.getLineList().add(line);
                                         pathPane.getChildren().add(line);
@@ -917,6 +918,21 @@ public class EditLocationController {
                 }
 
             };
+
+
+    EventHandler<MouseEvent> lineOnMousePressedEventHandler =
+            new EventHandler<MouseEvent>() {
+
+                @Override
+                public void handle(MouseEvent t) {
+                    if(t.isAltDown()){
+                        Line l = (Line)(t.getSource());
+                        pathPane.getChildren().remove(l);
+                        System.out.println(" got line");
+                        System.out.println("Line is "  + l);
+                    }
+                }
+    };
 
 
 }
