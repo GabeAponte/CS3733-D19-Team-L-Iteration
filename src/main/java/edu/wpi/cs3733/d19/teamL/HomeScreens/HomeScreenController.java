@@ -77,8 +77,6 @@ public class HomeScreenController {
         }
         Image img = new Image(icon);
         weatherIcon.setImage(img);
-        tempDisplay.setText(weatherBoy.getActTemp());
-
 
         if(single.isDoPopup()) {
             single.setDoPopup(false);
