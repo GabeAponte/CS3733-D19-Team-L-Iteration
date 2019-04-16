@@ -37,6 +37,7 @@ import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Line;
+import javafx.scene.shape.Polygon;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
@@ -372,8 +373,8 @@ public class EditLocationController {
                             c.setCenterX(c.getCenterX() + offsetX);
                             c.setCenterY(c.getCenterY() + offsetY);
 
-                            c.getSp().setLayoutX(c.getCenterX()-150);
-                            c.getSp().setLayoutY(c.getCenterY());
+                            c.getSp().setLayoutX(c.getCenterX()-50);
+                            c.getSp().setLayoutY(c.getCenterY()-130);
                             int newX = (int) (c.getCenterX()*(Map.getImage().getWidth()/childPane.getWidth()));
                             int newY = (int) (c.getCenterY()*(Map.getImage().getHeight()/childPane.getHeight()));
                             c.getxField().setText(Integer.toString(newX));
@@ -464,7 +465,7 @@ public class EditLocationController {
                                 }
                         );
 
-                        Font f = new Font("System", 8);
+                        Font f = new Font("System", 5);
 
                         Label idlb = new Label("X coordinate : ");
                         idlb.setFont(f);
@@ -621,6 +622,7 @@ public class EditLocationController {
                         alert.showAndWait();
                         single.setLastTime();
                         if (alert.getResult() == ButtonType.YES) {
+                            pathPane.getChildren().remove(((CircleLocation) (t.getSource())).getSp());
                             single.lookup.get(focusNode.getLocID()).restitch();
                             //delete the node here
                             na = new NodesAccess();
@@ -719,10 +721,10 @@ public class EditLocationController {
 
 
                             JFXButton close = new JFXButton("\u274E");
-                            close.setPrefWidth(50);
+                            close.setPrefWidth(40);
 
                             JFXButton Update = new JFXButton("\u2705");
-                            Update.setPrefWidth(50);
+                            Update.setPrefWidth(40);
 
                             Update.setStyle("-fx-border-color: green; -fx-border-width: 1px;");
                             close.setStyle("-fx-border-color: red; -fx-border-width: 1px;");
@@ -747,7 +749,7 @@ public class EditLocationController {
                                 }
                             );
 
-                            Font f = new Font("System", 8);
+                            Font f = new Font("System", 5);
 
                             Label lb = new Label("X coordinate : ");
                             lb.setFont(f);
@@ -820,6 +822,12 @@ public class EditLocationController {
                             gp.add(lb6, 0, 7);
                             gp.add(tf6, 1, 7);
 
+                            /*Polygon triangle = new Polygon();
+                            triangle.getPoints().addAll(100.0, 10.0,  110.0, 10.0, 105.0, 15.0);
+                            triangle.setFill(Color.WHITE);
+                            triangle.setStroke(Color.RED);
+                            gp.add(triangle, 0, 8, 2, 1);*/
+
 
                             sp.setPrefSize(Control.USE_COMPUTED_SIZE, 120);
                             sp.setHbarPolicy(NEVER);
@@ -855,8 +863,8 @@ public class EditLocationController {
                             });
 
 
-                            sp.setLayoutX(((Circle) (t.getSource())).getCenterX()-150);
-                            sp.setLayoutY(((Circle) (t.getSource())).getCenterY());
+                            sp.setLayoutX(((Circle) (t.getSource())).getCenterX() - 50);
+                            sp.setLayoutY(((Circle) (t.getSource())).getCenterY() - 130);
                             gp.setMargin(close,new Insets(0,0,0,20));
                             sp.setContent(gp);
 
