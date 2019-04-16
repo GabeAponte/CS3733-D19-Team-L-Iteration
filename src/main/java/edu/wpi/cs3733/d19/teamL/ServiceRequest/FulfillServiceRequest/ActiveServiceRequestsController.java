@@ -23,7 +23,6 @@ import javafx.scene.control.*;
 import javafx.scene.input.MouseButton;
 import javafx.stage.Stage;
 import javafx.util.Duration;
-import sun.util.locale.provider.AvailableLanguageTags;
 
 import java.io.IOException;
 import java.util.Locale;
