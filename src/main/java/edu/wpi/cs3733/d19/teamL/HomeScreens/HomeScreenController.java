@@ -2,8 +2,10 @@ package edu.wpi.cs3733.d19.teamL.HomeScreens;
 
 import edu.wpi.cs3733.d19.teamL.ServiceRequest.MakeServiceRequest.ServiceRequestController;
 import edu.wpi.cs3733.d19.teamL.Singleton;
+import edu.wpi.cs3733.d19.teamL.API.Weather;
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
+import javafx.animation.KeyValue;
 import javafx.animation.Timeline;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -12,13 +14,21 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.VBox;
+import javafx.scene.text.Text;
+import javafx.scene.text.TextFlow;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
 import java.io.IOException;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 public class HomeScreenController {
 
@@ -37,27 +47,82 @@ public class HomeScreenController {
     @FXML
     Label timeLabel;
 
-    //@FXML
-    //ImageView weatherIcon;
+    @FXML
+    ImageView weatherIcon;
+
+    @FXML
+    TextField tweetBox;
 
     @FXML
     Label tempDisplay;
 
     @FXML
+    Label dateLabel;
+
+    @FXML
     Button yes;
 
+    @FXML
+    AnchorPane ap;
+
     Timeline clock;
+    Timeline tweets;
 
 
     public void initialize() throws IOException{
         Singleton single = Singleton.getInstance();
-        /*Weather weatherBoy = new Weather();
+
+        Weather weatherBoy = new Weather();
         String icon = weatherBoy.getIcon();
+        if(icon.contains("clear")){
+            icon = "weatherIcons/SunImage.png";
+        } else if(icon.contains("rain") || icon.contains("sleet")){
+            icon = "weatherIcons/RainImage.png";
+        } else if(icon.contains("partly") || icon.contains("wind")){
+            icon = "weatherIcons/PartlyCloudImage.png";
+        } else if(icon.contains("cloudy") || icon.contains("fog")){
+            icon = "weatherIcons/CloudyImage.png";
+        } else if(icon.contains("snow")){
+            icon = "weatherIcons/SnowImage.png";
+        } else {
+            icon = "weatherIcons/ThunderImage.png";
+        }
         Image img = new Image(icon);
         weatherIcon.setImage(img);
-        tempDisplay.setText(weatherBoy.getActTemp());*/
+        tempDisplay.setText(weatherBoy.getActTemp());
         if(single.isDoPopup()) {
             single.setDoPopup(false);
+            Text fillBox = single.getTxt();
+
+            tweetBox.setText(fillBox.getText());
+            tweetBox.setEditable(false);
+
+            // Get the Width of the Scene and the Text
+            double sceneWidth = 1350;
+            double textWidth = tweetBox.getLayoutBounds().getWidth();
+
+            // Define the Durations
+            Duration startDuration = Duration.ZERO;
+            Duration endDuration = Duration.seconds(120);
+
+            // Create the start and end Key Frames
+            KeyValue startKeyValue = new KeyValue(tweetBox.translateXProperty(), sceneWidth);
+            KeyFrame startKeyFrame = new KeyFrame(startDuration, startKeyValue);
+            KeyValue endKeyValue = new KeyValue(tweetBox.translateXProperty(), -3.5 * sceneWidth - textWidth * 2);
+            KeyFrame endKeyFrame = new KeyFrame(endDuration, endKeyValue);
+
+            // Create a Timeline
+            tweets = new Timeline(startKeyFrame, endKeyFrame);
+            // Let the animation run forever
+            tweets.setCycleCount(Timeline.INDEFINITE);
+            //tweets.setRate(2.5);
+            // Run the animation
+            tweets.play();
+
+
+
+
+
             clock = new Timeline(new KeyFrame(Duration.ZERO, e -> {
                 long second = LocalDateTime.now().getSecond();
                 long minute = LocalDateTime.now().getMinute();
@@ -67,15 +132,15 @@ public class HomeScreenController {
                 }
                 if (minute < 10) {
                     if (second > 9) {
-                        timeLabel.setText(hour + ":0" + (minute) + ":" + second);
+                        timeLabel.setText(hour + ":0" + (minute));
                     } else {
-                        timeLabel.setText(hour + ":0" + (minute) + ":0" + second);
+                        timeLabel.setText(hour + ":0" + (minute));
                     }
                 } else {
                     if (second > 9) {
-                        timeLabel.setText(hour + ":" + (minute) + ":" + second);
+                        timeLabel.setText(hour + ":" + (minute));
                     } else {
-                        timeLabel.setText(hour + ":" + (minute) + ":0" + second);
+                        timeLabel.setText(hour + ":" + (minute));
                     }
                 }
             }),
@@ -84,6 +149,9 @@ public class HomeScreenController {
             clock.setCycleCount(Animation.INDEFINITE);
             clock.play();
         }
+        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("MM/dd/yyyy");
+        LocalDate localDate = LocalDate.now();
+        dateLabel.setText(dtf.format(localDate));
     }
 
     public void displayPopup(){
@@ -114,6 +182,7 @@ public class HomeScreenController {
     }
     @FXML
     private void SwitchToPathfindScreen() throws IOException{
+        tweets.stop();
         clock.stop();
         Singleton single = Singleton.getInstance();
         single.setLastTime();
@@ -129,6 +198,7 @@ public class HomeScreenController {
 
     @FXML
     private void SwitchToSuggestionBox() throws IOException{
+        tweets.stop();
         clock.stop();
         Singleton single = Singleton.getInstance();
         single.setLastTime();
@@ -141,6 +211,7 @@ public class HomeScreenController {
 
     @FXML
     private void SwitchToServiceScreen() throws IOException{
+        tweets.stop();
         clock.stop();
         Singleton single = Singleton.getInstance();
         single.setLastTime();
@@ -158,6 +229,7 @@ public class HomeScreenController {
 
     @FXML
     private void SwitchToLoginScreen(ActionEvent event){
+        tweets.stop();
         clock.stop();
         Singleton single = Singleton.getInstance();
         single.setLastTime();
