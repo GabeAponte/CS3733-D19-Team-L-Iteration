@@ -1507,20 +1507,11 @@ public class PathFindingController {
         //when pressed, change color to #f5d96b (gold/yellow), to do later
         //display and find closest bathroom
         //System.out.println("find closest bathroom selected");
-        for (Circle c: circles) {
-            pathPane.getChildren().remove(c);
-        }
-        for (Line l: lines) {
-            pathPane.getChildren().remove(l);
-        }
+
         if(bathroomRadButton.isSelected()) {
+            resetRadButts();
+            bathroomRadButton.setSelected(true);
             bathroomRadButton.setTextFill(Color.web("#f5d96b"));
-            cafeRadButton.setSelected(false);
-            cafeRadButton.setTextFill(Color.web("#ffffff"));
-            eleRadButton.setSelected(false);
-            eleRadButton.setTextFill(Color.web("#ffffff"));
-            stairsRadButton.setSelected(false);
-            stairsRadButton.setTextFill(Color.web("#ffffff"));
 
             if((currentMap.equals(kioskTemp.getFloor()))){
                 displayClosestPOI("REST");
@@ -1544,20 +1535,11 @@ public class PathFindingController {
         //when pressed, change color to #f5d96b (gold/yellow)
         //display and find closest cafe - nodeType is RETL
         //System.out.println("find closest retail/food selected");
-        for (Circle c: circles) {
-            pathPane.getChildren().remove(c);
-        }
-        for (Line l: lines) {
-            pathPane.getChildren().remove(l);
-        }
+
         if(cafeRadButton.isSelected()) {
+            resetRadButts();
+            cafeRadButton.setSelected(true);
             cafeRadButton.setTextFill(Color.web("#f5d96b"));
-            bathroomRadButton.setSelected(false);
-            bathroomRadButton.setTextFill(Color.web("#ffffff"));
-            eleRadButton.setSelected(false);
-            eleRadButton.setTextFill(Color.web("#ffffff"));
-            stairsRadButton.setSelected(false);
-            stairsRadButton.setTextFill(Color.web("#ffffff"));
 
             if((currentMap.equals(kioskTemp.getFloor()))) {
                 displayClosestPOI("RETL");
@@ -1580,20 +1562,11 @@ public class PathFindingController {
         //when pressed, change color to #f5d96b (gold/yellow)
         //display and find closest elevator
         //System.out.println("find closest elevator selected");
-        for (Circle c: circles) {
-            pathPane.getChildren().remove(c);
-        }
-        for (Line l: lines) {
-            pathPane.getChildren().remove(l);
-        }
+
         if(eleRadButton.isSelected()) {
+            resetRadButts();
+            eleRadButton.setSelected(true);
             eleRadButton.setTextFill(Color.web("#f5d96b"));
-            cafeRadButton.setSelected(false);
-            cafeRadButton.setTextFill(Color.web("#ffffff"));
-            bathroomRadButton.setSelected(false);
-            bathroomRadButton.setTextFill(Color.web("#ffffff"));
-            stairsRadButton.setSelected(false);
-            stairsRadButton.setTextFill(Color.web("#ffffff"));
 
             if((currentMap.equals(kioskTemp.getFloor()))) {
                 displayClosestPOI("ELEV");
@@ -1616,20 +1589,11 @@ public class PathFindingController {
         //when pressed, change color to #f5d96b (gold/yellow)
         //display and find closest stairs
         //System.out.println("find closest stairs selected");
-        for (Circle c: circles) {
-            pathPane.getChildren().remove(c);
-        }
-        for (Line l: lines) {
-            pathPane.getChildren().remove(l);
-        }
+
         if(stairsRadButton.isSelected()) {
+            resetRadButts();
+            stairsRadButton.setSelected(true);
             stairsRadButton.setTextFill(Color.web("#f5d96b"));
-            cafeRadButton.setSelected(false);
-            cafeRadButton.setTextFill(Color.web("#ffffff"));
-            eleRadButton.setSelected(false);
-            eleRadButton.setTextFill(Color.web("#ffffff"));
-            bathroomRadButton.setSelected(false);
-            bathroomRadButton.setTextFill(Color.web("#ffffff"));
 
             if((currentMap.equals(kioskTemp.getFloor()))) {
                 displayClosestPOI("STAI");
