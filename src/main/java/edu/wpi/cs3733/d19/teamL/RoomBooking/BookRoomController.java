@@ -152,6 +152,15 @@ public class BookRoomController {
         timeout.setCycleCount(Timeline.INDEFINITE);
         timeout.play();
 
+        Platform.runLater(new Runnable(){
+            @Override
+            public void run(){
+               // displayFlexSpaces();
+            }
+        });
+//fieldsEntered();
+
+
     }
 
     @FXML
@@ -366,6 +375,48 @@ public class BookRoomController {
         }
 
     };
+
+    public void displayFlexSpaces(ArrayList<Boolean> flexSpaceAvailable){
+
+        double sr = Math.min(roomImage.getFitWidth() / roomImage.getImage().getWidth(), roomImage.getFitHeight() / roomImage.getImage().getHeight());
+
+        flexSpaces.add(new Polygon(150*sr, 230*sr, 200*sr, 230*sr, 200*sr, 340*sr, 150*sr, 340*sr));
+        flexSpaces.add(new Polygon(240*sr, 240*sr, 500*sr, 240*sr, 500*sr, 340*sr, 240*sr, 340*sr));
+        flexSpaces.add(new Polygon(250*sr, 390*sr, 500*sr, 390*sr, 500*sr, 490*sr, 250*sr, 490*sr));
+        flexSpaces.add(new Polygon(150*sr, 420*sr, 200*sr, 420*sr, 200*sr, 530*sr, 150*sr, 530*sr));
+        flexSpaces.add(new Polygon(150*sr, 590*sr, 200*sr, 590*sr, 200*sr, 740*sr, 150*sr, 740*sr));
+        flexSpaces.add(new Polygon(320*sr, 560*sr, 540*sr, 560*sr, 540*sr, 710*sr, 340*sr, 710*sr));
+        flexSpaces.add(new Polygon(660*sr, 660*sr, 730*sr, 660*sr, 730*sr, 1100*sr, 660*sr, 1100*sr));
+        flexSpaces.add(new Polygon(200*sr, 1300*sr, 270*sr, 1300*sr, 270*sr, 1360*sr, 200*sr, 1360*sr));
+        flexSpaces.add(new Polygon(570*sr, 1340*sr, 630*sr, 1340*sr, 630*sr, 1430*sr, 570*sr, 1430*sr));
+        flexSpaces.add(new Polygon(1410*sr, 190*sr, 1460*sr, 190*sr, 1460*sr, 520*sr, 1410*sr, 520*sr));
+        flexSpaces.add(new Polygon(1360*sr, 270*sr, 1410*sr, 270*sr, 1410*sr, 520*sr, 1360*sr, 520*sr));
+        flexSpaces.add(new Polygon(860*sr, 1190*sr, 1160*sr, 1190*sr, 1160*sr, 1580*sr, 860*sr, 1580*sr));
+        flexSpaces.add(new Polygon(1240*sr, 1540*sr, 1430*sr, 1540*sr, 1430*sr, 1640*sr, 1240*sr, 1640*sr));
+        flexSpaces.add(new Polygon(1490*sr, 1540*sr, 1680*sr, 1540*sr, 1680*sr, 1640*sr, 1490*sr, 1640*sr));
+        flexSpaces.add(new Polygon(1520*sr, 1190*sr, 1620*sr, 1190*sr, 1620*sr, 1500*sr, 1520*sr, 1500*sr));
+        flexSpaces.add(new Polygon(1320*sr, 2070*sr, 1380*sr, 2070*sr, 1380*sr, 2100*sr, 1320*sr, 2100*sr));
+        flexSpaces.add(new Polygon(1980*sr, 1690*sr, 2230*sr, 1690*sr, 2230*sr, 1880*sr, 1980*sr, 1880*sr));
+        flexSpaces.add(new Polygon(1900*sr, 1890*sr, 2000*sr, 1890*sr, 2000*sr, 2150*sr, 1900*sr, 2150*sr));
+        flexSpaces.add(new Polygon(2040*sr, 1890*sr, 2140*sr, 1890*sr, 2140*sr, 2140*sr, 2040*sr, 2140*sr));
+        flexSpaces.add(new Polygon(1760*sr, 2230*sr, 1820*sr, 2230*sr, 1820*sr, 2380*sr, 1760*sr, 2380*sr));
+        flexSpaces.add(new Polygon(1740*sr, 2440*sr, 1800*sr, 2440*sr, 1800*sr, 2600*sr, 1740*sr, 2600*sr));
+        flexSpaces.add(new Polygon(2220*sr, 2220*sr, 2290*sr, 2220*sr, 2290*sr, 2620*sr, 2220*sr, 2620*sr));
+
+        for(int i = 0; i < flexSpaces.size(); i++){
+            if(flexSpaceAvailable.get(i)) {
+                flexSpaces.get(i).setStroke(Color.web("TURQUOISE"));
+                flexSpaces.get(i).setFill(Color.web("TURQUOISE"));
+                flexSpaces.get(i).setOpacity(0.5);
+            }else{
+                flexSpaces.get(i).setStroke(Color.web("RED"));
+                flexSpaces.get(i).setFill(Color.web("RED"));
+                flexSpaces.get(i).setOpacity(0.3);
+            }
+            imagePane.getChildren().add(flexSpaces.get(i));
+        }
+    }
+
 
 }
 
