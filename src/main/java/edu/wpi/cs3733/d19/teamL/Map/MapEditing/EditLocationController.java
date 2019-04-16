@@ -776,6 +776,7 @@ public class EditLocationController {
                             if (!(lastCircle==null)){
                                 pathPane.getChildren().remove(lastCircle.getSp());
                                 lastCircle.setFill(Color.web("RED"));
+                                lastCircle.setSp(null);
                             }
                             ScrollPane sp = new ScrollPane();
                             sp.getStylesheets().add("MapBuilderScrollPane.css");
