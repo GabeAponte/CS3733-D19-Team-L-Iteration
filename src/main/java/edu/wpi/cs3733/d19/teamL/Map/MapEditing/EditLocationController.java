@@ -656,7 +656,6 @@ public class EditLocationController {
                         if(shiftClick.contains(loc)){
                             shiftClick.remove(loc);
                             loc.setStroke(Color.web("RED"));
-                            loc.setFill(Color.web("RED"));
                             for(Line A: loc.getLineList()){
                                 pathPane.getChildren().remove(A);
                             }
@@ -664,7 +663,6 @@ public class EditLocationController {
 
                         else {
                             loc.setStroke(Color.web("GREEN"));
-                            loc.setFill(Color.web("GREEN"));
                             ArrayList<Edge> edgeslist = loc.getLocation().getEdges();
                             shiftClick.add(loc);
 
@@ -704,11 +702,10 @@ public class EditLocationController {
                             }
                         }
                     }
-                    if (!(lastCircle == null)) {
+                    if (!(lastCircle == null) && !(t.isShiftDown())) {
                         if (!(((CircleLocation) (t.getSource())).equals(lastCircle))) {
                             pathPane.getChildren().remove(lastCircle.getSp());
                             lastCircle.setSp(null);
-                            lastCircle.setStroke(Color.web("RED"));
                             lastCircle.setFill(Color.web("RED"));
                             lastCircle.setCenterX(lastCircle.getLocation().getXcoord() * childPane.getWidth() / Map.getImage().getWidth());
                             lastCircle.setCenterY(lastCircle.getLocation().getYcoord() * childPane.getHeight() / Map.getImage().getHeight());
