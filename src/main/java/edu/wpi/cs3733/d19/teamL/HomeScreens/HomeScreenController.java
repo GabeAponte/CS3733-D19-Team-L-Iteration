@@ -98,12 +98,12 @@ public class HomeScreenController {
             tweetBox.setEditable(false);
 
             // Get the Width of the Scene and the Text
-            double sceneWidth = 1500;
+            double sceneWidth = 1350;
             double textWidth = tweetBox.getLayoutBounds().getWidth();
 
             // Define the Durations
             Duration startDuration = Duration.ZERO;
-            Duration endDuration = Duration.seconds(60);
+            Duration endDuration = Duration.seconds(120);
 
             // Create the start and end Key Frames
             KeyValue startKeyValue = new KeyValue(tweetBox.translateXProperty(), sceneWidth);
