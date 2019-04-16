@@ -60,6 +60,13 @@ dependencies {
             [group: 'javax.mail', name: 'mail', version: '1.4.7'],
             [group: 'com.github.dvdme', name: 'ForecastIOLib', version: '1.5.2'],
             [group: 'de.jensd', name: 'fontawesomefx', version: '8.9'],
+            [group: 'org.twitter4j', name: 'twitter4j-core', version: '4.0.7'],
+            [group: 'org.bytedeco', name: 'javacv', version: '1.5'],
+            [group: 'org.slf4j', name: 'slf4j-simple', version: '1.7.26'],
+            [group: 'com.github.sarxos', name: 'webcam-capture', version: '0.3.12'],
+            [group: 'com.nativelibs4java', name: 'bridj', version: '0.7.0']
+
+
 
     )
 }
