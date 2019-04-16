@@ -48,6 +48,8 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import static javafx.scene.control.ScrollPane.ScrollBarPolicy.NEVER;
+
 public class EditLocationController {
 
     @FXML
@@ -580,14 +582,21 @@ public class EditLocationController {
 
 
 
-                            JFXButton close = new JFXButton("\u274C");
+                            JFXButton close = new JFXButton("\u274E");
                             close.setPrefWidth(50);
 
-                            JFXButton Update = new JFXButton("\u2713");
+                            JFXButton Update = new JFXButton("\u2705");
                             Update.setPrefWidth(50);
+
+                            Update.setStyle("-fx-border-color: green; -fx-border-width: 1px;");
+                            close.setStyle("-fx-border-color: red; -fx-border-width: 1px;");
+
+
+
 
                             gp.add(close,1,0);
                             gp.add(Update,0,0);
+
 
                             //if user didn't press cancel or submit...
 
@@ -600,9 +609,6 @@ public class EditLocationController {
                                 }
                             );
 
-                            // StackPane container = new StackPane(gp);
-                            // container.setPadding(new Insets(24));
-                            // container.getChildren().add(gp);
                             Font f = new Font("System", 8);
 
                             Label lb = new Label("X coordinate : ");
@@ -610,7 +616,7 @@ public class EditLocationController {
                             String txt = "" + ((CircleLocation) (t.getSource())).getLocation().getXcoord();
                             JFXTextField tf = new JFXTextField(txt);
                             tf.setFont(f);
-                            tf.setAlignment(Pos.CENTER);
+                            tf.setAlignment(Pos.BASELINE_LEFT);
                             tf.setPrefWidth(50);
                             gp.add(lb, 0, 1);
                             gp.add(tf, 1, 1);
@@ -620,7 +626,7 @@ public class EditLocationController {
                             String txt1 = "" + ((CircleLocation) (t.getSource())).getLocation().getYcoord();
                             JFXTextField tf1 = new JFXTextField(txt1);
                             tf1.setFont(f);
-                            tf1.setAlignment(Pos.CENTER);
+                            tf1.setAlignment(Pos.BASELINE_LEFT);
                             tf1.setPrefWidth(50);
                             gp.add(lb1, 0, 2);
                             gp.add(tf1, 1, 2);
@@ -630,7 +636,7 @@ public class EditLocationController {
                             String txt2 = "" + ((CircleLocation) (t.getSource())).getLocation().getFloor();
                             JFXTextField tf2 = new JFXTextField(txt2);
                             tf2.setFont(f);
-                            tf2.setAlignment(Pos.CENTER);
+                            tf2.setAlignment(Pos.BASELINE_LEFT);
                             tf2.setPrefWidth(50);
                             gp.add(lb2, 0, 3);
                             gp.add(tf2, 1, 3);
@@ -640,7 +646,7 @@ public class EditLocationController {
                             String txt3 = "" + ((CircleLocation) (t.getSource())).getLocation().getBuilding();
                             JFXTextField tf3 = new JFXTextField(txt3);
                             tf3.setFont(f);
-                            tf3.setAlignment(Pos.CENTER);
+                            tf3.setAlignment(Pos.BASELINE_LEFT);
                             tf3.setPrefWidth(50);
                             gp.add(lb3, 0, 4);
                             gp.add(tf3, 1, 4);
@@ -650,7 +656,7 @@ public class EditLocationController {
                             String txt4 = "" + ((CircleLocation) (t.getSource())).getLocation().getNodeType();
                             JFXTextField tf4 = new JFXTextField(txt4);
                             tf4.setFont(f);
-                            tf4.setAlignment(Pos.CENTER);
+                            tf4.setAlignment(Pos.BASELINE_LEFT);
                             tf4.setPrefWidth(50);
                             gp.add(lb4, 0, 5);
                             gp.add(tf4, 1, 5);
@@ -660,31 +666,26 @@ public class EditLocationController {
                             String txt5 = "" + ((CircleLocation) (t.getSource())).getLocation().getLongName();
                             JFXTextField tf5 = new JFXTextField(txt5);
                             tf5.setFont(f);
-                            tf5.setAlignment(Pos.CENTER);
-                            tf5.setPrefWidth(50);
+                            tf5.setAlignment(Pos.BASELINE_LEFT);
+                            tf5.setPrefWidth(Control.USE_COMPUTED_SIZE);
                             gp.add(lb5, 0, 6);
                             gp.add(tf5, 1, 6);
+
 
                             Label lb6 = new Label("ShortName : ");
                             lb6.setFont(f);
                             String txt6 = "" + ((CircleLocation) (t.getSource())).getLocation().getShortName();
                             JFXTextField tf6 = new JFXTextField(txt6);
                             tf6.setFont(f);
-                            tf6.setAlignment(Pos.CENTER);
-                            tf6.setPrefWidth(50);
+                            tf6.setAlignment(Pos.BASELINE_LEFT);
+                            tf6.setPrefWidth(Control.USE_COMPUTED_SIZE);
                             gp.add(lb6, 0, 7);
                             gp.add(tf6, 1, 7);
 
-                            //sp.getMainHeader().setMaxHeight(0);
-                            //sp.getTopBar().setMaxHeight(0);
-                            //sp.setVmax(440);
-                            sp.setPrefSize(125, 100);
 
+                            sp.setPrefSize(Control.USE_COMPUTED_SIZE, 120);
+                            sp.setHbarPolicy(NEVER);
 
-                            sp.setLayoutX(((Circle) (t.getSource())).getCenterX());
-                            sp.setLayoutY(((Circle) (t.getSource())).getCenterY());
-                            //sp.getChildren().add(gp);
-                            //ToolBar tb = new ToolBar();
                             sp.setContent(gp);
                             Update.setOnAction(event ->  {
                                 String id = c.getLocation().getLocID();
@@ -716,9 +717,9 @@ public class EditLocationController {
                             });
 
 
-                            sp.setLayoutX(((Circle) (t.getSource())).getCenterX());
+                            sp.setLayoutX(((Circle) (t.getSource())).getCenterX()-150);
                             sp.setLayoutY(((Circle) (t.getSource())).getCenterY());
-                            //sp.getChildren().add(gp);
+                            gp.setMargin(close,new Insets(0,0,0,20));
                             sp.setContent(gp);
 
                             pathPane.getChildren().add(sp);
@@ -727,10 +728,8 @@ public class EditLocationController {
                             c.setxField(tf);
                             c.setyField(tf1);
 
-                            System.out.println("Xcor "+ ((Circle)(t.getSource())).getCenterX());
-                            System.out.println("Ycor "+ ((Circle)(t.getSource())).getCenterY());
-                            System.out.println("successful scroll pane");
                         }
+
                         else {
                             System.out.println("DETECTED PREVIOUS PANE");
                         }
