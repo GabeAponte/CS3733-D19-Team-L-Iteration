@@ -99,6 +99,7 @@ public class EditLocationController {
 
 
     private ArrayList<CircleLocation> shiftClick = new ArrayList<CircleLocation>();
+    private ArrayList<CircleLocation> addEdgeList = new ArrayList<CircleLocation>();
 
     private Point2D mousePress;
     private GesturePane gesturePane;
@@ -608,6 +609,37 @@ public class EditLocationController {
 
                 @Override
                 public void handle(MouseEvent t) {
+                    if (t.isSecondaryButtonDown()&&t.isShiftDown()) {
+                        CircleLocation cl = ((CircleLocation) (t.getSource()));
+                        if(!addEdgeList.contains(cl)){
+                            addEdgeList.add(cl);
+                            cl.setStroke(Color.web("BLUE"));
+                            cl.setFill(Color.web("BLUE"));
+                        }
+                        else {
+                            addEdgeList.remove(cl);
+                            cl.setStroke(Color.web("RED"));
+                            cl.setFill(Color.web("RED"));
+                        }
+                        if(addEdgeList.size() == 2){
+                            CircleLocation clStart = addEdgeList.get(0);
+                            CircleLocation clEnd = addEdgeList.get(1);
+                            ea =new EdgesAccess();
+                            ea.addEdge(clStart.getLocation().getLocID(), clEnd.getLocation().getLocID());
+                            Edge e = new Edge(clStart.getLocation().getLocID()+"_"+
+                                    clEnd.getLocation().getLocID(), clStart.getLocation(), clEnd.getLocation());
+                            single.addEdge(clStart.getLocation(),clEnd.getLocation(),e);
+//                            System.out.println("start id " + clStart.getLocation().getLocID());
+//                            System.out.println("end id " + clEnd.getLocation().getLocID());
+//                            System.out.println("Add edges successfully");
+                            addEdgeList.remove(clStart);
+                            addEdgeList.remove(clEnd);
+                            eraseNodes();
+                            drawNodes();
+                        }
+
+                    }
+
                     if(t.isAltDown()){
                         single = Singleton.getInstance();
                         single.setLastTime();
@@ -649,6 +681,7 @@ public class EditLocationController {
                         else {
                             loc.setStroke(Color.web("GREEN"));
                             ArrayList<Edge> edgeslist = loc.getLocation().getEdges();
+                            System.out.println("edge lsit " + edgeslist);
                             shiftClick.add(loc);
 
                             if(edgeslist.isEmpty()){
