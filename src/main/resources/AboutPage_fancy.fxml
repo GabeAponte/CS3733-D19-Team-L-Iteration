@@ -41,12 +41,12 @@
                 <right>
                     <HBox minHeight="-Infinity" prefHeight="100.0" prefWidth="148.0" BorderPane.alignment="CENTER">
                         <children>
-                            <JFXButton fx:id="LogIn" alignment="CENTER" buttonType="RAISED" contentDisplay="TOP" focusTraversable="false" minHeight="-Infinity" onAction="#SwitchToLoginScreen" prefHeight="89.0" prefWidth="146.0" ripplerFill="#b0b0b0" style="-fx-border-color: #f5d96b; -fx-border-width: 4; -fx-border-radius: 10; -fx-background-radius: 10;" text="Log In" textAlignment="CENTER" HBox.hgrow="NEVER">
+                            <JFXButton fx:id="BackButton" alignment="CENTER" buttonType="RAISED" contentDisplay="TOP" focusTraversable="false" minHeight="-Infinity" onAction="#GoBackToHome" prefHeight="89.0" prefWidth="146.0" ripplerFill="#b0b0b0" style="-fx-border-color: #f5d96b; -fx-border-width: 4; -fx-border-radius: 10; -fx-background-radius: 10;" text="Back" textAlignment="CENTER" HBox.hgrow="NEVER">
                                 <font>
                                     <Font size="21.0" />
                                 </font>
                                 <graphic>
-                                    <FontAwesomeIconView glyphName="USER" size="35" textAlignment="CENTER" wrappingWidth="27.27392578125" />
+                                    <FontAwesomeIconView glyphName="ARROW_LEFT" size="35" textAlignment="CENTER" wrappingWidth="27.27392578125" />
                                 </graphic>
                                 <HBox.margin>
                                     <Insets top="5.0" />
@@ -56,74 +56,74 @@
                     </HBox>
                 </right>
             </JFXToolbar>
-            <JFXToolbar prefHeight="10.0" prefWidth="1280.0" style="-fx-background-color: F5D96B;" />
-            <GridPane alignment="TOP_CENTER" hgap="25.0" maxHeight="1.7976931348623157E308" prefHeight="610.0" prefWidth="1280.0" vgap="50.0" VBox.vgrow="ALWAYS">
+            <JFXToolbar maxHeight="10.0" minHeight="10.0" prefHeight="10.0" style="-fx-background-color: F5D96B;" />
+            <GridPane alignment="TOP_CENTER" hgap="5.0" maxHeight="1.7976931348623157E308" minHeight="-Infinity" prefHeight="600.0" prefWidth="1240.0" vgap="5.0" VBox.vgrow="ALWAYS">
                 <columnConstraints>
                     <ColumnConstraints halignment="CENTER" hgrow="ALWAYS" maxWidth="1.7976931348623157E308" minWidth="-Infinity" percentWidth="33.3333" />
                     <ColumnConstraints halignment="CENTER" hgrow="ALWAYS" maxWidth="1.7976931348623157E308" minWidth="-Infinity" percentWidth="33.3333" />
                   <ColumnConstraints halignment="CENTER" hgrow="ALWAYS" maxWidth="1.7976931348623157E308" percentWidth="33.3333" />
                     <ColumnConstraints halignment="CENTER" hgrow="ALWAYS" maxWidth="1.7976931348623157E308" minWidth="-Infinity" percentWidth="33.3333" />
+                  <ColumnConstraints halignment="CENTER" hgrow="ALWAYS" maxWidth="1.7976931348623157E308" minWidth="10.0" percentWidth="33.3333" prefWidth="100.0" />
                 </columnConstraints>
                 <rowConstraints>
-                    <RowConstraints vgrow="NEVER" />
-                  <RowConstraints percentHeight="30.0" vgrow="ALWAYS" />
-                  <RowConstraints percentHeight="30.0" vgrow="ALWAYS" />
-                  <RowConstraints percentHeight="30.0" vgrow="ALWAYS" />
-                    <RowConstraints percentHeight="50.0" vgrow="ALWAYS" />
-                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="ALWAYS" />
+                    <RowConstraints maxHeight="1.7976931348623157E308" minHeight="50.55271911621094" prefHeight="64.03778076171875" vgrow="NEVER" />
+                  <RowConstraints maxHeight="1.7976931348623157E308" minHeight="100.96221923828125" prefHeight="100.96221923828125" vgrow="NEVER" />
+                  <RowConstraints maxHeight="1.7976931348623157E308" vgrow="NEVER" />
+                  <RowConstraints maxHeight="1.7976931348623157E308" vgrow="NEVER" />
+                    <RowConstraints maxHeight="1.7976931348623157E308" vgrow="NEVER" />
                   <RowConstraints valignment="CENTER" vgrow="NEVER" />
                 </rowConstraints>
                 <opaqueInsets>
                     <Insets />
                 </opaqueInsets>
                 <VBox.margin>
-                    <Insets />
+                    <Insets bottom="10.0" left="25.0" right="25.0" top="10.0" />
                 </VBox.margin>
                <children>
-                  <Label text="About" textFill="#f5d96b" GridPane.columnSpan="2147483647">
+                  <Label text="About Team L: The Lavendar Loraxes" textFill="#f5d96b" GridPane.columnSpan="2147483647">
                      <font>
                         <Font size="30.0" />
                      </font>
                   </Label>
-                  <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="100.0" GridPane.columnSpan="2" GridPane.rowIndex="1">
+                  <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="100.0" GridPane.columnSpan="3" GridPane.rowIndex="1">
                      <children>
-                        <Label text="Lead Software Engineer:" textFill="WHITE" underline="true">
+                        <Label text="Lead Software Engineer" textFill="WHITE" underline="true">
                            <font>
                               <Font size="20.0" />
                            </font>
                         </Label>
                         <Label text="Daniel Alvarado" textFill="WHITE">
                            <font>
-                              <Font size="15.0" />
+                              <Font size="20.0" />
                            </font>
                         </Label>
                      </children>
                   </VBox>
-                  <VBox alignment="TOP_CENTER" layoutX="10.0" layoutY="108.0" prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="2" GridPane.columnSpan="2" GridPane.rowIndex="1">
+                  <VBox alignment="TOP_CENTER" layoutX="10.0" layoutY="108.0" prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="2" GridPane.columnSpan="3" GridPane.rowIndex="1">
                      <children>
-                        <Label text="Assistant Lead Software Engineers:" textFill="WHITE" underline="true">
+                        <Label text="Assistant Lead Software Engineers" textFill="WHITE" underline="true">
                            <font>
                               <Font size="20.0" />
                            </font>
                         </Label>
                         <Label text="Andrew Bonaventura" textFill="WHITE">
                            <font>
-                              <Font size="15.0" />
+                              <Font size="20.0" />
                            </font>
                         </Label>
                         <Label text="Paul Mara" textFill="WHITE">
                            <font>
-                              <Font size="15.0" />
+                              <Font size="20.0" />
                            </font>
                         </Label>
                         <Label text="Grace Pelella" textFill="WHITE">
                            <font>
-                              <Font size="15.0" />
+                              <Font size="20.0" />
                            </font>
                         </Label>
                      </children>
                   </VBox>
-                  <VBox alignment="TOP_CENTER" layoutX="663.0" layoutY="87.0" prefHeight="200.0" prefWidth="100.0" GridPane.rowIndex="2">
+                  <VBox alignment="TOP_CENTER" layoutX="663.0" layoutY="87.0" prefHeight="200.0" prefWidth="100.0" GridPane.columnSpan="2" GridPane.rowIndex="2">
                      <children>
                         <Label text="Database" textFill="WHITE" underline="true">
                            <font>
@@ -132,22 +132,22 @@
                         </Label>
                         <Label text="Alexander Bell" textFill="WHITE">
                            <font>
-                              <Font size="15.0" />
+                              <Font size="20.0" />
                            </font>
                         </Label>
                         <Label text="Andrew Bonaventura" textFill="WHITE">
                            <font>
-                              <Font size="15.0" />
+                              <Font size="20.0" />
                            </font>
                         </Label>
                         <Label text="Daniel Alvarado" textFill="WHITE">
                            <font>
-                              <Font size="15.0" />
+                              <Font size="20.0" />
                            </font>
                         </Label>
                      </children>
                   </VBox>
-                  <VBox alignment="TOP_CENTER" layoutX="10.0" layoutY="211.0" prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="2">
+                  <VBox alignment="TOP_CENTER" layoutX="10.0" layoutY="211.0" prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="2" GridPane.rowIndex="2">
                      <children>
                         <Label text="Algorithms" textFill="WHITE" underline="true">
                            <font>
@@ -156,27 +156,27 @@
                         </Label>
                         <Label text="Nikhil Chintada" textFill="WHITE">
                            <font>
-                              <Font size="15.0" />
+                              <Font size="20.0" />
                            </font>
                         </Label>
                         <Label text="Paul Mara" textFill="WHITE">
                            <font>
-                              <Font size="15.0" />
+                              <Font size="20.0" />
                            </font>
                         </Label>
                         <Label text="Nathan Walzer" textFill="WHITE">
                            <font>
-                              <Font size="15.0" />
+                              <Font size="20.0" />
                            </font>
                         </Label>
                         <Label text="Lile Zhang" textFill="WHITE">
                            <font>
-                              <Font size="15.0" />
+                              <Font size="20.0" />
                            </font>
                         </Label>
                      </children>
                   </VBox>
-                  <VBox alignment="TOP_CENTER" layoutX="336.0" layoutY="253.0" prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="3" GridPane.rowIndex="2">
+                  <VBox alignment="TOP_CENTER" layoutX="336.0" layoutY="253.0" prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="3" GridPane.columnSpan="2" GridPane.rowIndex="2">
                      <children>
                         <Label text="User Interface" textFill="WHITE" underline="true">
                            <font>
@@ -185,27 +185,150 @@
                         </Label>
                         <Label text="Gabriel Aponte" textFill="WHITE">
                            <font>
-                              <Font size="15.0" />
+                              <Font size="20.0" />
                            </font>
                         </Label>
                         <Label text="Alexander Bell" textFill="WHITE">
                            <font>
-                              <Font size="15.0" />
+                              <Font size="20.0" />
                            </font>
                         </Label>
                         <Label text="Isabella Feeney" textFill="WHITE">
                            <font>
-                              <Font size="15.0" />
+                              <Font size="20.0" />
                            </font>
                         </Label>
                         <Label text="Anagha Late" textFill="WHITE">
                            <font>
-                              <Font size="15.0" />
+                              <Font size="20.0" />
                            </font>
                         </Label>
                         <Label text="Grace Pelella" textFill="WHITE">
                            <font>
-                              <Font size="15.0" />
+                              <Font size="20.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </VBox>
+                  <VBox alignment="TOP_CENTER" layoutX="10.0" layoutY="105.0" prefHeight="200.0" prefWidth="100.0" GridPane.rowIndex="3" GridPane.valignment="CENTER">
+                     <children>
+                        <Label text="Project Manager" textFill="WHITE" underline="true">
+                           <font>
+                              <Font size="20.0" />
+                           </font>
+                        </Label>
+                        <Label text="Gabriel Aponte" textFill="WHITE">
+                           <font>
+                              <Font size="20.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </VBox>
+                  <VBox alignment="TOP_CENTER" layoutX="10.0" layoutY="348.0" prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="1" GridPane.rowIndex="3" GridPane.valignment="CENTER">
+                     <children>
+                        <Label text="Scrum Master" textFill="WHITE" underline="true">
+                           <font>
+                              <Font size="20.0" />
+                           </font>
+                        </Label>
+                        <Label text="Nikhil Chintada" textFill="WHITE">
+                           <font>
+                              <Font size="20.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </VBox>
+                  <VBox alignment="TOP_CENTER" layoutX="336.0" layoutY="348.0" prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="2" GridPane.rowIndex="3" GridPane.valignment="CENTER">
+                     <children>
+                        <Label text="Product Owner" textFill="WHITE" underline="true">
+                           <font>
+                              <Font size="20.0" />
+                           </font>
+                        </Label>
+                        <Label text="Nathan Walzer" textFill="WHITE">
+                           <font>
+                              <Font size="20.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </VBox>
+                  <VBox alignment="TOP_CENTER" layoutX="663.0" layoutY="348.0" prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="3" GridPane.rowIndex="3" GridPane.valignment="CENTER">
+                     <children>
+                        <Label text="Test Engineer" textFill="WHITE" underline="true">
+                           <font>
+                              <Font size="20.0" />
+                           </font>
+                        </Label>
+                        <Label text="Anagha Late" textFill="WHITE">
+                           <font>
+                              <Font size="20.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </VBox>
+                  <VBox alignment="TOP_CENTER" layoutX="793.0" layoutY="348.0" prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="4" GridPane.rowIndex="3" GridPane.valignment="CENTER">
+                     <children>
+                        <Label text="Documentation Analyst" textFill="WHITE" underline="true">
+                           <font>
+                              <Font size="20.0" />
+                           </font>
+                        </Label>
+                        <Label text="Isabella Feeney" textFill="WHITE">
+                           <font>
+                              <Font size="20.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </VBox>
+                  <VBox alignment="TOP_CENTER" layoutX="1054.0" layoutY="346.0" prefHeight="126.0" prefWidth="226.0" GridPane.columnSpan="3" GridPane.rowIndex="4">
+                     <children>
+                        <Label text="Thank You" textFill="WHITE" underline="true">
+                           <font>
+                              <Font size="20.0" />
+                           </font>
+                        </Label>
+                        <Label text="WPI Computer Science Department" textFill="WHITE">
+                           <font>
+                              <Font size="20.0" />
+                           </font>
+                        </Label>
+                        <Label layoutX="11.0" layoutY="40.0" text="CS3733 D19 Software Engineering" textFill="WHITE">
+                           <font>
+                              <Font size="20.0" />
+                           </font>
+                        </Label>
+                        <Label layoutX="11.0" layoutY="61.0" text="Professor Wilson Wong" textFill="WHITE">
+                           <font>
+                              <Font size="20.0" />
+                           </font>
+                        </Label>
+                        <Label layoutX="51.0" layoutY="82.0" text="Team Coach Matt LeMay" textFill="WHITE">
+                           <font>
+                              <Font size="20.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </VBox>
+                  <VBox alignment="TOP_CENTER" layoutX="10.0" layoutY="501.0" prefHeight="126.0" prefWidth="226.0" GridPane.columnIndex="2" GridPane.columnSpan="3" GridPane.rowIndex="4">
+                     <children>
+                        <Label text="Thank You" textFill="WHITE" underline="true">
+                           <font>
+                              <Font size="20.0" />
+                           </font>
+                        </Label>
+                        <Label text="Brigham and Women’s Faulkner Hospital " textFill="WHITE">
+                           <font>
+                              <Font size="20.0" />
+                           </font>
+                        </Label>
+                        <Label layoutX="11.0" layoutY="40.0" text="&amp; Representative Andrew Shinn" textFill="WHITE">
+                           <font>
+                              <Font size="20.0" />
+                           </font>
+                        </Label>
+                        <Label layoutX="26.0" layoutY="61.0" text="for their time and input" textFill="WHITE">
+                           <font>
+                              <Font size="20.0" />
                            </font>
                         </Label>
                      </children>
