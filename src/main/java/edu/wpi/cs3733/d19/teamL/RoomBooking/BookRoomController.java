@@ -155,7 +155,7 @@ public class BookRoomController {
         Platform.runLater(new Runnable(){
             @Override
             public void run(){
-               // displayFlexSpaces();
+                //displayFlexSpaces();
             }
         });
 //fieldsEntered();
@@ -409,9 +409,9 @@ public class BookRoomController {
                 flexSpaces.get(i).setFill(Color.web("TURQUOISE"));
                 flexSpaces.get(i).setOpacity(0.5);
             }else{
-                flexSpaces.get(i).setStroke(Color.web("RED"));
-                flexSpaces.get(i).setFill(Color.web("RED"));
-                flexSpaces.get(i).setOpacity(0.3);
+               flexSpaces.get(i).setStroke(Color.web("RED"));
+               flexSpaces.get(i).setFill(Color.web("RED"));
+               flexSpaces.get(i).setOpacity(0.3);
             }
             imagePane.getChildren().add(flexSpaces.get(i));
         }
