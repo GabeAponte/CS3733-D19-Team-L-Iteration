@@ -138,7 +138,13 @@
                            </children>
                         </HBox>
                         <VBox prefHeight="118.0" prefWidth="5.0" style="-fx-background-color: #f5d96b;" />
-                        <HBox prefHeight="118.0" prefWidth="172.0" />
+                        <HBox prefHeight="118.0" prefWidth="172.0">
+                            <Label fx:id="tempDisplay" text="Label" textFill="WHITE">
+                              <font>
+                                 <Font size="20.0" />
+                              </font></Label>
+                            <ImageView fx:id="weatherIcon" fitHeight="33.0" fitWidth="71.0" pickOnBounds="true" preserveRatio="true" />
+                        </HBox>
                      </children>
                   </HBox>
                </children>

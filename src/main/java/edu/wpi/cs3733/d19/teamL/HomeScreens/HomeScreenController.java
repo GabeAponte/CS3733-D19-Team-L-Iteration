@@ -2,6 +2,7 @@ package edu.wpi.cs3733.d19.teamL.HomeScreens;
 
 import edu.wpi.cs3733.d19.teamL.ServiceRequest.MakeServiceRequest.ServiceRequestController;
 import edu.wpi.cs3733.d19.teamL.Singleton;
+import edu.wpi.cs3733.d19.teamL.API.Weather;
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
@@ -12,6 +13,8 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
@@ -39,8 +42,8 @@ public class HomeScreenController {
     @FXML
     Label timeLabel;
 
-    //@FXML
-    //ImageView weatherIcon;
+    @FXML
+    ImageView weatherIcon;
 
     @FXML
     Label tempDisplay;
@@ -56,11 +59,27 @@ public class HomeScreenController {
 
     public void initialize() throws IOException{
         Singleton single = Singleton.getInstance();
-        /*Weather weatherBoy = new Weather();
+
+        Weather weatherBoy = new Weather();
         String icon = weatherBoy.getIcon();
+        if(icon.contains("clear")){
+            icon = "weatherIcons/SunImage.png";
+        } else if(icon.contains("rain") || icon.contains("sleet")){
+            icon = "weatherIcons/RainImage.png";
+        } else if(icon.contains("partly") || icon.contains("wind")){
+            icon = "weatherIcons/PartlyCloudImage.png";
+        } else if(icon.contains("cloudy") || icon.contains("fog")){
+            icon = "weatherIcons/CloudyImage.png";
+        } else if(icon.contains("snow")){
+            icon = "weatherIcons/SnowImage.png";
+        } else {
+            icon = "weatherIcons/ThunderImage.png";
+        }
         Image img = new Image(icon);
         weatherIcon.setImage(img);
-        tempDisplay.setText(weatherBoy.getActTemp());*/
+        tempDisplay.setText(weatherBoy.getActTemp());
+
+
         if(single.isDoPopup()) {
             single.setDoPopup(false);
             clock = new Timeline(new KeyFrame(Duration.ZERO, e -> {
