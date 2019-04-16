@@ -4,6 +4,7 @@ import com.jfoenix.controls.JFXScrollPane;
 import edu.wpi.cs3733.d19.teamL.API.UpdateLocationThread;
 import edu.wpi.cs3733.d19.teamL.Map.MapLocations.CircleLocation;
 import edu.wpi.cs3733.d19.teamL.Map.MapLocations.Edge;
+import edu.wpi.cs3733.d19.teamL.Map.MapLocations.LineEdge;
 import edu.wpi.cs3733.d19.teamL.Map.MapLocations.Location;
 import edu.wpi.cs3733.d19.teamL.Map.Pathfinding.EdgesAccess;
 import edu.wpi.cs3733.d19.teamL.Map.Pathfinding.NodesAccess;
@@ -95,7 +96,7 @@ public class EditLocationController {
 
     private ArrayList<String> mapURLs = new ArrayList<String>();
     private ArrayList<CircleLocation> circles = new ArrayList<CircleLocation>();
-    private ArrayList<Line> lines = new ArrayList<Line>();
+    private ArrayList<LineEdge> lines = new ArrayList<LineEdge>();
     private ArrayList<ScrollPane> sps = new ArrayList<ScrollPane>();
 
 
@@ -429,7 +430,7 @@ public class EditLocationController {
                 @Override
                 public void handle(MouseEvent t) {
 
-                    if (t.isSecondaryButtonDown() && !(t.isShiftDown())) {
+                    if (t.isSecondaryButtonDown() && !(t.isShiftDown())&& !(t.isAltDown())) {
                         //System.out.println("COOL");
                         CircleLocation newCircle = new CircleLocation();
                         ScrollPane sp = new ScrollPane();
@@ -642,7 +643,7 @@ public class EditLocationController {
 
                     }
 
-                    if(t.isAltDown()){
+                    else if(t.isAltDown()){
                         single = Singleton.getInstance();
                         single.setLastTime();
                         focusNode = ((CircleLocation) (t.getSource())).getLocation();
@@ -692,7 +693,7 @@ public class EditLocationController {
                             else {
                                 CircleLocation endcl = new CircleLocation();
                                 for (Edge e: edgeslist){
-                                    Line line = new Line();
+                                    LineEdge line = new LineEdge();
                                     for(int i = 1; i< circles.size(); i++){
                                         String ID = circles.get(i).getLocation().getLocID();
                                         if(ID.equals(e.getEndID())||ID.equals(e.getStartID())&&
@@ -712,6 +713,8 @@ public class EditLocationController {
                                         line.startYProperty().bind(loc.centerYProperty());
                                         line.endXProperty().bind(endcl.centerXProperty());
                                         line.endYProperty().bind(endcl.centerYProperty());
+                                        line.setE(e);
+
                                         line.setOnMousePressed(lineOnMousePressedEventHandler);
 
                                         loc.getLineList().add(line);
@@ -919,17 +922,36 @@ public class EditLocationController {
 
             };
 
-
+//  Larry - delete the edges when alt right click on the line
     EventHandler<MouseEvent> lineOnMousePressedEventHandler =
             new EventHandler<MouseEvent>() {
 
                 @Override
                 public void handle(MouseEvent t) {
                     if(t.isAltDown()){
-                        Line l = (Line)(t.getSource());
+                        System.out.println("got line");
+                        LineEdge l = (LineEdge) (t.getSource());
+
+                        Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Delete Edge ?",
+                                ButtonType.YES, ButtonType.NO);
+                        alert.showAndWait();
+                        if (alert.getResult() == ButtonType.YES) {
+
+                        ea = new EdgesAccess();
+                        ea.deleteEdge(l.getE().getEdgeID());
+
+                        single.deleteEdge(l.getE());
                         pathPane.getChildren().remove(l);
+
                         System.out.println(" got line");
                         System.out.println("Line is "  + l);
+
+                        eraseNodes();
+                        drawNodes();
+                        }
+                        else if(alert.getResult() == ButtonType.NO){
+                            //nothing
+                        }
                     }
                 }
     };
