@@ -684,7 +684,7 @@ public class PathFindingController {
         //printPath(path.getPath());
         direction.setText(printPath(path.getPath()));
 
-        Direction.setWrapText(true);
+        direction.setWrapText(true);
 
 
 //        sceneGestures.setDrawPath(circles,lines);
