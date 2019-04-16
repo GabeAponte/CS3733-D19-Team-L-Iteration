@@ -153,21 +153,15 @@ public class LogInController {
         window.setLocationRelativeTo(null);
         window.setVisible(true);
         try {
-            sleep(5000);
+            sleep(3000);
         } catch (InterruptedException e){
             System.out.println(e);
             System.out.println(e.getMessage());
         }
         wp.stop();
         webcam.close();
-        window.dispose();//*/
+        window.dispose();
 
-        /*faceDetectionJavaFXX fjfxx = new faceDetectionJavaFXX();
-        WritableImage bi = fjfxx.capureFrame();
-        if(bi == null){
-            System.out.println("No Face Detected");
-        }*/
-        //Webcam webcam = Webcam.getDefault();
         webcam.open();
         BufferedImage image = webcam.getImage();
         ImageIO.write(image, "JPG", new File("TempOutput.jpg"));
