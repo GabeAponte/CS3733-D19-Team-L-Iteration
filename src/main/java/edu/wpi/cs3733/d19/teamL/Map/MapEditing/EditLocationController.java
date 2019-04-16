@@ -376,7 +376,7 @@ public class EditLocationController {
                             if (!(c.getSp() == null)) {
                                 c.getSp().setVisible(false);
                                 c.getSp().setLayoutX(c.getCenterX() - 50);
-                                c.getSp().setLayoutY(c.getCenterY() - 130);
+                                c.getSp().setLayoutY(c.getCenterY() - 128);
                             }
                             int newX = (int) (c.getCenterX()*(Map.getImage().getWidth()/childPane.getWidth()));
                             int newY = (int) (c.getCenterY()*(Map.getImage().getHeight()/childPane.getHeight()));
@@ -754,6 +754,7 @@ public class EditLocationController {
                     }
 
                     else if (!t.isShiftDown()&&!t.isAltDown()&& !t.isSecondaryButtonDown()){
+                        //pathPane.getChildren().remove(lastCircle.getSp());
                         betweenFloorsCircle = null;
                         //((Circle)(t.getSource())).setStroke(Color.web("GREEN"));
                         ((Circle)(t.getSource())).setFill(Color.web("GREEN"));
@@ -764,7 +765,10 @@ public class EditLocationController {
                         CircleLocation c = (CircleLocation) (t.getSource());
                         c.toFront();
                         if (c.getSp() == null) {
-
+                            if (!(lastCircle==null)){
+                                pathPane.getChildren().remove(lastCircle.getSp());
+                                lastCircle.setFill(Color.web("RED"));
+                            }
                             ScrollPane sp = new ScrollPane();
                             sp.getStylesheets().add("MapBuilderScrollPane.css");
 
@@ -912,7 +916,7 @@ public class EditLocationController {
 
 
                             sp.setLayoutX(((Circle) (t.getSource())).getCenterX() - 50);
-                            sp.setLayoutY(((Circle) (t.getSource())).getCenterY() - 130);
+                            sp.setLayoutY(((Circle) (t.getSource())).getCenterY() - 128);
                             gp.setMargin(close,new Insets(0,0,0,20));
                             sp.setContent(gp);
 
@@ -937,6 +941,7 @@ public class EditLocationController {
 
                     if (!(lastCircle == null) && !(t.isShiftDown())) {
                         if (!(((CircleLocation) (t.getSource())).equals(lastCircle))) {
+                            System.out.println("YEEET");
                             pathPane.getChildren().remove(lastCircle.getSp());
                             lastCircle.setSp(null);
                             lastCircle.setFill(Color.web("RED"));
