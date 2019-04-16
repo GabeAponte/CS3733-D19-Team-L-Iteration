@@ -640,7 +640,7 @@ public class EditLocationController {
 
                     }
 
-                    if(t.isShiftDown()){
+                    else if(t.isShiftDown()){
                         CircleLocation loc = (CircleLocation) (t.getSource());
                         if(shiftClick.contains(loc)){
                             shiftClick.remove(loc);
@@ -691,16 +691,7 @@ public class EditLocationController {
                             }
                         }
                     }
-                    if (!(lastCircle == null) && !(t.isShiftDown())) {
-                        if (!(((CircleLocation) (t.getSource())).equals(lastCircle))) {
-                            pathPane.getChildren().remove(lastCircle.getSp());
-                            lastCircle.setSp(null);
-                            lastCircle.setFill(Color.web("RED"));
-                            lastCircle.setCenterX(lastCircle.getLocation().getXcoord() * childPane.getWidth() / Map.getImage().getWidth());
-                            lastCircle.setCenterY(lastCircle.getLocation().getYcoord() * childPane.getHeight() / Map.getImage().getHeight());
-                        }
-                    }
-                    if (!(t.isShiftDown())) {
+                    else {
                         //((Circle)(t.getSource())).setStroke(Color.web("GREEN"));
                         ((Circle)(t.getSource())).setFill(Color.web("GREEN"));
 
@@ -746,7 +737,7 @@ public class EditLocationController {
                                         ((Circle) (t.getSource())).setFill(Color.web("RED"));
                                         eraseNodes();
                                         drawNodes();
-                                }
+                                    }
                             );
 
                             Font f = new Font("System", 5);
@@ -881,13 +872,15 @@ public class EditLocationController {
                             System.out.println("DETECTED PREVIOUS PANE");
                         }
                     }
-                    else {
-                        //draw the lines here, shift has been clicked
-                        System.out.println("EDGE SELECTION MODE");
-                        if (focusNode == null) {
-                            focusNode = ((CircleLocation) t.getSource()).getLocation();
-                        }
 
+                    if (!(lastCircle == null) && !(t.isShiftDown())) {
+                        if (!(((CircleLocation) (t.getSource())).equals(lastCircle))) {
+                            pathPane.getChildren().remove(lastCircle.getSp());
+                            lastCircle.setSp(null);
+                            lastCircle.setFill(Color.web("RED"));
+                            lastCircle.setCenterX(lastCircle.getLocation().getXcoord() * childPane.getWidth() / Map.getImage().getWidth());
+                            lastCircle.setCenterY(lastCircle.getLocation().getYcoord() * childPane.getHeight() / Map.getImage().getHeight());
+                        }
                     }
                     t.consume();
 
