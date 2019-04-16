@@ -136,7 +136,7 @@
                                     <FontAwesomeIconView fill="WHITE" glyphName="MAP_ALT" size="55" />
                                  </graphic>
                               </JFXButton>
-                              <JFXButton fx:id="seeSuggestions" buttonType="RAISED" contentDisplay="TOP" onAction="#SwitchToSuggestionScreen" prefHeight="185.0" prefWidth="369.0" style="-fx-background-radius: 10; -fx-border-color: F5D96B; -fx-border-width: 5; -fx-border-radius: 10;" stylesheets="@HomeButtonStyle.css" text="See Suggestions" textFill="WHITE" GridPane.columnIndex="3">
+                              <JFXButton fx:id="seeSuggestions" buttonType="RAISED" contentDisplay="TOP" onAction="#SwitchToSuggestionScreen" prefHeight="185.0" prefWidth="1076.0" style="-fx-background-radius: 10; -fx-border-color: F5D96B; -fx-border-width: 5; -fx-border-radius: 10;" stylesheets="@HomeButtonStyle.css" text="See Suggestions" textFill="WHITE" GridPane.columnIndex="3">
                                  <font>
                                     <Font size="35.0" />
                                  </font>
