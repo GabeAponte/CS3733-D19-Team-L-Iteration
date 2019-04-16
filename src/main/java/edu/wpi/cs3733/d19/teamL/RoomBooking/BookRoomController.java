@@ -27,7 +27,6 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
-import javafx.scene.shape.Circle;
 import javafx.scene.shape.Polygon;
 import javafx.stage.Stage;
 
@@ -162,7 +161,7 @@ public class BookRoomController {
                 //displayFlexSpaces();
             }
         });
-//fieldsEntered();
+
     }
 
     @FXML
@@ -379,6 +378,24 @@ public class BookRoomController {
         }
 
     };
+
+    public void highlightFromDropdown(){
+
+        for(int j = 0; j<DisplayRooms.size(); j++){
+            if(DisplayRooms.get(j).getRoomName().equals(availableRooms.getValue())){
+                for (int i = 0; i < DisplayRooms.size(); i++) {
+                    if(DisplayRooms.get(i).isAvailable()){
+                        DisplayRooms.get(i).changePolygonColor("GREEN");
+                    } else {
+                        DisplayRooms.get(i).changePolygonColor("RED");
+                    }
+                }
+                DisplayRooms.get(j).changePolygonColor("BLUE");
+            }
+        }
+
+    }
+
 
     public void displayFlexSpaces(ArrayList<Boolean> flexSpaceAvailable){
         int i = 0;

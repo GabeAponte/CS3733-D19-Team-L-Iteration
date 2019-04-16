@@ -86,12 +86,12 @@
                 </Pane>
                 <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" spacing="30.0" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="2">
                     <children>
-                        <JFXTimePicker fx:id="startTime" defaultColor="#f5d96b" prefHeight="57.0" prefWidth="221.0" promptText="Start Time" style="-fx-background-color: white;" stylesheets="@book room.css" />
+                        <JFXTimePicker fx:id="startTime" defaultColor="#f5d96b" prefHeight="57.0" prefWidth="221.0" promptText="Start Time" style="-fx-background-color: white;" stylesheets="@book-room.css" />
                     </children>
                 </VBox>
                 <VBox alignment="CENTER" layoutX="874.0" layoutY="200.0" prefHeight="200.0" prefWidth="100.0" spacing="30.0" GridPane.columnIndex="3" GridPane.rowIndex="2">
                     <children>
-                        <JFXTimePicker fx:id="endTime" defaultColor="#f5d96b" onAction="#fieldsEntered" prefHeight="53.0" prefWidth="205.0" promptText="End Time" style="-fx-background-color: white;" stylesheets="@book room.css" />
+                        <JFXTimePicker fx:id="endTime" defaultColor="#f5d96b" onAction="#fieldsEntered" prefHeight="53.0" prefWidth="205.0" promptText="End Time" style="-fx-background-color: white;" stylesheets="@book-room.css" />
                     </children>
                 </VBox>
             <JFXButton fx:id="viewSchedule" onAction="#switchToTable" text="View Room Schedule" textFill="#f5d96b" GridPane.columnIndex="2" GridPane.columnSpan="2147483647" GridPane.halignment="CENTER" GridPane.rowIndex="5" GridPane.valignment="CENTER">
@@ -112,12 +112,12 @@
                   <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
               </rowConstraints>
                <children>
-                      <JFXComboBox fx:id="availableRooms" focusColor="#f5d96b" prefHeight="54.0" prefWidth="270.0" promptText="Select Room" stylesheets="@book room.css" unFocusColor="#f5d96b" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="1">
+                      <JFXComboBox fx:id="availableRooms" onAction="#highlightFromDropdown" focusColor="#f5d96b" prefHeight="54.0" prefWidth="270.0" promptText="Select Room" stylesheets="@book-room.css" unFocusColor="#f5d96b" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="1">
                           <effect>
                               <ColorAdjust contrast="-1.0" />
                           </effect>
                   </JFXComboBox>
-                        <JFXDatePicker fx:id="datePicker" defaultColor="#f5d96b" onAction="#fieldsEntered" prefHeight="59.0" prefWidth="198.0" promptText="Start Date" style="-fx-background-color: white;" stylesheets="@book room.css" GridPane.columnSpan="2" GridPane.halignment="CENTER" />
+                        <JFXDatePicker fx:id="datePicker" defaultColor="#f5d96b" onAction="#fieldsEntered" prefHeight="59.0" prefWidth="198.0" promptText="Start Date" style="-fx-background-color: white;" stylesheets="@book-room.css" GridPane.columnSpan="2" GridPane.halignment="CENTER" />
                </children>
             </GridPane>
             <Label fx:id="error" text="" textFill="#f5d96b" GridPane.columnIndex="2" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="5" GridPane.valignment="TOP">
