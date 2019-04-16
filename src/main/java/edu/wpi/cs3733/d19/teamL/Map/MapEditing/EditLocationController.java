@@ -389,8 +389,6 @@ public class EditLocationController {
                             if(!(c.getPn() == null)){
                                 c.getPn().setVisible(false);
                                 c.getPn().getPoints().clear();
-
-                                System.out.println("point list " + c.getPn().getPoints());
                                 c.getPn().getPoints().addAll(c.getCenterX(),c.getCenterY()-5,
                                         c.getCenterX()-5,c.getCenterY()-10,
                                         c.getCenterX()+5,c.getCenterY()-10);
