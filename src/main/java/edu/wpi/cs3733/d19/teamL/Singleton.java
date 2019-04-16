@@ -49,7 +49,7 @@ public class Singleton {
         kioskID = ""; //kiosk node ID
         typePathfind = 1; //which strategy selection for pathfinding
         isAdmin = false; //is signedin employee an admin
-        timeoutSec = 45000; //how long before timeout (in ms) 1000 = 1 second
+        timeoutSec = 4500000; //how long before timeout (in ms) 1000 = 1 second
         doPopup = true; //should be more appropriately named initializeClock
         txt = new Text();
     }
@@ -206,5 +206,88 @@ public class Singleton {
 
     public static void setKioskID(String kioskID) {
         Singleton.kioskID = kioskID;
+    }
+
+    /*
+    Author: PJ Mara
+    Deletes specific node records and associated edges
+    so that the entire data doesn't need to be rebuilt for performance
+     */
+    public void deleteNode(Location l) {
+
+        EdgesAccess ea = new EdgesAccess();
+        //get a list of the nodes it is connected to
+        ArrayList<String> locIDs = ea.getConnectedNodes(l.getLocID());
+        //loop through those and delete an edge that contains this loc ID
+        for (String id : locIDs) {
+            Location focus = lookup.get(id);
+            ArrayList<Edge> edgeList = new ArrayList<Edge>();
+            for (Edge e: focus.getEdges()) {
+                if (e.getStartID().equals(l.getLocID()) || e.getEndID().equals(l.getLocID())) {
+                    edgeList.add(e);
+                }
+            }
+            focus.removeEdge(edgeList);
+        }
+        // once its been cleaned up, delete from the lookup
+        lookup.remove(l.getLocID(), l);
+        data.remove(l);
+    }
+
+    /*
+    Author: PJ Mara
+    Changes out the current node with the ID with the new passed in loc
+     */
+    public void modifyNode(Location oldLoc, Location newLoc) {
+        data.remove(lookup.get(oldLoc));
+        data.add(newLoc);
+        lookup.replace(oldLoc.getLocID(), newLoc);
+
+    }
+
+    /*
+    Author: PJ Mara
+    Adds an edge between the two passed in nodes
+     */
+    public void addEdge(Location start, Location end, Edge e) {
+        for (Edge x : start.getEdges()) {
+            if (x.equals(e)) {
+                return;
+            }
+        }
+        lookup.get(start.getLocID()).addEdge(e);
+        lookup.get(end.getLocID()).addEdge(e);
+    }
+
+    /*
+    Author: PJ Mara
+    Deletes an edge between two nodes
+     */
+    public void deleteEdge(Edge edge) {
+        Location focus = lookup.get(edge.getStartID());
+        Location second = lookup.get(edge.getEndID());
+        ArrayList<Edge> toDel = new ArrayList<Edge>();
+        for (Edge e: focus.getEdges()) {
+            if (e.getStartID().equals(focus.getLocID()) || e.getEndID().equals(focus.getLocID())) {
+                toDel.add(e);
+            }
+        }
+        focus.removeEdge(toDel);
+        toDel.clear();
+        for (Edge e : second.getEdges()) {
+            if (e.getStartID().equals(focus.getLocID()) || e.getEndID().equals(focus.getLocID())) {
+                toDel.add(e);
+            }
+        }
+        second.removeEdge(toDel);
+    }
+
+    /*
+    Author: PJ Mara
+    Adds a node to the lookup and data
+     */
+    public void addNode (Location l) {
+        lookup.put(l.getLocID(), l);
+        data.add(l);
     }
 }

@@ -2,6 +2,7 @@ package edu.wpi.cs3733.d19.teamL.HomeScreens;
 
 import edu.wpi.cs3733.d19.teamL.ServiceRequest.MakeServiceRequest.ServiceRequestController;
 import edu.wpi.cs3733.d19.teamL.Singleton;
+import edu.wpi.cs3733.d19.teamL.API.Weather;
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
@@ -14,6 +15,8 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
@@ -23,7 +26,9 @@ import javafx.stage.Stage;
 import javafx.util.Duration;
 
 import java.io.IOException;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 public class HomeScreenController {
 
@@ -43,13 +48,16 @@ public class HomeScreenController {
     Label timeLabel;
 
     @FXML
-    TextField tweetBox;
+    ImageView weatherIcon;
 
-    //@FXML
-    //ImageView weatherIcon;
+    @FXML
+    TextField tweetBox;
 
     @FXML
     Label tempDisplay;
+
+    @FXML
+    Label dateLabel;
 
     @FXML
     Button yes;
@@ -63,11 +71,25 @@ public class HomeScreenController {
 
     public void initialize() throws IOException{
         Singleton single = Singleton.getInstance();
-        /*Weather weatherBoy = new Weather();
+
+        Weather weatherBoy = new Weather();
         String icon = weatherBoy.getIcon();
+        if(icon.contains("clear")){
+            icon = "weatherIcons/SunImage.png";
+        } else if(icon.contains("rain") || icon.contains("sleet")){
+            icon = "weatherIcons/RainImage.png";
+        } else if(icon.contains("partly") || icon.contains("wind")){
+            icon = "weatherIcons/PartlyCloudImage.png";
+        } else if(icon.contains("cloudy") || icon.contains("fog")){
+            icon = "weatherIcons/CloudyImage.png";
+        } else if(icon.contains("snow")){
+            icon = "weatherIcons/SnowImage.png";
+        } else {
+            icon = "weatherIcons/ThunderImage.png";
+        }
         Image img = new Image(icon);
         weatherIcon.setImage(img);
-        tempDisplay.setText(weatherBoy.getActTemp());*/
+        tempDisplay.setText(weatherBoy.getActTemp());
         if(single.isDoPopup()) {
             single.setDoPopup(false);
             Text fillBox = single.getTxt();
@@ -76,7 +98,7 @@ public class HomeScreenController {
             tweetBox.setEditable(false);
 
             // Get the Width of the Scene and the Text
-            double sceneWidth = 1500;
+            double sceneWidth = 1350;
             double textWidth = tweetBox.getLayoutBounds().getWidth();
 
             // Define the Durations
@@ -110,15 +132,15 @@ public class HomeScreenController {
                 }
                 if (minute < 10) {
                     if (second > 9) {
-                        timeLabel.setText(hour + ":0" + (minute) + ":" + second);
+                        timeLabel.setText(hour + ":0" + (minute));
                     } else {
-                        timeLabel.setText(hour + ":0" + (minute) + ":0" + second);
+                        timeLabel.setText(hour + ":0" + (minute));
                     }
                 } else {
                     if (second > 9) {
-                        timeLabel.setText(hour + ":" + (minute) + ":" + second);
+                        timeLabel.setText(hour + ":" + (minute));
                     } else {
-                        timeLabel.setText(hour + ":" + (minute) + ":0" + second);
+                        timeLabel.setText(hour + ":" + (minute));
                     }
                 }
             }),
@@ -127,6 +149,9 @@ public class HomeScreenController {
             clock.setCycleCount(Animation.INDEFINITE);
             clock.play();
         }
+        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("MM/dd/yyyy");
+        LocalDate localDate = LocalDate.now();
+        dateLabel.setText(dtf.format(localDate));
     }
 
     public void displayPopup(){

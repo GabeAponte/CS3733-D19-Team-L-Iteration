@@ -3,6 +3,7 @@
 <?import com.jfoenix.controls.JFXButton?>
 <?import com.jfoenix.controls.JFXTextField?>
 <?import com.jfoenix.controls.JFXToolbar?>
+<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.image.Image?>
@@ -16,7 +17,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="ap" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720" prefWidth="1280" style="-fx-background-color: #012D5A;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.d19.teamL.HomeScreens.HomeScreenController">
+<AnchorPane fx:id="ap" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720" prefWidth="1280" style="-fx-background-color: #012D5A;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.d19.teamL.HomeScreens.HomeScreenController">
 
    <children>
       <VBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
@@ -36,105 +37,123 @@
                   <Insets left="10.0" right="10.0" />
                </padding>
                <center>
-                  <HBox alignment="CENTER_RIGHT" prefHeight="107.0" prefWidth="397.0" BorderPane.alignment="CENTER">
-                     <children>
-                        <GridPane alignment="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" HBox.hgrow="ALWAYS">
-                          <columnConstraints>
-                            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                          </columnConstraints>
-                          <rowConstraints>
-                            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                          </rowConstraints>
-                           <children>
-                              <Label fx:id="timeLabel" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="30.0" prefWidth="112.0" text="19:20:21" textAlignment="CENTER" GridPane.halignment="CENTER">
-                                 <font>
-                                    <Font size="25.0" />
-                                 </font>
-                                 <GridPane.margin>
-                                    <Insets left="95.0" />
-                                 </GridPane.margin>
-                              </Label>
-                           </children>
-                        </GridPane>
-                        <JFXButton fx:id="HomeSuggestions" alignment="CENTER" buttonType="RAISED" onAction="#SwitchToSuggestionBox" prefHeight="107.0" prefWidth="240.0" ripplerFill="#b0b0b0" text="Suggestions">
-                           <font>
-                              <Font size="33.0" />
-                           </font>
-                        </JFXButton>
-                        <HBox alignment="CENTER_RIGHT" prefHeight="107.0" prefWidth="155.0">
-                           <children>
-                              <JFXButton fx:id="LogIn" alignment="CENTER" buttonType="RAISED" onAction="#SwitchToLoginScreen" prefHeight="115.0" prefWidth="159.0" ripplerFill="#b0b0b0" text="Log In">
-                                 <font>
-                                    <Font size="33.0" />
-                                 </font>
-                              </JFXButton>
-                           </children>
-                        </HBox>
-                     </children>
-                  </HBox>
+                  <HBox alignment="CENTER_RIGHT" prefHeight="100.0" prefWidth="397.0" BorderPane.alignment="CENTER" />
                </center>
+               <right>
+                  <JFXButton fx:id="LogIn" alignment="CENTER" buttonType="RAISED" contentDisplay="TOP" focusTraversable="false" graphicTextGap="0.0" minHeight="-Infinity" onAction="#SwitchToLoginScreen" prefHeight="75.0" prefWidth="110.0" ripplerFill="#b0b0b0" style="-fx-border-color: #012d5a; -fx-border-width: 2; -fx-border-radius: 1000; -fx-background-radius: 1000000;" stylesheets="@toolbarIcons.css" text="Log In" textAlignment="CENTER" textFill="#012d5a" BorderPane.alignment="CENTER">
+                     <font>
+                        <Font name="System Bold" size="17.0" />
+                     </font>
+                     <graphic>
+                        <FontAwesomeIconView fill="#012d5a" glyphName="USER" size="35" strokeMiterLimit="0.0" textAlignment="CENTER" wrappingWidth="27.27392578125" />
+                     </graphic>
+                  </JFXButton>
+               </right>
             </JFXToolbar>
             <JFXToolbar prefHeight="10.0" prefWidth="1280.0" style="-fx-background-color: F5D96B;" />
-            <GridPane alignment="CENTER" hgap="25.0" prefHeight="264.0" prefWidth="1280.0" vgap="50.0" VBox.vgrow="ALWAYS">
+            <GridPane alignment="CENTER" hgap="25.0" maxHeight="1.7976931348623157E308" prefHeight="610.0" prefWidth="1280.0" vgap="50.0" VBox.vgrow="ALWAYS">
                <columnConstraints>
-                  <ColumnConstraints halignment="CENTER" hgrow="ALWAYS" maxWidth="1.7976931348623157E308" minWidth="-Infinity" prefWidth="487.78533935546875" />
-                  <ColumnConstraints halignment="CENTER" hgrow="ALWAYS" maxWidth="1.7976931348623157E308" minWidth="10.0" prefWidth="273.8167724609375" />
-                  <ColumnConstraints halignment="CENTER" hgrow="ALWAYS" maxWidth="1.7976931348623157E308" minWidth="-Infinity" prefWidth="468.1832275390625" />
+                  <ColumnConstraints halignment="CENTER" hgrow="ALWAYS" maxWidth="1.7976931348623157E308" minWidth="-Infinity" percentWidth="33.3333" prefWidth="259.1164245605469" />
+                  <ColumnConstraints halignment="CENTER" hgrow="NEVER" maxWidth="1.7976931348623157E308" minWidth="-Infinity" percentWidth="33.3333" prefWidth="256.0" />
+                  <ColumnConstraints halignment="CENTER" hgrow="ALWAYS" maxWidth="1.7976931348623157E308" minWidth="-Infinity" percentWidth="33.3333" prefWidth="243.5341796875" />
                </columnConstraints>
                <rowConstraints>
-                  <RowConstraints valignment="CENTER" vgrow="ALWAYS" />
-                  <RowConstraints maxHeight="1.7976931348623157E308" valignment="CENTER" vgrow="ALWAYS" />
-                  <RowConstraints maxHeight="1.7976931348623157E308" minHeight="0.0" prefHeight="0.0" valignment="CENTER" vgrow="ALWAYS" />
-                  <RowConstraints maxHeight="1.7976931348623157E308" minHeight="142.0" valignment="CENTER" vgrow="ALWAYS" />
-                  <RowConstraints maxHeight="1.7976931348623157E308" minHeight="142.0" valignment="CENTER" vgrow="ALWAYS" />
-                  <RowConstraints maxHeight="1.7976931348623157E308" minHeight="142.0" valignment="CENTER" vgrow="ALWAYS" />
-                  <RowConstraints maxHeight="1.7976931348623157E308" minHeight="142.0" valignment="CENTER" vgrow="ALWAYS" />
-                  <RowConstraints maxHeight="94.0" minHeight="0.0" prefHeight="0.0" valignment="CENTER" vgrow="ALWAYS" />
-                  <RowConstraints maxHeight="94.0" minHeight="0.0" prefHeight="0.0" valignment="CENTER" vgrow="ALWAYS" />
-                  <RowConstraints maxHeight="94.0" minHeight="0.0" prefHeight="0.0" valignment="CENTER" vgrow="ALWAYS" />
-                  <RowConstraints maxHeight="59.111358642578125" minHeight="0.0" prefHeight="0.0" valignment="CENTER" vgrow="ALWAYS" />
-                  <RowConstraints maxHeight="59.111358642578125" minHeight="0.0" prefHeight="0.0" valignment="CENTER" vgrow="ALWAYS" />
-                  <RowConstraints maxHeight="59.111358642578125" minHeight="0.0" prefHeight="0.0" valignment="CENTER" vgrow="ALWAYS" />
-                  <RowConstraints maxHeight="59.111358642578125" minHeight="0.0" prefHeight="0.0" valignment="CENTER" vgrow="ALWAYS" />
-                  <RowConstraints maxHeight="59.111358642578125" minHeight="0.0" prefHeight="0.0" valignment="CENTER" vgrow="ALWAYS" />
-                  <RowConstraints maxHeight="59.111358642578125" minHeight="0.0" prefHeight="0.0" valignment="CENTER" vgrow="ALWAYS" />
+                  <RowConstraints fillHeight="false" percentHeight="30.0" vgrow="NEVER" />
+                  <RowConstraints percentHeight="50.0" vgrow="ALWAYS" />
                </rowConstraints>
                <opaqueInsets>
                   <Insets />
                </opaqueInsets>
-               <padding>
-                  <Insets bottom="100.0" top="50.0" />
-               </padding>
                <VBox.margin>
                   <Insets />
                </VBox.margin>
                <children>
-                  <JFXButton fx:id="HomeFindPath" buttonType="RAISED" onAction="#SwitchToPathfindScreen" prefHeight="138.0" prefWidth="409.0" ripplerFill="WHITE" style="-fx-border-color: #f5d96b; -fx-border-radius: 100; -fx-background-radius: 100; -fx-border-width: 3;" text="Find Path" textFill="WHITE" GridPane.rowIndex="3">
+                  <JFXButton fx:id="HomeFindPath" alignment="CENTER" buttonType="RAISED" contentDisplay="TOP" focusTraversable="false" onAction="#SwitchToPathfindScreen" prefHeight="280.0" prefWidth="300.0" ripplerFill="WHITE" style="-fx-border-color: #f5d96b; -fx-border-width: 5; -fx-border-radius: 10; -fx-background-radius: 10;" stylesheets="@HomeButtonStyle.css" text="Navigation" textFill="WHITE" GridPane.columnIndex="1" GridPane.rowIndex="1">
                      <font>
-                        <Font size="48.0" />
-                     </font>
-                     <GridPane.margin>
-                        <Insets left="10.0" />
-                     </GridPane.margin>
-                  </JFXButton>
-                  <JFXButton fx:id="HomeServiceRequest" buttonType="RAISED" onAction="#SwitchToServiceScreen" prefHeight="138.0" prefWidth="409.0" ripplerFill="WHITE" style="-fx-border-color: #f5d96b; -fx-border-radius: 100; -fx-background-radius: 100; -fx-border-width: 3;" text="Request Service" textFill="WHITE" GridPane.columnIndex="2" GridPane.rowIndex="3">
-                     <font>
-                        <Font size="44.0" />
+                        <Font size="36.0" />
                      </font>
                      <GridPane.margin>
                         <Insets />
                      </GridPane.margin>
+                     <graphic>
+                        <FontAwesomeIconView fill="WHITE" glyphName="MAP_ALT" size="150" />
+                     </graphic>
                   </JFXButton>
-                  <ImageView fitHeight="446.0" fitWidth="390.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.rowIndex="3" GridPane.vgrow="ALWAYS">
-                     <image>
-                        <Image url="@SoftEng_UI_Mockup_Pics/logo.png" />
-                     </image>
-                  </ImageView>
+                  <JFXButton fx:id="HomeServiceRequest" alignment="CENTER" buttonType="RAISED" contentDisplay="TOP" focusTraversable="false" onAction="#SwitchToServiceScreen" prefHeight="280.0" prefWidth="300.0" ripplerFill="WHITE" style="-fx-border-color: #f5d96b; -fx-border-width: 5; -fx-background-radius: 10; -fx-border-radius: 10;" stylesheets="@HomeButtonStyle.css" text="Request" textFill="WHITE" GridPane.columnIndex="2" GridPane.rowIndex="1">
+                     <font>
+                        <Font size="36.0" />
+                     </font>
+                     <GridPane.margin>
+                        <Insets right="30.0" />
+                     </GridPane.margin>
+                     <graphic>
+                        <FontAwesomeIconView fill="WHITE" glyphName="BELL_ALT" size="150" text="" />
+                     </graphic>
+                  </JFXButton>
+                  <JFXButton fx:id="HomeSuggestions" alignment="CENTER" buttonType="RAISED" contentDisplay="TOP" focusTraversable="false" onAction="#SwitchToSuggestionBox" prefHeight="300.0" prefWidth="300.0" ripplerFill="#b0b0b0" style="-fx-border-color: #f5d96b; -fx-border-width: 5; -fx-border-radius: 10; -fx-background-radius: 10;" stylesheets="@HomeButtonStyle.css" text="Feedback" textFill="WHITE" GridPane.rowIndex="1">
+                     <font>
+                        <Font size="36.0" />
+                     </font>
+                     <graphic>
+                        <FontAwesomeIconView fill="WHITE" glyphName="COMMENTING" size="150" />
+                     </graphic>
+                     <GridPane.margin>
+                        <Insets left="30.0" />
+                     </GridPane.margin>
+                  </JFXButton>
+                  <HBox prefHeight="168.0" prefWidth="525.0" spacing="5.0" style="-fx-border-color: #f5d96b; -fx-border-radius: 5; -fx-border-width: 5;" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.hgrow="NEVER" GridPane.valignment="CENTER" GridPane.vgrow="NEVER">
+                     <GridPane.margin>
+                        <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+                     </GridPane.margin>
+                     <children>
+                        <GridPane HBox.hgrow="ALWAYS">
+                          <columnConstraints>
+                            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                            <ColumnConstraints hgrow="SOMETIMES" maxWidth="5.0" minWidth="5.0" prefWidth="5.0" />
+                              <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                          </columnConstraints>
+                          <rowConstraints>
+                            <RowConstraints minHeight="10.0" percentHeight="50.0" vgrow="NEVER" />
+                            <RowConstraints minHeight="10.0" percentHeight="50.0" vgrow="NEVER" />
+                          </rowConstraints>
+                           <children>
+                              <VBox maxWidth="5.0" minWidth="5.0" prefWidth="5.0" style="-fx-background-color: #f5d96b;" GridPane.columnSpan="2147483647" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowSpan="2147483647" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS" />
+                              <Label fx:id="timeLabel" alignment="CENTER" contentDisplay="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="65.0" prefWidth="182.0" text="19:20" textAlignment="CENTER" textFill="WHITE" GridPane.halignment="CENTER" GridPane.hgrow="NEVER" GridPane.valignment="CENTER" GridPane.vgrow="NEVER">
+                                 <font>
+                                    <Font size="33.0" />
+                                 </font>
+                              </Label>
+                              <Label fx:id="dateLabel" alignment="CENTER" contentDisplay="CENTER" prefHeight="52.0" prefWidth="186.0" text="date" textAlignment="CENTER" textFill="WHITE" GridPane.halignment="CENTER" GridPane.hgrow="NEVER" GridPane.rowIndex="1" GridPane.valignment="CENTER" GridPane.vgrow="NEVER">
+                                 <font>
+                                    <Font size="28.0" />
+                                 </font>
+                              </Label>
+                              <ImageView fx:id="weatherIcon" fitHeight="54.0" fitWidth="174.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.hgrow="NEVER" GridPane.valignment="CENTER" GridPane.vgrow="NEVER" />
+                               <Label fx:id="tempDisplay" alignment="CENTER" contentDisplay="CENTER" prefHeight="59.0" prefWidth="100.0" text="temp" textAlignment="CENTER" textFill="WHITE" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.hgrow="NEVER" GridPane.rowIndex="1" GridPane.valignment="CENTER" GridPane.vgrow="NEVER">
+                                 <font>
+                                    <Font size="30.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                        </GridPane>
+                     </children>
+                  </HBox>
                </children>
+               <padding>
+                  <Insets bottom="20.0" />
+               </padding>
             </GridPane>
          </children>
       </VBox>
-      <JFXTextField layoutY="667.0" prefHeight="31.0" prefWidth="1921.0" style="-fx-background-color: white;" />
-      <JFXTextField fx:id="tweetBox" layoutX="-7.0" layoutY="667.0" prefColumnCount="1" prefHeight="28.0" prefWidth="5000.0" style="-fx-background-color: white;" unFocusColor="BLACK" />
+      <JFXTextField editable="false" layoutY="667.0" prefHeight="31.0" prefWidth="1921.0" style="-fx-background-color: white;" AnchorPane.bottomAnchor="22.0">
+         <font>
+            <Font size="15.0" />
+         </font>
+      </JFXTextField>
+      <JFXTextField fx:id="tweetBox" editable="false" layoutX="-7.0" layoutY="667.0" prefColumnCount="1" prefHeight="28.0" prefWidth="5000.0" style="-fx-background-color: white;" unFocusColor="BLACK" AnchorPane.bottomAnchor="22.0">
+         <font>
+            <Font size="15.0" />
+         </font>
+      </JFXTextField>
    </children>
 </AnchorPane>

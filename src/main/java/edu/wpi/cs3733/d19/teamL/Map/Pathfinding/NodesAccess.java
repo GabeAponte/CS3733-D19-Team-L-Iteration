@@ -296,7 +296,7 @@ public class NodesAccess extends DBAccess {
     /**ANDREW MADE THIS
      * deletes the node with the given nodeID
      */
-    public void deleteNode(String nodeID) {
+    public synchronized void deleteNode(String nodeID) {
         String sql = "Delete from nodes where nodeID = ?;";
 
         try (Connection conn = this.connect();

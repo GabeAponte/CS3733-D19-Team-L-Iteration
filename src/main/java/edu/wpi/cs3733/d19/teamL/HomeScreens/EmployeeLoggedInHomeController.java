@@ -59,7 +59,7 @@ public class EmployeeLoggedInHomeController {
         Singleton single = Singleton.getInstance();
         single.setLastTime();
         EmployeeAccess ea = new EmployeeAccess();
-        welcome.setText("Welcome, Employee " + ea.getEmployeeInformation(single.getUsername()).get(3));
+        welcome.setText("Welcome, " + ea.getEmployeeInformation(single.getUsername()).get(3));
 
         timeout = new Timeline(new KeyFrame(Duration.seconds(2), new EventHandler<ActionEvent>() {
 
