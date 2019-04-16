@@ -516,6 +516,11 @@ public class EditLocationController {
 
                 @Override
                 public void handle(MouseEvent t) {
+                    if(t.isAltDown()){
+                        Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Delete selected node?", ButtonType.YES, ButtonType.NO);
+                        alert.showAndWait();
+                        
+                    }
 
 
                     if(t.isShiftDown()){
@@ -552,8 +557,6 @@ public class EditLocationController {
                                     System.out.println(endcl);
                                     if(e.getStartNode().getFloor().equals(floorNum())&&
                                             e.getEndNode().getFloor().equals(floorNum())&& endcl != null) {
-                                        System.out.println("Floor " + floorNum());
-                                        System.out.println("node floor " + e.getEndNode().getFloor() + " " + e.getStartNode().getFloor());
                                         line.setStartX(e.getEndNode().getXcoord() * childPane.getWidth() / Map.getImage().getWidth());
                                         line.setStartY(e.getEndNode().getYcoord() * childPane.getHeight() / Map.getImage().getHeight());
                                         line.setEndX(e.getStartNode().getXcoord() * childPane.getWidth() / Map.getImage().getWidth());
