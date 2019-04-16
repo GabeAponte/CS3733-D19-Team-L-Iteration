@@ -243,9 +243,6 @@ public class Singleton {
     public void deleteEdge(Edge edge) {
         Location focus = lookup.get(edge.getStartID());
         Location second = lookup.get(edge.getEndID());
-        System.out.println(focus.getLocID());
-        System.out.println(second.getLocID());
-        System.out.println(edge.getEdgeID());
         ArrayList<Edge> toDel = new ArrayList<Edge>();
         for (Edge e: focus.getEdges()) {
             if (e.getEdgeID().equals(edge.getEdgeID())) {
