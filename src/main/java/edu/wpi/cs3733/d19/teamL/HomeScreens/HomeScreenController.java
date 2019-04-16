@@ -5,6 +5,7 @@ import edu.wpi.cs3733.d19.teamL.Singleton;
 import edu.wpi.cs3733.d19.teamL.API.Weather;
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
+import javafx.animation.KeyValue;
 import javafx.animation.Timeline;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -13,9 +14,13 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.VBox;
+import javafx.scene.text.Text;
+import javafx.scene.text.TextFlow;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.util.Duration;
@@ -46,6 +51,9 @@ public class HomeScreenController {
     ImageView weatherIcon;
 
     @FXML
+    TextField tweetBox;
+
+    @FXML
     Label tempDisplay;
 
     @FXML
@@ -54,7 +62,11 @@ public class HomeScreenController {
     @FXML
     Button yes;
 
+    @FXML
+    AnchorPane ap;
+
     Timeline clock;
+    Timeline tweets;
 
 
     public void initialize() throws IOException{
@@ -78,10 +90,39 @@ public class HomeScreenController {
         Image img = new Image(icon);
         weatherIcon.setImage(img);
         tempDisplay.setText(weatherBoy.getActTemp());
-
-
         if(single.isDoPopup()) {
             single.setDoPopup(false);
+            Text fillBox = single.getTxt();
+
+            tweetBox.setText(fillBox.getText());
+            tweetBox.setEditable(false);
+
+            // Get the Width of the Scene and the Text
+            double sceneWidth = 1350;
+            double textWidth = tweetBox.getLayoutBounds().getWidth();
+
+            // Define the Durations
+            Duration startDuration = Duration.ZERO;
+            Duration endDuration = Duration.seconds(120);
+
+            // Create the start and end Key Frames
+            KeyValue startKeyValue = new KeyValue(tweetBox.translateXProperty(), sceneWidth);
+            KeyFrame startKeyFrame = new KeyFrame(startDuration, startKeyValue);
+            KeyValue endKeyValue = new KeyValue(tweetBox.translateXProperty(), -3.5 * sceneWidth - textWidth * 2);
+            KeyFrame endKeyFrame = new KeyFrame(endDuration, endKeyValue);
+
+            // Create a Timeline
+            tweets = new Timeline(startKeyFrame, endKeyFrame);
+            // Let the animation run forever
+            tweets.setCycleCount(Timeline.INDEFINITE);
+            //tweets.setRate(2.5);
+            // Run the animation
+            tweets.play();
+
+
+
+
+
             clock = new Timeline(new KeyFrame(Duration.ZERO, e -> {
                 long second = LocalDateTime.now().getSecond();
                 long minute = LocalDateTime.now().getMinute();
@@ -141,6 +182,7 @@ public class HomeScreenController {
     }
     @FXML
     private void SwitchToPathfindScreen() throws IOException{
+        tweets.stop();
         clock.stop();
         Singleton single = Singleton.getInstance();
         single.setLastTime();
@@ -156,6 +198,7 @@ public class HomeScreenController {
 
     @FXML
     private void SwitchToSuggestionBox() throws IOException{
+        tweets.stop();
         clock.stop();
         Singleton single = Singleton.getInstance();
         single.setLastTime();
@@ -168,6 +211,7 @@ public class HomeScreenController {
 
     @FXML
     private void SwitchToServiceScreen() throws IOException{
+        tweets.stop();
         clock.stop();
         Singleton single = Singleton.getInstance();
         single.setLastTime();
@@ -185,6 +229,7 @@ public class HomeScreenController {
 
     @FXML
     private void SwitchToLoginScreen(ActionEvent event){
+        tweets.stop();
         clock.stop();
         Singleton single = Singleton.getInstance();
         single.setLastTime();

@@ -32,12 +32,12 @@
                         </ImageView>
                     </left>
                     <right>
-                        <JFXButton fx:id="Back" alignment="CENTER" buttonType="RAISED" contentDisplay="CENTER" maxHeight="1.7976931348623157E308" onAction="#backPressed" prefHeight="100.0" prefWidth="87.0" text=" " textFill="WHITE" BorderPane.alignment="CENTER">
+                        <JFXButton fx:id="Back" alignment="CENTER" buttonType="RAISED" contentDisplay="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" onAction="#backPressed" prefHeight="75.0" prefWidth="87.0" style="-fx-background-radius: 100000; -fx-border-color: #012D5A; -fx-border-radius: 100; -fx-border-width: 2;" stylesheets="@toolbarIcons.css" text=" " textFill="WHITE" BorderPane.alignment="CENTER">
                             <font>
                                 <Font size="20.0" />
                             </font>
                      <graphic>
-                        <FontAwesomeIconView glyphName="ARROW_LEFT" size="40" wrappingWidth="36.28559112548828" />
+                        <FontAwesomeIconView fill="#012d5a" glyphName="ARROW_LEFT" size="40" wrappingWidth="36.28559112548828" />
                      </graphic>
                         </JFXButton>
                     </right>
