@@ -13,6 +13,7 @@ targetCompatibility = 1.8
 
 repositories {
     mavenCentral()
+    jcenter()
 }
 
 // You'll need to create an integration-test folder with the same structure as your test or main folders
@@ -60,6 +61,8 @@ dependencies {
             [group: 'javax.mail', name: 'mail', version: '1.4.7'],
             [group: 'com.github.dvdme', name: 'ForecastIOLib', version: '1.5.2'],
             [group: 'de.jensd', name: 'fontawesomefx', version: '8.9'],
+            [group: 'net.kurobako', name: 'gesturefx', version: '0.3.0'],
+            [group: 'org.controlsfx', name: 'controlsfx', version: '8.40.13'],
             [group: 'org.twitter4j', name: 'twitter4j-core', version: '4.0.7'],
             [group: 'org.bytedeco', name: 'javacv', version: '1.5'],
             [group: 'org.slf4j', name: 'slf4j-simple', version: '1.7.26'],
