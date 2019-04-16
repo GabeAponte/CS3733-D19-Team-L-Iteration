@@ -383,20 +383,14 @@ public class BookRoomController {
 
         for(int j = 0; j<DisplayRooms.size(); j++){
             if(DisplayRooms.get(j).getRoomName().equals(availableRooms.getValue())){
-                System.out.println("dropdown ya" + j);
-                //imagePane.getChildren().remove(DisplayRooms.get(i).getPolygon());
-                //fieldsEntered();
                 for (int i = 0; i < DisplayRooms.size(); i++) {
                     if(DisplayRooms.get(i).isAvailable()){
                         DisplayRooms.get(i).changePolygonColor("GREEN");
                     } else {
                         DisplayRooms.get(i).changePolygonColor("RED");
                     }
-                    //DisplayRooms.get(i).getPolygon().setVisible(true);
-                    //System.out.println(DisplayRooms.get(i).getPolygon());
                 }
                 DisplayRooms.get(j).changePolygonColor("BLUE");
-                //imagePane.getChildren().add(DisplayRooms.get(i).getPolygon());
             }
         }
 
