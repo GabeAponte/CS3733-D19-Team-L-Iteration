@@ -682,7 +682,7 @@ public class EditLocationController {
                                             endcl = circles.get(i);
                                         }
                                     }
-                                    System.out.println(endcl);
+                                    //System.out.println(endcl);
                                     if(e.getStartNode().getFloor().equals(floorNum())&&
                                             e.getEndNode().getFloor().equals(floorNum())&& endcl != null) {
                                         line.setStartX(e.getEndNode().getXcoord() * childPane.getWidth() / Map.getImage().getWidth());
@@ -704,11 +704,11 @@ public class EditLocationController {
                             }
                         }
                     }
-                    if (!(lastCircle == null)) {
+                    if (!(lastCircle == null) && !(t.isShiftDown())) {
                         if (!(((CircleLocation) (t.getSource())).equals(lastCircle))) {
                             pathPane.getChildren().remove(lastCircle.getSp());
                             lastCircle.setSp(null);
-                            lastCircle.setStroke(Color.web("RED"));
+                            //lastCircle.setStroke(Color.web("RED"));
                             lastCircle.setFill(Color.web("RED"));
                             lastCircle.setCenterX(lastCircle.getLocation().getXcoord() * childPane.getWidth() / Map.getImage().getWidth());
                             lastCircle.setCenterY(lastCircle.getLocation().getYcoord() * childPane.getHeight() / Map.getImage().getHeight());
@@ -758,6 +758,8 @@ public class EditLocationController {
                                         c.setSp(null);
                                         //((Circle) (t.getSource())).setStroke(Color.web("RED"));
                                         ((Circle) (t.getSource())).setFill(Color.web("RED"));
+                                        eraseNodes();
+                                        drawNodes();
                                 }
                             );
 
