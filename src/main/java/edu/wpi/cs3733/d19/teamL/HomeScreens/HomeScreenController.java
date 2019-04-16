@@ -95,7 +95,6 @@ public class HomeScreenController {
             tweets.setCycleCount(Timeline.INDEFINITE);
             //tweets.setRate(2.5);
             // Run the animation
-            System.out.println("Starting tweets");
             tweets.play();
 
 

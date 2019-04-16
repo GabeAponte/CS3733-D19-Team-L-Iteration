@@ -187,14 +187,8 @@ public class CreateEditAccountController {
         }
         wp.stop();
         webcam.close();
-        window.dispose();//*/
+        window.dispose();
 
-        /*faceDetectionJavaFXX fjfxx = new faceDetectionJavaFXX();
-        WritableImage bi = fjfxx.capureFrame();
-        if(bi == null){
-            System.out.println("No Face Detected");
-        }*/
-        //Webcam webcam = Webcam.getDefault();
         webcam.open();
         try {
             BufferedImage image = webcam.getImage();

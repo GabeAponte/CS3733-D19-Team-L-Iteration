@@ -35,15 +35,6 @@ public class Main extends Application {
         //ea.readCSVintoTable();
         single.setData();
         single.populateTweets();
-        EmployeeAccess empA = new EmployeeAccess();
-        /*try {
-            Image image = ImageIO.read(new File("TempOutput.jpg"));
-            BufferedImage buffered = (BufferedImage) image;
-            empA.updateEmployeeImg("nwalker", buffered);
-        } catch (Exception e){
-            e.printStackTrace();
-        }//*/
-        //return;
         launch(args);
     }
 }

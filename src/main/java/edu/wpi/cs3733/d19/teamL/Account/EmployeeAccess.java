@@ -343,7 +343,6 @@ public class EmployeeAccess extends DBAccess {
      * @return
      */
     public BufferedImage getEmpImg(String username){
-        System.out.println(username);
         String sql = "select username, image from employee where username = ?";
         try (Connection conn = this.connect();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
@@ -352,10 +351,8 @@ public class EmployeeAccess extends DBAccess {
             while(rs.next() && rs != null){
                 if(rs.getString("username").equals(username)){
                     if(rs.getBinaryStream("image") == null){
-                        System.out.println("null");
                         return null;
                     }
-                    System.out.println("not null");
                     InputStream in = rs.getBinaryStream("image");
                     BufferedImage image = ImageIO.read(in);
                     return image;

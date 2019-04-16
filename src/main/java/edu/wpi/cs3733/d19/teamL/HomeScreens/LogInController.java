@@ -123,12 +123,16 @@ public class LogInController {
     private void enableLogin(){
         Singleton single = Singleton.getInstance();
         single.setLastTime();
+
+        if(username.getText().trim().isEmpty()){
+            facialRec.setDisable(true);
+        } else {
+            facialRec.setDisable(false);
+        }
         Boolean disable = (username.getText().isEmpty() || username.getText().trim().isEmpty() || password.getText().isEmpty() || password.getText().trim().isEmpty());
         if(!disable){
-            facialRec.setDisable(false);
             login.setDisable(false);
         } else {
-            facialRec.setDisable(true);
             login.setDisable(true);
         }
     }
@@ -153,7 +157,7 @@ public class LogInController {
         window.setLocationRelativeTo(null);
         window.setVisible(true);
         try {
-            sleep(3000);
+            sleep(5000);
         } catch (InterruptedException e){
             System.out.println(e);
             System.out.println(e.getMessage());
@@ -166,9 +170,6 @@ public class LogInController {
         BufferedImage image = webcam.getImage();
         ImageIO.write(image, "JPG", new File("TempOutput.jpg"));
         webcam.close();
-
-        //FaceDetector fd = new FaceDetector();
-        //fd.doIt();
 
         ImageComparison ic = new ImageComparison();
         double diff = ic.doIT(username.getText());
