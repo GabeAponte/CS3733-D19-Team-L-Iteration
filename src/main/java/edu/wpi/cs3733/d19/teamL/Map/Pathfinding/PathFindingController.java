@@ -539,9 +539,13 @@ public class PathFindingController {
                             for (Line l : lines) {
                                 pathPane.getChildren().remove(l);
                             }
+                            for (Button b : buttons) {
+                                pathPane.getChildren().remove(b);
+                            }
 
                             circles.clear();
                             lines.clear();
+                            buttons.clear();
 
                             resetRadButts();
 
@@ -571,6 +575,12 @@ public class PathFindingController {
         if(!single.isLoggedIn()){
             logOut.setVisible(false);
         }
+
+        nameToLoc.clear();
+        for (Location l: PathFindStartDrop.getItems()) {
+            nameToLoc.put(l.toString(), l);
+        }
+        TextFields.bindAutoCompletion(searchField,nameToLoc.keySet());
     }
 
     @FXML
@@ -587,12 +597,6 @@ public class PathFindingController {
 
         Scene scene = new Scene(sceneMain);
         theStage.setScene(scene);
-
-        nameToLoc.clear();
-        for (Location l: PathFindStartDrop.getItems()) {
-            nameToLoc.put(l.toString(), l);
-        }
-        TextFields.bindAutoCompletion(searchField,nameToLoc.keySet());
     }
 
     @FXML
