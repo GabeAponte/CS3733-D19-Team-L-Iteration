@@ -388,7 +388,7 @@ public class EditLocationController {
                             c.setCenterX(c.getCenterX() + offsetX);
                             c.setCenterY(c.getCenterY() + offsetY);
 
-                            c.getSp().setLayoutX(c.getCenterX());
+                            c.getSp().setLayoutX(c.getCenterX()-150);
                             c.getSp().setLayoutY(c.getCenterY());
                             int newX = (int) (c.getCenterX()*(Map.getImage().getWidth()/childPane.getWidth()));
                             int newY = (int) (c.getCenterY()*(Map.getImage().getHeight()/childPane.getHeight()));
@@ -519,16 +519,15 @@ public class EditLocationController {
                     if(t.isAltDown()){
                         Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Delete selected node?", ButtonType.YES, ButtonType.NO);
                         alert.showAndWait();
-                        
-                    }
 
+                    }
 
                     if(t.isShiftDown()){
                         CircleLocation loc = (CircleLocation) (t.getSource());
                         if(shiftClick.contains(loc)){
                             shiftClick.remove(loc);
                             loc.setStroke(Color.web("RED"));
-                            loc.setFill(Color.web("RED"));
+                            //loc.setFill(Color.web("RED"));
                             for(Line A: loc.getLineList()){
                                 pathPane.getChildren().remove(A);
                             }
@@ -536,7 +535,7 @@ public class EditLocationController {
 
                         else {
                             loc.setStroke(Color.web("GREEN"));
-                            loc.setFill(Color.web("GREEN"));
+                            //loc.setFill(Color.web("GREEN"));
                             ArrayList<Edge> edgeslist = loc.getLocation().getEdges();
                             shiftClick.add(loc);
 
@@ -576,16 +575,16 @@ public class EditLocationController {
                             }
                         }
                     }
-                    if (!(lastCircle == null)) {
+                    if (!(lastCircle == null)&& !(t.isShiftDown())) {
                         pathPane.getChildren().remove(lastCircle.getSp());
                         lastCircle.setSp(null);
-                        lastCircle.setStroke(Color.web("RED"));
+                        //lastCircle.setStroke(Color.web("RED"));
                         lastCircle.setFill(Color.web("RED"));
                         lastCircle.setCenterX(lastCircle.getLocation().getXcoord()*childPane.getWidth()/Map.getImage().getWidth());
                         lastCircle.setCenterY(lastCircle.getLocation().getYcoord()*childPane.getHeight()/Map.getImage().getHeight());
                     }
                     if (!(t.isShiftDown())) {
-                        ((Circle)(t.getSource())).setStroke(Color.web("GREEN"));
+                        //((Circle)(t.getSource())).setStroke(Color.web("GREEN"));
                         ((Circle)(t.getSource())).setFill(Color.web("GREEN"));
 
                         orgSceneX = t.getSceneX();
@@ -626,7 +625,7 @@ public class EditLocationController {
                             close.setOnAction(event -> {
                                         pathPane.getChildren().remove(sp);
                                         c.setSp(null);
-                                        ((Circle) (t.getSource())).setStroke(Color.web("RED"));
+                                        //((Circle) (t.getSource())).setStroke(Color.web("RED"));
                                         ((Circle) (t.getSource())).setFill(Color.web("RED"));
                                 }
                             );
@@ -733,7 +732,7 @@ public class EditLocationController {
                                 na.updateNode(id, "shortName", shortName);
                                 pathPane.getChildren().remove(sp);
                                 c.setSp(null);
-                                ((Circle) (t.getSource())).setStroke(Color.web("RED"));
+                                //((Circle) (t.getSource())).setStroke(Color.web("RED"));
                                 ((Circle) (t.getSource())).setFill(Color.web("RED"));
                                 lastCircle = null;
                             });
