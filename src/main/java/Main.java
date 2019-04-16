@@ -30,5 +30,6 @@ public class Main extends Application {
         //ea.readCSVintoTable();
         single.setData();
         launch(args);
+
     }
 }

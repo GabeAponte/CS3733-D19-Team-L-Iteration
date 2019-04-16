@@ -5,16 +5,28 @@ import com.jfoenix.controls.JFXTextField;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Line;
+import javafx.scene.shape.Polygon;
 
 import java.util.ArrayList;
 
 public class CircleLocation extends Circle {
 
+    Polygon pn;
     Location location;
     ScrollPane sp;
     ArrayList<Line> lineList;
     private JFXTextField xField;
     private JFXTextField yField;
+
+
+
+    public Polygon getPn() {
+        return pn;
+    }
+
+    public void setPn(Polygon pn) {
+        this.pn = pn;
+    }
 
     public ArrayList<Line> getLineList() {
         return lineList;

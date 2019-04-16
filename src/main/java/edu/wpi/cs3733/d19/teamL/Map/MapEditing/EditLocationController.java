@@ -98,6 +98,7 @@ public class EditLocationController {
     private ArrayList<CircleLocation> circles = new ArrayList<CircleLocation>();
     private ArrayList<LineEdge> lines = new ArrayList<LineEdge>();
     private ArrayList<ScrollPane> sps = new ArrayList<ScrollPane>();
+    private ArrayList<Polygon> pns = new ArrayList<Polygon>();
 
 
     private ArrayList<CircleLocation> shiftClick = new ArrayList<CircleLocation>();
@@ -330,8 +331,14 @@ public class EditLocationController {
             pathPane.getChildren().remove(sp);
         }
 
+        for(Polygon pn: pns){
+            pathPane.getChildren().remove(pn);
+
+        }
+
         circles.clear();
         lines.clear();
+        pns.clear();
         pathPane.getChildren().removeAll();
         circles.add(thisCircle);
         pathPane.getChildren().add(thisCircle);
@@ -379,6 +386,15 @@ public class EditLocationController {
                                 c.getSp().setLayoutX(c.getCenterX() - 50);
                                 c.getSp().setLayoutY(c.getCenterY() - 128);
                             }
+                            if(!(c.getPn() == null)){
+                                c.getPn().setVisible(false);
+                                c.getPn().getPoints().clear();
+
+                                System.out.println("point list " + c.getPn().getPoints());
+                                c.getPn().getPoints().addAll(c.getCenterX(),c.getCenterY()-5,
+                                        c.getCenterX()-5,c.getCenterY()-10,
+                                        c.getCenterX()+5,c.getCenterY()-10);
+                            }
                             int newX = (int) (c.getCenterX()*(Map.getImage().getWidth()/childPane.getWidth()));
                             int newY = (int) (c.getCenterY()*(Map.getImage().getHeight()/childPane.getHeight()));
                             c.getxField().setText(Integer.toString(newX));
@@ -394,6 +410,9 @@ public class EditLocationController {
                         CircleLocation c = (CircleLocation) (t.getSource());
                         if (!(c.getSp() == null)) {
                             c.getSp().setVisible(true);
+                        }
+                        if (!(c.getPn() == null)) {
+                            c.getPn().setVisible(true);
                         }
                             });
 
@@ -477,9 +496,22 @@ public class EditLocationController {
 
                         gp.add(close, 1, 0);
                         gp.add(Update, 0, 0);
+                        //Triangle
+
+                        Polygon triangle = new Polygon();
+                        triangle.getPoints().addAll(
+                                newCircle.getLayoutX(),newCircle.getLayoutY()-5,
+                                newCircle.getLayoutX()-5,newCircle.getLayoutY()-10,
+                                newCircle.getLayoutX()+5,newCircle.getLayoutY()-10);
+                        triangle.setFill(Color.BLACK);
+                        triangle.setStroke(Color.BLACK);
+                        pathPane.getChildren().add(triangle);
+                        pns.add(triangle);
+                        newCircle.setPn(triangle);
 
                         //if user didn't press cancel or submit...
                         close.setOnAction(event -> {
+                                    pathPane.getChildren().remove(triangle);
                                     pathPane.getChildren().remove(sp);
                                     pathPane.getChildren().remove(newCircle);
                                 }
@@ -603,6 +635,7 @@ public class EditLocationController {
                             lastCircle = null;
                             circles.add(newCircle);
                             pathPane.getChildren().remove(sp);
+                            pathPane.getChildren().remove(triangle);
                             eraseNodes();
                             drawNodes();
                         });
@@ -802,12 +835,26 @@ public class EditLocationController {
                             gp.add(close,1,0);
                             gp.add(Update,0,0);
 
+                            //Triangle
+
+                            Polygon triangle = new Polygon();
+                            triangle.getPoints().addAll(
+                                    c.getCenterX(),c.getCenterY()-5,
+                                    c.getCenterX()-5,c.getCenterY()-10,
+                                    c.getCenterX()+5,c.getCenterY()-10);
+                            triangle.setFill(Color.BLACK);
+                            triangle.setStroke(Color.BLACK);
+                            pathPane.getChildren().add(triangle);
+                            pns.add(triangle);
+                            c.setPn(triangle);
+
 
                             //if user didn't press cancel or submit...
 
 
                             close.setOnAction(event -> {
                                         pathPane.getChildren().remove(sp);
+                                        pathPane.getChildren().remove(triangle);
                                         c.setSp(null);
                                         //((Circle) (t.getSource())).setStroke(Color.web("RED"));
                                         ((Circle) (t.getSource())).setFill(Color.web("RED"));
@@ -917,15 +964,18 @@ public class EditLocationController {
                                 na.updateNode(id, "longName", longName);
                                 na.updateNode(id, "shortName", shortName);
                                 pathPane.getChildren().remove(sp);
+                                pathPane.getChildren().remove(triangle);
                                 c.setSp(null);
                                 //((Circle) (t.getSource())).setStroke(Color.web("RED"));
                                 ((Circle) (t.getSource())).setFill(Color.web("RED"));
                                 lastCircle = null;
                             });
 
+                            double X = ((Circle) (t.getSource())).getCenterX() - 50;
+                            double Y = ((Circle) (t.getSource())).getCenterY() - 128;
 
-                            sp.setLayoutX(((Circle) (t.getSource())).getCenterX() - 50);
-                            sp.setLayoutY(((Circle) (t.getSource())).getCenterY() - 128);
+                            sp.setLayoutX(X);
+                            sp.setLayoutY(Y);
                             gp.setMargin(close,new Insets(0,0,0,20));
                             sp.setContent(gp);
 
@@ -935,6 +985,9 @@ public class EditLocationController {
                             lastCircle = c;
                             c.setxField(tf);
                             c.setyField(tf1);
+
+
+
 
                         }
 
