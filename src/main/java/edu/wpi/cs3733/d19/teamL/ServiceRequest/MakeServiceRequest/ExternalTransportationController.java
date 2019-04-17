@@ -109,7 +109,7 @@ public class ExternalTransportationController {
         stage.setTitle("Inactivity Popup");
         stage.initModality(Modality.APPLICATION_MODAL);
         single.setLastTime();
-        stage.show();
+        stage.showAndWait();
         single = Singleton.getInstance();
         single.setLastTime();
     }
@@ -124,7 +124,7 @@ public class ExternalTransportationController {
         stage.setTitle("Inactivity Popup");
         stage.initModality(Modality.APPLICATION_MODAL);
         single.setLastTime();
-        stage.show();
+        stage.showAndWait();
         single = Singleton.getInstance();
         single.setLastTime();
     }
@@ -139,7 +139,7 @@ public class ExternalTransportationController {
         stage.setTitle("Inactivity Popup");
         stage.initModality(Modality.APPLICATION_MODAL);
         single.setLastTime();
-        stage.show();
+        stage.showAndWait();
         single = Singleton.getInstance();
         single.setLastTime();
     }
@@ -154,7 +154,7 @@ public class ExternalTransportationController {
         stage.setTitle("Inactivity Popup");
         stage.initModality(Modality.APPLICATION_MODAL);
         single.setLastTime();
-        stage.show();
+        stage.showAndWait();
         single = Singleton.getInstance();
         single.setLastTime();
     }
@@ -169,7 +169,7 @@ public class ExternalTransportationController {
         stage.setTitle("Inactivity Popup");
         stage.initModality(Modality.APPLICATION_MODAL);
         single.setLastTime();
-        stage.show();
+        stage.showAndWait();
         single = Singleton.getInstance();
         single.setLastTime();
     }
