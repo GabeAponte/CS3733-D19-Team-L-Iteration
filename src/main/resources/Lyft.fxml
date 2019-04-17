@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import com.teamdev.jxbrowser.chromium.javafx.BrowserView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.stage.Screen?>
+
+<BorderPane prefHeight="${screen.visualBounds.height}" prefWidth="${screen.visualBounds.width}" fx:controller="edu.wpi.cs3733.d19.teamL.API.BrowserViewControl" xmlns:fx="http://javafx.com/fxml">
+    <fx:define>
+        <Screen fx:factory="getPrimary" fx:id="screen"/>
+    </fx:define>
+    <top>
+        <TextField fx:id="textField" text="https://www.lyft.com/" onAction="#loadURL"/>
+    </top>
+    <center>
+        <BrowserView fx:id="browserView"/>
+    </center>
+</BorderPane>

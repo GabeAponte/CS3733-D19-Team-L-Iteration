@@ -25,28 +25,19 @@ public class ExternalTransportationController {
     public Button Back;
 
     @FXML
-    public Button Submit;
+    public Button maps;
 
     @FXML
-    public JFXTextField Name;
+    public Button uber;
 
     @FXML
-    public JFXTextField Location;
+    public Button lyft;
 
     @FXML
-    public JFXTextField Destination;
+    public Button taxi;
 
     @FXML
-    public JFXTextField PhoneNumber;
-
-    @FXML
-    public JFXComboBox<String> Type;
-
-    @FXML
-    public JFXTextArea Description;
-
-    @FXML
-    public Button openGoogle;
+    public Button flight;
 
     Timeline timeout;
 
@@ -70,7 +61,7 @@ public class ExternalTransportationController {
                             HomeScreenController controller = loader.<HomeScreenController>getController();
                             controller.displayPopup();
                         }
-                        Stage thisStage = (Stage) Type.getScene().getWindow();
+                        Stage thisStage = (Stage) uber.getScene().getWindow();
 
                         Scene newScene = new Scene(sceneMain);
                         thisStage.setScene(newScene);
@@ -81,33 +72,9 @@ public class ExternalTransportationController {
                 }
             }
         }));
-        timeout.setCycleCount(Timeline.INDEFINITE);
-        timeout.play();
-        Submit.setDisable(true);
-        Type.getItems().addAll(
-                "Bus", "Taxi", "Uber", "Lyft", "Train");
     }
 
-    @FXML
-    private void reenableSubmit() {
-        Singleton single = Singleton.getInstance();
-        single.setLastTime();
-        if (Description.getText().trim().isEmpty() || Type.getValue() == null || Location.getText().trim().isEmpty() || Destination.getText().trim().isEmpty() || Name.getText().trim().isEmpty() || PhoneNumber.getText().trim().isEmpty()) {
-            Submit.setDisable(true);
-        } else {
-            Submit.setDisable(false);
-        }
-    }
 
-    @FXML
-    private void submitClicked() throws IOException {
-        Singleton single = Singleton.getInstance();
-        single.setLastTime();
-        ServiceRequestAccess sra = new ServiceRequestAccess();
-        sra.makeExternalRequest(Description.getText(), Location.getText(), Destination.getText(), Type.getValue(), PhoneNumber.getText());
-        //System.out.println("Submit Pressed");
-        backPressed();
-    }
 
     @FXML
     protected void backPressed() throws IOException {
@@ -125,6 +92,56 @@ public class ExternalTransportationController {
 
     public void openBrowser() throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("Browser.fxml"));
+        Parent sceneMain = loader.load();
+
+        Stage theStage = (Stage) Back.getScene().getWindow();
+
+        Scene scene = new Scene(sceneMain);
+        theStage.setScene(scene);
+    }
+
+    public void openMaps() throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("Google.fxml"));
+        Parent sceneMain = loader.load();
+
+        Stage theStage = (Stage) Back.getScene().getWindow();
+
+        Scene scene = new Scene(sceneMain);
+        theStage.setScene(scene);
+    }
+
+    public void openUber() throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("Uber.fxml"));
+        Parent sceneMain = loader.load();
+
+        Stage theStage = (Stage) Back.getScene().getWindow();
+
+        Scene scene = new Scene(sceneMain);
+        theStage.setScene(scene);
+    }
+
+    public void openLyft() throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("Lyft.fxml"));
+        Parent sceneMain = loader.load();
+
+        Stage theStage = (Stage) Back.getScene().getWindow();
+
+        Scene scene = new Scene(sceneMain);
+        theStage.setScene(scene);
+    }
+
+    public void openTaxi() throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("Taxi.fxml"));
+        Parent sceneMain = loader.load();
+
+        Stage theStage = (Stage) Back.getScene().getWindow();
+
+        Scene scene = new Scene(sceneMain);
+        theStage.setScene(scene);
+    }
+
+    public void openFlight() throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("Flight.fxml"));
         Parent sceneMain = loader.load();
 
         Stage theStage = (Stage) Back.getScene().getWindow();
