@@ -94,7 +94,6 @@ public class BookRoomController {
     public void initialize() {
         sim = new VisualSimulationThread(22);
         sim.start();
-        displayFlexSpaces(sim.getSimulation());
 
         double room1[] = {2230, 1630, 2650, 1630, 2650, 1880, 2230, 1880};
         double room2[] = {2860, 1130, 3040, 1070, 3180, 1430, 2990, 1500};
@@ -120,6 +119,8 @@ public class BookRoomController {
 
         roomImage.fitWidthProperty().bind(imagePane.widthProperty());
         roomImage.fitHeightProperty().bind(imagePane.heightProperty());
+
+        displayFlexSpaces(sim.getSimulation());
 
         startTime.setValue(LocalTime.now().plusMinutes(1));
         endTime.setValue(LocalTime.now().plusHours(1).plusMinutes(1));
