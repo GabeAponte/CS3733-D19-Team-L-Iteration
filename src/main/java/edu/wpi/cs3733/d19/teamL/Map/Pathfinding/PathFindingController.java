@@ -115,15 +115,8 @@ public class PathFindingController {
     @FXML
     private Button logOut;
 
-
     @FXML
-    private Button PathFindLogOut;
-
-    @FXML
-    private TextField PathFindEndSearch;
-
-    @FXML
-    private TextField PathFindStartSearch;
+    private JFXButton menubtn;
 
     @FXML
     private RadioButton bathroomRadButton;
@@ -155,13 +148,20 @@ public class PathFindingController {
     private TextField searchField;
 
     @FXML
+    private TextField kioskX;
+    @FXML
+    private TextField kioskY;
+    @FXML
+    private TextField kioskName;
+
+    @FXML
     private GridPane gridPane;
 
     @FXML
     private ImageView Map;
 
     @FXML
-    private Pane imagePane;
+    private JFXComboBox<PathfindingStrategy> pathStrategy;
 
     @FXML
     private Label thisMap;
@@ -171,6 +171,9 @@ public class PathFindingController {
 
     @FXML
     private VBox vLeft;
+
+    @FXML
+    private AnchorPane settingPane;
 
     Location kioskTemp;
 
@@ -199,6 +202,7 @@ public class PathFindingController {
     private ArrayList<Line> lines = new ArrayList<Line>();
 
     private ListIterator<String> listIterator = null;
+    private boolean showingSettings;
 
     Timeline timeout;
 
@@ -362,7 +366,7 @@ public class PathFindingController {
 
     @FXML
     private void strategySelected() {
-        strategyAlgorithm = strategySelector.getValue();
+        strategyAlgorithm = pathStrategy.getValue();
     }
 
     public void initialize() {
@@ -379,11 +383,18 @@ public class PathFindingController {
         strategies.add(new BreadthFirstStrategy(single.lookup));
         preference.addAll("Stairs Only", "Elevators Only", "Both");
         restrictChoice.setItems(preference);
+
+        ObservableList strategiesDropDown = FXCollections.observableArrayList();
+        strategiesDropDown.add(new AStarStrategy(single.lookup));
+        strategiesDropDown.add(new DijkstraStrategy(single.lookup));
+        strategiesDropDown.add(new DepthFirstStrategy(single.lookup));
+        strategiesDropDown.add(new BreadthFirstStrategy(single.lookup));
+        pathStrategy.setItems(strategiesDropDown);
 //        strategyAlgorithm = strategySelector.getValue();
         direction.setEditable(false);
         changeMapLabel();
+        showingSettings = false;
         timeout = new Timeline(new KeyFrame(Duration.seconds(2), new EventHandler<ActionEvent>() {
-
             @Override
             public void handle(ActionEvent event) {
                 if((System.currentTimeMillis() - single.getLastTime()) > single.getTimeoutSec()){
@@ -486,8 +497,13 @@ public class PathFindingController {
         pathPane.getChildren().add(startLabel);
         pathPane.getChildren().add(endLabel);
         pathPane.getChildren().add(hereLabel);
+        menubtn.setVisible(false);
         if(!single.isLoggedIn()){
             logOut.setVisible(false);
+        }
+        if(single.isIsAdmin()){
+            menubtn.setDisable(false);
+            menubtn.setVisible(true);
         }
 
         nameToLoc.clear();
@@ -668,6 +684,28 @@ public class PathFindingController {
         }
         else
             hereLabel.setVisible(false);
+    }
+
+    @FXML
+    private void settingPressed(){
+        showingSettings = !showingSettings;
+
+        if(showingSettings){
+            settingPane.setDisable(false);
+            settingPane.setLayoutY(113);
+        }
+        else{
+            settingPane.setDisable(true);
+            settingPane.setLayoutY(-320);
+        }
+    }
+
+    @FXML
+    private void updateKiosk(){
+        kioskTemp.setLongName(kioskName.getText());
+        kioskTemp.setXcoord(Integer.parseInt(kioskX.getText()));
+        kioskTemp.setYcoord(Integer.parseInt(kioskY.getText()));
+//        displayKiosk();
     }
 
     @FXML
