@@ -94,6 +94,7 @@ public class BookRoomController {
     public void initialize() {
         sim = new VisualSimulationThread(22);
         sim.start();
+        displayFlexSpaces(sim.getSimulation());
 
         double room1[] = {2230, 1630, 2650, 1630, 2650, 1880, 2230, 1880};
         double room2[] = {2860, 1130, 3040, 1070, 3180, 1430, 2990, 1500};
@@ -137,7 +138,12 @@ public class BookRoomController {
                         single.setLoggedIn(false);
                         single.setUsername("");
                         single.setIsAdmin(false);
-                        sim.end();
+                        try{
+                            sim.join();
+                        } catch (Exception e){
+                            e.printStackTrace();
+                            sim.stop();
+                        }
                         FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("HospitalHome.fxml"));
 
                         Parent sceneMain = loader.load();
@@ -174,7 +180,12 @@ public class BookRoomController {
     @FXML
     private void backPressed() throws IOException {
         timeout.stop();
-        sim.end();
+        try{
+            sim.join();
+        } catch (Exception e){
+            e.printStackTrace();
+            sim.stop();
+        }
         Singleton single = Singleton.getInstance();
         FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("EmployeeLoggedInHome.fxml"));
         if (single.isIsAdmin()) {
@@ -189,7 +200,12 @@ public class BookRoomController {
     @FXML
     private void switchToTable() throws IOException {
         timeout.stop();
-        sim.end();
+        try{
+            sim.join();
+        } catch (Exception e){
+            e.printStackTrace();
+            sim.stop();
+        }
         Singleton single = Singleton.getInstance();
         single.setLastTime();
         FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("BookRoom2.fxml"));
@@ -272,12 +288,6 @@ public class BookRoomController {
             EmployeeAccess ea = new EmployeeAccess();
             String employeeID = ea.getEmployeeInformation(single.getUsername()).get(0);
             ReservationAccess roomReq = new ReservationAccess();
-//            for(int i = 1; i < rooms.size(); i+=2) {
-//                if (rooms.get(i).equals(availableRooms.getValue())) {
-//                    roomID = rooms.get(i - 1);
-//                }
-//            }
-            // System.out.println("Start Time (MIL): " + startTimeMil + "End Time (MIL): " + endTimeMil);
             RoomAccess ra = new RoomAccess();
             roomReq.makeReservation(ra.getRoomID(roomName), employeeID, date, date, startTimeMil, endTimeMil);
             fieldsEntered();
@@ -303,9 +313,9 @@ public class BookRoomController {
             availableRooms.getSelectionModel().clearSelection();
 
             rooms = ra.getAvailRooms(date, date, startTimeMil, endTimeMil);
-            for (int i = 0; i < rooms.size(); i++) {
-                //System.out.println("Available Rooms: " + rooms.get(i));
-            }
+            /*for (int i = 0; i < rooms.size(); i++) {
+                System.out.println("Available Rooms: " + rooms.get(i));
+            }*/
 
             listOfRooms.clear();
 
@@ -319,7 +329,7 @@ public class BookRoomController {
             for(int j = 0; j < rooms.size(); j ++) {
                 listOfRooms.add(rooms.get(j));
                 for (int i = 0; i < DisplayRooms.size(); i++) {
-
+                    //System.out.println("COMPARE " + DisplayRooms.get(i).roomName + " AND " + rooms.get(j));
                     if (DisplayRooms.get(i).roomName.equals(rooms.get(j))) {
                         DisplayRooms.get(i).setAvailable(true);
                         //System.out.println("True: " + i);
@@ -357,7 +367,6 @@ public class BookRoomController {
                 DisplayRooms.get(i).changePolygonColor("RED");
             }
             DisplayRooms.get(i).getPolygon().setVisible(true);
-            //System.out.println(DisplayRooms.get(i).getPolygon());
         }
     }
 
@@ -381,7 +390,6 @@ public class BookRoomController {
                     }
                     DisplayRooms.get(k).changePolygonColor("BLUE");
                     imagePane.getChildren().add(DisplayRooms.get(k).getPolygon());
-                    //System.out.println("Room" + (DisplayRooms.get(k).getRoomName()));
                 }
             }
 
@@ -456,15 +464,31 @@ public class BookRoomController {
 
     public void switchToWeekly() throws IOException {
         timeout.stop();
-        sim.end();
+        try{
+            sim.join();
+        } catch (Exception e){
+            e.printStackTrace();
+            sim.stop();
+        }
         Singleton single = Singleton.getInstance();
         single.setLastTime();
         FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("WeeklySchedule.fxml"));
         Parent sceneMain = loader.load();
 
         WeeklyScheduleController wsc = loader.getController();
-        System.out.println(datePicker.getValue().toString());
-        wsc.loadWeekly(roomName.getText(), datePicker.getValue());
+        String name = roomName.getText();
+        //if the text is null
+        if(name == null || name.equals("Select a Room")){
+            //if there are no available rooms
+            if(listOfRooms.size() < 1){
+                name = "Room 1 - Computer";
+            } else {
+                name = listOfRooms.get(0);
+                //else set to first available room
+            }
+        }
+        System.out.println(name);
+        wsc.loadWeekly(name, datePicker.getValue());
 
         Scene scene = new Scene(sceneMain);
 

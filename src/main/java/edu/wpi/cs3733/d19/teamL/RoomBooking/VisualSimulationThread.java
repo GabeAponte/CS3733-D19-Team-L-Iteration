@@ -9,7 +9,6 @@ import java.util.Random;
 public class VisualSimulationThread extends Thread{
     private int length;
     private ArrayList<Boolean> sim;
-    private boolean die;
 
     public VisualSimulationThread (int total){
         length = total;
@@ -17,7 +16,6 @@ public class VisualSimulationThread extends Thread{
         for(int i = 0; i < length; i++){
             sim.add(false);
         }
-        die = false;
     }
 
     public void run(){
@@ -49,9 +47,5 @@ public class VisualSimulationThread extends Thread{
     public ArrayList<Boolean> getSimulation(){
         run();
         return sim;
-    }
-
-    public void end(){
-        die = true;
     }
 }

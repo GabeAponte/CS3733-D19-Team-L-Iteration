@@ -109,9 +109,7 @@ public class RoomAccess extends DBAccess {
 
             ResultSet rs = pstmt.executeQuery();
             while(rs.next()){
-                System.out.println(rs.getString("name"));
                 if(rs.getString("name").equals(classRoomName)){
-                    System.out.println("WE GOT HERE");
                     return true;
                 }
             }
@@ -172,7 +170,7 @@ public class RoomAccess extends DBAccess {
 
 
 
-    public static void main(String[] args) {
+    /*public static void main(String[] args) {
         ArrayList<String> temp = new ArrayList<>();
         ArrayList<String> temp1 = new ArrayList<>();
         RoomAccess ra = new RoomAccess();
@@ -185,5 +183,5 @@ public class RoomAccess extends DBAccess {
             //System.out.println("Room ID: " + temp1.get(i));
         }
         System.out.println("WTH");
-    }
+    }*/
 }
