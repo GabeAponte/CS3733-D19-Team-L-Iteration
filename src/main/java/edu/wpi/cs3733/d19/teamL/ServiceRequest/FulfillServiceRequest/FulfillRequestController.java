@@ -37,6 +37,9 @@ public class FulfillRequestController {
     private Button submit;
 
     @FXML
+    private Label assignLabel;
+
+    @FXML
     private JFXComboBox<String> staffMember;
 
     private int rid;
@@ -101,7 +104,11 @@ public class FulfillRequestController {
         } else {
             submit.setDisable(true);
         }
+        if(staffMember.getValue() != null){
+            assignLabel.setText("Assigned To:");
+        }
     }
+
 
     @FXML
     public void getRequestID(TreeItem<ServiceRequestTable> request) {
@@ -170,6 +177,8 @@ public class FulfillRequestController {
         }
         if(srt.getAssignedEmployee() != null) {
             staffMember.setValue(srt.getAssignedEmployee());
+            assignLabel.setText("Assigned To:");
+
         }
         submit.setText("Notify");
         open();

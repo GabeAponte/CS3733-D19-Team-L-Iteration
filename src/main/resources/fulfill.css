@@ -1,0 +1,27 @@
+.jfx-text-field {
+    -fx-prompt-text-font-size: 15 pt;
+}
+.jfx-combo-box .prompt-text {
+    -fx-font-size: 15;
+    -fx-text-fill: WHITE;
+    -fx-background-color: white
+}
+
+.jfx-combo-box {
+    -fx-background-color: white;
+    -fx-font-size : 15 pt;
+    -webkit-fx-font-color : black
+}
+
+.jfx-combo-box .text-field {
+    -fx-font-size: 15;
+    -fx-text-fill: WHITE;
+}
+
+.jfx-time-picker .text-field {
+    -fx-font-size : 15 pt;
+}
+
+.jfx-date-picker .text-field {
+    -fx-font-size : 15 pt;
+}

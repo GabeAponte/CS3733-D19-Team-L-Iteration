@@ -42,12 +42,12 @@
                <right>
                   <HBox alignment="CENTER_RIGHT" prefHeight="100.0" prefWidth="200.0" BorderPane.alignment="CENTER">
                      <children>
-                        <JFXButton fx:id="Back" alignment="CENTER" buttonType="RAISED" contentDisplay="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" onAction="#backPressed" prefHeight="32.0" prefWidth="0.0" style="-fx-background-radius: 100000; -fx-border-color: #012D5A; -fx-border-radius: 100; -fx-border-width: 2;" stylesheets="@toolbarIcons.css" text=" " textFill="WHITE">
+                        <JFXButton fx:id="Back" alignment="CENTER" buttonType="RAISED" contentDisplay="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" onAction="#backPressed" prefHeight="32.0" prefWidth="7.0" style="-fx-background-radius: 100000; -fx-border-color: #012D5A; -fx-border-radius: 100; -fx-border-width: 2;" stylesheets="@toolbarIcons.css" text=" " textFill="WHITE">
                            <font>
                               <Font size="20.0" />
                            </font>
                            <graphic>
-                              <FontAwesomeIconView fill="#012d5a" glyphName="ARROW_LEFT" size="25" wrappingWidth="20.0" />
+                              <FontAwesomeIconView fill="#012d5a" glyphName="ARROW_LEFT" size="25" wrappingWidth="21.0" />
                            </graphic>
                            <HBox.margin>
                               <Insets right="10.0" />
@@ -81,20 +81,20 @@
                         <Insets top="10.0" />
                      </GridPane.margin>
                         </Label>
-                        <JFXButton fx:id="submit" buttonType="RAISED" onAction="#submitPressed" prefHeight="31.0" prefWidth="119.0" style="-fx-border-color: F5D96B; -fx-border-width: 2; -fx-border-radius: 50; -fx-background-radius: 50;" text="Submit" textFill="WHITE" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="3" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
+                        <JFXButton fx:id="submit" buttonType="RAISED" onAction="#submitPressed" prefHeight="31.0" prefWidth="119.0" style="-fx-border-color: F5D96B; -fx-border-width: 2; -fx-border-radius: 50; -fx-background-radius: 50;" stylesheets="@normalButton.css" text="Submit" textFill="WHITE" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="3" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
                             <font>
                                 <Font size="25.0" />
                             </font>
                             <GridPane.margin>
-                                <Insets bottom="30.0" />
+                                <Insets bottom="40.0" />
                             </GridPane.margin>
                         </JFXButton>
-                        <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="29.0" prefWidth="138.0" text="Assign to:" textFill="WHITE" GridPane.halignment="RIGHT" GridPane.rowIndex="1">
+                        <Label fx:id="assignLabel" alignment="CENTER" contentDisplay="CENTER" prefHeight="29.0" prefWidth="138.0" text="Assign to:" textFill="WHITE" GridPane.halignment="RIGHT" GridPane.rowIndex="1">
                             <font>
                                 <Font size="20.0" />
                             </font>
                             <GridPane.margin>
-                                <Insets right="50.0" />
+                                <Insets />
                             </GridPane.margin>
                         </Label>
                         <JFXToggleButton fx:id="fulfill" minHeight="-Infinity" onAction="#activateSubmit" prefHeight="38.0" prefWidth="176.0" text="Fulfilled" textFill="WHITE" toggleColor="WHITE" toggleLineColor="#f5d96b" GridPane.columnSpan="2147483647" GridPane.rowIndex="2" GridPane.valignment="TOP">
@@ -109,7 +109,7 @@
                         <Insets />
                      </GridPane.margin>
                         </JFXToggleButton>
-                  <JFXComboBox fx:id="staffMember" onAction="#open" prefHeight="40.0" prefWidth="275.0" promptText="EmployeeID" stylesheets="@size.css" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.rowIndex="1">
+                  <JFXComboBox fx:id="staffMember" onAction="#open" prefHeight="40.0" prefWidth="275.0" promptText="Staff Member" stylesheets="@fulfill.css" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.rowIndex="1">
                      <GridPane.margin>
                         <Insets right="100.0" />
                      </GridPane.margin></JFXComboBox>
