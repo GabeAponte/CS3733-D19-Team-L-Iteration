@@ -325,7 +325,12 @@ public class Location implements Comparable<Location>{
         else {
             return false;
         }
-        return true;
+        if (count == 2) {
+            return true;
+        }
+        else {
+            return false;
+        }
     }
 
 }
