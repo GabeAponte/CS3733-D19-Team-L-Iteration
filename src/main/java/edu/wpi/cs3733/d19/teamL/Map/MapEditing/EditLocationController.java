@@ -13,6 +13,7 @@ import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXTextField;
 import edu.wpi.cs3733.d19.teamL.HomeScreens.HomeScreenController;
 import edu.wpi.cs3733.d19.teamL.Singleton;
+import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.beans.property.DoubleProperty;
@@ -93,6 +94,7 @@ public class EditLocationController {
     private CircleLocation thisCircle;
 
     private CircleLocation lastCircle;
+    private boolean animationPlayed = false;
 
     private ArrayList<String> mapURLs = new ArrayList<String>();
     private ArrayList<CircleLocation> circles = new ArrayList<CircleLocation>();
@@ -364,7 +366,12 @@ public class EditLocationController {
                     //set the mouse drag to move the circle
                     thisCircle.setOnMouseDragged((t) -> {
                         if (t.isControlDown()) {
-
+                            if (animationPlayed) {
+                                orgSceneX = t.getSceneX();
+                                orgSceneY = t.getSceneY();
+                                animationPlayed = false;
+                                System.out.println("HERE");
+                            }
 
                             double offsetX = (t.getSceneX() - orgSceneX)/gesturePane.getCurrentScale();
                             double offsetY = (t.getSceneY() - orgSceneY)/gesturePane.getCurrentScale();
@@ -378,11 +385,13 @@ public class EditLocationController {
                                 c.getSp().setVisible(false);
                                 c.getSp().setLayoutX(c.getCenterX() - 50);
                                 c.getSp().setLayoutY(c.getCenterY() - 128);
+                                int newX = (int) (c.getCenterX()*(Map.getImage().getWidth()/childPane.getWidth()));
+                                int newY = (int) (c.getCenterY()*(Map.getImage().getHeight()/childPane.getHeight()));
+                                c.getxField().setText(Integer.toString(newX));
+                                c.getyField().setText(Integer.toString(newY));
                             }
-                            int newX = (int) (c.getCenterX()*(Map.getImage().getWidth()/childPane.getWidth()));
-                            int newY = (int) (c.getCenterY()*(Map.getImage().getHeight()/childPane.getHeight()));
-                            c.getxField().setText(Integer.toString(newX));
-                            c.getyField().setText(Integer.toString(newY));
+
+
 
 
                             orgSceneX = t.getSceneX();
@@ -405,7 +414,6 @@ public class EditLocationController {
                 }
             }
             if (!(betweenFloorsCircle == null)) {
-                System.out.println("SETTTT");
                 circles.add(betweenFloorsCircle);
                 betweenFloorsCircle.setCenterX(betweenFloorsCircle.getLocation().getXcoord()*childPane.getWidth()/Map.getImage().getWidth());
                 betweenFloorsCircle.setCenterY(betweenFloorsCircle.getLocation().getYcoord()*childPane.getHeight()/Map.getImage().getHeight());
@@ -632,7 +640,10 @@ public class EditLocationController {
 
                 @Override
                 public void handle(MouseEvent t) {
+                    orgSceneX = t.getSceneX();
+                    orgSceneY = t.getSceneY();
                     if (t.isSecondaryButtonDown()&&t.isShiftDown()) {
+                        animationPlayed = false;
                         CircleLocation cl = ((CircleLocation) (t.getSource()));
                         if (cl.getLocation().getNodeType().equals("ELEV") || cl.getLocation().getNodeType().equals("STAI")) {
                             betweenFloorsCircle = cl;
@@ -651,7 +662,6 @@ public class EditLocationController {
                             cl.setFill(Color.web("RED"));
                         }
                         if(addEdgeList.size() == 2){
-                            System.out.println("adding edges successfully");
                             CircleLocation clStart = addEdgeList.get(0);
                             CircleLocation clEnd = addEdgeList.get(1);
                             ea =new EdgesAccess();
@@ -671,6 +681,7 @@ public class EditLocationController {
                     }
 
                     else if(t.isAltDown()){
+                        animationPlayed = false;
                         single = Singleton.getInstance();
                         single.setLastTime();
                         focusNode = ((CircleLocation) (t.getSource())).getLocation();
@@ -687,7 +698,6 @@ public class EditLocationController {
                             //delete the node here
                             na = new NodesAccess();
                             single.deleteNode(focusNode);
-                            System.out.println("STARTING NEXT TASK");
                             na.deleteNode(focusNode.getLocID());
                             eraseNodes();
                             drawNodes();
@@ -701,6 +711,7 @@ public class EditLocationController {
                     }
 
                     else if(t.isShiftDown()&& !(t.isSecondaryButtonDown())){
+                        animationPlayed = false;
                         CircleLocation loc = (CircleLocation) (t.getSource());
                         betweenFloorsCircle = null;
                         if(shiftClick.contains(loc)){
@@ -760,14 +771,24 @@ public class EditLocationController {
                         }
                     }
 
-                    else if (!t.isShiftDown()&&!t.isAltDown()&& !t.isSecondaryButtonDown()){
-                        //pathPane.getChildren().remove(lastCircle.getSp());
+                    else if (!t.isShiftDown()&&!t.isAltDown()&& !t.isSecondaryButtonDown() && !t.isControlDown()){
+                        CircleLocation toCenterOn = ((CircleLocation) (t.getSource()));
+                        Point2D point = new Point2D(toCenterOn.getCenterX(), toCenterOn.getCenterY()-30);
+
+                        gesturePane.zoomTo(3.0, point);
+                        Duration d = new Duration(500);
+                        GesturePane.AnimationInterpolatorBuilder animate = gesturePane.animate(d);
+                        animate.centreOn(point);
+
+                        //animationPlayed = true;
                         betweenFloorsCircle = null;
-                        //((Circle)(t.getSource())).setStroke(Color.web("GREEN"));
                         ((Circle)(t.getSource())).setFill(Color.web("GREEN"));
+
 
                         orgSceneX = t.getSceneX();
                         orgSceneY = t.getSceneY();
+                        System.out.println(orgSceneX);
+                        System.out.println(orgSceneY);
 
                         CircleLocation c = (CircleLocation) (t.getSource());
                         c.toFront();
@@ -943,6 +964,7 @@ public class EditLocationController {
                     }
 
                     else{
+                        //animationPlayed = false;
                         System.out.println("FALLTHROUGH CASE");
                         betweenFloorsCircle = null;
                     }
@@ -979,12 +1001,8 @@ public class EditLocationController {
                         ea = new EdgesAccess();
                         ea.deleteEdge(l.getE().getEdgeID());
                         pathPane.getChildren().remove(l);
-
-                        System.out.println(" got line");
-                        System.out.println("Line is "  + l);
-
-                            eraseNodes();
-                            drawNodes();
+                        eraseNodes();
+                        drawNodes();
                         }
                         else if(alert.getResult() == ButtonType.NO){
                             //nothing
