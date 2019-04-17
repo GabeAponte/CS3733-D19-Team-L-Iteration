@@ -193,7 +193,12 @@ public class ServiceRequestController {
     @FXML
     private void openGiftService() throws ServiceException {
         GiftRequest gr = new GiftRequest();
-        gr.run(0, 0, 1280, 720, null, null, null);
+        try{
+            gr.run(0,0,1280,700,null,null,null);
+        }catch (Exception e){
+            System.out.println("Failed to run API");
+            e.printStackTrace();
+        }
     }
 
 }
