@@ -89,7 +89,7 @@ public class AdminLoggedInHomeController {
         timeout.play();
 
         EmployeeAccess ea = new EmployeeAccess();
-        welcome.setText("Welcome, Admin " + ea.getEmployeeInformation(single.getUsername()).get(3));
+        welcome.setText("Welcome, " + ea.getEmployeeInformation(single.getUsername()).get(3));
 
     }
     // TODO Make label display "Welcome, [nickname of admin signed in]"
