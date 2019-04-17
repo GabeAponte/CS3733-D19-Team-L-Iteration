@@ -64,7 +64,7 @@ public class LogInController {
 
     Timeline timeout;
     public void initialize(){
-        facialRec.setDisable(true);
+        //facialRec.setDisable(true);
         Singleton single = Singleton.getInstance();
         single.setLastTime();
         timeout = new Timeline(new KeyFrame(Duration.seconds(2), new EventHandler<ActionEvent>() {
@@ -125,11 +125,11 @@ public class LogInController {
         Singleton single = Singleton.getInstance();
         single.setLastTime();
 
-        if(username.getText().trim().isEmpty()){
+        /*if(username.getText().trim().isEmpty()){
             facialRec.setDisable(true);
         } else {
             facialRec.setDisable(false);
-        }
+        }*/
         Boolean disable = (username.getText().isEmpty() || username.getText().trim().isEmpty() || password.getText().isEmpty() || password.getText().trim().isEmpty());
         if(!disable){
             login.setDisable(false);
