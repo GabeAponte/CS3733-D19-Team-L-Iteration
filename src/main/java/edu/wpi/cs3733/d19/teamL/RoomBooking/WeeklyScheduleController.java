@@ -119,47 +119,57 @@ public class WeeklyScheduleController
         String dayOfWeek = "";
         LocalDate weekDay = theDate;
         //dayOfWeek = weekDay.getDayOfWeek().toString();
-        dayOfWeek = "SUNDAY";
-        System.out.println(dayOfWeek);
-        int startTime = 0;
-        int endTime = 30;
+        dayOfWeek = theDate.getDayOfWeek().toString();
         switch(dayOfWeek){
             case "SUNDAY":
-                while(!weekDay.equals("SUNDAY")) {
-                    for (int i = 0; i < 47; i++) {
-                        // System.out.println("Start Time: " + startTime + " End Time: " + endTime);
-                        //TreeItem<Room> bookedRooms = new TreeItem<Room>(new Room(Integer.toString(startTime), Integer.toString(endTime), ra.getAvailRooms(theDate, theDate, startTime, endTime)));
-                        //Root.getChildren().add(bookedRooms);
-                        //System.out.println(bookedRooms.getValue().getTime());
-                        if (i == 0) {
-                            startTime += 30;
-                            endTime += 70;
-                        } else if (i % 2 == 0) {
-                            startTime += 30;
-                            endTime += 70;
-                        } else {
-                            startTime += 70;
-                            endTime += 30;
-                        }
-                        startTime %= 2400;
-                        endTime %= 2400;
-                    }
-                    System.out.println(weekDay.toString());
-                    weekDay = weekDay.plusDays(1);
-                }
+                checkAvailiablityOfWeek(weekDay);
                 break;
             case "MONDAY":
+                checkAvailiablityOfWeek(weekDay.minusDays(1));
                 break;
             case "TUESDAY":
+                checkAvailiablityOfWeek(weekDay.minusDays(2));
                 break;
             case "WEDNESDAY":
+                checkAvailiablityOfWeek(weekDay.minusDays(3));
                 break;
             case "THURSDAY":
+                checkAvailiablityOfWeek(weekDay.minusDays(4));
                 break;
             case "FRIDAY":
+                checkAvailiablityOfWeek(weekDay.minusDays(5));
                 break;
             case "SATURDAY":
+                checkAvailiablityOfWeek(weekDay.minusDays(6));
                 break;
+        }
+    }
+
+    @SuppressWarnings("Duplicates")
+    public void checkAvailiablityOfWeek(LocalDate date){
+        int startTime = 0;
+        int endTime = 30;
+        for(int i = 0; i < 7; i++) {
+            for (int j = 0; j < 47; j++) {
+                // System.out.println("Start Time: " + startTime + " End Time: " + endTime);
+                //TreeItem<Room> bookedRooms = new TreeItem<Room>(new Room(Integer.toString(startTime), Integer.toString(endTime), ra.getAvailRooms(theDate, theDate, startTime, endTime)));
+                //Root.getChildren().add(bookedRooms);
+                //System.out.println(bookedRooms.getValue().getTime());
+                if (i == 0) {
+                    startTime += 30;
+                    endTime += 70;
+                } else if (i % 2 == 0) {
+                    startTime += 30;
+                    endTime += 70;
+                } else {
+                    startTime += 70;
+                    endTime += 30;
+                }
+                startTime %= 2400;
+                endTime %= 2400;
+            }
+            System.out.println(date.getDayOfWeek().toString());
+            date = date.plusDays(1);
         }
 
     }
