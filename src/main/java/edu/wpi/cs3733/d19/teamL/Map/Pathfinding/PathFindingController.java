@@ -353,6 +353,7 @@ public class PathFindingController {
 
     Label startLabel;
     Label endLabel;
+    Label hereLabel;
     Location startNode;
     Location endNode;
 
@@ -477,9 +478,11 @@ public class PathFindingController {
         vLeft.toFront();
         startLabel = new Label();
         endLabel = new Label();
+        hereLabel = new Label();
         //Adds the text to the screen
         pathPane.getChildren().add(startLabel);
         pathPane.getChildren().add(endLabel);
+        pathPane.getChildren().add(hereLabel);
         if(!single.isLoggedIn()){
             logOut.setVisible(false);
         }
@@ -651,6 +654,15 @@ public class PathFindingController {
         }
         else
             kiosk.setVisible(false);
+        hereLabel.setLayoutX(kioskTemp.getXcoord()*childPane.getWidth()/Map.getImage().getWidth());
+        hereLabel.setLayoutY(kioskTemp.getYcoord()*childPane.getHeight()/Map.getImage().getHeight() - 20);
+        hereLabel.setText(" You are here ");
+        hereLabel.setStyle("-fx-text-fill: WHITE;-fx-font-size: 6; -fx-background-color: BLUE; -fx-border-color: WHITE; -fx-border-width: 2; -fx-min-width: 40;");
+        if(kioskTemp.getFloor().equals(currentMap)){
+            hereLabel.setVisible(true);
+        }
+        else
+            hereLabel.setVisible(false);
     }
 
     @FXML
