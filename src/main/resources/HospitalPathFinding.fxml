@@ -53,23 +53,15 @@
                                     <FontAwesomeIconView fill="#012d5a" glyphName="USER" size="35" strokeMiterLimit="0.0" textAlignment="CENTER" wrappingWidth="27.27392578125" />
                                  </graphic>
                                  <HBox.margin>
-                                    <Insets right="25.0" />
+                                    <Insets right="10.0" />
                                  </HBox.margin>
                               </JFXButton>
-                              <JFXButton fx:id="homebtn" buttonType="RAISED" contentDisplay="GRAPHIC_ONLY" onAction="#backPressed" prefHeight="75.0" prefWidth="87.0" style="-fx-background-radius: 10000; -fx-border-radius: 1000; -fx-border-color: #012d5a; -fx-border-width: 2;" stylesheets="@toolbarIcons.css" textFill="#012d5a">
+                              <JFXButton fx:id="homebtn" buttonType="RAISED" contentDisplay="GRAPHIC_ONLY" onAction="#backPressed" prefHeight="75.0" prefWidth="100.0" style="-fx-background-radius: 10000; -fx-border-radius: 1000; -fx-border-color: #012d5a; -fx-border-width: 2;" stylesheets="@toolbarIcons.css" textFill="#012d5a">
                                  <graphic>
                                     <FontAwesomeIconView fx:id="home" fill="#012d5a" glyphName="HOME" size="50" />
                                  </graphic>
                                  <HBox.margin>
                                     <Insets right="25.0" />
-                                 </HBox.margin>
-                              </JFXButton>
-                              <JFXButton fx:id="aboutButton" buttonType="RAISED" contentDisplay="GRAPHIC_ONLY" onAction="#AboutPress" prefHeight="75.0" prefWidth="87.0" style="-fx-background-radius: 100000; -fx-border-radius: 1000; -fx-border-color: #012d5a; -fx-border-width: 2;" stylesheets="@toolbarIcons.css">
-                                 <graphic>
-                                    <FontAwesomeIconView fill="#012d5a" glyphName="INFO" size="50" />
-                                 </graphic>
-                                 <HBox.margin>
-                                    <Insets right="30.0" />
                                  </HBox.margin>
                               </JFXButton>
                            </children>
