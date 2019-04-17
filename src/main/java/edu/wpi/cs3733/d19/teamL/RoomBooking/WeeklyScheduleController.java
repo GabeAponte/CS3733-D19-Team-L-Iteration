@@ -118,13 +118,14 @@ public class WeeklyScheduleController
     public void checkAvailability(String roomName, LocalDate theDate){
         String dayOfWeek = "";
         LocalDate weekDay = theDate;
-        dayOfWeek = weekDay.getDayOfWeek().toString();
+        //dayOfWeek = weekDay.getDayOfWeek().toString();
+        dayOfWeek = "SUNDAY";
         System.out.println(dayOfWeek);
         int startTime = 0;
         int endTime = 30;
         switch(dayOfWeek){
             case "SUNDAY":
-                while(weekDay.plusDays(1).equals("SUNDAY")) {
+                while(!weekDay.equals("SUNDAY")) {
                     for (int i = 0; i < 47; i++) {
                         // System.out.println("Start Time: " + startTime + " End Time: " + endTime);
                         //TreeItem<Room> bookedRooms = new TreeItem<Room>(new Room(Integer.toString(startTime), Integer.toString(endTime), ra.getAvailRooms(theDate, theDate, startTime, endTime)));
@@ -143,8 +144,7 @@ public class WeeklyScheduleController
                         startTime %= 2400;
                         endTime %= 2400;
                     }
-
-
+                    System.out.println(weekDay.toString());
                     weekDay = weekDay.plusDays(1);
                 }
                 break;
