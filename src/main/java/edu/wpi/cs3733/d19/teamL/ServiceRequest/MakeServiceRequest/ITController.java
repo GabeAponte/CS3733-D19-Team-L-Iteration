@@ -15,6 +15,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.TextArea;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
@@ -44,6 +45,9 @@ public class ITController {
 
     @FXML
     private Button submit;
+
+    @FXML
+    private TextArea FAQ;
 
     Timeline timeout;
 
