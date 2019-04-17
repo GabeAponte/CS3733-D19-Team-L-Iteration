@@ -1734,6 +1734,7 @@ public class PathFindingController {
         }
         else if(!bathroomRadButton.isSelected()){
             bathroomRadButton.setTextFill(Color.web("#ffffff"));
+            endLabel.setVisible(false);
             for (Circle c: circles) {
                 pathPane.getChildren().remove(c);
             }
@@ -1769,6 +1770,7 @@ public class PathFindingController {
             displayPOINodes("CAFE");
         }
         if(!cafeRadButton.isSelected()){
+            endLabel.setVisible(false);
             cafeRadButton.setTextFill(Color.web("#ffffff"));
             for (Circle c: circles) {
                 pathPane.getChildren().remove(c);
@@ -1803,6 +1805,7 @@ public class PathFindingController {
             // for some reason displaying poi nodes cannot go before displaying the closest path
         }
         else if(!cuisineRadButton.isSelected()){
+            endLabel.setVisible(false);
             cuisineRadButton.setTextFill(Color.web("#ffffff"));
             for (Circle c: circles) {
                 pathPane.getChildren().remove(c);
@@ -1832,6 +1835,7 @@ public class PathFindingController {
             // for some reason displaying poi nodes cannot go before displaying the closest path
         }
         else if(!vendRadButton.isSelected()){
+            endLabel.setVisible(false);
             vendRadButton.setTextFill(Color.web("#ffffff"));
             for (Circle c: circles) {
                 pathPane.getChildren().remove(c);
@@ -1864,6 +1868,7 @@ public class PathFindingController {
             // for some reason displaying poi nodes cannot go before displaying the closest path
         }
         else if(!giftRadButton.isSelected()){
+            endLabel.setVisible(false);
             giftRadButton.setTextFill(Color.web("#ffffff"));
             for (Circle c: circles) {
                 pathPane.getChildren().remove(c);
@@ -1895,6 +1900,7 @@ public class PathFindingController {
             displayPOINodes("ELEV");
         }
         if(!eleRadButton.isSelected()){
+            endLabel.setVisible(false);
             eleRadButton.setTextFill(Color.web("#ffffff"));
             for (Circle c: circles) {
                 pathPane.getChildren().remove(c);
@@ -1926,6 +1932,7 @@ public class PathFindingController {
             displayPOINodes("STAI");
         }
         if(! stairsRadButton.isSelected()){
+            endLabel.setVisible(false);
             stairsRadButton.setTextFill(Color.web("#ffffff"));
             for (Circle c: circles) {
                 pathPane.getChildren().remove(c);
