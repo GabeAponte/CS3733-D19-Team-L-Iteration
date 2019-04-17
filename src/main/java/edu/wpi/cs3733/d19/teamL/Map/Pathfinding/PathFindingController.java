@@ -110,9 +110,6 @@ public class PathFindingController {
     private JFXButton homebtn;
 
     @FXML
-    private JFXButton aboutButton;
-
-    @FXML
     private Button logOut;
 
 
@@ -2000,23 +1997,4 @@ public class PathFindingController {
         }
     }
 
-
-    /**
-     * Grace made this - goes to the about page
-     */
-    @FXML
-    private void AboutPress() throws IOException {
-        timeout.stop();
-        Singleton single = Singleton.getInstance();
-        single.setLastTime();
-        single.setDoPopup(true);
-        FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("AboutPage_fancy.fxml"));
-
-        Parent sceneMain = loader.load();
-
-        Stage thisStage = (Stage) aboutButton.getScene().getWindow();
-
-        Scene newScene = new Scene(sceneMain);
-        thisStage.setScene(newScene);
-    }
 }
