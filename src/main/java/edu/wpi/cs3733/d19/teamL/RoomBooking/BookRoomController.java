@@ -89,8 +89,6 @@ public class BookRoomController {
         sim = new VisualSimulationThread(22);
         sim.start();
 
-
-
         double room1[] = {2230, 1630, 2650, 1630, 2650, 1880, 2230, 1880};
         double room2[] = {2860, 1130, 3040, 1070, 3180, 1430, 2990, 1500};
         double room3[] = {2720, 750, 2850, 1120, 3040, 1060, 2970, 850, 3000, 840, 2970, 770, 2900, 720, 2810, 690};
@@ -444,22 +442,8 @@ public class BookRoomController {
             imagePane.getChildren().add(flexSpaces.get(i));
         }
     }
-/*
-    private EventHandler<MouseEvent> setOnMouseEntered = new EventHandler<MouseEvent>() {
 
-        @Override
-        public void handle(MouseEvent event) {
-            displayAllRooms();
-            for (int k = 0; k < DisplayRooms.size(); k++) {
-                Point2D mouseHover = new Point2D(event.getX(), event.getY());
-                if (DisplayRooms.get(k).p.contains(mouseHover)) {
-                    DisplayRooms.get(k).p.setOpacity(0.6);
-                }
-            }
 
-        }
-
-    };*/
 
 
 }
