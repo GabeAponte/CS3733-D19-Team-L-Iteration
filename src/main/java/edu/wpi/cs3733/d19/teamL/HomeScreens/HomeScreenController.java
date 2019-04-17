@@ -273,7 +273,8 @@ public class HomeScreenController {
 
     @FXML
     private void AboutPress() throws IOException {
-        timeout.stop();
+        tweets.stop();
+        clock.stop();
         Singleton single = Singleton.getInstance();
         single.setLastTime();
         single.setDoPopup(true);
