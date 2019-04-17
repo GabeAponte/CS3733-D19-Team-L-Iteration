@@ -102,30 +102,30 @@ public class SecurityRequestController {
 
     @FXML
     private void showUrgency1(){
-        UrgencyLabel.setText("Urgency Level : 1");
+        UrgencyLabel.setText("Non-Critical");
         Level = "1";
     }
 
     @FXML
     private void showUrgency2(){
-        UrgencyLabel.setText("Urgency Level : 2");
+        UrgencyLabel.setText("Requires Attention");
         Level = "2";
     }
 
     @FXML
     private void showUrgency3(){
-        UrgencyLabel.setText("Urgency Level : 3");
+        UrgencyLabel.setText("Semi-Urgent");
         Level = "3";
     }
 
     @FXML
     private void showUrgency4(){
-        UrgencyLabel.setText("Urgency Level : 4");
+        UrgencyLabel.setText("Critical");
         Level = "4";
     }
     @FXML
     private void showUrgency5(){
-        UrgencyLabel.setText("Urgency Level : 5");
+        UrgencyLabel.setText("Emergency");
         Level = "5";
     }
 

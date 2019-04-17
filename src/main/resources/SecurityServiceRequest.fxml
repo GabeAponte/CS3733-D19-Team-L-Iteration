@@ -76,22 +76,22 @@
                         <Font size="30.0" />
                      </font>
                   </JFXButton>
-                  <JFXButton fx:id="Level1" alignment="CENTER" buttonType="RAISED" contentDisplay="CENTER" onAction="#showUrgency1" onMouseClicked="#reenableSubmit" onMousePressed="#reenableSubmit" onMouseReleased="#reenableSubmit" prefHeight="61.0" prefWidth="237.0" style="-fx-border-color: green; -fx-border-width: 5; -fx-border-radius: 50; -fx-background-radius: 50; -fx-background-color: transparent;" text="Urgency Level : 1" textFill="WHITE" GridPane.rowIndex="1">
+                  <JFXButton fx:id="Level1" alignment="CENTER" buttonType="RAISED" contentDisplay="CENTER" onAction="#showUrgency1" onMouseClicked="#reenableSubmit" onMousePressed="#reenableSubmit" onMouseReleased="#reenableSubmit" prefHeight="61.0" prefWidth="237.0" style="-fx-border-color: green; -fx-border-width: 5; -fx-border-radius: 50; -fx-background-radius: 50; -fx-background-color: transparent;" text="Non-Critical" textFill="WHITE" GridPane.rowIndex="1">
                      <font>
                         <Font size="23.0" />
                      </font>
                   </JFXButton>
-                  <JFXButton fx:id="Level2" alignment="CENTER" buttonType="RAISED" contentDisplay="CENTER" onAction="#showUrgency2" onMouseClicked="#reenableSubmit" onMousePressed="#reenableSubmit" onMouseReleased="#reenableSubmit" prefHeight="61.0" prefWidth="232.0" style="-fx-border-color: #ccff00; -fx-border-width: 5; -fx-border-radius: 50; -fx-background-radius: 50; -fx-background-color: transparent;" text="Urgency Level : 2" textFill="WHITE" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                  <JFXButton fx:id="Level2" alignment="CENTER" buttonType="RAISED" contentDisplay="CENTER" onAction="#showUrgency2" onMouseClicked="#reenableSubmit" onMousePressed="#reenableSubmit" onMouseReleased="#reenableSubmit" prefHeight="61.0" prefWidth="232.0" style="-fx-border-color: #ccff00; -fx-border-width: 5; -fx-border-radius: 50; -fx-background-radius: 50; -fx-background-color: transparent;" text="Requires Attention" textFill="WHITE" GridPane.columnIndex="1" GridPane.rowIndex="1">
                      <font>
-                        <Font name="System Bold" size="23.0" />
+                        <Font name="System Bold" size="21.0" />
                      </font>
                   </JFXButton>
-                  <JFXButton fx:id="Level3" alignment="CENTER" buttonType="RAISED" contentDisplay="CENTER" onAction="#showUrgency3" onMouseClicked="#reenableSubmit" onMousePressed="#reenableSubmit" onMouseReleased="#reenableSubmit" prefHeight="61.0" prefWidth="234.0" style="-fx-border-color: #ffb300; -fx-border-width: 5; -fx-border-radius: 50; -fx-background-radius: 50; -fx-background-color: transparent;" text="Urgency Level : 3" textFill="WHITE" GridPane.columnIndex="2" GridPane.rowIndex="1">
+                  <JFXButton fx:id="Level3" alignment="CENTER" buttonType="RAISED" contentDisplay="CENTER" onAction="#showUrgency3" onMouseClicked="#reenableSubmit" onMousePressed="#reenableSubmit" onMouseReleased="#reenableSubmit" prefHeight="61.0" prefWidth="234.0" style="-fx-border-color: #ffb300; -fx-border-width: 5; -fx-border-radius: 50; -fx-background-radius: 50; -fx-background-color: transparent;" text="Semi-Urgent" textFill="WHITE" GridPane.columnIndex="2" GridPane.rowIndex="1">
                      <font>
                         <Font size="23.0" />
                      </font>
                   </JFXButton>
-                  <JFXButton fx:id="Level5" alignment="CENTER" buttonType="RAISED" contentDisplay="CENTER" onAction="#showUrgency5" onMouseClicked="#reenableSubmit" onMousePressed="#reenableSubmit" onMouseReleased="#reenableSubmit" prefHeight="61.0" prefWidth="234.0" style="-fx-border-color: #ff1100; -fx-border-width: 5; -fx-border-radius: 50; -fx-background-radius: 50; -fx-background-color: transparent;" text="Urgency Level : 5" textFill="WHITE" GridPane.columnIndex="4" GridPane.rowIndex="1">
+                  <JFXButton fx:id="Level5" alignment="CENTER" buttonType="RAISED" contentDisplay="CENTER" onAction="#showUrgency5" onMouseClicked="#reenableSubmit" onMousePressed="#reenableSubmit" onMouseReleased="#reenableSubmit" prefHeight="61.0" prefWidth="234.0" style="-fx-border-color: #ff1100; -fx-border-width: 5; -fx-border-radius: 50; -fx-background-radius: 50; -fx-background-color: transparent;" text="Emergency" textFill="WHITE" GridPane.columnIndex="4" GridPane.rowIndex="1">
                      <font>
                         <Font size="23.0" />
                      </font>
@@ -134,7 +134,7 @@
                         <Font size="23.0" />
                      </font>
                   </Label>
-                  <JFXButton fx:id="Level4" alignment="CENTER" buttonType="RAISED" contentDisplay="CENTER" onAction="#showUrgency4" onMouseClicked="#reenableSubmit" onMousePressed="#reenableSubmit" onMouseReleased="#reenableSubmit" prefHeight="61.0" prefWidth="234.0" style="-fx-border-color: #ff7700; -fx-border-width: 5; -fx-border-radius: 50; -fx-background-radius: 50; -fx-background-color: transparent;" text="Urgency Level : 4" textFill="WHITE" GridPane.columnIndex="3" GridPane.rowIndex="1">
+                  <JFXButton fx:id="Level4" alignment="CENTER" buttonType="RAISED" contentDisplay="CENTER" onAction="#showUrgency4" onMouseClicked="#reenableSubmit" onMousePressed="#reenableSubmit" onMouseReleased="#reenableSubmit" prefHeight="61.0" prefWidth="234.0" style="-fx-border-color: #ff7700; -fx-border-width: 5; -fx-border-radius: 50; -fx-background-radius: 50; -fx-background-color: transparent;" text="Critical" textFill="WHITE" GridPane.columnIndex="3" GridPane.rowIndex="1">
                      <font>
                         <Font size="23.0" />
                      </font>
