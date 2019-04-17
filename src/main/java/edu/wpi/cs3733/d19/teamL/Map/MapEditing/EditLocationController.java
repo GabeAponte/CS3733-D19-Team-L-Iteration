@@ -263,15 +263,16 @@ public class EditLocationController {
 
         gesturePane.setOnMousePressed(mouseClickedOnMap);
 
-        gridPane.add(gesturePane,0,0, 7, GridPane.REMAINING);
-        gesturePane.zoomTo(2.0,new Point2D(Map.getImage().getWidth(), Map.getImage().getHeight()));
+        gridPane.add(gesturePane,0,0, 1, 1);
 
 //        gridPane.add(gesturePane,0,0);
         Map.fitWidthProperty().bind(gesturePane.widthProperty());
         Map.fitHeightProperty().bind(gesturePane.heightProperty());
 
+        gesturePane.toBack();
 
         thisCircle = new CircleLocation();
+        
     }
 
 
