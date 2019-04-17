@@ -8,7 +8,6 @@ import com.jfoenix.controls.JFXComboBox;
 import edu.wpi.cs3733.d19.teamL.HomeScreens.HomeScreenController;
 import edu.wpi.cs3733.d19.teamL.Map.MapLocations.Location;
 import edu.wpi.cs3733.d19.teamL.Map.MapLocations.Path;
-import edu.wpi.cs3733.d19.teamL.Map.ImageInteraction.PanAndZoomPane;
 import edu.wpi.cs3733.d19.teamL.SearchingAlgorithms.*;
 import edu.wpi.cs3733.d19.teamL.Singleton;
 import javafx.animation.*;
@@ -631,9 +630,6 @@ public class PathFindingController {
 
         direction.setWrapText(true);
 
-
-//        sceneGestures.setDrawPath(circles,lines);
-       // sceneGestures.setDrawPath(circles,lines);
         direction.setDisable(false);
         direction.setEditable(false);
     }
@@ -1531,7 +1527,6 @@ public class PathFindingController {
         int temp = 0;
 
         double scaleRatio = gesturePane.getWidth() / Map.getImage().getWidth();
-       // Point2D point = sceneGestures.getImageLocation();
 
         for(int i=0; i<single.getData().size(); i++){
             //if nodetype contains keyword
@@ -1637,8 +1632,6 @@ public class PathFindingController {
             //printPath(path.getPath());
             direction.setText(printPath(path.getPath()));
 
-
-        //    sceneGestures.setDrawPath(circles,lines);
         }
         //do not display any path
     }

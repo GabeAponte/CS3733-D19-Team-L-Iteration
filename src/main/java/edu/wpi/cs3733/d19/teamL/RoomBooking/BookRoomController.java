@@ -6,7 +6,6 @@ import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXDatePicker;
 import com.jfoenix.controls.JFXTimePicker;
-import edu.wpi.cs3733.d19.teamL.Map.ImageInteraction.SceneGestures;
 import edu.wpi.cs3733.d19.teamL.Singleton;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
@@ -88,7 +87,6 @@ public class BookRoomController {
     ArrayList<String> allRooms = new ArrayList<String>();
     ArrayList<Boolean> availRooms = new ArrayList<Boolean>();
     ArrayList<Polygon> flexSpaces = new ArrayList<Polygon>();
-    private SceneGestures sceneGestures;
     private ArrayList<RoomDisplay> DisplayRooms = new ArrayList<RoomDisplay>();
 
     public void initialize() {
