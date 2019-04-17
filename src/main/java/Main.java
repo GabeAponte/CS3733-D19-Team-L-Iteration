@@ -34,6 +34,7 @@ public class Main extends Application {
         //ea.deleteRecords();
         //na.readCSVintoTable();
         //ea.readCSVintoTable();
+        System.out.println("Stupid Change");
         single.setData();
         single.populateTweets();
         launch(args);
