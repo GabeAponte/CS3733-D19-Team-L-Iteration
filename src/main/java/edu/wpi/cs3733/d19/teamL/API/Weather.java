@@ -48,7 +48,7 @@ public class Weather {
      */
     public String getIcon(){
         String type = currently.get().getByKey("icon");
-      //  System.out.println(type);
+        //System.out.println("weather is printing out: "+type);
         return type;
     }
 
