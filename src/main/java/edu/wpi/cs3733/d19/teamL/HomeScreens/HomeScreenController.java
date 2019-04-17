@@ -1,6 +1,5 @@
 package edu.wpi.cs3733.d19.teamL.HomeScreens;
 
-import com.sun.org.apache.xpath.internal.operations.Bool;
 import edu.wpi.cs3733.d19.teamL.ServiceRequest.MakeServiceRequest.ServiceRequestController;
 import edu.wpi.cs3733.d19.teamL.Singleton;
 import edu.wpi.cs3733.d19.teamL.API.Weather;
@@ -27,11 +26,9 @@ import javafx.stage.Stage;
 import javafx.util.Duration;
 
 import java.io.IOException;
-import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.Date;
 
 public class HomeScreenController {
 
@@ -77,6 +74,7 @@ public class HomeScreenController {
 
         Weather weatherBoy = new Weather();
         String icon = weatherBoy.getIcon();
+        //clear-day, clear-night, rain, snow, sleet, wind, fog, cloudy, partly-cloudy-day, or partly-cloudy-night
         if (icon.contains("clear") && icon.contains("day")) {
             icon = "weatherIcons/SunImage.png";
         } else if(icon.contains("clear") && icon.contains("night")){
@@ -135,6 +133,8 @@ public class HomeScreenController {
 
 
 
+
+
             clock = new Timeline(new KeyFrame(Duration.ZERO, e -> {
                 long second = LocalDateTime.now().getSecond();
                 long minute = LocalDateTime.now().getMinute();
@@ -170,8 +170,6 @@ public class HomeScreenController {
             );
             clock.setCycleCount(Animation.INDEFINITE);
             clock.play();
-
-
         }
         DateTimeFormatter dtf = DateTimeFormatter.ofPattern("MM/dd/yyyy");
         LocalDate localDate = LocalDate.now();
