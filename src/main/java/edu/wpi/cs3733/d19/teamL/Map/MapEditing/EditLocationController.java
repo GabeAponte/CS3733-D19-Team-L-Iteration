@@ -405,7 +405,7 @@ public class EditLocationController {
                                         c.getCenterX()-5,c.getCenterY()-10,
                                         c.getCenterX()+5,c.getCenterY()-10);
                             }
-                            
+
 
                             }
 
@@ -826,6 +826,7 @@ public class EditLocationController {
                         if (c.getSp() == null) {
                             if (!(lastCircle==null)){
                                 pathPane.getChildren().remove(lastCircle.getSp());
+                                pathPane.getChildren().remove(lastCircle.getPn());
                                 lastCircle.setFill(Color.web("RED"));
                                 lastCircle.setSp(null);
                             }
@@ -984,6 +985,7 @@ public class EditLocationController {
                                 pathPane.getChildren().remove(sp);
                                 pathPane.getChildren().remove(triangle);
                                 c.setSp(null);
+                                c.setPn(null);
                                 //((Circle) (t.getSource())).setStroke(Color.web("RED"));
                                 ((Circle) (t.getSource())).setFill(Color.web("RED"));
                                 lastCircle = null;
@@ -1023,7 +1025,9 @@ public class EditLocationController {
                     if (!(lastCircle == null) && !(t.isShiftDown())) {
                         if (!(((CircleLocation) (t.getSource())).equals(lastCircle))) {
                             pathPane.getChildren().remove(lastCircle.getSp());
+                            pathPane.getChildren().remove(lastCircle.getPn());
                             lastCircle.setSp(null);
+                            lastCircle.setPn(null);
                             lastCircle.setFill(Color.web("RED"));
                             lastCircle.setCenterX(lastCircle.getLocation().getXcoord() * childPane.getWidth() / Map.getImage().getWidth());
                             lastCircle.setCenterY(lastCircle.getLocation().getYcoord() * childPane.getHeight() / Map.getImage().getHeight());
