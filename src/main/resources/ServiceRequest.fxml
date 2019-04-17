@@ -161,7 +161,7 @@
                         <FontAwesomeIconView fill="WHITE" glyphName="BULLHORN" size="40" />
                      </graphic>
                         </JFXButton>
-                        <JFXButton fx:id="Florist" buttonType="RAISED" contentDisplay="TOP" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" onAction="#makeRequest" style="-fx-border-color: #f5d96b; -fx-border-radius: 10; -fx-background-radius: 10; -fx-border-width: 5;" stylesheets="@HomeButtonStyle.css" text="Gift Store" textFill="WHITE" GridPane.columnIndex="2" GridPane.rowIndex="3" GridPane.vgrow="ALWAYS">
+                        <JFXButton fx:id="Florist" buttonType="RAISED" contentDisplay="TOP" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" onAction="#openGiftService" style="-fx-border-color: #f5d96b; -fx-border-radius: 10; -fx-background-radius: 10; -fx-border-width: 5;" stylesheets="@HomeButtonStyle.css" text="Gift Store" textFill="WHITE" GridPane.columnIndex="2" GridPane.rowIndex="3" GridPane.vgrow="ALWAYS">
                             <font>
                                 <Font size="25.0" />
                             </font>

@@ -72,6 +72,7 @@ dependencies {
 
 
     )
+    compile files("jars/ServiceRequest-1.0-SNAPSHOT.jar")
 }
 
 check.dependsOn integrationTest
