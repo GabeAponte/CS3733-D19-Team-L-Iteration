@@ -109,9 +109,70 @@ public class WeeklyRoom{
                 isSaturday = ra.checkRoom(startTime, endTime,classroomName, weekDay.toString());
                 break;
         }
+    }
 
+    public String getTime() {
+        return time;
+    }
 
-        
+    public void setTime(String time) {
+        this.time = time;
+    }
+
+    public boolean isMonday() {
+        return isMonday;
+    }
+
+    public void setMonday(boolean monday) {
+        isMonday = monday;
+    }
+
+    public boolean isTuesday() {
+        return isTuesday;
+    }
+
+    public void setTuesday(boolean tuesday) {
+        isTuesday = tuesday;
+    }
+
+    public boolean isWednesday() {
+        return isWednesday;
+    }
+
+    public void setWednesday(boolean wednesday) {
+        isWednesday = wednesday;
+    }
+
+    public boolean isThursday() {
+        return isThursday;
+    }
+
+    public void setThursday(boolean thursday) {
+        isThursday = thursday;
+    }
+
+    public boolean isFriday() {
+        return isFriday;
+    }
+
+    public void setFriday(boolean friday) {
+        isFriday = friday;
+    }
+
+    public boolean isSaturday() {
+        return isSaturday;
+    }
+
+    public void setSaturday(boolean saturday) {
+        isSaturday = saturday;
+    }
+
+    public boolean isSunday() {
+        return isSunday;
+    }
+
+    public void setSunday(boolean sunday) {
+        isSunday = sunday;
     }
 
 }

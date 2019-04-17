@@ -109,13 +109,12 @@ public class RoomAccess extends DBAccess {
 
             ResultSet rs = pstmt.executeQuery();
             while(rs.next()){
+                System.out.println(rs.getString("name"));
                 if(rs.getString("name").equals(classRoomName)){
+                    System.out.println("WE GOT HERE");
                     return true;
-                }else{
-                    return false;
                 }
             }
-
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }

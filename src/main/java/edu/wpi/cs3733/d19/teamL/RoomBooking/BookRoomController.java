@@ -462,7 +462,7 @@ public class BookRoomController {
         Parent sceneMain = loader.load();
 
         WeeklyScheduleController wsc = loader.getController();
-        wsc.loadWeekly("Classroom 1 (Classroom)", LocalDate.now());
+        wsc.loadWeekly("Classroom 1 (Computer)", datePicker.getValue());
 
         Scene scene = new Scene(sceneMain);
 

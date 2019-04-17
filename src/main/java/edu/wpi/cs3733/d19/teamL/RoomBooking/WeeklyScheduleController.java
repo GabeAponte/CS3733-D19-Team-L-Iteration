@@ -130,7 +130,7 @@ public class WeeklyScheduleController
         int endTime = 30;
         for(int i = 0; i < 47; i++){
             // System.out.println("Start Time: " + startTime + " End Time: " + endTime);
-            TreeItem<WeeklyRoom> bookedRooms = new TreeItem<Room>(new WeeklyRoom(startTime, endTime, theDate, roomName )));
+            TreeItem<WeeklyRoom> bookedRooms = new TreeItem<WeeklyRoom>(new WeeklyRoom(startTime, endTime, theDate, roomName ));
             Root.getChildren().add(bookedRooms);
             //System.out.println(bookedRooms.getValue().getTime());
             if(i == 33) {
@@ -152,20 +152,20 @@ public class WeeklyScheduleController
             endTime %= 2400;
         }
         //System.out.println("Start Time: " + startTime + " End Time: " + endTime);
-        TreeItem<Room> bookedRooms2 = new TreeItem<Room>(new Room(Integer.toString(startTime), Integer.toString(endTime), ra.getAvailRooms(theDate, theDate, startTime, endTime)));
-        Root.getChildren().add(bookedRooms2);
+        TreeItem<WeeklyRoom> bookedRooms = new TreeItem<WeeklyRoom>(new WeeklyRoom(startTime, endTime, theDate, roomName));
+        Root.getChildren().add(bookedRooms);
 
         //timeCol = new TreeTableColumn<Room, String>("Time");
         timeCol.setCellValueFactory(cellData -> {
-            if(cellData.getValue().getValue()instanceof Room) {
+            if(cellData.getValue().getValue()instanceof WeeklyRoom) {
                 return new ReadOnlyObjectWrapper(cellData.getValue().getValue().getTime());
             }
             return new ReadOnlyObjectWrapper(cellData.getValue().getValue());
         });
 
-        class1Col.setCellValueFactory(cellData -> {
-            if(cellData.getValue().getValue()instanceof Room) {
-                if(cellData.getValue().getValue().isClass1()){
+        sunCol.setCellValueFactory(cellData -> {
+            if(cellData.getValue().getValue()instanceof WeeklyRoom) {
+                if(cellData.getValue().getValue().isSunday()){
                     //cellData.getValue().
                     return new ReadOnlyObjectWrapper(true);
                 }else {
@@ -175,7 +175,7 @@ public class WeeklyScheduleController
             return new ReadOnlyObjectWrapper(cellData.getValue().getValue());
         });
 
-        class1Col.setCellFactory(column -> {
+        sunCol.setCellFactory(column -> {
             TreeTableCell cell = new TreeTableCell<Room, Boolean>() {
                 //@Override
                 protected void updateItem(Boolean item, boolean empty) {
@@ -192,9 +192,9 @@ public class WeeklyScheduleController
             return cell;
         });
 
-        class2Col.setCellValueFactory(cellData -> {
-            if(cellData.getValue().getValue()instanceof Room) {
-                if(cellData.getValue().getValue().isClass2()){
+        monCol.setCellValueFactory(cellData -> {
+            if(cellData.getValue().getValue()instanceof WeeklyRoom) {
+                if(cellData.getValue().getValue().isMonday()){
                     //cellData.getValue().
                     return new ReadOnlyObjectWrapper(true);
                 }else {
@@ -204,7 +204,7 @@ public class WeeklyScheduleController
             return new ReadOnlyObjectWrapper(cellData.getValue().getValue());
         });
 
-        class2Col.setCellFactory(column -> {
+        monCol.setCellFactory(column -> {
             TreeTableCell cell = new TreeTableCell<Room, Boolean>() {
                 //@Override
                 protected void updateItem(Boolean item, boolean empty) {
@@ -221,9 +221,9 @@ public class WeeklyScheduleController
             return cell;
         });
 
-        class3Col.setCellValueFactory(cellData -> {
-            if(cellData.getValue().getValue()instanceof Room) {
-                if(cellData.getValue().getValue().isClass3()){
+        tueCol.setCellValueFactory(cellData -> {
+            if(cellData.getValue().getValue()instanceof WeeklyRoom) {
+                if(cellData.getValue().getValue().isTuesday()){
                     //cellData.getValue().
                     return new ReadOnlyObjectWrapper(true);
                 }else {
@@ -233,7 +233,7 @@ public class WeeklyScheduleController
             return new ReadOnlyObjectWrapper(cellData.getValue().getValue());
         });
 
-        class3Col.setCellFactory(column -> {
+        tueCol.setCellFactory(column -> {
             TreeTableCell cell = new TreeTableCell<Room, Boolean>() {
                 //@Override
                 protected void updateItem(Boolean item, boolean empty) {
@@ -250,9 +250,9 @@ public class WeeklyScheduleController
             return cell;
         });
 
-        class4Col.setCellValueFactory(cellData -> {
-            if(cellData.getValue().getValue()instanceof Room) {
-                if(cellData.getValue().getValue().isClass4()){
+        wedCol.setCellValueFactory(cellData -> {
+            if(cellData.getValue().getValue()instanceof WeeklyRoom) {
+                if(cellData.getValue().getValue().isWednesday()){
                     //cellData.getValue().
                     return new ReadOnlyObjectWrapper(true);
                 }else {
@@ -262,7 +262,7 @@ public class WeeklyScheduleController
             return new ReadOnlyObjectWrapper(cellData.getValue().getValue());
         });
 
-        class4Col.setCellFactory(column -> {
+        wedCol.setCellFactory(column -> {
             TreeTableCell cell = new TreeTableCell<Room, Boolean>() {
                 //@Override
                 protected void updateItem(Boolean item, boolean empty) {
@@ -279,9 +279,9 @@ public class WeeklyScheduleController
             return cell;
         });
 
-        class5Col.setCellValueFactory(cellData -> {
-            if(cellData.getValue().getValue()instanceof Room) {
-                if(cellData.getValue().getValue().isClass5()){
+        thuCol.setCellValueFactory(cellData -> {
+            if(cellData.getValue().getValue()instanceof WeeklyRoom) {
+                if(cellData.getValue().getValue().isThursday()){
                     //cellData.getValue().
                     return new ReadOnlyObjectWrapper(true);
                 }else {
@@ -291,7 +291,7 @@ public class WeeklyScheduleController
             return new ReadOnlyObjectWrapper(cellData.getValue().getValue());
         });
 
-        class5Col.setCellFactory(column -> {
+        thuCol.setCellFactory(column -> {
             TreeTableCell cell = new TreeTableCell<Room, Boolean>() {
                 //@Override
                 protected void updateItem(Boolean item, boolean empty) {
@@ -308,9 +308,9 @@ public class WeeklyScheduleController
             return cell;
         });
 
-        class6Col.setCellValueFactory(cellData -> {
-            if(cellData.getValue().getValue()instanceof Room) {
-                if(cellData.getValue().getValue().isClass6()){
+        friCol.setCellValueFactory(cellData -> {
+            if(cellData.getValue().getValue()instanceof WeeklyRoom) {
+                if(cellData.getValue().getValue().isFriday()){
                     //cellData.getValue().
                     return new ReadOnlyObjectWrapper(true);
                 }else {
@@ -320,7 +320,7 @@ public class WeeklyScheduleController
             return new ReadOnlyObjectWrapper(cellData.getValue().getValue());
         });
 
-        class6Col.setCellFactory(column -> {
+        friCol.setCellFactory(column -> {
             TreeTableCell cell = new TreeTableCell<Room, Boolean>() {
                 //@Override
                 protected void updateItem(Boolean item, boolean empty) {
@@ -337,9 +337,9 @@ public class WeeklyScheduleController
             return cell;
         });
 
-        class7Col.setCellValueFactory(cellData -> {
-            if(cellData.getValue().getValue()instanceof Room) {
-                if(cellData.getValue().getValue().isClass7()){
+        satCol.setCellValueFactory(cellData -> {
+            if(cellData.getValue().getValue()instanceof WeeklyRoom) {
+                if(cellData.getValue().getValue().isSaturday()){
                     //cellData.getValue().
                     return new ReadOnlyObjectWrapper(true);
                 }else {
@@ -349,7 +349,7 @@ public class WeeklyScheduleController
             return new ReadOnlyObjectWrapper(cellData.getValue().getValue());
         });
 
-        class7Col.setCellFactory(column -> {
+        satCol.setCellFactory(column -> {
             TreeTableCell cell = new TreeTableCell<Room, Boolean>() {
                 //@Override
                 protected void updateItem(Boolean item, boolean empty) {
@@ -365,6 +365,13 @@ public class WeeklyScheduleController
             };
             return cell;
         });
+
+        bookedTime.getColumns().clear();
+        bookedTime.getColumns().addAll(timeCol, sunCol, monCol, tueCol, wedCol, thuCol, friCol, satCol);
+        bookedTime.setTreeColumn(timeCol);
+        bookedTime.setRoot(Root);
+        bookedTime.setShowRoot(false);
+        single.setLastTime();
     }
 
     @FXML
@@ -394,5 +401,6 @@ public class WeeklyScheduleController
         Scene scene = new Scene(sceneMain);
         theStage.setScene(scene);
     }
+
 
 }
