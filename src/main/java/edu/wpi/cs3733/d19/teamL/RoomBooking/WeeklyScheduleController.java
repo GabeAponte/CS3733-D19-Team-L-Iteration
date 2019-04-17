@@ -119,6 +119,25 @@ public class WeeklyScheduleController
     }
 
     public void checkAvailability(String roomName, LocalDate theDate){
+        String dayOfWeek = "";
+        dayOfWeek = theDate.getDayOfWeek().toString();
+        System.out.println(dayOfWeek);
+        switch(dayOfWeek){
+            case "SUNDAY":
+                break;
+            case "MONDAY":
+                break;
+            case "TUESDAY":
+                break;
+            case "WEDNESDAY":
+                break;
+            case "THURSDAY":
+                break;
+            case "FRIDAY":
+                break;
+            case "SATURDAYDAY":
+                break;
+        }
 
     }
 
