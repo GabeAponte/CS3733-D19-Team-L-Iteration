@@ -713,7 +713,7 @@ public class EditLocationController {
 
                             int endX = clEnd.getLocation().getXcoord();
                             int endY = clEnd.getLocation().getYcoord();
-                           
+
 
                             if(!clStart.getLocation().getNodeType().equals(clEnd.getLocation().getNodeType())&&
                             clStart.getLocation().getFloor().equals(clEnd.getLocation().getFloor())){
