@@ -18,7 +18,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720" prefWidth="1280" style="-fx-background-color: #012d5a;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.d19.teamL.RoomBooking.WeeklyScheduleController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720" prefWidth="1280" style="-fx-background-color: #012d5a;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.d19.teamL.RoomBooking.WeeklyScheduleController">
 
     <children>
         <GridPane fx:id="gridPane" layoutX="8.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
@@ -68,9 +68,9 @@
                 </Label>
                 <VBox alignment="CENTER" layoutX="874.0" layoutY="200.0" prefHeight="200.0" prefWidth="256.0" spacing="30.0" GridPane.columnIndex="3" GridPane.rowIndex="2" GridPane.rowSpan="2">
                     <children>
-                  <JFXComboBox fx:id="roomPicker" prefHeight="51.0" prefWidth="200.0" promptText="Choose Room" />
-                        <JFXDatePicker fx:id="datePicker" defaultColor="#f5d96b" prefHeight="51.0" prefWidth="200.0" promptText="Select Date" style="-fx-background-color: white;" />
-                  <JFXButton fx:id="selectSchedule" prefHeight="57.0" prefWidth="187.0" style="-fx-border-color: #f5d96b; -fx-border-radius: 50; -fx-background-radius: 50;" text="View Schedule" textFill="#f5d96b">
+                  <JFXComboBox fx:id="roomPicker" onAction="#changeRooms" prefHeight="51.0" prefWidth="200.0" promptText="Choose Room" />
+                        <JFXDatePicker fx:id="datePicker" defaultColor="#f5d96b" onAction="#changeRooms" prefHeight="51.0" prefWidth="200.0" promptText="Select Date" style="-fx-background-color: white;" />
+                  <JFXButton fx:id="selectSchedule" onAction="#viewSched" prefHeight="57.0" prefWidth="187.0" style="-fx-border-color: #f5d96b; -fx-border-radius: 50; -fx-background-radius: 50;" text="View Schedule" textFill="#f5d96b">
                      <font>
                         <Font name="Avenir Book" size="18.0" />
                      </font>
