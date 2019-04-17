@@ -23,3 +23,24 @@
     -fx-text-fill: WHITE;
     -fx-prompt-text-fill: GRAY;
 }
+
+.button:hover{
+    -fx-background-color: black;
+    -fx-text-fill: white;
+    /*
+    -fx-text-fill: #f5d96b ;
+     */
+}
+
+.button:hover .glyph-icon{
+    -fx-fill: white;
+    /*
+    -fx-fill:  #f5d96b;
+     */
+}
+
+.radio-button .radio {
+
+    -fx-border-radius: 4px;
+
+}

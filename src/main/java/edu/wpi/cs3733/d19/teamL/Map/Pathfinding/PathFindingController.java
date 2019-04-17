@@ -32,8 +32,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
 import javafx.scene.image.Image;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.Pane;
+import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Line;
@@ -42,6 +41,7 @@ import javafx.stage.Stage;
 import javafx.util.Duration;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.StackPane;
+import javafx.scene.layout.Pane;
 
 import net.kurobako.gesturefx.GesturePane;
 import org.controlsfx.control.textfield.TextFields;
@@ -65,9 +65,6 @@ public class PathFindingController {
 
     @FXML
     private Stage thestage;
-
-    @FXML
-    private Button PathFindBack;
 
     @FXML
     private Button PathFindSubmit;
@@ -101,6 +98,19 @@ public class PathFindingController {
 
     @FXML
     private Button F3;
+
+    @FXML
+    private Button F4;
+
+    @FXML
+    private Button about;
+
+    @FXML
+    private JFXButton homebtn;
+
+    @FXML
+    private Button logOut;
+
 
     @FXML
     private Button PathFindLogOut;
@@ -149,6 +159,15 @@ public class PathFindingController {
     @FXML
     private Pane imagePane;
 
+    @FXML
+    private Label thisMap;
+
+    @FXML
+    private HBox vBottom;
+
+    @FXML
+    private VBox vLeft;
+
     Location kioskTemp;
 
     private boolean displayingPath;
@@ -178,8 +197,6 @@ public class PathFindingController {
     private ListIterator<String> listIterator = null;
 
     Timeline timeout;
-
-    private boolean first = false;
 
     private String pickedFloor = "test";
     private String type = "test";
@@ -223,6 +240,7 @@ public class PathFindingController {
         Map.setImage(new Image("/SoftEng_UI_Mockup_Pics/00_thegroundfloor.png"));
         currentMap = "G";
         resetRadButts();
+        changeMapLabel();
         displayKiosk();
         if(path != null){
             displayPath();
@@ -234,6 +252,7 @@ public class PathFindingController {
         Map.setImage(new Image("/SoftEng_UI_Mockup_Pics/00_thelowerlevel1.png"));
         currentMap = "L1";
         resetRadButts();
+        changeMapLabel();
         displayKiosk();
         if(path != null){
             displayPath();
@@ -245,6 +264,7 @@ public class PathFindingController {
         Map.setImage(new Image("/SoftEng_UI_Mockup_Pics/00_thelowerlevel2.png"));
         currentMap = "L2";
         resetRadButts();
+        changeMapLabel();
         displayKiosk();
         if(path != null){
             displayPath();
@@ -256,6 +276,8 @@ public class PathFindingController {
         Map.setImage(new Image("/SoftEng_UI_Mockup_Pics/01_thefirstfloor.png"));
         currentMap = "1";
         resetRadButts();
+        changeMapLabel();
+        displayKiosk();
         if(path != null){
             displayPath();
         }
@@ -266,6 +288,7 @@ public class PathFindingController {
         Map.setImage(new Image("/SoftEng_UI_Mockup_Pics/02_thesecondfloor.png"));
         currentMap = "2";
         resetRadButts();
+        changeMapLabel();
         displayKiosk();
         if(path != null){
             displayPath();
@@ -276,13 +299,43 @@ public class PathFindingController {
         single.setLastTime();
         Map.setImage(new Image("/SoftEng_UI_Mockup_Pics/03_thethirdfloor.png"));
         currentMap = "3";
-        resetRadButts();
+        changeMapLabel();
         displayKiosk();
         if(path != null){
             displayPath();
         }
     }
 
+    @FXML
+    private void changeMapLabel() {
+        if (currentMap.equals("L2")){
+            thisMap.setText("Lower Level 2");
+        }
+
+        if (currentMap.equals("L1")){
+            thisMap.setText("Lower Level 1");
+        }
+
+        if (currentMap.equals("G")){
+            thisMap.setText("Ground Floor");
+        }
+
+        if (currentMap.equals("1")){
+            thisMap.setText("Floor 1");
+        }
+
+        if (currentMap.equals("2")){
+            thisMap.setText("Floor 2");
+        }
+
+        if (currentMap.equals("3")){
+            thisMap.setText("Floor 3");
+        }
+
+        if (currentMap.equals("4")){
+            thisMap.setText("Flexible Workspace");
+        }
+    }
     @FXML
     /**
      * @author Gabe
@@ -317,12 +370,11 @@ public class PathFindingController {
         strategies.add(aStarStrategy);
         strategies.add(new DepthFirstStrategy(single.lookup));
         strategies.add(new BreadthFirstStrategy(single.lookup));
-        preference.addAll("STAI", "ELEV", "NONE");
-        strategySelector.setItems(strategies);
-        strategySelector.setValue(aStarStrategy);
+        preference.addAll("Stairs Only", "Elevators Only", "Both");
         restrictChoice.setItems(preference);
-        strategyAlgorithm = strategySelector.getValue();
+//        strategyAlgorithm = strategySelector.getValue();
         direction.setEditable(false);
+        changeMapLabel();
         timeout = new Timeline(new KeyFrame(Duration.seconds(2), new EventHandler<ActionEvent>() {
 
             @Override
@@ -336,7 +388,7 @@ public class PathFindingController {
                             HomeScreenController controller = loader.<HomeScreenController>getController();
                             controller.displayPopup();
                         }
-                        Stage thisStage = (Stage) PathFindBack.getScene().getWindow();
+                        Stage thisStage = (Stage) homebtn.getScene().getWindow();
 
                         Scene newScene = new Scene(sceneMain);
                         thisStage.setScene(newScene);
@@ -372,8 +424,6 @@ public class PathFindingController {
         gesturePane.setVBarEnabled(false);
 
         gridPane.add(gesturePane,0,0, 1, GridPane.REMAINING);
-        //NumberBinding nb = Bindings.min(gesturePane.widthProperty().multiply(0.8), gesturePane.heightProperty().multiply(5000).divide(3400).multiply(720.0/610.0));
-       // gesturePane.minScaleProperty().bind(nb);
         Map.sceneProperty().addListener((observableScene, oldScene, newScene) -> {
             if (oldScene == null && newScene != null) {
                 // scene is set for the first time. Now its the time to listen stage changes.
@@ -389,9 +439,13 @@ public class PathFindingController {
                             for (Line l : lines) {
                                 pathPane.getChildren().remove(l);
                             }
+                            for (Button b : buttons) {
+                                pathPane.getChildren().remove(b);
+                            }
 
                             circles.clear();
                             lines.clear();
+                            buttons.clear();
 
                             resetRadButts();
 
@@ -408,12 +462,26 @@ public class PathFindingController {
         Map.fitHeightProperty().bind(gesturePane.heightProperty());
         Map.fitWidthProperty().bind(gesturePane.widthProperty());
         menu.toFront();
+        thisMap.toFront();
+        L1.toFront();
+        L2.toFront();
+        G.toFront();
+        F1.toFront();
+        F2.toFront();
+        F3.toFront();
+        F4.toFront();
+        vBottom.toFront();
+        vLeft.toFront();
+        if(!single.isLoggedIn()){
+            logOut.setVisible(false);
+        }
 
         nameToLoc.clear();
         for (Location l: PathFindStartDrop.getItems()) {
             nameToLoc.put(l.toString(), l);
         }
         TextFields.bindAutoCompletion(searchField,nameToLoc.keySet());
+        //Code to immediately set kiosk
         Platform.runLater(new Runnable() {
             @Override
             public void run() {
@@ -424,11 +492,27 @@ public class PathFindingController {
     }
 
     @FXML
+    private void logOut() throws IOException{
+        single.setLoggedIn(false);
+        single.setIsAdmin(false);
+        single.setUsername("");
+        single.setDoPopup(true);
+        FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("HospitalHome.fxml"));
+
+        Parent sceneMain = loader.load();
+
+        Stage theStage = (Stage) homebtn.getScene().getWindow();
+
+        Scene scene = new Scene(sceneMain);
+        theStage.setScene(scene);
+    }
+
+    @FXML
     private void backPressed() throws IOException {
         timeout.stop();
         single = Singleton.getInstance();
         single.setLastTime();
-        thestage = (Stage) PathFindBack.getScene().getWindow();
+        thestage = (Stage) homebtn.getScene().getWindow();
         AnchorPane root;
 
         if(single.isLoggedIn()) {
@@ -438,7 +522,7 @@ public class PathFindingController {
             }
             Parent sceneMain = loader.load();
 
-            Stage theStage = (Stage) PathFindBack.getScene().getWindow();
+            Stage theStage = (Stage) homebtn.getScene().getWindow();
 
             Scene scene = new Scene(sceneMain);
             theStage.setScene(scene);
@@ -449,7 +533,7 @@ public class PathFindingController {
 
             Parent sceneMain = loader.load();
 
-            Stage theStage = (Stage) PathFindBack.getScene().getWindow();
+            Stage theStage = (Stage) homebtn.getScene().getWindow();
 
             Scene scene = new Scene(sceneMain);
             theStage.setScene(scene);
@@ -484,8 +568,24 @@ public class PathFindingController {
         }
         endNode = single.lookup.get(PathFindEndDrop.getValue().getLocID());
         String restriction = restrictChoice.getValue();
-        if(restriction == null || restriction.trim().equals("") || restriction.equals("NONE")){
+        if(restriction == null || restriction.trim().equals("") || restriction.equals("Both")){
             restriction = "    ";
+        } else if(restriction.equals("Stairs Only")){
+            restriction = "ELEV";
+        } else if (restriction.equals("Elevators Only")){
+            restriction = "STAI";
+        } else {
+            restriction = "    ";
+        }
+
+        if(single.getTypePathfind() == 0){
+            strategyAlgorithm = new AStarStrategy(single.lookup);
+        } else if (single.getTypePathfind() == 1){
+            strategyAlgorithm = new BreadthFirstStrategy(single.lookup);
+        } else if (single.getTypePathfind() == 2){
+            strategyAlgorithm = new DepthFirstStrategy(single.lookup);
+        } else {
+            strategyAlgorithm = new DijkstraStrategy(single.lookup);
         }
 
 
@@ -756,6 +856,7 @@ public class PathFindingController {
 
             circles.add(StartCircle);
             circles.add(EndCircle);
+            changeMapLabel();
 
             autoZoom(path.getPath().get(floorSwitch1), path.getPath().get(floorSwitch2));
         }
@@ -1195,6 +1296,8 @@ public class PathFindingController {
                 PathFindEndDrop.setItems(noHallEnd);
             }
         }
+        // Don't worry about this line, but don't delete it, could be used for kiosk implementation later.
+        // PathFindStartDrop.getItems().add(0,kioskTemp);
     }
 
     /**Nathan modified this to include path preference (restriction)
@@ -1830,7 +1933,7 @@ public class PathFindingController {
     //Alex
     @FXML
     public void submitSearchField(Event ae) {
-        if(PathFindStartDrop.getValue() == null){
+        if(PathFindStartDrop.getValue() == null && startNode != kioskTemp){
             if(nameToLoc.get(searchField.getText()) != null) {
                 PathFindStartDrop.setValue(nameToLoc.get(searchField.getText()));
                 searchField.setText("");

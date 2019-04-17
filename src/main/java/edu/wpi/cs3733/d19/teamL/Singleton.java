@@ -15,8 +15,15 @@ import edu.wpi.cs3733.d19.teamL.Map.Pathfinding.NodesAccess;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
+import javafx.scene.text.Text;
+import twitter4j.Status;
+import twitter4j.Twitter;
+import twitter4j.TwitterException;
+import twitter4j.TwitterFactory;
+
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 public class Singleton {
 
@@ -29,6 +36,7 @@ public class Singleton {
     private static boolean isAdmin;
     private static int timeoutSec;
     private static boolean doPopup;
+    private static Text txt;
 
     private ObservableList<Location> data = FXCollections.observableArrayList();
     public HashMap<String, Location> lookup = new HashMap<String, Location>();
@@ -39,10 +47,40 @@ public class Singleton {
         username = ""; //username of logged in user
         num = 1; //for test classes only
         kioskID = ""; //kiosk node ID
-        typePathfind = 1; //which strategy selection for pathfinding
+        typePathfind = 0; //which strategy selection for pathfinding
         isAdmin = false; //is signedin employee an admin
         timeoutSec = 500000; //how long before timeout (in ms) 1000 = 1 second
         doPopup = true; //should be more appropriately named initializeClock
+        txt = new Text();
+    }
+
+    public void populateTweets(){
+        List<Status> statuses = searchtweets();
+        if(statuses != null) {
+            for (Status status : statuses) {
+                Text temp = new Text(status.getText());
+                txt = new Text(txt.getText() + "     " + temp.getText());
+            }
+            return;
+        }
+        txt = new Text("No Tweets Today :)");
+    }
+
+    private static List<Status> searchtweets() {
+        // The factory instance is re-useable and thread safe.
+        try {
+            Twitter twitter = TwitterFactory.getSingleton();
+            List<Status> statuses = twitter.getHomeTimeline();
+            return statuses;
+        } catch (TwitterException e){
+            System.out.println("ERROR");
+            System.out.println(e.getCause());
+            return null;
+        }
+    }
+
+    public static Text getTxt(){
+        return txt;
     }
 
     public static boolean isDoPopup(){
