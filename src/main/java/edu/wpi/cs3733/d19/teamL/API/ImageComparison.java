@@ -6,6 +6,7 @@ import org.opencv.imgcodecs.Imgcodecs;
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.File;
+import java.util.ArrayList;
 
 public class ImageComparison {
 
@@ -32,6 +33,43 @@ public class ImageComparison {
             e.printStackTrace();
         }
         return 100.0;
+    }
+
+    public ArrayList<String> doWithAll(){
+        ArrayList<String> result = new ArrayList<>();
+        try {
+            EmployeeAccess ea = new EmployeeAccess();
+            ArrayList<BufferedImage> img1 = ea.getEmpImgs();
+            if(img1.size() == 0){
+                result.add("100.0");
+                result.add("");
+                return result;
+            }
+
+            BufferedImage img2 = ImageIO.read(new File("TempOutput.jpg"));
+
+            if(img2 == null){
+                result.add("100.0");
+                result.add("");
+                return result;
+            }
+            ArrayList<String> unames = ea.getEmpsWithImg();
+
+            double bestDiff = 100;
+            String bestUname = "";
+            for(int i = 0; i < img1.size(); i++){
+                double p = getDifferencePercent(img1.get(i), img2);
+                if(p < bestDiff){
+                    bestDiff = p;
+                    bestUname = unames.get(i);
+                }
+            }
+            result.add("" + bestDiff);
+            result.add(bestUname);
+        } catch (Exception e){
+            e.printStackTrace();
+        }
+        return result;
     }
 
     private static double getDifferencePercent(BufferedImage img1, BufferedImage img2) {
