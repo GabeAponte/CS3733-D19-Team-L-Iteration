@@ -41,6 +41,7 @@ public class BrowserViewControl implements Initializable {
         } catch (AWTException e) {
             e.printStackTrace();
         }
+
     }
 
 

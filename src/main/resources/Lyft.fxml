@@ -9,7 +9,7 @@
         <Screen fx:factory="getPrimary" fx:id="screen"/>
     </fx:define>
     <top>
-        <TextField fx:id="textField" text="https://www.lyft.com/" onAction="#loadURL"/>
+        <TextField fx:id="textField" text="https://www.lyft.com" onAction="#loadURL"/>
     </top>
     <center>
         <BrowserView fx:id="browserView"/>

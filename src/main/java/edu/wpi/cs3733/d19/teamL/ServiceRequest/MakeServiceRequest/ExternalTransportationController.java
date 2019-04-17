@@ -15,6 +15,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
@@ -74,8 +75,6 @@ public class ExternalTransportationController {
         }));
     }
 
-
-
     @FXML
     protected void backPressed() throws IOException {
         timeout.stop();
@@ -101,52 +100,77 @@ public class ExternalTransportationController {
     }
 
     public void openMaps() throws IOException {
-        FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("Google.fxml"));
-        Parent sceneMain = loader.load();
-
-        Stage theStage = (Stage) Back.getScene().getWindow();
-
-        Scene scene = new Scene(sceneMain);
-        theStage.setScene(scene);
+        Singleton single = Singleton.getInstance();
+        Stage stage;
+        Parent root;
+        stage = new Stage();
+        root = FXMLLoader.load(getClass().getClassLoader().getResource("Google.fxml"));
+        stage.setScene(new Scene(root));
+        stage.setTitle("Inactivity Popup");
+        stage.initModality(Modality.APPLICATION_MODAL);
+        single.setLastTime();
+        stage.show();
+        single = Singleton.getInstance();
+        single.setLastTime();
     }
 
     public void openUber() throws IOException {
-        FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("Uber.fxml"));
-        Parent sceneMain = loader.load();
-
-        Stage theStage = (Stage) Back.getScene().getWindow();
-
-        Scene scene = new Scene(sceneMain);
-        theStage.setScene(scene);
+        Singleton single = Singleton.getInstance();
+        Stage stage;
+        Parent root;
+        stage = new Stage();
+        root = FXMLLoader.load(getClass().getClassLoader().getResource("Uber.fxml"));
+        stage.setScene(new Scene(root));
+        stage.setTitle("Inactivity Popup");
+        stage.initModality(Modality.APPLICATION_MODAL);
+        single.setLastTime();
+        stage.show();
+        single = Singleton.getInstance();
+        single.setLastTime();
     }
 
     public void openLyft() throws IOException {
-        FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("Lyft.fxml"));
-        Parent sceneMain = loader.load();
-
-        Stage theStage = (Stage) Back.getScene().getWindow();
-
-        Scene scene = new Scene(sceneMain);
-        theStage.setScene(scene);
+        Singleton single = Singleton.getInstance();
+        Stage stage;
+        Parent root;
+        stage = new Stage();
+        root = FXMLLoader.load(getClass().getClassLoader().getResource("Lyft.fxml"));
+        stage.setScene(new Scene(root));
+        stage.setTitle("Inactivity Popup");
+        stage.initModality(Modality.APPLICATION_MODAL);
+        single.setLastTime();
+        stage.show();
+        single = Singleton.getInstance();
+        single.setLastTime();
     }
 
     public void openTaxi() throws IOException {
-        FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("Taxi.fxml"));
-        Parent sceneMain = loader.load();
-
-        Stage theStage = (Stage) Back.getScene().getWindow();
-
-        Scene scene = new Scene(sceneMain);
-        theStage.setScene(scene);
+        Singleton single = Singleton.getInstance();
+        Stage stage;
+        Parent root;
+        stage = new Stage();
+        root = FXMLLoader.load(getClass().getClassLoader().getResource("Taxi.fxml"));
+        stage.setScene(new Scene(root));
+        stage.setTitle("Inactivity Popup");
+        stage.initModality(Modality.APPLICATION_MODAL);
+        single.setLastTime();
+        stage.show();
+        single = Singleton.getInstance();
+        single.setLastTime();
     }
 
     public void openFlight() throws IOException {
-        FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("Flight.fxml"));
-        Parent sceneMain = loader.load();
-
-        Stage theStage = (Stage) Back.getScene().getWindow();
-
-        Scene scene = new Scene(sceneMain);
-        theStage.setScene(scene);
+        Singleton single = Singleton.getInstance();
+        Stage stage;
+        Parent root;
+        stage = new Stage();
+        root = FXMLLoader.load(getClass().getClassLoader().getResource("Flight.fxml"));
+        stage.setScene(new Scene(root));
+        stage.setTitle("Inactivity Popup");
+        stage.initModality(Modality.APPLICATION_MODAL);
+        single.setLastTime();
+        stage.show();
+        single = Singleton.getInstance();
+        single.setLastTime();
     }
 }

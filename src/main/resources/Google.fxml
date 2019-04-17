@@ -9,7 +9,7 @@
         <Screen fx:factory="getPrimary" fx:id="screen"/>
     </fx:define>
     <top>
-        <TextField fx:id="textField" text="http://www.google.com" onAction="#loadURL"/>
+        <TextField fx:id="textField" text="https://www.google.com/maps/place/Brigham+and+Women's+Hospital/@42.3360489,-71.1090228,17z/data=!3m1!4b1!4m5!3m4!1s0x89e3798e5e0e692b:0xee9876625ba2345b!8m2!3d42.3360489!4d-71.1068395" onAction="#loadURL"/>
     </top>
     <center>
         <BrowserView fx:id="browserView"/>
