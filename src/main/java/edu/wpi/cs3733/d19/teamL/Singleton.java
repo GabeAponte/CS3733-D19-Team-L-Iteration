@@ -54,7 +54,7 @@ public class Singleton {
 
     public void populateTweets(){
         List<Status> statuses = searchtweets();
-        if(statuses != null || statuses.size() != 0) {
+        if(statuses != null && statuses.size() != 0) {
             for (Status status : statuses) {
                 Text temp = new Text(status.getText());
                 txt = new Text(txt.getText() + "     " + temp.getText());
