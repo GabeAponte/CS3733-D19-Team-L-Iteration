@@ -2,9 +2,7 @@ package edu.wpi.cs3733.d19.teamL.Account;
 import com.github.sarxos.webcam.Webcam;
 import com.github.sarxos.webcam.WebcamPanel;
 import com.github.sarxos.webcam.WebcamResolution;
-import com.jfoenix.controls.JFXButton;
-import com.jfoenix.controls.JFXComboBox;
-import com.jfoenix.controls.JFXRadioButton;
+import com.jfoenix.controls.*;
 import edu.wpi.cs3733.d19.teamL.HomeScreens.HomeScreenController;
 import edu.wpi.cs3733.d19.teamL.Singleton;
 import javafx.animation.KeyFrame;
@@ -62,10 +60,10 @@ public class CreateEditAccountController {
     private TextField username;
 
     @FXML
-    private TextField password;
+    private JFXTextField password;
 
     @FXML
-    private TextField confrimPassword;
+    private JFXTextField confrimPassword;
 
     @FXML
     private TextField firstName;
@@ -118,6 +116,7 @@ public class CreateEditAccountController {
     public void initialize(){
         Singleton single = Singleton.getInstance();
         single.setLastTime();
+
         timeout = new Timeline(new KeyFrame(Duration.seconds(2), new EventHandler<ActionEvent>() {
 
             @Override
@@ -239,6 +238,7 @@ public class CreateEditAccountController {
      * @param user current user
      */
     public void setType(int check, String user){
+        Singleton single = Singleton.getInstance();
         type = check;
         if(type == 1){
             title.setText("Create an Account");
@@ -246,7 +246,6 @@ public class CreateEditAccountController {
             delete.setDisable(true);
         }else if(type == 2){
             title.setText("Edit your Account");
-            Singleton single = Singleton.getInstance();
             EmployeeAccess ea = new EmployeeAccess();
             ArrayList<String> data = ea.getEmployeeInformation(single.getUsername());
             username.setText(single.getUsername());
@@ -304,6 +303,9 @@ public class CreateEditAccountController {
             } catch (Exception e){
                 e.printStackTrace();
             }
+        }
+        if(!single.getUsername().equals(username.getText())){
+            picbtn.setDisable(true);
         }
     }
 

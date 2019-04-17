@@ -300,6 +300,7 @@ public class PathFindingController {
         single.setLastTime();
         Map.setImage(new Image("/SoftEng_UI_Mockup_Pics/03_thethirdfloor.png"));
         currentMap = "3";
+        resetRadButts();
         changeMapLabel();
         displayKiosk();
         if(path != null){
@@ -648,23 +649,21 @@ public class PathFindingController {
         kiosk.setRadius(Math.max(1.5, 1.5f * (gesturePane.getCurrentScale() / 4)));
         kiosk.setStroke(Color.BLUE);
         kiosk.setFill(Color.BLUE);
-        circles.add(kiosk);
-        pathPane.getChildren().add(kiosk);
-        if(currentMap.equals(kioskTemp.getFloor())) {
-            kiosk.setVisible(true);
-            gesturePane.zoomTo(2, new Point2D(kioskTemp.getXcoord() - 1350, kioskTemp.getYcoord() - 2000));
-        }
-        else
-            kiosk.setVisible(false);
         hereLabel.setLayoutX(kioskTemp.getXcoord()*childPane.getWidth()/Map.getImage().getWidth());
         hereLabel.setLayoutY(kioskTemp.getYcoord()*childPane.getHeight()/Map.getImage().getHeight() - 20);
         hereLabel.setText(" You are here ");
         hereLabel.setStyle("-fx-text-fill: WHITE;-fx-font-size: 6; -fx-background-color: BLUE; -fx-border-color: WHITE; -fx-border-width: 2; -fx-min-width: 40;");
-        if(kioskTemp.getFloor().equals(currentMap)){
+        if(currentMap.equals(kioskTemp.getFloor())) {
+            kiosk.setVisible(true);
+            gesturePane.zoomTo(2, new Point2D(kioskTemp.getXcoord() - 1350, kioskTemp.getYcoord() - 2000));
             hereLabel.setVisible(true);
         }
-        else
+        else {
             hereLabel.setVisible(false);
+            kiosk.setVisible(false);
+        }
+        circles.add(kiosk);
+        pathPane.getChildren().add(kiosk);
     }
 
     @FXML
@@ -814,14 +813,24 @@ public class PathFindingController {
                         buttons.add(nBut);
                         nBut.setVisible(true);
                         //Change the display of the button based on which floor you're on
-                        if(currentMap.equals(startNode.getFloor()) || path.getPath().get(i).getFloor().equals(currentMap)) {
+                        if(currentMap.equals(startNode.getFloor())) {
+                            System.out.println("1");
                             nBut.setStyle("-fx-text-fill: WHITE; -fx-font-size: 6; -fx-background-color: GREEN; -fx-border-color: WHITE; -fx-background-radius: 18; -fx-border-radius: 18; -fx-border-width: 3");
-
+                            //Should handle weird case for displaying button way out in nowhere.
+                            if(!path.getPath().get(i+1).getFloor().equals(currentMap)) {
+                                System.out.println("5");
+                                nBut.setLayoutX((path.getPath().get(floorSwitch2).getXcoord()*childPane.getWidth()/Map.getImage().getWidth()));
+                                nBut.setLayoutY((path.getPath().get(floorSwitch2).getYcoord()*childPane.getHeight()/Map.getImage().getHeight()));
+                            }
                         }
-                        else if(path.getPath().get(i).getFloor().equals(currentMap) && transition.equals(startNode.getFloor())){
+                        else if(!currentMap.equals(startNode.getFloor()) && !currentMap.equals(endNode.getFloor())){
+                            System.out.println("2");
                             nBut.setStyle("-fx-text-fill: WHITE; -fx-font-size: 6; -fx-background-color: GREEN; -fx-border-color: WHITE; -fx-background-radius: 18; -fx-border-radius: 18; -fx-border-width: 3");
+                            nBut.setLayoutX((path.getPath().get(floorSwitch2).getXcoord()*childPane.getWidth()/Map.getImage().getWidth()));
+                            nBut.setLayoutY((path.getPath().get(floorSwitch2).getYcoord()*childPane.getHeight()/Map.getImage().getHeight()));
                         }
                         else {
+                            System.out.println("3");
                             //Modified the return to start button position.
                             nBut.setStyle("-fx-text-fill: WHITE;-fx-font-size: 6; -fx-background-color: RED; -fx-border-color: WHITE; -fx-background-radius: 18; -fx-border-radius: 18; -fx-border-width: 3");
                             nBut.setText("Go to Starting Floor");
@@ -839,6 +848,7 @@ public class PathFindingController {
             }
             //Creates the start and end nodes to display them and sets colors.
             Circle StartCircle = new Circle();
+            Circle kioskDis = new Circle();
 
             //Setting the properties of the circle
             StartCircle.setCenterX(startNode.getXcoord()*childPane.getWidth()/Map.getImage().getWidth());
@@ -855,6 +865,11 @@ public class PathFindingController {
                 startLabel.setStyle("-fx-text-fill: WHITE;-fx-font-size: 6; -fx-background-color: BLUE; -fx-border-color: WHITE; -fx-border-width: 2; -fx-min-width: 40;");
             }
             else {
+                kioskDis.setCenterX(kioskTemp.getXcoord()*childPane.getWidth()/Map.getImage().getWidth());
+                kioskDis.setCenterY(kioskTemp.getYcoord()*childPane.getHeight()/Map.getImage().getHeight());
+                kioskDis.setRadius(Math.max(1.5, 1.5f * (gesturePane.getCurrentScale() / 4)));
+                kioskDis.setStroke(Color.BLUE);
+                kioskDis.setFill(Color.BLUE);
                 StartCircle.setStroke(Color.GREEN);
                 StartCircle.setFill(Color.GREEN);
                 startLabel.setText(startNode.getLongName());
@@ -864,8 +879,12 @@ public class PathFindingController {
                 StartCircle.setVisible(false);
                 startLabel.setVisible(false);
             }
+            else if(currentMap.equals(kioskTemp.getFloor())) {
+                kioskDis.setVisible(true);
+            }
             else {
                 startLabel.setVisible(true);
+                kioskDis.setVisible(false);
             }
 
             pathPane.getChildren().add(StartCircle);

@@ -160,7 +160,8 @@ public class EmployeeLoggedInHomeController {
         timeout.stop();
         Singleton single = Singleton.getInstance();
         single.setLastTime();
-        FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("ActiveServiceRequests.fxml"));
+        single.setIsAdmin(false);
+        FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("NewActiveServiceRequests.fxml"));
 
         Parent sceneMain = loader.load();
 
