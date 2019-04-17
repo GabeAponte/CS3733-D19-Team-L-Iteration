@@ -47,6 +47,9 @@ public class BookRoomController {
     private Label error;
 
     @FXML
+    private Label roomName;
+
+    @FXML
     private JFXButton viewSchedule;
 
     @FXML
@@ -72,6 +75,9 @@ public class BookRoomController {
 
     @FXML
     private Button bookRoomBack;
+
+    @FXML
+    private Button viewWeekly;
 
     Timeline timeout;
     VisualSimulationThread sim;
@@ -100,16 +106,16 @@ public class BookRoomController {
         double room9[] = {1775, 710, 1840, 710, 1840, 750, 1980, 750, 1980, 930, 1775, 930};
         double auditorium[] = {2860, 1920, 2860, 2030, 3130, 2030, 3150, 2060, 3240, 2000, 3320, 1870, 3330, 1770, 3310, 1730, 3270, 1720, 3190, 1460, 3040, 1500, 3070, 1590, 3030, 1600};
 
-        DisplayRooms.add(new RoomDisplay("Classroom 1 (Computer)", room1));
-        DisplayRooms.add(new RoomDisplay("Classroom 2 (Computer)", room2));
-        DisplayRooms.add(new RoomDisplay("Classroom 3 (Computer)", room3));
-        DisplayRooms.add(new RoomDisplay("Classroom 4 (Classroom)", room4));
-        DisplayRooms.add(new RoomDisplay("Classroom 5 (Computer)", room5));
-        DisplayRooms.add(new RoomDisplay("Classroom 6 (Classroom)", room6));
-        DisplayRooms.add(new RoomDisplay("Classroom 7 (Computer)", room7));
-        DisplayRooms.add(new RoomDisplay("Classroom 8 (Classroom)", room8));
-        DisplayRooms.add(new RoomDisplay("Classroom 9 (Computer)", room9));
-        DisplayRooms.add(new RoomDisplay("Mission Hall Auditorium", auditorium));
+        DisplayRooms.add(new RoomDisplay("Classroom 1 (Computer)", room1, "Room 1 - Computer"));
+        DisplayRooms.add(new RoomDisplay("Classroom 2 (Computer)", room2, "Room 2 - Computer"));
+        DisplayRooms.add(new RoomDisplay("Classroom 3 (Computer)", room3, "Room 3 - Computer"));
+        DisplayRooms.add(new RoomDisplay("Classroom 4 (Classroom)", room4, "Room 4 - Classroom"));
+        DisplayRooms.add(new RoomDisplay("Classroom 5 (Computer)", room5, "Room 5 - Computer"));
+        DisplayRooms.add(new RoomDisplay("Classroom 6 (Classroom)", room6, "Room 6 - Classroom"));
+        DisplayRooms.add(new RoomDisplay("Classroom 7 (Computer)", room7, "Room 7 - Computer"));
+        DisplayRooms.add(new RoomDisplay("Classroom 8 (Classroom)", room8, "Room 8 - Classroom"));
+        DisplayRooms.add(new RoomDisplay("Classroom 9 (Computer)", room9, "Room 9 - Computer"));
+        DisplayRooms.add(new RoomDisplay("Mission Hall Auditorium", auditorium, "Mission Hall Auditorium"));
 
         roomImage.fitWidthProperty().bind(imagePane.widthProperty());
         roomImage.fitHeightProperty().bind(imagePane.heightProperty());
@@ -326,6 +332,8 @@ public class BookRoomController {
         }
     }
 
+    //Isabella did this
+
     @FXML
     public void displayAllRooms() {
 
@@ -361,6 +369,7 @@ public class BookRoomController {
                 Point2D mousePress = new Point2D(event.getX(), event.getY());
                 if (DisplayRooms.get(k).p.contains(mousePress)) {
                     imagePane.getChildren().remove(DisplayRooms.get(k).getPolygon());
+                    roomName.setText(DisplayRooms.get(k).niceName);
                     fieldsEntered();
                     for(int z = 0; z<listOfRooms.size(); z++){
                         if(DisplayRooms.get(k).getRoomName().equals(listOfRooms.get(z))){
@@ -390,6 +399,7 @@ public class BookRoomController {
                         DisplayRooms.get(i).changePolygonColor("RED");
                     }
                 }
+                roomName.setText(DisplayRooms.get(j).niceName);
                 DisplayRooms.get(j).changePolygonColor("BLUE");
             }
         }
@@ -443,6 +453,22 @@ public class BookRoomController {
         }
     }
 
+    public void switchToWeekly() throws IOException {
+        timeout.stop();
+        sim.end();
+        Singleton single = Singleton.getInstance();
+        single.setLastTime();
+        FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("WeeklySchedule.fxml"));
+        Parent sceneMain = loader.load();
+
+        WeeklyScheduleController wsc = loader.getController();
+        wsc.loadWeekly("Classroom 1 (Classroom)", LocalDate.now());
+
+        Scene scene = new Scene(sceneMain);
+
+        Stage theStage = (Stage) viewSchedule.getScene().getWindow();
+        theStage.setScene(scene);
+    }
 
 
 
