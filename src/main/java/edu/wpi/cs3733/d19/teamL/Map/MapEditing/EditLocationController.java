@@ -16,6 +16,7 @@ import edu.wpi.cs3733.d19.teamL.Singleton;
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
+import javafx.application.Platform;
 import javafx.beans.property.DoubleProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -89,7 +90,7 @@ public class EditLocationController {
     @FXML
     private GridPane gridPane;
 
-    private int floorSelected = -2;
+    private int floorSelected = 0;
     private boolean displayingNodes = true;
     private CircleLocation thisCircle;
 
@@ -273,6 +274,13 @@ public class EditLocationController {
 
         thisCircle = new CircleLocation();
 
+        Platform.runLater(new Runnable() {
+            @Override
+            public void run() {
+                displayingNodes = true;
+                drawNodes();
+            }
+        });
     }
 
 

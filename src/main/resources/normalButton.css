@@ -12,3 +12,12 @@
     -fx-fill:  #f5d96b;
      */
 }
+
+.button {
+    -fx-background-color: #012d5a;
+    -fx-text-fill: WHITE;
+}
+
+.button .glyph-icon{
+    -fx-fill: #012d5a;
+}
