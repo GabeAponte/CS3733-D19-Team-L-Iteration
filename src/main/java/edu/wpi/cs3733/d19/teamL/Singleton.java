@@ -232,8 +232,12 @@ public class Singleton {
                 return;
             }
         }
+        System.out.println(start.getLocID());
+        System.out.println(end.getLocID());
+        Edge e1 = new Edge(end.getLocID()+"_"+start.getLocID(), end, start);
         lookup.get(start.getLocID()).addEdge(e);
-        lookup.get(end.getLocID()).addEdge(e);
+        lookup.get(end.getLocID()).addEdge(e1);
+        System.out.println(e.getEdgeID());
     }
 
     /*

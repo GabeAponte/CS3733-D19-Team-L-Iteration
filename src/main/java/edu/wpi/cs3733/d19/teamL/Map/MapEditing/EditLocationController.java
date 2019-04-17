@@ -652,7 +652,6 @@ public class EditLocationController {
                         //sp.getChildren().add(gp);
                         gp.setMargin(close,new Insets(0,0,0,20));
                         sp.setContent(gp);
-
                         pathPane.getChildren().add(sp);
                         newCircle.setSp(sp);
                         lastCircle = newCircle;
@@ -746,12 +745,13 @@ public class EditLocationController {
                                         clStart.getLocation().getLongName() + " and " + clEnd.getLocation().getLongName()
                                         + " successfully" ,ButtonType.OK);
                                 alert.showAndWait();
-
-                                ea =new EdgesAccess();
-                                ea.addEdge(clStart.getLocation().getLocID(), clEnd.getLocation().getLocID());
                                 Edge e = new Edge(clStart.getLocation().getLocID()+"_"+
                                         clEnd.getLocation().getLocID(), clStart.getLocation(), clEnd.getLocation());
                                 single.addEdge(clStart.getLocation(),clEnd.getLocation(),e);
+                                ea =new EdgesAccess();
+                                ea.addEdge(clStart.getLocation().getLocID(), clEnd.getLocation().getLocID());
+
+
                                 addEdgeList.clear();
                                 crossEdgeList.clear();
                                 eraseNodes();
