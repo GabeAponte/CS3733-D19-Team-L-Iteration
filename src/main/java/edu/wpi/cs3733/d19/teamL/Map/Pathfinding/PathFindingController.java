@@ -148,9 +148,7 @@ public class PathFindingController {
     private TextField searchField;
 
     @FXML
-    private TextField kioskX;
-    @FXML
-    private TextField kioskY;
+    private JFXComboBox<Location> kioskConnectedTo;
     @FXML
     private TextField kioskName;
 
@@ -373,6 +371,9 @@ public class PathFindingController {
         Singleton single = Singleton.getInstance();
         single.setLastTime();
 
+        na = new NodesAccess();
+        ea = new EdgesAccess();
+
         ObservableList<PathfindingStrategy> strategies = FXCollections.observableArrayList();
         ObservableList<String> preference = FXCollections.observableArrayList();
         TemplatePathFinder aStarStrategy = new AStarStrategy(single.lookup);
@@ -390,6 +391,9 @@ public class PathFindingController {
         strategiesDropDown.add(new DepthFirstStrategy(single.lookup));
         strategiesDropDown.add(new BreadthFirstStrategy(single.lookup));
         pathStrategy.setItems(strategiesDropDown);
+
+
+        kioskConnectedTo.setItems(single.getData());
 //        strategyAlgorithm = strategySelector.getValue();
         direction.setEditable(false);
         changeMapLabel();
@@ -424,8 +428,6 @@ public class PathFindingController {
         timeout.setCycleCount(Timeline.INDEFINITE);
         timeout.play();
 
-        na = new NodesAccess();
-        ea = new EdgesAccess();
         filter();
         floor();
         noHall();
@@ -702,9 +704,12 @@ public class PathFindingController {
 
     @FXML
     private void updateKiosk(){
-        kioskTemp.setLongName(kioskName.getText());
-        kioskTemp.setXcoord(Integer.parseInt(kioskX.getText()));
-        kioskTemp.setYcoord(Integer.parseInt(kioskY.getText()));
+        if(!kioskName.getText().equals("")) {
+            kioskTemp.setLongName(kioskName.getText());
+        }
+        if(kioskConnectedTo.getValue() != null) {
+            kioskTemp = kioskConnectedTo.getValue();
+        }
 //        displayKiosk();
     }
 

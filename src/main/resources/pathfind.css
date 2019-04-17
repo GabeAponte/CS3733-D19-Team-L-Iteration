@@ -24,6 +24,21 @@
     -fx-prompt-text-fill: GRAY;
 }
 
+.button{
+    -fx-background-color: black;
+    -fx-text-fill: white;
+    /*
+    -fx-text-fill: #f5d96b ;
+     */
+}
+
+.button .glyph-icon{
+    -fx-fill: white;
+    /*
+    -fx-fill:  #f5d96b;
+     */
+}
+
 .button:hover{
     -fx-background-color: black;
     -fx-text-fill: white;

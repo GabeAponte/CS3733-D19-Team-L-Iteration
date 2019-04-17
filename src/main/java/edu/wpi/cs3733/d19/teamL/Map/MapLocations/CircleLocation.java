@@ -66,8 +66,6 @@ public class CircleLocation extends Circle {
         this.yField = yField;
     }
 
-
-
     public Location getLocation() {
         return location;
     }

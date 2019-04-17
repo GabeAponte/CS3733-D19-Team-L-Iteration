@@ -438,12 +438,11 @@
               <rowConstraints>
                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                   <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
               </rowConstraints>
                <children>
-                  <JFXComboBox fx:id="pathStrategy" maxWidth="1.7976931348623157E308" onAction="#strategySelected" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+                  <JFXComboBox fx:id="pathStrategy" maxWidth="1.7976931348623157E308" onAction="#strategySelected" promptText="Search Strategy" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
                      <GridPane.margin>
                         <Insets left="15.0" right="15.0" />
                      </GridPane.margin>
@@ -452,26 +451,30 @@
                         <URL value="@size.css" />
                      </stylesheets>
                   </JFXComboBox>
-                  <JFXTextField fx:id="kioskX" promptText="Kiosk X Position" GridPane.rowIndex="1">
+                  <JFXTextField fx:id="kioskName" promptText="Kiosk name" GridPane.rowIndex="2">
                      <GridPane.margin>
                         <Insets left="15.0" right="15.0" />
                      </GridPane.margin>
+                     <stylesheets>
+                        <URL value="@size.css" />
+                        <URL value="@pathfind.css" />
+                        <URL value="@modify-prompt-text.css" />
+                     </stylesheets>
                   </JFXTextField>
-                  <JFXTextField fx:id="koskY" promptText="Kiosk Y Position" GridPane.rowIndex="2">
-                     <GridPane.margin>
-                        <Insets left="15.0" right="15.0" />
-                     </GridPane.margin>
-                  </JFXTextField>
-                  <JFXTextField fx:id="kioskName" promptText="Kiosk name" GridPane.rowIndex="3">
-                     <GridPane.margin>
-                        <Insets left="15.0" right="15.0" />
-                     </GridPane.margin>
-                  </JFXTextField>
-                  <JFXButton maxWidth="1.7976931348623157E308" onAction="#updateKiosk" text="Submit kiosk changes" GridPane.rowIndex="4">
+                  <JFXButton maxWidth="1.7976931348623157E308" onAction="#updateKiosk" stylesheets="@normalButton.css" text="Submit kiosk changes" GridPane.rowIndex="3">
                      <GridPane.margin>
                         <Insets left="15.0" right="15.0" />
                      </GridPane.margin>
                   </JFXButton>
+                  <JFXComboBox fx:id="kioskConnectedTo" maxWidth="1.7976931348623157E308" promptText="Kiosk Location" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
+                     <GridPane.margin>
+                        <Insets left="15.0" right="15.0" />
+                     </GridPane.margin>
+                     <stylesheets>
+                        <URL value="@pathfind.css" />
+                        <URL value="@size.css" />
+                     </stylesheets>
+                  </JFXComboBox>
                </children>
             </GridPane>
          </children>
