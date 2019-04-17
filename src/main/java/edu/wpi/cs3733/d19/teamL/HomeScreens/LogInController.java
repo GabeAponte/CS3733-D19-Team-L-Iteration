@@ -153,8 +153,7 @@ public class LogInController {
             JFrame window = new JFrame("Hold still for 5 seconds");
             window.add(wp);
             window.setResizable(true);
-            //window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-            window.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+            window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
             window.pack();
             window.setLocationRelativeTo(null);
             window.setVisible(true);

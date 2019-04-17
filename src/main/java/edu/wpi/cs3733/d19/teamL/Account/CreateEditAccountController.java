@@ -114,6 +114,7 @@ public class CreateEditAccountController {
     public void initialize(){
         Singleton single = Singleton.getInstance();
         single.setLastTime();
+
         timeout = new Timeline(new KeyFrame(Duration.seconds(2), new EventHandler<ActionEvent>() {
 
             @Override
@@ -235,6 +236,7 @@ public class CreateEditAccountController {
      * @param user current user
      */
     public void setType(int check, String user){
+        Singleton single = Singleton.getInstance();
         type = check;
         if(type == 1){
             title.setText("Create an Account");
@@ -242,7 +244,6 @@ public class CreateEditAccountController {
             delete.setDisable(true);
         }else if(type == 2){
             title.setText("Edit your Account");
-            Singleton single = Singleton.getInstance();
             EmployeeAccess ea = new EmployeeAccess();
             ArrayList<String> data = ea.getEmployeeInformation(single.getUsername());
             username.setText(single.getUsername());
@@ -281,6 +282,9 @@ public class CreateEditAccountController {
             email.setText(data.get(8));
             delete.setVisible(true);
             delete.setDisable(false);
+        }
+        if(!single.getUsername().equals(username.getText())){
+            picbtn.setDisable(true);
         }
     }
 
