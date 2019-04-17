@@ -77,6 +77,11 @@ public class BreadthFirstStrategy implements PathfindingStrategy{
         queue.clear();
     }
 
+    @Override
+    public String toString() {
+        return "BreadthFirst";
+    }
+
 }
 
 

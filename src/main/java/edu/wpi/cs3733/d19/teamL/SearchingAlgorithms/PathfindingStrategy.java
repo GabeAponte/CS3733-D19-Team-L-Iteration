@@ -6,4 +6,5 @@ public interface PathfindingStrategy {
 
     //Nathan modified this to include path prefernce (restrictions)
     public Path findPath(Location start, Location end, String restriction);
+    public String toString();
 }

@@ -82,4 +82,9 @@ public class DepthFirstStrategy implements PathfindingStrategy{
         stack.clear();
     }
 
+    @Override
+    public String toString() {
+        return "DepthFirst";
+    }
+
 }
