@@ -346,7 +346,7 @@
                         <Insets bottom="20.0" left="40.0" right="10.0" top="10.0" />
                      </GridPane.margin>
                   </JFXComboBox>
-                  <JFXComboBox fx:id="PathFindStartDrop" onAction="#locationsSelected" prefHeight="29.0" prefWidth="223.0" promptText="Starting Location" GridPane.columnSpan="2" GridPane.rowIndex="4">
+                  <JFXComboBox fx:id="PathFindStartDrop" onAction="#locationsSelected" prefHeight="29.0" prefWidth="223.0" promptText="Current Kiosk" GridPane.columnSpan="2" GridPane.rowIndex="4">
                      <stylesheets>
                         <URL value="@modify-prompt-text.css" />
                         <URL value="@size.css" />
