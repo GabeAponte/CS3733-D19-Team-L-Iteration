@@ -120,8 +120,8 @@ public class BookRoomController {
         roomImage.fitWidthProperty().bind(imagePane.widthProperty());
         roomImage.fitHeightProperty().bind(imagePane.heightProperty());
 
-        startTime.setValue(LocalTime.now());
-        endTime.setValue(LocalTime.now().plusHours(1));
+        startTime.setValue(LocalTime.now().plusMinutes(1));
+        endTime.setValue(LocalTime.now().plusHours(1).plusMinutes(1));
         datePicker.setValue(LocalDate.now());
         Singleton single = Singleton.getInstance();
         single.setLastTime();
@@ -137,6 +137,7 @@ public class BookRoomController {
                         single.setLoggedIn(false);
                         single.setUsername("");
                         single.setIsAdmin(false);
+                        sim.end();
                         FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("HospitalHome.fxml"));
 
                         Parent sceneMain = loader.load();
@@ -160,11 +161,11 @@ public class BookRoomController {
 
         timeout.setCycleCount(Timeline.INDEFINITE);
         timeout.play();
-
         Platform.runLater(new Runnable(){
             @Override
             public void run(){
                 //displayFlexSpaces();
+                fieldsEntered();
             }
         });
 
@@ -252,7 +253,7 @@ public class BookRoomController {
             error.setText("Please select a date.");
         } else if (startTimeValue.equals(endTimeValue)) {
             error.setText("Times cannot be the same.");
-        } else if (startTimeValue.compareTo(curTime) < 0 && roomDate.equals(curDate)) {
+        } else if (startTimeValue.compareTo(curTime) <= 0 && roomDate.equals(curDate)) {
             error.setText("Please select a current or future time for today.");
         } else if (roomDate.compareTo(curDate) < 0) {
             error.setText("Please select a time for today or a future day.");
@@ -295,7 +296,7 @@ public class BookRoomController {
         String date = "";
         String endDate = "";
 
-        if (startTime.getValue() != null && endTime != null && datePicker.getValue() != null) {
+        if (startTime.getValue() != null && endTime.getValue() != null && datePicker.getValue() != null) {
             startTimeMil = startTime.getValue().getHour() * 100 + startTime.getValue().getMinute();
             endTimeMil = endTime.getValue().getHour() * 100 + endTime.getValue().getMinute();
             date = datePicker.getValue().toString();

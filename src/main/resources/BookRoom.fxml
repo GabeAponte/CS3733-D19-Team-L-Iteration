@@ -101,7 +101,7 @@
                         <Font size="18.0" />
                      </font>
                   </Label>
-                        <JFXTimePicker fx:id="startTime" defaultColor="#f5d96b" prefHeight="60.0" prefWidth="225.0" promptText="Start Time" style="-fx-background-color: white;" stylesheets="@book-room.css" />
+                        <JFXTimePicker fx:id="startTime" defaultColor="#f5d96b" onAction="#fieldsEntered" prefHeight="60.0" prefWidth="225.0" promptText="Start Time" style="-fx-background-color: white;" stylesheets="@book-room.css" />
                     </children>
                 </VBox>
                 <VBox alignment="CENTER" layoutX="874.0" layoutY="200.0" prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="3" GridPane.rowIndex="2">
