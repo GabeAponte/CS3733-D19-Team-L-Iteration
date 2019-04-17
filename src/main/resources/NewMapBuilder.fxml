@@ -157,9 +157,9 @@
                                     <Font size="18.0" />
                                  </font>
                               </Label>
-                              <Label maxWidth="1.7976931348623157E308" text="- This change can be confirmed by clicking on the node and clicking the checkmark, otherwise you can cancel the movement by clicking the X" textFill="WHITE" wrapText="true">
+                              <Label maxWidth="1.7976931348623157E308" prefWidth="374.0" text="- This change can be confirmed by clicking on the node and clicking the checkmark, otherwise you can cancel the movement by clicking the X" textFill="WHITE" wrapText="true">
                                  <VBox.margin>
-                                    <Insets left="16.0" />
+                                    <Insets left="8.0" />
                                  </VBox.margin>
                                  <padding>
                                     <Insets top="5.0" />
