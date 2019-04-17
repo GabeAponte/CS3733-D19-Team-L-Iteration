@@ -418,6 +418,7 @@ public class PathFindingController {
             @Override
             public void run() {
                 displayKiosk();
+                startNode = kioskTemp;
             }
         });
     }
@@ -455,10 +456,13 @@ public class PathFindingController {
         }
     }
 
+    /**
+     * Modified by Nikhil: Now defaults the start location to kiosk node.
+     */
     @FXML
     private void locationsSelected(){
         single.setLastTime();
-        if(PathFindStartDrop.getValue() != null && PathFindEndDrop.getValue() != null){
+        if((PathFindStartDrop.getValue() != null || startNode != null) && PathFindEndDrop.getValue() != null){
             PathFindSubmit.setDisable(false);
         }
         else{
@@ -474,7 +478,10 @@ public class PathFindingController {
     @FXML
     private void submitPressed(){
         single.setLastTime();
-        startNode = single.lookup.get(PathFindStartDrop.getValue().getLocID());
+        //This handles if the user wants to set their own start location.
+        if(PathFindStartDrop.getValue() != null) {
+            startNode = single.lookup.get(PathFindStartDrop.getValue().getLocID());
+        }
         endNode = single.lookup.get(PathFindEndDrop.getValue().getLocID());
         String restriction = restrictChoice.getValue();
         if(restriction == null || restriction.trim().equals("") || restriction.equals("NONE")){
@@ -600,6 +607,7 @@ public class PathFindingController {
             lines.clear();
             buttons.clear();
 
+            //Counts how many nodes are on the floor
             int floorCount = 0;
             //Start node on floor
             int floorSwitch1 = 0;
@@ -703,10 +711,7 @@ public class PathFindingController {
                 }
                 else if(currentMap.equals(endNode.getFloor())) {
                     floorSwitch1 = i - (floorCount-1);
-                    System.out.println("This ran");
                 }
-                if(i-1>=0)
-                    System.out.println(i + " " + path.getPath().get(i).getFloor());
                 pathPane.getChildren().add(line);
                 lines.add(line);
             }
@@ -717,8 +722,15 @@ public class PathFindingController {
             StartCircle.setCenterX(startNode.getXcoord()*childPane.getWidth()/Map.getImage().getWidth());
             StartCircle.setCenterY(startNode.getYcoord()*childPane.getHeight()/Map.getImage().getHeight());
             StartCircle.setRadius(Math.max(1.5, 1.5f * (gesturePane.getCurrentScale() / 4)));
-            StartCircle.setStroke(Color.GREEN);
-            StartCircle.setFill(Color.GREEN);
+            //Displays the kiosk location for the startNode, changes the color to indicate the Kiosk
+            if(startNode.equals(kioskTemp)) {
+                StartCircle.setStroke(Color.BLUE);
+                StartCircle.setFill(Color.BLUE);
+            }
+            else {
+                StartCircle.setStroke(Color.GREEN);
+                StartCircle.setFill(Color.GREEN);
+            }
             if (!startNode.getFloor().equals(currentMap)) {
                 StartCircle.setVisible(false);
             }
@@ -796,11 +808,15 @@ public class PathFindingController {
         }
     }
 
+    /**
+     * Modified by Nikhil: When start is cleared the start node resets to the kiosk location, to display kiosk location properly.
+     */
     @FXML
     private void clearStart(){
         single.setLastTime();
         PathFindStartDrop.getSelectionModel().clearSelection();
         PathFindStartDrop.setValue(null);
+        startNode = kioskTemp;
         noHall();
     }
 
