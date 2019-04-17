@@ -12,10 +12,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.TreeTableColumn;
-import javafx.scene.control.TreeTableView;
+import javafx.scene.control.*;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
@@ -120,10 +117,36 @@ public class WeeklyScheduleController
 
     public void checkAvailability(String roomName, LocalDate theDate){
         String dayOfWeek = "";
-        dayOfWeek = theDate.getDayOfWeek().toString();
+        LocalDate weekDay = theDate;
+        dayOfWeek = weekDay.getDayOfWeek().toString();
         System.out.println(dayOfWeek);
+        int startTime = 0;
+        int endTime = 30;
         switch(dayOfWeek){
             case "SUNDAY":
+                while(weekDay.plusDays(1).equals("SUNDAY")) {
+                    for (int i = 0; i < 47; i++) {
+                        // System.out.println("Start Time: " + startTime + " End Time: " + endTime);
+                        //TreeItem<Room> bookedRooms = new TreeItem<Room>(new Room(Integer.toString(startTime), Integer.toString(endTime), ra.getAvailRooms(theDate, theDate, startTime, endTime)));
+                        //Root.getChildren().add(bookedRooms);
+                        //System.out.println(bookedRooms.getValue().getTime());
+                        if (i == 0) {
+                            startTime += 30;
+                            endTime += 70;
+                        } else if (i % 2 == 0) {
+                            startTime += 30;
+                            endTime += 70;
+                        } else {
+                            startTime += 70;
+                            endTime += 30;
+                        }
+                        startTime %= 2400;
+                        endTime %= 2400;
+                    }
+
+
+                    weekDay = weekDay.plusDays(1);
+                }
                 break;
             case "MONDAY":
                 break;
@@ -135,7 +158,7 @@ public class WeeklyScheduleController
                 break;
             case "FRIDAY":
                 break;
-            case "SATURDAYDAY":
+            case "SATURDAY":
                 break;
         }
 
