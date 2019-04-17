@@ -247,9 +247,7 @@ public class PathFindingController {
         single.setLastTime();
         Map.setImage(new Image("/SoftEng_UI_Mockup_Pics/00_thegroundfloor.png"));
         currentMap = "G";
-        if(! (giftRadButton.isSelected() || cuisineRadButton.isSelected() || cafeRadButton.isSelected())){
-            resetRadButts();
-        }        changeMapLabel();
+
         changeMapLabel();
         displayKiosk();
         if(path != null) {
@@ -261,9 +259,7 @@ public class PathFindingController {
         single.setLastTime();
         Map.setImage(new Image("/SoftEng_UI_Mockup_Pics/00_thelowerlevel1.png"));
         currentMap = "L1";
-        if(! (giftRadButton.isSelected() || cuisineRadButton.isSelected() || cafeRadButton.isSelected())){
-            resetRadButts();
-        }
+
         changeMapLabel();
         displayKiosk();
         if(path != null){
@@ -275,9 +271,7 @@ public class PathFindingController {
         single.setLastTime();
         Map.setImage(new Image("/SoftEng_UI_Mockup_Pics/00_thelowerlevel2.png"));
         currentMap = "L2";
-        if(! (giftRadButton.isSelected() || cuisineRadButton.isSelected() || cafeRadButton.isSelected())){
-            resetRadButts();
-        }
+
         changeMapLabel();
         displayKiosk();
         if(path != null){
@@ -289,9 +283,7 @@ public class PathFindingController {
         single.setLastTime();
         Map.setImage(new Image("/SoftEng_UI_Mockup_Pics/01_thefirstfloor.png"));
         currentMap = "1";
-        if(! (giftRadButton.isSelected() || cuisineRadButton.isSelected() || cafeRadButton.isSelected())){
-            resetRadButts();
-        }
+
         changeMapLabel();
         displayKiosk();
         if(path != null){
@@ -303,9 +295,7 @@ public class PathFindingController {
         single.setLastTime();
         Map.setImage(new Image("/SoftEng_UI_Mockup_Pics/02_thesecondfloor.png"));
         currentMap = "2";
-        if(! (giftRadButton.isSelected() || cuisineRadButton.isSelected() || cafeRadButton.isSelected())){
-            resetRadButts();
-        }
+
         changeMapLabel();
         displayKiosk();
         if(path != null){
@@ -317,9 +307,7 @@ public class PathFindingController {
         single.setLastTime();
         Map.setImage(new Image("/SoftEng_UI_Mockup_Pics/03_thethirdfloor.png"));
         currentMap = "3";
-        if(! (giftRadButton.isSelected() || cuisineRadButton.isSelected() || cafeRadButton.isSelected())){
-            resetRadButts();
-        }
+        
         changeMapLabel();
         displayKiosk();
         if(path != null){
@@ -1612,6 +1600,7 @@ public class PathFindingController {
     @FXML
     private void bathRadButtPressed(){
         checkAndSetKiosk();
+        switchToKioskFloor();
         //when pressed, change color to #f5d96b (gold/yellow), to do later
         //display and find closest bathroom
         //System.out.println("find closest bathroom selected");
@@ -1643,6 +1632,7 @@ public class PathFindingController {
     @FXML
     private void cafeRadButtPressed(){
         checkAndSetKiosk();
+        switchToKioskFloor();
         //when pressed, change color to #f5d96b (gold/yellow)
         //display and find closest cafe - nodeType is RETL
         //System.out.println("find closest retail/food selected");
@@ -1675,6 +1665,7 @@ public class PathFindingController {
     @FXML
     private void cuisineRadButtPressed(){
         checkAndSetKiosk();
+        switchToKioskFloor();
         //when pressed, change color to #f5d96b (gold/yellow), to do later
         //display and find closest bathroom
         //System.out.println("find closest bathroom selected");
@@ -1708,6 +1699,7 @@ public class PathFindingController {
     @FXML
     private void vendRadButtPressed(){
         checkAndSetKiosk();
+        switchToKioskFloor();
         //when pressed, change color to #f5d96b (gold/yellow), to do later
         //display and find closest bathroom
         //System.out.println("find closest bathroom selected");
@@ -1736,6 +1728,7 @@ public class PathFindingController {
     @FXML
     private void giftRadButtPressed(){
         checkAndSetKiosk();
+        switchToKioskFloor();
         //when pressed, change color to #f5d96b (gold/yellow), to do later
         //display and find closest bathroom
         //System.out.println("find closest bathroom selected");
@@ -1770,6 +1763,7 @@ public class PathFindingController {
     @FXML
     private void eleRadButtPressed(){
         checkAndSetKiosk();
+        switchToKioskFloor();
         //when pressed, change color to #f5d96b (gold/yellow)
         //display and find closest elevator
         //System.out.println("find closest elevator selected");
@@ -1800,6 +1794,7 @@ public class PathFindingController {
     @FXML
     private void stairsRadButtPressed(){
         checkAndSetKiosk();
+        switchToKioskFloor();
         //when pressed, change color to #f5d96b (gold/yellow)
         //display and find closest stairs
         //System.out.println("find closest stairs selected");
@@ -1825,6 +1820,28 @@ public class PathFindingController {
         }
     }
 
+    public void switchToKioskFloor(){
+        checkAndSetKiosk();
+        currentMap = kioskTemp.getFloor();
+        if (currentMap.equals("L2")) {
+            clickedL2();
+        }
+        if (currentMap.equals("L1")) {
+            clickedL1();
+        }
+        if (currentMap.equals("G")) {
+            clickedG();
+        }
+        if (currentMap.equals("1")) {
+            clicked1();
+        }
+        if (currentMap.equals("2")) {
+            clicked2();
+        }
+        if (currentMap.equals("3")) {
+            clicked3();
+        }
+    }
 
 
 
