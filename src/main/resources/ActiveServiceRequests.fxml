@@ -69,7 +69,7 @@
                                 <Blend />
                             </effect>
                         </Label>
-                        <JFXTreeTableView fx:id="activeRequests" onMouseClicked="#SwitchToFulfillRequestScreen" prefHeight="406.0" prefWidth="1169.0" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="2" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
+                        <JFXTreeTableView fx:id="activeRequests" onMouseClicked="#SwitchToFulfillRequestScreen" prefHeight="406.0" prefWidth="1169.0" style="-fx-background-radius: 5; -fx-border-width: 5; -fx-border-color: F5D96B; -fx-border-radius: 5;" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="2" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
                             <columns>
                                 <TreeTableColumn fx:id="hi" prefWidth="226.40529251098633" text="Location" />
                                 <TreeTableColumn fx:id="type" prefWidth="231.59475708007812" text="Type" />
