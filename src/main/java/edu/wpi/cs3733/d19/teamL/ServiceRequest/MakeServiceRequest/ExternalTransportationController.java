@@ -106,7 +106,7 @@ public class ExternalTransportationController {
         stage = new Stage();
         root = FXMLLoader.load(getClass().getClassLoader().getResource("Google.fxml"));
         stage.setScene(new Scene(root));
-        stage.setTitle("Inactivity Popup");
+        stage.setTitle("Google");
         stage.initModality(Modality.APPLICATION_MODAL);
         single.setLastTime();
         stage.showAndWait();
@@ -121,7 +121,7 @@ public class ExternalTransportationController {
         stage = new Stage();
         root = FXMLLoader.load(getClass().getClassLoader().getResource("Uber.fxml"));
         stage.setScene(new Scene(root));
-        stage.setTitle("Inactivity Popup");
+        stage.setTitle("Uber");
         stage.initModality(Modality.APPLICATION_MODAL);
         single.setLastTime();
         stage.showAndWait();
@@ -136,7 +136,7 @@ public class ExternalTransportationController {
         stage = new Stage();
         root = FXMLLoader.load(getClass().getClassLoader().getResource("Lyft.fxml"));
         stage.setScene(new Scene(root));
-        stage.setTitle("Inactivity Popup");
+        stage.setTitle("Lyft");
         stage.initModality(Modality.APPLICATION_MODAL);
         single.setLastTime();
         stage.showAndWait();
@@ -151,7 +151,7 @@ public class ExternalTransportationController {
         stage = new Stage();
         root = FXMLLoader.load(getClass().getClassLoader().getResource("Taxi.fxml"));
         stage.setScene(new Scene(root));
-        stage.setTitle("Inactivity Popup");
+        stage.setTitle("Taxi");
         stage.initModality(Modality.APPLICATION_MODAL);
         single.setLastTime();
         stage.showAndWait();
@@ -166,7 +166,7 @@ public class ExternalTransportationController {
         stage = new Stage();
         root = FXMLLoader.load(getClass().getClassLoader().getResource("Flight.fxml"));
         stage.setScene(new Scene(root));
-        stage.setTitle("Inactivity Popup");
+        stage.setTitle("Flight");
         stage.initModality(Modality.APPLICATION_MODAL);
         single.setLastTime();
         stage.showAndWait();
