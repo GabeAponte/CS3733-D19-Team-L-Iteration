@@ -24,9 +24,9 @@
     <children>
         <VBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
             <children>
-                <JFXToolbar prefHeight="100.0" prefWidth="1280.0" style="-fx-background-color: WHITE;">
+                <JFXToolbar maxHeight="-Infinity" minHeight="-Infinity" prefHeight="100.0" prefWidth="1280.0" style="-fx-background-color: WHITE;" VBox.vgrow="NEVER">
                     <left>
-                        <ImageView fitHeight="75.0" fitWidth="325.0" BorderPane.alignment="CENTER">
+                        <ImageView fitHeight="75.0" fitWidth="325.0" preserveRatio="true" BorderPane.alignment="CENTER">
                             <image>
                                 <Image url="@SoftEng_UI_Mockup_Pics/BWHlogo.png" />
                             </image>
@@ -49,7 +49,7 @@
                   </JFXButton>
                </right>
                 </JFXToolbar>
-                <ToolBar maxHeight="10.0" prefHeight="40.0" prefWidth="200.0" style="-fx-background-color: #f5d96b;" />
+                <ToolBar maxHeight="-Infinity" minHeight="-Infinity" prefHeight="10.0" prefWidth="200.0" style="-fx-background-color: #f5d96b;" VBox.vgrow="NEVER" />
                 <GridPane alignment="CENTER" prefHeight="264.0" prefWidth="786.0">
                     <columnConstraints>
                         <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="45.0" prefWidth="100.0" />

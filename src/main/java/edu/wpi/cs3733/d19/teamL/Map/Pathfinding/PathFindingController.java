@@ -379,6 +379,7 @@ public class PathFindingController {
         restrictChoice.setItems(preference);
 //        strategyAlgorithm = strategySelector.getValue();
         direction.setEditable(false);
+        PathFindSubmit.setDisable(true);
         changeMapLabel();
         timeout = new Timeline(new KeyFrame(Duration.seconds(2), new EventHandler<ActionEvent>() {
 
