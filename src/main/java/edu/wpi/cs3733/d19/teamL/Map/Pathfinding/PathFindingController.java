@@ -241,8 +241,9 @@ public class PathFindingController {
         single.setLastTime();
         Map.setImage(new Image("/SoftEng_UI_Mockup_Pics/00_thegroundfloor.png"));
         currentMap = "G";
-        resetRadButts();
-        changeMapLabel();
+        if(! (giftRadButton.isSelected() || cuisineRadButton.isSelected() || cafeRadButton.isSelected())){
+            resetRadButts();
+        }        changeMapLabel();
         if(PathFindStartDrop.getValue() != null && PathFindEndDrop.getValue() != null){
             submitPressed();
         }
@@ -252,7 +253,9 @@ public class PathFindingController {
         single.setLastTime();
         Map.setImage(new Image("/SoftEng_UI_Mockup_Pics/00_thelowerlevel1.png"));
         currentMap = "L1";
-        resetRadButts();
+        if(! (giftRadButton.isSelected() || cuisineRadButton.isSelected() || cafeRadButton.isSelected())){
+            resetRadButts();
+        }
         changeMapLabel();
         if(PathFindStartDrop.getValue() != null && PathFindEndDrop.getValue() != null){
             submitPressed();
@@ -263,7 +266,9 @@ public class PathFindingController {
         single.setLastTime();
         Map.setImage(new Image("/SoftEng_UI_Mockup_Pics/00_thelowerlevel2.png"));
         currentMap = "L2";
-        resetRadButts();
+        if(! (giftRadButton.isSelected() || cuisineRadButton.isSelected() || cafeRadButton.isSelected())){
+            resetRadButts();
+        }
         changeMapLabel();
         if(PathFindStartDrop.getValue() != null && PathFindEndDrop.getValue() != null){
             submitPressed();
@@ -274,7 +279,9 @@ public class PathFindingController {
         single.setLastTime();
         Map.setImage(new Image("/SoftEng_UI_Mockup_Pics/01_thefirstfloor.png"));
         currentMap = "1";
-        resetRadButts();
+        if(! (giftRadButton.isSelected() || cuisineRadButton.isSelected() || cafeRadButton.isSelected())){
+            resetRadButts();
+        }
         changeMapLabel();
         if(PathFindStartDrop.getValue() != null && PathFindEndDrop.getValue() != null){
             submitPressed();
@@ -285,7 +292,9 @@ public class PathFindingController {
         single.setLastTime();
         Map.setImage(new Image("/SoftEng_UI_Mockup_Pics/02_thesecondfloor.png"));
         currentMap = "2";
-        resetRadButts();
+        if(! (giftRadButton.isSelected() || cuisineRadButton.isSelected() || cafeRadButton.isSelected())){
+            resetRadButts();
+        }
         changeMapLabel();
         if(PathFindStartDrop.getValue() != null && PathFindEndDrop.getValue() != null){
             submitPressed();
@@ -296,7 +305,9 @@ public class PathFindingController {
         single.setLastTime();
         Map.setImage(new Image("/SoftEng_UI_Mockup_Pics/03_thethirdfloor.png"));
         currentMap = "3";
-        resetRadButts();
+        if(! (giftRadButton.isSelected() || cuisineRadButton.isSelected() || cafeRadButton.isSelected())){
+            resetRadButts();
+        }
         changeMapLabel();
         if(PathFindStartDrop.getValue() != null && PathFindEndDrop.getValue() != null){
             submitPressed();
@@ -1386,6 +1397,8 @@ public class PathFindingController {
      * display path to nearest keyword
      */
     public void displayClosestPOI(String keyword){
+        //System.out.println(keyword);
+
         checkAndSetKiosk();
 
         ArrayList<Location> nodes = new ArrayList<Location>();
@@ -1393,7 +1406,13 @@ public class PathFindingController {
 
         for(int i=0; i<single.getData().size(); i++) {
             //if nodetype contains keyword
-            if (single.getData().get(i).getNodeType().contains(keyword) && single.getData().get(i).getFloor().equals(kioskTemp.getFloor())) {
+            //System.out.println(single.getData().get(i).getNodeType());
+
+            if(single.getData().get(i).getNodeType().contains(keyword) && (keyword.equals("CAFE") || keyword.equals("FOOD") || keyword.equals("GIFT"))){
+                nodes.add(single.getData().get(i));
+                //System.out.println("oooooooooooooooooooooooooooooooooooooooooooo");
+            }
+            else if (single.getData().get(i).getNodeType().contains(keyword) && single.getData().get(i).getFloor().equals(kioskTemp.getFloor())) {
                 nodes.add(single.getData().get(i));
                 //System.out.println("node added");
             }
@@ -1420,7 +1439,6 @@ public class PathFindingController {
             Path closestPath = findAbstractPath(astar,kioskTemp, nodes.get(0), "    "); //?
 
             for(int i=0; i<nodes.size(); i++){
-
                 //kiosk is B
                 nodeAx = nodes.get(i).getXcoord();
                 nodeAy = nodes.get(i).getYcoord();
@@ -1488,6 +1506,18 @@ public class PathFindingController {
         giftRadButton.setTextFill(Color.web("#ffffff"));
         cuisineRadButton.setSelected(false);
         cuisineRadButton.setTextFill(Color.web("#ffffff"));
+        //reset the text path display to empty/////////////////////////////////////////////////////////////
+        direction.setText("");
+    }
+    public void specialResetRadButts(){
+        bathroomRadButton.setSelected(false);
+        bathroomRadButton.setTextFill(Color.web("#ffffff"));
+        eleRadButton.setSelected(false);
+        eleRadButton.setTextFill(Color.web("#ffffff"));
+        stairsRadButton.setSelected(false);
+        stairsRadButton.setTextFill(Color.web("#ffffff"));
+        vendRadButton.setSelected(false);
+        vendRadButton.setTextFill(Color.web("#ffffff"));
     }
 
     /**Grace made this
@@ -1547,13 +1577,18 @@ public class PathFindingController {
         //System.out.println("find closest retail/food selected");
 
         if(cafeRadButton.isSelected()) {
-            resetRadButts();
+            specialResetRadButts();
+            giftRadButton.setSelected(false);
+            giftRadButton.setTextFill(Color.web("#ffffff"));
+            cuisineRadButton.setSelected(false);
+            cuisineRadButton.setTextFill(Color.web("#ffffff"));
+
             cafeRadButton.setSelected(true);
             cafeRadButton.setTextFill(Color.web("#f5d96b"));
             // -----------------------------------------------------------------------???????????????????????????
-            if((currentMap.equals(kioskTemp.getFloor()))) {
-                displayClosestPOI("CAFE");
-            }
+
+            displayClosestPOI("CAFE");
+
             displayPOINodes("CAFE");
         }
         if(!cafeRadButton.isSelected()){
@@ -1571,13 +1606,18 @@ public class PathFindingController {
         //System.out.println("find closest bathroom selected");
 
         if(cuisineRadButton.isSelected()) {
-            resetRadButts();
+            specialResetRadButts();
+            giftRadButton.setSelected(false);
+            giftRadButton.setTextFill(Color.web("#ffffff"));
+            cafeRadButton.setSelected(false);
+            cafeRadButton.setTextFill(Color.web("#ffffff"));
+
             cuisineRadButton.setSelected(true);
             cuisineRadButton.setTextFill(Color.web("#f5d96b"));
 
-            if((currentMap.equals(kioskTemp.getFloor()))){
-                displayClosestPOI("FOOD");
-            }
+
+            displayClosestPOI("FOOD");
+
             displayPOINodes("FOOD");
             // for some reason displaying poi nodes cannot go before displaying the closest path
         }
@@ -1621,13 +1661,16 @@ public class PathFindingController {
         //System.out.println("find closest bathroom selected");
 
         if(giftRadButton.isSelected()) {
-            resetRadButts();
+            specialResetRadButts();
+            cafeRadButton.setSelected(false);
+            cafeRadButton.setTextFill(Color.web("#ffffff"));
+            cuisineRadButton.setSelected(false);
+            cuisineRadButton.setTextFill(Color.web("#ffffff"));
+
             giftRadButton.setSelected(true);
             giftRadButton.setTextFill(Color.web("#f5d96b"));
 
-            if((currentMap.equals(kioskTemp.getFloor()))){
-                displayClosestPOI("GIFT");
-            }
+            displayClosestPOI("GIFT");
             displayPOINodes("GIFT");
             // for some reason displaying poi nodes cannot go before displaying the closest path
         }
