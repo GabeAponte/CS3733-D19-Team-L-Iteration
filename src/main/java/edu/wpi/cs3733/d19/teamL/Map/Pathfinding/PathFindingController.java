@@ -812,14 +812,23 @@ public class PathFindingController {
                         buttons.add(nBut);
                         nBut.setVisible(true);
                         //Change the display of the button based on which floor you're on
-                        if(currentMap.equals(startNode.getFloor()) || path.getPath().get(i).getFloor().equals(currentMap)) {
+                        if(currentMap.equals(startNode.getFloor())) {
+                            System.out.println("1");
                             nBut.setStyle("-fx-text-fill: WHITE; -fx-font-size: 6; -fx-background-color: GREEN; -fx-border-color: WHITE; -fx-background-radius: 18; -fx-border-radius: 18; -fx-border-width: 3");
-
+                            //Should handle weird case for displaying button way out in nowhere.
+                            if(floorSwitch1 == 0) {
+                                nBut.setLayoutX((startNode.getXcoord()*childPane.getWidth()/Map.getImage().getWidth()));
+                                nBut.setLayoutY((startNode.getYcoord()*childPane.getHeight()/Map.getImage().getHeight()));
+                            }
                         }
-                        else if(path.getPath().get(i).getFloor().equals(currentMap) && transition.equals(startNode.getFloor())){
+                        else if(!currentMap.equals(startNode.getFloor()) && !currentMap.equals(endNode.getFloor())){
+                            System.out.println("2");
                             nBut.setStyle("-fx-text-fill: WHITE; -fx-font-size: 6; -fx-background-color: GREEN; -fx-border-color: WHITE; -fx-background-radius: 18; -fx-border-radius: 18; -fx-border-width: 3");
+                            nBut.setLayoutX((path.getPath().get(floorSwitch2).getXcoord()*childPane.getWidth()/Map.getImage().getWidth()));
+                            nBut.setLayoutY((path.getPath().get(floorSwitch2).getYcoord()*childPane.getHeight()/Map.getImage().getHeight()));
                         }
                         else {
+                            System.out.println("3");
                             //Modified the return to start button position.
                             nBut.setStyle("-fx-text-fill: WHITE;-fx-font-size: 6; -fx-background-color: RED; -fx-border-color: WHITE; -fx-background-radius: 18; -fx-border-radius: 18; -fx-border-width: 3");
                             nBut.setText("Go to Starting Floor");
