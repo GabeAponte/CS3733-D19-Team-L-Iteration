@@ -61,21 +61,18 @@ public class RoomAccess extends DBAccess {
      * @param endTime
      * @return
      */
-    public ArrayList<String> getAvailRooms(String startDate, String endDate, int startTime, int endTime){
-        //TODO Should make this not ugly
-        String sql = "select name from room left outer join (select rID from reservation where (startDate = ?) and (((? between startTime and endTime) and (? != endTime and (? between startTime and endTime))) or ((? between startTime and endTime) and (? != startTime and (? between startTime and endTime))) or (? < startTime and ? > endTime))) on roomID = rID where rID is null;";
+    public ArrayList<String> getAvailRooms(String startDate, String endDate, int startTime, int endTime) {
+        String sql = "select name from room left outer join (select rID from reservation where ? = startDate and ((? between startTime and endTime) or (? between startTime and endTime) or (startTime between ? and ?) or (endTime between ? and ?))) on roomID = rID where rID is null;";
         ArrayList<String> data = new ArrayList<String>();
         try (Connection conn = this.connect();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
             pstmt.setString(1, startDate);
             pstmt.setInt(2, startTime);
-            pstmt.setInt(3, startTime);
-            pstmt.setInt(4, endTime);
+            pstmt.setInt(3, endTime);
+            pstmt.setInt(4, startTime);
             pstmt.setInt(5, endTime);
-            pstmt.setInt(6, endTime);
-            pstmt.setInt(7, startTime);
-            pstmt.setInt(8, startTime);
-            pstmt.setInt(9, endTime);
+            pstmt.setInt(6, startTime);
+            pstmt.setInt(7, endTime);
 
             ResultSet rs = pstmt.executeQuery();
             while(rs.next()){
@@ -88,6 +85,39 @@ public class RoomAccess extends DBAccess {
         }
 
         return null;
+    }
+
+    /**ANDREW MADE THIS
+     * returns a boolean of whether a room is available
+     * @param classRoomName
+     * @param rDate
+     * @param startTime
+     * @param endTime
+     * @return
+     */
+    public boolean checkRoom(int startTime, int endTime, String classRoomName, String rDate) {
+        String sql = "select name from room left outer join (select rID from reservation where ? = startDate and ((? between startTime and endTime) or (? between startTime and endTime) or (startTime between ? and ?) or (endTime between ? and ?))) on roomID = rID where rID is null;";
+        try (Connection conn = this.connect();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            pstmt.setString(1, rDate);
+            pstmt.setInt(2, startTime);
+            pstmt.setInt(3, endTime);
+            pstmt.setInt(4, startTime);
+            pstmt.setInt(5, endTime);
+            pstmt.setInt(6, startTime);
+            pstmt.setInt(7, endTime);
+
+            ResultSet rs = pstmt.executeQuery();
+            while(rs.next()){
+                if(rs.getString("name").equals(classRoomName)){
+                    return true;
+                }
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+
+        return false;
     }
 
     /**ANDREW MADE THIS
@@ -139,7 +169,8 @@ public class RoomAccess extends DBAccess {
 
 
 
-    public static void main(String[] args) {
+
+    /*public static void main(String[] args) {
         ArrayList<String> temp = new ArrayList<>();
         ArrayList<String> temp1 = new ArrayList<>();
         RoomAccess ra = new RoomAccess();
@@ -152,5 +183,5 @@ public class RoomAccess extends DBAccess {
             //System.out.println("Room ID: " + temp1.get(i));
         }
         System.out.println("WTH");
-    }
+    }*/
 }

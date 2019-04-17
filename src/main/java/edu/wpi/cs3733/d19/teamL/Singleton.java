@@ -21,9 +21,7 @@ import twitter4j.Twitter;
 import twitter4j.TwitterException;
 import twitter4j.TwitterFactory;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
+import java.util.*;
 
 public class Singleton {
 
@@ -56,25 +54,28 @@ public class Singleton {
 
     public void populateTweets(){
         List<Status> statuses = searchtweets();
-        if(statuses != null) {
-            for (Status status : statuses) {
+        statuses = null;
+        if(statuses==null || statuses.size() == 0) {
+            /*for (Status status : statuses) {
                 Text temp = new Text(status.getText());
                 txt = new Text(txt.getText() + "     " + temp.getText());
-            }
-            return;
+            }*/
+        }else{
+            txt = new Text("");
         }
-        txt = new Text("No Tweets Today :)");
+        txt = new Text("");
     }
 
     private static List<Status> searchtweets() {
         // The factory instance is re-useable and thread safe.
+        List<Status> statuses;
         try {
             Twitter twitter = TwitterFactory.getSingleton();
-            List<Status> statuses = twitter.getHomeTimeline();
+            statuses = twitter.getHomeTimeline();
             return statuses;
         } catch (TwitterException e){
             System.out.println("ERROR");
-            System.out.println(e.getCause());
+            //System.out.println(e.getCause());
             return null;
         }
     }
