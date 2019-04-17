@@ -5,9 +5,10 @@
 <?import com.jfoenix.controls.JFXDatePicker?>
 <?import com.jfoenix.controls.JFXTimePicker?>
 <?import com.jfoenix.controls.JFXToolbar?>
+<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
+<?import java.net.URL?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.effect.ColorAdjust?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -19,8 +20,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<?import java.net.URL?>
-<AnchorPane maxHeight="-Infinity" stylesheets="@book-room.css" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720" prefWidth="1280" style="-fx-background-color: #012d5a;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.d19.teamL.RoomBooking.BookRoomController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720" prefWidth="1280" style="-fx-background-color: #012d5a;" stylesheets="@book-room.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.d19.teamL.RoomBooking.BookRoomController">
     <children>
         <GridPane fx:id="gridPane" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
             <columnConstraints>
@@ -40,26 +40,33 @@
                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="ALWAYS" />
             </rowConstraints>
             <children>
-                <JFXToolbar style="-fx-background-color: white;" GridPane.columnSpan="4">
+                <JFXToolbar prefHeight="100.0" prefWidth="1280.0" style="-fx-background-color: WHITE;" GridPane.columnSpan="4">
                     <left>
-                        <ImageView fitHeight="91.0" fitWidth="395.0" pickOnBounds="true" preserveRatio="true" BorderPane.alignment="CENTER">
+                        <ImageView fitHeight="75.0" fitWidth="325.0" BorderPane.alignment="CENTER">
                             <image>
                                 <Image url="@SoftEng_UI_Mockup_Pics/BWHlogo.png" />
                             </image>
                         </ImageView>
                     </left>
-                    <bottom>
-                        <JFXToolbar maxHeight="-Infinity" prefHeight="10.0" style="-fx-background-color: #f5d96b;" BorderPane.alignment="CENTER" />
-                    </bottom>
                     <right>
-                        <JFXButton fx:id="bookRoomBack" buttonType="RAISED" onAction="#backPressed" prefHeight="102.0" prefWidth="286.0" ripplerFill="#b0b0b0" text="Back" BorderPane.alignment="CENTER">
+                        <JFXButton fx:id="bookRoomBack" alignment="CENTER" buttonType="RAISED" contentDisplay="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" onAction="#backPressed" prefHeight="75.0" prefWidth="87.0" style="-fx-background-radius: 100000; -fx-border-color: #012D5A; -fx-border-radius: 100; -fx-border-width: 2;" stylesheets="@toolbarIcons.css" text=" " textFill="WHITE" BorderPane.alignment="CENTER">
                             <font>
-                                <Font name="Avenir Book" size="48.0" />
+                                <Font size="20.0" />
                             </font>
+                            <graphic>
+                                <FontAwesomeIconView fill="#012d5a" glyphName="ARROW_LEFT" size="40" wrappingWidth="36.28559112548828" />
+                            </graphic>
                         </JFXButton>
                     </right>
+                    <VBox.margin>
+                        <Insets />
+                    </VBox.margin>
+                    <padding>
+                        <Insets left="10.0" right="10.0" />
+                    </padding>
                 </JFXToolbar>
-                <JFXButton fx:id="requestRoom" buttonType="RAISED" disable="false" onAction="#findRoom" prefHeight="66.0" prefWidth="180.0" ripplerFill="WHITE" style="-fx-border-color: #f5d96b; -fx-border-radius: 100; -fx-border-width: 2; -fx-background-radius: 100;" text="Submit" textFill="#f5d96b" GridPane.columnIndex="2" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="4">
+                <JFXToolbar maxHeight="-Infinity" prefHeight="10.0" prefWidth="1280.0" style="-fx-background-color: F5D96B;" GridPane.columnSpan="4" GridPane.rowIndex="1" GridPane.valignment="TOP" />
+                <JFXButton fx:id="requestRoom" buttonType="RAISED" disable="false" onAction="#findRoom" prefHeight="80.0" prefWidth="250.0" ripplerFill="WHITE" style="-fx-border-color: #f5d96b; -fx-border-radius: 100; -fx-border-width: 2; -fx-background-radius: 100;" text="Book Room" textFill="#f5d96b" GridPane.columnIndex="2" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="4">
                     <font>
                         <Font name="Avenir Book" size="36.0" />
                     </font>
@@ -67,12 +74,12 @@
                   <Insets top="20.0" />
                </GridPane.margin>
                 </JFXButton>
-                <Label alignment="BOTTOM_CENTER" contentDisplay="BOTTOM" text="Book a Room" textFill="#f5d96b" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" GridPane.valignment="CENTER">
+                <Label alignment="BOTTOM_CENTER" contentDisplay="BOTTOM" text="Book a Room" textFill="#f5d96b" GridPane.columnSpan="4" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" GridPane.valignment="CENTER">
                     <font>
                         <Font name="Avenir Book" size="36.0" />
                     </font>
                     <GridPane.margin>
-                        <Insets left="30.0" />
+                        <Insets left="30.0" top="10.0" />
                     </GridPane.margin>
                 </Label>
                 <Pane fx:id="imagePane" prefHeight="200.0" prefWidth="200.0" GridPane.columnSpan="2" GridPane.hgrow="ALWAYS" GridPane.rowIndex="2" GridPane.rowSpan="5" GridPane.vgrow="ALWAYS">
@@ -87,55 +94,75 @@
                         <Insets left="30.0" />
                     </GridPane.margin>
                 </Pane>
-                <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" spacing="30.0" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="2">
+                <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="2">
                     <children>
-                        <JFXTimePicker fx:id="startTime" defaultColor="#f5d96b" prefHeight="57.0" prefWidth="221.0" promptText="Start Time" style="-fx-background-color: white;" stylesheets="@book-room.css" />
+                  <Label text="Start time:" textFill="#f5d96b">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </Label>
+                        <JFXTimePicker fx:id="startTime" defaultColor="#f5d96b" prefHeight="60.0" prefWidth="225.0" promptText="Start Time" style="-fx-background-color: white;" stylesheets="@book-room.css" />
                     </children>
                 </VBox>
-                <VBox alignment="CENTER" layoutX="874.0" layoutY="200.0" prefHeight="200.0" prefWidth="100.0" spacing="30.0" GridPane.columnIndex="3" GridPane.rowIndex="2">
+                <VBox alignment="CENTER" layoutX="874.0" layoutY="200.0" prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="3" GridPane.rowIndex="2">
                     <children>
-                        <JFXTimePicker fx:id="endTime" defaultColor="#f5d96b" onAction="#fieldsEntered" prefHeight="53.0" prefWidth="205.0" promptText="End Time" style="-fx-background-color: white;" stylesheets="@book-room.css" />
+                  <Label text="End time:" textFill="#f5d96b">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </Label>
+                        <JFXTimePicker fx:id="endTime" defaultColor="#f5d96b" onAction="#fieldsEntered" prefHeight="60.0" prefWidth="225.0" promptText="End Time" style="-fx-background-color: white;" stylesheets="@book-room.css" />
                     </children>
                 </VBox>
-            <JFXButton fx:id="viewSchedule" onAction="#switchToTable" text="View Room Schedule" textFill="#f5d96b" GridPane.columnIndex="2" GridPane.columnSpan="2147483647" GridPane.halignment="CENTER" GridPane.rowIndex="5" GridPane.valignment="CENTER">
+            <JFXButton fx:id="viewSchedule" onAction="#switchToTable" prefHeight="60.0" prefWidth="304.0" style="-fx-border-color: #f5d96b; -fx-border-radius: 100; -fx-border-width: 2; -fx-background-radius: 100;" stylesheets="@book-room.css" text="View Room Schedule" textFill="WHITE" GridPane.columnIndex="2" GridPane.columnSpan="2147483647" GridPane.halignment="CENTER" GridPane.rowIndex="5" GridPane.valignment="CENTER">
                <font>
-                  <Font size="25.0" />
+                  <Font size="24.0" />
                </font>
                <GridPane.margin>
-                  <Insets />
+                  <Insets top="30.0" />
                </GridPane.margin>
             </JFXButton>
-            <GridPane GridPane.columnIndex="2" GridPane.columnSpan="2" GridPane.rowIndex="3">
-              <columnConstraints>
-                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-              </columnConstraints>
-              <rowConstraints>
-                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-              </rowConstraints>
-               <children>
-                      <JFXComboBox fx:id="availableRooms" focusColor="#f5d96b" onAction="#highlightFromDropdown" prefHeight="54.0" prefWidth="270.0" promptText="Select Room" stylesheets="@book-room.css" unFocusColor="#f5d96b" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="1">
-                          <effect>
-                              <ColorAdjust contrast="-1.0" />
-                          </effect>
-                  </JFXComboBox>
-                        <JFXDatePicker fx:id="datePicker" defaultColor="#f5d96b" onAction="#fieldsEntered" prefHeight="59.0" prefWidth="198.0" promptText="Start Date" style="-fx-background-color: white;" stylesheets="@book-room.css" GridPane.columnSpan="2" GridPane.halignment="CENTER" />
-               </children>
-            </GridPane>
             <Label fx:id="error" text="" textFill="#f5d96b" GridPane.columnIndex="2" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="5" GridPane.valignment="TOP">
                <font>
                   <Font name="Avenir Book" size="18.0" />
                </font>
             </Label>
-            <JFXButton fx:id="viewWeekly" buttonType="RAISED" disable="false" onAction="#switchToWeekly" prefHeight="66.0" prefWidth="180.0" ripplerFill="WHITE" style="-fx-border-color: #f5d96b; -fx-border-radius: 100; -fx-border-width: 2; -fx-background-radius: 100;" stylesheets="@book-room.css" text="View Weekly Schedule" textFill="#f5d96b" GridPane.columnIndex="2" GridPane.columnSpan="2147483647" GridPane.halignment="CENTER" GridPane.rowIndex="6">
+            <JFXButton fx:id="viewWeekly" buttonType="RAISED" disable="false" onAction="#switchToWeekly" prefHeight="60.0" prefWidth="304.0" ripplerFill="WHITE" style="-fx-border-color: #f5d96b; -fx-border-radius: 100; -fx-border-width: 2; -fx-background-radius: 100;" stylesheets="@book-room.css" text="View Weekly Schedule" textFill="WHITE" GridPane.columnIndex="2" GridPane.columnSpan="2147483647" GridPane.halignment="CENTER" GridPane.rowIndex="6" GridPane.valignment="CENTER">
                <font>
-                  <Font size="14.0" />
+                  <Font size="24.0" />
                </font>
                <GridPane.margin>
-                  <Insets bottom="12.0" />
+                  <Insets bottom="25.0" />
                </GridPane.margin>
             </JFXButton>
+            <Label fx:id="roomName" alignment="TOP_CENTER" contentDisplay="CENTER" prefHeight="48.0" prefWidth="427.0" text="Select a Room" textFill="#f5d96b" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="TOP">
+               <font>
+                  <Font size="24.0" />
+               </font>
+               <GridPane.margin>
+                  <Insets right="40.0" />
+               </GridPane.margin>
+            </Label>
+            <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="3">
+               <children>
+                  <Label text="Choose Date:" textFill="#f5d96b">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </Label>
+                        <JFXDatePicker fx:id="datePicker" defaultColor="#f5d96b" onAction="#fieldsEntered" prefHeight="60.0" prefWidth="225.0" promptText="Start Date" style="-fx-background-color: white;" stylesheets="@book-room.css" />
+               </children>
+            </VBox>
+            <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="3" GridPane.rowIndex="3">
+               <children>
+                  <Label text="Choose Room:" textFill="#f5d96b">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </Label>
+                      <JFXComboBox fx:id="availableRooms" focusColor="#f5d96b" onAction="#highlightFromDropdown" prefHeight="60.0" prefWidth="225.0" promptText="Select Room" stylesheets="@book-room.css" unFocusColor="#f5d96b" />
+               </children>
+            </VBox>
             </children>
         </GridPane>
     </children>

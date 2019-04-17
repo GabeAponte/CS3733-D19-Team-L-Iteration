@@ -21,9 +21,7 @@ import twitter4j.Twitter;
 import twitter4j.TwitterException;
 import twitter4j.TwitterFactory;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
+import java.util.*;
 
 public class Singleton {
 
@@ -49,32 +47,35 @@ public class Singleton {
         kioskID = ""; //kiosk node ID
         typePathfind = 0; //which strategy selection for pathfinding
         isAdmin = false; //is signedin employee an admin
-        timeoutSec = 500000; //how long before timeout (in ms) 1000 = 1 second
+        timeoutSec = 4500000; //how long before timeout (in ms) 1000 = 1 second
         doPopup = true; //should be more appropriately named initializeClock
         txt = new Text();
     }
 
     public void populateTweets(){
         List<Status> statuses = searchtweets();
-        if(statuses != null) {
-            for (Status status : statuses) {
+        statuses = null;
+        if(statuses==null || statuses.size() == 0) {
+            /*for (Status status : statuses) {
                 Text temp = new Text(status.getText());
                 txt = new Text(txt.getText() + "     " + temp.getText());
-            }
-            return;
+            }*/
+        }else{
+            txt = new Text("");
         }
-        txt = new Text("No Tweets Today :)");
+        txt = new Text("");
     }
 
     private static List<Status> searchtweets() {
         // The factory instance is re-useable and thread safe.
+        List<Status> statuses;
         try {
             Twitter twitter = TwitterFactory.getSingleton();
-            List<Status> statuses = twitter.getHomeTimeline();
+            statuses = twitter.getHomeTimeline();
             return statuses;
         } catch (TwitterException e){
             System.out.println("ERROR");
-            System.out.println(e.getCause());
+            //System.out.println(e.getCause());
             return null;
         }
     }
@@ -243,10 +244,21 @@ public class Singleton {
     Changes out the current node with the ID with the new passed in loc
      */
     public void modifyNode(Location oldLoc, Location newLoc) {
-        data.remove(lookup.get(oldLoc));
+        ArrayList<Edge> edges = oldLoc.getEdges();
+        for (Edge e : edges) {
+            if (e.getEndNode().getLocID().equals(oldLoc)) {
+                e.setEndNode(newLoc);
+            }
+            else {
+                e.setStartNode(newLoc);
+            }
+            newLoc.addEdge(e);
+        }
+        data.remove(lookup.get(oldLoc.getLocID()));
         data.add(newLoc);
-        lookup.replace(oldLoc.getLocID(), newLoc);
 
+        lookup.remove(oldLoc.getLocID(), oldLoc);
+        lookup.put(newLoc.getLocID(), newLoc);
     }
 
     /*
@@ -259,8 +271,12 @@ public class Singleton {
                 return;
             }
         }
+        System.out.println(start.getLocID());
+        System.out.println(end.getLocID());
+        Edge e1 = new Edge(end.getLocID()+"_"+start.getLocID(), end, start);
         lookup.get(start.getLocID()).addEdge(e);
-        lookup.get(end.getLocID()).addEdge(e);
+        lookup.get(end.getLocID()).addEdge(e1);
+        System.out.println(e.getEdgeID());
     }
 
     /*
@@ -272,14 +288,14 @@ public class Singleton {
         Location second = lookup.get(edge.getEndID());
         ArrayList<Edge> toDel = new ArrayList<Edge>();
         for (Edge e: focus.getEdges()) {
-            if (e.getStartID().equals(focus.getLocID()) || e.getEndID().equals(focus.getLocID())) {
+            if (e.getEdgeID().equals(edge.getEdgeID())) {
                 toDel.add(e);
             }
         }
         focus.removeEdge(toDel);
         toDel.clear();
         for (Edge e : second.getEdges()) {
-            if (e.getStartID().equals(focus.getLocID()) || e.getEndID().equals(focus.getLocID())) {
+            if (e.getEdgeID().equals(edge.getEdgeID()) || (e.getEndID()+"_"+e.getStartID()).equals(edge.getEdgeID())) {
                 toDel.add(e);
             }
         }

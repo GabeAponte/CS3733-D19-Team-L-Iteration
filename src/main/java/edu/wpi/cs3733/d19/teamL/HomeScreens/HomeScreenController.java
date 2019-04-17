@@ -74,7 +74,6 @@ public class HomeScreenController {
 
         Weather weatherBoy = new Weather();
         String icon = weatherBoy.getIcon();
-        //clear-day, clear-night, rain, snow, sleet, wind, fog, cloudy, partly-cloudy-day, or partly-cloudy-night
         if(icon.contains("clear")){
             icon = "weatherIcons/SunImage.png";
         } else if(icon.contains("rain") || icon.contains("sleet")){
