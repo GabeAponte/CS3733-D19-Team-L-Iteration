@@ -62,6 +62,8 @@ public class EditLocationController {
     @FXML
     Button downloadNode;
 
+    @FXML
+    private Label thisMap;
 
     @FXML
     Button downloadEdge;
@@ -138,6 +140,7 @@ public class EditLocationController {
         single.setLastTime();
         Map.setImage(new Image("/SoftEng_UI_Mockup_Pics/00_thegroundfloor.png"));
         floorSelected = 0;
+        changeMapLabel();
         if(displayingNodes){
             eraseNodes();
             drawNodes();
@@ -149,6 +152,7 @@ public class EditLocationController {
         single.setLastTime();
         Map.setImage(new Image("/SoftEng_UI_Mockup_Pics/00_thelowerlevel1.png"));
         floorSelected = -1;
+        changeMapLabel();
         if(displayingNodes) {
             eraseNodes();
             drawNodes();
@@ -160,6 +164,7 @@ public class EditLocationController {
         single.setLastTime();
         Map.setImage(new Image("/SoftEng_UI_Mockup_Pics/00_thelowerlevel2.png"));
         floorSelected = -2;
+        changeMapLabel();
         if(displayingNodes){
             eraseNodes();
             drawNodes();
@@ -171,6 +176,7 @@ public class EditLocationController {
         single.setLastTime();
         Map.setImage(new Image("/SoftEng_UI_Mockup_Pics/01_thefirstfloor.png"));
         floorSelected = 1;
+        changeMapLabel();
         if(displayingNodes){
             eraseNodes();
             drawNodes();
@@ -182,6 +188,7 @@ public class EditLocationController {
         single.setLastTime();
         Map.setImage(new Image("/SoftEng_UI_Mockup_Pics/02_thesecondfloor.png"));
         floorSelected = 2;
+        changeMapLabel();
         if(displayingNodes){
             eraseNodes();
             drawNodes();
@@ -193,6 +200,7 @@ public class EditLocationController {
         single.setLastTime();
         Map.setImage(new Image("/SoftEng_UI_Mockup_Pics/03_thethirdfloor.png"));
         floorSelected = 3;
+        changeMapLabel();
         if(displayingNodes){
             eraseNodes();
             drawNodes();
@@ -261,6 +269,7 @@ public class EditLocationController {
         gesturePane.setHBarEnabled(false);
         gesturePane.setVBarEnabled(false);
         gesturePane.setFitHeight(true);
+        thisMap.toFront();
 
         gesturePane.setOnMousePressed(mouseClickedOnMap);
 
@@ -324,6 +333,38 @@ public class EditLocationController {
         }
         else {
             return "L2";
+        }
+    }
+
+
+    @FXML
+    private void changeMapLabel() {
+        if (floorNum().equals("L2")){
+            thisMap.setText("Lower Level 2");
+        }
+
+        if (floorNum().equals("L1")){
+            thisMap.setText("Lower Level 1");
+        }
+
+        if (floorNum().equals("G")){
+            thisMap.setText("Ground Floor");
+        }
+
+        if (floorNum().equals("1")){
+            thisMap.setText("Floor 1");
+        }
+
+        if (floorNum().equals("2")){
+            thisMap.setText("Floor 2");
+        }
+
+        if (floorNum().equals("3")){
+            thisMap.setText("Floor 3");
+        }
+
+        if (floorNum().equals("4")){
+            thisMap.setText("Flexible Workspace");
         }
     }
 
