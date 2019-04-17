@@ -6,7 +6,6 @@ import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXDatePicker;
 import com.jfoenix.controls.JFXTimePicker;
-import edu.wpi.cs3733.d19.teamL.Map.ImageInteraction.SceneGestures;
 import edu.wpi.cs3733.d19.teamL.Singleton;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
@@ -88,13 +87,11 @@ public class BookRoomController {
     ArrayList<String> allRooms = new ArrayList<String>();
     ArrayList<Boolean> availRooms = new ArrayList<Boolean>();
     ArrayList<Polygon> flexSpaces = new ArrayList<Polygon>();
-    private SceneGestures sceneGestures;
     private ArrayList<RoomDisplay> DisplayRooms = new ArrayList<RoomDisplay>();
 
     public void initialize() {
         sim = new VisualSimulationThread(22);
         sim.start();
-        displayFlexSpaces(sim.getSimulation());
 
         double room1[] = {2230, 1630, 2650, 1630, 2650, 1880, 2230, 1880};
         double room2[] = {2860, 1130, 3040, 1070, 3180, 1430, 2990, 1500};
@@ -120,6 +117,8 @@ public class BookRoomController {
 
         roomImage.fitWidthProperty().bind(imagePane.widthProperty());
         roomImage.fitHeightProperty().bind(imagePane.heightProperty());
+
+        displayFlexSpaces(sim.getSimulation());
 
         startTime.setValue(LocalTime.now().plusMinutes(1));
         endTime.setValue(LocalTime.now().plusHours(1).plusMinutes(1));

@@ -147,7 +147,7 @@ public class ServiceRequestTable  {
         this.completionTime = endSimpleDate.format(endDate);
         this.creationDate = creationDate;
         this.completionDate = completionDate;
-        this.location = location;
+        //this.location = location;
         this.destination = destination;
         this.medicineType = medicineType;
         this.deliveryTime = deliveryTime;
@@ -340,7 +340,7 @@ public class ServiceRequestTable  {
     }
 
     //externalTrans
-    public ServiceRequestTable(String requestID, int k, String assignedEmployee, String fulfilled, String location, String creationTime, String completionTime, String comment, String type, String destination, String phoneNumber, String creationDate, String completionDate) {
+    public ServiceRequestTable(String requestID, int k, String assignedEmployee, String fulfilled, String startLocation, String creationTime, String completionTime, String comment, String type, String endLocation, String phoneNumber, String creationDate, String completionDate) {
         int milTime = Integer.parseInt(creationTime);
         int endMilTime = Integer.parseInt(completionTime);
 
@@ -371,14 +371,14 @@ public class ServiceRequestTable  {
         this.completionTime = endSimpleDate.format(endDate);
         this.creationDate = creationDate;
         this.completionDate = completionDate;
-        this.location = location;
+        this.startLocation = startLocation;
         this.type = type;
         this.phoneNumber = phoneNumber;
-        this.destination = destination;
+        this.endLocation = endLocation;
     }
 
    //audio visual
-   public ServiceRequestTable(String requestID, String assignedEmployee, String fulfilled, String location, String creationTime, String completionTime, String comment, String destination, String type, String creationDate, String completionDate) {
+   public ServiceRequestTable(String requestID, String assignedEmployee, String fulfilled, String location, String creationTime, String completionTime, String comment, String name, String type, String creationDate, String completionDate) {
        int milTime = Integer.parseInt(creationTime);
        int endMilTime = Integer.parseInt(completionTime);
 
@@ -405,13 +405,13 @@ public class ServiceRequestTable  {
         this.assignedEmployee = assignedEmployee;
         this.fulfilled = fulfilled;
         this.comment = comment;
-       this.creationTime = startSimpleDate.format(startDate);
-       this.completionTime = endSimpleDate.format(endDate);
+        this.creationTime = startSimpleDate.format(startDate);
+        this.completionTime = endSimpleDate.format(endDate);
         this.creationDate = creationDate;
         this.completionDate = completionDate;
         this.location = location;
         this.type = type;
-        this.destination = destination;
+        this.name = name;
     }
 
     //securityRequest
@@ -691,5 +691,84 @@ public class ServiceRequestTable  {
 
     public void setThreatLevel(String threatLevel) {
         this.threatLevel = threatLevel;
+    }
+
+    @Override
+    public String toString(){
+        String result = "";
+        if(requestID != null){
+            result += "Request ID: " + requestID + "\n";
+        }
+        if(creationTime != null) {
+            result += "Creation Time: " + creationTime + "\n";
+        }
+        if(creationDate != null){
+            result += "Creation Date: " + creationDate + "\n";
+        }
+        if(location != null){
+            result += "Location: " + location + "\n";
+        }
+        if(type != null){
+            result += "Type: " + type + "\n";
+        }
+        if(startLocation != null){
+            result += "Start Location: " + startLocation + "\n";
+        }
+        if(phoneNumber != null){
+            result += "Phone Number: " + phoneNumber + "\n";
+        }
+        if(destination != null){
+            result += "Destination: " + destination + "\n";
+        }
+        if(receiverName != null){
+            result += "Recipient: " + receiverName + "\n";
+        }
+        if(flowerName != null){
+            result += "Flower Name: " + flowerName + "\n";
+        }
+        if(device != null){
+            result += "Device: " + device + "\n";
+        }
+        if(problem != null){
+            result += "Problem: " + problem + "\n";
+        }
+        if(language != null){
+            result += "Language: " + language + "\n";
+        }
+        if(level != null){
+            result += "Competency: " + level + "\n";
+        }
+        if(interpreters != null){
+            result += "Interpreters: " + interpreters + "\n";
+        }
+        if(isHazard != null){
+            result += "Is a Hazard: " + isHazard + "\n";
+        }
+        if(medicineType != null){
+            result += "Type of Medicine: " + medicineType + "\n";
+        }
+        if(deliveryTime != null){
+            result += "Delivery Time: " + deliveryTime + "\n";
+        }
+        if(ammount != null){
+            result += "Amount of Medicine: " + ammount + "\n";
+        }
+        if(urgenecyLevel != null){
+            result += "Urgency Level: " + urgenecyLevel + "\n";
+        }
+        if(personDesc != null){
+            result += "Desciption of Suspect: " + personDesc + "\n";
+        }
+        if(denomination != null){
+            result += "Denomination: " + denomination + "\n";
+        }
+        if(threatLevel != null){
+            result += "Threat Level: " + threatLevel + "\n";
+        }
+        if(comment != null){
+            result += "Comment: " + comment + "\n";
+        }
+
+        return result;
     }
 }

@@ -112,6 +112,30 @@ public class EmployeeAccess extends DBAccess {
 
     /**ANDREW MADE THIS
      *  returns the fields of a particular employee in an arraylist
+     * @param username
+     * @return
+     */
+    public String getEmpEmail(String username){
+        String sql = "SELECT email FROM employee where username = ?";
+        //noinspection Convert2Diamond
+        ArrayList<String> data = new ArrayList<String>();
+        try (Connection conn = this.connect();
+             PreparedStatement pstmt = conn.prepareStatement(sql)){
+            pstmt.setString(1, username);
+            ResultSet rs = pstmt.executeQuery();
+            while (rs.next()) {
+                return rs.getString("email");
+            }
+
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+
+        return "";
+    }
+
+    /**ANDREW MADE THIS
+     *  returns the fields of a particular employee in an arraylist
      * @param employeeID
      * @return
      */
@@ -168,6 +192,7 @@ public class EmployeeAccess extends DBAccess {
                 data.add(rs.getString("lastName"));
                 data.add(rs.getString("nickname"));
                 data.add(rs.getString("email"));
+                data.add(rs.getString("username"));
                 list.add(data);
             }
             return list;
@@ -358,11 +383,56 @@ public class EmployeeAccess extends DBAccess {
                     return image;
                 }
             }
-            System.out.println("exit loop");
         } catch (Exception e) {
             e.printStackTrace();
         }
         return null;
+    }
+
+    /**@author Nathan
+     * Gets all images from the database
+     * @return arrayList of images from database
+     */
+    public ArrayList<BufferedImage> getEmpImgs(){
+        String sql = "select image from employee";
+        ArrayList<BufferedImage> bi = new ArrayList<BufferedImage>();
+        try (Connection conn = this.connect();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            ResultSet rs = pstmt.executeQuery();
+            while(rs.next() && rs != null){
+                if(rs.getBinaryStream("image") == null){
+                    continue;
+                }
+                InputStream in = rs.getBinaryStream("image");
+                BufferedImage image = ImageIO.read(in);
+                bi.add(image);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return bi;
+    }
+
+    /**@author Nathan
+     * Gets all images from the database
+     * @return arrayList of images from database
+     */
+    public ArrayList<String> getEmpsWithImg(){
+        String sql = "select username, image from employee";
+        ArrayList<String> bi = new ArrayList<String>();
+        try (Connection conn = this.connect();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            ResultSet rs = pstmt.executeQuery();
+            while(rs.next() && rs != null){
+                if(rs.getBinaryStream("image") == null){
+                    continue;
+                }
+                bi.add(rs.getString("username"));
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return bi;
     }
 
     /**Andrew made this for testing

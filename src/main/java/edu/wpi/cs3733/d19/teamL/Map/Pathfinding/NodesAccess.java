@@ -416,7 +416,7 @@ public class NodesAccess extends DBAccess {
     }
 
     public ArrayList<String> getValidITLocations(String theFloor){
-        String sql = "SELECT * from nodes where (nodeType != \"HALL\") and (nodeType != \"STAI\") and (nodeType != \"ELEV\") and (nodeType != \"REST\") and (nodeType != \"BATH\") and (nodeType != \"EXIT\") and floor = ?;";
+        String sql = "SELECT * from nodes where (nodeType != \"STAI\") and (nodeType != \"ELEV\") and (nodeType != \"REST\") and (nodeType != \"BATH\") and (nodeType != \"EXIT\") and floor = ?;";
         ArrayList<String> data = new ArrayList<String>();
         try (Connection conn = this.connect();
              PreparedStatement pstmt = conn.prepareStatement(sql)){

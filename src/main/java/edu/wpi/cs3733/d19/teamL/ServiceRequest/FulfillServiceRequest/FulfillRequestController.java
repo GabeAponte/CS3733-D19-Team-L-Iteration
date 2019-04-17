@@ -3,6 +3,7 @@ package edu.wpi.cs3733.d19.teamL.ServiceRequest.FulfillServiceRequest;
 import edu.wpi.cs3733.d19.teamL.Account.EmployeeAccess;
 import edu.wpi.cs3733.d19.teamL.HomeScreens.HomeScreenController;
 import edu.wpi.cs3733.d19.teamL.ServiceRequest.ServiceRequestDBAccess.ServiceRequestAccess;
+import edu.wpi.cs3733.d19.teamL.ServiceRequest.ServiceRequestThreads.ServiceRequestThread;
 import edu.wpi.cs3733.d19.teamL.Singleton;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
@@ -29,7 +30,6 @@ public class FulfillRequestController {
     @FXML
     private Button back;
 
-
     @FXML
     private ToggleButton fulfill;
 
@@ -37,10 +37,15 @@ public class FulfillRequestController {
     private Button submit;
 
     @FXML
+    private Label assignLabel;
+
+    @FXML
     private JFXComboBox<String> staffMember;
 
     private int rid;
     private String table = "";
+    private ServiceRequestTable srt;
+    String field;
     @SuppressWarnings("Duplicates")
 
     Timeline timeout;
@@ -80,24 +85,16 @@ public class FulfillRequestController {
         }));
         timeout.setCycleCount(Timeline.INDEFINITE);
         timeout.play();
-        submit.setDisable(true);
 
     }
     @FXML
     /**@author Gabe
-     * Returns user to the Logged In Home screen when the back button is pressed
+     * Returns user to the Active Requests screen when the back button is pressed
      */
     private void backPressed() throws IOException {
         timeout.stop();
-        Singleton single = Singleton.getInstance();
-        single.setLastTime();
-        FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("ActiveServiceRequests.fxml"));
-        Parent roots = loader.load();
-
-        Scene scene = new Scene(roots);
-        Stage thestage = (Stage) back.getScene().getWindow();
-        //Show scene 2 in new window
-        thestage.setScene(scene);
+        Stage stage = (Stage) submit.getScene().getWindow();
+        stage.close();
     }
 
     @FXML
@@ -107,7 +104,11 @@ public class FulfillRequestController {
         } else {
             submit.setDisable(true);
         }
+        if(staffMember.getValue() != null){
+            assignLabel.setText("Assigned To:");
+        }
     }
+
 
     @FXML
     public void getRequestID(TreeItem<ServiceRequestTable> request) {
@@ -116,7 +117,9 @@ public class FulfillRequestController {
         theRequest = request;
     }
 
-    public void setRid(int rid, String table){
+    public void setRid(ServiceRequestTable servT, String table){
+        int rid = Integer.parseInt(servT.getRequestID());
+        srt = servT;
         Singleton single = Singleton.getInstance();
         single.setLastTime();
         this.rid = rid;
@@ -129,7 +132,7 @@ public class FulfillRequestController {
         }else if(table.equals("External Transportation")){
             this.table = "externalTransportationRequest";
         }else if(table.equals("Florist Delivery")){
-            this.table = "floristDelivery";
+            this.table = "floristDeliveryRequest";
         }else if(table.equals("IT")){
             this.table = "ITRequest";
         }else if(table.equals("Language Assistance")){
@@ -145,7 +148,6 @@ public class FulfillRequestController {
         }
 
         EmployeeAccess ea = new EmployeeAccess();
-        String field = "";
         if (this.table.equals("audioVisualRequest")) {
             field = "Audio Visual";
         } else if (this.table.equals("externalTransportationRequest")) {
@@ -171,12 +173,40 @@ public class FulfillRequestController {
         }
         ArrayList<ArrayList<String>> list = ea.getEmployees("department", field);
         for (int i = 0; i < list.size(); i++) {
-            staffMember.getItems().add(list.get(i).get(0));
+            staffMember.getItems().add(list.get(i).get(4).trim() + " " + list.get(i).get(5).trim() + " (" + list.get(i).get(8).trim() + ")");
         }
+        if(srt.getAssignedEmployee() != null) {
+            staffMember.setValue(srt.getAssignedEmployee());
+            assignLabel.setText("Assigned To:");
+
+        }
+        submit.setText("Notify");
+        open();
         if(!single.isIsAdmin()){
-            field = ea.getEmployeeInformation(single.getUsername()).get(1);
-            staffMember.setValue(ea.getEmployeeInformation(single.getUsername()).get(0));
+            //fulfill.setSelected(true);
+            //fulfill.setDisable(true);
+            submit.setText("Submit");
             staffMember.setDisable(true);
+            submit.setDisable(true);
+        }
+    }
+
+    @FXML
+    private void activateSubmit(){
+        Singleton single = Singleton.getInstance();
+        single.setLastTime();
+        if(single.isIsAdmin()) {
+            if (fulfill.isSelected()) {
+                submit.setText("Submit");
+            } else {
+                submit.setText("Notify");
+            }
+        } else {
+            if(fulfill.isSelected()){
+                submit.setDisable(false);
+            } else {
+                submit.setDisable(true);
+            }
         }
     }
 
@@ -185,7 +215,11 @@ public class FulfillRequestController {
         Singleton single = Singleton.getInstance();
         single.setLastTime();
         ServiceRequestAccess sra = new ServiceRequestAccess();
-        sra.assignEmployee(this.rid, staffMember.getValue().toString(), this.table);
+        if(single.isIsAdmin() && !fulfill.isSelected()) {
+            sra.assignEmployee(this.rid, staffMember.getValue(), this.table);
+            ServiceRequestThread sThread = new ServiceRequestThread(srt, staffMember.getValue(), field);
+            sThread.start();
+        }
         if(fulfill.isSelected()){
             sra.fulfillRequest(this.rid,this.table);
         }
@@ -205,7 +239,7 @@ public class FulfillRequestController {
         timeout.stop();
         Singleton single = Singleton.getInstance();
         single.setLastTime();
-        FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("ActiveServiceRequests.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("NewActiveServiceRequests.fxml"));
         Parent roots = loader.load();
 
         //Get controller of scene2

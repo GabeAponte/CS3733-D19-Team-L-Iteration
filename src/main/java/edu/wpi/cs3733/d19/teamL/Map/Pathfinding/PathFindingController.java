@@ -8,7 +8,6 @@ import com.jfoenix.controls.JFXComboBox;
 import edu.wpi.cs3733.d19.teamL.HomeScreens.HomeScreenController;
 import edu.wpi.cs3733.d19.teamL.Map.MapLocations.Location;
 import edu.wpi.cs3733.d19.teamL.Map.MapLocations.Path;
-import edu.wpi.cs3733.d19.teamL.Map.ImageInteraction.PanAndZoomPane;
 import edu.wpi.cs3733.d19.teamL.SearchingAlgorithms.*;
 import edu.wpi.cs3733.d19.teamL.Singleton;
 import javafx.animation.*;
@@ -109,9 +108,6 @@ public class PathFindingController {
 
     @FXML
     private JFXButton homebtn;
-
-    @FXML
-    private JFXButton aboutButton;
 
     @FXML
     private Button logOut;
@@ -310,6 +306,7 @@ public class PathFindingController {
         single.setLastTime();
         Map.setImage(new Image("/SoftEng_UI_Mockup_Pics/03_thethirdfloor.png"));
         currentMap = "3";
+        resetRadButts();
         changeMapLabel();
         displayKiosk();
         if(path != null){
@@ -422,6 +419,7 @@ public class PathFindingController {
         }
 //        strategyAlgorithm = strategySelector.getValue();
         direction.setEditable(false);
+        PathFindSubmit.setDisable(true);
 
         kioskConnectedTo.setItems(single.getData());
 
@@ -680,9 +678,6 @@ public class PathFindingController {
 
         direction.setWrapText(true);
 
-
-//        sceneGestures.setDrawPath(circles,lines);
-       // sceneGestures.setDrawPath(circles,lines);
         direction.setDisable(false);
         direction.setEditable(false);
     }
@@ -698,23 +693,21 @@ public class PathFindingController {
         kiosk.setRadius(Math.max(1.5, 1.5f * (gesturePane.getCurrentScale() / 4)));
         kiosk.setStroke(Color.BLUE);
         kiosk.setFill(Color.BLUE);
-        circles.add(kiosk);
-        pathPane.getChildren().add(kiosk);
-        if(currentMap.equals(kioskTemp.getFloor())) {
-            kiosk.setVisible(true);
-            gesturePane.zoomTo(2, new Point2D(kioskTemp.getXcoord() - 1350, kioskTemp.getYcoord() - 2000));
-        }
-        else
-            kiosk.setVisible(false);
         hereLabel.setLayoutX(kioskTemp.getXcoord()*childPane.getWidth()/Map.getImage().getWidth());
         hereLabel.setLayoutY(kioskTemp.getYcoord()*childPane.getHeight()/Map.getImage().getHeight() - 20);
         hereLabel.setText(" You are here ");
         hereLabel.setStyle("-fx-text-fill: WHITE;-fx-font-size: 6; -fx-background-color: BLUE; -fx-border-color: WHITE; -fx-border-width: 2; -fx-min-width: 40;");
-        if(kioskTemp.getFloor().equals(currentMap)){
+        if(currentMap.equals(kioskTemp.getFloor())) {
+            kiosk.setVisible(true);
+            gesturePane.zoomTo(2, new Point2D(kioskTemp.getXcoord() - 1350, kioskTemp.getYcoord() - 2000));
             hereLabel.setVisible(true);
         }
-        else
+        else {
             hereLabel.setVisible(false);
+            kiosk.setVisible(false);
+        }
+        circles.add(kiosk);
+        pathPane.getChildren().add(kiosk);
     }
 
     @FXML
@@ -891,12 +884,18 @@ public class PathFindingController {
                         buttons.add(nBut);
                         nBut.setVisible(true);
                         //Change the display of the button based on which floor you're on
-                        if(currentMap.equals(startNode.getFloor()) || path.getPath().get(i).getFloor().equals(currentMap)) {
+                        if(currentMap.equals(startNode.getFloor())) {
                             nBut.setStyle("-fx-text-fill: WHITE; -fx-font-size: 6; -fx-background-color: GREEN; -fx-border-color: WHITE; -fx-background-radius: 18; -fx-border-radius: 18; -fx-border-width: 3");
-
+                            //Should handle weird case for displaying button way out in nowhere.
+                            if(!path.getPath().get(i+1).getFloor().equals(currentMap)) {
+                                nBut.setLayoutX((path.getPath().get(floorSwitch2).getXcoord()*childPane.getWidth()/Map.getImage().getWidth()));
+                                nBut.setLayoutY((path.getPath().get(floorSwitch2).getYcoord()*childPane.getHeight()/Map.getImage().getHeight()));
+                            }
                         }
-                        else if(path.getPath().get(i).getFloor().equals(currentMap) && transition.equals(startNode.getFloor())){
+                        else if(!currentMap.equals(startNode.getFloor()) && !currentMap.equals(endNode.getFloor())){
                             nBut.setStyle("-fx-text-fill: WHITE; -fx-font-size: 6; -fx-background-color: GREEN; -fx-border-color: WHITE; -fx-background-radius: 18; -fx-border-radius: 18; -fx-border-width: 3");
+                            nBut.setLayoutX((path.getPath().get(floorSwitch2).getXcoord()*childPane.getWidth()/Map.getImage().getWidth()));
+                            nBut.setLayoutY((path.getPath().get(floorSwitch2).getYcoord()*childPane.getHeight()/Map.getImage().getHeight()));
                         }
                         else {
                             //Modified the return to start button position.
@@ -916,6 +915,7 @@ public class PathFindingController {
             }
             //Creates the start and end nodes to display them and sets colors.
             Circle StartCircle = new Circle();
+            Circle kioskDis = new Circle();
 
             //Setting the properties of the circle
             StartCircle.setCenterX(startNode.getXcoord()*childPane.getWidth()/Map.getImage().getWidth());
@@ -932,6 +932,11 @@ public class PathFindingController {
                 startLabel.setStyle("-fx-text-fill: WHITE;-fx-font-size: 6; -fx-background-color: BLUE; -fx-border-color: WHITE; -fx-border-width: 2; -fx-min-width: 40;");
             }
             else {
+                kioskDis.setCenterX(kioskTemp.getXcoord()*childPane.getWidth()/Map.getImage().getWidth());
+                kioskDis.setCenterY(kioskTemp.getYcoord()*childPane.getHeight()/Map.getImage().getHeight());
+                kioskDis.setRadius(Math.max(1.5, 1.5f * (gesturePane.getCurrentScale() / 4)));
+                kioskDis.setStroke(Color.BLUE);
+                kioskDis.setFill(Color.BLUE);
                 StartCircle.setStroke(Color.GREEN);
                 StartCircle.setFill(Color.GREEN);
                 startLabel.setText(startNode.getLongName());
@@ -941,8 +946,12 @@ public class PathFindingController {
                 StartCircle.setVisible(false);
                 startLabel.setVisible(false);
             }
+            else if(currentMap.equals(kioskTemp.getFloor())) {
+                kioskDis.setVisible(true);
+            }
             else {
                 startLabel.setVisible(true);
+                kioskDis.setVisible(false);
             }
 
             pathPane.getChildren().add(StartCircle);
@@ -1086,8 +1095,11 @@ public class PathFindingController {
         if (Filter.getValue() == ("Services")) {
             type = "SERV";
         }
-        if (Filter.getValue() == ("Food and Retail")) {
-            type = "RETL";
+        if (Filter.getValue() == ("Food")) {
+            type = "CAFE FOOD VEND";
+        }
+        if (Filter.getValue() == ("Shops")) {
+            type = "GIFT";
         }
         if (Filter.getValue() == ("Restrooms")) {
             type = "REST";
@@ -1133,6 +1145,25 @@ public class PathFindingController {
                 PathFindEndDrop.setItems(noHallEnd);
             }
 
+        } else if (Filter.getValue() == (null) && Floor.getValue() == "All") {
+            if (PathFindStartDrop.getValue() == null) {
+                noHallStart.clear();
+                for (int j = 0; j < single.getData().size(); j++) {
+                    if (!(single.getData().get(j).getNodeType().contains("HALL"))) {
+                        noHallStart.add(single.getData().get(j));
+                    }
+                }
+            }
+            if (PathFindEndDrop.getValue() == null) {
+                PathFindEndDrop.setItems(noHallEnd);
+                noHallEnd.clear();
+                for (int j = 0; j < single.getData().size(); j++) {
+                    if (!(single.getData().get(j).getNodeType().contains("HALL"))) {
+                        noHallEnd.add(single.getData().get(j));
+                    }
+                }
+            }
+
         } else if (Filter.getValue() == (null) && Floor.getValue() != null) {
             if (PathFindStartDrop.getValue() == null) {
                 noHallStart.clear();
@@ -1147,6 +1178,84 @@ public class PathFindingController {
                 noHallEnd.clear();
                 for (int j = 0; j < single.getData().size(); j++) {
                     if (!(single.getData().get(j).getNodeType().contains("HALL")) && (single.getData().get(j).getFloor().equals(pickedFloor))) {
+                        noHallEnd.add(single.getData().get(j));
+                    }
+                }
+            }
+
+            if (PathFindStartDrop.getValue() == null) {
+                PathFindStartDrop.setItems(noHallStart);
+            }
+            if (PathFindEndDrop.getValue() == null) {
+                PathFindEndDrop.setItems(noHallEnd);
+            }
+
+        } else if (Filter.getValue() == "Food" && Floor.getValue() == null) {
+            if (PathFindStartDrop.getValue() == null) {
+                noHallStart.clear();
+                for (int j = 0; j < single.getData().size(); j++) {
+                    if (type.contains((single.getData().get(j).getNodeType()))) {
+                        noHallStart.add(single.getData().get(j));
+                    }
+                }
+            }
+            if (PathFindEndDrop.getValue() == null) {
+                PathFindEndDrop.setItems(noHallEnd);
+                noHallEnd.clear();
+                for (int j = 0; j < single.getData().size(); j++) {
+                    if (type.contains((single.getData().get(j).getNodeType()))) {
+                        noHallEnd.add(single.getData().get(j));
+                    }
+                }
+            }
+
+            if (PathFindStartDrop.getValue() == null) {
+                PathFindStartDrop.setItems(noHallStart);
+            }
+            if (PathFindEndDrop.getValue() == null) {
+                PathFindEndDrop.setItems(noHallEnd);
+            }
+
+        } else if (Filter.getValue() == "Food" && Floor.getValue() == "All") {
+            if (PathFindStartDrop.getValue() == null) {
+                noHallStart.clear();
+                for (int j = 0; j < single.getData().size(); j++) {
+                    if (type.contains((single.getData().get(j).getNodeType()))) {
+                        noHallStart.add(single.getData().get(j));
+                    }
+                }
+            }
+            if (PathFindEndDrop.getValue() == null) {
+                PathFindEndDrop.setItems(noHallEnd);
+                noHallEnd.clear();
+                for (int j = 0; j < single.getData().size(); j++) {
+                    if (type.contains((single.getData().get(j).getNodeType()))) {
+                        noHallEnd.add(single.getData().get(j));
+                    }
+                }
+            }
+
+            if (PathFindStartDrop.getValue() == null) {
+                PathFindStartDrop.setItems(noHallStart);
+            }
+            if (PathFindEndDrop.getValue() == null) {
+                PathFindEndDrop.setItems(noHallEnd);
+            }
+
+        } else if (Filter.getValue() == "Food" && Floor.getValue() != null) {
+            if (PathFindStartDrop.getValue() == null) {
+                noHallStart.clear();
+                for (int j = 0; j < single.getData().size(); j++) {
+                    if (type.contains((single.getData().get(j).getNodeType()))&& (single.getData().get(j).getFloor().equals(pickedFloor))) {
+                        noHallStart.add(single.getData().get(j));
+                    }
+                }
+            }
+            if (PathFindEndDrop.getValue() == null) {
+                PathFindEndDrop.setItems(noHallEnd);
+                noHallEnd.clear();
+                for (int j = 0; j < single.getData().size(); j++) {
+                    if (type.contains((single.getData().get(j).getNodeType()))&& (single.getData().get(j).getFloor().equals(pickedFloor))) {
                         noHallEnd.add(single.getData().get(j));
                     }
                 }
@@ -1370,7 +1479,6 @@ public class PathFindingController {
                 PathFindEndDrop.setItems(noHallEnd);
             }
 
-
         } else if (Filter.getValue() != null && Filter.getValue() != "All" && Floor.getValue() == null) {
             if (PathFindStartDrop.getValue() == null) {
                 noHallStart.clear();
@@ -1465,8 +1573,10 @@ public class PathFindingController {
      */
     private void filter() {
         filterList.add("All");
-        filterList.add("Food and Retail");
+        //filterList.add("Food and Retail");
         filterList.add("Restrooms");
+        filterList.add("Food");
+        filterList.add("Shops");
         filterList.add("Conference Rooms");
         filterList.add("Stairs");
         filterList.add("Elevators");
@@ -1488,7 +1598,6 @@ public class PathFindingController {
         int temp = 0;
 
         double scaleRatio = gesturePane.getWidth() / Map.getImage().getWidth();
-       // Point2D point = sceneGestures.getImageLocation();
 
         for(int i=0; i<single.getData().size(); i++){
             //if nodetype contains keyword
@@ -1594,8 +1703,6 @@ public class PathFindingController {
             //printPath(path.getPath());
             direction.setText(printPath(path.getPath()));
 
-
-        //    sceneGestures.setDrawPath(circles,lines);
         }
         //do not display any path
     }
@@ -2060,6 +2167,9 @@ public class PathFindingController {
     //Alex
     @FXML
     public void submitSearchField(Event ae) {
+        Filter.setValue(null);
+        Floor.setValue(null);
+        noHall();
         if(PathFindStartDrop.getValue() == null && startNode != kioskTemp){
             if(nameToLoc.get(searchField.getText()) != null) {
                 PathFindStartDrop.setValue(nameToLoc.get(searchField.getText()));
@@ -2074,23 +2184,4 @@ public class PathFindingController {
         }
     }
 
-
-    /**
-     * Grace made this - goes to the about page
-     */
-    @FXML
-    private void AboutPress() throws IOException {
-        timeout.stop();
-        Singleton single = Singleton.getInstance();
-        single.setLastTime();
-        single.setDoPopup(true);
-        FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("AboutPage_fancy.fxml"));
-
-        Parent sceneMain = loader.load();
-
-        Stage thisStage = (Stage) aboutButton.getScene().getWindow();
-
-        Scene newScene = new Scene(sceneMain);
-        thisStage.setScene(newScene);
-    }
 }

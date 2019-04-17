@@ -152,11 +152,12 @@ public class SanitationServiceRequestController {
      * submits the request fields to be stored in the database
      */
     @FXML
-    private void makeRequest(){
+    private void makeRequest() throws IOException{
         Singleton single = Singleton.getInstance();
         single.setLastTime();
         SanitationAccess sa = new SanitationAccess();
         sa.makeRequest(location1.getValue().getLocID(), comment1.getText(), typeBox1.getValue(), urgencyLevel1.getValue());
+        backPressed();
     }
 
     //Nathan - changes screen to service sub screen, param "service" determines label on sub screen
