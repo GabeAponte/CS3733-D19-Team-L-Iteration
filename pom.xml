@@ -14,4 +14,14 @@
         <artifactId>opencv</artifactId>
         <version>4.1.0-0</version>
     </dependency>
+    <dependency>
+        <groupId>com.google.cloud</groupId>
+        <artifactId>google-cloud-speech</artifactId>
+        <version>0.80.0-beta</version>
+    </dependency>
+    <dependency>
+        <groupId>com.google.cloud</groupId>
+        <artifactId>google-cloud-storage</artifactId>
+        <version>1.66.0</version>
+    </dependency>
 </dependencies>
