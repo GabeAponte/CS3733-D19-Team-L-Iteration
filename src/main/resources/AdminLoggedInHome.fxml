@@ -17,8 +17,11 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720" prefWidth="1280" style="-fx-background-color: #012D5A;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.d19.teamL.HomeScreens.AdminLoggedInHomeController">
-
+<?import javafx.stage.Screen?>
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="${screen.visualBounds.height}" prefWidth="${screen.visualBounds.width}" style="-fx-background-color: #012D5A;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.d19.teamL.HomeScreens.AdminLoggedInHomeController">
+   <fx:define>
+      <Screen fx:factory="getPrimary" fx:id="screen"/>
+   </fx:define>
    <children>
       <VBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
@@ -81,7 +84,7 @@
                               <RowConstraints maxHeight="1.7976931348623157E308" percentHeight="50.0" vgrow="ALWAYS" />
                           </rowConstraints>
                            <children>
-                              <JFXButton fx:id="newAccount" alignment="CENTER" buttonType="RAISED" contentDisplay="TOP" onAction="#SwitchToAddAccountScreen" prefHeight="185.0" prefWidth="432.0" ripplerFill="WHITE" style="-fx-border-radius: 10; -fx-border-width: 5; -fx-border-color: F5D96B; -fx-background-radius: 10;" stylesheets="@HomeButtonStyle.css" text="New Account" textFill="WHITE" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
+                              <JFXButton fx:id="newAccount" alignment="CENTER" buttonType="RAISED" contentDisplay="TOP" onAction="#SwitchToAddAccountScreen" prefHeight="185.0" prefWidth="844.0" ripplerFill="WHITE" style="-fx-border-radius: 10; -fx-border-width: 5; -fx-border-color: F5D96B; -fx-background-radius: 10;" stylesheets="@HomeButtonStyle.css" text="New Account" textFill="WHITE" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
                                  <font>
                                     <Font size="35.0" />
                                  </font>
@@ -92,7 +95,7 @@
                                     <FontAwesomeIconView fill="WHITE" glyphName="USER" size="55" />
                                  </graphic>
                               </JFXButton>
-                              <JFXButton fx:id="editAccount" alignment="CENTER" buttonType="RAISED" contentDisplay="TOP" onAction="#SwitchToEditAccountScreen" prefHeight="185.0" prefWidth="405.0" ripplerFill="WHITE" style="-fx-border-color: F5D96B; -fx-border-radius: 10; -fx-border-width: 5; -fx-background-radius: 10;" stylesheets="@HomeButtonStyle.css" text="Edit Accounts" textFill="WHITE" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
+                              <JFXButton fx:id="editAccount" alignment="CENTER" buttonType="RAISED" contentDisplay="TOP" onAction="#SwitchToEditAccountScreen" prefHeight="185.0" prefWidth="1099.0" ripplerFill="WHITE" style="-fx-border-color: F5D96B; -fx-border-radius: 10; -fx-border-width: 5; -fx-background-radius: 10;" stylesheets="@HomeButtonStyle.css" text="Edit Accounts" textFill="WHITE" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
                                  <font>
                                     <Font size="35.0" />
                                  </font>
@@ -147,7 +150,7 @@
                                     <FontAwesomeIconView fill="WHITE" glyphName="COMMENTING" size="55" />
                                  </graphic>
                               </JFXButton>
-                              <JFXButton fx:id="fufillServiceRequest" buttonType="RAISED" contentDisplay="TOP" onAction="#SwitchToFullfillRequestScreen" prefHeight="185.0" prefWidth="817.0" ripplerFill="WHITE" style="-fx-border-radius: 10; -fx-border-width: 5; -fx-border-color: F5D96B; -fx-background-radius: 10;" stylesheets="@HomeButtonStyle.css" text="Fulfill Request" textFill="WHITE" GridPane.rowIndex="1">
+                              <JFXButton fx:id="fufillServiceRequest" buttonType="RAISED" contentDisplay="TOP" onAction="#SwitchToFullfillRequestScreen" prefHeight="185.0" prefWidth="1180.0" ripplerFill="WHITE" style="-fx-border-radius: 10; -fx-border-width: 5; -fx-border-color: F5D96B; -fx-background-radius: 10;" stylesheets="@HomeButtonStyle.css" text="Fulfill Request" textFill="WHITE" GridPane.rowIndex="1">
                                  <font>
                                     <Font size="35.0" />
                                  </font>

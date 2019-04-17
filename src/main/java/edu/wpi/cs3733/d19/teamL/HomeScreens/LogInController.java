@@ -151,7 +151,7 @@ public class LogInController {
             wp.setDisplayDebugInfo(true);
             wp.setImageSizeDisplayed(true);
             wp.setMirrored(true);
-            JFrame window = new JFrame("Hold still for 5 seconds");
+            JFrame window = new JFrame("Hold still for 2.5 seconds");
             window.add(wp);
             window.setResizable(true);
             window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -159,7 +159,7 @@ public class LogInController {
             window.setLocationRelativeTo(null);
             window.setVisible(true);
             try {
-                sleep(5000);
+                sleep(2500);
             } catch (InterruptedException e) {
                 System.out.println(e);
                 System.out.println(e.getMessage());
