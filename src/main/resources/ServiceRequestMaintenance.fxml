@@ -4,6 +4,7 @@
 <?import com.jfoenix.controls.JFXTextArea?>
 <?import com.jfoenix.controls.JFXTextField?>
 <?import com.jfoenix.controls.JFXToolbar?>
+<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.RadioButton?>
@@ -31,19 +32,22 @@
                      </image>
                   </ImageView>
                </left>
-               <right>
-                  <JFXButton fx:id="Back" buttonType="RAISED" onAction="#backPressed" prefHeight="75.0" prefWidth="150.0" style="-fx-background-radius: 50;" text="Back" BorderPane.alignment="CENTER">
-                     <font>
-                        <Font size="40.0" />
-                     </font>
-                  </JFXButton>
-               </right>
                <VBox.margin>
                   <Insets />
                </VBox.margin>
                <padding>
                   <Insets left="10.0" right="10.0" />
                </padding>
+               <right>
+                  <JFXButton fx:id="Back" alignment="CENTER" buttonType="RAISED" contentDisplay="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" onAction="#backPressed" prefHeight="75.0" prefWidth="87.0" style="-fx-background-radius: 100000; -fx-border-color: #012D5A; -fx-border-radius: 100; -fx-border-width: 2;" stylesheets="@toolbarIcons.css" text=" " textFill="WHITE" BorderPane.alignment="CENTER">
+                     <font>
+                        <Font size="20.0" />
+                     </font>
+                     <graphic>
+                        <FontAwesomeIconView fill="#012d5a" glyphName="ARROW_LEFT" size="40" wrappingWidth="36.28559112548828" />
+                     </graphic>
+                  </JFXButton>
+               </right>
             </JFXToolbar>
             <JFXToolbar prefHeight="10.0" prefWidth="1280.0" style="-fx-background-color: F5D96B;" />
             <GridPane alignment="CENTER" hgap="25.0" prefHeight="264.0" prefWidth="1280.0" vgap="50.0" VBox.vgrow="ALWAYS">
@@ -92,7 +96,7 @@
                         <Insets left="200.0" right="200.0" />
                      </GridPane.margin>
                   </JFXTextArea>
-                  <JFXButton fx:id="Submit" buttonType="RAISED" onAction="#submitClicked" prefHeight="7.0" prefWidth="138.0" style="-fx-border-color: F5D96B; -fx-border-width: 2; -fx-border-radius: 50; -fx-background-radius: 50;" text="Submit" textFill="WHITE" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="5" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
+                  <JFXButton fx:id="Submit" buttonType="RAISED" onAction="#submitClicked" prefHeight="61.0" prefWidth="159.0" style="-fx-border-color: F5D96B; -fx-border-width: 2; -fx-border-radius: 50; -fx-background-radius: 50;" stylesheets="@book-room.css" text="Submit" textFill="WHITE" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="5" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
                      <font>
                         <Font size="30.0" />
                      </font>

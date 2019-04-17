@@ -7,7 +7,7 @@ import edu.wpi.cs3733.d19.teamL.Singleton;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-public class AStarStrategy extends  TemplatePathFinder implements PathfindingStrategy {
+public class AStarStrategy extends TemplatePathFinder implements PathfindingStrategy {
 
     private HashMap<String, Location> lookup;
     private Location start, end;

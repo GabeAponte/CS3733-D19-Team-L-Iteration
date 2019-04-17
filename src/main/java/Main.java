@@ -19,7 +19,7 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
-        Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getClassLoader().getResource("LogIn.fxml")));
+        Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getClassLoader().getResource("HospitalHome.fxml")));
         primaryStage.setTitle("Team L Iteration 3");
         primaryStage.setScene(new Scene(root));
         //primaryStage.setFullScreen(true);
@@ -34,8 +34,12 @@ public class Main extends Application {
         //ea.deleteRecords();
         //na.readCSVintoTable();
         //ea.readCSVintoTable();
+        System.out.println("Stupid Change");
         single.setData();
         single.populateTweets();
         launch(args);
+
+
+
     }
 }

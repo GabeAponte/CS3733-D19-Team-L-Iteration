@@ -128,6 +128,7 @@ public class AdminLoggedInHomeController {
         Stage theStage = (Stage) bookRoom.getScene().getWindow();
 
         Scene scene = new Scene(sceneMain);
+
         theStage.setScene(scene);
     }
 

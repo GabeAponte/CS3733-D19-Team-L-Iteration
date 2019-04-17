@@ -6,7 +6,6 @@ import org.opencv.imgcodecs.Imgcodecs;
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.File;
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 public class ImageComparison {
@@ -79,7 +78,7 @@ public class ImageComparison {
         int width2 = img2.getWidth();
         int height2 = img2.getHeight();
         if (width != width2 || height != height2) {
-            return 100;
+            return 100.0;
         }
 
         long diff = 0;

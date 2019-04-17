@@ -383,7 +383,6 @@ public class EmployeeAccess extends DBAccess {
                     return image;
                 }
             }
-            System.out.println("exit loop");
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -401,12 +400,12 @@ public class EmployeeAccess extends DBAccess {
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
             ResultSet rs = pstmt.executeQuery();
             while(rs.next() && rs != null){
-                    if(rs.getBinaryStream("image") == null){
-                        continue;
-                    }
-                    InputStream in = rs.getBinaryStream("image");
-                    BufferedImage image = ImageIO.read(in);
-                    bi.add(image);
+                if(rs.getBinaryStream("image") == null){
+                    continue;
+                }
+                InputStream in = rs.getBinaryStream("image");
+                BufferedImage image = ImageIO.read(in);
+                bi.add(image);
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -430,7 +429,6 @@ public class EmployeeAccess extends DBAccess {
                 }
                 bi.add(rs.getString("username"));
             }
-            System.out.println("exit loop");
         } catch (Exception e) {
             e.printStackTrace();
         }

@@ -44,6 +44,7 @@ public class ActiveServiceRequestsController {
     @FXML
     private Tab tab;
 
+    @FXML
     private String filter;
 
     @FXML

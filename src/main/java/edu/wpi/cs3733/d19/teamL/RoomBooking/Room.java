@@ -44,47 +44,47 @@ public class Room{
         time = startSimpleDate.format(startDate) + " - " + endSimpleDate.format(endDate);
 
 
-        if(theRooms.contains("Classroom 1 (Computer)"))
+        if(theRooms.contains("Room 1 - Computer"))
             class1 = true;
         else
             class1 = false;
 
-        if(theRooms.contains("Classroom 2 (Computer)"))
+        if(theRooms.contains("Room 2 - Computer"))
             class2 = true;
         else
             class2 = false;
 
-        if(theRooms.contains("Classroom 3 (Computer)"))
+        if(theRooms.contains("Room 3 - Computer"))
             class3 = true;
         else
             class3 = false;
 
-        if(theRooms.contains("Classroom 4 (Classroom)"))
+        if(theRooms.contains("Room 4 - Classroom"))
             class4 = true;
         else
             class4 = false;
 
-        if(theRooms.contains("Classroom 5 (Computer)"))
+        if(theRooms.contains("Room 5 - Computer"))
             class5 = true;
         else
             class5 = false;
 
-        if(theRooms.contains("Classroom 6 (Classroom)"))
+        if(theRooms.contains("Room 6 - Classroom"))
             class6 = true;
         else
             class6 = false;
 
-        if(theRooms.contains("Classroom 7 (Computer)"))
+        if(theRooms.contains("Room 7 - Computer"))
             class7 = true;
         else
             class7 = false;
 
-        if(theRooms.contains("Classroom 8 (Classroom)"))
+        if(theRooms.contains("Room 8 - Classroom"))
             class8 = true;
         else
             class8 = false;
 
-        if(theRooms.contains("Classroom 9 (Computer)"))
+        if(theRooms.contains("Room 9 - Computer"))
             class9 = true;
         else
             class9 = false;

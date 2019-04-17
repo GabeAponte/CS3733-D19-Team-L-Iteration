@@ -48,7 +48,7 @@ public class Weather {
      */
     public String getIcon(){
         String type = currently.get().getByKey("icon");
-      //  System.out.println(type);
+        //System.out.println("weather is printing out: "+type);
         return type;
     }
 
@@ -58,7 +58,9 @@ public class Weather {
      */
     public String getActTemp() {
         String userFriendlyTemp = currently.get().getByKey("temperature");
-        userFriendlyTemp = userFriendlyTemp.substring(0, userFriendlyTemp.indexOf("."));
+        if(userFriendlyTemp.contains(".")) {
+            userFriendlyTemp = userFriendlyTemp.substring(0, userFriendlyTemp.indexOf("."));
+        }
         return userFriendlyTemp + " \u00b0 F";
     }
 
