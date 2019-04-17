@@ -1620,7 +1620,7 @@ public class PathFindingController {
      */
     public void checkAndSetKiosk(){
         //if kiosk was initiated its fine
-        //if not set kiosk to random (first location stuff) things
+        //if not set kiosk to random (first location stuff) thing
         if(single.getKioskID().equals("")){
             //Location kioskTemp = single.getData().get(0); //initially at floor 2
             single.setKioskID(single.getData().get(0).getLocID());
