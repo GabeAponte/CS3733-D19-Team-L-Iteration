@@ -128,6 +128,7 @@ public class AdminLoggedInHomeController {
         Stage theStage = (Stage) bookRoom.getScene().getWindow();
 
         Scene scene = new Scene(sceneMain);
+
         theStage.setScene(scene);
     }
 
@@ -181,7 +182,7 @@ public class AdminLoggedInHomeController {
         timeout.stop();
         Singleton single = Singleton.getInstance();
         single.setLastTime();
-        FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("NewMapBuilder.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("EditLocation.fxml"));
 
         Parent sceneMain = loader.load();
 

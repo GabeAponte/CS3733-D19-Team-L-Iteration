@@ -40,7 +40,7 @@ AHALL00503,1650,2855,3,BTM,HALL,Hall,Hall
 AHALL0050G,1713,2558,G,BTM,HALL,Hall,Hall
 AHALL00601,1678,2865,1,BTM,HALL,Hall,Hall
 AHALL00602,1683,2543,2,BTM,HALL,Hall,Hall
-AHALL00603,1580,2858,3,BTM,HALL,Hall,Hall
+AHALL00603,1580,2858,3,BTM,HALL,HallNode,HallNode
 AHALL0060G,1595,2583,G,BTM,HALL,Hall,Hall
 AHALL00701,1017,2865,1,BTM,HALL,Hall,Hall
 AHALL0070G,1712,2647,G,BTM,HALL,Hall,Hall
@@ -63,7 +63,7 @@ ALABS001L2,1667,2682,L2,BTM,LABS,MRI CT Scan Imaging,MRI CT Imaging
 ALABS00203,1671,2695,3,BTM,LABS,Clinical Trials,Clinical Trials
 AREST00101,1556,2604,1,BTM,REST,Restroom S elevator 1st floor,Restroom
 AREST00103,1552,2854,3,BTM,REST,Restroom BTM conference center 3rd floor,Restroom
-ARETL00101,1619,2522,1,BTM,CAFE,Cafe,Cafe
+ARETL00101,1619,2522,1,BTM,RETL,Cafe,Cafe
 ASTAI00101,1642,2596,1,BTM,STAI,Cafe Stairs,Cafe Staris
 ASTAI00102,1650,2602,2,BTM,STAI,Stairs Floor 2,Stairs Floor 2
 ASTAI0010G,1622,2556,G,BTM,STAI,Schlagler Stairs,Schlager Stairs
@@ -181,7 +181,7 @@ CREST002L1,2065,1284,L1,Tower,REST,Restroom M Elevator Floor L1,Restroom C002L1
 CREST002L2,1930,1280,L2,45 Francis,REST,Restroom L Elevator Floor L2,Restroom C002L2
 CREST003L1,2300,879,L1,45 Francis,REST,Restroom K Elevator Floor L1,Restroom C003L1
 CREST004L1,2770,1160,L1,45 Francis,REST,Restroom H Elevator Floor L1,Restroom C004L1
-CRETL001L1,2185,904,L1,45 Francis,VEND,Vending Machine 1 L1,Retail C001L1
+CRETL001L1,2185,904,L1,45 Francis,RETL,Vending Machine 1 L1,Retail C001L1
 CSERV001L1,2490,1043,L1,45 Francis,SERV,Volunteers Floor L1,Service C001L1
 CSERV001L2,2015,1280,L2,45 Francis,SERV,Interpreter Services Floor L2,Service C001L2
 DCONF00102,4595,550,2,15 Francis,CONF,Carrie M. Hall Conference Center Floor 2,Conference Center
@@ -261,7 +261,7 @@ DREST00102,4125,625,2,15 Francis,REST,Restroom B elevator Floor 2,Restroom B
 DREST00202,3895,695,2,15 Francis,REST,Restroom C elevator Floor 2,Restroom C
 DREST00302,3635,830,2,15 Francis,REST,Restroom C-D elevator Floor 2,Restroom C-D
 DREST00402,3525,850,2,15 Francis,REST,Restroom D elevator Floor 2,Restroom D
-DRETL00102,4270,480,2,15 Francis,FOOD,Pats Place Floor 2,Pats Place
+DRETL00102,4270,480,2,15 Francis,RETL,Pats Place Floor 2,Pats Place
 DSTAI00102,4650,675,2,15 Francis,STAI,Staircase1 Floor2,Staircase1
 DSTAI00202,4320,550,2,15 Francis,STAI,Staircase2 Floor2,Staircase2
 DSTAI00302,4250,440,2,15 Francis,STAI,Staircase3 Floor2,Staircase3
@@ -365,8 +365,8 @@ FHALL03301,2066,1282,1,Tower,HALL,Emergency Hallway,Hallway F03301
 FINFO00101,1700,1226,1,Tower,INFO,75 Lobby Information Desk,Lobby Info Desk
 FLABS00101,1845,1250,1,Tower,LABS,Obstetrics Admitting,Obs Admitting
 FREST00101,2091,976,1,Tower,REST,Bathroom 75 Lobby,Bathroom Lobby
-FRETL00101,1973,844,1,Tower,VEND,Lobby Vending Machine,VM Lobby
-FRETL00201,1609,1246,1,Tower,CAFE,Au Bon Pain,ABP
+FRETL00101,1973,844,1,Tower,RETL,Lobby Vending Machine,VM Lobby
+FRETL00201,1609,1246,1,Tower,RETL,Au Bon Pain,ABP
 FSERV00101,1950,871,1,Tower,SERV,Shattuck Street Lobby ATM,Lobby ATM
 FSERV00201,1605,1029,1,Tower,SERV,Tower Medical Cashier,Tower Cashier
 FSERV00301,1700,1158,1,Tower,SERV,Kessler Library,Kessler Library
@@ -514,9 +514,9 @@ HHALL01303,1600,1030,3,Tower,HALL,Hallway Connector 13 Floor 3,Hallway H01303
 HHALL01403,1735,1030,3,Tower,HALL,Hallway Connector 14 Floor 3,Hallway H01403
 HHALL01503,1735,985,3,Tower,HALL,Hallway Connector 15 Floor 3,Hallway H01503
 HLABS00103,1235,865,3,Tower,LABS,Reproductive Endocrine Labs,Reproductive Endocrine Labs
-HRETL00102,1935,860,2,Tower,FOOD,Garden Cafe,Garden Cafe
-HRETL00202,1615,1025,2,Tower,VEND,Vending Machine Floor 2,Vending Machine
-HRETL00302,1825,1080,2,Tower,GIFT,Gift Shop Tower Floor 2,Gift Shop
+HRETL00102,1935,860,2,Tower,RETL,Garden Cafe,Garden Cafe
+HRETL00202,1615,1025,2,Tower,RETL,Vending Machine Floor 2,Vending Machine
+HRETL00302,1825,1080,2,Tower,RETL,Gift Shop Tower Floor 2,Gift Shop
 HSERV00103,1750,865,3,Tower,SERV,Nursing Room,Nursing Room
 HSTAI00102,2060,880,2,Tower,STAI,Stairwell 1 Floor 2,Stairwell 0102
 HSTAI00103,1680,1275,3,Tower,STAI,Stairwell 1 Floor 3,Stairwell

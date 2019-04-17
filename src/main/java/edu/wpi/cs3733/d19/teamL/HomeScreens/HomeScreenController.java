@@ -67,30 +67,41 @@ public class HomeScreenController {
 
     Timeline clock;
     Timeline tweets;
+    Boolean isAM = true;
 
-
-    public void initialize() throws IOException{
+    public void initialize() throws IOException {
         Singleton single = Singleton.getInstance();
 
         Weather weatherBoy = new Weather();
         String icon = weatherBoy.getIcon();
         //clear-day, clear-night, rain, snow, sleet, wind, fog, cloudy, partly-cloudy-day, or partly-cloudy-night
-        if(icon.contains("clear")){
+        if (icon.contains("clear") && icon.contains("day")) {
             icon = "weatherIcons/SunImage.png";
-        } else if(icon.contains("rain") || icon.contains("sleet")){
+        } else if(icon.contains("clear") && icon.contains("night")){
+            icon = "weatherIcons/MoonImage.png";
+        }else if(icon.contains("rain") || icon.contains("sleet")){
             icon = "weatherIcons/RainImage.png";
-        } else if(icon.contains("partly") || icon.contains("wind")){
+        } else if(icon.contains("partly") && icon.contains("day")){
             icon = "weatherIcons/PartlyCloudImage.png";
-        } else if(icon.contains("cloudy") || icon.contains("fog")){
+        } else if(icon.contains("partly") && icon.contains("night")){
+            icon = "weatherIcons/PartlyCloudNightImage.png";
+        } else if(icon.contains("cloudy")){
             icon = "weatherIcons/CloudyImage.png";
+        } else if(icon.contains("fog")){
+            icon = "weatherIcons/FogImage.png";
         } else if(icon.contains("snow")){
             icon = "weatherIcons/SnowImage.png";
-        } else {
+        } else if(icon.contains("wind")){
+            icon = "weatherIcons/WindImage.png";
+        }else{
             icon = "weatherIcons/ThunderImage.png";
         }
+        //System.out.println("icon is being set to: "+icon);
         Image img = new Image(icon);
         weatherIcon.setImage(img);
         tempDisplay.setText(weatherBoy.getActTemp());
+
+
         if(single.isDoPopup()) {
             single.setDoPopup(false);
             Text fillBox = single.getTxt();
@@ -128,6 +139,9 @@ public class HomeScreenController {
                 long second = LocalDateTime.now().getSecond();
                 long minute = LocalDateTime.now().getMinute();
                 long hour = LocalDateTime.now().getHour();
+                if(hour > 12){
+                    isAM = false;
+                }
                 if ((hour = hour % 12) == 0) {
                     hour = 12;
                 }
@@ -143,6 +157,13 @@ public class HomeScreenController {
                     } else {
                         timeLabel.setText(hour + ":" + (minute));
                     }
+                }
+
+                if(isAM){
+                    timeLabel.setText(timeLabel.getText()+" AM");
+                }
+                else if(! isAM){
+                    timeLabel.setText(timeLabel.getText()+" PM");
                 }
             }),
                     new KeyFrame(Duration.seconds(1))
