@@ -646,7 +646,7 @@ public class PathFindingController {
         kiosk.setRadius(Math.max(1.5, 1.5f * (gesturePane.getCurrentScale() / 4)));
         kiosk.setStroke(Color.BLUE);
         kiosk.setFill(Color.BLUE);
-        hereLabel.setLayoutX(kioskTemp.getXcoord()*childPane.getWidth()/Map.getImage().getWidth());
+        hereLabel.setLayoutX(kioskTemp.getXcoord()*childPane.getWidth()/Map.getImage().getWidth() -20);
         hereLabel.setLayoutY(kioskTemp.getYcoord()*childPane.getHeight()/Map.getImage().getHeight() - 20);
         hereLabel.setText(" You are here ");
         hereLabel.setStyle("-fx-text-fill: WHITE;-fx-font-size: 6; -fx-background-color: BLUE; -fx-border-color: WHITE; -fx-border-width: 2; -fx-min-width: 40;");
@@ -852,13 +852,14 @@ public class PathFindingController {
             StartCircle.setCenterY(startNode.getYcoord()*childPane.getHeight()/Map.getImage().getHeight());
             StartCircle.setRadius(Math.max(1.5, 1.5f * (gesturePane.getCurrentScale() / 4)));
 
-            startLabel.setLayoutX(startNode.getXcoord()*childPane.getWidth()/Map.getImage().getWidth());
+            startLabel.setLayoutX(startNode.getXcoord()*childPane.getWidth()/Map.getImage().getWidth() -20);
             startLabel.setLayoutY(startNode.getYcoord()*childPane.getHeight()/Map.getImage().getHeight() - 20);
             //Displays the kiosk location for the startNode, changes the color to indicate the Kiosk, also sets startLabel
             if(startNode.equals(kioskTemp)) {
                 StartCircle.setStroke(Color.BLUE);
                 StartCircle.setFill(Color.BLUE);
                 startLabel.setText(" You are here ");
+                //System.out.println("1");
                 startLabel.setStyle("-fx-text-fill: WHITE;-fx-font-size: 6; -fx-background-color: BLUE; -fx-border-color: WHITE; -fx-border-width: 2; -fx-min-width: 40;");
             }
             else {
@@ -869,19 +870,23 @@ public class PathFindingController {
                 kioskDis.setFill(Color.BLUE);
                 StartCircle.setStroke(Color.GREEN);
                 StartCircle.setFill(Color.GREEN);
+                //System.out.println("2");
                 startLabel.setText(startNode.getLongName());
                 startLabel.setStyle("-fx-text-fill: WHITE;-fx-font-size: 6; -fx-background-color: GREEN; -fx-border-color: WHITE; -fx-border-width: 2; -fx-min-width: 40;");
             }
             if (!startNode.getFloor().equals(currentMap)) {
                 StartCircle.setVisible(false);
                 startLabel.setVisible(false);
+                //System.out.println("3");
             }
             else if(currentMap.equals(kioskTemp.getFloor())) {
                 kioskDis.setVisible(true);
+                //System.out.println("4");
             }
             else {
                 startLabel.setVisible(true);
                 kioskDis.setVisible(false);
+                hereLabel.setVisible(true);
             }
 
             pathPane.getChildren().add(StartCircle);
@@ -899,7 +904,7 @@ public class PathFindingController {
             endLabel.setText(endNode.getLongName());
             endLabel.setStyle("-fx-text-fill: WHITE;-fx-font-size: 6; -fx-background-color: RED; -fx-border-color: WHITE; -fx-border-width: 2; -fx-min-width: 40;");
             endLabel.setLayoutX(endNode.getXcoord()*childPane.getWidth()/Map.getImage().getWidth() - 30);
-            endLabel.setLayoutY(endNode.getYcoord()*childPane.getHeight()/Map.getImage().getHeight() + 20);
+            endLabel.setLayoutY(endNode.getYcoord()*childPane.getHeight()/Map.getImage().getHeight() - 20);
             if (!endNode.getFloor().equals(currentMap)) {
                 EndCircle.setVisible(false);
                 endLabel.setVisible(false);
