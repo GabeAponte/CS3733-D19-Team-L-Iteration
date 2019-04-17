@@ -73,6 +73,9 @@ public class BookRoomController {
     @FXML
     private Button bookRoomBack;
 
+    @FXML
+    private Button viewWeekly;
+
     Timeline timeout;
     VisualSimulationThread sim;
     private boolean firstTimeRan = true;
@@ -443,6 +446,23 @@ public class BookRoomController {
             }
             imagePane.getChildren().add(flexSpaces.get(i));
         }
+    }
+
+    public void switchToWeekly() throws IOException {
+        timeout.stop();
+        sim.end();
+        Singleton single = Singleton.getInstance();
+        single.setLastTime();
+        FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("WeeklySchedule.fxml"));
+        Parent sceneMain = loader.load();
+
+        WeeklyScheduleController wsc = loader.getController();
+        wsc.loadWeekly("Classroom 1 (Classroom)", LocalDate.now());
+
+        Scene scene = new Scene(sceneMain);
+
+        Stage theStage = (Stage) viewSchedule.getScene().getWindow();
+        theStage.setScene(scene);
     }
 /*
     private EventHandler<MouseEvent> setOnMouseEntered = new EventHandler<MouseEvent>() {

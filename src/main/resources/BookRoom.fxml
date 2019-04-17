@@ -59,10 +59,13 @@
                         </JFXButton>
                     </right>
                 </JFXToolbar>
-                <JFXButton fx:id="requestRoom"  stylesheets="@book-room.css" buttonType="RAISED" disable="false" onAction="#findRoom" prefHeight="66.0" prefWidth="180.0" ripplerFill="WHITE" style="-fx-border-color: #f5d96b; -fx-border-radius: 100; -fx-border-width: 2; -fx-background-radius: 100;" text="Submit" textFill="#f5d96b" GridPane.columnIndex="2" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="4">
+                <JFXButton fx:id="requestRoom" buttonType="RAISED" disable="false" onAction="#findRoom" prefHeight="66.0" prefWidth="180.0" ripplerFill="WHITE" style="-fx-border-color: #f5d96b; -fx-border-radius: 100; -fx-border-width: 2; -fx-background-radius: 100;" stylesheets="@book-room.css" text="Submit" textFill="#f5d96b" GridPane.columnIndex="2" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="4">
                     <font>
                         <Font name="Avenir Book" size="36.0" />
                     </font>
+               <GridPane.margin>
+                  <Insets top="20.0" />
+               </GridPane.margin>
                 </JFXButton>
                 <Label alignment="BOTTOM_CENTER" contentDisplay="BOTTOM" text="Book a Room" textFill="#f5d96b" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" GridPane.valignment="CENTER">
                     <font>
@@ -125,6 +128,14 @@
                   <Font name="Avenir Book" size="18.0" />
                </font>
             </Label>
+            <JFXButton fx:id="viewWeekly" buttonType="RAISED" disable="false" onAction="#switchToWeekly" prefHeight="66.0" prefWidth="180.0" ripplerFill="WHITE" style="-fx-border-color: #f5d96b; -fx-border-radius: 100; -fx-border-width: 2; -fx-background-radius: 100;" stylesheets="@book-room.css" text="View Weekly Schedule" textFill="#f5d96b" GridPane.columnIndex="2" GridPane.columnSpan="2147483647" GridPane.halignment="CENTER" GridPane.rowIndex="6">
+               <font>
+                  <Font size="14.0" />
+               </font>
+               <GridPane.margin>
+                  <Insets bottom="12.0" />
+               </GridPane.margin>
+            </JFXButton>
             </children>
         </GridPane>
     </children>

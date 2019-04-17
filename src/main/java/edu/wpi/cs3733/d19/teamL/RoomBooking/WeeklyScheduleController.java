@@ -12,20 +12,32 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.TreeTableColumn;
 import javafx.scene.control.TreeTableView;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
 import java.io.IOException;
+import java.time.LocalDate;
 
 public class WeeklyScheduleController
 {
+    @FXML
+    private Label classroomLabel;
+
     @FXML
     private JFXDatePicker datePicker;
 
     @FXML
     private JFXComboBox roomPicker;
+
+    @FXML
+    private Button weeklyBack;
+
+    @FXML
+    private Button goToBookRoom;
 
     @FXML
     private TreeTableView<Room> bookedTime;
@@ -55,6 +67,9 @@ public class WeeklyScheduleController
     private TreeTableColumn<Room, Boolean> satCol;
 
     Timeline timeout;
+
+    String chosenRoom;
+    LocalDate chosenDate;
 
     @FXML
     public void initialize(){
@@ -94,6 +109,45 @@ public class WeeklyScheduleController
 
         timeout.setCycleCount(Timeline.INDEFINITE);
         timeout.play();
+    }
+
+    public void loadWeekly(String theRoom, LocalDate theDate){
+        classroomLabel.setText(theRoom + " Weekly Schedule");
+        datePicker.setValue(theDate);
+
+        checkAvailability(theRoom, theDate);
+    }
+
+    public void checkAvailability(String roomName, LocalDate theDate){
+
+    }
+
+    @FXML
+    public void backPressed() throws IOException {
+        timeout.stop();
+        Singleton single = Singleton.getInstance();
+        single.setLastTime();
+        FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("EmployeeLoggedInHome.fxml"));
+        if(single.isIsAdmin()) {
+            loader = new FXMLLoader(getClass().getClassLoader().getResource("AdminLoggedInHome.fxml"));
+        }
+        Parent sceneMain = loader.load();
+        Stage theStage = (Stage) weeklyBack.getScene().getWindow();
+        Scene scene = new Scene(sceneMain);
+        theStage.setScene(scene);
+    }
+
+    @FXML
+    public void switchToBookRoom() throws IOException {
+        timeout.stop();
+        Singleton single = Singleton.getInstance();
+        single.setLastTime();
+        FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("BookRoom.fxml"));
+        Parent sceneMain = loader.load();
+        BookRoomController controller = loader.<BookRoomController>getController();
+        Stage theStage = (Stage) goToBookRoom.getScene().getWindow();
+        Scene scene = new Scene(sceneMain);
+        theStage.setScene(scene);
     }
 
 }
