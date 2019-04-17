@@ -112,6 +112,30 @@ public class EmployeeAccess extends DBAccess {
 
     /**ANDREW MADE THIS
      *  returns the fields of a particular employee in an arraylist
+     * @param username
+     * @return
+     */
+    public String getEmpEmail(String username){
+        String sql = "SELECT email FROM employee where username = ?";
+        //noinspection Convert2Diamond
+        ArrayList<String> data = new ArrayList<String>();
+        try (Connection conn = this.connect();
+             PreparedStatement pstmt = conn.prepareStatement(sql)){
+            pstmt.setString(1, username);
+            ResultSet rs = pstmt.executeQuery();
+            while (rs.next()) {
+                return rs.getString("email");
+            }
+
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+
+        return "";
+    }
+
+    /**ANDREW MADE THIS
+     *  returns the fields of a particular employee in an arraylist
      * @param employeeID
      * @return
      */
@@ -168,6 +192,7 @@ public class EmployeeAccess extends DBAccess {
                 data.add(rs.getString("lastName"));
                 data.add(rs.getString("nickname"));
                 data.add(rs.getString("email"));
+                data.add(rs.getString("username"));
                 list.add(data);
             }
             return list;

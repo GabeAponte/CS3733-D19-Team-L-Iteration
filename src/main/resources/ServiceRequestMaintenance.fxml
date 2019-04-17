@@ -18,7 +18,6 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<?import javafx.stage.Screen?>
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720" prefWidth="1280" style="-fx-background-color: #012D5A;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.d19.teamL.ServiceRequest.MakeServiceRequest.MaintenanceServiceRequestController">
 
    <children>
@@ -61,15 +60,7 @@
                   <RowConstraints maxHeight="59.111358642578125" minHeight="0.0" prefHeight="0.0" valignment="CENTER" vgrow="ALWAYS" />
               </rowConstraints>
                <children>
-                  <JFXTextField fx:id="field1" focusColor="#f6bd38" onKeyReleased="#reenableSubmit" promptText="type1" style="-jfx-prompt-text: WHITE;" stylesheets="@modify-prompt-text.css" unFocusColor="WHITE" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" GridPane.vgrow="ALWAYS">
-                     <GridPane.margin>
-                        <Insets left="100.0" right="100.0" />
-                     </GridPane.margin>
-                     <font>
-                        <Font size="20.0" />
-                     </font>
-                  </JFXTextField>
-                  <JFXTextField fx:id="field2" focusColor="#f6bd38" onKeyReleased="#reenableSubmit" promptText="type2" style="-jfx-prompt-text: WHITE;" stylesheets="@modify-prompt-text.css" unFocusColor="WHITE" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="2" GridPane.vgrow="ALWAYS">
+                  <JFXTextField fx:id="field1" focusColor="#f6bd38" onKeyReleased="#reenableSubmit" promptText="Type" style="-jfx-prompt-text: WHITE;" stylesheets="@modify-prompt-text.css" unFocusColor="WHITE" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" GridPane.vgrow="ALWAYS">
                      <GridPane.margin>
                         <Insets left="100.0" right="100.0" />
                      </GridPane.margin>
@@ -109,17 +100,17 @@
                         <Insets top="25.0" />
                      </GridPane.margin>
                   </JFXButton>
-                  <Label stylesheets="@modify-prompt-text.css" text="Is this problem hazardous?" textFill="WHITE" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.rowIndex="2">
+                  <Label alignment="CENTER" graphicTextGap="0.0" prefHeight="27.0" prefWidth="246.0" stylesheets="@modify-prompt-text.css" text="Is this problem hazardous?" textFill="WHITE" GridPane.columnSpan="2147483647" GridPane.halignment="CENTER" GridPane.rowIndex="2">
                      <font>
                         <Font size="18.0" />
                      </font>
-                     <padding>
-                        <Insets left="100.0" />
-                     </padding>
-                  </Label>
-                  <RadioButton fx:id="hazardYes" mnemonicParsing="false" onAction="#reenableSubmit" text="Yes" textFill="WHITE" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.rowIndex="2">
                      <GridPane.margin>
-                        <Insets left="330.0" />
+                        <Insets right="60.0" />
+                     </GridPane.margin>
+                  </Label>
+                  <RadioButton fx:id="hazardYes" mnemonicParsing="false" onAction="#reenableSubmit" text="Yes" textFill="WHITE" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="2">
+                     <GridPane.margin>
+                        <Insets right="420.0" />
                      </GridPane.margin>
                   </RadioButton>
                </children>

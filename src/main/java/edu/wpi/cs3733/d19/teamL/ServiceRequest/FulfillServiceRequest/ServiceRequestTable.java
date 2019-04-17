@@ -147,7 +147,7 @@ public class ServiceRequestTable  {
         this.completionTime = endSimpleDate.format(endDate);
         this.creationDate = creationDate;
         this.completionDate = completionDate;
-        this.location = location;
+        //this.location = location;
         this.destination = destination;
         this.medicineType = medicineType;
         this.deliveryTime = deliveryTime;
@@ -340,7 +340,7 @@ public class ServiceRequestTable  {
     }
 
     //externalTrans
-    public ServiceRequestTable(String requestID, int k, String assignedEmployee, String fulfilled, String location, String creationTime, String completionTime, String comment, String type, String destination, String phoneNumber, String creationDate, String completionDate) {
+    public ServiceRequestTable(String requestID, int k, String assignedEmployee, String fulfilled, String startLocation, String creationTime, String completionTime, String comment, String type, String endLocation, String phoneNumber, String creationDate, String completionDate) {
         int milTime = Integer.parseInt(creationTime);
         int endMilTime = Integer.parseInt(completionTime);
 
@@ -371,14 +371,14 @@ public class ServiceRequestTable  {
         this.completionTime = endSimpleDate.format(endDate);
         this.creationDate = creationDate;
         this.completionDate = completionDate;
-        this.location = location;
+        this.startLocation = startLocation;
         this.type = type;
         this.phoneNumber = phoneNumber;
-        this.destination = destination;
+        this.endLocation = endLocation;
     }
 
    //audio visual
-   public ServiceRequestTable(String requestID, String assignedEmployee, String fulfilled, String location, String creationTime, String completionTime, String comment, String destination, String type, String creationDate, String completionDate) {
+   public ServiceRequestTable(String requestID, String assignedEmployee, String fulfilled, String location, String creationTime, String completionTime, String comment, String name, String type, String creationDate, String completionDate) {
        int milTime = Integer.parseInt(creationTime);
        int endMilTime = Integer.parseInt(completionTime);
 
@@ -411,7 +411,7 @@ public class ServiceRequestTable  {
         this.completionDate = completionDate;
         this.location = location;
         this.type = type;
-        this.destination = destination;
+        this.name = name;
     }
 
     //securityRequest
@@ -699,20 +699,8 @@ public class ServiceRequestTable  {
         if(requestID != null){
             result += "Request ID: " + requestID + "\n";
         }
-        if(assignedEmployee != null){
-            result += "Assigned Employee: " + assignedEmployee + "\n";
-        }
-        if(fulfilled != null){
-            result += "Fulfilled: " + fulfilled + "\n";
-        }
-        if(comment != null){
-            result += "Comment: " + comment + "\n";
-        }
-        if(creationTime != null){
+        if(creationTime != null) {
             result += "Creation Time: " + creationTime + "\n";
-        }
-        if(completionTime != null){
-            result += "Completion Time: " + completionTime + "\n";
         }
         if(creationDate != null){
             result += "Creation Date: " + creationDate + "\n";
@@ -763,7 +751,7 @@ public class ServiceRequestTable  {
             result += "Delivery Time: " + deliveryTime + "\n";
         }
         if(ammount != null){
-            result += "Amount of Interpreters: " + ammount + "\n";
+            result += "Amount of Medicine: " + ammount + "\n";
         }
         if(urgenecyLevel != null){
             result += "Urgency Level: " + urgenecyLevel + "\n";
@@ -776,6 +764,9 @@ public class ServiceRequestTable  {
         }
         if(threatLevel != null){
             result += "Threat Level: " + threatLevel + "\n";
+        }
+        if(comment != null){
+            result += "Comment: " + comment + "\n";
         }
 
         return result;

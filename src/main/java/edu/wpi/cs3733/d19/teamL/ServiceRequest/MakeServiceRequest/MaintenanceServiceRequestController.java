@@ -25,9 +25,6 @@ public class MaintenanceServiceRequestController {
     JFXTextField field1;
 
     @FXML
-    JFXTextField field2;
-
-    @FXML
     JFXTextField Location;
 
     @FXML
@@ -86,7 +83,7 @@ public class MaintenanceServiceRequestController {
     private void reenableSubmit() {
         Singleton single = Singleton.getInstance();
         single.setLastTime();
-        if (Description.getText().trim().isEmpty() || Location.getText().trim().isEmpty() || field1.getText().trim().isEmpty() || field2.getText().trim().isEmpty()) {
+        if (Description.getText().trim().isEmpty() || Location.getText().trim().isEmpty() || field1.getText().trim().isEmpty()) {
             Submit.setDisable(true);
         } else {
             Submit.setDisable(false);

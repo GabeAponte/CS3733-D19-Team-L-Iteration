@@ -3,6 +3,7 @@ package edu.wpi.cs3733.d19.teamL.ServiceRequest.FulfillServiceRequest;
 import com.jfoenix.controls.JFXTabPane;
 import edu.wpi.cs3733.d19.teamL.Account.CreateEditAccountController;
 import edu.wpi.cs3733.d19.teamL.Account.EmployeeAccess;
+import edu.wpi.cs3733.d19.teamL.Account.employeeID;
 import edu.wpi.cs3733.d19.teamL.HomeScreens.HomeScreenController;
 import edu.wpi.cs3733.d19.teamL.ServiceRequest.ServiceRequestDBAccess.InternalTransportAccess;
 import edu.wpi.cs3733.d19.teamL.ServiceRequest.ServiceRequestDBAccess.LanguageAccess;
@@ -21,6 +22,8 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.input.MouseButton;
+import javafx.scene.layout.AnchorPane;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
@@ -121,12 +124,12 @@ public class ActiveServiceRequestsController {
     private void backPressed() throws IOException {
         Singleton single = Singleton.getInstance();
         timeout.stop();
-        if(single.isIsAdmin()) {
+        if (single.isIsAdmin()) {
             FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("AdminLoggedInHome.fxml"));
             Parent roots = loader.load();
 
             Scene scene = new Scene(roots);
-            Stage thestage = (Stage) activeRequests.getScene().getWindow();
+            Stage thestage = (Stage) requestType.getScene().getWindow();
 
             //Show scene 2 in new window
             thestage.setScene(scene);
@@ -135,7 +138,7 @@ public class ActiveServiceRequestsController {
             Parent roots = loader.load();
 
             Scene scene = new Scene(roots);
-            Stage thestage = (Stage) activeRequests.getScene().getWindow();
+            Stage thestage = (Stage) requestType.getScene().getWindow();
 
             //Show scene 2 in new window
             thestage.setScene(scene);
@@ -146,10 +149,6 @@ public class ActiveServiceRequestsController {
     public void initialize() {
         Singleton single = Singleton.getInstance();
         single.setLastTime();
-        //TODO: DELETE FOLLOWING SINGLETON LINES
-        single.setUsername("Nathan");
-        single.setIsAdmin(true);
-        single.setLoggedIn(true);
         timeout = new Timeline(new KeyFrame(Duration.seconds(2), new EventHandler<ActionEvent>() {
 
             @Override
@@ -184,15 +183,16 @@ public class ActiveServiceRequestsController {
         timeout.play();
     }
 
-    /**@author Gabe
+    /**
+     * @author Gabe
      * Populates the table on the screen with any active service rquests in the database
      */
     @FXML
-    private void filterTable(){
+    private void filterTable() {
         Singleton single = Singleton.getInstance();
         single.setLastTime();
 
-        if (requestType.getSelectionModel().getSelectedItem().getText().equals("Internal Trans.")){
+        if (requestType.getSelectionModel().getSelectedItem().getText().equals("Internal Transportation")) {
             InternalRequests.setEditable(false);
             System.out.println(requestType.getSelectionModel().getSelectedItem().getText());
             root.getChildren().clear();
@@ -200,7 +200,7 @@ public class ActiveServiceRequestsController {
             InternalTransportAccess it = new InternalTransportAccess();
 
             int count;
-            count = it.countRecords()-1;
+            count = it.countRecords() - 1;
             while (count >= 0) {
                 TreeItem<ServiceRequestTable> itt = it.getRequests(count);
                 root.getChildren().add(itt);
@@ -281,15 +281,14 @@ public class ActiveServiceRequestsController {
                 return new ReadOnlyObjectWrapper(cellData.getValue().getValue());
             });
 
-        }
-        else if (requestType.getSelectionModel().getSelectedItem().getText().equals("Religious")) {
+        } else if (requestType.getSelectionModel().getSelectedItem().getText().equals("Religious")) {
             root.getChildren().clear();
             ReligiousRequests.setRoot(null);
 
             ReligiousRequestAccess rr = new ReligiousRequestAccess();
 
             int count;
-            count = rr.countRecords()-1;
+            count = rr.countRecords() - 1;
             while (count >= 0) {
                 TreeItem<ServiceRequestTable> rrt = rr.getReligiousRequests(count);
                 root.getChildren().add(rrt);
@@ -365,20 +364,17 @@ public class ActiveServiceRequestsController {
             ReligiousRequests.getColumns().add(hi);
             ReligiousRequests.getColumns().add(comment);
             ReligiousRequests.getColumns().add(assignedEmployee);
-            ReligiousRequests.setTreeColumn(timeRequested);
             ReligiousRequests.setRoot(root);
             ReligiousRequests.setShowRoot(false);
 
-        }
-
-        else if (requestType.getSelectionModel().getSelectedItem().getText().equals("Audio/Visual")) {
+        } else if (requestType.getSelectionModel().getSelectedItem().getText().equals("Audio/Visual")) {
             root.getChildren().clear();
             AVRequests.setRoot(null);
 
             ServiceRequestAccess sra = new ServiceRequestAccess();
 
             int count;
-            count = sra.countAudioRecords()-1;
+            count = sra.countAudioRecords() - 1;
             while (count >= 0) {
                 TreeItem<ServiceRequestTable> rrt = sra.getAudioVisualRequests(count);
                 root.getChildren().add(rrt);
@@ -417,7 +413,7 @@ public class ActiveServiceRequestsController {
 
             field1.setCellValueFactory(cellData -> {
                 if (cellData.getValue().getValue() instanceof ServiceRequestTable) {
-                    return new ReadOnlyObjectWrapper(cellData.getValue().getValue().getDestination());
+                    return new ReadOnlyObjectWrapper(cellData.getValue().getValue().getName());
                 }
                 return new ReadOnlyObjectWrapper(cellData.getValue().getValue());
             });
@@ -440,22 +436,21 @@ public class ActiveServiceRequestsController {
             AVRequests.getColumns().clear();
             AVRequests.getColumns().add(timeRequested);
             AVRequests.getColumns().add(dateRequested);
+            AVRequests.getColumns().add(field1);
             AVRequests.getColumns().add(hi);
             AVRequests.getColumns().add(type);
-            AVRequests.getColumns().add(field1);
             AVRequests.getColumns().add(comment);
             AVRequests.getColumns().add(assignedEmployee);
             AVRequests.setRoot(root);
             AVRequests.setShowRoot(false);
-        }
-       else  if (requestType.getSelectionModel().getSelectedItem().getText().equals("External Trans.")) {
+        } else if (requestType.getSelectionModel().getSelectedItem().getText().equals("External Transportation")) {
             root.getChildren().clear();
             ExternalRequests.setRoot(null);
 
             ServiceRequestAccess sra = new ServiceRequestAccess();
 
             int count;
-            count = sra.countExternalRecords()-1;
+            count = sra.countExternalRecords() - 1;
             while (count >= 0) {
                 TreeItem<ServiceRequestTable> rrt = sra.getExternalRequests(count);
                 root.getChildren().add(rrt);
@@ -480,14 +475,14 @@ public class ActiveServiceRequestsController {
 
             field1.setCellValueFactory(cellData -> {
                 if (cellData.getValue().getValue() instanceof ServiceRequestTable) {
-                    return new ReadOnlyObjectWrapper(cellData.getValue().getValue().getLocation());
+                    return new ReadOnlyObjectWrapper(cellData.getValue().getValue().getStartLocation());
                 }
                 return new ReadOnlyObjectWrapper(cellData.getValue().getValue());
             });
 
             field2.setCellValueFactory(cellData -> {
                 if (cellData.getValue().getValue() instanceof ServiceRequestTable) {
-                    return new ReadOnlyObjectWrapper(cellData.getValue().getValue().getDestination());
+                    return new ReadOnlyObjectWrapper(cellData.getValue().getValue().getEndLocation());
                 }
                 return new ReadOnlyObjectWrapper(cellData.getValue().getValue());
             });
@@ -534,15 +529,14 @@ public class ActiveServiceRequestsController {
             ExternalRequests.getColumns().add(assignedEmployee);
             ExternalRequests.setRoot(root);
             ExternalRequests.setShowRoot(false);
-        }
-        else if (requestType.getSelectionModel().getSelectedItem().getText().equals("Florist")) {
+        } else if (requestType.getSelectionModel().getSelectedItem().getText().equals("Florist")) {
             root.getChildren().clear();
             FloristRequest.setRoot(null);
 
             ServiceRequestAccess sra = new ServiceRequestAccess();
 
             int count;
-            count = sra.countFloristRecords()-1;
+            count = sra.countFloristRecords() - 1;
             while (count >= 0) {
                 TreeItem<ServiceRequestTable> rrt = sra.getFloristRequests(count);
                 root.getChildren().add(rrt);
@@ -611,15 +605,14 @@ public class ActiveServiceRequestsController {
             FloristRequest.getColumns().add(assignedEmployee);
             FloristRequest.setRoot(root);
             FloristRequest.setShowRoot(false);
-        }
-        else if (requestType.getSelectionModel().getSelectedItem().getText().equals("IT")) {
+        } else if (requestType.getSelectionModel().getSelectedItem().getText().equals("IT")) {
             root.getChildren().clear();
             ITRequest.setRoot(null);
 
             ServiceRequestAccess sra = new ServiceRequestAccess();
 
             int count;
-            count = sra.countITRecords()-1;
+            count = sra.countITRecords() - 1;
             while (count >= 0) {
                 TreeItem<ServiceRequestTable> rrt = sra.getITRequests(count);
                 root.getChildren().add(rrt);
@@ -689,15 +682,14 @@ public class ActiveServiceRequestsController {
             ITRequest.getColumns().add(assignedEmployee);
             ITRequest.setRoot(root);
             ITRequest.setShowRoot(false);
-        }
-       else if (requestType.getSelectionModel().getSelectedItem().getText().equals("Language Assistance")) {
+        } else if (requestType.getSelectionModel().getSelectedItem().getText().equals("Language Assistance")) {
             root.getChildren().clear();
             LanguageRequests.setRoot(null);
 
             ServiceRequestAccess sra = new ServiceRequestAccess();
 
             int count;
-            count = sra.countLanguageRecords()-1;
+            count = sra.countLanguageRecords() - 1;
             while (count >= 0) {
                 TreeItem<ServiceRequestTable> rrt = sra.getLanguageRequests(count);
                 root.getChildren().add(rrt);
@@ -776,15 +768,14 @@ public class ActiveServiceRequestsController {
             LanguageRequests.getColumns().add(assignedEmployee);
             LanguageRequests.setRoot(root);
             LanguageRequests.setShowRoot(false);
-        }
-        else if (requestType.getSelectionModel().getSelectedItem().getText().equals("Maintenance")){
+        } else if (requestType.getSelectionModel().getSelectedItem().getText().equals("Maintenance")) {
             root.getChildren().clear();
             MaintenanceRequests.setRoot(null);
 
             ServiceRequestAccess sra = new ServiceRequestAccess();
 
             int count;
-            count = sra.countMaintenanceRecords()-1;
+            count = sra.countMaintenanceRecords() - 1;
             while (count >= 0) {
                 TreeItem<ServiceRequestTable> rrt = sra.getMaintenanceRequests(count);
                 root.getChildren().add(rrt);
@@ -853,15 +844,14 @@ public class ActiveServiceRequestsController {
             MaintenanceRequests.getColumns().add(assignedEmployee);
             MaintenanceRequests.setRoot(root);
             MaintenanceRequests.setShowRoot(false);
-        }
-        else if (requestType.getSelectionModel().getSelectedItem().getText().equals("Prescriptions")) {
+        } else if (requestType.getSelectionModel().getSelectedItem().getText().equals("Prescriptions")) {
             root.getChildren().clear();
             PrescriptionsRequests.setRoot(null);
 
             ServiceRequestAccess sra = new ServiceRequestAccess();
 
             int count;
-            count = sra.countPrescriptionRecords()-1;
+            count = sra.countPrescriptionRecords() - 1;
             while (count >= 0) {
                 TreeItem<ServiceRequestTable> rrt = sra.getPrescriptionRequests(count);
                 root.getChildren().add(rrt);
@@ -886,7 +876,7 @@ public class ActiveServiceRequestsController {
 
             hi.setCellValueFactory(cellData -> {
                 if (cellData.getValue().getValue() instanceof ServiceRequestTable) {
-                    return new ReadOnlyObjectWrapper(cellData.getValue().getValue().getLocation());
+                    return new ReadOnlyObjectWrapper(cellData.getValue().getValue().getDestination());
                 }
                 return new ReadOnlyObjectWrapper(cellData.getValue().getValue());
             });
@@ -940,15 +930,14 @@ public class ActiveServiceRequestsController {
             PrescriptionsRequests.getColumns().add(assignedEmployee);
             PrescriptionsRequests.setRoot(root);
             PrescriptionsRequests.setShowRoot(false);
-        }
-       else if (requestType.getSelectionModel().getSelectedItem().getText().equals("Sanitation")) {
+        } else if (requestType.getSelectionModel().getSelectedItem().getText().equals("Sanitation")) {
             root.getChildren().clear();
             SanitationRequests.setRoot(null);
 
             ServiceRequestAccess sra = new ServiceRequestAccess();
 
             int count;
-            count = sra.countSanitationRecords()-1;
+            count = sra.countSanitationRecords() - 1;
             while (count >= 0) {
                 TreeItem<ServiceRequestTable> rrt = sra.getSanitationRequests(count);
                 root.getChildren().add(rrt);
@@ -1018,15 +1007,14 @@ public class ActiveServiceRequestsController {
             SanitationRequests.getColumns().add(assignedEmployee);
             SanitationRequests.setRoot(root);
             SanitationRequests.setShowRoot(false);
-        }
-       else if (requestType.getSelectionModel().getSelectedItem().getText().equals("Security")) {
+        } else if (requestType.getSelectionModel().getSelectedItem().getText().equals("Security")) {
             root.getChildren().clear();
             SecurityRequests.setRoot(null);
 
             ServiceRequestAccess sra = new ServiceRequestAccess();
 
             int count;
-            count = sra.countSecurityRecords()-1;
+            count = sra.countSecurityRecords() - 1;
             while (count >= 0) {
                 TreeItem<ServiceRequestTable> rrt = sra.getSecurityRequests(count);
                 root.getChildren().add(rrt);
@@ -1109,15 +1097,16 @@ public class ActiveServiceRequestsController {
     }
 
 
-
-   public void setNext(TreeItem<ServiceRequestTable> request){
-       this.selectedRequest = request;
+    public void setNext(TreeItem<ServiceRequestTable> request) {
+        this.selectedRequest = request;
     }
 
     //Gabe - Switches to fulfill screen when mouse double clicks a row in the table
     //TODO: Bring over request information so that fulfill page can update a request
     //@FXML
-    /**@author Gabe, DJ
+
+    /**
+     * @author Gabe, DJ
      * When double clicking on a row in the table, user is sent to the fulfill request screen
      * and all the information from that row is passed along so that a user can update it
      */
@@ -1141,15 +1130,6 @@ public class ActiveServiceRequestsController {
             single.setLastTime();
             if (event.getButton().equals(MouseButton.PRIMARY) && event.getClickCount() == 2) {
                 setNext(ExternalRequests.getSelectionModel().getSelectedItem());
-                switchScreen();
-            }
-        });
-
-        FloristRequest.setOnMouseClicked(event -> {
-            filter = "Florist Delivery";
-            single.setLastTime();
-            if (event.getButton().equals(MouseButton.PRIMARY) && event.getClickCount() == 2) {
-                setNext(FloristRequest.getSelectionModel().getSelectedItem());
                 switchScreen();
             }
         });
@@ -1228,40 +1208,44 @@ public class ActiveServiceRequestsController {
 
     }
 
-    private void switchScreen(){
+    private void switchScreen() {
         Singleton single = Singleton.getInstance();
         EmployeeAccess ea = new EmployeeAccess();
-        if(single.isIsAdmin()) {
+        if (single.isIsAdmin()) {
             yooo();
-        }else if(single.getUsername().equals(ea.getEmployeeUsername(selectedRequest.getValue().getAssignedEmployee()))){
-            yooo();
-        } else {
-            //TODO: Delete this ELSE branch
+        } else if (selectedRequest.getValue().getAssignedEmployee() != null && selectedRequest.getValue().getAssignedEmployee().contains(single.getUsername())) {
             yooo();
         }
     }
 
-    private void yooo(){
+    private void yooo() {
         try {
-
+            timeout.pause();
+            Singleton single = Singleton.getInstance();
+            single.setLastTime();
+            Stage editStage = (Stage) requestType.getScene().getWindow();
+            Stage stage;
+            Parent root;
             FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("FulfillRequest.fxml"));
 
             Parent sceneMain = loader.load();
 
             FulfillRequestController controller = loader.<FulfillRequestController>getController();
-            controller.setRid(Integer.parseInt(selectedRequest.getValue().getRequestID()), filter);
+            controller.setRid(selectedRequest.getValue(), filter);
+            stage = new Stage();
+            root = FXMLLoader.load(getClass().getClassLoader().getResource("FulfillRequest.fxml"));
+            stage.setScene(new Scene(sceneMain));
+            stage.initModality(Modality.APPLICATION_MODAL);
+            stage.initOwner(requestType.getScene().getWindow());
+            stage.showAndWait();
+            filterTable();
 
-            Stage theStage = (Stage) back.getScene().getWindow();
 
-            Scene scene = new Scene(sceneMain);
-            theStage.setScene(scene);
 
         } catch (IOException ex) {
-            //noinspection ThrowablePrintedToSystemOut
-            System.err.println(ex);
+
         }
     }
-
 }
 
 

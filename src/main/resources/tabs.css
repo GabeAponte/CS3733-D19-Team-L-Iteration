@@ -8,10 +8,6 @@
 .jfx-tab-pane .tab-header-background {
     -fx-background-color: #f5d96b;
 }
-.jfx-tab-pane .tab-selected-line {
-    -fx-background-color: BLACK;
-    -fx-stroke-width: 3pt;
-}
 
 .tab .tab-label {
     -fx-alignment: CENTER;
@@ -21,5 +17,26 @@
 
 .tab:selected .tab-label {
     -fx-alignment: CENTER;
-    -fx-text-fill: WHITE;
+    -fx-text-fill: BLACK;
+}
+
+.tab:hover{
+    -fx-background-color: #f1cc39;;
+    -fx-background-radius: 1000000;
+    -fx-text-fill: BLACK;
+    /*
+    -fx-text-fill: #f5d96b ;
+     */
+}
+.jfx-tab-pane .tab:selected {
+    -fx-background-color: #efc318;
+    -fx-background-radius: 1000000;
+}
+.tab:hover .tab-label {
+    -fx-alignment: CENTER;
+    -fx-text-fill: BLACK;
+}
+
+.jfx-tab-pane .tab-selected-line {
+    -fx-background-color: f1cc39;
 }

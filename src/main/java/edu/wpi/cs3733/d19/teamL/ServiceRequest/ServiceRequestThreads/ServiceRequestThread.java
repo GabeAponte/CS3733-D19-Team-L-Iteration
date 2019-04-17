@@ -1,5 +1,6 @@
 package edu.wpi.cs3733.d19.teamL.ServiceRequest.ServiceRequestThreads;
 
+import edu.wpi.cs3733.d19.teamL.Account.EmployeeAccess;
 import edu.wpi.cs3733.d19.teamL.ServiceRequest.FulfillServiceRequest.ServiceRequestTable;
 
 import javax.mail.*;
@@ -8,13 +9,13 @@ import javax.mail.internet.MimeMessage;
 import java.util.Properties;
 
 public class ServiceRequestThread extends Thread{
-    String recipient;
+    String uname;
     ServiceRequestTable srt;
     String type;
 
-    public ServiceRequestThread(ServiceRequestTable sr, String recEmail, String type) {
-        recipient = recEmail;
+    public ServiceRequestThread(ServiceRequestTable sr, String unameField, String type) {
         srt = sr;
+        uname = unameField;
         this.type = type;
     }
 
@@ -24,7 +25,15 @@ public class ServiceRequestThread extends Thread{
     public void run() {
         // RECIPIENT EMAIL
         // Note: while you DO need sender username and password you do NOT need recipients (obviously)
-        String to = recipient;
+        int firstParen = uname.indexOf('(');
+        int lastParen = uname.indexOf(')');
+        String username = "";
+        for(int i = firstParen + 1; i < lastParen; i++){
+            username += uname.charAt(i);
+        }
+        System.out.println(username);
+        EmployeeAccess ea = new EmployeeAccess();
+        String to = ea.getEmpEmail(username);
 
         // SENDER EMAIL
         String from = "lavenderloraxcs3733@gmail.com";
