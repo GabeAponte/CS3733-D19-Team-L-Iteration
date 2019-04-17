@@ -25,8 +25,6 @@ public class BrowserViewControl implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        Browser browser = new Browser();
-        browserView = new BrowserView(browser);
         BrowserPreferences preferences = browserView.getBrowser().getPreferences();
         browserView.getBrowser().loadURL(textField.getText());
     }
