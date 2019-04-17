@@ -19,8 +19,8 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720" prefWidth="1280" style="-fx-background-color: #012d5a;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.d19.teamL.RoomBooking.BookRoomController">
-
+<?import java.net.URL?>
+<AnchorPane maxHeight="-Infinity" stylesheets="@book-room.css" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720" prefWidth="1280" style="-fx-background-color: #012d5a;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.d19.teamL.RoomBooking.BookRoomController">
     <children>
         <GridPane fx:id="gridPane" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
             <columnConstraints>
@@ -59,7 +59,7 @@
                         </JFXButton>
                     </right>
                 </JFXToolbar>
-                <JFXButton fx:id="requestRoom" buttonType="RAISED" disable="false" onAction="#findRoom" prefHeight="66.0" prefWidth="180.0" ripplerFill="WHITE" style="-fx-border-color: #f5d96b; -fx-border-radius: 100; -fx-border-width: 2; -fx-background-radius: 100;" stylesheets="@book-room.css" text="Submit" textFill="#f5d96b" GridPane.columnIndex="2" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="4">
+                <JFXButton fx:id="requestRoom" buttonType="RAISED" disable="false" onAction="#findRoom" prefHeight="66.0" prefWidth="180.0" ripplerFill="WHITE" style="-fx-border-color: #f5d96b; -fx-border-radius: 100; -fx-border-width: 2; -fx-background-radius: 100;" text="Submit" textFill="#f5d96b" GridPane.columnIndex="2" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="4">
                     <font>
                         <Font name="Avenir Book" size="36.0" />
                     </font>
@@ -139,4 +139,7 @@
             </children>
         </GridPane>
     </children>
+    <stylesheets>
+        <URL value="@book-room.css" />
+    </stylesheets>
 </AnchorPane>

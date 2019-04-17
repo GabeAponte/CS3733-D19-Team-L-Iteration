@@ -1,5 +1,8 @@
 package edu.wpi.cs3733.d19.teamL.RoomBooking;
 
+import javafx.event.EventHandler;
+import javafx.geometry.Point2D;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Polygon;
 
@@ -25,6 +28,8 @@ public class RoomDisplay {
             coordinates[j] = coordinates[j] * scaleRatio;
         }
         p = new Polygon(coordinates);
+        p.setOnMouseEntered(setOnMouseEntered);
+        p.setOnMouseExited(setOnMouseExited);
     }
 
     public void changePolygonColor(String color){
@@ -64,4 +69,24 @@ public class RoomDisplay {
     public void setCoordinates(double[] coordinates) {
         this.coordinates = coordinates;
     }
+
+    private EventHandler<MouseEvent> setOnMouseEntered = new EventHandler<MouseEvent>() {
+
+        @Override
+        public void handle(MouseEvent event) {
+            ((Polygon)(event.getSource())).setOpacity(0.6);
+
+        }
+
+    };
+
+    private EventHandler<MouseEvent> setOnMouseExited = new EventHandler<MouseEvent>() {
+
+        @Override
+        public void handle(MouseEvent event) {
+            ((Polygon)(event.getSource())).setOpacity(0.3);
+
+        }
+
+    };
 }
