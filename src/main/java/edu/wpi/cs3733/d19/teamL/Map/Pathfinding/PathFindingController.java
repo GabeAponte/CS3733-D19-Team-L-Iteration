@@ -1632,6 +1632,9 @@ public class PathFindingController {
             for (Circle c: circles) {
                 pathPane.getChildren().remove(c);
             }
+            for (Line l: lines) {
+                pathPane.getChildren().remove(l);
+            }
         }
     }
     /** GRACE MADE THIS
@@ -1664,6 +1667,9 @@ public class PathFindingController {
             for (Circle c: circles) {
                 pathPane.getChildren().remove(c);
             }
+            for (Line l: lines) {
+                pathPane.getChildren().remove(l);
+            }
         }
     }
     @FXML
@@ -1694,6 +1700,9 @@ public class PathFindingController {
             for (Circle c: circles) {
                 pathPane.getChildren().remove(c);
             }
+            for (Line l: lines) {
+                pathPane.getChildren().remove(l);
+            }
         }
     }
     @FXML
@@ -1718,6 +1727,9 @@ public class PathFindingController {
             vendRadButton.setTextFill(Color.web("#ffffff"));
             for (Circle c: circles) {
                 pathPane.getChildren().remove(c);
+            }
+            for (Line l: lines) {
+                pathPane.getChildren().remove(l);
             }
         }
     }
@@ -1747,6 +1759,9 @@ public class PathFindingController {
             for (Circle c: circles) {
                 pathPane.getChildren().remove(c);
             }
+            for (Line l: lines) {
+                pathPane.getChildren().remove(l);
+            }
         }
     }
     /** GRACE MADE THIS
@@ -1774,6 +1789,9 @@ public class PathFindingController {
             for (Circle c: circles) {
                 pathPane.getChildren().remove(c);
             }
+            for (Line l: lines) {
+                pathPane.getChildren().remove(l);
+            }
         }
     }
     /** GRACE MADE THIS
@@ -1800,6 +1818,9 @@ public class PathFindingController {
             stairsRadButton.setTextFill(Color.web("#ffffff"));
             for (Circle c: circles) {
                 pathPane.getChildren().remove(c);
+            }
+            for (Line l: lines) {
+                pathPane.getChildren().remove(l);
             }
         }
     }
