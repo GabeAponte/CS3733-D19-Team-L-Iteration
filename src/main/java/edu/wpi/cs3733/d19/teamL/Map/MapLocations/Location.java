@@ -289,7 +289,7 @@ public class Location implements Comparable<Location>{
             Location[] locs = new Location[2];
             for (int i = 0; i <connectedEdges.size(); i ++) {
                 if (!connectedEdges.get(i).getStartNode().equals(this)) {
-                   locs[i] = connectedEdges.get(i).getStartNode();
+                    locs[i] = connectedEdges.get(i).getStartNode();
                 }
                 else {
                     locs[i] = connectedEdges.get(i).getEndNode();
