@@ -128,7 +128,11 @@ public class PathFindingController {
     @FXML
     private RadioButton stairsRadButton;
     @FXML
-    private JFXButton setKioskButton; //setKioskButtPress
+    private RadioButton vendRadButton;
+    @FXML
+    private RadioButton giftRadButton;
+    @FXML
+    private RadioButton cuisineRadButton;
 
     @FXML
     private ComboBox<String> Filter;
@@ -1478,6 +1482,12 @@ public class PathFindingController {
         eleRadButton.setTextFill(Color.web("#ffffff"));
         stairsRadButton.setSelected(false);
         stairsRadButton.setTextFill(Color.web("#ffffff"));
+        vendRadButton.setSelected(false);
+        vendRadButton.setTextFill(Color.web("#ffffff"));
+        giftRadButton.setSelected(false);
+        giftRadButton.setTextFill(Color.web("#ffffff"));
+        cuisineRadButton.setSelected(false);
+        cuisineRadButton.setTextFill(Color.web("#ffffff"));
     }
 
     /**Grace made this
@@ -1540,14 +1550,89 @@ public class PathFindingController {
             resetRadButts();
             cafeRadButton.setSelected(true);
             cafeRadButton.setTextFill(Color.web("#f5d96b"));
-
+            // -----------------------------------------------------------------------???????????????????????????
             if((currentMap.equals(kioskTemp.getFloor()))) {
-                displayClosestPOI("RETL");
+                displayClosestPOI("CAFE");
             }
-            displayPOINodes("RETL");
+            displayPOINodes("CAFE");
         }
         if(!cafeRadButton.isSelected()){
             cafeRadButton.setTextFill(Color.web("#ffffff"));
+            for (Circle c: circles) {
+                pathPane.getChildren().remove(c);
+            }
+        }
+    }
+    @FXML
+    private void cuisineRadButtPressed(){
+        checkAndSetKiosk();
+        //when pressed, change color to #f5d96b (gold/yellow), to do later
+        //display and find closest bathroom
+        //System.out.println("find closest bathroom selected");
+
+        if(cuisineRadButton.isSelected()) {
+            resetRadButts();
+            cuisineRadButton.setSelected(true);
+            cuisineRadButton.setTextFill(Color.web("#f5d96b"));
+
+            if((currentMap.equals(kioskTemp.getFloor()))){
+                displayClosestPOI("FOOD");
+            }
+            displayPOINodes("FOOD");
+            // for some reason displaying poi nodes cannot go before displaying the closest path
+        }
+        else if(!cuisineRadButton.isSelected()){
+            cuisineRadButton.setTextFill(Color.web("#ffffff"));
+            for (Circle c: circles) {
+                pathPane.getChildren().remove(c);
+            }
+        }
+    }
+    @FXML
+    private void vendRadButtPressed(){
+        checkAndSetKiosk();
+        //when pressed, change color to #f5d96b (gold/yellow), to do later
+        //display and find closest bathroom
+        //System.out.println("find closest bathroom selected");
+
+        if(vendRadButton.isSelected()) {
+            resetRadButts();
+            vendRadButton.setSelected(true);
+            vendRadButton.setTextFill(Color.web("#f5d96b"));
+
+            if((currentMap.equals(kioskTemp.getFloor()))){
+                displayClosestPOI("REST");
+            }
+            displayPOINodes("REST");
+            // for some reason displaying poi nodes cannot go before displaying the closest path
+        }
+        else if(!vendRadButton.isSelected()){
+            vendRadButton.setTextFill(Color.web("#ffffff"));
+            for (Circle c: circles) {
+                pathPane.getChildren().remove(c);
+            }
+        }
+    }
+    @FXML
+    private void giftRadButtPressed(){
+        checkAndSetKiosk();
+        //when pressed, change color to #f5d96b (gold/yellow), to do later
+        //display and find closest bathroom
+        //System.out.println("find closest bathroom selected");
+
+        if(giftRadButton.isSelected()) {
+            resetRadButts();
+            giftRadButton.setSelected(true);
+            giftRadButton.setTextFill(Color.web("#f5d96b"));
+
+            if((currentMap.equals(kioskTemp.getFloor()))){
+                displayClosestPOI("GIFT");
+            }
+            displayPOINodes("GIFT");
+            // for some reason displaying poi nodes cannot go before displaying the closest path
+        }
+        else if(!giftRadButton.isSelected()){
+            giftRadButton.setTextFill(Color.web("#ffffff"));
             for (Circle c: circles) {
                 pathPane.getChildren().remove(c);
             }
@@ -1600,7 +1685,7 @@ public class PathFindingController {
             }
             displayPOINodes("STAI");
         }
-        if(!stairsRadButton.isSelected()){
+        if(! stairsRadButton.isSelected()){
             stairsRadButton.setTextFill(Color.web("#ffffff"));
             for (Circle c: circles) {
                 pathPane.getChildren().remove(c);
