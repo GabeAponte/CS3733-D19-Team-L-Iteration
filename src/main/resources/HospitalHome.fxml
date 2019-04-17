@@ -38,8 +38,13 @@
                   <Insets left="10.0" right="10.0" />
                </padding>
                <right>
-                  <HBox alignment="CENTER_RIGHT" prefHeight="90.0" prefWidth="244.0" spacing="5.0" BorderPane.alignment="CENTER">
+                  <HBox alignment="CENTER_RIGHT" prefHeight="100.0" prefWidth="369.0" spacing="5.0" BorderPane.alignment="CENTER">
                      <children>
+                        <JFXButton fx:id="aboutButton" buttonType="RAISED" contentDisplay="GRAPHIC_ONLY" onAction="#AboutPress" prefHeight="75.0" prefWidth="110.0" style="-fx-background-radius: 100000; -fx-border-radius: 1000; -fx-border-color: #012d5a; -fx-border-width: 2;" stylesheets="@toolbarIcons.css">
+                           <graphic>
+                              <FontAwesomeIconView fill="#012d5a" glyphName="INFO" size="50" />
+                           </graphic>
+                        </JFXButton>
                         <JFXButton fx:id="HomeSuggestions" alignment="CENTER" buttonType="RAISED" contentDisplay="TOP" focusTraversable="false" graphicTextGap="0.0" onAction="#SwitchToSuggestionBox" prefHeight="77.0" prefWidth="118.0" ripplerFill="#b0b0b0" style="-fx-border-color: #012d5a; -fx-border-width: 2; -fx-border-radius: 1000; -fx-background-radius: 1000000;" stylesheets="@toolbarIcons.css" text="Feedback" textFill="#012d5a">
                            <font>
                               <Font size="17.0" />

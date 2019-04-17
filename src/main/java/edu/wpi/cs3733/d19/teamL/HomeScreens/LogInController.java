@@ -34,6 +34,7 @@ import javax.swing.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 
 import static java.lang.Thread.sleep;
 import static org.bytedeco.opencv.global.opencv_core.cvFlip;
@@ -153,8 +154,7 @@ public class LogInController {
             JFrame window = new JFrame("Hold still for 5 seconds");
             window.add(wp);
             window.setResizable(true);
-            //window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-            window.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+            window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
             window.pack();
             window.setLocationRelativeTo(null);
             window.setVisible(true);
@@ -174,14 +174,18 @@ public class LogInController {
             webcam.close();
 
             ImageComparison ic = new ImageComparison();
-            double diff = ic.doIT(username.getText());
+            //double diff = ic.doIT(username.getText());
+            ArrayList<String> results = ic.doWithAll();
+            double diff = Double.parseDouble(results.get(0));
+
             Singleton single = Singleton.getInstance();
             EmployeeAccess ea = new EmployeeAccess();
             if (diff < 10) {
                 single.setLoggedIn(true);
-                single.setUsername(username.getText());
+                single.setUsername(results.get(1));
+                System.out.println(results.get(1));
                 single.setIsAdmin(false);
-                if (ea.getEmployeeInformation(username.getText()).get(2).equals("true")) {
+                if (ea.getEmployeeInformation(results.get(1)).get(2).equals("true")) {
                     single.setIsAdmin(true);
                     SwitchToSignedIn("AdminLoggedInHome.fxml");
                     return;

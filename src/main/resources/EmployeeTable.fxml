@@ -51,7 +51,7 @@
             <JFXToolbar prefHeight="10.0" prefWidth="1280.0" style="-fx-background-color: F5D96B;" />
             <GridPane alignment="CENTER" vgap="10.0" VBox.vgrow="ALWAYS">
               <columnConstraints>
-                <ColumnConstraints halignment="CENTER" hgrow="ALWAYS" minWidth="-Infinity" />
+                <ColumnConstraints halignment="CENTER" hgrow="NEVER" maxWidth="-Infinity" minWidth="-Infinity" />
                   <ColumnConstraints />
               </columnConstraints>
               <rowConstraints>
@@ -67,16 +67,16 @@
                         <Blend />
                      </effect>
                   </Label>
-                  <JFXTreeTableView fx:id="employees" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" onMouseClicked="#SwitchToCreateEditAccount" style="-fx-border-color: F5D96B; -fx-border-radius: 5; -fx-border-width: 5;" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
+                  <JFXTreeTableView fx:id="employees" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" onMouseClicked="#SwitchToCreateEditAccount" style="-fx-border-color: F5D96B; -fx-border-radius: 20; -fx-border-width: 5; -fx-background-radius: 20;" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" GridPane.valignment="CENTER" GridPane.vgrow="NEVER">
                      <columns>
                         <TreeTableColumn fx:id="ID" minWidth="0.0" prefWidth="147.0" text="ID" />
                         <TreeTableColumn fx:id="firstName" prefWidth="246.0" text="First Name" />
                         <TreeTableColumn fx:id="lastName" prefWidth="220.0" text="Last Name" />
-                        <TreeTableColumn fx:id="department" minWidth="-1.0" prefWidth="340.0" resizable="false" text="Department" />
-                        <TreeTableColumn fx:id="position" minWidth="7.198272705078125" prefWidth="225.0" text="Position" />
+                        <TreeTableColumn fx:id="department" minWidth="-1.0" prefWidth="186.0" resizable="false" text="Department" />
+                        <TreeTableColumn fx:id="position" minWidth="0.5" prefWidth="231.0" text="Position" />
                      </columns>
                      <GridPane.margin>
-                        <Insets left="50.0" right="50.0" />
+                        <Insets left="120.0" right="120.0" />
                      </GridPane.margin>
                   </JFXTreeTableView>
                </children>

@@ -1,5 +1,6 @@
 package edu.wpi.cs3733.d19.teamL.HomeScreens;
 
+import com.jfoenix.controls.JFXButton;
 import edu.wpi.cs3733.d19.teamL.ServiceRequest.MakeServiceRequest.ServiceRequestController;
 import edu.wpi.cs3733.d19.teamL.Singleton;
 import edu.wpi.cs3733.d19.teamL.API.Weather;
@@ -36,6 +37,9 @@ public class HomeScreenController {
     Button HomeFindPath;
 
     @FXML
+    private JFXButton aboutButton;
+
+    @FXML
     Button HomeServiceRequest;
 
     @FXML
@@ -64,6 +68,8 @@ public class HomeScreenController {
 
     @FXML
     AnchorPane ap;
+
+    Timeline timeout;
 
     Timeline clock;
     Timeline tweets;
@@ -263,5 +269,22 @@ public class HomeScreenController {
             thestage.setScene(scene);
         } catch (Exception e){
         }
+    }
+
+    @FXML
+    private void AboutPress() throws IOException {
+        tweets.stop();
+        clock.stop();
+        Singleton single = Singleton.getInstance();
+        single.setLastTime();
+        single.setDoPopup(true);
+        FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("AboutPage_fancy.fxml"));
+
+        Parent sceneMain = loader.load();
+
+        Stage thisStage = (Stage) aboutButton.getScene().getWindow();
+
+        Scene newScene = new Scene(sceneMain);
+        thisStage.setScene(newScene);
     }
 }
