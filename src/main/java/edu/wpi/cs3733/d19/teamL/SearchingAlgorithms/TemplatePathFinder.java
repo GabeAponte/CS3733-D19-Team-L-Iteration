@@ -95,4 +95,6 @@ public abstract class TemplatePathFinder implements PathfindingStrategy{
         return p;
     }
 
+    abstract public String toString();
+
 }

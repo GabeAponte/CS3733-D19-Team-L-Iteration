@@ -26,4 +26,9 @@ public class AStarStrategy extends TemplatePathFinder implements PathfindingStra
     public void calculateTotalScore(Location l, Location end, double gscore) {
         l.setScore(l.calculateScore(gscore, end));
     }
+
+    @Override
+    public String toString() {
+        return "A-Star";
+    }
 }

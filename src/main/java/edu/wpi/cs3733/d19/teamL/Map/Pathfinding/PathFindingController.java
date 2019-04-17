@@ -53,6 +53,7 @@ import java.util.ListIterator;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+import static java.lang.Math.asin;
 import static javafx.scene.paint.Color.*;
 
 import static java.lang.Math.sqrt;
@@ -114,15 +115,8 @@ public class PathFindingController {
     @FXML
     private Button logOut;
 
-
     @FXML
-    private Button PathFindLogOut;
-
-    @FXML
-    private TextField PathFindEndSearch;
-
-    @FXML
-    private TextField PathFindStartSearch;
+    private JFXButton menubtn;
 
     @FXML
     private RadioButton bathroomRadButton;
@@ -158,13 +152,18 @@ public class PathFindingController {
     private TextField searchField;
 
     @FXML
+    private JFXComboBox<Location> kioskConnectedTo;
+    @FXML
+    private TextField kioskName;
+
+    @FXML
     private GridPane gridPane;
 
     @FXML
     private ImageView Map;
 
     @FXML
-    private Pane imagePane;
+    private JFXComboBox<PathfindingStrategy> pathStrategy;
 
     @FXML
     private Label thisMap;
@@ -174,6 +173,9 @@ public class PathFindingController {
 
     @FXML
     private VBox vLeft;
+
+    @FXML
+    private AnchorPane settingPane;
 
     Location kioskTemp;
 
@@ -186,6 +188,10 @@ public class PathFindingController {
     private AnchorPane pathPane;
 
     private PathfindingStrategy strategyAlgorithm;
+    TemplatePathFinder aStarStrategy;
+    TemplatePathFinder dijkstraStrategy;
+    PathfindingStrategy depth;
+    PathfindingStrategy breadth;
 
     private NodesAccess na;
     private EdgesAccess ea;
@@ -202,6 +208,7 @@ public class PathFindingController {
     private ArrayList<Line> lines = new ArrayList<Line>();
 
     private ListIterator<String> listIterator = null;
+    private boolean showingSettings;
 
     Timeline timeout;
 
@@ -369,28 +376,65 @@ public class PathFindingController {
     @FXML
     private void strategySelected() {
         strategyAlgorithm = strategySelector.getValue();
+        if (strategySelector.getValue().equals(aStarStrategy)) {
+            single.setTypePathfind(0);
+        }
+        else if (strategySelector.getValue().equals(breadth)) {
+            single.setTypePathfind(1);
+        }
+        else if (strategySelector.getValue().equals(depth)) {
+            single.setTypePathfind(2);
+        }
+        else {
+            single.setTypePathfind(3);
+        }
+
     }
 
     public void initialize() {
         Singleton single = Singleton.getInstance();
         single.setLastTime();
 
+        na = new NodesAccess();
+        ea = new EdgesAccess();
+
         ObservableList<PathfindingStrategy> strategies = FXCollections.observableArrayList();
         ObservableList<String> preference = FXCollections.observableArrayList();
-        TemplatePathFinder aStarStrategy = new AStarStrategy(single.lookup);
-        TemplatePathFinder dijkstraStrategy = new DijkstraStrategy(single.lookup);
+        aStarStrategy = new AStarStrategy(single.lookup);
+        dijkstraStrategy = new DijkstraStrategy(single.lookup);
         strategies.add(dijkstraStrategy);
         strategies.add(aStarStrategy);
-        strategies.add(new DepthFirstStrategy(single.lookup));
-        strategies.add(new BreadthFirstStrategy(single.lookup));
+        depth = new DepthFirstStrategy(single.lookup);
+        breadth = new BreadthFirstStrategy(single.lookup);
+        strategies.add(depth);
+        strategies.add(breadth);
         preference.addAll("Stairs Only", "Elevators Only", "Both");
         restrictChoice.setItems(preference);
+
+        ObservableList strategiesDropDown = FXCollections.observableArrayList();
+        strategiesDropDown.add(aStarStrategy);
+        strategiesDropDown.add(dijkstraStrategy);
+        strategiesDropDown.add(depth);
+        strategiesDropDown.add(breadth);
+        strategySelector.setItems(strategiesDropDown);
+        if(single.getTypePathfind() == 0){
+            strategySelector.setValue(aStarStrategy);
+        } else if (single.getTypePathfind() == 1){
+            strategySelector.setValue(breadth);
+        } else if (single.getTypePathfind() == 2){
+            strategySelector.setValue(depth);
+        } else {
+            strategySelector.setValue(dijkstraStrategy);
+        }
 //        strategyAlgorithm = strategySelector.getValue();
         direction.setEditable(false);
         PathFindSubmit.setDisable(true);
-        changeMapLabel();
-        timeout = new Timeline(new KeyFrame(Duration.seconds(2), new EventHandler<ActionEvent>() {
 
+        kioskConnectedTo.setItems(single.getData());
+
+        changeMapLabel();
+        showingSettings = false;
+        timeout = new Timeline(new KeyFrame(Duration.seconds(2), new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
                 if((System.currentTimeMillis() - single.getLastTime()) > single.getTimeoutSec()){
@@ -420,8 +464,6 @@ public class PathFindingController {
         timeout.setCycleCount(Timeline.INDEFINITE);
         timeout.play();
 
-        na = new NodesAccess();
-        ea = new EdgesAccess();
         filter();
         floor();
         noHall();
@@ -493,8 +535,13 @@ public class PathFindingController {
         pathPane.getChildren().add(startLabel);
         pathPane.getChildren().add(endLabel);
         pathPane.getChildren().add(hereLabel);
+        menubtn.setVisible(false);
         if(!single.isLoggedIn()){
             logOut.setVisible(false);
+        }
+        if(single.isIsAdmin()){
+            menubtn.setDisable(false);
+            menubtn.setVisible(true);
         }
 
         nameToLoc.clear();
@@ -600,13 +647,13 @@ public class PathFindingController {
         }
 
         if(single.getTypePathfind() == 0){
-            strategyAlgorithm = new AStarStrategy(single.lookup);
+            strategyAlgorithm = aStarStrategy;
         } else if (single.getTypePathfind() == 1){
-            strategyAlgorithm = new BreadthFirstStrategy(single.lookup);
+            strategyAlgorithm = breadth;
         } else if (single.getTypePathfind() == 2){
-            strategyAlgorithm = new DepthFirstStrategy(single.lookup);
+            strategyAlgorithm = depth;
         } else {
-            strategyAlgorithm = new DijkstraStrategy(single.lookup);
+            strategyAlgorithm = dijkstraStrategy;
         }
 
 
@@ -673,6 +720,33 @@ public class PathFindingController {
     }
 
     @FXML
+    private void settingPressed(){
+        showingSettings = !showingSettings;
+
+        if(showingSettings){
+            settingPane.setDisable(false);
+            settingPane.setLayoutY(113);
+        }
+        else{
+            settingPane.setDisable(true);
+            settingPane.setLayoutY(-320);
+        }
+    }
+
+    @FXML
+    private void updateKiosk(){
+        if(!kioskName.getText().equals("")) {
+            kioskTemp.setLongName(kioskName.getText());
+        }
+        if(kioskConnectedTo.getValue() != null) {
+            kioskTemp = kioskConnectedTo.getValue();
+            single.setKioskID(kioskConnectedTo.getValue().getLocID());
+        }
+        clearStart();
+        //        displayKiosk();
+    }
+
+    @FXML
     private void prepareSlideMenuAnimation() {
         TranslateTransition openNav = new TranslateTransition(new Duration(300.0D), this.navList);
         openNav.setToX(0.0D);
@@ -716,7 +790,7 @@ public class PathFindingController {
      */
     public void displayPath(){
         single.setLastTime();
-        //Clears the lines and circles to avoid any duplicates or reproducing data.
+        //Clears the lines and circles to avoid any duplicates or reproducing data
         if(displayingPath) {
             path.getPath().add(0,startNode);
 
@@ -820,23 +894,19 @@ public class PathFindingController {
                         nBut.setVisible(true);
                         //Change the display of the button based on which floor you're on
                         if(currentMap.equals(startNode.getFloor())) {
-                            System.out.println("1");
                             nBut.setStyle("-fx-text-fill: WHITE; -fx-font-size: 6; -fx-background-color: GREEN; -fx-border-color: WHITE; -fx-background-radius: 18; -fx-border-radius: 18; -fx-border-width: 3");
                             //Should handle weird case for displaying button way out in nowhere.
                             if(!path.getPath().get(i+1).getFloor().equals(currentMap)) {
-                                System.out.println("5");
                                 nBut.setLayoutX((path.getPath().get(floorSwitch2).getXcoord()*childPane.getWidth()/Map.getImage().getWidth()));
                                 nBut.setLayoutY((path.getPath().get(floorSwitch2).getYcoord()*childPane.getHeight()/Map.getImage().getHeight()));
                             }
                         }
                         else if(!currentMap.equals(startNode.getFloor()) && !currentMap.equals(endNode.getFloor())){
-                            System.out.println("2");
                             nBut.setStyle("-fx-text-fill: WHITE; -fx-font-size: 6; -fx-background-color: GREEN; -fx-border-color: WHITE; -fx-background-radius: 18; -fx-border-radius: 18; -fx-border-width: 3");
                             nBut.setLayoutX((path.getPath().get(floorSwitch2).getXcoord()*childPane.getWidth()/Map.getImage().getWidth()));
                             nBut.setLayoutY((path.getPath().get(floorSwitch2).getYcoord()*childPane.getHeight()/Map.getImage().getHeight()));
                         }
                         else {
-                            System.out.println("3");
                             //Modified the return to start button position.
                             nBut.setStyle("-fx-text-fill: WHITE;-fx-font-size: 6; -fx-background-color: RED; -fx-border-color: WHITE; -fx-background-radius: 18; -fx-border-radius: 18; -fx-border-width: 3");
                             nBut.setText("Go to Starting Floor");
@@ -1697,7 +1767,7 @@ public class PathFindingController {
      */
     public void checkAndSetKiosk(){
         //if kiosk was initiated its fine
-        //if not set kiosk to random (first location stuff) things
+        //if not set kiosk to random (first location stuff) thing
         if(single.getKioskID().equals("")){
             //Location kioskTemp = single.getData().get(0); //initially at floor 2
             single.setKioskID(single.getData().get(0).getLocID());
