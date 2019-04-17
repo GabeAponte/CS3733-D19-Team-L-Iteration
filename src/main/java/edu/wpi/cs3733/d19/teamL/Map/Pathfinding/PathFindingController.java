@@ -781,7 +781,7 @@ public class PathFindingController {
      */
     public void displayPath(){
         single.setLastTime();
-        //Clears the lines and circles to avoid any duplicates or reproducing data.
+        //Clears the lines and circles to avoid any duplicates or reproducing data
         if(displayingPath) {
             path.getPath().add(0,startNode);
 
