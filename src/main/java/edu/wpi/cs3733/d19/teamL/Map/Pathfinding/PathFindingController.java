@@ -422,6 +422,9 @@ public class PathFindingController {
         }
 //        strategyAlgorithm = strategySelector.getValue();
         direction.setEditable(false);
+
+        kioskConnectedTo.setItems(single.getData());
+
         changeMapLabel();
         showingSettings = false;
         timeout = new Timeline(new KeyFrame(Duration.seconds(2), new EventHandler<ActionEvent>() {
