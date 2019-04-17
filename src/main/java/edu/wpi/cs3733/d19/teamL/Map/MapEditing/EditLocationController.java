@@ -105,6 +105,7 @@ public class EditLocationController {
 
     private ArrayList<CircleLocation> shiftClick = new ArrayList<CircleLocation>();
     private ArrayList<CircleLocation> addEdgeList = new ArrayList<CircleLocation>();
+    private ArrayList<CircleLocation> crossEdgeList = new ArrayList<CircleLocation>();
 
     private CircleLocation betweenFloorsCircle;
 
@@ -679,11 +680,21 @@ public class EditLocationController {
                         animationPlayed = false;
                         CircleLocation cl = ((CircleLocation) (t.getSource()));
                         if (cl.getLocation().getNodeType().equals("ELEV") || cl.getLocation().getNodeType().equals("STAI")) {
-                            betweenFloorsCircle = cl;
+                            //betweenFloorsCircle = cl;
+                            if(!crossEdgeList.contains(cl)){
+                                crossEdgeList.add(cl);
+                                cl.setStroke(Color.web("BLUE"));
+                                cl.setFill(Color.web("BLUE"));
+                            }
+                            else {
+                                crossEdgeList.remove(cl);
+                                cl.setStroke(Color.web("RED"));
+                                cl.setFill(Color.web("RED"));
+                            }
                         }
-                        else {
-                            betweenFloorsCircle = null;
-                        }
+//                        else {
+//                            betweenFloorsCircle = null;
+//                        }
                         if(!addEdgeList.contains(cl)){
                             addEdgeList.add(cl);
                             cl.setStroke(Color.web("BLUE"));
@@ -694,21 +705,88 @@ public class EditLocationController {
                             cl.setStroke(Color.web("RED"));
                             cl.setFill(Color.web("RED"));
                         }
-                        if(addEdgeList.size() == 2){
+                        if(crossEdgeList.size() == 2){
+                            CircleLocation clStart = crossEdgeList.get(0);
+                            CircleLocation clEnd = crossEdgeList.get(1);
+                            int startX = clStart.getLocation().getXcoord();
+                            int startY = clStart.getLocation().getYcoord();
+
+                            int endX = clEnd.getLocation().getXcoord();
+                            int endY = clEnd.getLocation().getYcoord();
+                           
+
+                            if(!clStart.getLocation().getNodeType().equals(clEnd.getLocation().getNodeType())&&
+                            clStart.getLocation().getFloor().equals(clEnd.getLocation().getFloor())){
+                                Alert alert = new Alert(Alert.AlertType.INFORMATION, "Please select the same " +
+                                        "staircase or elevator",ButtonType.OK);
+                                alert.showAndWait();
+                                crossEdgeList.clear();
+                                clStart.setStroke(Color.web("RED"));
+                                clStart.setFill(Color.web("RED"));
+                                clEnd.setStroke(Color.web("RED"));
+                                clEnd.setFill(Color.web("RED"));
+                            }
+
+
+                            else if(clStart.getLocation().getNodeType().equals(clEnd.getLocation().getNodeType())&&
+                                    clStart.getLocation().getFloor().equals(clEnd.getLocation().getFloor())){
+                                Alert alert = new Alert(Alert.AlertType.INFORMATION, "Please select different " +
+                                        "floor",ButtonType.OK);
+                                alert.showAndWait();
+                                crossEdgeList.clear();
+                                clStart.setStroke(Color.web("RED"));
+                                clStart.setFill(Color.web("RED"));
+                                clEnd.setStroke(Color.web("RED"));
+                                clEnd.setFill(Color.web("RED"));
+                            }
+
+                            else if( (startX <= (endX + 50)) && (startX >= (endX - 50)) &&
+                                    (startY <= (endY + 50)) && (startY >= (endY - 50)) ){
+                                Alert alert = new Alert(Alert.AlertType.INFORMATION, "Add edges between"+
+                                        clStart.getLocation().getLongName() + " and " + clEnd.getLocation().getLongName()
+                                        + " successfully" ,ButtonType.OK);
+                                alert.showAndWait();
+
+                                ea =new EdgesAccess();
+                                ea.addEdge(clStart.getLocation().getLocID(), clEnd.getLocation().getLocID());
+                                Edge e = new Edge(clStart.getLocation().getLocID()+"_"+
+                                        clEnd.getLocation().getLocID(), clStart.getLocation(), clEnd.getLocation());
+                                single.addEdge(clStart.getLocation(),clEnd.getLocation(),e);
+                                addEdgeList.clear();
+                                crossEdgeList.clear();
+                                eraseNodes();
+                                drawNodes();
+
+                            }
+                            else{
+                                System.out.println("cel " + crossEdgeList);
+                                crossEdgeList.clear();
+                                System.out.println("Oh no 1");
+                                clStart.setStroke(Color.web("RED"));
+                                clStart.setFill(Color.web("RED"));
+                                clEnd.setStroke(Color.web("RED"));
+                                clEnd.setFill(Color.web("RED"));
+                            }
+
+                        }
+
+                        else if(addEdgeList.size() == 2){
                             CircleLocation clStart = addEdgeList.get(0);
                             CircleLocation clEnd = addEdgeList.get(1);
+
                             ea =new EdgesAccess();
                             ea.addEdge(clStart.getLocation().getLocID(), clEnd.getLocation().getLocID());
                             Edge e = new Edge(clStart.getLocation().getLocID()+"_"+
                                     clEnd.getLocation().getLocID(), clStart.getLocation(), clEnd.getLocation());
                             single.addEdge(clStart.getLocation(),clEnd.getLocation(),e);
-//                            System.out.println("start id " + clStart.getLocation().getLocID());
-//                            System.out.println("end id " + clEnd.getLocation().getLocID());
-//                            System.out.println("Add edges successfully");
                             addEdgeList.remove(clStart);
                             addEdgeList.remove(clEnd);
+                            crossEdgeList.clear();
                             eraseNodes();
                             drawNodes();
+                        }
+                        else{
+                            System.out.println("Oh no");
                         }
 
                     }
