@@ -34,7 +34,6 @@ import javax.swing.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
 
 import static java.lang.Thread.sleep;
 import static org.bytedeco.opencv.global.opencv_core.cvFlip;
@@ -64,7 +63,7 @@ public class LogInController {
 
     Timeline timeout;
     public void initialize(){
-        facialRec.setDisable(true);
+        //facialRec.setDisable(true);
         Singleton single = Singleton.getInstance();
         single.setLastTime();
         timeout = new Timeline(new KeyFrame(Duration.seconds(2), new EventHandler<ActionEvent>() {
@@ -125,11 +124,11 @@ public class LogInController {
         Singleton single = Singleton.getInstance();
         single.setLastTime();
 
-        if(username.getText().trim().isEmpty()){
+        /*if(username.getText().trim().isEmpty()){
             facialRec.setDisable(true);
         } else {
             facialRec.setDisable(false);
-        }
+        }*/
         Boolean disable = (username.getText().isEmpty() || username.getText().trim().isEmpty() || password.getText().isEmpty() || password.getText().trim().isEmpty());
         if(!disable){
             login.setDisable(false);
@@ -139,72 +138,61 @@ public class LogInController {
     }
 
     @FXML
-    private void tryFR() throws IOException{
-        Webcam webcam;
-        webcam = Webcam.getDefault();
-        //THE VIEW SIZE WILL PROBABLY CHANGE DEPENDING ON THE COMPUTER
-        //IMAGE COMPARISON WILL FAIL IMMEDIATELY IF SIZE CHANGES
-        webcam.setViewSize(WebcamResolution.VGA.getSize());
-        WebcamPanel wp = new WebcamPanel(webcam);
-        wp.setFPSDisplayed(true);
-        wp.setDisplayDebugInfo(true);
-        wp.setImageSizeDisplayed(true);
-        wp.setMirrored(true);
-        JFrame window = new JFrame("Hold still for 5 seconds");
-        window.add(wp);
-        window.setResizable(true);
-        window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        window.pack();
-        window.setLocationRelativeTo(null);
-        window.setVisible(true);
+    private void tryFR(){
         try {
-            sleep(5000);
-        } catch (InterruptedException e){
-            System.out.println(e);
-            System.out.println(e.getMessage());
+            Webcam webcam;
+            webcam = Webcam.getDefault();
+            //THE VIEW SIZE WILL PROBABLY CHANGE DEPENDING ON THE COMPUTER
+            //IMAGE COMPARISON WILL FAIL IMMEDIATELY IF SIZE CHANGES
+            webcam.setViewSize(WebcamResolution.VGA.getSize());
+            WebcamPanel wp = new WebcamPanel(webcam);
+            wp.setFPSDisplayed(true);
+            wp.setDisplayDebugInfo(true);
+            wp.setImageSizeDisplayed(true);
+            wp.setMirrored(true);
+            JFrame window = new JFrame("Hold still for 5 seconds");
+            window.add(wp);
+            window.setResizable(true);
+            //window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+            window.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+            window.pack();
+            window.setLocationRelativeTo(null);
+            window.setVisible(true);
+            try {
+                sleep(5000);
+            } catch (InterruptedException e) {
+                System.out.println(e);
+                System.out.println(e.getMessage());
+            }
+            wp.stop();
+            webcam.close();
+            window.dispose();
+
+            webcam.open();
+            BufferedImage image = webcam.getImage();
+            ImageIO.write(image, "JPG", new File("TempOutput.jpg"));
+            webcam.close();
+
+            ImageComparison ic = new ImageComparison();
+            double diff = ic.doIT(username.getText());
+            Singleton single = Singleton.getInstance();
+            EmployeeAccess ea = new EmployeeAccess();
+            if (diff < 10) {
+                single.setLoggedIn(true);
+                single.setUsername(username.getText());
+                single.setIsAdmin(false);
+                if (ea.getEmployeeInformation(username.getText()).get(2).equals("true")) {
+                    single.setIsAdmin(true);
+                    SwitchToSignedIn("AdminLoggedInHome.fxml");
+                    return;
+                }
+                SwitchToSignedIn("EmployeeLoggedInHome.fxml");
+            } else {
+                displayError();
+            }//*/
+        } catch (Exception e){
+            e.printStackTrace();
         }
-        wp.stop();
-        webcam.close();
-        window.dispose();
-
-        webcam.open();
-        BufferedImage image = webcam.getImage();
-        ImageIO.write(image, "JPG", new File("TempOutput.jpg"));
-        webcam.close();
-
-        ImageComparison ic = new ImageComparison();
-        //double diff = ic.doIT(username.getText());
-        ArrayList<String> results = ic.doWithAll();
-        double diff = Double.parseDouble(results.get(0));
-
-        Singleton single = Singleton.getInstance();
-        EmployeeAccess ea = new EmployeeAccess();
-        if(diff < 10){
-            single.setLoggedIn(true);
-            single.setUsername(results.get(1));
-            single.setIsAdmin(false);
-            if(ea.getEmployeeInformation(results.get(1)).get(2).equals("true")){
-                single.setIsAdmin(true);
-                SwitchToSignedIn("AdminLoggedInHome.fxml");
-                return;
-            }
-            SwitchToSignedIn("EmployeeLoggedInHome.fxml");
-        } else {
-            displayError();
-        }//*/
-        /*if(diff < 10){
-            single.setLoggedIn(true);
-            single.setUsername(results.get(1));
-            single.setIsAdmin(false);
-            if(ea.getEmployeeInformation(username.getText()).get(2).equals("true")){
-                single.setIsAdmin(true);
-                SwitchToSignedIn("AdminLoggedInHome.fxml");
-                return;
-            }
-            SwitchToSignedIn("EmployeeLoggedInHome.fxml");
-        } else {
-            displayError();
-        }//*/
     }
 
     @FXML
