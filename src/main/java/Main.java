@@ -37,5 +37,6 @@ public class Main extends Application {
         single.setData();
         single.populateTweets();
         launch(args);
+
     }
 }
