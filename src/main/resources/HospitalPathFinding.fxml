@@ -130,7 +130,7 @@
                                                 <Insets bottom="5.0" />
                                              </VBox.margin>
                                           </JFXRadioButton>
-                                          <JFXRadioButton fx:id="cafeRadButton" layoutX="10.0" layoutY="175.0" onAction="#cafeRadButtPressed" style="-jfx-selected-color: #f5d96b; -jfx-unselected-color: WHITE;" text="Cafe" textFill="WHITE">
+                                          <JFXRadioButton fx:id="cafeRadButton" layoutX="10.0" layoutY="175.0" onAction="#cafeRadButtPressed" style="-jfx-selected-color: #f5d96b; -jfx-unselected-color: WHITE;" text="Main Cafeteria" textFill="WHITE">
                                              <font>
                                                 <Font size="18.0" />
                                              </font>
@@ -138,12 +138,12 @@
                                                 <Insets bottom="5.0" />
                                              </VBox.margin>
                                           </JFXRadioButton>
-                                          <JFXRadioButton fx:id="cuisineRadButton" layoutX="10.0" layoutY="42.0" onAction="#cuisineRadButtPressed" style="-jfx-selected-color: #f5d96b; -jfx-unselected-color: WHITE;" text="Cuisine" textFill="WHITE">
+                                          <JFXRadioButton fx:id="cuisineRadButton" layoutX="10.0" layoutY="42.0" onAction="#cuisineRadButtPressed" style="-jfx-selected-color: #f5d96b; -jfx-unselected-color: WHITE;" text="Café" textFill="WHITE">
                                              <font>
                                                 <Font size="18.0" />
                                              </font>
                                           </JFXRadioButton>
-                                          <JFXRadioButton fx:id="eleRadButton" onAction="#eleRadButtPressed" style="-jfx-selected-color: #f5d96b; -jfx-unselected-color: WHITE;" text="Elevator" textFill="WHITE">
+                                          <JFXRadioButton fx:id="vendRadButton" onAction="#vendRadButtPressed" style="-jfx-selected-color: #f5d96b; -jfx-unselected-color: WHITE;" text="Vending Machine" textFill="WHITE">
                                              <font>
                                                 <Font size="18.0" />
                                              </font>
@@ -159,7 +159,7 @@
                                                 <Insets bottom="5.0" />
                                              </VBox.margin>
                                           </JFXRadioButton>
-                                          <JFXRadioButton fx:id="stairsRadButton" onAction="#stairsRadButtPressed" style="-jfx-selected-color: #f5d96b; -jfx-unselected-color: WHITE;" text="Stairs" textFill="WHITE">
+                                          <JFXRadioButton fx:id="eleRadButton" onAction="#eleRadButtPressed" style="-jfx-selected-color: #f5d96b; -jfx-unselected-color: WHITE;" text="Elevator" textFill="WHITE">
                                              <font>
                                                 <Font size="18.0" />
                                              </font>
@@ -167,7 +167,7 @@
                                                 <Insets bottom="5.0" />
                                              </VBox.margin>
                                           </JFXRadioButton>
-                                          <JFXRadioButton fx:id="vendRadButton" onAction="#vendRadButtPressed" style="-jfx-selected-color: #f5d96b; -jfx-unselected-color: WHITE;" text="Vending Machine" textFill="WHITE">
+                                          <JFXRadioButton fx:id="stairsRadButton" onAction="#stairsRadButtPressed" style="-jfx-selected-color: #f5d96b; -jfx-unselected-color: WHITE;" text="Stairs" textFill="WHITE">
                                              <font>
                                                 <Font size="18.0" />
                                              </font>
