@@ -442,7 +442,7 @@
                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
               </rowConstraints>
                <children>
-                  <JFXComboBox fx:id="pathStrategy" maxWidth="1.7976931348623157E308" onAction="#strategySelected" promptText="Search Strategy" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+                  <JFXComboBox fx:id="strategySelector" maxWidth="1.7976931348623157E308" onAction="#strategySelected" promptText="Search Strategy" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
                      <GridPane.margin>
                         <Insets left="15.0" right="15.0" />
                      </GridPane.margin>

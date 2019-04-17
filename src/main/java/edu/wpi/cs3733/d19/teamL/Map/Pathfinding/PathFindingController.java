@@ -54,6 +54,7 @@ import java.util.ListIterator;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+import static java.lang.Math.asin;
 import static javafx.scene.paint.Color.*;
 
 import static java.lang.Math.sqrt;
@@ -184,6 +185,10 @@ public class PathFindingController {
     private AnchorPane pathPane;
 
     private PathfindingStrategy strategyAlgorithm;
+    TemplatePathFinder aStarStrategy;
+    TemplatePathFinder dijkstraStrategy;
+    PathfindingStrategy depth;
+    PathfindingStrategy breadth;
 
     private NodesAccess na;
     private EdgesAccess ea;
@@ -364,7 +369,20 @@ public class PathFindingController {
 
     @FXML
     private void strategySelected() {
-        strategyAlgorithm = pathStrategy.getValue();
+        strategyAlgorithm = strategySelector.getValue();
+        if (strategySelector.getValue().equals(aStarStrategy)) {
+            single.setTypePathfind(0);
+        }
+        else if (strategySelector.getValue().equals(breadth)) {
+            single.setTypePathfind(1);
+        }
+        else if (strategySelector.getValue().equals(depth)) {
+            single.setTypePathfind(2);
+        }
+        else {
+            single.setTypePathfind(3);
+        }
+
     }
 
     public void initialize() {
@@ -376,24 +394,32 @@ public class PathFindingController {
 
         ObservableList<PathfindingStrategy> strategies = FXCollections.observableArrayList();
         ObservableList<String> preference = FXCollections.observableArrayList();
-        TemplatePathFinder aStarStrategy = new AStarStrategy(single.lookup);
-        TemplatePathFinder dijkstraStrategy = new DijkstraStrategy(single.lookup);
+        aStarStrategy = new AStarStrategy(single.lookup);
+        dijkstraStrategy = new DijkstraStrategy(single.lookup);
         strategies.add(dijkstraStrategy);
         strategies.add(aStarStrategy);
-        strategies.add(new DepthFirstStrategy(single.lookup));
-        strategies.add(new BreadthFirstStrategy(single.lookup));
+        depth = new DepthFirstStrategy(single.lookup);
+        breadth = new BreadthFirstStrategy(single.lookup);
+        strategies.add(depth);
+        strategies.add(breadth);
         preference.addAll("Stairs Only", "Elevators Only", "Both");
         restrictChoice.setItems(preference);
 
         ObservableList strategiesDropDown = FXCollections.observableArrayList();
-        strategiesDropDown.add(new AStarStrategy(single.lookup));
-        strategiesDropDown.add(new DijkstraStrategy(single.lookup));
-        strategiesDropDown.add(new DepthFirstStrategy(single.lookup));
-        strategiesDropDown.add(new BreadthFirstStrategy(single.lookup));
-        pathStrategy.setItems(strategiesDropDown);
-
-
-        kioskConnectedTo.setItems(single.getData());
+        strategiesDropDown.add(aStarStrategy);
+        strategiesDropDown.add(dijkstraStrategy);
+        strategiesDropDown.add(depth);
+        strategiesDropDown.add(breadth);
+        strategySelector.setItems(strategiesDropDown);
+        if(single.getTypePathfind() == 0){
+            strategySelector.setValue(aStarStrategy);
+        } else if (single.getTypePathfind() == 1){
+            strategySelector.setValue(breadth);
+        } else if (single.getTypePathfind() == 2){
+            strategySelector.setValue(depth);
+        } else {
+            strategySelector.setValue(dijkstraStrategy);
+        }
 //        strategyAlgorithm = strategySelector.getValue();
         direction.setEditable(false);
         changeMapLabel();
@@ -611,13 +637,13 @@ public class PathFindingController {
         }
 
         if(single.getTypePathfind() == 0){
-            strategyAlgorithm = new AStarStrategy(single.lookup);
+            strategyAlgorithm = aStarStrategy;
         } else if (single.getTypePathfind() == 1){
-            strategyAlgorithm = new BreadthFirstStrategy(single.lookup);
+            strategyAlgorithm = breadth;
         } else if (single.getTypePathfind() == 2){
-            strategyAlgorithm = new DepthFirstStrategy(single.lookup);
+            strategyAlgorithm = depth;
         } else {
-            strategyAlgorithm = new DijkstraStrategy(single.lookup);
+            strategyAlgorithm = dijkstraStrategy;
         }
 
 

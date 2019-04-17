@@ -23,4 +23,9 @@ public class DijkstraStrategy extends TemplatePathFinder implements PathfindingS
     public void calculateTotalScore(Location l, Location end, double gscore) {
         l.setScore(l.getGScore()); //djikstra doesn't use H score
     }
+
+    @Override
+    public String toString() {
+        return "Dijkstra";
+    }
 }
