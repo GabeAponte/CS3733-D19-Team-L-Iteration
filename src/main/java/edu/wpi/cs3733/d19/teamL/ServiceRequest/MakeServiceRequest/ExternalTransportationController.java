@@ -45,6 +45,9 @@ public class ExternalTransportationController {
     @FXML
     public JFXTextArea Description;
 
+    @FXML
+    public Button openGoogle;
+
     Timeline timeout;
 
     public void initialize() {
@@ -112,6 +115,16 @@ public class ExternalTransportationController {
         Singleton single = Singleton.getInstance();
         single.setLastTime();
         FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("ServiceRequest.fxml"));
+        Parent sceneMain = loader.load();
+
+        Stage theStage = (Stage) Back.getScene().getWindow();
+
+        Scene scene = new Scene(sceneMain);
+        theStage.setScene(scene);
+    }
+
+    public void openBrowser() throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("Browser.fxml"));
         Parent sceneMain = loader.load();
 
         Stage theStage = (Stage) Back.getScene().getWindow();
