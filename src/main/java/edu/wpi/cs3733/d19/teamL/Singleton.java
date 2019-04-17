@@ -47,7 +47,7 @@ public class Singleton {
         kioskID = ""; //kiosk node ID
         typePathfind = 0; //which strategy selection for pathfinding
         isAdmin = false; //is signedin employee an admin
-        timeoutSec = 500000; //how long before timeout (in ms) 1000 = 1 second
+        timeoutSec = 4500000; //how long before timeout (in ms) 1000 = 1 second
         doPopup = true; //should be more appropriately named initializeClock
         txt = new Text();
     }
@@ -244,10 +244,21 @@ public class Singleton {
     Changes out the current node with the ID with the new passed in loc
      */
     public void modifyNode(Location oldLoc, Location newLoc) {
-        data.remove(lookup.get(oldLoc));
+        ArrayList<Edge> edges = oldLoc.getEdges();
+        for (Edge e : edges) {
+            if (e.getEndNode().getLocID().equals(oldLoc)) {
+                e.setEndNode(newLoc);
+            }
+            else {
+                e.setStartNode(newLoc);
+            }
+            newLoc.addEdge(e);
+        }
+        data.remove(lookup.get(oldLoc.getLocID()));
         data.add(newLoc);
-        lookup.replace(oldLoc.getLocID(), newLoc);
 
+        lookup.remove(oldLoc.getLocID(), oldLoc);
+        lookup.put(newLoc.getLocID(), newLoc);
     }
 
     /*
@@ -260,8 +271,12 @@ public class Singleton {
                 return;
             }
         }
+        System.out.println(start.getLocID());
+        System.out.println(end.getLocID());
+        Edge e1 = new Edge(end.getLocID()+"_"+start.getLocID(), end, start);
         lookup.get(start.getLocID()).addEdge(e);
-        lookup.get(end.getLocID()).addEdge(e);
+        lookup.get(end.getLocID()).addEdge(e1);
+        System.out.println(e.getEdgeID());
     }
 
     /*
@@ -273,14 +288,14 @@ public class Singleton {
         Location second = lookup.get(edge.getEndID());
         ArrayList<Edge> toDel = new ArrayList<Edge>();
         for (Edge e: focus.getEdges()) {
-            if (e.getStartID().equals(focus.getLocID()) || e.getEndID().equals(focus.getLocID())) {
+            if (e.getEdgeID().equals(edge.getEdgeID())) {
                 toDel.add(e);
             }
         }
         focus.removeEdge(toDel);
         toDel.clear();
         for (Edge e : second.getEdges()) {
-            if (e.getStartID().equals(focus.getLocID()) || e.getEndID().equals(focus.getLocID())) {
+            if (e.getEdgeID().equals(edge.getEdgeID()) || (e.getEndID()+"_"+e.getStartID()).equals(edge.getEdgeID())) {
                 toDel.add(e);
             }
         }

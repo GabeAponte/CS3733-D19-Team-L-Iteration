@@ -2,6 +2,7 @@ package edu.wpi.cs3733.d19.teamL.ServiceRequest.MakeServiceRequest;
 
 import edu.wpi.cs3733.d19.teamL.HomeScreens.HomeScreenController;
 import edu.wpi.cs3733.d19.teamL.Singleton;
+import giftRequest.ServiceException;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.event.EventHandler;
@@ -16,6 +17,7 @@ import javafx.stage.Stage;
 import javafx.util.Duration;
 
 import java.io.IOException;
+import giftRequest.GiftRequest;
 
 public class ServiceRequestController {
 
@@ -186,7 +188,12 @@ public class ServiceRequestController {
 
         Scene scene = new Scene(sceneMain);
         theStage.setScene(scene);
+    }
 
+    @FXML
+    private void openGiftService() throws ServiceException {
+        GiftRequest gr = new GiftRequest();
+        gr.run(0, 0, 1280, 720, null, null, null);
     }
 
 }

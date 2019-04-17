@@ -182,7 +182,7 @@ public class AdminLoggedInHomeController {
         timeout.stop();
         Singleton single = Singleton.getInstance();
         single.setLastTime();
-        FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("EditLocation.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("NewMapBuilder.fxml"));
 
         Parent sceneMain = loader.load();
 

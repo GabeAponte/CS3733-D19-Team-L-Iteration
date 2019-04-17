@@ -69,6 +69,7 @@ dependencies {
             [group: 'com.github.sarxos', name: 'webcam-capture', version: '0.3.12'],
             [group: 'com.nativelibs4java', name: 'bridj', version: '0.7.0']
     )
+    compile files("jars/ServiceRequest-1.0-SNAPSHOT.jar")
 }
 
 check.dependsOn integrationTest
