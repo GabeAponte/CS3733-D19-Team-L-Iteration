@@ -34,7 +34,7 @@ public class Weather {
     }
 
     public void getCurrently(){
-        fio = new ForecastIO("8bbd411df62726b90761db369453bcc8");
+        fio = new ForecastIO("88cbab72251b626bd6cf465fc89144b9");
         fio.setUnits(ForecastIO.UNITS_US);
         fio.setLang(ForecastIO.LANG_ENGLISH);
         fio.getForecast("42.269478", "-71.807783");
