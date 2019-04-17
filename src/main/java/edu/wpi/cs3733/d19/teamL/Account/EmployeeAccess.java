@@ -358,7 +358,6 @@ public class EmployeeAccess extends DBAccess {
                     return image;
                 }
             }
-            System.out.println("exit loop");
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -383,7 +382,6 @@ public class EmployeeAccess extends DBAccess {
                 BufferedImage image = ImageIO.read(in);
                 bi.add(image);
             }
-            System.out.println("exit loop");
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -406,7 +404,6 @@ public class EmployeeAccess extends DBAccess {
                 }
                 bi.add(rs.getString("username"));
             }
-            System.out.println("exit loop");
         } catch (Exception e) {
             e.printStackTrace();
         }
