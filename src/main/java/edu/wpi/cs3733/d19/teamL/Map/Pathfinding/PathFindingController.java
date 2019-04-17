@@ -733,7 +733,6 @@ public class PathFindingController {
 
     @FXML
     private void updateKiosk(){
-        System.out.println(kioskTemp);
         if(!kioskName.getText().equals("")) {
             kioskTemp.setLongName(kioskName.getText());
         }
@@ -741,8 +740,8 @@ public class PathFindingController {
             kioskTemp = kioskConnectedTo.getValue();
             single.setKioskID(kioskConnectedTo.getValue().getLocID());
         }
-        System.out.println(kioskTemp);
-//        displayKiosk();
+        clearStart();
+        //        displayKiosk();
     }
 
     @FXML
