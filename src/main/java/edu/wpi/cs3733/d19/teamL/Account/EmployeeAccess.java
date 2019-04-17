@@ -383,7 +383,6 @@ public class EmployeeAccess extends DBAccess {
                     BufferedImage image = ImageIO.read(in);
                     bi.add(image);
             }
-            System.out.println("exit loop");
         } catch (Exception e) {
             e.printStackTrace();
         }

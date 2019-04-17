@@ -182,7 +182,6 @@ public class LogInController {
         if(diff < 10){
             single.setLoggedIn(true);
             single.setUsername(results.get(1));
-            System.out.println(results.get(1));
             single.setIsAdmin(false);
             if(ea.getEmployeeInformation(results.get(1)).get(2).equals("true")){
                 single.setIsAdmin(true);
