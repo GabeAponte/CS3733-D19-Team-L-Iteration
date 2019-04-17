@@ -365,6 +365,53 @@ public class EmployeeAccess extends DBAccess {
         return null;
     }
 
+    /**@author Nathan
+     * Gets all images from the database
+     * @return arrayList of images from database
+     */
+    public ArrayList<BufferedImage> getEmpImgs(){
+        String sql = "select image from employee";
+        ArrayList<BufferedImage> bi = new ArrayList<BufferedImage>();
+        try (Connection conn = this.connect();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            ResultSet rs = pstmt.executeQuery();
+            while(rs.next() && rs != null){
+                    if(rs.getBinaryStream("image") == null){
+                        continue;
+                    }
+                    InputStream in = rs.getBinaryStream("image");
+                    BufferedImage image = ImageIO.read(in);
+                    bi.add(image);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return bi;
+    }
+
+    /**@author Nathan
+     * Gets all images from the database
+     * @return arrayList of images from database
+     */
+    public ArrayList<String> getEmpsWithImg(){
+        String sql = "select username, image from employee";
+        ArrayList<String> bi = new ArrayList<String>();
+        try (Connection conn = this.connect();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            ResultSet rs = pstmt.executeQuery();
+            while(rs.next() && rs != null){
+                if(rs.getBinaryStream("image") == null){
+                    continue;
+                }
+                bi.add(rs.getString("username"));
+            }
+            System.out.println("exit loop");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return bi;
+    }
+
     /**Andrew made this for testing
      *
      * @param args
