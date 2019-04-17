@@ -36,6 +36,7 @@ import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Line;
+import javafx.scene.text.TextAlignment;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.util.Duration;
@@ -350,6 +351,8 @@ public class PathFindingController {
         mapURLs.add("/SoftEng_UI_Mockup_Pics/02_thesecondfloor.png");
     }
 
+    Label startLabel;
+    Label endLabel;
     Location startNode;
     Location endNode;
 
@@ -472,6 +475,11 @@ public class PathFindingController {
         F4.toFront();
         vBottom.toFront();
         vLeft.toFront();
+        startLabel = new Label();
+        endLabel = new Label();
+        //Adds the text to the screen
+        pathPane.getChildren().add(startLabel);
+        pathPane.getChildren().add(endLabel);
         if(!single.isLoggedIn()){
             logOut.setVisible(false);
         }
@@ -822,17 +830,28 @@ public class PathFindingController {
             StartCircle.setCenterX(startNode.getXcoord()*childPane.getWidth()/Map.getImage().getWidth());
             StartCircle.setCenterY(startNode.getYcoord()*childPane.getHeight()/Map.getImage().getHeight());
             StartCircle.setRadius(Math.max(1.5, 1.5f * (gesturePane.getCurrentScale() / 4)));
-            //Displays the kiosk location for the startNode, changes the color to indicate the Kiosk
+
+            startLabel.setLayoutX(startNode.getXcoord()*childPane.getWidth()/Map.getImage().getWidth());
+            startLabel.setLayoutY(startNode.getYcoord()*childPane.getHeight()/Map.getImage().getHeight() - 20);
+            //Displays the kiosk location for the startNode, changes the color to indicate the Kiosk, also sets startLabel
             if(startNode.equals(kioskTemp)) {
                 StartCircle.setStroke(Color.BLUE);
                 StartCircle.setFill(Color.BLUE);
+                startLabel.setText(" You are here ");
+                startLabel.setStyle("-fx-text-fill: WHITE;-fx-font-size: 6; -fx-background-color: BLUE; -fx-border-color: WHITE; -fx-border-width: 2; -fx-min-width: 40;");
             }
             else {
                 StartCircle.setStroke(Color.GREEN);
                 StartCircle.setFill(Color.GREEN);
+                startLabel.setText(startNode.getLongName());
+                startLabel.setStyle("-fx-text-fill: WHITE;-fx-font-size: 6; -fx-background-color: GREEN; -fx-border-color: WHITE; -fx-border-width: 2; -fx-min-width: 40;");
             }
             if (!startNode.getFloor().equals(currentMap)) {
                 StartCircle.setVisible(false);
+                startLabel.setVisible(false);
+            }
+            else {
+                startLabel.setVisible(true);
             }
 
             pathPane.getChildren().add(StartCircle);
@@ -846,8 +865,25 @@ public class PathFindingController {
             EndCircle.setRadius(Math.max(1.5, 1.5f * (gesturePane.getCurrentScale() / 5)));
             EndCircle.setStroke(Color.RED);
             EndCircle.setFill(Color.RED);
+            //Setting text for the end node
+            endLabel.setText(endNode.getLongName());
+            endLabel.setStyle("-fx-text-fill: WHITE;-fx-font-size: 6; -fx-background-color: RED; -fx-border-color: WHITE; -fx-border-width: 2; -fx-min-width: 40;");
+            endLabel.setLayoutX(endNode.getXcoord()*childPane.getWidth()/Map.getImage().getWidth() - 30);
+            endLabel.setLayoutY(endNode.getYcoord()*childPane.getHeight()/Map.getImage().getHeight() + 20);
             if (!endNode.getFloor().equals(currentMap)) {
                 EndCircle.setVisible(false);
+                endLabel.setVisible(false);
+            }
+            else {
+                endLabel.setVisible(true);
+            }
+
+            if(startNode.equals(endNode))
+            {
+                EndCircle.setVisible(true);
+                StartCircle.setVisible(false);
+                startLabel.setVisible(false);
+                endLabel.setVisible(true);
             }
 
             pathPane.getChildren().add(EndCircle);
@@ -857,7 +893,7 @@ public class PathFindingController {
             circles.add(StartCircle);
             circles.add(EndCircle);
             changeMapLabel();
-
+            //Auto-zooms the screen
             autoZoom(path.getPath().get(floorSwitch1), path.getPath().get(floorSwitch2));
         }
     }
