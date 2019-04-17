@@ -115,7 +115,7 @@ public class InternalTransportController {
     }
 
     private boolean isDigit(char c){
-        if(c == '1' || c == '2' || c == '3' || c == '4' || c == '5' || c == '6' || c == '7' || c == '8' || c == '9'){
+        if(c == '0' || c == '1' || c == '2' || c == '3' || c == '4' || c == '5' || c == '6' || c == '7' || c == '8' || c == '9'){
             return true;
         }
         return false;
@@ -137,12 +137,12 @@ public class InternalTransportController {
     private void reenableSubmit(){
         Singleton single = Singleton.getInstance();
         single.setLastTime();
-        if(commentBox.getText().trim().isEmpty() || typeField.getValue() == null || startBox.getValue() == null || endBox.getValue() == null || phoneField.getText().trim().isEmpty()){
+        if(commentBox.getText().trim().isEmpty() || typeField.getValue() == null || startBox.getValue() == null || endBox.getValue() == null || NotValidPhone()){
             submitbtn.setDisable(true);
             return;
         }
 
-        submitbtn.setDisable(NotValidPhone());
+        submitbtn.setDisable(false);
     }
 
     @FXML

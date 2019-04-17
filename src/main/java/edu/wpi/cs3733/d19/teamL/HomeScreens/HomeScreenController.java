@@ -1,5 +1,6 @@
 package edu.wpi.cs3733.d19.teamL.HomeScreens;
 
+import com.jfoenix.controls.JFXButton;
 import edu.wpi.cs3733.d19.teamL.ServiceRequest.MakeServiceRequest.ServiceRequestController;
 import edu.wpi.cs3733.d19.teamL.Singleton;
 import edu.wpi.cs3733.d19.teamL.API.Weather;
@@ -36,6 +37,9 @@ public class HomeScreenController {
     Button HomeFindPath;
 
     @FXML
+    private JFXButton aboutButton;
+
+    @FXML
     Button HomeServiceRequest;
 
     @FXML
@@ -65,6 +69,8 @@ public class HomeScreenController {
     @FXML
     AnchorPane ap;
 
+    Timeline timeout;
+
     Timeline clock;
     Timeline tweets;
     Boolean isAM = true;
@@ -76,25 +82,25 @@ public class HomeScreenController {
         String icon = weatherBoy.getIcon();
         //clear-day, clear-night, rain, snow, sleet, wind, fog, cloudy, partly-cloudy-day, or partly-cloudy-night
         if (icon.contains("clear") && icon.contains("day")) {
-            icon = "weatherIcons/SunImage.png";
+            icon = "weatherIcons/SunImage.PNG";
         } else if(icon.contains("clear") && icon.contains("night")){
-            icon = "weatherIcons/MoonImage.png";
+            icon = "weatherIcons/MoonImage.PNG";
         }else if(icon.contains("rain") || icon.contains("sleet")){
-            icon = "weatherIcons/RainImage.png";
+            icon = "weatherIcons/RainImage.PNG";
         } else if(icon.contains("partly") && icon.contains("day")){
-            icon = "weatherIcons/PartlyCloudImage.png";
+            icon = "weatherIcons/PartlyCloudImage.PNG";
         } else if(icon.contains("partly") && icon.contains("night")){
-            icon = "weatherIcons/PartlyCloudNightImage.png";
+            icon = "weatherIcons/PartlyCloudNightImage.PNG";
         } else if(icon.contains("cloudy")){
-            icon = "weatherIcons/CloudyImage.png";
+            icon = "weatherIcons/CloudyImage.PNG";
         } else if(icon.contains("fog")){
-            icon = "weatherIcons/FogImage.png";
+            icon = "weatherIcons/FogImage.PNG";
         } else if(icon.contains("snow")){
-            icon = "weatherIcons/SnowImage.png";
+            icon = "weatherIcons/SnowImage.PNG";
         } else if(icon.contains("wind")){
-            icon = "weatherIcons/WindImage.png";
+            icon = "weatherIcons/WindImage.PNG";
         }else{
-            icon = "weatherIcons/ThunderImage.png";
+            icon = "weatherIcons/ThunderImage.PNG";
         }
         //System.out.println("icon is being set to: "+icon);
         Image img = new Image(icon);
@@ -263,5 +269,22 @@ public class HomeScreenController {
             thestage.setScene(scene);
         } catch (Exception e){
         }
+    }
+
+    @FXML
+    private void AboutPress() throws IOException {
+        tweets.stop();
+        clock.stop();
+        Singleton single = Singleton.getInstance();
+        single.setLastTime();
+        single.setDoPopup(true);
+        FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("AboutPage_fancy.fxml"));
+
+        Parent sceneMain = loader.load();
+
+        Stage thisStage = (Stage) aboutButton.getScene().getWindow();
+
+        Scene newScene = new Scene(sceneMain);
+        thisStage.setScene(newScene);
     }
 }

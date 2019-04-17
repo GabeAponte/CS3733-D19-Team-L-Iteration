@@ -58,7 +58,7 @@ public class Weather {
      */
     public String getActTemp() {
         String userFriendlyTemp = currently.get().getByKey("temperature");
-        if(userFriendlyTemp.contains(".")){
+        if(userFriendlyTemp.contains(".")) {
             userFriendlyTemp = userFriendlyTemp.substring(0, userFriendlyTemp.indexOf("."));
         }
         return userFriendlyTemp + " \u00b0 F";

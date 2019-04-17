@@ -54,7 +54,6 @@ dependencies {
             [group: 'org.xerial', name: 'sqlite-jdbc', version: '3.27.2']
 
     )
-    compile files("jars/ServiceRequest-1.0-SNAPSHOT.jar")
     compile(
             [group: 'junit', name: 'junit', version: '4.12'],
             [group: 'com.jfoenix', name: 'jfoenix', version: '8.0.3'],
@@ -71,6 +70,12 @@ dependencies {
             [group: 'com.nativelibs4java', name: 'bridj', version: '0.7.0']
     )
     compile files("jars/ServiceRequest-1.0-SNAPSHOT.jar")
+    compile files("jars/jxbrowser-6.23.1.jar")
+    compile files("jars/jxbrowser-linux64-6.23.1.jar")
+    compile files("jars/jxbrowser-mac-6.23.1.jar")
+    compile files("jars/jxbrowser-win32-6.23.1.jar")
+    compile files("jars/jxbrowser-win64-6.23.1.jar")
+    compile files("jars/license.jar")
 }
 
 check.dependsOn integrationTest
