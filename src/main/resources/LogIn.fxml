@@ -85,7 +85,7 @@
                                 <Font size="48.0" />
                             </font>
                         </Label>
-                  <JFXButton fx:id="facialRec" alignment="CENTER" buttonType="RAISED" contentDisplay="TOP" focusTraversable="false" onAction="#tryFR" prefHeight="135.0" prefWidth="219.0" ripplerFill="WHITE" style="-fx-border-color: #f5d96b; -fx-border-width: 2; -fx-border-radius: 10; -fx-background-radius: 10;" stylesheets="@HomeButtonStyle.css" text="Allow Camera Access for Facial Recognition" textAlignment="CENTER" textFill="WHITE" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="1" GridPane.rowSpan="2">
+                  <JFXButton fx:id="facialRec" alignment="CENTER" buttonType="RAISED" contentDisplay="TOP" focusTraversable="false" onAction="#tryFR" prefHeight="135.0" prefWidth="219.0" ripplerFill="WHITE" style="-fx-border-color: #f5d96b; -fx-border-width: 2; -fx-border-radius: 10; -fx-background-radius: 10;" stylesheets="@HomeButtonStyle.css" text="Hands-Free Login!" textAlignment="CENTER" textFill="WHITE" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="1" GridPane.rowSpan="2">
                      <font>
                         <Font size="18.0" />
                      </font>
