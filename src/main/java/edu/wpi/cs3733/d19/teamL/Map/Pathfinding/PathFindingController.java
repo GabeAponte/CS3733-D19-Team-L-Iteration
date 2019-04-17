@@ -300,6 +300,7 @@ public class PathFindingController {
         single.setLastTime();
         Map.setImage(new Image("/SoftEng_UI_Mockup_Pics/03_thethirdfloor.png"));
         currentMap = "3";
+        resetRadButts();
         changeMapLabel();
         displayKiosk();
         if(path != null){
