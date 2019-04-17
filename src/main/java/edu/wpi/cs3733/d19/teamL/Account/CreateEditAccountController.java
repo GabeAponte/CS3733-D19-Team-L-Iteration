@@ -9,6 +9,7 @@ import edu.wpi.cs3733.d19.teamL.HomeScreens.HomeScreenController;
 import edu.wpi.cs3733.d19.teamL.Singleton;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
+import javafx.embed.swing.SwingFXUtils;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -18,11 +19,11 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.util.Duration;
-import org.bytedeco.javacv.FrameFilter;
 
 import javax.imageio.ImageIO;
 import javax.mail.internet.AddressException;
@@ -41,6 +42,9 @@ import static java.lang.Thread.sleep;
 public class CreateEditAccountController {
 
     private Stage thestage;
+
+    @FXML
+    private ImageView picView;
 
     @FXML
     private JFXButton picbtn;
@@ -260,6 +264,15 @@ public class CreateEditAccountController {
             pusername = single.getUsername();
             delete.setVisible(false);
             delete.setDisable(true);
+            try {
+                BufferedImage img1 = ea.getEmpImg(pusername);
+                //File outputfile = new File("DBInput.jpg");
+                //ImageIO.write(img1, "jpg", outputfile);
+                picView.setImage(SwingFXUtils.toFXImage(img1, null));
+            } catch (Exception e){
+                e.printStackTrace();
+            }
+
         }else if(type == 3){
             title.setText("Edit an Account");
             employeeID.setDisable(true);
@@ -281,6 +294,16 @@ public class CreateEditAccountController {
             email.setText(data.get(8));
             delete.setVisible(true);
             delete.setDisable(false);
+            try {
+                BufferedImage img1 = ea.getEmpImg(pusername);
+                //File outputfile = new File("DBInput.jpg");
+                //ImageIO.write(img1, "jpg", outputfile);
+                if(img1 != null) {
+                    picView.setImage(SwingFXUtils.toFXImage(img1, null));
+                }
+            } catch (Exception e){
+                e.printStackTrace();
+            }
         }
     }
 
