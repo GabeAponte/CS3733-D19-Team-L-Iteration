@@ -1712,9 +1712,9 @@ public class PathFindingController {
             vendRadButton.setTextFill(Color.web("#f5d96b"));
 
             if((currentMap.equals(kioskTemp.getFloor()))){
-                displayClosestPOI("REST");
+                displayClosestPOI("VEND");
             }
-            displayPOINodes("REST");
+            displayPOINodes("VEND");
             // for some reason displaying poi nodes cannot go before displaying the closest path
         }
         else if(!vendRadButton.isSelected()){
