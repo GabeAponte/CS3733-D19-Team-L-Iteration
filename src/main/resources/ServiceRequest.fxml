@@ -17,7 +17,6 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<?import javafx.stage.Screen?>
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720" prefWidth="1280" style="-fx-background-color: #012D5A;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.d19.teamL.ServiceRequest.MakeServiceRequest.ServiceRequestController">
 
     <children>
@@ -89,7 +88,7 @@
                                 <Insets />
                             </GridPane.margin>
                      <graphic>
-                        <FontAwesomeIconView fill="WHITE" glyphName="CROSSHAIRS" size="40" />
+                        <FontAwesomeIconView fill="WHITE" glyphName="BOOK" size="40" />
                      </graphic>
                         </JFXButton>
                         <JFXButton fx:id="LanguageInterpreter" buttonType="RAISED" contentDisplay="TOP" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" onAction="#makeRequest" style="-fx-border-color: #f5d96b; -fx-border-radius: 10; -fx-background-radius: 10; -fx-border-width: 5;" stylesheets="@HomeButtonStyle.css" text="Language Interpretrer" textFill="WHITE" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="3" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
