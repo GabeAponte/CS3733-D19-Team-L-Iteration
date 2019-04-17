@@ -34,7 +34,6 @@ import javax.swing.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
 
 import static java.lang.Thread.sleep;
 import static org.bytedeco.opencv.global.opencv_core.cvFlip;
@@ -173,28 +172,12 @@ public class LogInController {
         webcam.close();
 
         ImageComparison ic = new ImageComparison();
-        //double diff = ic.doIT(username.getText());
-        ArrayList<String> results = ic.doWithAll();
-        double diff = Double.parseDouble(results.get(0));
-
+        double diff = ic.doIT(username.getText());
         Singleton single = Singleton.getInstance();
         EmployeeAccess ea = new EmployeeAccess();
         if(diff < 10){
             single.setLoggedIn(true);
-            single.setUsername(results.get(1));
-            single.setIsAdmin(false);
-            if(ea.getEmployeeInformation(results.get(1)).get(2).equals("true")){
-                single.setIsAdmin(true);
-                SwitchToSignedIn("AdminLoggedInHome.fxml");
-                return;
-            }
-            SwitchToSignedIn("EmployeeLoggedInHome.fxml");
-        } else {
-            displayError();
-        }//*/
-        /*if(diff < 10){
-            single.setLoggedIn(true);
-            single.setUsername(results.get(1));
+            single.setUsername(username.getText());
             single.setIsAdmin(false);
             if(ea.getEmployeeInformation(username.getText()).get(2).equals("true")){
                 single.setIsAdmin(true);
