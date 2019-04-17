@@ -4,6 +4,7 @@ import com.github.sarxos.webcam.WebcamPanel;
 import com.github.sarxos.webcam.WebcamResolution;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXComboBox;
+import com.jfoenix.controls.JFXPasswordField;
 import com.jfoenix.controls.JFXRadioButton;
 import edu.wpi.cs3733.d19.teamL.HomeScreens.HomeScreenController;
 import edu.wpi.cs3733.d19.teamL.Singleton;
@@ -58,10 +59,10 @@ public class CreateEditAccountController {
     private TextField username;
 
     @FXML
-    private TextField password;
+    private JFXPasswordField password;
 
     @FXML
-    private TextField confrimPassword;
+    private JFXPasswordField confrimPassword;
 
     @FXML
     private TextField firstName;
