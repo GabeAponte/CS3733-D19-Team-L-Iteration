@@ -272,7 +272,7 @@ public class EditLocationController {
         gesturePane.toBack();
 
         thisCircle = new CircleLocation();
-        
+
     }
 
 
