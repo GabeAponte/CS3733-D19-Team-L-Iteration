@@ -264,7 +264,7 @@ public class EditLocationController {
         gesturePane.setOnMousePressed(mouseClickedOnMap);
 
         gridPane.add(gesturePane,0,0, 7, GridPane.REMAINING);
-        gesturePane.zoomTo(2.0,new Point2D(Map.getImage().getWidth(), Map.getImage().getHeight()));
+//        gesturePane.zoomTo(2.0,new Point2D(Map.getImage().getWidth(), Map.getImage().getHeight()));
 
 //        gridPane.add(gesturePane,0,0);
         Map.fitWidthProperty().bind(gesturePane.widthProperty());
@@ -481,8 +481,28 @@ public class EditLocationController {
                         ScrollPane sp = new ScrollPane();
                         sp.getStylesheets().add("MapBuilderScrollPane.css");
                         Point2D point = gesturePane.targetPointAt(new Point2D(t.getX(), t.getY())).get();
-                        sp.setLayoutX(point.getX() - 50);
-                        sp.setLayoutY(point.getY()- 150);
+                       // System.out.println("px" + point.getX());
+                       // System.out.println("py" + point.getY());
+                        if(point.getX()<=50){
+                            sp.setLayoutX(point.getX());
+                        }
+                        else if(point.getX()>=970){
+                            sp.setLayoutX(point.getX()-100);
+                        }
+                        else {
+                            sp.setLayoutX(point.getX() - 50);
+                        }
+
+                        if(point.getY()<=150){
+                            sp.setLayoutY(point.getY());
+                        }
+                        else if(point.getY()>=600){
+                            sp.setLayoutY(point.getY()- 150);
+                        }
+                        else{
+                            sp.setLayoutY(point.getY()- 150);
+                        }
+
                         GridPane gp = new GridPane();
 
                         newCircle.setLayoutX(point.getX());
@@ -492,6 +512,7 @@ public class EditLocationController {
                         newCircle.setRadius(Math.max(2.0, 2.0f * gesturePane.getCurrentScale()/20));
                         newCircle.toFront();
                         pathPane.getChildren().add(newCircle);
+                        circles.add(newCircle);
 
 
                         JFXButton close = new JFXButton("\u274E");
@@ -612,6 +633,7 @@ public class EditLocationController {
                         sp.setPrefSize(Control.USE_COMPUTED_SIZE, 140);
 
                         sp.setContent(gp);
+                        sps.add(sp);
                         Update.setOnAction(event -> {
                             String id = idtf.getText();
                             int x = Integer.parseInt(tf.getText());
@@ -867,6 +889,7 @@ public class EditLocationController {
                                         loc.getLineList().add(line);
                                         pathPane.getChildren().add(line);
                                         lines.add(line);
+                                        line.toBack();
 
                                         line.setOnMousePressed(lineOnMousePressedEventHandler);
 //                                        System.out.println("Lines " + line);
@@ -885,11 +908,14 @@ public class EditLocationController {
                     else if (!t.isShiftDown()&&!t.isAltDown()&& !t.isSecondaryButtonDown() && !t.isControlDown()){
                         CircleLocation toCenterOn = ((CircleLocation) (t.getSource()));
                         Point2D point = new Point2D(toCenterOn.getCenterX(), toCenterOn.getCenterY()-30);
+                        if(toCenterOn.getCenterX()>=50 &&toCenterOn.getCenterX()<=970 &&
+                                toCenterOn.getCenterY()<=600&& toCenterOn.getCenterY()>=150){
 
-                        gesturePane.zoomTo(3.0, point);
-                        Duration d = new Duration(500);
-                        GesturePane.AnimationInterpolatorBuilder animate = gesturePane.animate(d);
-                        animate.centreOn(point);
+                            gesturePane.zoomTo(3.0, point);
+                            Duration d = new Duration(500);
+                            GesturePane.AnimationInterpolatorBuilder animate = gesturePane.animate(d);
+                            animate.centreOn(point);
+                        }
 
                         //animationPlayed = true;
                         betweenFloorsCircle = null;
@@ -910,9 +936,26 @@ public class EditLocationController {
                             }
                             ScrollPane sp = new ScrollPane();
                             sp.getStylesheets().add("MapBuilderScrollPane.css");
+                            if(c.getCenterX()<=50){
+                                sp.setLayoutX(c.getCenterX());
+                            }
+                            else if(c.getCenterX()>=970){
+                                sp.setLayoutX(c.getCenterX()-100);
+                            }
+                            else {
+                                sp.setLayoutX(c.getCenterX() - 50);
+                            }
 
-                            sp.setLayoutX(c.getLayoutX());
-                            sp.setLayoutY(c.getLayoutY());
+                            if(c.getCenterY()<=150){
+                                sp.setLayoutY(c.getCenterY());
+                            }
+                            else if(c.getCenterY()>=600){
+                                sp.setLayoutY(c.getCenterY()- 130);
+                            }
+                            else{
+                                sp.setLayoutY(c.getCenterY()- 130);
+                            }
+
                             GridPane gp = new GridPane();
 
 
@@ -1072,8 +1115,8 @@ public class EditLocationController {
                             double X = ((Circle) (t.getSource())).getCenterX() - 50;
                             double Y = ((Circle) (t.getSource())).getCenterY() - 128;
 
-                            sp.setLayoutX(X);
-                            sp.setLayoutY(Y);
+                            //sp.setLayoutX(X);
+                            //sp.setLayoutY(Y);
                             gp.setMargin(close,new Insets(0,0,0,20));
                             sp.setContent(gp);
 
