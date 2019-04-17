@@ -600,16 +600,16 @@ public class PathFindingController {
             lines.clear();
             buttons.clear();
 
-            //To figure out zooming
-            Location mid = null;
-            Location mid2 = null;
             int floorCount = 0;
+            //Start node on floor
+            int floorSwitch1 = 0;
+            //End node on floor
+            int floorSwitch2 = path.getPath().size()-1;
 
             //Creates the path for the user to follow, and displays based on the current floor.
             for (int i = 0; i < path.getPath().size() - 1; i++) {
                 Line line = new Line();
                 floorCount++;
-
                 line.setStartX(path.getPath().get(i).getXcoord()*childPane.getWidth()/Map.getImage().getWidth());
                 line.setStartY(path.getPath().get(i).getYcoord()*childPane.getHeight()/Map.getImage().getHeight());
                 line.setEndX(path.getPath().get(i+1).getXcoord()*childPane.getWidth()/Map.getImage().getWidth());
@@ -621,11 +621,15 @@ public class PathFindingController {
                     line.setVisible(false);
                 }
                 //Creates buttons to transition between floors on the map
-                int f = path.getPath().size() - 1;
                 if((!(path.getPath().get(i + 1).getFloor().equals(currentMap)))) {
-                    floorCount--;
-                    mid = path.getPath().get(i);
-                    mid2 = path.getPath().get(i-floorCount);
+                    //Sets the start and end nodes on the floor
+                    if(path.getPath().get(i).getFloor().equals(currentMap)) {
+                        floorSwitch2 = i;
+                        System.out.println("FL " + floorCount);
+                        System.out.println("i " + i);
+                        floorSwitch1 = i-(floorCount-1);
+                    }
+                    floorCount = 0;
                     Button nBut = new Button();
                     nBut.setLayoutX((path.getPath().get(i).getXcoord()*childPane.getWidth()/Map.getImage().getWidth()));
                     nBut.setLayoutY((path.getPath().get(i).getYcoord()*childPane.getHeight()/Map.getImage().getHeight()));
@@ -691,18 +695,19 @@ public class PathFindingController {
                             //Modified the return to start button position.
                             nBut.setStyle("-fx-text-fill: WHITE;-fx-font-size: 6; -fx-background-color: RED; -fx-border-color: WHITE; -fx-background-radius: 18; -fx-border-radius: 18; -fx-border-width: 3");
                             nBut.setText("Go to Starting Floor");
-                            nBut.setLayoutX((mid2.getXcoord()*childPane.getWidth()/Map.getImage().getWidth()));
-                            nBut.setLayoutY((mid2.getYcoord()*childPane.getHeight()/Map.getImage().getHeight()));
+                            nBut.setLayoutX((endNode.getXcoord()*childPane.getWidth()/Map.getImage().getWidth()));
+                            nBut.setLayoutY((endNode.getYcoord()*childPane.getHeight()/Map.getImage().getHeight()));
                         }
                         pathPane.getChildren().add(nBut);
                     }
-//                    else {
-//                        nBut.setVisible(false);
-//                    }
-                    floorCount = 0;
                 }
+                else if(currentMap.equals(endNode.getFloor())) {
+                    floorSwitch1 = i - (floorCount-1);
+                    System.out.println("This ran");
+                }
+                if(i-1>=0)
+                    System.out.println(i + " " + path.getPath().get(i).getFloor());
                 pathPane.getChildren().add(line);
-
                 lines.add(line);
             }
             //Creates the start and end nodes to display them and sets colors.
@@ -740,52 +745,28 @@ public class PathFindingController {
             circles.add(StartCircle);
             circles.add(EndCircle);
 
-            //Handles automatic zooming.
-            if(startNode.getFloor().equals(endNode.getFloor())) {
-                double x = gesturePane.getWidth()/(Math.abs((endNode.getXcoord() - startNode.getXcoord())));
-                double y = gesturePane.getHeight()/Math.abs(((endNode.getYcoord() - startNode.getYcoord())));
-                double scale = (Math.min(x, y)/1.9) + 1;
-                gesturePane.reset();
-                gesturePane.zoomTo(scale, gesturePane.targetPointAtViewportCentre());
-                double xSameVal = (startNode.getXcoord() + endNode.getXcoord()) / 2.0*childPane.getWidth()/Map.getImage().getWidth();
-                double ySameVal = (startNode.getYcoord() + endNode.getYcoord()) / 2.0*childPane.getHeight()/Map.getImage().getHeight();
-                //gesturePane.translateBy(new Dimension2D(-(gesturePane.getWidth()/2-xSameVal),-(gesturePane.getHeight()/2-ySameVal)));
-                gesturePane.centreOn(new Point2D(xSameVal, ySameVal));
-            }
-            else if (mid.getFloor().equals(startNode.getFloor())){
-                double x = gesturePane.getWidth()/(Math.abs((mid.getXcoord() - startNode.getXcoord())));
-                double y = gesturePane.getHeight()/Math.abs(((mid.getYcoord() - startNode.getYcoord())));
-                double scale = (Math.min(x, y)/1.9) + 1;
-                gesturePane.reset();
-                gesturePane.zoomTo(scale, gesturePane.targetPointAtViewportCentre());
-                double xSameVal = (startNode.getXcoord() + mid.getXcoord()) / 2.0*childPane.getWidth()/Map.getImage().getWidth();
-                double ySameVal = (startNode.getYcoord() + mid.getYcoord()) / 2.0*childPane.getHeight()/Map.getImage().getHeight();
-                //gesturePane.translateBy(new Dimension2D(-(gesturePane.getWidth()/2-xSameVal),-(gesturePane.getHeight()/2-ySameVal)));
-                gesturePane.centreOn(new Point2D(xSameVal, ySameVal));
-            }
-            else if (mid.getFloor().equals(endNode.getFloor())){
-                double x = gesturePane.getWidth()/(Math.abs((endNode.getXcoord() - mid.getXcoord())));
-                double y = gesturePane.getHeight()/Math.abs(((endNode.getYcoord() - mid.getYcoord())));
-                double scale = (Math.min(x, y)/1.9) + 1;
-                gesturePane.reset();
-                gesturePane.zoomTo(scale, gesturePane.targetPointAtViewportCentre());
-                double xSameVal = (endNode.getXcoord() + mid.getXcoord()) / 2.0*childPane.getWidth()/Map.getImage().getWidth();
-                double ySameVal = (endNode.getYcoord() + mid.getYcoord()) / 2.0*childPane.getHeight()/Map.getImage().getHeight();
-                //gesturePane.translateBy(new Dimension2D(-(gesturePane.getWidth()/2-xSameVal),-(gesturePane.getHeight()/2-ySameVal)));
-                gesturePane.centreOn(new Point2D(xSameVal, ySameVal));
-            }
-            else {
-                double x = gesturePane.getWidth()/(Math.abs((mid.getXcoord() - mid2.getXcoord())));
-                double y = gesturePane.getHeight()/Math.abs(((mid.getYcoord() - mid2.getYcoord())));
-                double scale = (Math.min(x, y)/1.9) + 1;
-                gesturePane.reset();
-                gesturePane.zoomTo(scale, gesturePane.targetPointAtViewportCentre());
-                double xSameVal = (mid.getXcoord() + mid2.getXcoord()) / 2.0*childPane.getWidth()/Map.getImage().getWidth();
-                double ySameVal = (mid.getYcoord() + mid2.getYcoord()) / 2.0*childPane.getHeight()/Map.getImage().getHeight();
-                //gesturePane.translateBy(new Dimension2D(-(gesturePane.getWidth()/2-xSameVal),-(gesturePane.getHeight()/2-ySameVal)));
-                gesturePane.centreOn(new Point2D(xSameVal, ySameVal));
-            }
+            autoZoom(path.getPath().get(floorSwitch1), path.getPath().get(floorSwitch2));
         }
+    }
+
+    /**
+     * @Author: Nikhil
+     * This function automatically zooms on our map when we display paths.
+     * @param start
+     * @param end
+     */
+    private void autoZoom(Location start, Location end) {
+        double x = gesturePane.getWidth()/(Math.abs((start.getXcoord() - end.getXcoord())));
+        double y = gesturePane.getHeight()/Math.abs(((start.getYcoord() - end.getYcoord())));
+        double scale = (Math.min(x, y)/2.5) + 1.1;
+        System.out.println("Scale " + scale);
+        System.out.println(start.getLocID());
+        System.out.println(end.getLocID());
+        gesturePane.reset();
+        gesturePane.zoomTo(scale, gesturePane.targetPointAtViewportCentre());
+        double xSameVal = (start.getXcoord() + end.getXcoord()) / 2.0*childPane.getWidth()/Map.getImage().getWidth();
+        double ySameVal = (start.getYcoord() + end.getYcoord()) / 2.0*childPane.getHeight()/Map.getImage().getHeight();
+        gesturePane.centreOn(new Point2D(xSameVal, ySameVal));
     }
 
     @FXML
