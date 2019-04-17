@@ -88,6 +88,42 @@ public class RoomAccess extends DBAccess {
     }
 
     /**ANDREW MADE THIS
+     * returns a boolean of whether a room is available
+     * @param classRoomName
+     * @param rDate
+     * @param startTime
+     * @param endTime
+     * @return
+     */
+    public boolean checkRoom(int startTime, int endTime, String classRoomName, String rDate) {
+        String sql = "select name from room left outer join (select rID from reservation where ? = startDate and ((? between startTime and endTime) or (? between startTime and endTime) or (startTime between ? and ?) or (endTime between ? and ?))) on roomID = rID where rID is null;";
+        try (Connection conn = this.connect();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            pstmt.setString(1, rDate);
+            pstmt.setInt(2, startTime);
+            pstmt.setInt(3, endTime);
+            pstmt.setInt(4, startTime);
+            pstmt.setInt(5, endTime);
+            pstmt.setInt(6, startTime);
+            pstmt.setInt(7, endTime);
+
+            ResultSet rs = pstmt.executeQuery();
+            while(rs.next()){
+                if(rs.getString("name").equals(classRoomName)){
+                    return true;
+                }else{
+                    return false;
+                }
+            }
+
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+
+        return false;
+    }
+
+    /**ANDREW MADE THIS
      * returns the record fields for the given index in room
      * @return
      */
@@ -133,6 +169,7 @@ public class RoomAccess extends DBAccess {
 
         return data;
     }
+
 
 
 
