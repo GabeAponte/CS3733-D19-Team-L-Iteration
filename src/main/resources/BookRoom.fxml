@@ -59,7 +59,7 @@
                         </JFXButton>
                     </right>
                 </JFXToolbar>
-                <JFXButton fx:id="requestRoom" buttonType="RAISED" disable="false" onAction="#findRoom" prefHeight="66.0" prefWidth="180.0" ripplerFill="WHITE" style="-fx-border-color: #f5d96b; -fx-border-radius: 100; -fx-border-width: 2; -fx-background-radius: 100;" text="Submit" textFill="#f5d96b" GridPane.columnIndex="2" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="4">
+                <JFXButton fx:id="requestRoom"  stylesheets="@book-room.css" buttonType="RAISED" disable="false" onAction="#findRoom" prefHeight="66.0" prefWidth="180.0" ripplerFill="WHITE" style="-fx-border-color: #f5d96b; -fx-border-radius: 100; -fx-border-width: 2; -fx-background-radius: 100;" text="Submit" textFill="#f5d96b" GridPane.columnIndex="2" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="4">
                     <font>
                         <Font name="Avenir Book" size="36.0" />
                     </font>
@@ -72,11 +72,11 @@
                         <Insets left="30.0" />
                     </GridPane.margin>
                 </Label>
-                <Pane fx:id="imagePane" prefHeight="200.0" prefWidth="200.0" GridPane.columnSpan="2" GridPane.hgrow="ALWAYS" GridPane.rowIndex="2" GridPane.rowSpan="4" GridPane.vgrow="ALWAYS">
+                <Pane fx:id="imagePane" prefHeight="200.0" prefWidth="200.0" GridPane.columnSpan="2" GridPane.hgrow="ALWAYS" GridPane.rowIndex="2" GridPane.rowSpan="5" GridPane.vgrow="ALWAYS">
                     <children>
                         <ImageView fx:id="roomImage" fitHeight="645.0" fitWidth="900.0" pickOnBounds="true" preserveRatio="true">
                             <image>
-                                <Image url="@SoftEng_UI_Mockup_Pics/BookRoomFloorplan.jpg" />
+                                <Image url="@SoftEng_UI_Mockup_Pics/BookRoomFloorplan.png" />
                             </image>
                         </ImageView>
                     </children>
@@ -112,7 +112,7 @@
                   <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
               </rowConstraints>
                <children>
-                      <JFXComboBox fx:id="availableRooms" onAction="#highlightFromDropdown" focusColor="#f5d96b" prefHeight="54.0" prefWidth="270.0" promptText="Select Room" stylesheets="@book-room.css" unFocusColor="#f5d96b" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="1">
+                      <JFXComboBox fx:id="availableRooms" focusColor="#f5d96b" onAction="#highlightFromDropdown" prefHeight="54.0" prefWidth="270.0" promptText="Select Room" stylesheets="@book-room.css" unFocusColor="#f5d96b" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="1">
                           <effect>
                               <ColorAdjust contrast="-1.0" />
                           </effect>
