@@ -68,7 +68,7 @@
                                 <Blend />
                             </effect>
                         </Label>
-                        <JFXTextArea fx:id="feedbackComments" focusColor="#f6bd38" promptText="Type suggestions here" style="-fx-background-color: WHITE; -fx-background-radius: 5; -fx-border-color: #f5d96b; -fx-border-width: 5; -fx-border-radius: 5;" unFocusColor="WHITE" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" GridPane.rowSpan="2" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
+                        <JFXTextArea fx:id="feedbackComments" focusColor="#f6bd38" promptText="Type suggestions here" style="-fx-background-color: WHITE; -fx-background-radius: 20; -fx-border-color: #f5d96b; -fx-border-width: 5; -fx-border-radius: 20;" unFocusColor="WHITE" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" GridPane.rowSpan="2" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
                             <font>
                                 <Font size="24.0" />
                             </font>
