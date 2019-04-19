@@ -376,19 +376,6 @@ public class PathFindingController {
     @FXML
     private void strategySelected() {
         strategyAlgorithm = strategySelector.getValue();
-        if (strategySelector.getValue().equals(aStarStrategy)) {
-            single.setTypePathfind(0);
-        }
-        else if (strategySelector.getValue().equals(breadth)) {
-            single.setTypePathfind(1);
-        }
-        else if (strategySelector.getValue().equals(depth)) {
-            single.setTypePathfind(2);
-        }
-        else {
-            single.setTypePathfind(3);
-        }
-
     }
 
     public void initialize() {
@@ -410,18 +397,18 @@ public class PathFindingController {
         strategies.add(breadth);
         preference.addAll("Stairs Only", "Elevators Only", "Both");
         restrictChoice.setItems(preference);
-
+        //Nikhil modified this code, it should work, but if it doesn't you can yell at me PJ
         ObservableList strategiesDropDown = FXCollections.observableArrayList();
         strategiesDropDown.add(aStarStrategy);
         strategiesDropDown.add(dijkstraStrategy);
         strategiesDropDown.add(depth);
         strategiesDropDown.add(breadth);
         strategySelector.setItems(strategiesDropDown);
-        if(single.getTypePathfind() == 0){
+        if(single.getTypePathfind() == aStarStrategy){
             strategySelector.setValue(aStarStrategy);
-        } else if (single.getTypePathfind() == 1){
+        } else if (single.getTypePathfind() == breadth){
             strategySelector.setValue(breadth);
-        } else if (single.getTypePathfind() == 2){
+        } else if (single.getTypePathfind() == depth){
             strategySelector.setValue(depth);
         } else {
             strategySelector.setValue(dijkstraStrategy);
@@ -646,11 +633,11 @@ public class PathFindingController {
             restriction = "    ";
         }
 
-        if(single.getTypePathfind() == 0){
+        if(single.getTypePathfind() == aStarStrategy){
             strategyAlgorithm = aStarStrategy;
-        } else if (single.getTypePathfind() == 1){
+        } else if (single.getTypePathfind() == breadth){
             strategyAlgorithm = breadth;
-        } else if (single.getTypePathfind() == 2){
+        } else if (single.getTypePathfind() == depth){
             strategyAlgorithm = depth;
         } else {
             strategyAlgorithm = dijkstraStrategy;
@@ -740,7 +727,7 @@ public class PathFindingController {
         }
         if(kioskConnectedTo.getValue() != null) {
             kioskTemp = kioskConnectedTo.getValue();
-            single.setKioskID(kioskConnectedTo.getValue().getLocID());
+            single.setKiosk(kioskConnectedTo.getValue());
         }
         clearStart();
         //        displayKiosk();
@@ -1773,13 +1760,13 @@ public class PathFindingController {
     public void checkAndSetKiosk(){
         //if kiosk was initiated its fine
         //if not set kiosk to random (first location stuff) thing
-        if(single.getKioskID().equals("")){
+        if(single.getKiosk().equals("")){
             //Location kioskTemp = single.getData().get(0); //initially at floor 2
-            single.setKioskID(single.getData().get(0).getLocID());
+            single.setKiosk(single.getData().get(0));
         }
         //find actual "location" of kiosk
         for(int i=0; i<single.getData().size(); i++){
-            if(single.getData().get(i).getLocID().equals(single.getKioskID())){
+            if(single.getData().get(i).getLocID().equals(single.getKiosk())){
                 kioskTemp = single.getData().get(i);
             }
         }

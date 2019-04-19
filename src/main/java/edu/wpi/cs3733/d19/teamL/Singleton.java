@@ -12,6 +12,7 @@ import edu.wpi.cs3733.d19.teamL.Map.MapLocations.Edge;
 import edu.wpi.cs3733.d19.teamL.Map.MapLocations.Location;
 import edu.wpi.cs3733.d19.teamL.Map.Pathfinding.EdgesAccess;
 import edu.wpi.cs3733.d19.teamL.Map.Pathfinding.NodesAccess;
+import edu.wpi.cs3733.d19.teamL.SearchingAlgorithms.PathfindingStrategy;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
@@ -28,9 +29,9 @@ public class Singleton {
     private static boolean loggedIn;
     private static String username;
     private static int num;
-    private static String kioskID = "";
+    private static Location kiosk;
     private static long lastTime;
-    private static int typePathfind;
+    private static PathfindingStrategy typePathfind;
     private static boolean isAdmin;
     private static int timeoutSec;
     private static boolean doPopup;
@@ -44,8 +45,8 @@ public class Singleton {
         loggedIn = false; //is user logged in
         username = ""; //username of logged in user
         num = 1; //for test classes only
-        kioskID = ""; //kiosk node ID
-        typePathfind = 0; //which strategy selection for pathfinding
+        kiosk = null; //kiosk node
+        typePathfind = null; //which strategy selection for pathfinding
         isAdmin = false; //is signedin employee an admin
         timeoutSec = 4500000; //how long before timeout (in ms) 1000 = 1 second
         doPopup = true; //should be more appropriately named initializeClock
@@ -155,12 +156,12 @@ public class Singleton {
         Singleton.isAdmin = isAdmin;
     }
 
-    public static int getTypePathfind() {
+    public static PathfindingStrategy getTypePathfind() {
         return typePathfind;
     }
 
-    public static void setTypePathfind(int typePathfind) {
-        Singleton.typePathfind = typePathfind;
+    public static void setTypePathfind(PathfindingStrategy strategy) {
+        Singleton.typePathfind = strategy;
     }
 
     public ObservableList<Location> getData() {
@@ -203,12 +204,10 @@ public class Singleton {
         Singleton.num = num;
     }
 
-    public static String getKioskID() {
-        return kioskID;
-    }
+    public static Location getKiosk() { return kiosk; }
 
-    public static void setKioskID(String kioskID) {
-        Singleton.kioskID = kioskID;
+    public static void setKiosk(Location Kiosk) {
+        Singleton.kiosk = Kiosk;
     }
 
     /*
