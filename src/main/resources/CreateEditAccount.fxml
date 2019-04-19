@@ -146,24 +146,54 @@
                         <Insets left="100.0" right="300.0" />
                      </GridPane.margin>
                   </JFXTextField>
-                  <Label fx:id="errorLabel" alignment="CENTER" maxWidth="1.7976931348623157E308" prefHeight="26.0" prefWidth="939.0" text="ERROR" textFill="#cd2424" GridPane.columnSpan="2" GridPane.rowIndex="6">
+                  <JFXPasswordField fx:id="Password" focusColor="#f6bd38" promptText="Password" stylesheets="@Default.css" unFocusColor="WHITE" GridPane.rowIndex="5">
+                     <GridPane.margin>
+                        <Insets left="100.0" right="100.0" />
+                     </GridPane.margin>
                      <font>
                         <Font size="20.0" />
                      </font>
-                  </Label>
-                  <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="100.0" GridPane.columnIndex="1" GridPane.rowIndex="7">
+                  </JFXPasswordField>
+                  <VBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" GridPane.columnIndex="1" GridPane.rowIndex="6">
                      <children>
-                        <JFXButton fx:id="delete" alignment="CENTER" buttonType="RAISED" contentDisplay="RIGHT" onAction="#deleteClicked" prefHeight="7.0" prefWidth="138.0" style="-fx-border-color: F5D96B; -fx-border-width: 2; -fx-border-radius: 50; -fx-background-radius: 50;" text="Delete" textAlignment="CENTER" textFill="WHITE">
+                        <Label fx:id="errorLabel" alignment="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" text="ERROR" textFill="#cd2424">
                            <font>
-                              <Font size="30.0" />
+                              <Font size="20.0" />
                            </font>
-                           <HBox.margin>
-                              <Insets />
-                           </HBox.margin>
-                        </JFXButton>
+                           <VBox.margin>
+                              <Insets bottom="20.0" />
+                           </VBox.margin>
+                        </Label>
+                        <GridPane VBox.vgrow="ALWAYS">
+                          <columnConstraints>
+                            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                          </columnConstraints>
+                          <rowConstraints>
+                            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                          </rowConstraints>
+                           <children>
+                              <JFXButton fx:id="delete" alignment="CENTER" buttonType="RAISED" contentDisplay="RIGHT" onAction="#deleteClicked" prefHeight="61.0" prefWidth="200.0" style="-fx-border-color: F5D96B; -fx-border-width: 2; -fx-border-radius: 50; -fx-background-radius: 50;" text="Delete" textAlignment="CENTER" textFill="WHITE" GridPane.halignment="LEFT">
+                                 <font>
+                                    <Font size="30.0" />
+                                 </font>
+                                 <GridPane.margin>
+                                    <Insets bottom="20.0" left="100.0" />
+                                 </GridPane.margin>
+                              </JFXButton>
+                              <JFXButton fx:id="submit" alignment="CENTER" buttonType="RAISED" onAction="#submitPressed" prefHeight="61.0" prefWidth="200.0" style="-fx-border-color: F5D96B; -fx-border-width: 2; -fx-border-radius: 50; -fx-background-radius: 50;" text="Submit" textFill="WHITE" GridPane.columnIndex="1" GridPane.halignment="RIGHT">
+                                 <font>
+                                    <Font size="30.0" />
+                                 </font>
+                                 <GridPane.margin>
+                                    <Insets bottom="20.0" right="100.0" />
+                                 </GridPane.margin>
+                              </JFXButton>
+                           </children>
+                        </GridPane>
                      </children>
-                  </HBox>
-                  <JFXComboBox fx:id="department" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="44.0" prefWidth="194.0" promptText="Department" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="4" GridPane.vgrow="ALWAYS">
+                  </VBox>
+                  <JFXComboBox fx:id="department" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="44.0" prefWidth="194.0" promptText="Department" stylesheets="@Default.css" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="4" GridPane.vgrow="ALWAYS">
                      <GridPane.margin>
                         <Insets left="350.0" right="100.0" />
                      </GridPane.margin>
@@ -172,23 +202,9 @@
                         <URL value="@size.css" />
                      </stylesheets>
                   </JFXComboBox>
-                  <JFXButton fx:id="submit" buttonType="RAISED" onAction="#submitPressed" prefHeight="55.0" prefWidth="154.0" style="-fx-border-color: F5D96B; -fx-border-width: 2; -fx-border-radius: 50; -fx-background-radius: 50;" text="Submit" textFill="WHITE" GridPane.columnSpan="2" GridPane.rowIndex="7">
-                     <font>
-                        <Font size="30.0" />
-                     </font>
-                  </JFXButton>
-                  <HBox alignment="CENTER" prefHeight="150.0" prefWidth="489.0" spacing="50.0" GridPane.rowIndex="7">
+                  <HBox alignment="CENTER" prefHeight="150.0" prefWidth="489.0" spacing="50.0" GridPane.hgrow="ALWAYS" GridPane.rowIndex="6">
                      <children>
-                        <ImageView fx:id="picView" fitHeight="121.0" fitWidth="193.0" pickOnBounds="true" preserveRatio="true" />
-                     </children></HBox>
-                  <HBox alignment="CENTER" prefHeight="81.0" prefWidth="524.0" spacing="20.0" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" GridPane.valignment="CENTER">
-                     <children>
-                        <JFXTextField fx:id="username" focusColor="#f6bd38" onKeyReleased="#checkSubmit" prefHeight="40.0" prefWidth="329.0" promptText="Username" style="-jfx-prompt-text: WHITE;" stylesheets="@modify-prompt-text.css" unFocusColor="WHITE">
-                           <font>
-                              <Font size="20.0" />
-                           </font>
-                        </JFXTextField>
-                        <JFXButton fx:id="picbtn" alignment="CENTER" buttonType="RAISED" contentDisplay="TOP" focusTraversable="false" onAction="#takePic" prefHeight="94.0" prefWidth="74.0" ripplerFill="WHITE" style="-fx-border-color: #f5d96b; -fx-border-width: 2; -fx-border-radius: 10; -fx-background-radius: 10;" stylesheets="@HomeButtonStyle.css" textAlignment="CENTER" textFill="WHITE" wrapText="true">
+                        <JFXButton fx:id="picbtn" alignment="CENTER" buttonType="RAISED" contentDisplay="TOP" focusTraversable="false" maxWidth="1.7976931348623157E308" onAction="#takePic" prefHeight="94.0" ripplerFill="WHITE" style="-fx-border-color: white; -fx-border-width: 2; -fx-border-radius: 10; -fx-background-radius: 10;" stylesheets="@HomeButtonStyle.css" text="Take Photo" textAlignment="CENTER" textFill="WHITE" wrapText="true">
                            <font>
                               <Font size="18.0" />
                            </font>
@@ -202,8 +218,27 @@
                               <DropShadow color="WHITE" />
                            </effect>
                         </JFXButton>
-                     </children>
-                  </HBox>
+                        <ImageView fx:id="picView" fitHeight="121.0" fitWidth="193.0" pickOnBounds="true" preserveRatio="true">
+                           <HBox.margin>
+                              <Insets bottom="20.0" top="20.0" />
+                           </HBox.margin></ImageView>
+                     </children></HBox>
+                  <JFXTextField fx:id="username" focusColor="#f6bd38" maxWidth="1.7976931348623157E308" onKeyReleased="#checkSubmit" promptText="Username" style="-jfx-prompt-text: WHITE;" stylesheets="@modify-prompt-text.css" unFocusColor="WHITE" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                     <font>
+                        <Font size="20.0" />
+                     </font>
+                     <GridPane.margin>
+                        <Insets left="100.0" right="100.0" />
+                     </GridPane.margin>
+                  </JFXTextField>
+                  <JFXPasswordField focusColor="#f6bd38" promptText="Confirm Password" stylesheets="@Default.css" unFocusColor="WHITE" GridPane.columnIndex="1" GridPane.rowIndex="5">
+                     <font>
+                        <Font size="20.0" />
+                     </font>
+                     <GridPane.margin>
+                        <Insets left="100.0" right="100.0" />
+                     </GridPane.margin>
+                  </JFXPasswordField>
                </children>
                <opaqueInsets>
                   <Insets />
