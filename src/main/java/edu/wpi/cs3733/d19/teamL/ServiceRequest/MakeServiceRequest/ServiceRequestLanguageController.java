@@ -1,6 +1,7 @@
 package edu.wpi.cs3733.d19.teamL.ServiceRequest.MakeServiceRequest;
 
 import edu.wpi.cs3733.d19.teamL.HomeScreens.HomeScreenController;
+import edu.wpi.cs3733.d19.teamL.Memento;
 import edu.wpi.cs3733.d19.teamL.ServiceRequest.ServiceRequestDBAccess.ServiceRequestAccess;
 import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXTextArea;
@@ -15,6 +16,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
@@ -104,18 +106,27 @@ public class ServiceRequestLanguageController {
         ServiceRequestAccess sra = new ServiceRequestAccess();
         sra.makeLanguageRequest(Description.getText(), Location.getText(), language.getText(), level.getValue(), interpreters.getValue());
         //System.out.println("Submit Pressed");
-        backPressed();
-    }
+        Memento m = single.getOrig();
+        FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource(m.getFxml()));
 
-    @FXML
-    protected void backPressed() throws IOException {
-        timeout.stop();
-        FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("ServiceRequest.fxml"));
         Parent sceneMain = loader.load();
-
-        Stage theStage = (Stage) Back.getScene().getWindow();
+        Stage theStage = (Stage) Description.getScene().getWindow();
 
         Scene scene = new Scene(sceneMain);
         theStage.setScene(scene);
+    }
+
+    @FXML
+    private void backPressed() throws IOException {
+        timeout.stop();
+        Singleton single = Singleton.getInstance();
+        single.setLastTime();
+        single.setDoPopup(true);
+        Stage thestage = (Stage) Description.getScene().getWindow();
+        AnchorPane root;
+        Memento m = single.restore();
+        root = FXMLLoader.load(getClass().getClassLoader().getResource(m.getFxml()));
+        Scene scene = new Scene(root);
+        thestage.setScene(scene);
     }
 }
