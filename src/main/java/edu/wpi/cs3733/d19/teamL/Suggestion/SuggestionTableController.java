@@ -1,6 +1,7 @@
 package edu.wpi.cs3733.d19.teamL.Suggestion;
 
 import edu.wpi.cs3733.d19.teamL.HomeScreens.HomeScreenController;
+import edu.wpi.cs3733.d19.teamL.Memento;
 import edu.wpi.cs3733.d19.teamL.Singleton;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
@@ -56,7 +57,8 @@ public class SuggestionTableController {
                         single.setUsername("");
                         single.setIsAdmin(false);
                         single.setDoPopup(true);
-                        FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("HospitalHome.fxml"));
+                        Memento m = single.getOrig();
+                        FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource(m.getFxml()));
 
                         Parent sceneMain = loader.load();
 
@@ -113,18 +115,37 @@ public class SuggestionTableController {
         suggestions.setShowRoot(false);
     }
 
-    /**@author Gabe
-     * Returns admin to the Admin Logged In Home screen when the back button is pressed
+    /**@author Nathan
+     * Returns to previous screen
      */
     @FXML
     private void backPressed() throws IOException {
         timeout.stop();
         Singleton single = Singleton.getInstance();
         single.setLastTime();
+        Memento m = single.restore();
         thestage = (Stage) back.getScene().getWindow();
         AnchorPane root;
 
-        root = FXMLLoader.load(getClass().getClassLoader().getResource("AdminLoggedInHome.fxml"));
+        root = FXMLLoader.load(getClass().getClassLoader().getResource(m.getFxml()));
+
+        Scene scene = new Scene(root);
+        thestage.setScene(scene);
+    }
+
+    /**@author Nathan
+     * Returns to home screen
+     */
+    @FXML
+    private void goHome() throws IOException {
+        timeout.stop();
+        Singleton single = Singleton.getInstance();
+        single.setLastTime();
+        Memento m = single.getOrig();
+        thestage = (Stage) back.getScene().getWindow();
+        AnchorPane root;
+
+        root = FXMLLoader.load(getClass().getClassLoader().getResource(m.getFxml()));
 
         Scene scene = new Scene(root);
         thestage.setScene(scene);
