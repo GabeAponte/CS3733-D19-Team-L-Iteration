@@ -22,7 +22,6 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<?import javafx.stage.Screen?>
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720" prefWidth="1280" style="-fx-background-color: #012D5A;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.d19.teamL.Account.CreateEditAccountController">
 
    <children>
@@ -70,7 +69,7 @@
                   <RowConstraints maxHeight="1.7976931348623157E308" minHeight="10.0" prefHeight="114.67254638671875" valignment="CENTER" vgrow="ALWAYS" />
               </rowConstraints>
                <children>
-                  <JFXTextField fx:id="employeeID" focusColor="#f6bd38" onKeyReleased="#checkSubmit" promptText="Employee ID (Can't be Changed)" style="-jfx-prompt-text: WHITE;" stylesheets="@modify-prompt-text.css" unFocusColor="WHITE" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" GridPane.vgrow="ALWAYS">
+                  <JFXTextField fx:id="employeeID" focusColor="#f6bd38" onKeyReleased="#checkSubmit" prefHeight="40.0" prefWidth="311.0" promptText="Employee ID (Can't be Changed)" style="-jfx-prompt-text: WHITE;" stylesheets="@modify-prompt-text.css" unFocusColor="WHITE" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" GridPane.vgrow="ALWAYS">
                      <GridPane.margin>
                         <Insets left="100.0" right="100.0" />
                      </GridPane.margin>
@@ -79,14 +78,6 @@
                      </font>
                   </JFXTextField>
                   <JFXTextField fx:id="lastName" focusColor="#f6bd38" onKeyReleased="#checkSubmit" promptText="Last Name" style="-jfx-prompt-text: WHITE;" stylesheets="@modify-prompt-text.css" unFocusColor="WHITE" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="2" GridPane.vgrow="ALWAYS">
-                     <GridPane.margin>
-                        <Insets left="100.0" right="100.0" />
-                     </GridPane.margin>
-                     <font>
-                        <Font size="20.0" />
-                     </font>
-                  </JFXTextField>
-                  <JFXTextField fx:id="username" focusColor="#f6bd38" onKeyReleased="#checkSubmit" promptText="Username" style="-jfx-prompt-text: WHITE;" stylesheets="@modify-prompt-text.css" unFocusColor="WHITE" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" GridPane.vgrow="ALWAYS">
                      <GridPane.margin>
                         <Insets left="100.0" right="100.0" />
                      </GridPane.margin>
@@ -142,21 +133,12 @@
                         <Insets left="100.0" right="100.0" />
                      </GridPane.margin>
                   </JFXTextField>
-                  <JFXComboBox fx:id="department" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="44.0" prefWidth="194.0" promptText="Department" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="4" GridPane.vgrow="ALWAYS">
-                     <GridPane.margin>
-                        <Insets left="350.0" right="100.0" />
-                     </GridPane.margin>
-                     <stylesheets>
-                        <URL value="@modify-prompt-text.css" />
-                        <URL value="@size.css" />
-                     </stylesheets>
-                  </JFXComboBox>
                   <JFXRadioButton fx:id="isAdmin" text="Is Admin?" textFill="WHITE" GridPane.columnIndex="1" GridPane.rowIndex="4">
                      <font>
                         <Font size="20.0" />
                      </font>
                   </JFXRadioButton>
-                  <JFXTextField fx:id="position" focusColor="#f6bd38" onKeyReleased="#checkSubmit" promptText="Position" style="-jfx-prompt-text: WHITE;" stylesheets="@modify-prompt-text.css" unFocusColor="WHITE" GridPane.rowIndex="4">
+                  <JFXTextField fx:id="position" focusColor="#f6bd38" onKeyReleased="#checkSubmit" prefHeight="40.0" prefWidth="216.0" promptText="Position" style="-jfx-prompt-text: WHITE;" stylesheets="@modify-prompt-text.css" unFocusColor="WHITE" GridPane.rowIndex="4">
                      <font>
                         <Font size="20.0" />
                      </font>
@@ -171,22 +153,42 @@
                   </Label>
                   <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="100.0" GridPane.columnIndex="1" GridPane.rowIndex="7">
                      <children>
-                        <JFXButton fx:id="submit" buttonType="RAISED" onAction="#submitPressed" prefHeight="55.0" prefWidth="154.0" style="-fx-border-color: F5D96B; -fx-border-width: 2; -fx-border-radius: 50; -fx-background-radius: 50;" text="Submit" textFill="WHITE">
+                        <JFXButton fx:id="delete" alignment="CENTER" buttonType="RAISED" contentDisplay="RIGHT" onAction="#deleteClicked" prefHeight="7.0" prefWidth="138.0" style="-fx-border-color: F5D96B; -fx-border-width: 2; -fx-border-radius: 50; -fx-background-radius: 50;" text="Delete" textAlignment="CENTER" textFill="WHITE">
                            <font>
                               <Font size="30.0" />
                            </font>
-                        </JFXButton>
-                        <JFXButton fx:id="delete" alignment="CENTER" buttonType="RAISED" contentDisplay="CENTER" onAction="#deleteClicked" prefHeight="7.0" prefWidth="138.0" style="-fx-border-color: F5D96B; -fx-border-width: 2; -fx-border-radius: 50; -fx-background-radius: 50;" text="Delete" textAlignment="CENTER" textFill="WHITE">
-                           <font>
-                              <Font size="30.0" />
-                           </font>
+                           <HBox.margin>
+                              <Insets />
+                           </HBox.margin>
                         </JFXButton>
                      </children>
                   </HBox>
-                  <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="100.0" GridPane.halignment="CENTER" GridPane.rowIndex="7" GridPane.valignment="CENTER">
+                  <JFXComboBox fx:id="department" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="44.0" prefWidth="194.0" promptText="Department" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="4" GridPane.vgrow="ALWAYS">
+                     <GridPane.margin>
+                        <Insets left="350.0" right="100.0" />
+                     </GridPane.margin>
+                     <stylesheets>
+                        <URL value="@modify-prompt-text.css" />
+                        <URL value="@size.css" />
+                     </stylesheets>
+                  </JFXComboBox>
+                  <JFXButton fx:id="submit" buttonType="RAISED" onAction="#submitPressed" prefHeight="55.0" prefWidth="154.0" style="-fx-border-color: F5D96B; -fx-border-width: 2; -fx-border-radius: 50; -fx-background-radius: 50;" text="Submit" textFill="WHITE" GridPane.columnSpan="2" GridPane.rowIndex="7">
+                     <font>
+                        <Font size="30.0" />
+                     </font>
+                  </JFXButton>
+                  <HBox alignment="CENTER" prefHeight="150.0" prefWidth="489.0" spacing="50.0" GridPane.rowIndex="7">
                      <children>
-                        <ImageView fx:id="picView" fitHeight="150.0" fitWidth="240.0" pickOnBounds="true" preserveRatio="true" />
-                        <JFXButton fx:id="picbtn" alignment="CENTER" buttonType="RAISED" contentDisplay="TOP" focusTraversable="false" onAction="#takePic" prefHeight="94.0" prefWidth="145.0" ripplerFill="WHITE" style="-fx-border-color: #f5d96b; -fx-border-width: 2; -fx-border-radius: 10; -fx-background-radius: 10;" stylesheets="@HomeButtonStyle.css" text="Take Picture" textAlignment="CENTER" textFill="WHITE" wrapText="true">
+                        <ImageView fx:id="picView" fitHeight="121.0" fitWidth="193.0" pickOnBounds="true" preserveRatio="true" />
+                     </children></HBox>
+                  <HBox alignment="CENTER" prefHeight="81.0" prefWidth="524.0" spacing="20.0" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" GridPane.valignment="CENTER">
+                     <children>
+                        <JFXTextField fx:id="username" focusColor="#f6bd38" onKeyReleased="#checkSubmit" prefHeight="40.0" prefWidth="329.0" promptText="Username" style="-jfx-prompt-text: WHITE;" stylesheets="@modify-prompt-text.css" unFocusColor="WHITE">
+                           <font>
+                              <Font size="20.0" />
+                           </font>
+                        </JFXTextField>
+                        <JFXButton fx:id="picbtn" alignment="CENTER" buttonType="RAISED" contentDisplay="TOP" focusTraversable="false" onAction="#takePic" prefHeight="94.0" prefWidth="74.0" ripplerFill="WHITE" style="-fx-border-color: #f5d96b; -fx-border-width: 2; -fx-border-radius: 10; -fx-background-radius: 10;" stylesheets="@HomeButtonStyle.css" textAlignment="CENTER" textFill="WHITE" wrapText="true">
                            <font>
                               <Font size="18.0" />
                            </font>
