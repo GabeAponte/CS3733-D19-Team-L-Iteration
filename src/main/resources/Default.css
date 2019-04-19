@@ -159,7 +159,7 @@
     -fx-prompt-text-fill: black;
     -fx-text-fill: black;
     -jfx-focus-color: #f5d96b;
-    -jfx-un-focus-color: transparent
+    -jfx-unfocus-color: transparent
 }
 
 .jfx-combo-box {
