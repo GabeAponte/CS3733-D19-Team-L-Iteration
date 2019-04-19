@@ -521,6 +521,7 @@ public class EmergencyController {
         nameToLoc.clear();
 
         activateEmergencyMode();
+        displayKiosk();
     }
 
 
@@ -613,12 +614,10 @@ public class EmergencyController {
      * Also contains code that will generate buttons above transitions between floors
      * Now automatically zooms on the floor's path
      */
+
     public void displayPath(){
-        System.out.println("is it even being called");
-
-
         single.setLastTime();
-        //Clears the lines and circles to avoid any duplicates or reproducing data.
+        //Clears the lines and circles to avoid any duplicates or reproducing data
         if(displayingPath) {
             path.getPath().add(0,startNode);
 
@@ -721,12 +720,18 @@ public class EmergencyController {
                         buttons.add(nBut);
                         nBut.setVisible(true);
                         //Change the display of the button based on which floor you're on
-                        if(currentMap.equals(startNode.getFloor()) || path.getPath().get(i).getFloor().equals(currentMap)) {
+                        if(currentMap.equals(startNode.getFloor())) {
                             nBut.setStyle("-fx-text-fill: WHITE; -fx-font-size: 6; -fx-background-color: GREEN; -fx-border-color: WHITE; -fx-background-radius: 18; -fx-border-radius: 18; -fx-border-width: 3");
-
+                            //Should handle weird case for displaying button way out in nowhere.
+                            if(!path.getPath().get(i+1).getFloor().equals(currentMap)) {
+                                nBut.setLayoutX((path.getPath().get(floorSwitch2).getXcoord()*childPane.getWidth()/Map.getImage().getWidth()));
+                                nBut.setLayoutY((path.getPath().get(floorSwitch2).getYcoord()*childPane.getHeight()/Map.getImage().getHeight()));
+                            }
                         }
-                        else if(path.getPath().get(i).getFloor().equals(currentMap) && transition.equals(startNode.getFloor())){
+                        else if(!currentMap.equals(startNode.getFloor()) && !currentMap.equals(endNode.getFloor())){
                             nBut.setStyle("-fx-text-fill: WHITE; -fx-font-size: 6; -fx-background-color: GREEN; -fx-border-color: WHITE; -fx-background-radius: 18; -fx-border-radius: 18; -fx-border-width: 3");
+                            nBut.setLayoutX((path.getPath().get(floorSwitch2).getXcoord()*childPane.getWidth()/Map.getImage().getWidth()));
+                            nBut.setLayoutY((path.getPath().get(floorSwitch2).getYcoord()*childPane.getHeight()/Map.getImage().getHeight()));
                         }
                         else {
                             //Modified the return to start button position.
@@ -746,33 +751,48 @@ public class EmergencyController {
             }
             //Creates the start and end nodes to display them and sets colors.
             Circle StartCircle = new Circle();
+            Circle kioskDis = new Circle();
 
             //Setting the properties of the circle
             StartCircle.setCenterX(startNode.getXcoord()*childPane.getWidth()/Map.getImage().getWidth());
             StartCircle.setCenterY(startNode.getYcoord()*childPane.getHeight()/Map.getImage().getHeight());
             StartCircle.setRadius(Math.max(1.5, 1.5f * (gesturePane.getCurrentScale() / 4)));
 
-            startLabel.setLayoutX(startNode.getXcoord()*childPane.getWidth()/Map.getImage().getWidth());
+            startLabel.setLayoutX(startNode.getXcoord()*childPane.getWidth()/Map.getImage().getWidth() -20);
             startLabel.setLayoutY(startNode.getYcoord()*childPane.getHeight()/Map.getImage().getHeight() - 20);
             //Displays the kiosk location for the startNode, changes the color to indicate the Kiosk, also sets startLabel
             if(startNode.equals(kioskTemp)) {
                 StartCircle.setStroke(Color.BLUE);
                 StartCircle.setFill(Color.BLUE);
                 startLabel.setText(" You are here ");
+                //System.out.println("1");
                 startLabel.setStyle("-fx-text-fill: WHITE;-fx-font-size: 6; -fx-background-color: BLUE; -fx-border-color: WHITE; -fx-border-width: 2; -fx-min-width: 40;");
             }
             else {
+                kioskDis.setCenterX(kioskTemp.getXcoord()*childPane.getWidth()/Map.getImage().getWidth());
+                kioskDis.setCenterY(kioskTemp.getYcoord()*childPane.getHeight()/Map.getImage().getHeight());
+                kioskDis.setRadius(Math.max(1.5, 1.5f * (gesturePane.getCurrentScale() / 4)));
+                kioskDis.setStroke(Color.BLUE);
+                kioskDis.setFill(Color.BLUE);
                 StartCircle.setStroke(Color.GREEN);
                 StartCircle.setFill(Color.GREEN);
+                //System.out.println("2");
                 startLabel.setText(startNode.getLongName());
                 startLabel.setStyle("-fx-text-fill: WHITE;-fx-font-size: 6; -fx-background-color: GREEN; -fx-border-color: WHITE; -fx-border-width: 2; -fx-min-width: 40;");
             }
             if (!startNode.getFloor().equals(currentMap)) {
                 StartCircle.setVisible(false);
                 startLabel.setVisible(false);
+                //System.out.println("3");
+            }
+            else if(currentMap.equals(kioskTemp.getFloor())) {
+                kioskDis.setVisible(true);
+                //System.out.println("4");
             }
             else {
                 startLabel.setVisible(true);
+                kioskDis.setVisible(false);
+                hereLabel.setVisible(true);
             }
 
             pathPane.getChildren().add(StartCircle);
@@ -790,7 +810,7 @@ public class EmergencyController {
             endLabel.setText(endNode.getLongName());
             endLabel.setStyle("-fx-text-fill: WHITE;-fx-font-size: 6; -fx-background-color: RED; -fx-border-color: WHITE; -fx-border-width: 2; -fx-min-width: 40;");
             endLabel.setLayoutX(endNode.getXcoord()*childPane.getWidth()/Map.getImage().getWidth() - 30);
-            endLabel.setLayoutY(endNode.getYcoord()*childPane.getHeight()/Map.getImage().getHeight() + 20);
+            endLabel.setLayoutY(endNode.getYcoord()*childPane.getHeight()/Map.getImage().getHeight() - 20);
             if (!endNode.getFloor().equals(currentMap)) {
                 EndCircle.setVisible(false);
                 endLabel.setVisible(false);
@@ -818,6 +838,7 @@ public class EmergencyController {
             autoZoom(path.getPath().get(floorSwitch1), path.getPath().get(floorSwitch2));
         }
     }
+
 
     /**
      * @Author: Nikhil
