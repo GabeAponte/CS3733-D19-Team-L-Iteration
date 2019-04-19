@@ -144,6 +144,7 @@ public class EditLocationController {
             eraseNodes();
             drawNodes();
         }
+        showEdge=false;
     }
     @FXML
     private void clickedL1(){
@@ -156,6 +157,7 @@ public class EditLocationController {
             eraseNodes();
             drawNodes();
         }
+        showEdge=false;
     }
 
     @FXML public void clickedL2(){
@@ -168,6 +170,7 @@ public class EditLocationController {
             eraseNodes();
             drawNodes();
         }
+        showEdge=false;
     }
     @FXML
     private void clicked1(){
@@ -180,6 +183,7 @@ public class EditLocationController {
             eraseNodes();
             drawNodes();
         }
+        showEdge=false;
     }
     @FXML
     private void clicked2(){
@@ -192,6 +196,7 @@ public class EditLocationController {
             eraseNodes();
             drawNodes();
         }
+        showEdge=false;
     }
     @FXML
     private void clicked3(){
@@ -204,6 +209,7 @@ public class EditLocationController {
             eraseNodes();
             drawNodes();
         }
+        showEdge=false;
     }
 
     @FXML
@@ -937,10 +943,11 @@ public class EditLocationController {
                                 //nothing
                             }
                             else {
+                                System.out.println("loc " + loc + "\n Edges " + edgeslist);
                                 CircleLocation endcl = new CircleLocation();
                                 for (Edge e: edgeslist){
                                     LineEdge line = new LineEdge();
-                                    for(int i = 1; i< circles.size(); i++){
+                                    for(int i = 0; i< circles.size(); i++){
                                         String ID = circles.get(i).getLocation().getLocID();
                                         if(ID.equals(e.getEndID())||ID.equals(e.getStartID())&&
                                                 !(ID.equals(loc.getLocation().getLocID()))){
