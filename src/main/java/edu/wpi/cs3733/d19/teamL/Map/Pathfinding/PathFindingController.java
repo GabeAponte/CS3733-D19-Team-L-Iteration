@@ -790,6 +790,25 @@ public class PathFindingController {
      */
     public void displayPath(){
         single.setLastTime();
+        //Create all necessary objects for animating path.
+        Circle dude  = new Circle();
+        dude.setCenterX(startNode.getXcoord()*childPane.getWidth()/Map.getImage().getWidth());
+        dude.setCenterY(startNode.getYcoord()*childPane.getHeight()/Map.getImage().getHeight());
+        dude.setRadius(Math.max(1.5, 1.5f * (gesturePane.getCurrentScale() / 4)));
+
+        javafx.scene.shape.Path path2 = new  javafx.scene.shape.Path();
+        for(int i = 0; i < path.getPath().size(); i++) {
+            //path2.add()
+        }
+
+        //Sets up transition
+        PathTransition travel = new PathTransition();
+        travel.setDuration(Duration.millis(10000));
+        travel.setNode(dude);
+        travel.setPath(path2);
+        travel.setOrientation(PathTransition.OrientationType.ORTHOGONAL_TO_TANGENT);
+        //travel.setCycleCount(4f);
+        travel.setAutoReverse(false);
         //Clears the lines and circles to avoid any duplicates or reproducing data
         if(displayingPath) {
             path.getPath().add(0,startNode);
