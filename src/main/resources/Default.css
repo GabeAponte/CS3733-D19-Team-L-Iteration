@@ -149,10 +149,46 @@
 }
 
 .jfx-combo-box {
-    -fx-background-color: white;
     -fx-font-size : 20 pt;
-    -webkit-fx-font-color : black;
+    -fx-text-fill : white;
     -jfx-focus-color: #f5d96b;
-    -jfx-un-focus-color: white
+    -jfx-unfocus-color: white;
+    -fx-prompt-text-fill: white;
 
 }
+
+.combo-box .arrow {
+    -fx-background-color: #f5d96b;
+}
+
+
+
+.jfx-date-picker{
+    -fx-font-size: 20 pt;
+    -fx-text-fill: black;
+    -jfx-focus-color: #f5d96b;
+    -jfx-unfocus-color: white;
+    -jfx-default-color: #f5d96b;
+}
+.jfx-date-picker .input-line {
+    -fx-background-color: white;
+}
+.jfx-date-picker .input-focused-line {
+    -fx-background-color: #f5d96b;
+}
+
+.jfx-time-picker{
+    -fx-font-size: 20 pt;
+    -fx-text-fill: black;
+    -jfx-focus-color: #f5d96b;
+    -jfx-unfocus-color: white;
+    -jfx-default-color: #f5d96b;
+}
+
+.jfx-time-picker .input-line {
+    -fx-background-color: white;
+}
+.jfx-time-picker .input-focused-line {
+    -fx-background-color: #f5d96b;
+}
+
