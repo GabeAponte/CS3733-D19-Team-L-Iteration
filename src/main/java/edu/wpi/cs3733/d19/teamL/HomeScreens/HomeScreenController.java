@@ -115,7 +115,6 @@ public class HomeScreenController {
 
                     updateWeatherDisplay();
                 }
-                long second = LocalDateTime.now().getSecond();
                 long minute = LocalDateTime.now().getMinute();
                 long hour = LocalDateTime.now().getHour();
                 if(hour > 12){
@@ -125,23 +124,15 @@ public class HomeScreenController {
                     hour = 12;
                 }
                 if (minute < 10) {
-                    if (second > 9) {
-                        timeLabel.setText(hour + ":0" + (minute));
-                    } else {
-                        timeLabel.setText(hour + ":0" + (minute));
-                    }
+                    timeLabel.setText(hour + ":0" + (minute));
                 } else {
-                    if (second > 9) {
-                        timeLabel.setText(hour + ":" + (minute));
-                    } else {
-                        timeLabel.setText(hour + ":" + (minute));
-                    }
+                    timeLabel.setText(hour + ":" + (minute));
                 }
 
                 if(isAM){
                     timeLabel.setText(timeLabel.getText()+" AM");
                 }
-                else if(! isAM){
+                else{
                     timeLabel.setText(timeLabel.getText()+" PM");
                 }
             }),
@@ -216,8 +207,8 @@ public class HomeScreenController {
     }
     @FXML
     private void SwitchToPathfindScreen() throws IOException{
-        tweets.stop();
-        clock.stop();
+        stop();
+        saveState();
         Singleton single = Singleton.getInstance();
         single.setLastTime();
         FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("HospitalPathFinding.fxml"));
@@ -232,8 +223,8 @@ public class HomeScreenController {
 
     @FXML
     private void SwitchToSuggestionBox() throws IOException{
-        tweets.stop();
-        clock.stop();
+        stop();
+        saveState();
         Singleton single = Singleton.getInstance();
         single.setLastTime();
         Stage thestage = (Stage) HomeSuggestions.getScene().getWindow();
@@ -245,8 +236,8 @@ public class HomeScreenController {
 
     @FXML
     private void SwitchToServiceScreen() throws IOException{
-        tweets.stop();
-        clock.stop();
+        stop();
+        saveState();
         Singleton single = Singleton.getInstance();
         single.setLastTime();
         FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("ServiceRequest.fxml"));
@@ -263,8 +254,8 @@ public class HomeScreenController {
 
     @FXML
     private void SwitchToLoginScreen(ActionEvent event){
-        tweets.stop();
-        clock.stop();
+        stop();
+        saveState();
         Singleton single = Singleton.getInstance();
         single.setLastTime();
         try {
@@ -279,8 +270,8 @@ public class HomeScreenController {
 
     @FXML
     private void AboutPress() throws IOException {
-        tweets.stop();
-        clock.stop();
+        stop();
+        saveState();
         Singleton single = Singleton.getInstance();
         single.setLastTime();
         single.setDoPopup(true);
@@ -292,5 +283,21 @@ public class HomeScreenController {
 
         Scene newScene = new Scene(sceneMain);
         thisStage.setScene(newScene);
+    }
+
+    /**@author Nathan
+     * Saves the memento state
+     */
+    private void saveState(){
+        Singleton single = Singleton.getInstance();
+        single.saveMemento("HospitalHome.fxml");
+    }
+
+    /**@author Nathan
+     * Stops all timelines on the screen
+     */
+    private void stop(){
+        tweets.stop();
+        clock.stop();
     }
 }

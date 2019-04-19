@@ -2,12 +2,11 @@ package edu.wpi.cs3733.d19.teamL;
 
 /*MEMENTO WILL RETURN TO BASE SCREENS ONLY
 //EmployeeTableController
-//All homescreens
+//All homescreens - homescreen done, login done,
 //Map Editor
 //PathFindingController
 //BookRoom
 //ActiveServiceRequestsController
-//All Service Requests
 //SuggestionBoxController
 //SuggestionTableController
 
@@ -15,6 +14,7 @@ WILL NOT GO TO:
 //CreateEditAccountController
 //Make Event Tab in Book Room Controller
 //FulfillRequestController
+//All individual service requests
 
 
 WILL RESTORE INFORMATION BUT WILL NOT OVERWRITE DB ENTRIES
@@ -26,6 +26,10 @@ public class Memento {
 
     public Memento(String fxml){
         this.fxml = fxml;
+    }
+
+    public String getFxml(){
+        return fxml;
     }
 
     /**@author Nathan

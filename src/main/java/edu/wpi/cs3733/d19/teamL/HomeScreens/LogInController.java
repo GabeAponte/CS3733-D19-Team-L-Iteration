@@ -8,6 +8,7 @@ import edu.wpi.cs3733.d19.teamL.API.FaceDetector;
 import edu.wpi.cs3733.d19.teamL.API.ImageComparison;
 import edu.wpi.cs3733.d19.teamL.API.faceDetectionJavaFXX;
 import edu.wpi.cs3733.d19.teamL.Account.EmployeeAccess;
+import edu.wpi.cs3733.d19.teamL.Memento;
 import edu.wpi.cs3733.d19.teamL.Singleton;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
@@ -103,7 +104,8 @@ public class LogInController {
         Singleton single = Singleton.getInstance();
         single.setLastTime();
         single.setDoPopup(true);
-        FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("HospitalHome.fxml"));
+        Memento m = single.restore();
+        FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource(m.getFxml()));
 
         Parent sceneMain = loader.load();
 
@@ -125,11 +127,6 @@ public class LogInController {
         Singleton single = Singleton.getInstance();
         single.setLastTime();
 
-        /*if(username.getText().trim().isEmpty()){
-            facialRec.setDisable(true);
-        } else {
-            facialRec.setDisable(false);
-        }*/
         Boolean disable = (username.getText().isEmpty() || username.getText().trim().isEmpty() || password.getText().isEmpty() || password.getText().trim().isEmpty());
         if(!disable){
             login.setDisable(false);
@@ -227,6 +224,7 @@ public class LogInController {
 
     private void SwitchToSignedIn(String fxml) throws IOException{
         timeout.stop();
+        saveState();
         Singleton single = Singleton.getInstance();
         single.setLastTime();
         FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource(fxml));
@@ -243,6 +241,12 @@ public class LogInController {
         errorLabel.setText("Username or Password is incorrect");
     }
 
-
+    /**@author Nathan
+     * Saves the memento state
+     */
+    private void saveState(){
+        Singleton single = Singleton.getInstance();
+        single.saveMemento("LogIn.fxml");
+    }
 
 }
