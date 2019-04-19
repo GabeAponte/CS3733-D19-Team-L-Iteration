@@ -107,6 +107,7 @@ public class SuggestionBoxController {
             saveState();
             try {
                 Memento m = single.getOrig();
+                single.setDoPopup(true);
                 FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource(m.getFxml()));
                 Parent sceneMain = loader.load();
                 Stage thisStage = (Stage) submitFeedback.getScene().getWindow();
