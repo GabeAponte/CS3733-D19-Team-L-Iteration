@@ -90,6 +90,11 @@ public class Singleton {
         ct.save(m);
     }
 
+    public static void saveMemento(String fxml, String Preference, String type, String floorFilter, Location start, Location end){
+        Memento m = new Memento(fxml, Preference, type, floorFilter, start, end);
+        ct.save(m);
+    }
+
     public static Memento getOrig(){
         if(loggedIn){
             if(isAdmin){

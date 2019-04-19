@@ -68,7 +68,7 @@
                                     <Insets right="10.0" />
                                  </HBox.margin>
                               </JFXButton>
-                              <JFXButton fx:id="homebtn" buttonType="RAISED" contentDisplay="GRAPHIC_ONLY" maxHeight="-Infinity" minHeight="-Infinity" onAction="#backPressed" prefHeight="75.0" prefWidth="100.0" style="-fx-background-radius: 10000; -fx-border-radius: 1000; -fx-border-color: #012d5a; -fx-border-width: 2;" stylesheets="@toolbarIcons.css" textFill="#012d5a">
+                              <JFXButton fx:id="homebtn" buttonType="RAISED" contentDisplay="GRAPHIC_ONLY" maxHeight="-Infinity" minHeight="-Infinity" onAction="#goHome" prefHeight="75.0" prefWidth="100.0" style="-fx-background-radius: 10000; -fx-border-radius: 1000; -fx-border-color: #012d5a; -fx-border-width: 2;" stylesheets="@toolbarIcons.css" textFill="#012d5a">
                                  <graphic>
                                     <FontAwesomeIconView fx:id="home" fill="#012d5a" glyphName="HOME" size="50" />
                                  </graphic>

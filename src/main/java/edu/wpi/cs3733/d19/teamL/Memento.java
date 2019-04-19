@@ -1,10 +1,12 @@
 package edu.wpi.cs3733.d19.teamL;
 
+import edu.wpi.cs3733.d19.teamL.Map.MapLocations.Location;
+
 /*MEMENTO WILL RETURN TO BASE SCREENS ONLY
 //EmployeeTableController - done
 //All homescreens - homescreen done, login done, employee done, admin done, about done
 //Map Editor - done
-//PathFindingController
+//PathFindingController - done
 //BookRoom
 //ActiveServiceRequestsController
 //SuggestionBoxController - done
@@ -23,13 +25,47 @@ WILL RESTORE INFORMATION BUT WILL NOT OVERWRITE DB ENTRIES
 */
 public class Memento {
     String fxml;
+    String pathPref;
+    String typeFilter;
+    String floorFilter;
+    Location start;
+    Location end;
 
     public Memento(String fxml){
         this.fxml = fxml;
     }
 
+    public Memento(String fxml, String Preference, String type, String floorFilter, Location start, Location end){
+        this.fxml = fxml;
+        pathPref = Preference;
+        typeFilter = type;
+        this.floorFilter = floorFilter;
+        this.start = start;
+        this.end = end;
+    }
+
     public String getFxml(){
         return fxml;
+    }
+
+    public String getPathPref() {
+        return pathPref;
+    }
+
+    public String getTypeFilter() {
+        return typeFilter;
+    }
+
+    public String getFloorFilter() {
+        return floorFilter;
+    }
+
+    public Location getStart() {
+        return start;
+    }
+
+    public Location getEnd() {
+        return end;
     }
 
     /**@author Nathan

@@ -2,6 +2,7 @@ package edu.wpi.cs3733.d19.teamL.HomeScreens;
 
 import edu.wpi.cs3733.d19.teamL.Account.CreateEditAccountController;
 import edu.wpi.cs3733.d19.teamL.Account.EmployeeAccess;
+import edu.wpi.cs3733.d19.teamL.Map.Pathfinding.PathFindingController;
 import edu.wpi.cs3733.d19.teamL.Memento;
 import edu.wpi.cs3733.d19.teamL.ServiceRequest.FulfillServiceRequest.ActiveServiceRequestsController;
 import edu.wpi.cs3733.d19.teamL.Singleton;
@@ -212,6 +213,28 @@ public class EmployeeLoggedInHomeController {
         SuggestionTableController controller = loader.<SuggestionTableController>getController();
 
         Stage theStage = (Stage) fufillServiceRequest.getScene().getWindow();
+
+        Scene scene = new Scene(sceneMain);
+        theStage.setScene(scene);
+    }
+
+    @FXML
+    private void backPressed() throws IOException{
+        Singleton single = Singleton.getInstance();
+        timeout.stop();
+        single = Singleton.getInstance();
+        single.setLastTime();
+        single.setDoPopup(true);
+
+        Memento m = single.restore();
+        FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource(m.getFxml()));
+        Parent sceneMain = loader.load();
+        if(m.getFxml().contains("HospitalPathFinding")){
+            PathFindingController pfc = loader.getController();
+            pfc.initWithMeme(m.getPathPref(), m.getTypeFilter(), m.getFloorFilter(), m.getStart(), m.getEnd());
+        }
+
+        Stage theStage = (Stage) serviceRequest.getScene().getWindow();
 
         Scene scene = new Scene(sceneMain);
         theStage.setScene(scene);

@@ -1,6 +1,8 @@
 package edu.wpi.cs3733.d19.teamL.HomeScreens;
 
 import com.jfoenix.controls.JFXButton;
+import edu.wpi.cs3733.d19.teamL.Map.Pathfinding.PathFindingController;
+import edu.wpi.cs3733.d19.teamL.Memento;
 import edu.wpi.cs3733.d19.teamL.ServiceRequest.MakeServiceRequest.ServiceRequestController;
 import edu.wpi.cs3733.d19.teamL.Singleton;
 import edu.wpi.cs3733.d19.teamL.API.Weather;
@@ -283,6 +285,28 @@ public class HomeScreenController {
 
         Scene newScene = new Scene(sceneMain);
         thisStage.setScene(newScene);
+    }
+
+    @FXML
+    private void backPressed() throws IOException{
+        Singleton single = Singleton.getInstance();
+        stop();
+        single = Singleton.getInstance();
+        single.setLastTime();
+        single.setDoPopup(true);
+
+        Memento m = single.restore();
+        FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource(m.getFxml()));
+        Parent sceneMain = loader.load();
+        if(m.getFxml().contains("HospitalPathFinding")){
+            PathFindingController pfc = loader.getController();
+            pfc.initWithMeme(m.getPathPref(), m.getTypeFilter(), m.getFloorFilter(), m.getStart(), m.getEnd());
+        }
+
+        Stage theStage = (Stage) LogIn.getScene().getWindow();
+
+        Scene scene = new Scene(sceneMain);
+        theStage.setScene(scene);
     }
 
     /**@author Nathan

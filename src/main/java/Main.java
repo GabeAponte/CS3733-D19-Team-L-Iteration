@@ -38,8 +38,5 @@ public class Main extends Application {
         single.populateTweets();
         single.updateWeather();
         launch(args);
-
-
-
     }
 }
