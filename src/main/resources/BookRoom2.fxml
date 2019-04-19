@@ -82,7 +82,7 @@
                         </JFXButton>
                     </children>
                 </VBox>
-                <JFXTreeTableView fx:id="bookedTime" stylesheets="@Default.css" GridPane.columnSpan="3" GridPane.rowIndex="2" GridPane.rowSpan="4">
+                <JFXTreeTableView fx:id="bookedTime" styleClass="jfx-tree-table-view" stylesheets="@Default.css" GridPane.columnSpan="3" GridPane.rowIndex="2" GridPane.rowSpan="4">
                     <columns>
                         <TreeTableColumn fx:id="timeCol" prefWidth="125.0" text="Time" />
                         <TreeTableColumn fx:id="class1Col" editable="false" minWidth="116.0" prefWidth="150.0" sortable="false" text="Classroom 1" />
