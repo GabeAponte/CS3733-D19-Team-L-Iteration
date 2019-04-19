@@ -16,6 +16,14 @@
     -fx-fill: white;
 }
 
+.buttonMap{
+    -fx-background-radius: 10000;
+    -fx-border-color : #012D5A;
+    -fx-border-radius: 100;
+    -fx-border-width: 2;
+    -fx-pref-height: 46;
+}
+
 .buttonMap:hover{
     -fx-background-color: #012d5a;
     -fx-text-fill: white;
@@ -50,6 +58,12 @@
 
 .labelTitle {
     -fx-text-fill: #f5d96b;
+}
+.labelPopupTitle {
+    -fx-text-fill: black;
+}
+.labelPopupDesc {
+    -fx-text-fill: white;
 }
 
 .labelMapFloor {
@@ -167,18 +181,53 @@
 
 }
 
-.combo-box .list-view .list-cell {
+.jfx-combo-box .list-view .list-cell {
 -fx-text-fill : black;
 }
 
-.combo-box .list-cell {
+.jfx-combo-box .list-cell {
     -fx-text-fill : white;
 }
 
-.combo-box .arrow {
+.jfx-combo-box .arrow {
     -fx-background-color: #f5d96b;
 }
 
+.jfx-combo-box-Popup {
+    -fx-font-size : 17 pt;
+    -fx-text-fill : white;
+    -jfx-focus-color: #f5d96b;
+    -jfx-unfocus-color: white;
+    -fx-prompt-text-fill: white;
+
+}
+
+.jfx-combo-box-Popup .text-field {
+    -fx-text-fill : white;
+
+}
+
+.jfx-combo-box-Popup .text-area {
+    -fx-text-fill : white;
+
+}
+
+.jfx-combo-box-Popup .list-view .list-cell {
+    -fx-text-fill : black;
+}
+
+.jfx-combo-box-Popup .list-cell {
+    -fx-text-fill : white;
+}
+
+.jfx-combo-box-Popup .arrow {
+    -fx-background-color: #f5d96b;
+}
+
+.toggle-button {
+    -fx-text-fill: white;
+
+}
 
 
 .jfx-date-picker{
