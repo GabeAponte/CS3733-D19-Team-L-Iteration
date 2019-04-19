@@ -1260,7 +1260,7 @@ public class ActiveServiceRequestsController {
             pfc.initWithMeme(m.getPathPref(), m.getTypeFilter(), m.getFloorFilter(), m.getStart(), m.getEnd());
         }
 
-        Stage theStage = (Stage) back.getScene().getWindow();
+        Stage theStage = (Stage) requestType.getScene().getWindow();
 
         Scene scene = new Scene(sceneMain);
         theStage.setScene(scene);
@@ -1271,7 +1271,7 @@ public class ActiveServiceRequestsController {
      */
     private void saveState(){
         Singleton single = Singleton.getInstance();
-        single.saveMemento("ActiveServiceRequests.fxml");
+        single.saveMemento("NewActiveServiceRequests.fxml");
     }
 }
 
