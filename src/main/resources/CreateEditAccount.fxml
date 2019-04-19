@@ -17,7 +17,6 @@
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
-<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
@@ -121,9 +120,16 @@
                         <Font size="20.0" />
                      </font>
                   </JFXRadioButton>
-                  <HBox alignment="CENTER" spacing="50.0" GridPane.rowIndex="6">
+                  <GridPane GridPane.rowIndex="6">
+                     <columnConstraints>
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="50.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="50.0" prefWidth="100.0" />
+                     </columnConstraints>
+                     <rowConstraints>
+                        <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+                     </rowConstraints>
                      <children>
-                        <JFXButton fx:id="picbtn" alignment="CENTER" buttonType="RAISED" contentDisplay="TOP" focusTraversable="false" onAction="#takePic" ripplerFill="WHITE" style="-fx-border-width: 2; -fx-border-radius: 10; -fx-background-radius: 10;" styleClass="buttonMain" stylesheets="@Default.css" text="Add Photo" textAlignment="CENTER" textFill="WHITE" wrapText="true">
+                        <JFXButton fx:id="picbtn" alignment="CENTER" buttonType="RAISED" contentDisplay="TOP" focusTraversable="false" onAction="#takePic" prefHeight="110.0" prefWidth="129.0" ripplerFill="WHITE" style="-fx-border-width: 2; -fx-border-radius: 10; -fx-background-radius: 10;" styleClass="buttonMain" stylesheets="@Default.css" text="Add Photo" textAlignment="CENTER" textFill="WHITE" wrapText="true">
                            <font>
                               <Font size="18.0" />
                            </font>
@@ -136,15 +142,17 @@
                            <effect>
                               <DropShadow color="WHITE" />
                            </effect>
-                           <HBox.margin>
-                              <Insets />
-                           </HBox.margin>
+                           <GridPane.margin>
+                              <Insets bottom="20.0" left="100.0" />
+                           </GridPane.margin>
                         </JFXButton>
-                        <ImageView fx:id="picView" fitHeight="121.0" fitWidth="193.0" pickOnBounds="true" preserveRatio="true" />
+                        <ImageView fx:id="picView" fitHeight="121.0" fitWidth="193.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1">
+                           <GridPane.margin>
+                              <Insets bottom="20.0" />
+                           </GridPane.margin>
+                        </ImageView>
                      </children>
-                     <GridPane.margin>
-                        <Insets bottom="20.0" />
-                     </GridPane.margin></HBox>
+                  </GridPane>
                   <JFXTextField fx:id="username" focusColor="#f6bd38" maxWidth="1.7976931348623157E308" onKeyReleased="#checkSubmit" promptText="Username" stylesheets="@Default.css" unFocusColor="WHITE" GridPane.columnIndex="1" GridPane.rowIndex="1">
                      <font>
                         <Font size="20.0" />
@@ -159,6 +167,9 @@
                            <font>
                               <Font size="20.0" />
                            </font>
+                           <VBox.margin>
+                              <Insets top="20.0" />
+                           </VBox.margin>
                         </Label>
                         <GridPane maxHeight="1.7976931348623157E308" VBox.vgrow="ALWAYS">
                           <columnConstraints>
@@ -206,7 +217,7 @@
                         <Insets left="100.0" right="100.0" />
                      </GridPane.margin>
                   </JFXPasswordField>
-                  <GridPane GridPane.rowIndex="4">
+                  <GridPane hgap="10.0" GridPane.rowIndex="4">
                     <columnConstraints>
                       <ColumnConstraints hgrow="SOMETIMES" maxWidth="377.0236053466797" minWidth="10.0" percentWidth="50.0" prefWidth="340.3317413330078" />
                       <ColumnConstraints hgrow="SOMETIMES" maxWidth="532.66162109375" minWidth="10.0" percentWidth="50.0" prefWidth="299.6682586669922" />
@@ -215,7 +226,7 @@
                       <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="ALWAYS" />
                     </rowConstraints>
                      <children>
-                        <JFXTextField fx:id="position" focusColor="#f6bd38" maxWidth="1.7976931348623157E308" minWidth="-Infinity" onKeyReleased="#checkSubmit" prefHeight="40.0" promptText="Position" stylesheets="@Default.css" unFocusColor="WHITE" GridPane.halignment="LEFT">
+                        <JFXTextField fx:id="position" focusColor="#f6bd38" minWidth="-Infinity" onKeyReleased="#checkSubmit" prefHeight="40.0" prefWidth="203.0" promptText="Position" stylesheets="@Default.css" unFocusColor="WHITE" GridPane.halignment="LEFT" GridPane.hgrow="ALWAYS">
                            <font>
                               <Font size="20.0" />
                            </font>
