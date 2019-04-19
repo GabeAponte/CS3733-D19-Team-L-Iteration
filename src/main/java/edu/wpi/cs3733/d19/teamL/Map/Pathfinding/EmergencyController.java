@@ -118,14 +118,10 @@ public class EmergencyController {
     private StackPane childPane;
     private AnchorPane pathPane;
 
-    private PathfindingStrategy strategyAlgorithm;
-
     private NodesAccess na;
     private EdgesAccess ea;
     private HashMap<String, Location> nameToLoc = new HashMap<>();;
-    private final ObservableList<Location> noHallStart = FXCollections.observableArrayList();
-    private final ObservableList<Location> noHallEnd = FXCollections.observableArrayList();
-    private final ObservableList<String> filterList = FXCollections.observableArrayList();
+
     private final ObservableList<String> floorList = FXCollections.observableArrayList();
     private Singleton single = Singleton.getInstance();
 
@@ -134,13 +130,6 @@ public class EmergencyController {
     private ArrayList<Circle> circles = new ArrayList<Circle>();
     private ArrayList<Line> lines = new ArrayList<Line>();
 
-    private ListIterator<String> listIterator = null;
-
-    Timeline timeout;
-
-    private String pickedFloor = "test";
-    private String type = "test";
-    private String type2 = "";
     private String currentMap = "G"; //defaults to floor G
 
     @FXML
@@ -367,7 +356,9 @@ public class EmergencyController {
 
     }
 
-
+    private void cleanLabel(){
+        hereLabel.setVisible(false);
+    }
 
 
     @FXML
@@ -377,6 +368,11 @@ public class EmergencyController {
         currentMap = "G";
         changeMapLabel();
         cleanMap();
+        if(kioskTemp.getFloor().equals(currentMap)){
+            displayKiosk();
+        } else{
+            cleanLabel();
+        }
         displayExits();
     }
     @FXML
@@ -386,6 +382,11 @@ public class EmergencyController {
         currentMap = "L1";
         changeMapLabel();
         cleanMap();
+        if(kioskTemp.getFloor().equals(currentMap)){
+            displayKiosk();
+        } else{
+            cleanLabel();
+        }
         displayExits();
     }
 
@@ -395,6 +396,11 @@ public class EmergencyController {
         currentMap = "L2";
         changeMapLabel();
         cleanMap();
+        if(kioskTemp.getFloor().equals(currentMap)){
+            displayKiosk();
+        } else{
+            cleanLabel();
+        }
         displayExits();
     }
     @FXML
@@ -404,6 +410,11 @@ public class EmergencyController {
         currentMap = "1";
         changeMapLabel();
         cleanMap();
+        if(kioskTemp.getFloor().equals(currentMap)){
+            displayKiosk();
+        } else{
+            cleanLabel();
+        }
         displayExits();
     }
     @FXML
@@ -413,6 +424,11 @@ public class EmergencyController {
         currentMap = "2";
         changeMapLabel();
         cleanMap();
+        if(kioskTemp.getFloor().equals(currentMap)){
+            displayKiosk();
+        } else{
+            cleanLabel();
+        }
         displayExits();
     }
     @FXML
@@ -422,6 +438,11 @@ public class EmergencyController {
         currentMap = "3";
         changeMapLabel();
         cleanMap();
+        if(kioskTemp.getFloor().equals(currentMap)){
+            displayKiosk();
+        } else{
+            cleanLabel();
+        }
         displayExits();
     }
 
