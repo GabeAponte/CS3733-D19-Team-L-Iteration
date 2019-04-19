@@ -2,6 +2,7 @@ package edu.wpi.cs3733.d19.teamL.HomeScreens;
 
 import edu.wpi.cs3733.d19.teamL.Account.CreateEditAccountController;
 import edu.wpi.cs3733.d19.teamL.Account.EmployeeAccess;
+import edu.wpi.cs3733.d19.teamL.Memento;
 import edu.wpi.cs3733.d19.teamL.Singleton;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
@@ -103,6 +104,7 @@ public class AdminLoggedInHomeController {
     @FXML
     private void logOut() throws IOException {
         timeout.stop();
+        saveState();
         Stage thestage = (Stage) findPath.getScene().getWindow();
         AnchorPane root;
         Singleton single = Singleton.getInstance();
@@ -111,7 +113,8 @@ public class AdminLoggedInHomeController {
         single.setUsername("");
         single.setIsAdmin(false);
         single.setDoPopup(true);
-        root = FXMLLoader.load(getClass().getClassLoader().getResource("HospitalHome.fxml"));
+        Memento m = single.getOrig();
+        root = FXMLLoader.load(getClass().getClassLoader().getResource(m.getFxml()));
         Scene scene = new Scene(root);
         thestage.setScene(scene);
     }
@@ -119,6 +122,7 @@ public class AdminLoggedInHomeController {
     @FXML
     private void bookRoom() throws IOException {
         timeout.stop();
+        saveState();
         Singleton single = Singleton.getInstance();
         single.setLastTime();
         FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("BookRoom.fxml"));
@@ -135,6 +139,7 @@ public class AdminLoggedInHomeController {
     @FXML
     private void SwitchToPathfindScreen() throws IOException{
         timeout.stop();
+        saveState();
         Singleton single = Singleton.getInstance();
         single.setLastTime();
         FXMLLoader pLoader = new FXMLLoader(getClass().getClassLoader().getResource("HospitalPathFinding.fxml"));
@@ -150,6 +155,7 @@ public class AdminLoggedInHomeController {
     @FXML
     private void SwitchToServiceScreen() throws IOException{
         timeout.stop();
+        saveState();
         Singleton single = Singleton.getInstance();
         single.setLastTime();
         FXMLLoader sLoader = new FXMLLoader(getClass().getClassLoader().getResource("ServiceRequest.fxml"));
@@ -165,6 +171,7 @@ public class AdminLoggedInHomeController {
     @FXML
     private void SwitchToFullfillRequestScreen() throws IOException{
         timeout.stop();
+        saveState();
         Singleton single = Singleton.getInstance();
         single.setLastTime();
         FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("NewActiveServiceRequests.fxml"));
@@ -180,6 +187,7 @@ public class AdminLoggedInHomeController {
     @FXML
     private void SwitchToEditLocationScreen() throws IOException{
         timeout.stop();
+        saveState();
         Singleton single = Singleton.getInstance();
         single.setLastTime();
         FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("EditLocation.fxml"));
@@ -195,6 +203,7 @@ public class AdminLoggedInHomeController {
     @FXML
     private void SwitchToAddAccountScreen() throws IOException{
         timeout.stop();
+        saveState();
         Singleton single = Singleton.getInstance();
         single.setLastTime();
         FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("CreateEditAccount.fxml"));
@@ -212,6 +221,7 @@ public class AdminLoggedInHomeController {
     @FXML
     private void SwitchToEditAccountScreen() throws IOException{
         timeout.stop();
+        saveState();
         Singleton single = Singleton.getInstance();
         single.setLastTime();
         FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("EmployeeTable.fxml"));
@@ -227,6 +237,7 @@ public class AdminLoggedInHomeController {
     @FXML
     private void SwitchToSuggestionScreen() throws IOException{
         timeout.stop();
+        saveState();
         Singleton single = Singleton.getInstance();
         single.setLastTime();
         FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("SuggestionTable.fxml"));
@@ -239,4 +250,11 @@ public class AdminLoggedInHomeController {
         theStage.setScene(scene);
     }
 
+    /**@author Nathan
+     * Saves the memento state
+     */
+    private void saveState(){
+        Singleton single = Singleton.getInstance();
+        single.saveMemento("AdminLoggedInHome.fxml");
+    }
 }

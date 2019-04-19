@@ -91,6 +91,12 @@ public class Singleton {
     }
 
     public static Memento getOrig(){
+        if(loggedIn){
+            if(isAdmin){
+                return ct.getAdmin();
+            }
+            return ct.getEmp();
+        }
         return ct.getOriginal();
     }
 

@@ -1,6 +1,7 @@
 package edu.wpi.cs3733.d19.teamL.Account;
 
 import edu.wpi.cs3733.d19.teamL.HomeScreens.HomeScreenController;
+import edu.wpi.cs3733.d19.teamL.Memento;
 import edu.wpi.cs3733.d19.teamL.Singleton;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
@@ -140,18 +141,19 @@ public class EmployeeTableController{
     }
 
     /**@author Gabe
-     * Returns admin to the Admin Logged In Home screen when the back button is pressed
+     * Returns admin to the memento's screen when the back button is pressed
      */
     @FXML
     private void backPressed() throws IOException {
         timeout.stop();
         Singleton single = Singleton.getInstance();
         single.setLastTime();
-
+        Memento m = single.restore();
+        single.setDoPopup(true);
         thestage = (Stage) back.getScene().getWindow();
         AnchorPane root;
 
-        root = FXMLLoader.load(getClass().getClassLoader().getResource("AdminLoggedInHome.fxml"));
+        root = FXMLLoader.load(getClass().getClassLoader().getResource(m.getFxml()));
 
         Scene scene = new Scene(root);
         thestage.setScene(scene);
@@ -179,15 +181,15 @@ public class EmployeeTableController{
                     timeout.stop();
                     //timeout.pause();
                     //Load second scene
+                    saveState();
                     FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("CreateEditAccount.fxml"));
                     Parent roots = loader.load();
-                    //Get controller of scene2
+
                     CreateEditAccountController scene2Controller = loader.getController();
                     Scene scene = new Scene(roots);
                     scene2Controller.setType(3, selectedEmployee.getValue().getID());
-                    //timeout.stop();
+
                     thestage = (Stage) back.getScene().getWindow();
-                    //Show scene 2 in new window
                     thestage.setScene(scene);
 
                 } catch (IOException ex) {
@@ -198,6 +200,14 @@ public class EmployeeTableController{
 
             }
         });
+    }
+
+    /**@author Nathan
+     * Saves the memento state
+     */
+    private void saveState(){
+        Singleton single = Singleton.getInstance();
+        single.saveMemento("EmployeeTable.fxml");
     }
 }
 

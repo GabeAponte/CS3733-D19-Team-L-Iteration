@@ -1,6 +1,7 @@
 package edu.wpi.cs3733.d19.teamL.HomeScreens;
 
 import edu.wpi.cs3733.d19.teamL.Account.EmployeeAccess;
+import edu.wpi.cs3733.d19.teamL.Memento;
 import edu.wpi.cs3733.d19.teamL.Singleton;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
@@ -40,7 +41,8 @@ public class AboutPageFancyController {
                         single.setLoggedIn(false);
                         single.setUsername("");
                         single.setIsAdmin(false);
-                        FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("HospitalHome.fxml"));
+                        Memento m = single.getOrig();
+                        FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource(m.getFxml()));
 
                         Parent sceneMain = loader.load();
 
@@ -59,15 +61,15 @@ public class AboutPageFancyController {
         timeout.play();
     }
 
-
-    @SuppressWarnings("Duplicates")
     @FXML
-    private void GoBackToHome() throws IOException {
+    private void goHome() throws IOException{
         timeout.stop();
+        saveState();
         Singleton single = Singleton.getInstance();
         single.setLastTime();
         single.setDoPopup(true);
-        FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("HospitalHome.fxml"));
+        Memento m = single.getOrig();
+        FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource(m.getFxml()));
 
         Parent sceneMain = loader.load();
 
@@ -78,4 +80,31 @@ public class AboutPageFancyController {
     }
 
 
+    @SuppressWarnings("Duplicates")
+    @FXML
+    private void backPressed() throws IOException {
+        timeout.stop();
+        saveState();
+        Singleton single = Singleton.getInstance();
+        single.setLastTime();
+        single.setDoPopup(true);
+        Memento m = single.restore();
+        FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource(m.getFxml()));
+
+        Parent sceneMain = loader.load();
+
+        Stage thisStage = (Stage) BackButton.getScene().getWindow();
+
+        Scene newScene = new Scene(sceneMain);
+        thisStage.setScene(newScene);
+    }
+
+
+    /**@author Nathan
+     * Saves the memento state
+     */
+    private void saveState(){
+        Singleton single = Singleton.getInstance();
+        single.saveMemento("AboutPage_fancy.fxml");
+    }
 }

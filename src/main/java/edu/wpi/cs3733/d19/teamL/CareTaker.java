@@ -5,10 +5,14 @@ import java.util.LinkedList;
 public class CareTaker {
     LinkedList<Memento> memes;
     Memento original;
+    Memento admin;
+    Memento employee;
 
     public CareTaker(){
         memes = new LinkedList<>();
         original = new Memento("HospitalHome.fxml");
+        admin = new Memento("AdminLoggedInHome.fxml");
+        employee = new Memento("EmployeeLoggedInHome.fxml");
     }
 
     public Memento restore(){
@@ -31,7 +35,14 @@ public class CareTaker {
     }
 
     public Memento getOriginal(){
-        memes.clear();
         return original;
+    }
+
+    public Memento getAdmin(){
+        return admin;
+    }
+
+    public Memento getEmp(){
+        return employee;
     }
 }
