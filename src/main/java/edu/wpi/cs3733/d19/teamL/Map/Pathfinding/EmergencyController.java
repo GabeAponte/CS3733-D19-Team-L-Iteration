@@ -531,6 +531,9 @@ public class EmergencyController {
     Location startNode;
     Location endNode;
 
+    /**
+     * @author: Nikhil: Displays the kiosk location automatically on the path navigation screen.
+     */
     public void displayKiosk() {
         checkAndSetKiosk();
         Circle kiosk = new Circle();
@@ -539,23 +542,21 @@ public class EmergencyController {
         kiosk.setRadius(Math.max(1.5, 1.5f * (gesturePane.getCurrentScale() / 4)));
         kiosk.setStroke(Color.BLUE);
         kiosk.setFill(Color.BLUE);
-        circles.add(kiosk);
-        pathPane.getChildren().add(kiosk);
-        if(currentMap.equals(kioskTemp.getFloor())) {
-            kiosk.setVisible(true);
-            gesturePane.zoomTo(2, new Point2D(kioskTemp.getXcoord() - 1350, kioskTemp.getYcoord() - 2000));
-        }
-        else
-            kiosk.setVisible(false);
-        hereLabel.setLayoutX(kioskTemp.getXcoord()*childPane.getWidth()/Map.getImage().getWidth());
+        hereLabel.setLayoutX(kioskTemp.getXcoord()*childPane.getWidth()/Map.getImage().getWidth() -20);
         hereLabel.setLayoutY(kioskTemp.getYcoord()*childPane.getHeight()/Map.getImage().getHeight() - 20);
         hereLabel.setText(" You are here ");
         hereLabel.setStyle("-fx-text-fill: WHITE;-fx-font-size: 6; -fx-background-color: BLUE; -fx-border-color: WHITE; -fx-border-width: 2; -fx-min-width: 40;");
-        if(kioskTemp.getFloor().equals(currentMap)){
+        if(currentMap.equals(kioskTemp.getFloor())) {
+            kiosk.setVisible(true);
+            gesturePane.zoomTo(2, new Point2D(kioskTemp.getXcoord() - 1350, kioskTemp.getYcoord() - 2000));
             hereLabel.setVisible(true);
         }
-        else
+        else {
             hereLabel.setVisible(false);
+            kiosk.setVisible(false);
+        }
+        circles.add(kiosk);
+        pathPane.getChildren().add(kiosk);
     }
 
 
@@ -613,6 +614,9 @@ public class EmergencyController {
      * Now automatically zooms on the floor's path
      */
     public void displayPath(){
+        System.out.println("is it even being called");
+
+
         single.setLastTime();
         //Clears the lines and circles to avoid any duplicates or reproducing data.
         if(displayingPath) {

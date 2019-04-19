@@ -240,14 +240,21 @@
                            </children>
                         </VBox>
                      </children>
+                     <GridPane.margin>
+                        <Insets top="25.0" />
+                     </GridPane.margin>
                   </HBox>
                   <VBox alignment="CENTER" maxHeight="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="150.0" prefWidth="100.0" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="2" GridPane.vgrow="ALWAYS">
                      <children>
-                        <JFXTextArea editable="false" focusColor="#ffffff00" stylesheets="@modify-prompt-text.css" text="The Lavender Loraxes would like to thank the WPI Computer Science Department, CS3733-D19 Software Engineering, Professor Wilson Wong, and our team coach, Matt Le May.  We would also like to give a special thanks to Brigham and Women’s Faulkner Hospital and their representative, Andrew Shinn, for their time and input. " unFocusColor="#ffffff00" wrapText="true" VBox.vgrow="ALWAYS">
-                           <font>
-                              <Font size="18.0" />
-                           </font>
-                        </JFXTextArea>
+                        <HBox alignment="BOTTOM_CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" VBox.vgrow="ALWAYS">
+                           <children>
+                              <JFXTextArea editable="false" focusColor="#ffffff00" maxWidth="1.7976931348623157E308" stylesheets="@modify-prompt-text.css" text="The Lavender Loraxes would like to thank the WPI Computer Science Department, CS3733-D19 Software Engineering, Professor Wilson Wong, and our team coach, Matt Le May.  We would also like to give a special thanks to Brigham and Women’s Faulkner Hospital and their representative, Andrew Shinn, for their time and input. " unFocusColor="#ffffff00" wrapText="true" HBox.hgrow="ALWAYS">
+                                 <font>
+                                    <Font size="18.0" />
+                                 </font>
+                              </JFXTextArea>
+                           </children>
+                        </HBox>
                         <JFXTextArea editable="false" focusColor="#ffffff00" layoutX="10.0" layoutY="10.0" stylesheets="@modify-prompt-text.css" text="The Brigham &amp; Women’s Hospital maps and data used in this application are copyrighted and provided for the sole use of educational purposes." unFocusColor="#ffffff00" wrapText="true" VBox.vgrow="ALWAYS">
                            <font>
                               <Font size="15.0" />
