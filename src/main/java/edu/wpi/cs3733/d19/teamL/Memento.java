@@ -77,4 +77,27 @@ public class Memento {
         }
         return true;
     }
+
+    /**@author Nathan
+     * @return false if this screen is ONLY accessible to logged in users or signed out users, not both
+     */
+    public boolean isMultiUser(){
+        if(fxml.contains("PathFinding") || fxml.contains("ServiceRequest")){
+            return true;
+        }
+        return false;
+    }
+
+    /**@author Nathan
+     *
+     */
+    public boolean hasPrivileges() {
+        Singleton single = Singleton.getInstance();
+        if (fxml.contains("Admin") && single.isIsAdmin()) {
+            return true;
+        } else if (fxml.contains("EmployeeLogged") && single.isLoggedIn()){
+            return true;
+        }
+        return false;
+    }
 }

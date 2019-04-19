@@ -5,6 +5,8 @@ import edu.wpi.cs3733.d19.teamL.Account.CreateEditAccountController;
 import edu.wpi.cs3733.d19.teamL.Account.EmployeeAccess;
 import edu.wpi.cs3733.d19.teamL.Account.employeeID;
 import edu.wpi.cs3733.d19.teamL.HomeScreens.HomeScreenController;
+import edu.wpi.cs3733.d19.teamL.Map.Pathfinding.PathFindingController;
+import edu.wpi.cs3733.d19.teamL.Memento;
 import edu.wpi.cs3733.d19.teamL.ServiceRequest.ServiceRequestDBAccess.InternalTransportAccess;
 import edu.wpi.cs3733.d19.teamL.ServiceRequest.ServiceRequestDBAccess.LanguageAccess;
 import edu.wpi.cs3733.d19.teamL.ServiceRequest.ServiceRequestDBAccess.ReligiousRequestAccess;
@@ -118,34 +120,6 @@ public class ActiveServiceRequestsController {
 
     Timeline timeout;
 
-    @FXML
-    /**@author Gabe
-     * Returns user to the Logged In Home screen when the back button is pressed
-     */
-    private void backPressed() throws IOException {
-        Singleton single = Singleton.getInstance();
-        timeout.stop();
-        if (single.isIsAdmin()) {
-            FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("AdminLoggedInHome.fxml"));
-            Parent roots = loader.load();
-
-            Scene scene = new Scene(roots);
-            Stage thestage = (Stage) requestType.getScene().getWindow();
-
-            //Show scene 2 in new window
-            thestage.setScene(scene);
-        } else {
-            FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("EmployeeLoggedInHome.fxml"));
-            Parent roots = loader.load();
-
-            Scene scene = new Scene(roots);
-            Stage thestage = (Stage) requestType.getScene().getWindow();
-
-            //Show scene 2 in new window
-            thestage.setScene(scene);
-        }
-    }
-
     //Gabe - Populates table
     public void initialize() {
         Singleton single = Singleton.getInstance();
@@ -161,7 +135,8 @@ public class ActiveServiceRequestsController {
                         single.setUsername("");
                         single.setIsAdmin(false);
                         single.setDoPopup(true);
-                        FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("HospitalHome.fxml"));
+                        Memento m = single.getOrig();
+                        FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource(m.getFxml()));
 
                         single.setLastTime();
                         Parent sceneMain = loader.load();
@@ -1211,7 +1186,6 @@ public class ActiveServiceRequestsController {
 
     private void switchScreen() {
         Singleton single = Singleton.getInstance();
-        EmployeeAccess ea = new EmployeeAccess();
         if (single.isIsAdmin()) {
             yooo();
         } else if (selectedRequest.getValue().getAssignedEmployee() != null && selectedRequest.getValue().getAssignedEmployee().contains(single.getUsername())) {
@@ -1224,9 +1198,7 @@ public class ActiveServiceRequestsController {
             timeout.pause();
             Singleton single = Singleton.getInstance();
             single.setLastTime();
-            Stage editStage = (Stage) requestType.getScene().getWindow();
             Stage stage;
-            Parent root;
             FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("FulfillRequest.fxml"));
 
             Parent sceneMain = loader.load();
@@ -1234,18 +1206,72 @@ public class ActiveServiceRequestsController {
             FulfillRequestController controller = loader.<FulfillRequestController>getController();
             controller.setRid(selectedRequest.getValue(), filter);
             stage = new Stage();
-            root = FXMLLoader.load(getClass().getClassLoader().getResource("FulfillRequest.fxml"));
             stage.setScene(new Scene(sceneMain));
             stage.initModality(Modality.APPLICATION_MODAL);
             stage.initOwner(requestType.getScene().getWindow());
             stage.showAndWait();
             filterTable();
 
-
-
         } catch (IOException ex) {
 
         }
+    }
+
+    /**@author Nathan
+     * Takes you back to the appropriate home screen
+     * @throws IOException
+     */
+    @FXML
+    private void goHome()throws IOException{
+        Singleton single = Singleton.getInstance();
+        timeout.stop();
+        saveState();
+        single = Singleton.getInstance();
+        single.setLastTime();
+        single.setDoPopup(true);
+
+        Memento m = single.getOrig();
+        FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource(m.getFxml()));
+        Parent sceneMain = loader.load();
+
+        Stage theStage = (Stage) back.getScene().getWindow();
+
+        Scene scene = new Scene(sceneMain);
+        theStage.setScene(scene);
+    }
+
+    /**@author Nathan
+     * Restores previous screen
+     * @throws IOException
+     */
+    @FXML
+    private void backPressed() throws IOException{
+        Singleton single = Singleton.getInstance();
+        timeout.stop();
+        single = Singleton.getInstance();
+        single.setLastTime();
+        single.setDoPopup(true);
+
+        Memento m = single.restore();
+        FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource(m.getFxml()));
+        Parent sceneMain = loader.load();
+        if(m.getFxml().contains("HospitalPathFinding")){
+            PathFindingController pfc = loader.getController();
+            pfc.initWithMeme(m.getPathPref(), m.getTypeFilter(), m.getFloorFilter(), m.getStart(), m.getEnd());
+        }
+
+        Stage theStage = (Stage) back.getScene().getWindow();
+
+        Scene scene = new Scene(sceneMain);
+        theStage.setScene(scene);
+    }
+
+    /**@author Nathan
+     * Saves the memento state
+     */
+    private void saveState(){
+        Singleton single = Singleton.getInstance();
+        single.saveMemento("ActiveServiceRequests.fxml");
     }
 }
 

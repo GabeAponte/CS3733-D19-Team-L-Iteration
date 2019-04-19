@@ -1,6 +1,7 @@
 package edu.wpi.cs3733.d19.teamL.ServiceRequest.MakeServiceRequest;
 
 import edu.wpi.cs3733.d19.teamL.HomeScreens.HomeScreenController;
+import edu.wpi.cs3733.d19.teamL.Memento;
 import edu.wpi.cs3733.d19.teamL.ServiceRequest.ServiceRequestDBAccess.ServiceRequestAccess;
 import edu.wpi.cs3733.d19.teamL.Singleton;
 import com.jfoenix.controls.JFXComboBox;
@@ -15,6 +16,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
@@ -66,7 +68,8 @@ public class AudioVisualController {
                         single.setUsername("");
                         single.setIsAdmin(false);
                         single.setDoPopup(true);
-                        FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("HospitalHome.fxml"));
+                        Memento m = single.getOrig();
+                        FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource(m.getFxml()));
                         Parent sceneMain = loader.load();
                         if(single.isLoggedIn()) {
                             single.setLoggedIn(false);
@@ -106,22 +109,30 @@ public class AudioVisualController {
     private void submitClicked() throws IOException {
         Singleton single = Singleton.getInstance();
         single.setLastTime();
+        single.setDoPopup(true);
         ServiceRequestAccess sra = new ServiceRequestAccess();
         sra.makeAudioRequest(Description.getText(), Name.getText(), Location.getText(), Type.getValue());
-        backPressed();
-    }
+        Memento m = single.getOrig();
+        FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource(m.getFxml()));
 
-    @FXML
-    protected void backPressed() throws IOException {
-        timeout.stop();
-        Singleton single = Singleton.getInstance();
-        single.setLastTime();
-        FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("ServiceRequest.fxml"));
         Parent sceneMain = loader.load();
-
-        Stage theStage = (Stage) Back.getScene().getWindow();
+        Stage theStage = (Stage) Name.getScene().getWindow();
 
         Scene scene = new Scene(sceneMain);
         theStage.setScene(scene);
+    }
+
+    @FXML
+    private void backPressed() throws IOException {
+        timeout.stop();
+        Singleton single = Singleton.getInstance();
+        single.setLastTime();
+        single.setDoPopup(true);
+        Stage thestage = (Stage) Submit.getScene().getWindow();
+        AnchorPane root;
+        Memento m = single.restore();
+        root = FXMLLoader.load(getClass().getClassLoader().getResource(m.getFxml()));
+        Scene scene = new Scene(root);
+        thestage.setScene(scene);
     }
 }

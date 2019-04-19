@@ -251,6 +251,33 @@ public class AdminLoggedInHomeController {
         theStage.setScene(scene);
     }
 
+    /**@author Nathan
+     * Takes you back to the appropriate home screen
+     * @throws IOException
+     */
+    @FXML
+    private void goHome()throws IOException{
+        Singleton single = Singleton.getInstance();
+        timeout.stop();
+        saveState();
+        single = Singleton.getInstance();
+        single.setLastTime();
+        single.setDoPopup(true);
+
+        Memento m = single.getOrig();
+        FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource(m.getFxml()));
+        Parent sceneMain = loader.load();
+
+        Stage theStage = (Stage) serviceRequest.getScene().getWindow();
+
+        Scene scene = new Scene(sceneMain);
+        theStage.setScene(scene);
+    }
+
+    /**@author Nathan
+     * Restores previous screen
+     * @throws IOException
+     */
     @FXML
     private void backPressed() throws IOException{
         Singleton single = Singleton.getInstance();
