@@ -73,7 +73,7 @@ public class Weather {
 
     /**@author Nathan
      *
-     * @return the "feel" temp
+     * @return the "feels like" temp
      */
     public String getFeelTemp() {
         return currently.get().getByKey("apparentTemperature");

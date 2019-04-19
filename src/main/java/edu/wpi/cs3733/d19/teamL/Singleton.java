@@ -90,6 +90,7 @@ public class Singleton {
     public static long getStartTime(){
         return startTime;
     }
+
     public static String getWeatherIcon(){
         return weather.getIcon();
     }
