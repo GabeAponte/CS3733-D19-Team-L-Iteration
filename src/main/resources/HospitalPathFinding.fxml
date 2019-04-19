@@ -22,11 +22,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<?import javafx.stage.Screen?>
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="${screen.visualBounds.height}" prefWidth="${screen.visualBounds.width}" style="-fx-background-color: #012D5A;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.d19.teamL.Map.Pathfinding.PathFindingController">
-   <fx:define>
-      <Screen fx:factory="getPrimary" fx:id="screen"/>
-   </fx:define>
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720" prefWidth="1280" style="-fx-background-color: #012D5A;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.d19.teamL.Map.Pathfinding.PathFindingController">
    <children>
       <VBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
@@ -88,7 +84,7 @@
                <children>
                   <GridPane fx:id="gridPane" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                      <columnConstraints>
-                        <ColumnConstraints percentWidth="68.58906269" />
+                        <ColumnConstraints fx:id="mapColumn" percentWidth="68.58906269" />
                         <ColumnConstraints percentWidth="31.41093731" />
                         <ColumnConstraints />
                         <ColumnConstraints />
@@ -208,7 +204,7 @@
                               <Image url="@SoftEng_UI_Mockup_Pics/00_thegroundfloor.png" />
                            </image>
                         </ImageView>
-                        <JFXButton fx:id="menu" buttonType="RAISED" contentDisplay="GRAPHIC_ONLY" onAction="#prepareSlideMenuAnimation" prefHeight="46.0" prefWidth="80.0" style="-fx-border-radius: 100; -fx-border-color: #012d5a; -fx-background-radius: 1000; -fx-border-width: 2;" textFill="#012d5a" GridPane.valignment="TOP">
+                        <JFXButton fx:id="menu" buttonType="RAISED" contentDisplay="GRAPHIC_ONLY" onAction="#prepareSlideMenuAnimation" prefHeight="46.0" prefWidth="80.0" style="-fx-border-radius: 100; -fx-border-color: #012d5a; -fx-background-radius: 1000; -fx-border-width: 2;" stylesheets="@toolbarIcons.css" textFill="#012d5a" GridPane.valignment="TOP">
                            <GridPane.margin>
                               <Insets left="20.0" top="20.0" />
                            </GridPane.margin>
@@ -218,10 +214,6 @@
                            <graphic>
                               <FontAwesomeIconView fill="#012d5a" glyphName="SEARCH" size="25" />
                            </graphic>
-                           <stylesheets>
-                              <URL value="@pathfind.css" />
-                              <URL value="@toolbarIcons.css" />
-                           </stylesheets>
                         </JFXButton>
                         <Label fx:id="thisMap" alignment="CENTER" contentDisplay="CENTER" prefHeight="0.0" prefWidth="191.0" text="Lower Level 1" textFill="#012d5a" GridPane.halignment="CENTER" GridPane.valignment="TOP">
                            <GridPane.margin>
@@ -427,7 +419,7 @@
             </GridPane>
          </children>
       </AnchorPane>
-      <AnchorPane fx:id="settingPane" layoutX="680.0" layoutY="-320.0" prefHeight="300.0" prefWidth="200.0" style="-fx-border-color: #F5D96B; -fx-border-radius: 15; -fx-border-width: 3; -fx-background-radius: 15; -fx-background-color: #012D5A;">
+      <AnchorPane fx:id="settingPane" layoutX="680.0" layoutY="-320.0" prefHeight="300.0" prefWidth="200.0" style="-fx-border-color: #F5D96B; -fx-border-radius: 15; -fx-border-width: 3; -fx-background-radius: 15; -fx-background-color: #012D5A;" AnchorPane.topAnchor="-320.0">
          <children>
             <GridPane prefHeight="300.0" prefWidth="200.0" AnchorPane.topAnchor="0.0">
               <columnConstraints>
