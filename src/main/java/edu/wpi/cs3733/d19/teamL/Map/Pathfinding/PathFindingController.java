@@ -25,6 +25,7 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Dimension2D;
+import javafx.geometry.NodeOrientation;
 import javafx.geometry.Point2D;
 import javafx.scene.Node;
 import javafx.scene.Parent;
@@ -34,6 +35,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.image.Image;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
+import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.*;
 import javafx.scene.text.TextAlignment;
 import javafx.stage.Modality;
@@ -791,10 +793,12 @@ public class PathFindingController {
     public void displayPath(){
         single.setLastTime();
         //Create all necessary objects for animating path.
+        //Image icon = new Image("")
         Circle dude  = new Circle();
         dude.setCenterX(startNode.getXcoord()*childPane.getWidth()/Map.getImage().getWidth());
         dude.setCenterY(startNode.getYcoord()*childPane.getHeight()/Map.getImage().getHeight());
-        dude.setRadius(Math.max(1.5, 1.5f * (gesturePane.getCurrentScale() / 4)));
+        dude.setRadius(Math.max(4, 4f * (gesturePane.getCurrentScale() / 4)));
+        dude.setFill(new ImagePattern((new Image("/SoftEng_UI_Mockup_Pics/WoongHead.jpg"))));
 
         javafx.scene.shape.Path path2 = new  javafx.scene.shape.Path();
 
@@ -824,7 +828,7 @@ public class PathFindingController {
             int floorSwitch1 = 0;
             //End node on floor
             int floorSwitch2 = path.getPath().size()-1;
-
+            circles.add(dude);
             //Creates the path for the user to follow, and displays based on the current floor.
             for (int i = 0; i < path.getPath().size() - 1; i++) {
                 Line line = new Line();
@@ -1030,7 +1034,7 @@ public class PathFindingController {
             travel.setDuration(Duration.millis(20000));
             travel.setNode(dude);
             travel.setPath(path2);
-            travel.setOrientation(PathTransition.OrientationType.ORTHOGONAL_TO_TANGENT);
+            travel.setOrientation(PathTransition.OrientationType.NONE);
             travel.setCycleCount(Animation.INDEFINITE);
             travel.setAutoReverse(false);
             travel.play();
