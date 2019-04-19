@@ -99,11 +99,6 @@
                                     <Font size="20.0" />
                                  </font>
                               </Label>
-                              <Label layoutX="10.0" layoutY="100.0" text="Database" textFill="WHITE">
-                                 <font>
-                                    <Font size="20.0" />
-                                 </font>
-                              </Label>
                               <Label layoutX="10.0" layoutY="100.0" text="Scrum Master" textFill="WHITE">
                                  <font>
                                     <Font size="20.0" />
@@ -124,14 +119,9 @@
                                     <Font size="20.0" />
                                  </font>
                               </Label>
-                              <Label layoutX="10.0" layoutY="280.0" text="Algorithms" textFill="WHITE">
-                                 <font>
-                                    <Font size="20.0" />
-                                 </font>
-                              </Label>
                            </children>
                         </VBox>
-                        <VBox alignment="TOP_CENTER" prefHeight="360.0" prefWidth="0.0" spacing="5.0" HBox.hgrow="ALWAYS">
+                        <VBox alignment="TOP_CENTER" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="250.0" spacing="5.0" HBox.hgrow="ALWAYS">
                            <children>
                               <Label text="Daniel Alvarado" textFill="WHITE">
                                  <font>
@@ -158,11 +148,6 @@
                                     <Font size="20.0" />
                                  </font>
                               </Label>
-                              <Label layoutX="10.0" layoutY="130.0" text="Alexander Bell" textFill="WHITE">
-                                 <font>
-                                    <Font size="20.0" />
-                                 </font>
-                              </Label>
                               <Label layoutX="10.0" layoutY="70.0" text="Nikhil Chintada" textFill="WHITE">
                                  <font>
                                     <Font size="20.0" />
@@ -179,6 +164,11 @@
                                  </font>
                               </Label>
                               <Label layoutX="10.0" layoutY="190.0" text="Nathan Walzer" textFill="WHITE">
+                                 <font>
+                                    <Font size="20.0" />
+                                 </font>
+                              </Label>
+                              <Label layoutX="10.0" layoutY="130.0" text="Alexander Bell" textFill="WHITE">
                                  <font>
                                     <Font size="20.0" />
                                  </font>
@@ -217,11 +207,6 @@
                                     <Font size="20.0" />
                                  </font>
                               </Label>
-                              <Label layoutX="10.0" layoutY="100.0" text="User Interface" textFill="WHITE">
-                                 <font>
-                                    <Font size="20.0" />
-                                 </font>
-                              </Label>
                               <Label layoutX="10.0" layoutY="100.0" text="Algorithms" textFill="WHITE">
                                  <font>
                                     <Font size="20.0" />
@@ -242,18 +227,28 @@
                                     <Font size="20.0" />
                                  </font>
                               </Label>
+                              <Label layoutX="10.0" layoutY="100.0" text="User Interface &amp; Database" textFill="WHITE">
+                                 <font>
+                                    <Font size="20.0" />
+                                 </font>
+                              </Label>
+                              <Label layoutX="10.0" layoutY="325.0" text="Algorithms" textFill="WHITE">
+                                 <font>
+                                    <Font size="20.0" />
+                                 </font>
+                              </Label>
                            </children>
                         </VBox>
                      </children>
                   </HBox>
-                  <VBox alignment="TOP_CENTER" maxHeight="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="150.0" prefWidth="100.0" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.vgrow="ALWAYS">
+                  <VBox alignment="CENTER" maxHeight="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="150.0" prefWidth="100.0" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="2" GridPane.vgrow="ALWAYS">
                      <children>
-                        <JFXTextArea editable="false" focusColor="#ffffff00" stylesheets="@modify-prompt-text.css" text="The Lavender Loraxes would like to thank the WPI Computer Science Department, CS3733-D19 Software Engineering, Prof. Wilson Wong, and Matt Le May. We would also like to give a special thanks to Brigham and Women’s Faulkner Hospital and their representative, Andrew Shinn, for their time and input. " unFocusColor="#ffffff00" wrapText="true">
+                        <JFXTextArea editable="false" focusColor="#ffffff00" stylesheets="@modify-prompt-text.css" text="The Lavender Loraxes would like to thank the WPI Computer Science Department, CS3733-D19 Software Engineering, Professor Wilson Wong, and our team coach, Matt Le May.  We would also like to give a special thanks to Brigham and Women’s Faulkner Hospital and their representative, Andrew Shinn, for their time and input. " unFocusColor="#ffffff00" wrapText="true" VBox.vgrow="ALWAYS">
                            <font>
                               <Font size="18.0" />
                            </font>
                         </JFXTextArea>
-                        <JFXTextArea editable="false" focusColor="#ffffff00" layoutX="10.0" layoutY="10.0" stylesheets="@modify-prompt-text.css" text="The Brigham &amp; Women’s Hospital maps and data used in this application are copyrighted and provided for the sole use of educational purposes." unFocusColor="#ffffff00" wrapText="true">
+                        <JFXTextArea editable="false" focusColor="#ffffff00" layoutX="10.0" layoutY="10.0" stylesheets="@modify-prompt-text.css" text="The Brigham &amp; Women’s Hospital maps and data used in this application are copyrighted and provided for the sole use of educational purposes." unFocusColor="#ffffff00" wrapText="true" VBox.vgrow="ALWAYS">
                            <font>
                               <Font size="15.0" />
                            </font>
