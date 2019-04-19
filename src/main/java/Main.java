@@ -36,6 +36,7 @@ public class Main extends Application {
         //ea.readCSVintoTable();
         single.setData();
         single.populateTweets();
+        single.updateWeather();
         launch(args);
 
 
