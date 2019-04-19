@@ -154,6 +154,22 @@
     -jfx-un-focus-color: white
 }
 
+.jfx-text-field-login{
+    -fx-background-color: white;
+    -fx-prompt-text-fill: black;
+    -fx-text-fill: black;
+    -jfx-focus-color: #f5d96b;
+    -jfx-unfocus-color: transparent
+}
+
+.password-field-login{
+    -fx-background-color: white;
+    -fx-prompt-text-fill: black;
+    -fx-text-fill: black;
+    -jfx-focus-color: #f5d96b;
+    -jfx-unfocus-color: transparent
+}
+
 .jfx-text-areaServiceRequest {
     -fx-background-color: white;
     -fx-prompt-text-fill: black;
