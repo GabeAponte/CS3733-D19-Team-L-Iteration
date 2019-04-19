@@ -374,6 +374,13 @@ public class PathFindingController {
     Label hereLabel;
     Location startNode;
     Location endNode;
+    int countL2 = 0;
+    int countL1 = 0;
+    int countG = 0;
+    int count1 = 0;
+    int count2 = 0;
+    int count3 = 0;
+    int count4 = 0;
 
     @FXML
     private void strategySelected() {
@@ -801,9 +808,15 @@ public class PathFindingController {
         dude.setFill(new ImagePattern((new Image("/SoftEng_UI_Mockup_Pics/IconPerson.png"))));
 
         javafx.scene.shape.Path path2 = new  javafx.scene.shape.Path();
-
+        //Second display on floor path
+        javafx.scene.shape.Path path3 = new javafx.scene.shape.Path();
         //Sets up transition
         PathTransition travel = new PathTransition();
+
+        //Add an arraylist and boolean(s) to keep track of what floors you are visiting
+        ArrayList<String> floorsVisited = new ArrayList<>();
+        boolean revisit = false;
+        boolean changeFloor = false;
         //Clears the lines and circles to avoid any duplicates or reproducing data
         if(displayingPath) {
             path.getPath().add(0,startNode);
@@ -822,6 +835,35 @@ public class PathFindingController {
             lines.clear();
             buttons.clear();
 
+            int currentMapCount = 0;
+            if(currentMap.equals("L2")) {
+                countL2++;
+                currentMapCount = countL2;
+            }
+            if(currentMap.equals("L1")) {
+                countL1++;
+                currentMapCount = countL2;
+            }
+            if(currentMap.equals("G")) {
+                countG++;
+                currentMapCount = countL1;
+            }
+            if(currentMap.equals("1")) {
+                count1++;
+                currentMapCount = count1;
+            }
+            if(currentMap.equals("2")) {
+                count2++;
+                currentMapCount = count2;
+            }
+            if(currentMap.equals("3")) {
+                count3++;
+                currentMapCount = count3;
+            }
+            if(currentMap.equals("4")) {
+                count4++;
+                currentMapCount = count4;
+            }
             //Counts how many nodes are on the floor
             int floorCount = 0;
             //Start node on floor
@@ -832,6 +874,7 @@ public class PathFindingController {
             //Creates the path for the user to follow, and displays based on the current floor.
             for (int i = 0; i < path.getPath().size() - 1; i++) {
                 Line line = new Line();
+                floorsVisited.add(path.getPath().get(i).getFloor());
                 floorCount++;
                 line.setStartX(path.getPath().get(i).getXcoord()*childPane.getWidth()/Map.getImage().getWidth());
                 line.setStartY(path.getPath().get(i).getYcoord()*childPane.getHeight()/Map.getImage().getHeight());
@@ -842,13 +885,26 @@ public class PathFindingController {
                 //Toggles visibility based on current floor to adjust for travelling across multiple floors.
                 if (!(path.getPath().get(i).getFloor().equals(currentMap)) || !(path.getPath().get(i + 1).getFloor().equals(currentMap))) {
                     line.setVisible(false);
+                    changeFloor = true;
                 }
                 else {
                     //Adding to the new path
                     MoveTo next = new MoveTo(line.getStartX(), line.getStartY());
                     CubicCurveTo end = new CubicCurveTo(line.getStartX(), line.getStartY(), line.getStartX(), line.getStartY(), line.getEndX(), line.getEndY());
-                    path2.getElements().add(next);
-                    path2.getElements().add(end);
+                    for(int j = 0; j < floorsVisited.size(); j++) {
+                        if(path.getPath().get(i).getFloor().equals(floorsVisited.get(j)) && (currentMapCount > 1)) {
+                            revisit = true;
+                        }
+                    }
+                    if(changeFloor == true && revisit == true) {
+                        //clears the path to redisplay it
+                        path3.getElements().add(next);
+                        path3.getElements().add(end);
+                    }
+                    else {
+                        path2.getElements().add(next);
+                        path2.getElements().add(end);
+                    }
                 }
                 //Creates buttons to transition between floors on the map
                 if((!(path.getPath().get(i + 1).getFloor().equals(currentMap)))) {
@@ -933,6 +989,15 @@ public class PathFindingController {
                             nBut.setText("Go to Starting Floor");
                             nBut.setLayoutX((endNode.getXcoord()*childPane.getWidth()/Map.getImage().getWidth()));
                             nBut.setLayoutY((endNode.getYcoord()*childPane.getHeight()/Map.getImage().getHeight()));
+                        }
+                        if(nBut.getText().equals("Go to Starting Floor")) {
+                            countL2 = 0;
+                            countL1 = 0;
+                            countG = 0;
+                            count1 = 0;
+                            count2 = 0;
+                            count3 = 0;
+                            count4 = 0;
                         }
                         pathPane.getChildren().add(nBut);
                     }
@@ -1033,7 +1098,12 @@ public class PathFindingController {
             //Sets everything for the animation
             travel.setDuration(Duration.millis(20000));
             travel.setNode(dude);
-            travel.setPath(path2);
+            if(changeFloor && revisit) {
+                travel.setPath(path3);
+            }
+            else {
+                travel.setPath(path2);
+            }
             travel.setOrientation(PathTransition.OrientationType.NONE);
             travel.setCycleCount(Animation.INDEFINITE);
             travel.setAutoReverse(false);
