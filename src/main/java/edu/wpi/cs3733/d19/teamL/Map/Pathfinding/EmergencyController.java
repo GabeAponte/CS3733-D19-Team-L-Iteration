@@ -10,6 +10,7 @@ import edu.wpi.cs3733.d19.teamL.Singleton;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.animation.TranslateTransition;
+import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -184,6 +185,7 @@ public class EmergencyController {
 
         //switch scenes to normal pathfind
     }
+
     private void displayError(){
         errorLabel.setText("Login is incorrect. Cannot disable emergency mode.");
     }
@@ -314,7 +316,7 @@ public class EmergencyController {
             LongNameOfExit.setText(closestLOC.getLongName());
 
             //TODO: dispaly path doesnt wanna work
-            displayPath();
+            //displayPath();
             //printPath(path.getPath());
             direction.setText(printPath(path.getPath()));
 
@@ -325,17 +327,45 @@ public class EmergencyController {
 
     private void activateEmergencyMode(){
         //GOTO KIOSKFLOOR
+        gotoKioskFloor();
+        //System.out.println(kioskTemp.getFloor());
 
-
-
-        //FINDS CLOSEST EXIT
-        findClosestExit();
         //DISPLAY ALL EXITS
         //DISPLAYS ALL EXITS HERE
         displayExits();
 
+        //FINDS CLOSEST EXIT
+        findClosestExit();
+
+
+        //displayKiosk();
+
+        direction.setText(printPath(path.getPath()));
     }
 
+    private void gotoKioskFloor(){
+        checkAndSetKiosk();
+
+        //set current floor to the kiosk floor
+        currentMap = kioskTemp.getFloor();
+        changeMapLabel();
+        if(currentMap.equals("L2")){
+            clickedL2();
+        } else if(currentMap.equals("L1")){
+            clickedL1();
+        } else if(currentMap.equals("G")){
+            clickedG();
+        } else if(currentMap.equals("1")){
+            clicked1();
+        } else if(currentMap.equals("2")){
+            clicked2();
+        } else if(currentMap.equals("3")){
+            clicked3();
+        }
+
+        displayKiosk();
+
+    }
 
 
 
@@ -453,13 +483,23 @@ public class EmergencyController {
 
     public void initialize() {
         Singleton single = Singleton.getInstance();
+        single.setLastTime();
 
         na = new NodesAccess();
         ea = new EdgesAccess();
 
-        //initializeTable(na, ea);
+        ObservableList<PathfindingStrategy> strategies = FXCollections.observableArrayList();
+        ObservableList<String> preference = FXCollections.observableArrayList();
 
-        DisableEmergMode.setDisable(false);
+
+//        strategyAlgorithm = strategySelector.getValue();
+        direction.setEditable(false);
+
+
+        changeMapLabel();
+
+        floor();
+        //initializeTable(na, ea);
 
         pathPane = new AnchorPane();
         childPane = new StackPane();
@@ -493,6 +533,8 @@ public class EmergencyController {
                             lines.clear();
                             buttons.clear();
 
+
+                            direction.setText("");
                         };
 
                         ((Stage) newWindow).widthProperty().addListener(stageSizeListener);
@@ -504,7 +546,6 @@ public class EmergencyController {
 
         Map.fitHeightProperty().bind(gesturePane.heightProperty());
         Map.fitWidthProperty().bind(gesturePane.widthProperty());
-        AdminRemoveEmerg.toFront();
         thisMap.toFront();
         L1.toFront();
         L2.toFront();
@@ -517,11 +558,26 @@ public class EmergencyController {
         vLeft.toFront();
         startLabel = new Label();
         endLabel = new Label();
+        hereLabel = new Label();
+        //Adds the text to the screen
+        pathPane.getChildren().add(startLabel);
+        pathPane.getChildren().add(endLabel);
+        pathPane.getChildren().add(hereLabel);
+
 
         nameToLoc.clear();
 
+        //Code to immediately set kiosk
+        Platform.runLater(new Runnable() {
+            @Override
+            public void run() {
+                displayKiosk();
+                startNode = kioskTemp;
+            }
+        });
+
         activateEmergencyMode();
-        displayKiosk();
+
     }
 
 
