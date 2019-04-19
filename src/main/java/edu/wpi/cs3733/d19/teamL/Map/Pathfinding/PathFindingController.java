@@ -376,6 +376,7 @@ public class PathFindingController {
     @FXML
     private void strategySelected() {
         strategyAlgorithm = strategySelector.getValue();
+        single.setTypePathfind(strategyAlgorithm);
     }
 
     public void initialize() {
@@ -404,15 +405,7 @@ public class PathFindingController {
         strategiesDropDown.add(depth);
         strategiesDropDown.add(breadth);
         strategySelector.setItems(strategiesDropDown);
-        if(single.getTypePathfind() == aStarStrategy){
-            strategySelector.setValue(aStarStrategy);
-        } else if (single.getTypePathfind() == breadth){
-            strategySelector.setValue(breadth);
-        } else if (single.getTypePathfind() == depth){
-            strategySelector.setValue(depth);
-        } else {
-            strategySelector.setValue(dijkstraStrategy);
-        }
+        strategySelector.setValue(single.getTypePathfind());
 //        strategyAlgorithm = strategySelector.getValue();
         direction.setEditable(false);
         PathFindSubmit.setDisable(true);
@@ -633,16 +626,8 @@ public class PathFindingController {
             restriction = "    ";
         }
 
-        if(single.getTypePathfind() == aStarStrategy){
-            strategyAlgorithm = aStarStrategy;
-        } else if (single.getTypePathfind() == breadth){
-            strategyAlgorithm = breadth;
-        } else if (single.getTypePathfind() == depth){
-            strategyAlgorithm = depth;
-        } else {
-            strategyAlgorithm = dijkstraStrategy;
-        }
-
+        strategyAlgorithm = single.getTypePathfind();
+        System.out.println(strategyAlgorithm.toString());
 
         displayingPath = true;
 
@@ -821,8 +806,6 @@ public class PathFindingController {
                     //Sets the start and end nodes on the floor
                     if(path.getPath().get(i).getFloor().equals(currentMap)) {
                         floorSwitch2 = i;
-                        System.out.println("FL " + floorCount);
-                        System.out.println("i " + i);
                         floorSwitch1 = i-(floorCount-1);
                     }
                     floorCount = 0;
@@ -865,11 +848,9 @@ public class PathFindingController {
                         if (transition.equals("3"))
                             clicked3();
                     });
-                    System.out.println(nBut.getLayoutX() + " " + nBut.getPrefWidth() + " " +  pathPane.getWidth());
                     if(nBut.getLayoutX() + 400 > pathPane.getWidth())
                     {
                         nBut.setLayoutX(nBut.getLayoutX() - 400);
-                        System.out.println(nBut.getLayoutX() + nBut.getPrefWidth() + " " +  pathPane.getWidth());
                     }
                     if(nBut.getLayoutY() + 50 > pathPane.getHeight())
                     {
@@ -1009,9 +990,6 @@ public class PathFindingController {
         double x = gesturePane.getWidth()/(Math.abs((start.getXcoord() - end.getXcoord())));
         double y = gesturePane.getHeight()/Math.abs(((start.getYcoord() - end.getYcoord())));
         double scale = (Math.min(x, y)/2.5) + 1.1;
-        System.out.println("Scale " + scale);
-        System.out.println(start.getLocID());
-        System.out.println(end.getLocID());
         gesturePane.reset();
         gesturePane.zoomTo(scale, gesturePane.targetPointAtViewportCentre());
         double xSameVal = (start.getXcoord() + end.getXcoord()) / 2.0*childPane.getWidth()/Map.getImage().getWidth();

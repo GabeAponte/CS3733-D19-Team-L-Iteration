@@ -12,6 +12,7 @@ import edu.wpi.cs3733.d19.teamL.Map.MapLocations.Edge;
 import edu.wpi.cs3733.d19.teamL.Map.MapLocations.Location;
 import edu.wpi.cs3733.d19.teamL.Map.Pathfinding.EdgesAccess;
 import edu.wpi.cs3733.d19.teamL.Map.Pathfinding.NodesAccess;
+import edu.wpi.cs3733.d19.teamL.SearchingAlgorithms.AStarStrategy;
 import edu.wpi.cs3733.d19.teamL.SearchingAlgorithms.PathfindingStrategy;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -145,6 +146,7 @@ public class Singleton {
                 }
             }
             count++;
+            setTypePathfind(new AStarStrategy(lookup));
         }
     }
 
