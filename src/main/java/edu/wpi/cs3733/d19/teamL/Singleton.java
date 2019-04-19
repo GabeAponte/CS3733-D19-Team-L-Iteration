@@ -43,6 +43,16 @@ public class Singleton {
     private ObservableList<Location> data = FXCollections.observableArrayList();
     public HashMap<String, Location> lookup = new HashMap<String, Location>();
 
+    private Comparator comparator = new Comparator() {
+        @Override
+        public int compare(Object o1, Object o2) {
+            Location l1 = (Location) o1;
+            Location l2 = (Location) o2;
+            return l1.getLongName().compareTo(l2.getLongName());
+
+        }
+    };
+
     private static Singleton single = new Singleton();
     private Singleton(){
         loggedIn = false; //is user logged in
@@ -195,6 +205,7 @@ public class Singleton {
             }
             count++;
         }
+        data.sort(comparator);
     }
 
     public static boolean isIsAdmin() {
@@ -307,6 +318,7 @@ public class Singleton {
 
         lookup.remove(oldLoc.getLocID(), oldLoc);
         lookup.put(newLoc.getLocID(), newLoc);
+        data.sort(comparator);
     }
 
     /*
@@ -357,5 +369,6 @@ public class Singleton {
     public void addNode (Location l) {
         lookup.put(l.getLocID(), l);
         data.add(l);
+        data.sort(comparator);
     }
 }
