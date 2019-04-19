@@ -797,8 +797,8 @@ public class PathFindingController {
         Circle dude  = new Circle();
         dude.setCenterX(startNode.getXcoord()*childPane.getWidth()/Map.getImage().getWidth());
         dude.setCenterY(startNode.getYcoord()*childPane.getHeight()/Map.getImage().getHeight());
-        dude.setRadius(Math.max(4, 4f * (gesturePane.getCurrentScale() / 4)));
-        dude.setFill(new ImagePattern((new Image("/SoftEng_UI_Mockup_Pics/WoongHead.jpg"))));
+        dude.setRadius(Math.max(6, 6f * (gesturePane.getCurrentScale() / 4)));
+        dude.setFill(new ImagePattern((new Image("/SoftEng_UI_Mockup_Pics/IconPerson.png"))));
 
         javafx.scene.shape.Path path2 = new  javafx.scene.shape.Path();
 
