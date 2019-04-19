@@ -157,6 +157,24 @@
 
 }
 
+.jfx-combo-box .text-field {
+    -fx-text-fill : white;
+
+}
+
+.jfx-combo-box .text-area {
+    -fx-text-fill : white;
+
+}
+
+.combo-box .list-view .list-cell {
+-fx-text-fill : black;
+}
+
+.combo-box .list-cell {
+    -fx-text-fill : white;
+}
+
 .combo-box .arrow {
     -fx-background-color: #f5d96b;
 }
