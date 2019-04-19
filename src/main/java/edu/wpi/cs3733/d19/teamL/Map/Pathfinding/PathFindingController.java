@@ -26,6 +26,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Dimension2D;
 import javafx.geometry.Point2D;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
@@ -33,8 +34,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.image.Image;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
-import javafx.scene.shape.Circle;
-import javafx.scene.shape.Line;
+import javafx.scene.shape.*;
 import javafx.scene.text.TextAlignment;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
@@ -797,18 +797,9 @@ public class PathFindingController {
         dude.setRadius(Math.max(1.5, 1.5f * (gesturePane.getCurrentScale() / 4)));
 
         javafx.scene.shape.Path path2 = new  javafx.scene.shape.Path();
-        for(int i = 0; i < path.getPath().size(); i++) {
-            //path2.add()
-        }
 
         //Sets up transition
         PathTransition travel = new PathTransition();
-        travel.setDuration(Duration.millis(10000));
-        travel.setNode(dude);
-        travel.setPath(path2);
-        travel.setOrientation(PathTransition.OrientationType.ORTHOGONAL_TO_TANGENT);
-        //travel.setCycleCount(4f);
-        travel.setAutoReverse(false);
         //Clears the lines and circles to avoid any duplicates or reproducing data
         if(displayingPath) {
             path.getPath().add(0,startNode);
@@ -847,6 +838,13 @@ public class PathFindingController {
                 //Toggles visibility based on current floor to adjust for travelling across multiple floors.
                 if (!(path.getPath().get(i).getFloor().equals(currentMap)) || !(path.getPath().get(i + 1).getFloor().equals(currentMap))) {
                     line.setVisible(false);
+                }
+                else {
+                    //Adding to the new path
+                    MoveTo next = new MoveTo(line.getStartX(), line.getStartY());
+                    CubicCurveTo end = new CubicCurveTo(line.getStartX(), line.getStartY(), line.getStartX(), line.getStartY(), line.getEndX(), line.getEndY());
+                    path2.getElements().add(next);
+                    path2.getElements().add(end);
                 }
                 //Creates buttons to transition between floors on the map
                 if((!(path.getPath().get(i + 1).getFloor().equals(currentMap)))) {
@@ -1022,10 +1020,20 @@ public class PathFindingController {
             pathPane.getChildren().add(EndCircle);
 
             pathPane.setPrefSize(childPane.getWidth(), childPane.getHeight());
+            //Displays the node that travels
+            pathPane.getChildren().add(dude);
 
             circles.add(StartCircle);
             circles.add(EndCircle);
             changeMapLabel();
+            //Sets everything for the animation
+            travel.setDuration(Duration.millis(20000));
+            travel.setNode(dude);
+            travel.setPath(path2);
+            travel.setOrientation(PathTransition.OrientationType.ORTHOGONAL_TO_TANGENT);
+            travel.setCycleCount(Animation.INDEFINITE);
+            travel.setAutoReverse(false);
+            travel.play();
             //Auto-zooms the screen
             autoZoom(path.getPath().get(floorSwitch1), path.getPath().get(floorSwitch2));
         }
