@@ -2,8 +2,8 @@ package edu.wpi.cs3733.d19.teamL;
 
 /*MEMENTO WILL RETURN TO BASE SCREENS ONLY
 //EmployeeTableController - done
-//All homescreens - homescreen done, login done, employee done, admin done
-//Map Editor
+//All homescreens - homescreen done, login done, employee done, admin done, about done
+//Map Editor - done
 //PathFindingController
 //BookRoom
 //ActiveServiceRequestsController

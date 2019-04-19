@@ -12,6 +12,7 @@ import edu.wpi.cs3733.d19.teamL.Map.Pathfinding.NodesAccess;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXTextField;
 import edu.wpi.cs3733.d19.teamL.HomeScreens.HomeScreenController;
+import edu.wpi.cs3733.d19.teamL.Memento;
 import edu.wpi.cs3733.d19.teamL.Singleton;
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
@@ -237,7 +238,8 @@ public class EditLocationController {
                         single.setLoggedIn(false);
                         single.setUsername("");
                         single.setIsAdmin(false);
-                        FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("HospitalHome.fxml"));
+                        Memento m = single.getOrig();
+                        FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource(m.getFxml()));
 
                         Parent sceneMain = loader.load();
                         HomeScreenController controller = loader.<HomeScreenController>getController();
@@ -505,12 +507,9 @@ public class EditLocationController {
         timeout.stop();
         Singleton single = Singleton.getInstance();
         single.setLastTime();
+        Memento m = single.restore();
+        FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource(m.getFxml()));
 
-        FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("EmployeeLoggedInHome.fxml"));
-
-        if(single.isIsAdmin()){
-            loader = new FXMLLoader(getClass().getClassLoader().getResource("AdminLoggedInHome.fxml"));
-        }
         Parent sceneMain = loader.load();
 
         Stage theStage = (Stage) backButton.getScene().getWindow();
@@ -1237,5 +1236,27 @@ public class EditLocationController {
                 }
     };
 
+    @FXML
+    private void goHome() throws IOException{
+        timeout.stop();
+        Singleton single = Singleton.getInstance();
+        single.setLastTime();
+        Memento m = single.getOrig();
+        FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource(m.getFxml()));
 
+        Parent sceneMain = loader.load();
+
+        Stage theStage = (Stage) backButton.getScene().getWindow();
+
+        Scene scene = new Scene(sceneMain);
+        theStage.setScene(scene);
+    }
+
+    /**@author Nathan
+     * Saves the memento state
+     */
+    private void saveState(){
+        Singleton single = Singleton.getInstance();
+        single.saveMemento("EditLocation.fxml");
+    }
 }
