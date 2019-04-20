@@ -6,6 +6,7 @@ import com.jfoenix.controls.JFXScrollPane;
 import com.jfoenix.controls.JFXTextArea;
 import com.jfoenix.controls.JFXComboBox;
 import edu.wpi.cs3733.d19.teamL.HomeScreens.HomeScreenController;
+import edu.wpi.cs3733.d19.teamL.Map.MapLocations.AutoCompleteList;
 import edu.wpi.cs3733.d19.teamL.Map.MapLocations.Location;
 import edu.wpi.cs3733.d19.teamL.Map.MapLocations.Path;
 import edu.wpi.cs3733.d19.teamL.SearchingAlgorithms.*;
@@ -29,12 +30,20 @@ import javafx.geometry.Point2D;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.ScrollPane;
+import javafx.scene.control.TextArea;
+import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
 import javafx.scene.image.Image;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
+import javafx.scene.paint.Paint;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Line;
+import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
@@ -43,9 +52,11 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.Pane;
 
+import me.xdrop.fuzzywuzzy.FuzzySearch;
 import net.kurobako.gesturefx.GesturePane;
 import org.controlsfx.control.textfield.TextFields;
 
+import java.awt.*;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -53,6 +64,7 @@ import java.util.ListIterator;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+import static java.awt.Color.white;
 import static java.lang.Math.asin;
 import static javafx.scene.paint.Color.*;
 
@@ -181,6 +193,8 @@ public class PathFindingController {
 
     Location kioskTemp;
 
+    ScrollPane sp;
+
     private boolean displayingPath;
     private ArrayList<Button> buttons = new ArrayList<Button>();
     private Path path;
@@ -204,6 +218,7 @@ public class PathFindingController {
     private final ObservableList<String> floorList = FXCollections.observableArrayList();
     private Singleton single = Singleton.getInstance();
 
+    private AutoCompleteList autoList = new AutoCompleteList();
 
     private ArrayList<String> mapURLs = new ArrayList<String>();
     private ArrayList<Circle> circles = new ArrayList<Circle>();
@@ -545,12 +560,17 @@ public class PathFindingController {
             menubtn.setDisable(false);
             menubtn.setVisible(true);
         }
-
         nameToLoc.clear();
         for (Location l: PathFindStartDrop.getItems()) {
             nameToLoc.put(l.toString(), l);
         }
-        TextFields.bindAutoCompletion(searchField,nameToLoc.keySet());
+        //TextFields.bindAutoCompletion(searchField,nameToLoc.keySet());
+        searchField.setOnKeyReleased(searchFieldKeyPress);
+        sp = new ScrollPane();
+        navList.getChildren().add(sp);
+        sp.setVisible(false);
+        sp.setPrefWidth(searchField.getPrefWidth());
+
         //Code to immediately set kiosk
         Platform.runLater(new Runnable() {
             @Override
@@ -2058,6 +2078,11 @@ public class PathFindingController {
         }
     }
 
+    @FXML
+    private void searchFieldChanged() {
+
+    }
+
     public void switchToKioskFloor(){
         checkAndSetKiosk();
         currentMap = kioskTemp.getFloor();
@@ -2352,6 +2377,33 @@ public class PathFindingController {
 
     }
 
+    EventHandler<KeyEvent> searchFieldKeyPress = new EventHandler<KeyEvent>() {
+        @Override
+        public void handle(KeyEvent event) {
+            //sp.setVisible(false);
+            autoList.takeTopTen(single.lookup, searchField.getText());
+            System.out.println(autoList);
+            if (autoList.size() > 0) {
+                //sp = new ScrollPane();
+                GridPane gp = new GridPane();
+                for (int i = 0; i < autoList.size(); i ++) {
+                    Text newText = new Text(autoList.get(i).toString());
+                   // Color c = Color.web("white");
+                   // newText.setFill(c);
+                    gp.add(newText, 0, i);
+                }
+                sp.setContent(gp);
+                sp.setLayoutX(searchField.getLayoutX() + 2);
+                sp.setLayoutY(searchField.getLayoutY()+50);
+                sp.toFront();
+                sp.setVisible(true);
+            }
+            else {
+                sp.setVisible(false);
+            }
+
+        }
+    };
 
     //Alex
     @FXML
