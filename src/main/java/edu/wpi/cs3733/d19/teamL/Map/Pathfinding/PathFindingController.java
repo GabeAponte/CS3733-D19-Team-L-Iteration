@@ -5,6 +5,7 @@ import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXScrollPane;
 import com.jfoenix.controls.JFXTextArea;
 import com.jfoenix.controls.JFXComboBox;
+import com.sun.xml.internal.bind.v2.TODO;
 import edu.wpi.cs3733.d19.teamL.HomeScreens.HomeScreenController;
 import edu.wpi.cs3733.d19.teamL.Map.MapLocations.Location;
 import edu.wpi.cs3733.d19.teamL.Map.MapLocations.Path;
@@ -184,7 +185,10 @@ public class PathFindingController {
     Location kioskTemp;
 
     private boolean displayingPath;
+    //Arraylist for the buttons that generate on path
     private ArrayList<Button> buttons = new ArrayList<Button>();
+    //Arraylist of floor buttons
+    private ArrayList<Button> floorButtons = new ArrayList<Button>();
     private Path path;
 
     private GesturePane gesturePane;
@@ -1128,6 +1132,8 @@ public class PathFindingController {
 
             pathPane.getChildren().add(EndCircle);
 
+            //Make the transition buttons
+            makeButtons(floorsVisited);
 
             pathPane.setPrefSize(childPane.getWidth(), childPane.getHeight());
             //Displays the node that travels
@@ -1176,24 +1182,68 @@ public class PathFindingController {
 
     /**
      * @Author Nikhil
-     * This method takes the list of all the floors the path reaches and fills the necessary information for the slider
+     * This function will be used to make the buttons that display on the screen that transition from floor to floor.
      * @param floors
      */
-    private void fillSlider(ArrayList<String> floors) {
-        boolean change = false;
+    private void makeButtons(ArrayList<String> floors) {
+        int start  = 0;
         int counter = 0;
-        int start = 0;
+        int shift = 0;
+        //This boolean is to keep track of if we ever change floors.
+        boolean change = false;
         for(int i = 0; i < floors.size(); i++) {
-            if(counter == 0 && change == true) {
-                change = false;
-            }
-            if(floors.get(i).equals(floors.get(start))) {
-                counter++;
-            }
+            Button fBut = new Button();
             if(!floors.get(i).equals(floors.get(start))) {
-                start = i;
                 change = true;
+                fBut.setAlignment(Pos.TOP_CENTER);
+//                fBut.setLayoutX((path.getPath().get(i).getXcoord()*childPane.getWidth()/Map.getImage().getWidth()));
+//                fBut.setLayoutY((path.getPath().get(i).getYcoord()*childPane.getHeight()/Map.getImage().getHeight()));
+                fBut.setText(floors.get(i));
+                final String next = floors.get(i);
+                //Can't use clicked, make a new method
+                fBut.setOnAction(event -> {
+                    if (next.equals("L2"))
+                        clickedL2();
+                    if (next.equals("L1"))
+                        clickedL1();
+                    if (next.equals("G"))
+                        clickedG();
+                    if (next.equals("1"))
+                        clicked1();
+                    if (next.equals("2"))
+                        clicked2();
+                    if (next.equals("3"))
+                        clicked3();
+                });
+                floorButtons.add(fBut);
+                pathPane.getChildren().add(fBut);
                 counter = 0;
+                start = i;
+            }
+            else if(!change && floors.get(i).equals(floors.get(floors.size()-1))) {
+                fBut.setAlignment(Pos.TOP_CENTER);
+                fBut.setText(floors.get(i));
+                final String same = floors.get(i);
+                //Probably switch out clicked with new method
+                fBut.setOnAction(event -> {
+                    if (same.equals("L2"))
+                        clickedL2();
+                    if (same.equals("L1"))
+                        clickedL1();
+                    if (same.equals("G"))
+                        clickedG();
+                    if (same.equals("1"))
+                        clicked1();
+                    if (same.equals("2"))
+                        clicked2();
+                    if (same.equals("3"))
+                        clicked3();
+                });
+                floorButtons.add(fBut);
+                pathPane.getChildren().add(fBut);
+            }
+            else {
+                counter++;
             }
         }
     }
