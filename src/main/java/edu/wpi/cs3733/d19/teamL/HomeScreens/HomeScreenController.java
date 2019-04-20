@@ -279,6 +279,7 @@ public class HomeScreenController {
 
     @FXML
     private void AboutPress() throws IOException {
+        System.out.println(System.getProperty("os.name"));
         tweets.stop();
         clock.stop();
         Singleton single = Singleton.getInstance();
