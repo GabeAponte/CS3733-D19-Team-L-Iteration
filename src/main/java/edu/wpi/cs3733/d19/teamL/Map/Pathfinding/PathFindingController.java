@@ -1189,13 +1189,16 @@ public class PathFindingController {
         int start  = 0;
         int counter = 0;
         int shift = 0;
+        int midx = 450;
+        int midy = 50;
         //This boolean is to keep track of if we ever change floors.
         boolean change = false;
         for(int i = 0; i < floors.size(); i++) {
             Button fBut = new Button();
             if(!floors.get(i).equals(floors.get(start))) {
                 change = true;
-                fBut.setAlignment(Pos.TOP_CENTER);
+                fBut.setLayoutX(midx);
+                fBut.setLayoutY(midy);
 //                fBut.setLayoutX((path.getPath().get(i).getXcoord()*childPane.getWidth()/Map.getImage().getWidth()));
 //                fBut.setLayoutY((path.getPath().get(i).getYcoord()*childPane.getHeight()/Map.getImage().getHeight()));
                 fBut.setText(floors.get(i));
