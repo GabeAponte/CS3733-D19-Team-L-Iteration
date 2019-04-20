@@ -63,7 +63,7 @@
                   <RowConstraints maxHeight="59.111358642578125" minHeight="0.0" prefHeight="0.0" valignment="CENTER" vgrow="ALWAYS" />
               </rowConstraints>
                <children>
-                  <JFXTextField fx:id="phoneField" focusColor="#f6bd38" onInputMethodTextChanged="#reenableSubmit" onKeyPressed="#reenableSubmit" onKeyReleased="#reenableSubmit" onKeyTyped="#reenableSubmit" promptText="Enter Phone Number (555-555-5555)" stylesheets="@Default.css" unFocusColor="WHITE" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="2" GridPane.vgrow="ALWAYS">
+                  <JFXTextField fx:id="phoneField" focusColor="#f6bd38" onInputMethodTextChanged="#reenableSubmit" onKeyPressed="#reenableSubmit" onKeyReleased="#reenableSubmit" onKeyTyped="#reenableSubmit" promptText="Enter Phone Number (555-555-5555)" styleClass="jfx-text-field-normal" stylesheets="@Default.css" unFocusColor="WHITE" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="2" GridPane.vgrow="ALWAYS">
                      <GridPane.margin>
                         <Insets left="100.0" right="100.0" />
                      </GridPane.margin>

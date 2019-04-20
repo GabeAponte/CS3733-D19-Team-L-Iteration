@@ -63,7 +63,7 @@
                   <RowConstraints maxHeight="59.111358642578125" minHeight="0.0" prefHeight="0.0" valignment="CENTER" vgrow="ALWAYS" />
               </rowConstraints>
                <children>
-                  <JFXTextField fx:id="Name" focusColor="#f6bd38" onAction="#reenableSubmit" promptText="Name" stylesheets="@Default.css" unFocusColor="WHITE" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" GridPane.vgrow="ALWAYS">
+                  <JFXTextField fx:id="Name" focusColor="#f6bd38" onAction="#reenableSubmit" promptText="Name" styleClass="jfx-text-field-normal" stylesheets="@Default.css" unFocusColor="WHITE" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" GridPane.vgrow="ALWAYS">
                      <GridPane.margin>
                         <Insets left="100.0" right="100.0" />
                      </GridPane.margin>
@@ -71,7 +71,7 @@
                         <Font size="20.0" />
                      </font>
                   </JFXTextField>
-                  <JFXTextField fx:id="Location" focusColor="#f6bd38" onAction="#reenableSubmit" promptText="Location" stylesheets="@Default.css" unFocusColor="WHITE" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" GridPane.vgrow="ALWAYS">
+                  <JFXTextField fx:id="Location" focusColor="#f6bd38" onAction="#reenableSubmit" promptText="Location" styleClass="jfx-text-field-normal" stylesheets="@Default.css" unFocusColor="WHITE" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" GridPane.vgrow="ALWAYS">
                      <GridPane.margin>
                         <Insets left="100.0" right="100.0" />
                      </GridPane.margin>

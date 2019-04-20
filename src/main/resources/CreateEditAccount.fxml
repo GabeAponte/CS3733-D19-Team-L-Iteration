@@ -67,7 +67,7 @@
                   <RowConstraints maxHeight="1.7976931348623157E308" minHeight="10.0" prefHeight="173.0" valignment="CENTER" vgrow="ALWAYS" />
               </rowConstraints>
                <children>
-                  <JFXTextField fx:id="employeeID" focusColor="#f6bd38" onKeyReleased="#checkSubmit" prefHeight="40.0" prefWidth="311.0" promptText="Employee ID (Can't be Changed)" stylesheets="@Default.css" unFocusColor="WHITE" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" GridPane.vgrow="ALWAYS">
+                  <JFXTextField fx:id="employeeID" focusColor="#f6bd38" onKeyReleased="#checkSubmit" prefHeight="40.0" prefWidth="311.0" promptText="Employee ID (Can't be Changed)" styleClass="jfx-text-field-normal" stylesheets="@Default.css" unFocusColor="WHITE" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" GridPane.vgrow="ALWAYS">
                      <GridPane.margin>
                         <Insets left="100.0" right="100.0" />
                      </GridPane.margin>
@@ -75,7 +75,7 @@
                         <Font size="20.0" />
                      </font>
                   </JFXTextField>
-                  <JFXTextField fx:id="lastName" focusColor="#f6bd38" onKeyReleased="#checkSubmit" promptText="Last Name" stylesheets="@Default.css" unFocusColor="WHITE" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="2" GridPane.vgrow="ALWAYS">
+                  <JFXTextField fx:id="lastName" focusColor="#f6bd38" onKeyReleased="#checkSubmit" promptText="Last Name" styleClass="jfx-text-field-normal" stylesheets="@Default.css" unFocusColor="WHITE" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="2" GridPane.vgrow="ALWAYS">
                      <GridPane.margin>
                         <Insets left="100.0" right="100.0" />
                      </GridPane.margin>
@@ -83,7 +83,7 @@
                         <Font size="20.0" />
                      </font>
                   </JFXTextField>
-                  <JFXTextField fx:id="firstName" focusColor="#f6bd38" onKeyReleased="#checkSubmit" promptText="First Name" stylesheets="@Default.css" unFocusColor="WHITE" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="2" GridPane.vgrow="ALWAYS">
+                  <JFXTextField fx:id="firstName" focusColor="#f6bd38" onKeyReleased="#checkSubmit" promptText="First Name" styleClass="jfx-text-field-normal" stylesheets="@Default.css" unFocusColor="WHITE" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="2" GridPane.vgrow="ALWAYS">
                      <GridPane.margin>
                         <Insets left="100.0" right="100.0" />
                      </GridPane.margin>
@@ -99,7 +99,7 @@
                         <Blend />
                      </effect>
                   </Label>
-                  <JFXTextField fx:id="nickname" focusColor="#f6bd38" onKeyReleased="#checkSubmit" promptText="Nickname" stylesheets="@Default.css" unFocusColor="WHITE" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="3" GridPane.vgrow="ALWAYS">
+                  <JFXTextField fx:id="nickname" focusColor="#f6bd38" onKeyReleased="#checkSubmit" promptText="Nickname" styleClass="jfx-text-field-normal" stylesheets="@Default.css" unFocusColor="WHITE" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="3" GridPane.vgrow="ALWAYS">
                      <font>
                         <Font size="20.0" />
                      </font>
@@ -107,7 +107,7 @@
                         <Insets left="100.0" right="100.0" />
                      </GridPane.margin>
                   </JFXTextField>
-                  <JFXTextField fx:id="email" focusColor="#f6bd38" onKeyReleased="#checkSubmit" promptText="Email address" stylesheets="@Default.css" unFocusColor="WHITE" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="3" GridPane.vgrow="ALWAYS">
+                  <JFXTextField fx:id="email" focusColor="#f6bd38" onKeyReleased="#checkSubmit" promptText="Email address" styleClass="jfx-text-field-normal" stylesheets="@Default.css" unFocusColor="WHITE" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="3" GridPane.vgrow="ALWAYS">
                      <font>
                         <Font size="20.0" />
                      </font>
@@ -153,7 +153,7 @@
                         </ImageView>
                      </children>
                   </GridPane>
-                  <JFXTextField fx:id="username" focusColor="#f6bd38" maxWidth="1.7976931348623157E308" onKeyReleased="#checkSubmit" promptText="Username" stylesheets="@Default.css" unFocusColor="WHITE" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                  <JFXTextField fx:id="username" focusColor="#f6bd38" maxWidth="1.7976931348623157E308" onKeyReleased="#checkSubmit" promptText="Username" styleClass="jfx-text-field-normal" stylesheets="@Default.css" unFocusColor="WHITE" GridPane.columnIndex="1" GridPane.rowIndex="1">
                      <font>
                         <Font size="20.0" />
                      </font>
@@ -226,7 +226,7 @@
                       <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="ALWAYS" />
                     </rowConstraints>
                      <children>
-                        <JFXTextField fx:id="position" focusColor="#f6bd38" minWidth="-Infinity" onKeyReleased="#checkSubmit" prefHeight="40.0" prefWidth="203.0" promptText="Position" stylesheets="@Default.css" unFocusColor="WHITE" GridPane.halignment="LEFT" GridPane.hgrow="ALWAYS">
+                        <JFXTextField fx:id="position" focusColor="#f6bd38" minWidth="-Infinity" onKeyReleased="#checkSubmit" prefHeight="40.0" prefWidth="203.0" promptText="Position" styleClass="jfx-text-field-normal" stylesheets="@Default.css" unFocusColor="WHITE" GridPane.halignment="LEFT" GridPane.hgrow="ALWAYS">
                            <font>
                               <Font size="20.0" />
                            </font>
