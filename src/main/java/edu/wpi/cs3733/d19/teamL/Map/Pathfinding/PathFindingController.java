@@ -2,9 +2,14 @@ package edu.wpi.cs3733.d19.teamL.Map.Pathfinding;
 
 import com.jfoenix.controls.*;
 import com.jfoenix.controls.JFXButton;
+import com.jfoenix.controls.JFXScrollPane;
+import com.jfoenix.controls.JFXTextArea;
+import com.jfoenix.controls.JFXComboBox;
 import edu.wpi.cs3733.d19.teamL.HomeScreens.HomeScreenController;
+import edu.wpi.cs3733.d19.teamL.Map.MapLocations.AutoCompleteList;
 import edu.wpi.cs3733.d19.teamL.Map.MapLocations.Location;
 import edu.wpi.cs3733.d19.teamL.Map.MapLocations.Path;
+import edu.wpi.cs3733.d19.teamL.Memento;
 import edu.wpi.cs3733.d19.teamL.SearchingAlgorithms.*;
 import edu.wpi.cs3733.d19.teamL.Singleton;
 import javafx.animation.*;
@@ -23,16 +28,26 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Dimension2D;
+import javafx.geometry.Insets;
 import javafx.geometry.Point2D;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.ScrollPane;
+import javafx.scene.control.TextArea;
+import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
 import javafx.scene.image.Image;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
+import javafx.scene.paint.Paint;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Line;
+import javafx.scene.text.Font;
+import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
@@ -41,9 +56,11 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.Pane;
 
+import me.xdrop.fuzzywuzzy.FuzzySearch;
 import net.kurobako.gesturefx.GesturePane;
 import org.controlsfx.control.textfield.TextFields;
 
+import java.awt.*;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -51,6 +68,7 @@ import java.util.ListIterator;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+import static java.awt.Color.white;
 import static java.lang.Math.asin;
 import static javafx.scene.paint.Color.*;
 
@@ -63,6 +81,9 @@ public class PathFindingController {
     private ColumnConstraints mapColumn;
     @FXML
     private TextArea direction;
+
+    @FXML
+    private Button back;
 
     @FXML
     private Stage thestage;
@@ -182,6 +203,8 @@ public class PathFindingController {
 
     Location kioskTemp;
 
+    Pane suggestions;
+
     private boolean displayingPath;
     private ArrayList<Button> buttons = new ArrayList<Button>();
     private Path path;
@@ -205,6 +228,7 @@ public class PathFindingController {
     private final ObservableList<String> floorList = FXCollections.observableArrayList();
     private Singleton single = Singleton.getInstance();
 
+    private AutoCompleteList autoList = new AutoCompleteList();
 
     private ArrayList<String> mapURLs = new ArrayList<String>();
     private ArrayList<Circle> circles = new ArrayList<Circle>();
@@ -219,27 +243,7 @@ public class PathFindingController {
     private String type = "test";
     private String type2 = "";
     private String currentMap = "G"; //defaults to floor G
-    //Larry - This will show up the text direction in pop up screen when you click on the text direction button
-    @FXML
-    private void PopupText(ActionEvent event) throws IOException{
-        Stage stage;
-        Parent root;
-        stage = new Stage();
-        //root = FXMLLoader.load(getClass().getClassLoader().getResource("PopUpTextDirection.fxml"));
-        //stage.setScene(new Scene(root));
-        //stage.setTitle("I am Text Direction");
-        //stage.initModality(Modality.APPLICATION_MODAL);
-        //stage.show();
-        FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("PopUpTextDirection.fxml"));
-        Parent sceneMain = loader.load();
-        TextDirectionController controller = loader.<TextDirectionController>getController();
-        controller.setTextOfDirection(printPath(path.getPath()));
-        Scene scene = new Scene(sceneMain);
-        stage.setScene(scene);
-       // stage.setTitle("I am Text Direction");
-        stage.initModality(Modality.APPLICATION_MODAL);
-        stage.showAndWait();
-    }
+
 
     @FXML
     private Button menu;
@@ -249,6 +253,36 @@ public class PathFindingController {
     public void initialize(URL url, ResourceBundle rb) {
         this.prepareSlideMenuAnimation();
         direction.setEditable(false);
+    }
+
+    public void initWithMeme(String preference, String typeFilter, String floorFilter, Location start, Location end){
+        if(preference != null) {
+            restrictChoice.setValue(preference);
+        }
+        if(start != null) {
+            PathFindStartDrop.setValue(start);
+        } else {
+            Singleton single = Singleton.getInstance();
+            start = single.getKiosk();
+            PathFindStartDrop.setValue(start);
+        }
+        if(end != null) {
+            PathFindEndDrop.setValue(end);
+        }
+        if(typeFilter != null) {
+            Filter.setValue(typeFilter);
+        }
+        if(floorFilter != null) {
+            Floor.setValue(floorFilter);
+        }
+        if(start != null && end != null) {
+            Platform.runLater(new Runnable() {
+                @Override
+                public void run() {
+                    submitPressed();
+                }
+            });
+        }
     }
 
     @FXML
@@ -379,19 +413,7 @@ public class PathFindingController {
     @FXML
     private void strategySelected() {
         strategyAlgorithm = strategySelector.getValue();
-        if (strategySelector.getValue().equals(aStarStrategy)) {
-            single.setTypePathfind(0);
-        }
-        else if (strategySelector.getValue().equals(breadth)) {
-            single.setTypePathfind(1);
-        }
-        else if (strategySelector.getValue().equals(depth)) {
-            single.setTypePathfind(2);
-        }
-        else {
-            single.setTypePathfind(3);
-        }
-
+        single.setTypePathfind(strategyAlgorithm);
     }
 
     public void initialize() {
@@ -413,22 +435,14 @@ public class PathFindingController {
         strategies.add(breadth);
         preference.addAll("Stairs Only", "Elevators Only", "Both");
         restrictChoice.setItems(preference);
-
+        //Nikhil modified this code, it should work, but if it doesn't you can yell at me PJ
         ObservableList strategiesDropDown = FXCollections.observableArrayList();
         strategiesDropDown.add(aStarStrategy);
         strategiesDropDown.add(dijkstraStrategy);
         strategiesDropDown.add(depth);
         strategiesDropDown.add(breadth);
         strategySelector.setItems(strategiesDropDown);
-        if(single.getTypePathfind() == 0){
-            strategySelector.setValue(aStarStrategy);
-        } else if (single.getTypePathfind() == 1){
-            strategySelector.setValue(breadth);
-        } else if (single.getTypePathfind() == 2){
-            strategySelector.setValue(depth);
-        } else {
-            strategySelector.setValue(dijkstraStrategy);
-        }
+        strategySelector.setValue(single.getTypePathfind());
 //        strategyAlgorithm = strategySelector.getValue();
         direction.setEditable(false);
         PathFindSubmit.setDisable(true);
@@ -442,8 +456,13 @@ public class PathFindingController {
             public void handle(ActionEvent event) {
                 if((System.currentTimeMillis() - single.getLastTime()) > single.getTimeoutSec()){
                     try{
+                        single.setLastTime();
+                        single.setLoggedIn(false);
+                        single.setUsername("");
+                        single.setIsAdmin(false);
                         single.setDoPopup(true);
-                        FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("HospitalHome.fxml"));
+                        Memento m = single.getOrig();
+                        FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource(m.getFxml()));
                         Parent sceneMain = loader.load();
                         if(single.isLoggedIn()){
                             HomeScreenController controller = loader.<HomeScreenController>getController();
@@ -453,10 +472,6 @@ public class PathFindingController {
 
                         Scene newScene = new Scene(sceneMain);
                         thisStage.setScene(newScene);
-                        single.setLastTime();
-                        single.setLoggedIn(false);
-                        single.setUsername("");
-                        single.setIsAdmin(false);
                         timeout.stop();
                     } catch (IOException io){
                         System.out.println(io.getMessage());
@@ -552,7 +567,18 @@ public class PathFindingController {
         for (Location l: PathFindStartDrop.getItems()) {
             nameToLoc.put(l.toString(), l);
         }
-        TextFields.bindAutoCompletion(searchField,nameToLoc.keySet());
+        //TextFields.bindAutoCompletion(searchField,nameToLoc.keySet());
+        searchField.setOnKeyReleased(searchFieldKeyPress);
+        //sp = new ScrollPane();
+        //navList.getChildren().add(sp);
+        //sp.setVisible(false);
+        //sp.setPrefWidth(searchField.getPrefWidth());
+        suggestions = new Pane();
+        navList.getChildren().add(suggestions);
+        suggestions.setVisible(false);
+        suggestions.setPrefWidth(searchField.getPrefWidth());
+        suggestions.setStyle("-fx-background-color:  #012d5a;");
+
         //Code to immediately set kiosk
         Platform.runLater(new Runnable() {
             @Override
@@ -578,19 +604,35 @@ public class PathFindingController {
     }
 
     @FXML
-    private void logOut() throws IOException{
-        single.setLoggedIn(false);
-        single.setIsAdmin(false);
+    private void logOut() throws IOException {
+        timeout.stop();
+        Singleton single = Singleton.getInstance();
+        single.setLastTime();
         single.setUsername("");
+        single.setIsAdmin(false);
+        single.setLoggedIn(false);
         single.setDoPopup(true);
-        FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("HospitalHome.fxml"));
+        thestage = (Stage) back.getScene().getWindow();
+        AnchorPane root;
+        Memento m = single.getOrig();
+        root = FXMLLoader.load(getClass().getClassLoader().getResource(m.getFxml()));
+        Scene scene = new Scene(root);
+        thestage.setScene(scene);
+    }
 
-        Parent sceneMain = loader.load();
-
-        Stage theStage = (Stage) homebtn.getScene().getWindow();
-
-        Scene scene = new Scene(sceneMain);
-        theStage.setScene(scene);
+    @FXML
+    private void goHome() throws IOException {
+        timeout.stop();
+        Singleton single = Singleton.getInstance();
+        single.setLastTime();
+        single.setDoPopup(true);
+        saveState();
+        thestage = (Stage) back.getScene().getWindow();
+        AnchorPane root;
+        Memento m = single.getOrig();
+        root = FXMLLoader.load(getClass().getClassLoader().getResource(m.getFxml()));
+        Scene scene = new Scene(root);
+        thestage.setScene(scene);
     }
 
     @FXML
@@ -598,32 +640,16 @@ public class PathFindingController {
         timeout.stop();
         single = Singleton.getInstance();
         single.setLastTime();
-        thestage = (Stage) homebtn.getScene().getWindow();
-        AnchorPane root;
+        single.setDoPopup(true);
 
-        if(single.isLoggedIn()) {
-            FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("EmployeeLoggedInHome.fxml"));
-            if(single.isIsAdmin()){
-                loader = new FXMLLoader(getClass().getClassLoader().getResource("AdminLoggedInHome.fxml"));
-            }
-            Parent sceneMain = loader.load();
+        Memento m = single.restore();
+        FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource(m.getFxml()));
+        Parent sceneMain = loader.load();
 
-            Stage theStage = (Stage) homebtn.getScene().getWindow();
+        Stage theStage = (Stage) homebtn.getScene().getWindow();
 
-            Scene scene = new Scene(sceneMain);
-            theStage.setScene(scene);
-            return;
-        } else {
-            single.setDoPopup(true);
-            FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("HospitalHome.fxml"));
-
-            Parent sceneMain = loader.load();
-
-            Stage theStage = (Stage) homebtn.getScene().getWindow();
-
-            Scene scene = new Scene(sceneMain);
-            theStage.setScene(scene);
-        }
+        Scene scene = new Scene(sceneMain);
+        theStage.setScene(scene);
     }
 
     /**
@@ -664,16 +690,8 @@ public class PathFindingController {
             restriction = "    ";
         }
 
-        if(single.getTypePathfind() == 0){
-            strategyAlgorithm = aStarStrategy;
-        } else if (single.getTypePathfind() == 1){
-            strategyAlgorithm = breadth;
-        } else if (single.getTypePathfind() == 2){
-            strategyAlgorithm = depth;
-        } else {
-            strategyAlgorithm = dijkstraStrategy;
-        }
-
+        strategyAlgorithm = single.getTypePathfind();
+        //System.out.println(strategyAlgorithm.toString());
 
         displayingPath = true;
 
@@ -775,20 +793,6 @@ public class PathFindingController {
 
     }
 
-
-        /*
-        showingSettings = !showingSettings;
-
-        if(showingSettings){
-            settingPane.setDisable(false);
-            settingPane.setLayoutY(113);
-        }
-        else{
-            settingPane.setDisable(true);
-            settingPane.setLayoutY(-320);
-        }
-    }*/
-
     @FXML
     private void updateKiosk(){
         if(!kioskName.getText().equals("")) {
@@ -796,7 +800,7 @@ public class PathFindingController {
         }
         if(kioskConnectedTo.getValue() != null) {
             kioskTemp = kioskConnectedTo.getValue();
-            single.setKioskID(kioskConnectedTo.getValue().getLocID());
+            single.setKiosk(kioskConnectedTo.getValue());
         }
         clearStart();
         //        displayKiosk();
@@ -890,8 +894,6 @@ public class PathFindingController {
                     //Sets the start and end nodes on the floor
                     if(path.getPath().get(i).getFloor().equals(currentMap)) {
                         floorSwitch2 = i;
-                        System.out.println("FL " + floorCount);
-                        System.out.println("i " + i);
                         floorSwitch1 = i-(floorCount-1);
                     }
                     floorCount = 0;
@@ -934,11 +936,9 @@ public class PathFindingController {
                         if (transition.equals("3"))
                             clicked3();
                     });
-                    System.out.println(nBut.getLayoutX() + " " + nBut.getPrefWidth() + " " +  pathPane.getWidth());
                     if(nBut.getLayoutX() + 400 > pathPane.getWidth())
                     {
                         nBut.setLayoutX(nBut.getLayoutX() - 400);
-                        System.out.println(nBut.getLayoutX() + nBut.getPrefWidth() + " " +  pathPane.getWidth());
                     }
                     if(nBut.getLayoutY() + 50 > pathPane.getHeight())
                     {
@@ -1078,9 +1078,6 @@ public class PathFindingController {
         double x = gesturePane.getWidth()/(Math.abs((start.getXcoord() - end.getXcoord())));
         double y = gesturePane.getHeight()/Math.abs(((start.getYcoord() - end.getYcoord())));
         double scale = (Math.min(x, y)/2.5) + 1.1;
-        System.out.println("Scale " + scale);
-        System.out.println(start.getLocID());
-        System.out.println(end.getLocID());
         gesturePane.reset();
         gesturePane.zoomTo(scale, gesturePane.targetPointAtViewportCentre());
         double xSameVal = (start.getXcoord() + end.getXcoord()) / 2.0*childPane.getWidth()/Map.getImage().getWidth();
@@ -1829,13 +1826,13 @@ public class PathFindingController {
     public void checkAndSetKiosk(){
         //if kiosk was initiated its fine
         //if not set kiosk to random (first location stuff) thing
-        if(single.getKioskID().equals("")){
+        if(single.getKiosk() == null){
             //Location kioskTemp = single.getData().get(0); //initially at floor 2
-            single.setKioskID(single.getData().get(0).getLocID());
+            single.setKiosk(single.getData().get(0));
         }
         //find actual "location" of kiosk
         for(int i=0; i<single.getData().size(); i++){
-            if(single.getData().get(i).getLocID().equals(single.getKioskID())){
+            if(single.getData().get(i).equals(single.getKiosk())){
                 kioskTemp = single.getData().get(i);
             }
         }
@@ -2073,6 +2070,8 @@ public class PathFindingController {
             }
         }
     }
+
+
 
     public void switchToKioskFloor(){
         checkAndSetKiosk();
@@ -2368,13 +2367,71 @@ public class PathFindingController {
 
     }
 
+    EventHandler<KeyEvent> searchFieldKeyPress = new EventHandler<KeyEvent>() {
+        @Override
+        public void handle(KeyEvent event) {
+            //sp.setVisible(false);
+            autoList.takeTopTen(single.lookup, searchField.getText());
+            //System.out.println(autoList);
+            suggestions.getChildren().removeAll(suggestions.getChildren());
+            if (autoList.size() > 0) {
+                //sp = new ScrollPane();
+                //GridPane gp = new GridPane();
+                VBox vBox = new VBox();
+                for (int i = 0; i < autoList.size(); i ++) {
+                    JFXButton b = new JFXButton(autoList.get(i).toString());
+                    Font f = new Font("System", 15);
+                    b.setFont(f);
+                    Tooltip t = new Tooltip("Click to travel here");
+                    b.setPadding(new Insets(1));
+                    b.setPrefWidth(searchField.getPrefWidth());
+                    b.setTooltip(t);
+                   // b.getStyleClass().set(1, "buttonMain");
+                    b.getStyleClass().add("buttonMain");
+                    b.setOnAction(event1 -> {
+                        String toString = ((JFXButton) event1.getSource()).getText();
+                        for (Location l : single.lookup.values()) {
+                            if (l.toString().equals(toString)) {
+                               PathFindEndDrop.setValue(l);
+                               searchField.setText(l.toString());
+
+                            }
+                        }
+                        suggestions.setVisible(false);
+                    });
+                    vBox.getChildren().add(b);
+
+                    Text newText = new Text(autoList.get(i).toString());
+                   // Color c = Color.web("white");
+                   // newText.setFill(c);
+                    //gp.add(newText, 0, i);
+                }
+                suggestions.getChildren().add(vBox);
+                suggestions.setLayoutX(searchField.getLayoutX() + 2);
+                suggestions.setLayoutY(searchField.getLayoutY()+50);
+                suggestions.toFront();
+                suggestions.setVisible(true);
+                //sp.setContent(gp);
+                //sp.setLayoutX(searchField.getLayoutX() + 2);
+                //sp.setLayoutY(searchField.getLayoutY()+50);
+                //sp.toFront();
+                //sp.setVisible(true);
+            }
+            else {
+                suggestions.setVisible(false);
+            }
+
+        }
+    };
 
     //Alex
     @FXML
-    private void submitSearchField(Event ae) {
+    public void submitSearchField(Event ae) {
+        searchField.setText("");
         Filter.setValue(null);
         Floor.setValue(null);
         noHall();
+        /*
         if(PathFindStartDrop.getValue() == null && startNode != kioskTemp){
             if(nameToLoc.get(searchField.getText()) != null) {
                 PathFindStartDrop.setValue(nameToLoc.get(searchField.getText()));
@@ -2386,6 +2443,14 @@ public class PathFindingController {
                 PathFindEndDrop.setValue(nameToLoc.get(searchField.getText()));
                 searchField.setText("");
             }
-        }
+        }*/
+    }
+
+    /**@author Nathan
+     * Saves the memento state
+     */
+    private void saveState(){
+        Singleton single = Singleton.getInstance();
+        single.saveMemento("HospitalPathFinding.fxml", restrictChoice.getValue(), Filter.getValue(), Floor.getValue(), PathFindStartDrop.getValue(), PathFindEndDrop.getValue());
     }
 }
