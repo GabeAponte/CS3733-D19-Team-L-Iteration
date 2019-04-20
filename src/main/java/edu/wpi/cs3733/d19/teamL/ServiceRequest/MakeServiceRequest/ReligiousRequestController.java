@@ -24,7 +24,7 @@ import java.io.IOException;
 
 public class ReligiousRequestController {
     @FXML
-    public Button Back;
+    public Button back;
 
     @FXML
     public Button Submit;
@@ -105,10 +105,20 @@ public class ReligiousRequestController {
         FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource(m.getFxml()));
 
         Parent sceneMain = loader.load();
-        Stage theStage = (Stage) Description.getScene().getWindow();
+
+        Stage theStage = (Stage) back.getScene().getWindow();
 
         Scene scene = new Scene(sceneMain);
         theStage.setScene(scene);
+    }
+    @FXML
+    private void logOut() throws IOException {
+
+    }
+
+    @FXML
+    private void goHome() throws IOException {
+
     }
 
     @FXML

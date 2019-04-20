@@ -160,6 +160,11 @@ public class EmployeeTableController{
         thestage.setScene(scene);
     }
 
+    @FXML
+    private void logOut() throws IOException {
+
+    }
+
     /**@author Gabe
      * When double clicking on a row in the table, admin is sent to the create/edit screen
      * and all the employee information from the clicked on row is passed along so that the edit account
@@ -201,6 +206,11 @@ public class EmployeeTableController{
 
             }
         });
+    }
+
+    @FXML
+    private void goHome() throws IOException {
+
     }
 
     /**@author Nathan

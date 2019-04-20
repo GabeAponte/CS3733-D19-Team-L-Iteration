@@ -25,7 +25,7 @@ import java.io.IOException;
 
 public class SecurityRequestController {
     @FXML
-    public Button Back;
+    public Button back;
 
     @FXML
     public Button Submit;
@@ -172,5 +172,15 @@ public class SecurityRequestController {
         root = FXMLLoader.load(getClass().getClassLoader().getResource(m.getFxml()));
         Scene scene = new Scene(root);
         thestage.setScene(scene);
+    }
+
+    @FXML
+    private void logOut() throws IOException {
+
+    }
+
+    @FXML
+    private void goHome() throws IOException {
+
     }
 }

@@ -26,7 +26,7 @@ public class PrescriptionServiceRequestController {
     private Button submitButton;
 
     @FXML
-    private Button backButton;
+    private Button back;
 
     @FXML
     private JFXTextField destinationField;
@@ -103,7 +103,8 @@ public class PrescriptionServiceRequestController {
         FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource(m.getFxml()));
 
         Parent sceneMain = loader.load();
-        Stage theStage = (Stage) commentsField.getScene().getWindow();
+
+        Stage theStage = (Stage) back.getScene().getWindow();
 
         Scene scene = new Scene(sceneMain);
         theStage.setScene(scene);
@@ -121,6 +122,16 @@ public class PrescriptionServiceRequestController {
         root = FXMLLoader.load(getClass().getClassLoader().getResource(m.getFxml()));
         Scene scene = new Scene(root);
         thestage.setScene(scene);
+    }
+
+    @FXML
+    private void logOut() throws IOException {
+
+    }
+
+    @FXML
+    private void goHome() throws IOException {
+
     }
 
 }

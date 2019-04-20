@@ -24,7 +24,7 @@ import java.io.IOException;
 
 public class ServiceRequestLanguageController {
     @FXML
-    public Button Back;
+    public Button back;
 
     @FXML
     public Button Submit;
@@ -110,7 +110,8 @@ public class ServiceRequestLanguageController {
         FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource(m.getFxml()));
 
         Parent sceneMain = loader.load();
-        Stage theStage = (Stage) Description.getScene().getWindow();
+
+        Stage theStage = (Stage) back.getScene().getWindow();
 
         Scene scene = new Scene(sceneMain);
         theStage.setScene(scene);
@@ -128,5 +129,15 @@ public class ServiceRequestLanguageController {
         root = FXMLLoader.load(getClass().getClassLoader().getResource(m.getFxml()));
         Scene scene = new Scene(root);
         thestage.setScene(scene);
+    }
+
+    @FXML
+    private void logOut() throws IOException {
+
+    }
+
+    @FXML
+    private void goHome() throws IOException {
+
     }
 }

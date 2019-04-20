@@ -25,7 +25,7 @@ import java.io.IOException;
 
 public class ExternalTransportationController {
     @FXML
-    public Button Back;
+    public Button back;
 
     @FXML
     public Button maps;
@@ -95,7 +95,7 @@ public class ExternalTransportationController {
         FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("Browser.fxml"));
         Parent sceneMain = loader.load();
 
-        Stage theStage = (Stage) Back.getScene().getWindow();
+        Stage theStage = (Stage) back.getScene().getWindow();
 
         Scene scene = new Scene(sceneMain);
         theStage.setScene(scene);
@@ -174,5 +174,15 @@ public class ExternalTransportationController {
         stage.showAndWait();
         single = Singleton.getInstance();
         single.setLastTime();
+    }
+
+    @FXML
+    private void logOut() throws IOException {
+
+    }
+
+    @FXML
+    private void goHome() throws IOException {
+
     }
 }

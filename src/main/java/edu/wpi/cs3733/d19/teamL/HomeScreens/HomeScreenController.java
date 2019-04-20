@@ -324,4 +324,9 @@ public class HomeScreenController {
         tweets.stop();
         clock.stop();
     }
+
+    @FXML
+    private void logOut() throws IOException {
+
+    }
 }

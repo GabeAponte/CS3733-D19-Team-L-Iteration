@@ -249,4 +249,9 @@ public class LogInController {
         single.saveMemento("LogIn.fxml");
     }
 
+    @FXML
+    private void goHome() throws IOException {
+
+    }
+
 }

@@ -48,7 +48,7 @@ public class InternalTransportController {
     JFXButton submitbtn;
 
     @FXML
-    JFXButton backBtn;
+    JFXButton back;
 
     private NodesAccess na;
     private final ObservableList<Location> data = FXCollections.observableArrayList();
@@ -164,7 +164,7 @@ public class InternalTransportController {
         FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource(m.getFxml()));
 
         Parent sceneMain = loader.load();
-        Stage theStage = (Stage) backBtn.getScene().getWindow();
+        Stage theStage = (Stage) back.getScene().getWindow();
 
         Scene scene = new Scene(sceneMain);
         theStage.setScene(scene);
@@ -183,5 +183,15 @@ public class InternalTransportController {
         root = FXMLLoader.load(getClass().getClassLoader().getResource(m.getFxml()));
         Scene scene = new Scene(root);
         thestage.setScene(scene);
+    }
+
+    @FXML
+    private void logOut() throws IOException {
+
+    }
+
+    @FXML
+    private void goHome() throws IOException {
+
     }
 }

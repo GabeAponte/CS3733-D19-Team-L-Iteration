@@ -22,8 +22,12 @@ import javafx.util.Duration;
 import java.io.IOException;
 
 public class FloristDeliveryController {
+    private boolean signedIn;
+    private String uname;
+
+
     @FXML
-    public Button backBtn;
+    public Button back;
 
     @FXML
     public Button Submit;
@@ -118,5 +122,15 @@ public class FloristDeliveryController {
         root = FXMLLoader.load(getClass().getClassLoader().getResource(m.getFxml()));
         Scene scene = new Scene(root);
         thestage.setScene(scene);
+    }
+
+    @FXML
+    private void logOut() throws IOException {
+
+    }
+
+    @FXML
+    private void goHome() throws IOException {
+
     }
 }

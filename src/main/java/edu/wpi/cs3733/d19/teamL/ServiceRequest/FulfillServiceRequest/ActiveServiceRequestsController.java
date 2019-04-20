@@ -1273,6 +1273,17 @@ public class ActiveServiceRequestsController {
         Singleton single = Singleton.getInstance();
         single.saveMemento("NewActiveServiceRequests.fxml");
     }
+
+    @FXML
+    private void logOut() throws IOException {
+
+    }
+
+
+    @FXML
+    private void goHome() throws IOException {
+
+    }
 }
 
 

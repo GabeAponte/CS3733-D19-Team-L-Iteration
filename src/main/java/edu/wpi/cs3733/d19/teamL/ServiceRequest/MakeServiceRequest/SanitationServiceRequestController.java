@@ -32,7 +32,7 @@ public class SanitationServiceRequestController {
     private JFXButton submit1;
 
     @FXML
-    private JFXButton Back2;
+    private JFXButton back;
 
     @FXML
     private JFXComboBox<Location> location1;
@@ -182,5 +182,15 @@ public class SanitationServiceRequestController {
         root = FXMLLoader.load(getClass().getClassLoader().getResource(m.getFxml()));
         Scene scene = new Scene(root);
         thestage.setScene(scene);
+    }
+
+    @FXML
+    private void logOut() throws IOException {
+
+    }
+
+    @FXML
+    private void goHome() throws IOException {
+
     }
 }

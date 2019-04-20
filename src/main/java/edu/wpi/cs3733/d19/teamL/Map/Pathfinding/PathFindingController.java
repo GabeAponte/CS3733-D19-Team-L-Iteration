@@ -756,20 +756,6 @@ public class PathFindingController {
 
     }
 
-
-        /*
-        showingSettings = !showingSettings;
-
-        if(showingSettings){
-            settingPane.setDisable(false);
-            settingPane.setLayoutY(113);
-        }
-        else{
-            settingPane.setDisable(true);
-            settingPane.setLayoutY(-320);
-        }
-    }*/
-
     @FXML
     private void updateKiosk(){
         if(!kioskName.getText().equals("")) {

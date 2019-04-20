@@ -60,7 +60,7 @@ public class ServiceRequestController {
 
 
     @FXML
-    public Button Back;
+    public Button back;
 
     Timeline timeout;
 
@@ -84,7 +84,7 @@ public class ServiceRequestController {
                         single.setLastTime();
                         single.setUsername("");
                         single.setIsAdmin(false);
-                        Stage thisStage = (Stage) Back.getScene().getWindow();
+                        Stage thisStage = (Stage) back.getScene().getWindow();
 
                         Scene newScene = new Scene(sceneMain);
                         thisStage.setScene(newScene);
@@ -193,4 +193,15 @@ public class ServiceRequestController {
         Singleton single = Singleton.getInstance();
         single.saveMemento("ServiceRequest.fxml");
     }
+    @FXML
+    private void logOut() throws IOException {
+
+    }
+
+
+    @FXML
+    private void goHome() throws IOException {
+
+    }
+
 }

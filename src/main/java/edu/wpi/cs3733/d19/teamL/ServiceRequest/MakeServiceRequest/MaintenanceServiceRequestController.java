@@ -37,7 +37,7 @@ public class MaintenanceServiceRequestController {
     private Button Submit;
 
     @FXML
-    public Button Back;
+    public Button back;
 
     @FXML
     public JFXTextArea Description;
@@ -65,7 +65,7 @@ public class MaintenanceServiceRequestController {
                             HomeScreenController controller = loader.<HomeScreenController>getController();
                             controller.displayPopup();
                         }
-                        Stage thisStage = (Stage) Back.getScene().getWindow();
+                        Stage thisStage = (Stage) back.getScene().getWindow();
 
                         Scene newScene = new Scene(sceneMain);
                         thisStage.setScene(newScene);
@@ -127,5 +127,15 @@ public class MaintenanceServiceRequestController {
         root = FXMLLoader.load(getClass().getClassLoader().getResource(m.getFxml()));
         Scene scene = new Scene(root);
         thestage.setScene(scene);
+    }
+
+    @FXML
+    private void logOut() throws IOException {
+
+    }
+
+    @FXML
+    private void goHome() throws IOException {
+
     }
 }

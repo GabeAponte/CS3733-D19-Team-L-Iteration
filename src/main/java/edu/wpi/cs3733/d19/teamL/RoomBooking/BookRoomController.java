@@ -584,7 +584,15 @@ public class BookRoomController {
         Stage theStage = (Stage) viewSchedule.getScene().getWindow();
         theStage.setScene(scene);
     }
+    @FXML
+    private void logOut() throws IOException {
 
+    }
+
+    @FXML
+    private void goHome() throws IOException {
+
+    }
 
 
 }

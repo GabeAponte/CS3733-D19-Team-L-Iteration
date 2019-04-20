@@ -128,4 +128,15 @@ public class SuggestionBoxController {
         single.saveMemento("SuggestionBox.fxml");
     }
 
+    @FXML
+    private void logOut() throws IOException {
+
+    }
+
+
+    @FXML
+    private void goHome() throws IOException {
+
+    }
+
 }

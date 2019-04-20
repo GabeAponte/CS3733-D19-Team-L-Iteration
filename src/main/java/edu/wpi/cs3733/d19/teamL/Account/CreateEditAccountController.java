@@ -114,7 +114,7 @@ public class CreateEditAccountController {
 
     private Timeline timeout;
 
-    public void initialize(){
+    public void initialize() {
         Singleton single = Singleton.getInstance();
         single.setLastTime();
 
@@ -122,8 +122,8 @@ public class CreateEditAccountController {
 
             @Override
             public void handle(ActionEvent event) {
-                if((System.currentTimeMillis() - single.getLastTime()) > single.getTimeoutSec()){
-                    try{
+                if ((System.currentTimeMillis() - single.getLastTime()) > single.getTimeoutSec()) {
+                    try {
                         single.setLastTime();
                         single.setDoPopup(true);
                         single.setLoggedIn(false);
@@ -143,7 +143,7 @@ public class CreateEditAccountController {
                         Scene newScene = new Scene(sceneMain);
                         thisStage.setScene(newScene);
                         timeout.stop();
-                    } catch (IOException io){
+                    } catch (IOException io) {
                         System.out.println(io.getMessage());
                     }
                 }
@@ -163,6 +163,12 @@ public class CreateEditAccountController {
         errorLabel.setText("");
         department.getItems().addAll("Sanitation", "Security", "IT", "Religious", "Audio Visual", "External Transportation", "Internal Transportation",
                 "Language", "Maintenance", "Prescription", "Florist Delivery");
+        if(picView.getImage() == null){
+            picbtn.setText("Add Photo");
+        }
+        if(picView.getImage() != null){
+            picbtn.setText("Retake Photo");
+        }
     }
 
     @FXML
@@ -525,5 +531,15 @@ public class CreateEditAccountController {
             timeout.stop();
             backPressed();
         }
+    }
+
+    @FXML
+    private void logOut() throws IOException {
+
+    }
+
+    @FXML
+    private void goHome() throws IOException {
+
     }
 }

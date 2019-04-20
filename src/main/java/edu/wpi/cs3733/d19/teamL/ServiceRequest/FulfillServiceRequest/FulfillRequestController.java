@@ -252,4 +252,14 @@ public class FulfillRequestController {
         thestage.setScene(scene);
     }
 
+    @FXML
+    private void logOut() throws IOException {
+
+    }
+
+    @FXML
+    private void goHome() throws IOException {
+
+    }
+
 }

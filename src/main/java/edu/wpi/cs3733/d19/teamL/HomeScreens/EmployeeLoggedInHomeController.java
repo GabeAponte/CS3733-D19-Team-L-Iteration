@@ -240,6 +240,11 @@ public class EmployeeLoggedInHomeController {
         theStage.setScene(scene);
     }
 
+    @FXML
+    private void goHome() throws IOException {
+
+    }
+
     /**@author Nathan
      * Saves the memento state
      */
