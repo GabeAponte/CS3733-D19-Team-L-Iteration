@@ -874,7 +874,11 @@ public class PathFindingController {
             for (Button b : buttons) {
                 pathPane.getChildren().remove(b);
             }
+            for (Button b : floorButtons) {
+                gridPane.getChildren().remove(b);
+            }
 
+            floorButtons.clear();
             circles.clear();
             lines.clear();
             buttons.clear();
@@ -1170,9 +1174,6 @@ public class PathFindingController {
         double x = gesturePane.getWidth()/(Math.abs((start.getXcoord() - end.getXcoord())));
         double y = gesturePane.getHeight()/Math.abs(((start.getYcoord() - end.getYcoord())));
         double scale = (Math.min(x, y)/2.5) + 1.1;
-        System.out.println("Scale " + scale);
-        System.out.println(start.getLocID());
-        System.out.println(end.getLocID());
         gesturePane.reset();
         gesturePane.zoomTo(scale, gesturePane.targetPointAtViewportCentre());
         double xSameVal = (start.getXcoord() + end.getXcoord()) / 2.0*childPane.getWidth()/Map.getImage().getWidth();
@@ -1201,7 +1202,9 @@ public class PathFindingController {
             if(!floors.get(i).equals(floors.get(start))) {
                 change = true;
                 fBut.setPrefSize(50,50);
-//                fBut.setLayoutX((path.getPath().get(i).getXcoord()*childPane.getWidth()/Map.getImage().getWidth()));
+//                fBut.setLayoutX((path.getPath().get(i).getXcoord()*cfor (Button b : buttons) {
+//                pathPane.getChildren().remove(b);
+//            childPane.getWidth()/Map.getImage().getWidth()));
 //                fBut.setLayoutY((path.getPath().get(i).getYcoord()*childPane.getHeight()/Map.getImage().getHeight()));
                 fBut.setText(floors.get(i));
                 final String next = floors.get(i);
@@ -1229,6 +1232,7 @@ public class PathFindingController {
                 //Reset these variables
                 counter = 0;
                 start = i;
+                System.out.println("if 1");
             }
             else if(totalNum == 1) {
 //                fBut.setLayoutX(450);
@@ -1256,9 +1260,10 @@ public class PathFindingController {
                 floorButtons.add(fBut);
                 gridPane.getChildren().add(fBut);
                 gridPane.setMargin(fBut,new Insets(0,0,midy,midx));
+                System.out.println("if 2");
 
             }
-            else if(!change && numOfBut >= 1) {
+            else if(!change && numOfBut > 1) {
                 fBut.setPrefSize(50,50);
 
                 //fBut.setAlignment(Pos.TOP_CENTER);
@@ -1284,6 +1289,8 @@ public class PathFindingController {
                 int diff  = numOfBut - center;
                 gridPane.setMargin(fBut,new Insets(0,0,midy,midx - diff*(100)));
                 numOfBut--;
+                change = true;
+                System.out.println("if 3");
             }
             else {
                 //Increments while you are still on the same floor
@@ -1331,7 +1338,7 @@ public class PathFindingController {
     }
 
     private int countFloors(ArrayList<String> floors) {
-        int floorCounter = 0;
+        int floorCounter = 1;
         for(int i = 0; i < floors.size()-1; i++) {
             if(!floors.get(i).equals(floors.get(i+1))) {
                 floorCounter++;
