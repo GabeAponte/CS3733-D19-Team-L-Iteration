@@ -112,4 +112,14 @@ public class PrescriptionServiceRequestController {
         theStage.setScene(scene);
     }
 
+    @FXML
+    private void logOut() throws IOException {
+
+    }
+
+    @FXML
+    private void goHome() throws IOException {
+
+    }
+
 }

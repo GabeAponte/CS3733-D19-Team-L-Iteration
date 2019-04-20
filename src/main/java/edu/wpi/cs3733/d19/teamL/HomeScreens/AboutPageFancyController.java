@@ -77,5 +77,20 @@ public class AboutPageFancyController {
         thisStage.setScene(newScene);
     }
 
+    @FXML
+    private void logOut() throws IOException {
+
+    }
+
+
+    @FXML
+    private void backPressed() throws IOException {
+
+    }
+
+    @FXML
+    private void goHome() throws IOException {
+
+    }
 
 }

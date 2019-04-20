@@ -177,6 +177,15 @@ public class ITController {
         }
     }
 
+    @FXML
+    private void logOut() throws IOException {
+
+    }
+
+    @FXML
+    private void goHome() throws IOException {
+
+    }
 
 
 }

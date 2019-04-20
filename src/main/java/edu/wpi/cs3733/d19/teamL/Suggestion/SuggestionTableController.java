@@ -161,4 +161,15 @@ public class SuggestionTableController {
             }
         });
    }
+
+    @FXML
+    private void logOut() throws IOException {
+
+    }
+
+
+    @FXML
+    private void goHome() throws IOException {
+
+    }
 }

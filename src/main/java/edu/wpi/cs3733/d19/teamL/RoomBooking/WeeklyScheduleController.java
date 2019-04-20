@@ -397,6 +397,15 @@ public class WeeklyScheduleController
         Scene scene = new Scene(sceneMain);
         theStage.setScene(scene);
     }
+    @FXML
+    private void logOut() throws IOException {
 
+    }
+
+
+    @FXML
+    private void goHome() throws IOException {
+
+    }
 
 }

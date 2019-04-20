@@ -294,4 +294,20 @@ public class HomeScreenController {
         Scene newScene = new Scene(sceneMain);
         thisStage.setScene(newScene);
     }
+
+    @FXML
+    private void logOut() throws IOException {
+
+    }
+
+
+    @FXML
+    private void backPressed() throws IOException {
+
+    }
+
+    @FXML
+    private void goHome() throws IOException {
+
+    }
 }

@@ -76,7 +76,7 @@ public class BookRoomController {
     private ImageView roomImage;
 
     @FXML
-    private Button bookRoomBack;
+    private Button backBtn;
 
     @FXML
     private Button viewWeekly;
@@ -123,8 +123,6 @@ public class BookRoomController {
         DisplayRooms.add(new RoomDisplay("Room 8 - Classroom", room8, "Room 8 - Classroom"));
         DisplayRooms.add(new RoomDisplay("Room 9 - Computer", room9, "Room 9 - Computer"));
         DisplayRooms.add(new RoomDisplay("Mission Hall Auditorium", auditorium, "Mission Hall Auditorium"));
-
-
 
         roomImage.fitWidthProperty().bind(imagePane.widthProperty());
         roomImage.fitHeightProperty().bind(imagePane.heightProperty());
@@ -234,7 +232,7 @@ public class BookRoomController {
             loader = new FXMLLoader(getClass().getClassLoader().getResource("AdminLoggedInHome.fxml"));
         }
         Parent sceneMain = loader.load();
-        Stage theStage = (Stage) bookRoomBack.getScene().getWindow();
+        Stage theStage = (Stage) backBtn.getScene().getWindow();
         Scene scene = new Scene(sceneMain);
         theStage.setScene(scene);
     }
@@ -460,7 +458,9 @@ public class BookRoomController {
 
     }
 
-
+    /** @author Isabella
+     * Displays individual flex spaces that update randomly
+     */
     public void displayFlexSpaces(ArrayList<Boolean> flexSpaceAvailable){
         int i = 0;
         for(i = 0; i < flexSpaces.size(); i++){
@@ -631,6 +631,20 @@ public class BookRoomController {
         theStage.setScene(scene);
     }
 
+
+    @FXML
+    private void logOut() throws IOException {
+
+    }
+
+    @FXML
+    private void goHome() throws IOException {
+
+    }
+
+    /** @author Isabella
+     * Slides in the reservation menu from the right side
+     */
     @FXML
     private void reservationMenu() {
         TranslateTransition openNav = new TranslateTransition(new Duration(300.0D), this.reservationPane);

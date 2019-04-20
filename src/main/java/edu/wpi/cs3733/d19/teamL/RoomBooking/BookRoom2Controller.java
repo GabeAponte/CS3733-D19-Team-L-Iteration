@@ -489,5 +489,13 @@ public class BookRoom2Controller {
         single.setLastTime();
     }
 
+    @FXML
+    private void logOut() throws IOException {
 
+    }
+
+    @FXML
+    private void goHome() throws IOException {
+
+    }
 }

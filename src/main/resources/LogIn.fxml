@@ -15,6 +15,7 @@
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
@@ -24,30 +25,67 @@
     <children>
         <VBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
             <children>
-                <JFXToolbar maxHeight="-Infinity" minHeight="-Infinity" prefHeight="100.0" prefWidth="1280.0" styleClass="tool-barMain" stylesheets="@Default.css" VBox.vgrow="NEVER">
-                    <left>
-                        <ImageView fitHeight="75.0" fitWidth="325.0" preserveRatio="true" BorderPane.alignment="CENTER">
-                            <image>
-                                <Image url="@SoftEng_UI_Mockup_Pics/BWHlogo.png" />
-                            </image>
-                        </ImageView>
-                    </left>
+                <JFXToolbar prefHeight="100.0" prefWidth="1280.0" styleClass="tool-barMain" stylesheets="@Default.css">
                     <VBox.margin>
                         <Insets />
                     </VBox.margin>
                     <padding>
-                        <Insets left="5.0" right="5.0" />
+                        <Insets left="10.0" right="10.0" />
                     </padding>
-               <right>
-                  <JFXButton fx:id="back" alignment="CENTER" buttonType="RAISED" contentDisplay="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" onAction="#backPressed" prefHeight="75.0" prefWidth="87.0" styleClass="buttonToolbar" stylesheets="@Default.css" text=" " textFill="WHITE" BorderPane.alignment="CENTER">
-                     <font>
-                        <Font size="20.0" />
-                     </font>
-                     <graphic>
-                        <FontAwesomeIconView fill="#012d5a" glyphName="ARROW_LEFT" size="40" wrappingWidth="36.28559112548828" />
-                     </graphic>
-                  </JFXButton>
-               </right>
+                    <center>
+                        <HBox alignment="CENTER" prefHeight="100.0" prefWidth="1315.0" BorderPane.alignment="CENTER">
+                            <children>
+                                <GridPane HBox.hgrow="ALWAYS">
+                                    <columnConstraints>
+                                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                    </columnConstraints>
+                                    <rowConstraints>
+                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                    </rowConstraints>
+                                    <children>
+                                        <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1">
+                                            <children>
+                                                <ImageView fitHeight="75.0" fitWidth="325.0" preserveRatio="true">
+                                                    <image>
+                                                        <Image url="@SoftEng_UI_Mockup_Pics/BWHlogo.png" />
+                                                    </image>
+                                                </ImageView>
+                                            </children>
+                                        </HBox>
+                                        <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0">
+                                            <children>
+                                                <JFXButton fx:id="backBtn" alignment="CENTER" buttonType="RAISED" contentDisplay="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" onAction="#backPressed" prefHeight="75.0" prefWidth="87.0" styleClass="buttonToolbar" stylesheets="@Default.css" text=" " textFill="WHITE">
+                                                    <font>
+                                                        <Font size="20.0" />
+                                                    </font>
+                                                    <graphic>
+                                                        <FontAwesomeIconView fill="#012d5a" glyphName="ARROW_LEFT" size="40" wrappingWidth="36.28559112548828" />
+                                                    </graphic>
+                                                    <HBox.margin>
+                                                        <Insets left="10.0" />
+                                                    </HBox.margin>
+                                                </JFXButton>
+                                            </children>
+                                        </HBox>
+                                        <HBox alignment="CENTER_RIGHT" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="2">
+                                            <children>
+                                                <JFXButton fx:id="homebtn" buttonType="RAISED" contentDisplay="GRAPHIC_ONLY" maxHeight="-Infinity" minHeight="-Infinity" onAction="#goHome" prefHeight="75.0" prefWidth="100.0" styleClass="buttonToolbar" stylesheets="@Default.css" textFill="#012d5a">
+                                                    <graphic>
+                                                        <FontAwesomeIconView fx:id="home" fill="#012d5a" glyphName="HOME" size="50" />
+                                                    </graphic>
+                                                    <HBox.margin>
+                                                        <Insets right="10.0" />
+                                                    </HBox.margin>
+                                                </JFXButton>
+                                            </children>
+                                        </HBox>
+                                    </children>
+                                </GridPane>
+                            </children>
+                        </HBox>
+                    </center>
                 </JFXToolbar>
                 <ToolBar maxHeight="-Infinity" minHeight="-Infinity" prefHeight="10.0" prefWidth="200.0" styleClass="tool-barSecondary" stylesheets="@Default.css" VBox.vgrow="NEVER" />
                 <GridPane alignment="CENTER" hgap="5.0" prefHeight="282.0">
