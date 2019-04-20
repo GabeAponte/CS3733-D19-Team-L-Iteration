@@ -1,7 +1,5 @@
 package edu.wpi.cs3733.d19.teamL.Map.MapEditing;
 
-import com.jfoenix.controls.JFXScrollPane;
-import edu.wpi.cs3733.d19.teamL.API.UpdateLocationThread;
 import edu.wpi.cs3733.d19.teamL.Map.MapLocations.CircleLocation;
 import edu.wpi.cs3733.d19.teamL.Map.MapLocations.Edge;
 import edu.wpi.cs3733.d19.teamL.Map.MapLocations.LineEdge;
@@ -13,11 +11,9 @@ import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXTextField;
 import edu.wpi.cs3733.d19.teamL.HomeScreens.HomeScreenController;
 import edu.wpi.cs3733.d19.teamL.Singleton;
-import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.application.Platform;
-import javafx.beans.property.DoubleProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -42,7 +38,6 @@ import javafx.scene.shape.Circle;
 import javafx.scene.shape.Line;
 import javafx.scene.shape.Polygon;
 import javafx.scene.text.Font;
-import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 import net.kurobako.gesturefx.GesturePane;
@@ -57,7 +52,7 @@ import static javafx.scene.control.ScrollPane.ScrollBarPolicy.NEVER;
 public class EditLocationController {
 
     @FXML
-    Button back;
+    Button backButton;
 
     @FXML
     Button downloadNode;
@@ -98,10 +93,14 @@ public class EditLocationController {
 
     private CircleLocation lastCircle;
     private boolean animationPlayed = false;
+    private boolean showEdge = false;
 
     private ArrayList<String> mapURLs = new ArrayList<String>();
     private ArrayList<CircleLocation> circles = new ArrayList<CircleLocation>();
     private ArrayList<LineEdge> lines = new ArrayList<LineEdge>();
+
+    private ArrayList<LineEdge> showedges = new ArrayList<LineEdge>();
+
     private ArrayList<ScrollPane> sps = new ArrayList<ScrollPane>();
     private ArrayList<Polygon> pns = new ArrayList<Polygon>();
 
@@ -145,6 +144,7 @@ public class EditLocationController {
             eraseNodes();
             drawNodes();
         }
+        showEdge=false;
     }
     @FXML
     private void clickedL1(){
@@ -157,6 +157,7 @@ public class EditLocationController {
             eraseNodes();
             drawNodes();
         }
+        showEdge=false;
     }
 
     @FXML public void clickedL2(){
@@ -169,6 +170,7 @@ public class EditLocationController {
             eraseNodes();
             drawNodes();
         }
+        showEdge=false;
     }
     @FXML
     private void clicked1(){
@@ -181,6 +183,7 @@ public class EditLocationController {
             eraseNodes();
             drawNodes();
         }
+        showEdge=false;
     }
     @FXML
     private void clicked2(){
@@ -193,6 +196,7 @@ public class EditLocationController {
             eraseNodes();
             drawNodes();
         }
+        showEdge=false;
     }
     @FXML
     private void clicked3(){
@@ -205,6 +209,7 @@ public class EditLocationController {
             eraseNodes();
             drawNodes();
         }
+        showEdge=false;
     }
 
     @FXML
@@ -243,7 +248,7 @@ public class EditLocationController {
                         HomeScreenController controller = loader.<HomeScreenController>getController();
                         controller.displayPopup();
 
-                        Stage thisStage = (Stage) back.getScene().getWindow();
+                        Stage thisStage = (Stage) backButton.getScene().getWindow();
 
                         Scene newScene = new Scene(sceneMain);
                         thisStage.setScene(newScene);
@@ -370,7 +375,7 @@ public class EditLocationController {
 
 
     private void eraseNodes(){
-        circles.add(thisCircle);
+//        circles.add(thisCircle);
         for (Circle c: circles){
             pathPane.getChildren().remove(c);
         }
@@ -513,7 +518,7 @@ public class EditLocationController {
         }
         Parent sceneMain = loader.load();
 
-        Stage theStage = (Stage) back.getScene().getWindow();
+        Stage theStage = (Stage) backButton.getScene().getWindow();
 
         Scene scene = new Scene(sceneMain);
         theStage.setScene(scene);
@@ -851,11 +856,35 @@ public class EditLocationController {
                             Edge e = new Edge(clStart.getLocation().getLocID()+"_"+
                                     clEnd.getLocation().getLocID(), clStart.getLocation(), clEnd.getLocation());
                             single.addEdge(clStart.getLocation(),clEnd.getLocation(),e);
+
+                            CircleLocation endcl = new CircleLocation();
+                            LineEdge line = new LineEdge();
+
+                            line.setStartX(e.getEndNode().getXcoord() * childPane.getWidth() / Map.getImage().getWidth());
+                            line.setStartY(e.getEndNode().getYcoord() * childPane.getHeight() / Map.getImage().getHeight());
+                            line.setEndX(e.getStartNode().getXcoord() * childPane.getWidth() / Map.getImage().getWidth());
+                            line.setEndY(e.getStartNode().getYcoord() * childPane.getHeight() / Map.getImage().getHeight());
+
+                            line.startXProperty().bind(clStart.centerXProperty());
+                            line.startYProperty().bind(clStart.centerYProperty());
+                            line.endXProperty().bind(clEnd.centerXProperty());
+                            line.endYProperty().bind(clEnd.centerYProperty());
+                            line.setE(e);
+                            clStart.getLineList().add(line);
+                            clEnd.getLineList().add(line);
+                            pathPane.getChildren().add(line);
+                            lines.add(line);
+                            line.toBack();
+
                             addEdgeList.remove(clStart);
                             addEdgeList.remove(clEnd);
                             crossEdgeList.clear();
-                            eraseNodes();
-                            drawNodes();
+                            clStart.setStroke(Color.web("RED"));
+                            clStart.setFill(Color.web("RED"));
+                            clEnd.setStroke(Color.web("RED"));
+                            clEnd.setFill(Color.web("RED"));
+                            //eraseNodes();
+                            //drawNodes();
                         }
                         else{
                             System.out.println("Oh no");
@@ -914,10 +943,11 @@ public class EditLocationController {
                                 //nothing
                             }
                             else {
+                                System.out.println("loc " + loc + "\n Edges " + edgeslist);
                                 CircleLocation endcl = new CircleLocation();
                                 for (Edge e: edgeslist){
                                     LineEdge line = new LineEdge();
-                                    for(int i = 1; i< circles.size(); i++){
+                                    for(int i = 0; i< circles.size(); i++){
                                         String ID = circles.get(i).getLocation().getLocID();
                                         if(ID.equals(e.getEndID())||ID.equals(e.getStartID())&&
                                                 !(ID.equals(loc.getLocation().getLocID()))){
@@ -1237,13 +1267,62 @@ public class EditLocationController {
                 }
     };
 
-    @FXML
-    private void logOut() throws IOException {
+    //Larry - button press to show all the edges
+    public void buttonShowEdges(){
+        if(showEdge == false){
+            showEdge = true;
 
+            Singleton single = Singleton.getInstance();
+            single.setLastTime();
+            ArrayList<Location> nodes = new ArrayList<Location>();
+            ArrayList<Edge> edgeslist = new ArrayList<>();
+            for (int i = 0; i < single.getData().size(); i++) {
+                if (single.getData().get(i).getFloor().equals(floorNum())/* current Map floor*/) {
+                    nodes.add(single.getData().get(i));
+                }
+            }
+
+            for(Location l : nodes){
+                for(int i =0; i < l.getEdges().size(); i++){
+                    if(!edgeslist.contains(l.getEdges().get(i))&&l.getEdges().get(i).getStartNode().getFloor().equals(floorNum())
+                            &&l.getEdges().get(i).getEndNode().getFloor().equals(floorNum())){
+                        edgeslist.add(l.getEdges().get(i));
+                    }
+                }
+            }
+
+            for (Edge e: edgeslist){
+
+                LineEdge line = new LineEdge();
+                line.setStartX(e.getEndNode().getXcoord() * childPane.getWidth() / Map.getImage().getWidth());
+                line.setStartY(e.getEndNode().getYcoord() * childPane.getHeight() / Map.getImage().getHeight());
+                line.setEndX(e.getStartNode().getXcoord() * childPane.getWidth() / Map.getImage().getWidth());
+                line.setEndY(e.getStartNode().getYcoord() * childPane.getHeight() / Map.getImage().getHeight());
+
+
+                line.setE(e);
+                pathPane.getChildren().add(line);
+                lines.add(line);
+                showedges.add(line);
+                line.toBack();
+
+                line.setOnMousePressed(lineOnMousePressedEventHandler);
+            }
+        }
+        else{
+            showEdge = false;
+            for(Line l : showedges){
+                pathPane.getChildren().remove(l);
+            }
+            for(Line l : lines){
+                pathPane.getChildren().remove(l);
+            }
+            lines.clear();
+            showedges.clear();
+
+            }
+        }
     }
 
-    @FXML
-    private void goHome() throws IOException {
 
-    }
-}
+
