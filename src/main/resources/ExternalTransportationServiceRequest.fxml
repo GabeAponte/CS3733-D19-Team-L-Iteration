@@ -16,15 +16,11 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<?import javafx.stage.Screen?>
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="${screen.visualBounds.height}" prefWidth="${screen.visualBounds.width}" style="-fx-background-color: #012D5A;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.d19.teamL.ServiceRequest.MakeServiceRequest.ExternalTransportationController">
-    <fx:define>
-        <Screen fx:factory="getPrimary" fx:id="screen"/>
-    </fx:define>
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720" prefWidth="1280" styleClass="AnchorPainMain" stylesheets="@Default.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.d19.teamL.ServiceRequest.MakeServiceRequest.ExternalTransportationController">
     <children>
         <VBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
             <children>
-                <JFXToolbar maxHeight="-Infinity" minHeight="-Infinity" prefHeight="100.0" prefWidth="1280.0" style="-fx-background-color: WHITE;" VBox.vgrow="NEVER">
+                <JFXToolbar maxHeight="-Infinity" minHeight="-Infinity" prefHeight="100.0" prefWidth="1280.0" styleClass="tool-barMain" stylesheets="@Default.css" VBox.vgrow="NEVER">
                     <left>
                         <ImageView fitHeight="75.0" fitWidth="325.0" BorderPane.alignment="CENTER">
                             <image>
@@ -39,7 +35,7 @@
                         <Insets left="10.0" right="10.0" />
                     </padding>
                <right>
-                  <JFXButton fx:id="Back" alignment="CENTER" buttonType="RAISED" contentDisplay="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" onAction="#backPressed" prefHeight="75.0" prefWidth="87.0" style="-fx-background-radius: 100000; -fx-border-color: #012D5A; -fx-border-radius: 100; -fx-border-width: 2;" stylesheets="@toolbarIcons.css" text=" " textFill="WHITE" BorderPane.alignment="CENTER">
+                  <JFXButton fx:id="Back" alignment="CENTER" buttonType="RAISED" contentDisplay="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" onAction="#backPressed" prefHeight="75.0" prefWidth="87.0" styleClass="buttonToolbar" stylesheets="@Default.css" text=" " textFill="WHITE" BorderPane.alignment="CENTER">
                      <font>
                         <Font size="20.0" />
                      </font>
@@ -49,7 +45,7 @@
                   </JFXButton>
                </right>
                 </JFXToolbar>
-                <JFXToolbar maxHeight="-Infinity" minHeight="-Infinity" prefHeight="10.0" prefWidth="1280.0" style="-fx-background-color: F5D96B;" VBox.vgrow="NEVER" />
+                <JFXToolbar maxHeight="-Infinity" minHeight="-Infinity" prefHeight="10.0" prefWidth="1280.0" styleClass="tool-barSecondary" stylesheets="@Default.css" VBox.vgrow="NEVER" />
             <GridPane prefHeight="734.0" prefWidth="1280.0">
               <columnConstraints>
                 <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="33.3333333333" prefWidth="100.0" />
@@ -62,7 +58,7 @@
                 <RowConstraints maxHeight="290.8639831542969" minHeight="10.0" prefHeight="269.1792297363281" vgrow="SOMETIMES" />
               </rowConstraints>
                <children>
-                        <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="37.0" prefWidth="464.0" text="External Transportation Request" textAlignment="CENTER" textFill="#f5d96b" GridPane.columnSpan="3" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+                        <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="37.0" prefWidth="464.0" styleClass="labelTitle" stylesheets="@Default.css" text="External Transportation Request" textAlignment="CENTER" textFill="#f5d96b" GridPane.columnSpan="3" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
                             <font>
                                 <Font size="30.0" />
                             </font>
@@ -70,7 +66,7 @@
                                 <Blend />
                             </effect>
                         </Label>
-                  <JFXButton fx:id="maps" contentDisplay="TOP" onAction="#openMaps" prefHeight="145.0" prefWidth="315.0" style="-fx-border-color: #f5d96b; -fx-border-radius: 10; -fx-border-width: 5; -fx-background-radius: 10;" stylesheets="@HomeButtonStyle.css" text="Google Maps" textFill="WHITE" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
+                  <JFXButton fx:id="maps" contentDisplay="TOP" onAction="#openMaps" prefHeight="145.0" prefWidth="315.0" style="-fx-border-radius: 10; -fx-border-width: 5; -fx-background-radius: 10;" styleClass="buttonMain" stylesheets="@Default.css" text="Google Maps" textFill="WHITE" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
                      <font>
                         <Font size="40.0" />
                      </font>
@@ -78,7 +74,7 @@
                         <FontAwesomeIconView fill="WHITE" glyphName="GLOBE" size="50" />
                      </graphic>
                   </JFXButton>
-                  <JFXButton fx:id="lyft" contentDisplay="TOP" onAction="#openLyft" prefHeight="145.0" prefWidth="315.0" style="-fx-border-color: #f5d96b; -fx-border-radius: 10; -fx-border-width: 5; -fx-background-radius: 10;" stylesheets="@HomeButtonStyle.css" text="Lyft" textFill="WHITE" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
+                  <JFXButton fx:id="lyft" contentDisplay="TOP" onAction="#openLyft" prefHeight="145.0" prefWidth="315.0" style="-fx-border-radius: 10; -fx-border-width: 5; -fx-background-radius: 10;" styleClass="buttonMain" stylesheets="@Default.css" text="Lyft" textFill="WHITE" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
                      <font>
                         <Font size="39.0" />
                      </font>
@@ -86,7 +82,7 @@
                         <FontAwesomeIconView fill="WHITE" glyphName="TAXI" size="50" />
                      </graphic>
                   </JFXButton>
-                  <JFXButton fx:id="uber" contentDisplay="TOP" onAction="#openUber" prefHeight="145.0" prefWidth="315.0" style="-fx-border-color: #f5d96b; -fx-border-radius: 10; -fx-border-width: 5; -fx-background-radius: 10;" stylesheets="@HomeButtonStyle.css" text="Uber" textFill="WHITE" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
+                  <JFXButton fx:id="uber" contentDisplay="TOP" onAction="#openUber" prefHeight="145.0" prefWidth="315.0" style="-fx-border-radius: 10; -fx-border-width: 5; -fx-background-radius: 10;" styleClass="buttonMain" stylesheets="@Default.css" text="Uber" textFill="WHITE" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
                      <font>
                         <Font size="40.0" />
                      </font>
@@ -94,7 +90,7 @@
                         <FontAwesomeIconView fill="WHITE" glyphName="TAXI" size="50" />
                      </graphic>
                   </JFXButton>
-                  <JFXButton fx:id="flight" contentDisplay="TOP" onAction="#openFlight" prefHeight="145.0" prefWidth="315.0" style="-fx-border-color: #f5d96b; -fx-border-radius: 10; -fx-border-width: 5; -fx-background-radius: 10;" stylesheets="@HomeButtonStyle.css" text="Flights" textFill="WHITE" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER">
+                  <JFXButton fx:id="flight" contentDisplay="TOP" onAction="#openFlight" prefHeight="145.0" prefWidth="315.0" style="-fx-border-radius: 10; -fx-border-width: 5; -fx-background-radius: 10;" styleClass="buttonMain" stylesheets="@Default.css" text="Flights" textFill="WHITE" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER">
                      <font>
                         <Font size="40.0" />
                      </font>
@@ -102,7 +98,7 @@
                         <FontAwesomeIconView fill="WHITE" glyphName="PLANE" size="50" />
                      </graphic>
                   </JFXButton>
-                  <JFXButton fx:id="taxi" contentDisplay="TOP" onAction="#openTaxi" prefHeight="145.0" prefWidth="315.0" style="-fx-border-color: #f5d96b; -fx-border-radius: 10; -fx-border-width: 5; -fx-background-radius: 10;" stylesheets="@HomeButtonStyle.css" text="Taxi" textFill="WHITE" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER">
+                  <JFXButton fx:id="taxi" contentDisplay="TOP" onAction="#openTaxi" prefHeight="145.0" prefWidth="315.0" style="-fx-border-radius: 10; -fx-border-width: 5; -fx-background-radius: 10;" styleClass="buttonMain" stylesheets="@Default.css" text="Taxi" textFill="WHITE" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER">
                      <font>
                         <Font size="40.0" />
                      </font>

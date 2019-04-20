@@ -138,25 +138,10 @@ public class BookRoom2Controller {
         timeout.stop();
         Singleton single = Singleton.getInstance();
         single.setLastTime();
-        FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("EmployeeLoggedInHome.fxml"));
-        if(single.isIsAdmin()) {
-            loader = new FXMLLoader(getClass().getClassLoader().getResource("AdminLoggedInHome.fxml"));
-        }
-        Parent sceneMain = loader.load();
-        Stage theStage = (Stage) bookRoom2Back.getScene().getWindow();
-        Scene scene = new Scene(sceneMain);
-        theStage.setScene(scene);
-    }
-
-    @FXML
-    private void switchToBookScreen() throws IOException {
-        timeout.stop();
-        Singleton single = Singleton.getInstance();
-        single.setLastTime();
         FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("BookRoom.fxml"));
         Parent sceneMain = loader.load();
         BookRoomController controller = loader.<BookRoomController>getController();
-        Stage theStage = (Stage) goToBookRoom.getScene().getWindow();
+        Stage theStage = (Stage) bookRoom2Back.getScene().getWindow();
         Scene scene = new Scene(sceneMain);
         theStage.setScene(scene);
     }
@@ -236,9 +221,11 @@ public class BookRoom2Controller {
                     if (item == null || !item){
                         setText("Occupied");
                         setStyle("-fx-background-color: red");
+
                     } else {
                         setText("Available");
                         setStyle("-fx-background-color: green");
+
                     }
                 }
             };

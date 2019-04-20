@@ -390,25 +390,10 @@ public class WeeklyScheduleController
         timeout.stop();
         Singleton single = Singleton.getInstance();
         single.setLastTime();
-        FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("EmployeeLoggedInHome.fxml"));
-        if(single.isIsAdmin()) {
-            loader = new FXMLLoader(getClass().getClassLoader().getResource("AdminLoggedInHome.fxml"));
-        }
-        Parent sceneMain = loader.load();
-        Stage theStage = (Stage) weeklyBack.getScene().getWindow();
-        Scene scene = new Scene(sceneMain);
-        theStage.setScene(scene);
-    }
-
-    @FXML
-    public void switchToBookRoom() throws IOException {
-        timeout.stop();
-        Singleton single = Singleton.getInstance();
-        single.setLastTime();
         FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("BookRoom.fxml"));
         Parent sceneMain = loader.load();
         BookRoomController controller = loader.<BookRoomController>getController();
-        Stage theStage = (Stage) goToBookRoom.getScene().getWindow();
+        Stage theStage = (Stage) weeklyBack.getScene().getWindow();
         Scene scene = new Scene(sceneMain);
         theStage.setScene(scene);
     }

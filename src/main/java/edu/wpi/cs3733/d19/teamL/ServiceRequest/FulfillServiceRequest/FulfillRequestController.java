@@ -239,7 +239,7 @@ public class FulfillRequestController {
         timeout.stop();
         Singleton single = Singleton.getInstance();
         single.setLastTime();
-        FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("NewActiveServiceRequests.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("ActiveServiceRequests.fxml"));
         Parent roots = loader.load();
 
         //Get controller of scene2
