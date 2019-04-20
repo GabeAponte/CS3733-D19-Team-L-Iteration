@@ -2,6 +2,7 @@ package edu.wpi.cs3733.d19.teamL.RoomBooking;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -19,7 +20,10 @@ public class Room{
     boolean class9;
     boolean auditorium;
 
-    public Room(String startTime, String endTime, ArrayList<String> theRooms){
+    public Room(LocalTime startTime, LocalTime endTime, ArrayList<String> theRooms){
+
+
+
         int milTime = Integer.parseInt(startTime);
         int endMilTime = Integer.parseInt(endTime);
 
