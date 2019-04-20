@@ -1,10 +1,7 @@
 package edu.wpi.cs3733.d19.teamL.Map.Pathfinding;
 
+import com.jfoenix.controls.*;
 import com.jfoenix.controls.JFXButton;
-import com.jfoenix.controls.JFXButton;
-import com.jfoenix.controls.JFXScrollPane;
-import com.jfoenix.controls.JFXTextArea;
-import com.jfoenix.controls.JFXComboBox;
 import edu.wpi.cs3733.d19.teamL.HomeScreens.HomeScreenController;
 import edu.wpi.cs3733.d19.teamL.Map.MapLocations.Location;
 import edu.wpi.cs3733.d19.teamL.Map.MapLocations.Path;
@@ -17,6 +14,7 @@ import javafx.application.Platform;
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -178,6 +176,9 @@ public class PathFindingController {
 
     @FXML
     private AnchorPane settingPane;
+
+    @FXML
+    private JFXSlider sliderBar;
 
     Location kioskTemp;
 
@@ -530,6 +531,7 @@ public class PathFindingController {
         F4.toFront();
         vBottom.toFront();
         vLeft.toFront();
+        sliderBar.toFront();
         startLabel = new Label();
         endLabel = new Label();
         hereLabel = new Label();
@@ -557,6 +559,20 @@ public class PathFindingController {
             public void run() {
                 displayKiosk();
                 startNode = kioskTemp;
+            }
+        });
+
+        sliderBar.valueProperty().addListener(new ChangeListener<Number>() {
+            @Override
+            public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
+                gesturePane.zoomTo(sliderBar.getValue(), gesturePane.viewportCentre());
+            }
+        });
+
+        gesturePane.currentScaleProperty().addListener(new ChangeListener<Number>() {
+            @Override
+            public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
+                sliderBar.setValue(gesturePane.getCurrentScale());
             }
         });
     }
@@ -2355,7 +2371,7 @@ public class PathFindingController {
 
     //Alex
     @FXML
-    public void submitSearchField(Event ae) {
+    private void submitSearchField(Event ae) {
         Filter.setValue(null);
         Floor.setValue(null);
         noHall();
@@ -2372,5 +2388,4 @@ public class PathFindingController {
             }
         }
     }
-
 }
