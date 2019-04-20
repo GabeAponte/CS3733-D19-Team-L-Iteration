@@ -6,7 +6,6 @@
 <?import com.jfoenix.controls.JFXTextField?>
 <?import com.jfoenix.controls.JFXToolbar?>
 <?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
-<?import java.net.URL?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.effect.Blend?>
@@ -20,15 +19,12 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<?import javafx.stage.Screen?>
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="${screen.visualBounds.height}" prefWidth="${screen.visualBounds.width}" style="-fx-background-color: #012D5A;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.d19.teamL.ServiceRequest.MakeServiceRequest.SecurityRequestController">
-   <fx:define>
-      <Screen fx:factory="getPrimary" fx:id="screen"/>
-   </fx:define>
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720" prefWidth="1280" styleClass="AnchorPainMain" stylesheets="@Default.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.d19.teamL.ServiceRequest.MakeServiceRequest.SecurityRequestController">
+
    <children>
       <VBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
-            <JFXToolbar prefHeight="100.0" prefWidth="1280.0" style="-fx-background-color: WHITE;">
+            <JFXToolbar prefHeight="100.0" prefWidth="1280.0" styleClass="tool-barMain" stylesheets="@Default.css">
                <left>
                   <ImageView fitHeight="75.0" fitWidth="325.0" BorderPane.alignment="CENTER">
                      <image>
@@ -43,7 +39,7 @@
                   <Insets left="10.0" right="10.0" />
                </padding>
                <right>
-                  <JFXButton fx:id="Back" alignment="CENTER" buttonType="RAISED" contentDisplay="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" onAction="#backPressed" prefHeight="75.0" prefWidth="87.0" style="-fx-background-radius: 100000; -fx-border-color: #012D5A; -fx-border-radius: 100; -fx-border-width: 2;" stylesheets="@toolbarIcons.css" text=" " textFill="WHITE" BorderPane.alignment="CENTER">
+                  <JFXButton fx:id="Back" alignment="CENTER" buttonType="RAISED" contentDisplay="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" onAction="#backPressed" prefHeight="75.0" prefWidth="87.0" styleClass="buttonToolbar" stylesheets="@Default.css" text=" " textFill="WHITE" BorderPane.alignment="CENTER">
                      <font>
                         <Font size="20.0" />
                      </font>
@@ -53,7 +49,7 @@
                   </JFXButton>
                </right>
             </JFXToolbar>
-            <JFXToolbar prefHeight="10.0" prefWidth="1280.0" style="-fx-background-color: F5D96B;" />
+            <JFXToolbar prefHeight="10.0" prefWidth="1280.0" styleClass="tool-barSecondary" stylesheets="@Default.css" />
             <GridPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="610.0" prefWidth="1280.0" VBox.vgrow="ALWAYS">
               <columnConstraints>
                 <ColumnConstraints halignment="CENTER" hgrow="ALWAYS" maxWidth="1.7976931348623157E308" percentWidth="20.0" prefWidth="256.0" />
@@ -70,7 +66,7 @@
                   <RowConstraints maxHeight="1.7976931348623157E308" percentHeight="20.0" prefHeight="122.0" vgrow="NEVER" />
               </rowConstraints>
                <children>
-                  <Label alignment="CENTER" contentDisplay="CENTER" text="Security Service Request" textFill="#f5d96b" GridPane.columnIndex="1" GridPane.columnSpan="3" GridPane.vgrow="ALWAYS">
+                  <Label alignment="CENTER" contentDisplay="CENTER" styleClass="labelTitle" stylesheets="@Default.css" text="Security Service Request" textFill="#f5d96b" GridPane.columnIndex="1" GridPane.columnSpan="3" GridPane.vgrow="ALWAYS">
                      <font>
                         <Font size="30.0" />
                      </font>
@@ -78,7 +74,7 @@
                         <Blend />
                      </effect>
                   </Label>
-                  <JFXButton fx:id="Submit" alignment="CENTER" buttonType="RAISED" contentDisplay="CENTER" onAction="#submitClicked" prefHeight="61.0" prefWidth="155.0" style="-fx-border-color: F5D96B; -fx-border-width: 2; -fx-border-radius: 50; -fx-background-radius: 50;" stylesheets="@book-room.css" text="Submit" textFill="WHITE" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="4" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
+                  <JFXButton fx:id="Submit" alignment="CENTER" buttonType="RAISED" contentDisplay="CENTER" onAction="#submitClicked" prefHeight="61.0" prefWidth="155.0" style="-fx-border-width: 2; -fx-border-radius: 50; -fx-background-radius: 50;" styleClass="buttonMain" stylesheets="@Default.css" text="Submit" textFill="WHITE" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="4" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
                      <font>
                         <Font size="30.0" />
                      </font>
@@ -103,7 +99,7 @@
                         <Font size="23.0" />
                      </font>
                   </JFXButton>
-                  <JFXTextField fx:id="Identifiers" focusColor="#f6bd38" onAction="#reenableSubmit" prefHeight="40.0" prefWidth="148.0" promptText="Identifiers " style="-jfx-prompt-text: WHITE;" stylesheets="@modify-prompt-text.css" unFocusColor="WHITE" GridPane.rowIndex="2">
+                  <JFXTextField fx:id="Identifiers" focusColor="#f6bd38" onAction="#reenableSubmit" prefHeight="40.0" prefWidth="148.0" promptText="Identifiers " stylesheets="@Default.css" unFocusColor="WHITE" GridPane.rowIndex="2">
                      <font>
                         <Font size="20.0" />
                      </font>
@@ -111,7 +107,7 @@
                         <Insets left="20.0" right="20.0" />
                      </GridPane.margin>
                   </JFXTextField>
-                  <JFXTextField fx:id="Location" focusColor="#f6bd38" onAction="#reenableSubmit" prefHeight="40.0" prefWidth="248.0" promptText="Location" style="-jfx-prompt-text: WHITE;" stylesheets="@modify-prompt-text.css" unFocusColor="WHITE" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                  <JFXTextField fx:id="Location" focusColor="#f6bd38" onAction="#reenableSubmit" prefHeight="40.0" prefWidth="248.0" promptText="Location" stylesheets="@Default.css" unFocusColor="WHITE" GridPane.columnIndex="1" GridPane.rowIndex="2">
                      <font>
                         <Font size="20.0" />
                      </font>
@@ -119,7 +115,7 @@
                         <Insets left="20.0" right="20.0" />
                      </GridPane.margin>
                   </JFXTextField>
-                  <JFXTextArea fx:id="Description" focusColor="#f6bd38" onInputMethodTextChanged="#reenableSubmit" onKeyPressed="#reenableSubmit" onKeyReleased="#reenableSubmit" onKeyTyped="#reenableSubmit" prefHeight="59.0" prefWidth="768.0" promptText="Add a description here" style="-fx-background-color: WHITE;" unFocusColor="#ffffff00" GridPane.columnIndex="2" GridPane.columnSpan="3" GridPane.rowIndex="2" GridPane.rowSpan="2">
+                  <JFXTextArea fx:id="Description" focusColor="#f6bd38" onInputMethodTextChanged="#reenableSubmit" onKeyPressed="#reenableSubmit" onKeyReleased="#reenableSubmit" onKeyTyped="#reenableSubmit" prefHeight="59.0" prefWidth="768.0" promptText="Add a description here" styleClass="jfx-text-areaServiceRequest" stylesheets="@Default.css" unFocusColor="#ffffff00" GridPane.columnIndex="2" GridPane.columnSpan="3" GridPane.rowIndex="2" GridPane.rowSpan="2">
                      <font>
                         <Font size="20.0" />
                      </font>
@@ -127,11 +123,7 @@
                         <Insets bottom="20.0" left="50.0" right="50.0" top="20.0" />
                      </GridPane.margin>
                   </JFXTextArea>
-                  <JFXComboBox fx:id="Type" onAction="#reenableSubmit" prefHeight="44.0" prefWidth="308.0" promptText="Type" GridPane.columnSpan="2" GridPane.rowIndex="3">
-                     <stylesheets>
-                        <URL value="@modify-prompt-text.css" />
-                        <URL value="@size.css" />
-                     </stylesheets>
+                  <JFXComboBox fx:id="Type" onAction="#reenableSubmit" prefHeight="44.0" prefWidth="308.0" promptText="Type" stylesheets="@Default.css" GridPane.columnSpan="2" GridPane.rowIndex="3">
                      <GridPane.margin>
                         <Insets left="20.0" right="20.0" />
                      </GridPane.margin>
