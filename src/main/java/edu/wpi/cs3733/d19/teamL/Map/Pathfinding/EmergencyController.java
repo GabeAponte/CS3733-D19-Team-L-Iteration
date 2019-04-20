@@ -240,14 +240,28 @@ public class EmergencyController {
 
         for(int i=0; i<single.getData().size(); i++) {
             //if nodetype contains keyword
-            if (single.getData().get(i).getNodeType().contains("EXIT")) {
+            if (single.getData().get(i).getNodeType().contains("EXIT") && single.getData().get(i).getFloor().equals(kioskTemp.getFloor())) {
                 nodes.add(single.getData().get(i));
                 //System.out.println("node added");
 
 
             }
         }
-        //if there are no nodes, dont do anything
+        //if there are no nodes, fill with all exits on differnet floors
+        if(nodes.isEmpty()){
+            System.out.println("nodes are empty???");
+
+            for(int i=0; i<single.getData().size(); i++) {
+                //if nodetype contains keyword
+                if (single.getData().get(i).getNodeType().contains("EXIT")) {
+                    nodes.add(single.getData().get(i));
+                    //System.out.println("node added");
+
+
+                }
+            }
+        }
+
         if(! nodes.isEmpty()){
 
             AStarStrategy astar = new AStarStrategy(single.lookup);
@@ -285,10 +299,11 @@ public class EmergencyController {
                 //a^2 + b^2 = c^2 therefore sqrt gets the length of the distance between kiosk and this node
 
                 //System.out.println("n:"+n+" m:"+m+" length:"+length);
+                System.out.println("location: "+nodes.get(i).getLongName()+"  smallest distance: "+length);
 
                 if(length < smallestDistance){
                     smallestDistance = length;
-                    //System.out.println("xxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"+"  smallest distance: "+smallestDistance);
+                    //System.out.println("location: "+nodes.get(i).getLongName()+"  smallest distance: "+smallestDistance);
                     //set this node to be for pathing
                     closestLOC = nodes.get(i);
                     closestPath = findAbstractPath(astar,kioskTemp, closestLOC, "    ");
@@ -317,6 +332,7 @@ public class EmergencyController {
     private void activateEmergencyMode(){
         //GOTO KIOSKFLOOR
         gotoKioskFloor();
+        //does displaykiosk
         //System.out.println(kioskTemp.getFloor());
 
         //DISPLAY ALL EXITS
@@ -326,10 +342,12 @@ public class EmergencyController {
         //FINDS CLOSEST EXIT
         findClosestExit();
 
+        //displayPath();
 
-        //displayKiosk();
 
         direction.setText(printPath(path.getPath()));
+
+        //System.out.println(printPath(path.getPath()));
     }
 
     private void gotoKioskFloor(){
@@ -389,8 +407,8 @@ public class EmergencyController {
         }
         displayExits();
     }
-
-    @FXML public void clickedL2(){
+    @FXML
+    public void clickedL2(){
         single.setLastTime();
         Map.setImage(new Image("/SoftEng_UI_Mockup_Pics/00_thelowerlevel2.png"));
         currentMap = "L2";
@@ -577,6 +595,7 @@ public class EmergencyController {
         F4.toFront();
         vBottom.toFront();
         vLeft.toFront();
+        direction.toFront();
         startLabel = new Label();
         endLabel = new Label();
         hereLabel = new Label();
