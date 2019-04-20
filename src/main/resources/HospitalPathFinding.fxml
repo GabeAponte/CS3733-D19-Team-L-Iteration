@@ -391,7 +391,7 @@
             </GridPane>
          </children>
       </AnchorPane>
-      <AnchorPane fx:id="settingPane" layoutX="680.0" layoutY="-320.0" prefHeight="300.0" prefWidth="200.0" style="-fx-border-color: #F5D96B; -fx-border-radius: 15; -fx-border-width: 3; -fx-background-radius: 20;" stylesheets="@Default.css" AnchorPane.topAnchor="-320.0">
+      <AnchorPane fx:id="settingPane" layoutX="680.0" layoutY="-320.0" prefHeight="300.0" prefWidth="200.0" style="-fx-border-color: #F5D96B; -fx-border-radius: 15; -fx-border-width: 3; -fx-background-radius: 20;" styleClass="AnchorPainMain" stylesheets="@Default.css" AnchorPane.topAnchor="-320.0">
          <children>
             <GridPane prefHeight="300.0" prefWidth="200.0">
                <columnConstraints>
