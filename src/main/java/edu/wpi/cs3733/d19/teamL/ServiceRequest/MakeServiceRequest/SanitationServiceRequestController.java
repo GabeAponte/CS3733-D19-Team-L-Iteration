@@ -4,6 +4,7 @@ import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXTextArea;
 import edu.wpi.cs3733.d19.teamL.HomeScreens.HomeScreenController;
 import edu.wpi.cs3733.d19.teamL.Map.Pathfinding.NodesAccess;
+import edu.wpi.cs3733.d19.teamL.Memento;
 import edu.wpi.cs3733.d19.teamL.ServiceRequest.ServiceRequestDBAccess.SanitationAccess;
 import edu.wpi.cs3733.d19.teamL.Map.MapLocations.Location;
 import edu.wpi.cs3733.d19.teamL.Singleton;
@@ -18,6 +19,7 @@ import com.jfoenix.controls.JFXButton;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
@@ -30,7 +32,7 @@ public class SanitationServiceRequestController {
     private JFXButton submit1;
 
     @FXML
-    private JFXButton Back2;
+    private JFXButton back;
 
     @FXML
     private JFXComboBox<Location> location1;
@@ -155,26 +157,62 @@ public class SanitationServiceRequestController {
     private void makeRequest() throws IOException{
         Singleton single = Singleton.getInstance();
         single.setLastTime();
+        single.setDoPopup(true);
         SanitationAccess sa = new SanitationAccess();
         sa.makeRequest(location1.getValue().getLocID(), comment1.getText(), typeBox1.getValue(), urgencyLevel1.getValue());
-        backPressed();
+        Memento m = single.getOrig();
+        FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource(m.getFxml()));
+
+        Parent sceneMain = loader.load();
+        Stage theStage = (Stage) comment1.getScene().getWindow();
+
+        Scene scene = new Scene(sceneMain);
+        theStage.setScene(scene);
     }
 
-    //Nathan - changes screen to service sub screen, param "service" determines label on sub screen
     @FXML
     private void backPressed() throws IOException {
         timeout.stop();
         Singleton single = Singleton.getInstance();
         single.setLastTime();
-        FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("ServiceRequest.fxml"));
-
-        Parent sceneMain = loader.load();
-
-        ServiceRequestController controller = loader.<ServiceRequestController>getController();
-
-        Stage theStage = (Stage) Back2.getScene().getWindow();
-
-        Scene scene = new Scene(sceneMain);
-        theStage.setScene(scene);
+        single.setDoPopup(true);
+        Stage thestage = (Stage) comment1.getScene().getWindow();
+        AnchorPane root;
+        Memento m = single.restore();
+        root = FXMLLoader.load(getClass().getClassLoader().getResource(m.getFxml()));
+        Scene scene = new Scene(root);
+        thestage.setScene(scene);
     }
+
+    @FXML
+    private void logOut() throws IOException {
+        timeout.stop();
+        Singleton single = Singleton.getInstance();
+        single.setLastTime();
+        single.setUsername("");
+        single.setIsAdmin(false);
+        single.setLoggedIn(false);
+        single.setDoPopup(true);
+        Stage thestage = (Stage) back.getScene().getWindow();
+        AnchorPane root;
+        Memento m = single.getOrig();
+        root = FXMLLoader.load(getClass().getClassLoader().getResource(m.getFxml()));
+        Scene scene = new Scene(root);
+        thestage.setScene(scene);
+    }
+
+    @FXML
+    private void goHome() throws IOException {
+        timeout.stop();
+        Singleton single = Singleton.getInstance();
+        single.setLastTime();
+        single.setDoPopup(true);
+        Stage thestage = (Stage) back.getScene().getWindow();
+        AnchorPane root;
+        Memento m = single.getOrig();
+        root = FXMLLoader.load(getClass().getClassLoader().getResource(m.getFxml()));
+        Scene scene = new Scene(root);
+        thestage.setScene(scene);
+    }
+
 }

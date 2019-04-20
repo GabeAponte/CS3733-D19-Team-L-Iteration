@@ -8,6 +8,7 @@ import com.jfoenix.controls.JFXComboBox;
 import edu.wpi.cs3733.d19.teamL.HomeScreens.HomeScreenController;
 import edu.wpi.cs3733.d19.teamL.Map.MapLocations.Location;
 import edu.wpi.cs3733.d19.teamL.Map.MapLocations.Path;
+import edu.wpi.cs3733.d19.teamL.Memento;
 import edu.wpi.cs3733.d19.teamL.SearchingAlgorithms.*;
 import edu.wpi.cs3733.d19.teamL.Singleton;
 import javafx.animation.*;
@@ -65,6 +66,9 @@ public class PathFindingController {
     private ColumnConstraints mapColumn;
     @FXML
     private TextArea direction;
+
+    @FXML
+    private Button back;
 
     @FXML
     private Stage thestage;
@@ -218,27 +222,7 @@ public class PathFindingController {
     private String type = "test";
     private String type2 = "";
     private String currentMap = "G"; //defaults to floor G
-    //Larry - This will show up the text direction in pop up screen when you click on the text direction button
-    @FXML
-    private void PopupText(ActionEvent event) throws IOException{
-        Stage stage;
-        Parent root;
-        stage = new Stage();
-        //root = FXMLLoader.load(getClass().getClassLoader().getResource("PopUpTextDirection.fxml"));
-        //stage.setScene(new Scene(root));
-        //stage.setTitle("I am Text Direction");
-        //stage.initModality(Modality.APPLICATION_MODAL);
-        //stage.show();
-        FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("PopUpTextDirection.fxml"));
-        Parent sceneMain = loader.load();
-        TextDirectionController controller = loader.<TextDirectionController>getController();
-        controller.setTextOfDirection(printPath(path.getPath()));
-        Scene scene = new Scene(sceneMain);
-        stage.setScene(scene);
-       // stage.setTitle("I am Text Direction");
-        stage.initModality(Modality.APPLICATION_MODAL);
-        stage.showAndWait();
-    }
+
 
     @FXML
     private Button menu;
@@ -248,6 +232,36 @@ public class PathFindingController {
     public void initialize(URL url, ResourceBundle rb) {
         this.prepareSlideMenuAnimation();
         direction.setEditable(false);
+    }
+
+    public void initWithMeme(String preference, String typeFilter, String floorFilter, Location start, Location end){
+        if(preference != null) {
+            restrictChoice.setValue(preference);
+        }
+        if(start != null) {
+            PathFindStartDrop.setValue(start);
+        } else {
+            Singleton single = Singleton.getInstance();
+            start = single.lookup.get(single.getKioskID());
+            PathFindStartDrop.setValue(start);
+        }
+        if(end != null) {
+            PathFindEndDrop.setValue(end);
+        }
+        if(typeFilter != null) {
+            Filter.setValue(typeFilter);
+        }
+        if(floorFilter != null) {
+            Floor.setValue(floorFilter);
+        }
+        if(start != null && end != null) {
+            Platform.runLater(new Runnable() {
+                @Override
+                public void run() {
+                    submitPressed();
+                }
+            });
+        }
     }
 
     @FXML
@@ -441,8 +455,13 @@ public class PathFindingController {
             public void handle(ActionEvent event) {
                 if((System.currentTimeMillis() - single.getLastTime()) > single.getTimeoutSec()){
                     try{
+                        single.setLastTime();
+                        single.setLoggedIn(false);
+                        single.setUsername("");
+                        single.setIsAdmin(false);
                         single.setDoPopup(true);
-                        FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("HospitalHome.fxml"));
+                        Memento m = single.getOrig();
+                        FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource(m.getFxml()));
                         Parent sceneMain = loader.load();
                         if(single.isLoggedIn()){
                             HomeScreenController controller = loader.<HomeScreenController>getController();
@@ -452,10 +471,6 @@ public class PathFindingController {
 
                         Scene newScene = new Scene(sceneMain);
                         thisStage.setScene(newScene);
-                        single.setLastTime();
-                        single.setLoggedIn(false);
-                        single.setUsername("");
-                        single.setIsAdmin(false);
                         timeout.stop();
                     } catch (IOException io){
                         System.out.println(io.getMessage());
@@ -562,19 +577,35 @@ public class PathFindingController {
     }
 
     @FXML
-    private void logOut() throws IOException{
-        single.setLoggedIn(false);
-        single.setIsAdmin(false);
+    private void logOut() throws IOException {
+        timeout.stop();
+        Singleton single = Singleton.getInstance();
+        single.setLastTime();
         single.setUsername("");
+        single.setIsAdmin(false);
+        single.setLoggedIn(false);
         single.setDoPopup(true);
-        FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("HospitalHome.fxml"));
+        thestage = (Stage) back.getScene().getWindow();
+        AnchorPane root;
+        Memento m = single.getOrig();
+        root = FXMLLoader.load(getClass().getClassLoader().getResource(m.getFxml()));
+        Scene scene = new Scene(root);
+        thestage.setScene(scene);
+    }
 
-        Parent sceneMain = loader.load();
-
-        Stage theStage = (Stage) homebtn.getScene().getWindow();
-
-        Scene scene = new Scene(sceneMain);
-        theStage.setScene(scene);
+    @FXML
+    private void goHome() throws IOException {
+        timeout.stop();
+        Singleton single = Singleton.getInstance();
+        single.setLastTime();
+        single.setDoPopup(true);
+        saveState();
+        thestage = (Stage) back.getScene().getWindow();
+        AnchorPane root;
+        Memento m = single.getOrig();
+        root = FXMLLoader.load(getClass().getClassLoader().getResource(m.getFxml()));
+        Scene scene = new Scene(root);
+        thestage.setScene(scene);
     }
 
     @FXML
@@ -582,32 +613,16 @@ public class PathFindingController {
         timeout.stop();
         single = Singleton.getInstance();
         single.setLastTime();
-        thestage = (Stage) homebtn.getScene().getWindow();
-        AnchorPane root;
+        single.setDoPopup(true);
 
-        if(single.isLoggedIn()) {
-            FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("EmployeeLoggedInHome.fxml"));
-            if(single.isIsAdmin()){
-                loader = new FXMLLoader(getClass().getClassLoader().getResource("AdminLoggedInHome.fxml"));
-            }
-            Parent sceneMain = loader.load();
+        Memento m = single.restore();
+        FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource(m.getFxml()));
+        Parent sceneMain = loader.load();
 
-            Stage theStage = (Stage) homebtn.getScene().getWindow();
+        Stage theStage = (Stage) homebtn.getScene().getWindow();
 
-            Scene scene = new Scene(sceneMain);
-            theStage.setScene(scene);
-            return;
-        } else {
-            single.setDoPopup(true);
-            FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("HospitalHome.fxml"));
-
-            Parent sceneMain = loader.load();
-
-            Stage theStage = (Stage) homebtn.getScene().getWindow();
-
-            Scene scene = new Scene(sceneMain);
-            theStage.setScene(scene);
-        }
+        Scene scene = new Scene(sceneMain);
+        theStage.setScene(scene);
     }
 
     /**
@@ -758,20 +773,6 @@ public class PathFindingController {
 
 
     }
-
-
-        /*
-        showingSettings = !showingSettings;
-
-        if(showingSettings){
-            settingPane.setDisable(false);
-            settingPane.setLayoutY(113);
-        }
-        else{
-            settingPane.setDisable(true);
-            settingPane.setLayoutY(-320);
-        }
-    }*/
 
     @FXML
     private void updateKiosk(){
@@ -2371,6 +2372,14 @@ public class PathFindingController {
                 searchField.setText("");
             }
         }
+    }
+
+    /**@author Nathan
+     * Saves the memento state
+     */
+    private void saveState(){
+        Singleton single = Singleton.getInstance();
+        single.saveMemento("HospitalPathFinding.fxml", restrictChoice.getValue(), Filter.getValue(), Floor.getValue(), PathFindStartDrop.getValue(), PathFindEndDrop.getValue());
     }
 
 }
