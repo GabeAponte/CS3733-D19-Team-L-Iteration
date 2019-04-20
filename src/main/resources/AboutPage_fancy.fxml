@@ -42,7 +42,7 @@
                <right>
                   <HBox alignment="CENTER_RIGHT" minHeight="-Infinity" prefHeight="100.0" prefWidth="148.0" BorderPane.alignment="CENTER">
                      <children>
-                        <JFXButton fx:id="BackButton" alignment="CENTER" buttonType="RAISED" contentDisplay="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" onAction="#GoBackToHome" prefHeight="75.0" prefWidth="87.0" style="-fx-background-radius: 100000; -fx-border-color: #012D5A; -fx-border-radius: 100; -fx-border-width: 2;" stylesheets="@toolbarIcons.css" text=" " textFill="WHITE">
+                        <JFXButton fx:id="back" alignment="CENTER" buttonType="RAISED" contentDisplay="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" onAction="#GoBackToHome" prefHeight="75.0" prefWidth="87.0" style="-fx-background-radius: 100000; -fx-border-color: #012D5A; -fx-border-radius: 100; -fx-border-width: 2;" stylesheets="@toolbarIcons.css" text=" " textFill="WHITE">
                            <font>
                               <Font size="20.0" />
                            </font>

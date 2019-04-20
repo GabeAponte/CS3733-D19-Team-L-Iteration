@@ -117,6 +117,10 @@ public class AdminLoggedInHomeController {
     }
 
     @FXML
+    private void backPressed() throws IOException {
+
+    }
+    @FXML
     private void bookRoom() throws IOException {
         timeout.stop();
         Singleton single = Singleton.getInstance();
@@ -237,6 +241,11 @@ public class AdminLoggedInHomeController {
 
         Scene scene = new Scene(sceneMain);
         theStage.setScene(scene);
+    }
+
+    @FXML
+    private void goHome() throws IOException {
+
     }
 
 }

@@ -59,7 +59,7 @@ public class ServiceRequestController {
 
 
     @FXML
-    public Button Back;
+    public Button back;
 
     Timeline timeout;
 
@@ -83,7 +83,7 @@ public class ServiceRequestController {
                         single.setLastTime();
                         single.setUsername("");
                         single.setIsAdmin(false);
-                        Stage thisStage = (Stage) Back.getScene().getWindow();
+                        Stage thisStage = (Stage) back.getScene().getWindow();
 
                         Scene newScene = new Scene(sceneMain);
                         thisStage.setScene(newScene);
@@ -101,7 +101,7 @@ public class ServiceRequestController {
     protected void backPressed() throws IOException {
         timeout.stop();
         Singleton single = Singleton.getInstance();
-        Stage theStage = (Stage) Back.getScene().getWindow();
+        Stage theStage = (Stage) back.getScene().getWindow();
         AnchorPane root;
         if (single.isLoggedIn()) {
 
@@ -178,7 +178,7 @@ public class ServiceRequestController {
     @FXML
     private void changeToSub(Object e, String fxml) throws IOException{
         timeout.stop();
-        Stage theStage = (Stage) Back.getScene().getWindow();
+        Stage theStage = (Stage) back.getScene().getWindow();
         AnchorPane root;
         FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource(fxml));
 
@@ -199,6 +199,17 @@ public class ServiceRequestController {
             System.out.println("Failed to run API");
             e.printStackTrace();
         }
+    }
+
+    @FXML
+    private void logOut() throws IOException {
+
+    }
+
+
+    @FXML
+    private void goHome() throws IOException {
+
     }
 
 }

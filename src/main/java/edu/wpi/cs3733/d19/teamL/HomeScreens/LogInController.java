@@ -244,5 +244,9 @@ public class LogInController {
     }
 
 
+    @FXML
+    private void goHome() throws IOException {
+
+    }
 
 }

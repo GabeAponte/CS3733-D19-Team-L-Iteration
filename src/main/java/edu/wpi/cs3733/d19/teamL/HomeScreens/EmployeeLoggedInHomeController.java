@@ -216,4 +216,14 @@ public class EmployeeLoggedInHomeController {
         theStage.setScene(scene);
     }
 
+    @FXML
+    private void backPressed() throws IOException {
+
+    }
+
+    @FXML
+    private void goHome() throws IOException {
+
+    }
+
     }

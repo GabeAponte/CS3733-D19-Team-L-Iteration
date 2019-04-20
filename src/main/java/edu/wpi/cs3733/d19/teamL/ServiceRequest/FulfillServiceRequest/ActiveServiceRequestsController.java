@@ -1247,6 +1247,17 @@ public class ActiveServiceRequestsController {
 
         }
     }
+
+    @FXML
+    private void logOut() throws IOException {
+
+    }
+
+
+    @FXML
+    private void goHome() throws IOException {
+
+    }
 }
 
 

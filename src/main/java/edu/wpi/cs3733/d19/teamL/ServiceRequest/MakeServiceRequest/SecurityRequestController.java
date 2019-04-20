@@ -23,7 +23,7 @@ import java.io.IOException;
 
 public class SecurityRequestController {
     @FXML
-    public Button Back;
+    public Button back;
 
     @FXML
     public Button Submit;
@@ -159,9 +159,19 @@ public class SecurityRequestController {
 
         Parent sceneMain = loader.load();
 
-        Stage theStage = (Stage) Back.getScene().getWindow();
+        Stage theStage = (Stage) back.getScene().getWindow();
 
         Scene scene = new Scene(sceneMain);
         theStage.setScene(scene);
+    }
+
+    @FXML
+    private void logOut() throws IOException {
+
+    }
+
+    @FXML
+    private void goHome() throws IOException {
+
     }
 }
