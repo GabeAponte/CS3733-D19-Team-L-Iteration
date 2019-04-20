@@ -383,3 +383,58 @@
     -fx-prompt-text-fill: white;
     -fx-text-fill: white;
 }
+
+.buttonSecurity1{
+    -fx-border-color: green;
+    -fx-text-fill: white;
+}
+
+.buttonSecurity1:hover{
+    -fx-border-color: white;
+    -fx-background-color: green;
+    -fx-text-fill: #012d5a;
+}
+
+.buttonSecurity2{
+    -fx-border-color: #ccff00;
+    -fx-text-fill: white;
+}
+
+.buttonSecurity2:hover{
+    -fx-border-color: white;
+    -fx-background-color: #ccff00;
+    -fx-text-fill: #012d5a;
+}
+
+.buttonSecurity3{
+    -fx-border-color: #ffb300;
+    -fx-text-fill: white;
+}
+
+.buttonSecurity3:hover{
+    -fx-border-color: white;
+    -fx-background-color: #ffb300;
+    -fx-text-fill: #012d5a;
+}
+
+.buttonSecurity4{
+    -fx-border-color: #ff7700;
+    -fx-text-fill: white;
+}
+
+.buttonSecurity4:hover{
+    -fx-border-color: white;
+    -fx-background-color: #ff7700;
+    -fx-text-fill: #012d5a;
+}
+
+.buttonSecurity5{
+    -fx-border-color: #ff1100;
+    -fx-text-fill: white;
+}
+
+.buttonSecurity5:hover{
+    -fx-border-color: white;
+    -fx-background-color:  #ff1100;
+    -fx-text-fill: #012d5a;
+}
