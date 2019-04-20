@@ -25,7 +25,7 @@
    <children>
       <VBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
-            <JFXToolbar prefHeight="100.0" prefWidth="1280.0" styleClass="tool-barMain" stylesheets="@Default.css">
+            <JFXToolbar maxHeight="-Infinity" minHeight="-Infinity" prefHeight="100.0" prefWidth="1280.0" styleClass="tool-barMain" stylesheets="@Default.css">
                <VBox.margin>
                   <Insets />
                </VBox.margin>
@@ -109,7 +109,7 @@
             <JFXToolbar maxHeight="-Infinity" minHeight="-Infinity" prefHeight="10.0" prefWidth="1280.0" styleClass="tool-barSecondary" stylesheets="@Default.css" VBox.vgrow="NEVER" />
             <StackPane fx:id="mainContent" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" style="-fx-background-color:rgba(0,0,0,0.30)" VBox.vgrow="ALWAYS">
                <children>
-                  <GridPane fx:id="gridPane" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                  <GridPane fx:id="gridPane" styleClass="AnchorPainMain" stylesheets="@Default.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                      <columnConstraints>
                         <ColumnConstraints fx:id="mapColumn" percentWidth="68.58906269" />
                         <ColumnConstraints percentWidth="31.41093731" />
@@ -169,6 +169,9 @@
                                              <font>
                                                 <Font size="18.0" />
                                              </font>
+                                             <VBox.margin>
+                                                <Insets bottom="5.0" />
+                                             </VBox.margin>
                                           </JFXRadioButton>
                                           <JFXRadioButton fx:id="vendRadButton" onAction="#vendRadButtPressed" style="-jfx-selected-color: #f5d96b; -jfx-unselected-color: WHITE;" text="Vending Machine" textFill="WHITE">
                                              <font>
@@ -242,14 +245,6 @@
                               <FontAwesomeIconView fill="#012d5a" glyphName="SEARCH" size="25" />
                            </graphic>
                         </JFXButton>
-                        <Label fx:id="thisMap" alignment="CENTER" contentDisplay="CENTER" prefHeight="0.0" prefWidth="191.0" styleClass="labelMapFloor" stylesheets="@Default.css" text="Lower Level 1" textFill="#507090" GridPane.halignment="CENTER" GridPane.valignment="TOP">
-                           <GridPane.margin>
-                              <Insets top="28.0" />
-                           </GridPane.margin>
-                           <font>
-                              <Font name="System Bold" size="25.0" />
-                           </font>
-                        </Label>
                         <JFXButton fx:id="L2" alignment="CENTER" buttonType="RAISED" maxHeight="-Infinity" maxWidth="-Infinity" onAction="#clickedL2" prefHeight="46.0" prefWidth="80.0" styleClass="buttonMap" stylesheets="@Default.css" text="L2" textFill="#012d5a" GridPane.halignment="CENTER" GridPane.valignment="BOTTOM">
                            <font>
                               <Font name="System Bold" size="20.0" />
@@ -306,9 +301,17 @@
                               <Insets bottom="24.0" left="600.0" />
                            </GridPane.margin>
                         </JFXButton>
-                        <VBox fx:id="vLeft" maxWidth="-Infinity" minWidth="-Infinity" prefHeight="200.0" prefWidth="4.0" stylesheets="@Default.css" GridPane.halignment="LEFT" />
+                        <VBox fx:id="vLeft" maxWidth="-Infinity" minWidth="-Infinity" prefHeight="200.0" prefWidth="4.0" styleClass="vboxMapOutline" stylesheets="@Default.css" GridPane.halignment="LEFT" />
                         <HBox fx:id="vBottom" maxHeight="-Infinity" minHeight="-Infinity" prefHeight="4.0" prefWidth="200.0" styleClass="vboxMapOutline" stylesheets="@Default.css" GridPane.valignment="BOTTOM" GridPane.vgrow="NEVER" />
                         <VBox maxWidth="-Infinity" minWidth="-Infinity" prefHeight="200.0" prefWidth="3.25" styleClass="vboxMapOutline" stylesheets="@Default.css" GridPane.columnIndex="1" />
+                        <Label fx:id="thisMap" alignment="CENTER" contentDisplay="CENTER" prefHeight="0.0" prefWidth="191.0" styleClass="labelMapFloor" stylesheets="@Default.css" text="Lower Level 1" textFill="#507090" GridPane.halignment="CENTER" GridPane.valignment="TOP">
+                           <GridPane.margin>
+                              <Insets top="28.0" />
+                           </GridPane.margin>
+                           <font>
+                              <Font name="System Bold" size="25.0" />
+                           </font>
+                        </Label>
                      </children>
                      <StackPane.margin>
                         <Insets />
@@ -339,7 +342,7 @@
                   <RowConstraints vgrow="NEVER" />
                </rowConstraints>
                <children>
-                  <JFXTextField fx:id="searchField" onAction="#submitSearchField" onInputMethodTextChanged="#submitSearchField"  onMouseClicked="#submitSearchField" prefHeight="30.0" prefWidth="274.0" promptText="Search" styleClass="jfx-text-field-normal" stylesheets="@Default.css" unFocusColor="#d33636" GridPane.columnSpan="2147483647" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER">
+                  <JFXTextField fx:id="searchField" onAction="#submitSearchField" onInputMethodTextChanged="#submitSearchField" onMouseClicked="#submitSearchField" prefHeight="30.0" prefWidth="274.0" promptText="Search" styleClass="jfx-text-field-normal" stylesheets="@Default.css" unFocusColor="#d33636" GridPane.columnSpan="2147483647" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER">
                      <GridPane.margin>
                         <Insets bottom="20.0" left="10.0" right="10.0" top="20.0" />
                      </GridPane.margin>
