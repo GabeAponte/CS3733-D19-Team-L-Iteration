@@ -2373,4 +2373,8 @@ public class PathFindingController {
         }
     }
 
+    @FXML
+    private void goHome() throws IOException {
+
+    }
 }

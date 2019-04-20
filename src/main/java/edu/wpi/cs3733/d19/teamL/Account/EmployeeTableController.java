@@ -157,6 +157,11 @@ public class EmployeeTableController{
         thestage.setScene(scene);
     }
 
+    @FXML
+    private void logOut() throws IOException {
+
+    }
+
     /**@author Gabe
      * When double clicking on a row in the table, admin is sent to the create/edit screen
      * and all the employee information from the clicked on row is passed along so that the edit account
@@ -186,7 +191,7 @@ public class EmployeeTableController{
                     Scene scene = new Scene(roots);
                     scene2Controller.setType(3, selectedEmployee.getValue().getID());
                     //timeout.stop();
-                    thestage = (Stage) back.getScene().getWindow();
+                    thestage = (Stage) employees.getScene().getWindow();
                     //Show scene 2 in new window
                     thestage.setScene(scene);
 
@@ -198,6 +203,11 @@ public class EmployeeTableController{
 
             }
         });
+    }
+
+    @FXML
+    private void goHome() throws IOException {
+
     }
 }
 
