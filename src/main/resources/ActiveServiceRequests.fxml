@@ -323,7 +323,7 @@
                                                         <RowConstraints valignment="CENTER" vgrow="SOMETIMES" />
                                                     </rowConstraints>
                                                     <children>
-                                                        <Label alignment="CENTER" prefHeight="45.0" prefWidth="493.0" text="Active Language Assistance Requests" textFill="#f5d96b" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.valignment="CENTER" GridPane.vgrow="NEVER">
+                                                        <Label alignment="CENTER" prefHeight="45.0" prefWidth="608.0" text="Active Language Assistance Requests" textFill="#f5d96b" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.valignment="CENTER" GridPane.vgrow="NEVER">
                                                             <font>
                                                                 <Font size="30.0" />
                                                             </font>
