@@ -629,7 +629,7 @@ public class PathFindingController {
         }
 
         strategyAlgorithm = single.getTypePathfind();
-        System.out.println(strategyAlgorithm.toString());
+        //System.out.println(strategyAlgorithm.toString());
 
         displayingPath = true;
 
