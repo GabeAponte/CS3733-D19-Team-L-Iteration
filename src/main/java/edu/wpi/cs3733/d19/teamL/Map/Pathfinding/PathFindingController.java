@@ -218,6 +218,7 @@ public class PathFindingController {
     private String type = "test";
     private String type2 = "";
     private String currentMap = "G"; //defaults to floor G
+
     //Larry - This will show up the text direction in pop up screen when you click on the text direction button
     @FXML
     private void PopupText(ActionEvent event) throws IOException{

@@ -9,7 +9,9 @@ import com.jfoenix.controls.JFXTimePicker;
 import edu.wpi.cs3733.d19.teamL.Singleton;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
+import javafx.animation.TranslateTransition;
 import javafx.application.Platform;
+import javafx.beans.value.ChangeListener;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -23,6 +25,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
@@ -78,6 +81,12 @@ public class BookRoomController {
     @FXML
     private Button viewWeekly;
 
+    @FXML
+    private Button openResPane;
+
+    @FXML
+    private AnchorPane reservationPane;
+
     Timeline timeout;
     VisualSimulationThread sim;
     private boolean firstTimeRan = true;
@@ -115,8 +124,42 @@ public class BookRoomController {
         DisplayRooms.add(new RoomDisplay("Room 9 - Computer", room9, "Room 9 - Computer"));
         DisplayRooms.add(new RoomDisplay("Mission Hall Auditorium", auditorium, "Mission Hall Auditorium"));
 
+
+
         roomImage.fitWidthProperty().bind(imagePane.widthProperty());
         roomImage.fitHeightProperty().bind(imagePane.heightProperty());
+
+        imagePane.sceneProperty().addListener((observableScene, oldScene, newScene) -> {
+            if (oldScene == null && newScene != null) {
+                // scene is set for the first time. Now its the time to listen stage changes.
+                newScene.windowProperty().addListener((observableWindow, oldWindow, newWindow) -> {
+                    if (oldWindow == null && newWindow != null) {
+                        // stage is set. now is the right time to do whatever we need to the stage in the controller.
+                        ChangeListener<Number> stageSizeListener = (observable, oldValue, newValue) -> {
+
+                            for(int i = 0; i < DisplayRooms.size(); i++){
+                                imagePane.getChildren().remove(DisplayRooms.get(i).getPolygon());
+                            }
+
+                            firstTimeRan = true;
+                            timeout.setCycleCount(Timeline.INDEFINITE);
+                            timeout.play();
+                            Platform.runLater(new Runnable(){
+                                @Override
+                                public void run(){
+                                    //displayFlexSpaces();
+                                    fieldsEntered();
+                                }
+                            });
+
+                        };
+
+                        ((Stage) newWindow).widthProperty().addListener(stageSizeListener);
+                        ((Stage) newWindow).heightProperty().addListener(stageSizeListener);
+                    }
+                });
+            }
+        });
 
         displayFlexSpaces(sim.getSimulation());
 
@@ -342,14 +385,18 @@ public class BookRoomController {
         }
     }
 
-    //Isabella did this
-
+    /** @author Isabella
+     * When the dropdown of availible rooms is generated, the map changes to reflect availiblity.
+     * Clicking on either the map or the dropdown will highlight the corresponding room.
+     */
     @FXML
     public void displayAllRooms() {
 
         if(firstTimeRan) {
-            double scaleRatio = Math.min(roomImage.getFitWidth() / roomImage.getImage().getWidth(), roomImage.getFitHeight() / roomImage.getImage().getHeight());
+            double scaleRatio = 0;
+            scaleRatio = Math.min(roomImage.getFitWidth() / roomImage.getImage().getWidth(), roomImage.getFitHeight() / roomImage.getImage().getHeight());
             for (int i = 0; i < DisplayRooms.size(); i++) {
+                System.out.println(scaleRatio);
                 DisplayRooms.get(i).makePolygon(scaleRatio);
                 DisplayRooms.get(i).getPolygon().setOnMouseClicked(onMouseClickedEventHandler);
                 DisplayRooms.get(i).getPolygon().setVisible(false);
@@ -585,7 +632,43 @@ public class BookRoomController {
         theStage.setScene(scene);
     }
 
+    @FXML
+    private void reservationMenu() {
+        TranslateTransition openNav = new TranslateTransition(new Duration(300.0D), this.reservationPane);
+        openNav.setToX(0.0D);
+        TranslateTransition closeNav = new TranslateTransition(new Duration(300.0D), this.reservationPane);
+        this.openResPane.setOnAction((evt) -> {
+            if (this.reservationPane.getTranslateX() != 130.0D) {
+                openNav.setToX(130);
+                openNav.play();
+            } else {
+                closeNav.setToX(-this.reservationPane.getWidth());
+                closeNav.play();
+            }
 
+        });
+
+         this.openResPane.setOnAction((evt) -> {
+            if (this.reservationPane.getTranslateX() != 130.0D) {
+                openNav.setToX(130);
+                openNav.play();
+            } else {
+                closeNav.setToX(-this.reservationPane.getWidth());
+                closeNav.play();
+            }
+
+        });
+
+        if (this.reservationPane.getTranslateX() != 130.0D) {
+            openNav.setToX(130);
+            openNav.play();
+        } else {
+            closeNav.setToX(-this.reservationPane.getWidth());
+            closeNav.play();
+        }
+
+
+    }
 
 }
 
