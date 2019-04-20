@@ -25,7 +25,7 @@ public class AudioVisualController {
     private String uname;
 
     @FXML
-    public Button Back;
+    public Button back;
 
     @FXML
     public Button Submit;
@@ -119,7 +119,7 @@ public class AudioVisualController {
         FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("ServiceRequest.fxml"));
         Parent sceneMain = loader.load();
 
-        Stage theStage = (Stage) Back.getScene().getWindow();
+        Stage theStage = (Stage) back.getScene().getWindow();
 
         Scene scene = new Scene(sceneMain);
         theStage.setScene(scene);

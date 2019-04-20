@@ -23,7 +23,7 @@ import java.io.IOException;
 
 public class ExternalTransportationController {
     @FXML
-    public Button Back;
+    public Button back;
 
     @FXML
     public Button maps;
@@ -83,7 +83,7 @@ public class ExternalTransportationController {
         FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("ServiceRequest.fxml"));
         Parent sceneMain = loader.load();
 
-        Stage theStage = (Stage) Back.getScene().getWindow();
+        Stage theStage = (Stage) back.getScene().getWindow();
 
         Scene scene = new Scene(sceneMain);
         theStage.setScene(scene);
@@ -93,7 +93,7 @@ public class ExternalTransportationController {
         FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("Browser.fxml"));
         Parent sceneMain = loader.load();
 
-        Stage theStage = (Stage) Back.getScene().getWindow();
+        Stage theStage = (Stage) back.getScene().getWindow();
 
         Scene scene = new Scene(sceneMain);
         theStage.setScene(scene);
