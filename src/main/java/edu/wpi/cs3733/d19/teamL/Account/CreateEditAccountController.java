@@ -4,6 +4,7 @@ import com.github.sarxos.webcam.WebcamPanel;
 import com.github.sarxos.webcam.WebcamResolution;
 import com.jfoenix.controls.*;
 import edu.wpi.cs3733.d19.teamL.HomeScreens.HomeScreenController;
+import edu.wpi.cs3733.d19.teamL.Memento;
 import edu.wpi.cs3733.d19.teamL.Singleton;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
@@ -113,7 +114,7 @@ public class CreateEditAccountController {
 
     private Timeline timeout;
 
-    public void initialize(){
+    public void initialize() {
         Singleton single = Singleton.getInstance();
         single.setLastTime();
 
@@ -121,14 +122,15 @@ public class CreateEditAccountController {
 
             @Override
             public void handle(ActionEvent event) {
-                if((System.currentTimeMillis() - single.getLastTime()) > single.getTimeoutSec()){
-                    try{
+                if ((System.currentTimeMillis() - single.getLastTime()) > single.getTimeoutSec()) {
+                    try {
                         single.setLastTime();
                         single.setDoPopup(true);
                         single.setLoggedIn(false);
                         single.setUsername("");
                         single.setIsAdmin(false);
-                        FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("HospitalHome.fxml"));
+                        Memento m = single.getOrig();
+                        FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource(m.getFxml()));
 
                         Parent sceneMain = loader.load();
                         HomeScreenController controller = loader.getController();
@@ -141,7 +143,7 @@ public class CreateEditAccountController {
                         Scene newScene = new Scene(sceneMain);
                         thisStage.setScene(newScene);
                         timeout.stop();
-                    } catch (IOException io){
+                    } catch (IOException io) {
                         System.out.println(io.getMessage());
                     }
                 }
@@ -161,6 +163,12 @@ public class CreateEditAccountController {
         errorLabel.setText("");
         department.getItems().addAll("Sanitation", "Security", "IT", "Religious", "Audio Visual", "External Transportation", "Internal Transportation",
                 "Language", "Maintenance", "Prescription", "Florist Delivery");
+        if(picView.getImage() == null){
+            picbtn.setText("Add Photo");
+        }
+        if(picView.getImage() != null){
+            picbtn.setText("Retake Photo");
+        }
     }
 
     @FXML
@@ -217,18 +225,14 @@ public class CreateEditAccountController {
         timeout.stop();
         Singleton single = Singleton.getInstance();
         single.setLastTime();
+        single.setDoPopup(true);
         thestage = (Stage) back.getScene().getWindow();
         AnchorPane root;
-        if(type == 1) {
-            root = FXMLLoader.load(getClass().getClassLoader().getResource("AdminLoggedInHome.fxml"));
-        } else if(type == 2){
-            root = FXMLLoader.load(getClass().getClassLoader().getResource("EmployeeLoggedInHome.fxml"));
-        } else {
-            root = FXMLLoader.load(getClass().getClassLoader().getResource("EmployeeTable.fxml"));
-        }
+        Memento m = single.restore();
+        System.out.println(m.getFxml());
+        root = FXMLLoader.load(getClass().getClassLoader().getResource(m.getFxml()));
         Scene scene = new Scene(root);
         thestage.setScene(scene);
-
     }
 
     /**ANDREW MADE THIS
@@ -267,7 +271,9 @@ public class CreateEditAccountController {
                 BufferedImage img1 = ea.getEmpImg(pusername);
                 //File outputfile = new File("DBInput.jpg");
                 //ImageIO.write(img1, "jpg", outputfile);
-                picView.setImage(SwingFXUtils.toFXImage(img1, null));
+                if(img1 != null) {
+                    picView.setImage(SwingFXUtils.toFXImage(img1, null));
+                }
             } catch (Exception e){
                 e.printStackTrace();
             }
@@ -335,7 +341,8 @@ public class CreateEditAccountController {
         if(clickedDelete) {
             AnchorPane root2;
             timeout.stop();
-            root2 = FXMLLoader.load(getClass().getClassLoader().getResource("EmployeeTable.fxml"));
+            Memento m = single.restore();
+            root2 = FXMLLoader.load(getClass().getClassLoader().getResource(m.getFxml()));
             Scene scene2 = new Scene(root2);
             editStage.setScene(scene2);
         } else {
@@ -523,5 +530,36 @@ public class CreateEditAccountController {
             timeout.stop();
             backPressed();
         }
+    }
+
+    @FXML
+    private void logOut() throws IOException {
+        timeout.stop();
+        Singleton single = Singleton.getInstance();
+        single.setLastTime();
+        single.setUsername("");
+        single.setIsAdmin(false);
+        single.setLoggedIn(false);
+        single.setDoPopup(true);
+        thestage = (Stage) back.getScene().getWindow();
+        AnchorPane root;
+        Memento m = single.getOrig();
+        root = FXMLLoader.load(getClass().getClassLoader().getResource(m.getFxml()));
+        Scene scene = new Scene(root);
+        thestage.setScene(scene);
+    }
+
+    @FXML
+    private void goHome() throws IOException {
+        timeout.stop();
+        Singleton single = Singleton.getInstance();
+        single.setLastTime();
+        single.setDoPopup(true);
+        thestage = (Stage) back.getScene().getWindow();
+        AnchorPane root;
+        Memento m = single.getOrig();
+        root = FXMLLoader.load(getClass().getClassLoader().getResource(m.getFxml()));
+        Scene scene = new Scene(root);
+        thestage.setScene(scene);
     }
 }
