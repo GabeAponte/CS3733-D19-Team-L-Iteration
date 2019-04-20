@@ -337,6 +337,7 @@ public class EmergencyController {
         //does displaykiosk
         //System.out.println(kioskTemp.getFloor());
 
+
         //DISPLAY ALL EXITS
         //DISPLAYS ALL EXITS HERE
         displayExits();
@@ -344,12 +345,9 @@ public class EmergencyController {
 
         //FINDS CLOSEST EXIT
         findClosestExit();
-
-        //displayPath();
-
-
-        direction.setText(printPath(path.getPath()));
-
+        //also sets the direction setTetxt stuff
+        displayingPath = true;
+        displayPath();
 
         DisableEmergMode.setDisable(false);
     }
@@ -716,11 +714,10 @@ public class EmergencyController {
      */
 
     public void displayPath(){
-        single.setLastTime();
         //Clears the lines and circles to avoid any duplicates or reproducing data
         if(displayingPath) {
             path.getPath().add(0,startNode);
-
+/*
             for (Circle c : circles) {
                 pathPane.getChildren().remove(c);
             }
@@ -734,7 +731,7 @@ public class EmergencyController {
             circles.clear();
             lines.clear();
             buttons.clear();
-
+*/
             //Counts how many nodes are on the floor
             int floorCount = 0;
             //Start node on floor
