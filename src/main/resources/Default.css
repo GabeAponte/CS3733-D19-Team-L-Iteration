@@ -147,7 +147,15 @@
     -fx-fill: #012d5a;
 }
 
-.jfx-text-field {
+.jfx-text-field-twitter {
+    -fx-background-color: white;
+    -fx-prompt-text-fill: black;
+    -fx-text-fill: black;
+    -jfx-focus-color: transparent;
+    -jfx-unfocus-color: transparent
+}
+
+.jfx-text-field-normal {
     -fx-prompt-text-fill: WHITE;
     -fx-text-fill: WHITE;
     -jfx-focus-color: #f5d96b;
@@ -324,7 +332,17 @@
 
 .jfx-date-picker{
     -fx-font-size: 20 pt;
-    -fx-text-fill: black;
+    -fx-text-fill: white;
+    -fx-prompt-text-fill: white;
+    -jfx-focus-color: #f5d96b;
+    -jfx-unfocus-color: white;
+    -jfx-default-color: #f5d96b;
+}
+
+.jfx-date-picker .text-field{
+    -fx-font-size: 20 pt;
+    -fx-text-fill: white;
+    -fx-prompt-text-fill: white;
     -jfx-focus-color: #f5d96b;
     -jfx-unfocus-color: white;
     -jfx-default-color: #f5d96b;
@@ -338,7 +356,17 @@
 
 .jfx-time-picker{
     -fx-font-size: 20 pt;
-    -fx-text-fill: black;
+    -fx-text-fill: white;
+    -fx-prompt-text-fill: white;
+    -jfx-focus-color: #f5d96b;
+    -jfx-unfocus-color: white;
+    -jfx-default-color: #f5d96b;
+}
+
+.jfx-time-picker .text-field{
+    -fx-font-size: 20 pt;
+    -fx-text-fill: white;
+    -fx-prompt-text-fill: white;
     -jfx-focus-color: #f5d96b;
     -jfx-unfocus-color: white;
     -jfx-default-color: #f5d96b;

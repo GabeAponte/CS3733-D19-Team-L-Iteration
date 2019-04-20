@@ -90,7 +90,7 @@
                         </JFXButton>
                         <JFXComboBox fx:id="level" focusColor="#f6bd38" onAction="#reenableSubmit" onMouseReleased="#reenableSubmit" prefHeight="44.0" prefWidth="260.0" promptText="Your Proficiency " stylesheets="@Default.css" unFocusColor="WHITE" GridPane.rowIndex="2" />
                         <JFXComboBox fx:id="interpreters" focusColor="#f6bd38" onAction="#reenableSubmit" prefHeight="44.0" prefWidth="260.0" promptText="Interpreters" stylesheets="@Default.css" unFocusColor="WHITE" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-                  <JFXTextField fx:id="language" focusColor="#f6bd38" onAction="#reenableSubmit" promptText="Language" stylesheets="@Default.css" unFocusColor="WHITE" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                  <JFXTextField fx:id="language" focusColor="#f6bd38" onAction="#reenableSubmit" promptText="Language" styleClass="jfx-text-field-normal" stylesheets="@Default.css" unFocusColor="WHITE" GridPane.columnIndex="1" GridPane.rowIndex="1">
                      <GridPane.margin>
                         <Insets left="150.0" right="150.0" />
                      </GridPane.margin>
@@ -98,7 +98,7 @@
                         <Font size="20.0" />
                      </font>
                   </JFXTextField>
-                  <JFXTextField fx:id="Location" focusColor="#f6bd38" onAction="#reenableSubmit" promptText="Location" stylesheets="@Default.css" unFocusColor="WHITE" GridPane.rowIndex="1">
+                  <JFXTextField fx:id="Location" focusColor="#f6bd38" onAction="#reenableSubmit" promptText="Location" styleClass="jfx-text-field-normal" stylesheets="@Default.css" unFocusColor="WHITE" GridPane.rowIndex="1">
                      <font>
                         <Font size="20.0" />
                      </font>
