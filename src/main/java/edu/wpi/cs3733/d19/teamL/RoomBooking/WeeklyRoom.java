@@ -20,26 +20,21 @@ public class WeeklyRoom{
 
     public WeeklyRoom(LocalTime startTime, LocalTime endTime, LocalDate theDate, String classroomName){
         RoomAccess ra = new RoomAccess();
-        int milTime = startTime;
-        int endMilTime = endTime;
+        String startDate = "";
+        String endDate = "";
 
-        Date startDate = null;
-        try {
-            startDate = new SimpleDateFormat("hhmm").parse(String.format("%04d", milTime));
-        } catch (ParseException e) {
-            e.printStackTrace();
+        if(startTime.getHour() >= 12){
+            startDate = startTime.toString() + " PM";
+        }else {
+            startDate = startTime.toString() + " AM";
         }
-        SimpleDateFormat startSimpleDate = new SimpleDateFormat("hh:mm a");
-
-        Date endDate = null;
-        try {
-            endDate = new SimpleDateFormat("hhmm").parse(String.format("%04d", endMilTime));
-        } catch (ParseException e) {
-            e.printStackTrace();
+        if(endTime.getHour() >= 12){
+            endDate = endTime.toString() + " PM";
+        }else {
+            endDate = endTime.toString() + " AM";
         }
-        SimpleDateFormat endSimpleDate = new SimpleDateFormat("hh:mm a");
 
-        time = startSimpleDate.format(startDate) + " - " + endSimpleDate.format(endDate);
+        time = startDate + " - " + endDate;
 
         LocalDate weekDay = theDate;
         String dayOfWeek = theDate.getDayOfWeek().toString();
