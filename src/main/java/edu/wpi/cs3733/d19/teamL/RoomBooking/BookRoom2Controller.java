@@ -154,12 +154,11 @@ public class BookRoom2Controller {
         Root.getChildren().clear();
         RoomAccess ra = new RoomAccess();
         String theDate = datePicker.getValue().toString();
-        String endDate = datePicker.getValue().plusDays(1).toString();
         LocalTime startLT = LocalTime.of(0,0);
         LocalTime endLT = LocalTime.of(0, 30);
         for(int i = 0; i < 48; i++){
            // System.out.println("Start Time: " + startTime + " End Time: " + endTime);
-            TreeItem<Room> bookedRooms = new TreeItem<Room>(new Room(startLT, endLT, ra.getAvailRooms(theDate, theDate, startTime, endTime)));
+            TreeItem<Room> bookedRooms = new TreeItem<Room>(new Room(startLT, endLT, ra.getAvailRooms(theDate, theDate)));
             Root.getChildren().add(bookedRooms);
             startLT.plusMinutes(30);
             endLT.plusMinutes(30);

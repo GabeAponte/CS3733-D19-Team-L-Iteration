@@ -3,6 +3,7 @@ package edu.wpi.cs3733.d19.teamL.RoomBooking;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -17,7 +18,7 @@ public class WeeklyRoom{
     boolean isSaturday;
     boolean isSunday;
 
-    public WeeklyRoom(int startTime, int endTime, LocalDate theDate, String classroomName){
+    public WeeklyRoom(LocalTime startTime, LocalTime endTime, LocalDate theDate, String classroomName){
         RoomAccess ra = new RoomAccess();
         int milTime = startTime;
         int endMilTime = endTime;
