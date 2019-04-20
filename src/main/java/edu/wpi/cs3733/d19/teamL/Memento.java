@@ -93,7 +93,7 @@ public class Memento {
      */
     public boolean hasPrivileges() {
         Singleton single = Singleton.getInstance();
-        if (fxml.contains("Admin") && single.isIsAdmin()) {
+        if ((fxml.contains("Admin") || fxml.contains("EmployeeTable")) && single.isIsAdmin()) {
             return true;
         } else if (fxml.contains("EmployeeLogged") && single.isLoggedIn()){
             return true;

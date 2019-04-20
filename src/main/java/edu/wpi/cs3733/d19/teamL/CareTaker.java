@@ -18,16 +18,21 @@ public class CareTaker {
     public Memento restore(){
         Singleton single = Singleton.getInstance();
         if(memes.peek() == null || memes.size() == 0){ //if list is empty, go back home
+            //System.out.println("EMPTY");
             return original;
         } else if(!memes.peek().goingToSignedScreen()){ //if going to guest only screen, sign out user
+            //System.out.println("SIGNED OUT");
             single.setIsAdmin(false);
             single.setLoggedIn(false);
             single.setUsername("");
         } else if(memes.peek().isMultiUser()){ //if going to multi privilege screen
+            //System.out.println("MULTI");
         } else if(!memes.peek().hasPrivileges()){
+            //System.out.println("INSUFFICIENT PRIVILEGES");
             memes.clear();
             return original;
         }
+        //System.out.println("all good");
         return memes.pop();
     }
 

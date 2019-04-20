@@ -219,9 +219,11 @@ public class CreateEditAccountController {
         timeout.stop();
         Singleton single = Singleton.getInstance();
         single.setLastTime();
+        single.setDoPopup(true);
         thestage = (Stage) back.getScene().getWindow();
         AnchorPane root;
         Memento m = single.restore();
+        System.out.println(m.getFxml());
         root = FXMLLoader.load(getClass().getClassLoader().getResource(m.getFxml()));
         Scene scene = new Scene(root);
         thestage.setScene(scene);
