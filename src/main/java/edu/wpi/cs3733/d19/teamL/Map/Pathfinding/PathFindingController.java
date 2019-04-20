@@ -1127,7 +1127,7 @@ public class PathFindingController {
             }
 
             pathPane.getChildren().add(EndCircle);
-            
+
 
             pathPane.setPrefSize(childPane.getWidth(), childPane.getHeight());
             //Displays the node that travels
