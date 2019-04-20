@@ -22,30 +22,21 @@ public class Room{
 
     public Room(LocalTime startTime, LocalTime endTime, ArrayList<String> theRooms){
 
+        String startDate = "";
+        String endDate = "";
 
-
-        int milTime = Integer.parseInt(startTime);
-        int endMilTime = Integer.parseInt(endTime);
-
-        Date startDate = null;
-        try {
-            startDate = new SimpleDateFormat("hhmm").parse(String.format("%04d", milTime));
-        } catch (ParseException e) {
-            e.printStackTrace();
+        if(startTime.getHour() >= 12){
+            startDate = startTime.toString() + " PM";
+        }else {
+            startDate = startTime.toString() + " AM";
         }
-        SimpleDateFormat startSimpleDate = new SimpleDateFormat("hh:mm a");
-      //  System.out.println(startSimpleDate.format(startDate));
-
-        Date endDate = null;
-        try {
-            endDate = new SimpleDateFormat("hhmm").parse(String.format("%04d", endMilTime));
-        } catch (ParseException e) {
-            e.printStackTrace();
+        if(endTime.getHour() >= 12){
+            endDate = endTime.toString() + " PM";
+        }else {
+            endDate = endTime.toString() + " AM";
         }
-        SimpleDateFormat endSimpleDate = new SimpleDateFormat("hh:mm a");
-      //  System.out.println(startSimpleDate.format(endDate));
 
-        time = startSimpleDate.format(startDate) + " - " + endSimpleDate.format(endDate);
+        time = startDate + " - " + endDate;
 
 
         if(theRooms.contains("Room 1 - Computer"))

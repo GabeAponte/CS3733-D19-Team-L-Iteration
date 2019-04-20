@@ -92,7 +92,7 @@ public class RoomAccess extends DBAccess {
      * @return
      */
     public boolean checkRoom(String startDate, String endDate, String classRoomName) {
-        String sql = "select name from room left outer join (select rID from reservation where ((? between startTime and endTime) or (? between startTime and endTime) or (startTime between ? and ?) or (endTime between ? and ?))) on roomID = rID where rID is null;";
+        String sql = "select name from room left outer join (select rID from reservation where ((? between startDate and endDate) or (? between startDate and endDate) or (startDate between ? and ?) or (endDate between ? and ?))) on roomID = rID where rID is null;";
         try (Connection conn = this.connect();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
             pstmt.setString(1, startDate);
