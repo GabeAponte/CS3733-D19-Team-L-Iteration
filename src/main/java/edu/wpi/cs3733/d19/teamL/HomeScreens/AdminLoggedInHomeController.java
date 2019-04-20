@@ -26,6 +26,9 @@ public class AdminLoggedInHomeController {
     private Button fufillServiceRequest;
 
     @FXML
+    private Button back;
+
+    @FXML
     private Button logOut;
 
     @FXML
@@ -101,24 +104,6 @@ public class AdminLoggedInHomeController {
     //   As an admin, the user should be able to edit any field other than employee ID
     //   seeSuggestions should switch to the suggestions table screen
     //   switching to the fulfillRequest screen should display all active service requests for the admin
-
-    @FXML
-    private void logOut() throws IOException {
-        timeout.stop();
-        saveState();
-        Stage thestage = (Stage) findPath.getScene().getWindow();
-        AnchorPane root;
-        Singleton single = Singleton.getInstance();
-        single.setLastTime();
-        single.setLoggedIn(false);
-        single.setUsername("");
-        single.setIsAdmin(false);
-        single.setDoPopup(true);
-        Memento m = single.getOrig();
-        root = FXMLLoader.load(getClass().getClassLoader().getResource(m.getFxml()));
-        Scene scene = new Scene(root);
-        thestage.setScene(scene);
-    }
 
     @FXML
     private void bookRoom() throws IOException {
@@ -251,27 +236,36 @@ public class AdminLoggedInHomeController {
         theStage.setScene(scene);
     }
 
-    /**@author Nathan
-     * Takes you back to the appropriate home screen
-     * @throws IOException
-     */
     @FXML
-    private void goHome()throws IOException{
-        Singleton single = Singleton.getInstance();
+    private void logOut() throws IOException {
         timeout.stop();
-        saveState();
-        single = Singleton.getInstance();
+        Singleton single = Singleton.getInstance();
+        single.setLastTime();
+        single.setUsername("");
+        single.setIsAdmin(false);
+        single.setLoggedIn(false);
+        single.setDoPopup(true);
+        Stage thestage = (Stage) logOut.getScene().getWindow();
+        AnchorPane root;
+        Memento m = single.getOrig();
+        root = FXMLLoader.load(getClass().getClassLoader().getResource(m.getFxml()));
+        Scene scene = new Scene(root);
+        thestage.setScene(scene);
+    }
+
+    @FXML
+    private void goHome() throws IOException {
+        timeout.stop();
+        Singleton single = Singleton.getInstance();
         single.setLastTime();
         single.setDoPopup(true);
-
+        saveState();
+        Stage thestage = (Stage) logOut.getScene().getWindow();
+        AnchorPane root;
         Memento m = single.getOrig();
-        FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource(m.getFxml()));
-        Parent sceneMain = loader.load();
-
-        Stage theStage = (Stage) serviceRequest.getScene().getWindow();
-
-        Scene scene = new Scene(sceneMain);
-        theStage.setScene(scene);
+        root = FXMLLoader.load(getClass().getClassLoader().getResource(m.getFxml()));
+        Scene scene = new Scene(root);
+        thestage.setScene(scene);
     }
 
     /**@author Nathan

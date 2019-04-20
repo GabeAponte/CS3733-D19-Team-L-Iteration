@@ -39,6 +39,9 @@ public class HomeScreenController {
     Button HomeFindPath;
 
     @FXML
+    private Button back;
+
+    @FXML
     private JFXButton aboutButton;
 
     @FXML
@@ -327,6 +330,33 @@ public class HomeScreenController {
 
     @FXML
     private void logOut() throws IOException {
+        stop();
+        Singleton single = Singleton.getInstance();
+        single.setLastTime();
+        single.setUsername("");
+        single.setIsAdmin(false);
+        single.setLoggedIn(false);
+        single.setDoPopup(true);
+        Stage thestage = (Stage) LogIn.getScene().getWindow();
+        AnchorPane root;
+        Memento m = single.getOrig();
+        root = FXMLLoader.load(getClass().getClassLoader().getResource(m.getFxml()));
+        Scene scene = new Scene(root);
+        thestage.setScene(scene);
+    }
 
+    @FXML
+    private void goHome() throws IOException {
+        stop();
+        Singleton single = Singleton.getInstance();
+        single.setLastTime();
+        single.setDoPopup(true);
+        saveState();
+        Stage thestage = (Stage) LogIn.getScene().getWindow();
+        AnchorPane root;
+        Memento m = single.getOrig();
+        root = FXMLLoader.load(getClass().getClassLoader().getResource(m.getFxml()));
+        Scene scene = new Scene(root);
+        thestage.setScene(scene);
     }
 }

@@ -68,6 +68,9 @@ public class PathFindingController {
     private TextArea direction;
 
     @FXML
+    private Button back;
+
+    @FXML
     private Stage thestage;
 
     @FXML
@@ -574,20 +577,35 @@ public class PathFindingController {
     }
 
     @FXML
-    private void logOut() throws IOException{
-        single.setLoggedIn(false);
-        single.setIsAdmin(false);
+    private void logOut() throws IOException {
+        timeout.stop();
+        Singleton single = Singleton.getInstance();
+        single.setLastTime();
         single.setUsername("");
+        single.setIsAdmin(false);
+        single.setLoggedIn(false);
         single.setDoPopup(true);
+        thestage = (Stage) back.getScene().getWindow();
+        AnchorPane root;
         Memento m = single.getOrig();
-        FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource(m.getFxml()));
+        root = FXMLLoader.load(getClass().getClassLoader().getResource(m.getFxml()));
+        Scene scene = new Scene(root);
+        thestage.setScene(scene);
+    }
 
-        Parent sceneMain = loader.load();
-
-        Stage theStage = (Stage) homebtn.getScene().getWindow();
-
-        Scene scene = new Scene(sceneMain);
-        theStage.setScene(scene);
+    @FXML
+    private void goHome() throws IOException {
+        timeout.stop();
+        Singleton single = Singleton.getInstance();
+        single.setLastTime();
+        single.setDoPopup(true);
+        saveState();
+        thestage = (Stage) back.getScene().getWindow();
+        AnchorPane root;
+        Memento m = single.getOrig();
+        root = FXMLLoader.load(getClass().getClassLoader().getResource(m.getFxml()));
+        Scene scene = new Scene(root);
+        thestage.setScene(scene);
     }
 
     @FXML
@@ -2354,24 +2372,6 @@ public class PathFindingController {
                 searchField.setText("");
             }
         }
-    }
-
-    @FXML
-    private void goHome() throws IOException{
-        timeout.stop();
-        saveState();
-        single.setDoPopup(true);
-        Singleton single = Singleton.getInstance();
-        single.setLastTime();
-        Memento m = single.getOrig();
-        FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource(m.getFxml()));
-
-        Parent sceneMain = loader.load();
-
-        Stage theStage = (Stage) PathFindSubmit.getScene().getWindow();
-
-        Scene scene = new Scene(sceneMain);
-        theStage.setScene(scene);
     }
 
     /**@author Nathan
