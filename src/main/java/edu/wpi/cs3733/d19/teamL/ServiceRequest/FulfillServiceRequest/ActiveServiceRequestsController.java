@@ -1248,7 +1248,7 @@ public class ActiveServiceRequestsController {
      */
     private void saveState(){
         Singleton single = Singleton.getInstance();
-        single.saveMemento("NewActiveServiceRequests.fxml");
+        single.saveMemento("ActiveServiceRequests.fxml");
     }
 
     @FXML
