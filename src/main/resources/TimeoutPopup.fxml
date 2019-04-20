@@ -13,11 +13,11 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="250.0" prefWidth="450.0" style="-fx-background-color: #012D5A;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.d19.teamL.HomeScreens.HomeScreenController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="250.0" prefWidth="450.0" styleClass="AnchorPainMain" stylesheets="@Default.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.d19.teamL.HomeScreens.HomeScreenController">
    <children>
       <VBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
-            <JFXToolbar minHeight="-Infinity" prefHeight="40.0" prefWidth="1280.0" style="-fx-background-color: WHITE;">
+            <JFXToolbar minHeight="-Infinity" prefHeight="40.0" prefWidth="1280.0" styleClass="tool-barMain" stylesheets="@Default.css">
                <VBox.margin>
                   <Insets />
                </VBox.margin>
@@ -25,7 +25,7 @@
                   <Insets left="10.0" right="10.0" />
                </padding>
                <center>
-                  <Label text="Signed Out" textFill="#012d5a" BorderPane.alignment="CENTER">
+                  <Label styleClass="labelPopupTitle" stylesheets="@Default.css" text="Signed Out" textFill="#012d5a" BorderPane.alignment="CENTER">
                      <font>
                         <Font size="20.0" />
                      </font>
@@ -35,7 +35,7 @@
                   </Label>
                </center>
             </JFXToolbar>
-            <JFXToolbar minHeight="-Infinity" prefHeight="3.0" prefWidth="1280.0" style="-fx-background-color: F5D96B;" />
+            <JFXToolbar minHeight="-Infinity" prefHeight="5.0" prefWidth="1280.0" styleClass="tool-barSecondary" stylesheets="@Default.css" />
             <GridPane VBox.vgrow="ALWAYS">
               <columnConstraints>
                 <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -46,7 +46,7 @@
                 <RowConstraints maxHeight="107.0" minHeight="10.0" prefHeight="94.5" vgrow="SOMETIMES" />
               </rowConstraints>
                <children>
-                  <Label text="You have been signed out due to inactivity. " textFill="WHITE" GridPane.columnSpan="2" GridPane.halignment="CENTER">
+                  <Label styleClass="labelPopupDesc" stylesheets="@Default.css" text="You have been signed out due to inactivity. " textFill="WHITE" GridPane.columnSpan="2" GridPane.halignment="CENTER">
                      <font>
                         <Font size="15.0" />
                      </font>
@@ -54,7 +54,7 @@
                         <Insets top="10.0" />
                      </GridPane.margin>
                   </Label>
-                  <JFXButton fx:id="yes" onAction="#yesPressed" prefHeight="46.0" prefWidth="109.0" ripplerFill="WHITE" style="-fx-border-radius: 50; -fx-border-color: F5D96B; -fx-background-radius: 50;" text="Okay" textFill="WHITE" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="1">
+                  <JFXButton fx:id="yes" onAction="#yesPressed" prefHeight="46.0" prefWidth="109.0" ripplerFill="WHITE" style="-fx-border-radius: 50; -fx-background-radius: 50; -fx-border-width: 2;" styleClass="buttonMain" stylesheets="@Default.css" text="Okay" textFill="WHITE" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="1">
                      <font>
                         <Font size="20.0" />
                      </font>
