@@ -260,7 +260,7 @@ public class PathFindingController {
             PathFindStartDrop.setValue(start);
         } else {
             Singleton single = Singleton.getInstance();
-            start = single.lookup.get(single.getKioskID());
+            start = single.getKiosk();
             PathFindStartDrop.setValue(start);
         }
         if(end != null) {
