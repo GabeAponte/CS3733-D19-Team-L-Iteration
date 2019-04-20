@@ -1216,13 +1216,17 @@ public class PathFindingController {
                         clicked3();
                 });
                 floorButtons.add(fBut);
-                pathPane.getChildren().add(fBut);
+                gridPane.getChildren().add(fBut);
+                gridPane.setMargin(fBut,new Insets(0,0,550,400));
                 counter = 0;
                 start = i;
             }
             else if(!change && floors.get(i).equals(floors.get(floors.size()-1))) {
-                fBut.setLayoutX(450);
-                fBut.setLayoutY(50);
+//                fBut.setLayoutX(450);
+//                fBut.setLayoutY(200);
+                fBut.setPrefSize(50,50);
+
+                //fBut.setAlignment(Pos.TOP_CENTER);
                 fBut.setText(floors.get(i));
                 final String same = floors.get(i);
                 //Probably switch out clicked with new method
@@ -1241,7 +1245,9 @@ public class PathFindingController {
                         clicked3();
                 });
                 floorButtons.add(fBut);
-                pathPane.getChildren().add(fBut);
+                gridPane.getChildren().add(fBut);
+                gridPane.setMargin(fBut,new Insets(0,0,550,400));
+
             }
             else {
                 //Increments while you are still on the same floor
