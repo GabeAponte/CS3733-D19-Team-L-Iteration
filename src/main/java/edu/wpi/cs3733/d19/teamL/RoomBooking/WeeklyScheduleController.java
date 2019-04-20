@@ -141,11 +141,16 @@ public class WeeklyScheduleController
         LocalTime startLT = LocalTime.of(0,0);
         LocalTime endLT = LocalTime.of(0, 30);
         for(int i = 0; i < 48; i++){
-            // System.out.println("Start Time: " + startTime + " End Time: " + endTime);
+            //System.out.println("Start Time: " + startLT + " End Time: " + endLT);
+            if(i == 47)
+            {
+                System.out.println(startLT.toString());
+                System.out.println(endLT.toString());
+            }
             TreeItem<WeeklyRoom> bookedRooms = new TreeItem<WeeklyRoom>(new WeeklyRoom(startLT, endLT, theDate, roomName ));
             Root.getChildren().add(bookedRooms);
-            startLT.plusMinutes(30);
-            endLT.plusMinutes(30);
+            startLT = startLT.plusMinutes(30);
+            endLT = endLT.plusMinutes(30);
         }
 
         //timeCol = new TreeTableColumn<Room, String>("Time");

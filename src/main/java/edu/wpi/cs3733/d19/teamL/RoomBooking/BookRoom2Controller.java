@@ -160,8 +160,8 @@ public class BookRoom2Controller {
            // System.out.println("Start Time: " + startTime + " End Time: " + endTime);
             TreeItem<Room> bookedRooms = new TreeItem<Room>(new Room(startLT, endLT, ra.getAvailRooms(theDate, theDate)));
             Root.getChildren().add(bookedRooms);
-            startLT.plusMinutes(30);
-            endLT.plusMinutes(30);
+            startLT = startLT.plusMinutes(30);
+            startLT = endLT.plusMinutes(30);
         }
 
         //timeCol = new TreeTableColumn<Room, String>("Time");

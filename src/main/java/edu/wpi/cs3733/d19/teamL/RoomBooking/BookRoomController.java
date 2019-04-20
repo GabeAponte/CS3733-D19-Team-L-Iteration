@@ -267,8 +267,8 @@ public class BookRoomController {
             error.setText("Room booked.");
             String date = datePicker.getValue().toString();
             String endDate = datePicker.getValue().plusDays(1).toString();
-            date += "T" + startTime.getValue().getHour() * 100 + ":" + startTime.getValue().getMinute() + ":00";
-            endDate += "T" + endTime.getValue().getHour() * 100 + ":" + endTime.getValue().getMinute() + ":00";
+            date += "T" + startTime.getValue().getHour() + ":" + startTime.getValue().getMinute() + ":00";
+            endDate += "T" + endTime.getValue().getHour()  + ":" + endTime.getValue().getMinute() + ":00";
             String roomName = availableRooms.getValue().toString();
             EmployeeAccess ea = new EmployeeAccess();
             String employeeID = ea.getEmployeeInformation(single.getUsername()).get(0);

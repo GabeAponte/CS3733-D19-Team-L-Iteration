@@ -60,7 +60,7 @@ public class RoomAccess extends DBAccess {
      * @return
      */
     public ArrayList<String> getAvailRooms(String startDate, String endDate) {
-        String sql = "select name from room left outer join (select rID from reservation ((? between startDate and endDate) or (? between startDate and endDate) or (startDate between ? and ?) or (endDate between ? and ?))) on roomID = rID where rID is null;";
+        String sql = "select name from room left outer join (select rID from reservation where ((? between startDate and endDate) or (? between startDate and endDate) or (startDate between ? and ?) or (endDate between ? and ?))) on roomID = rID where rID is null;";
         ArrayList<String> data = new ArrayList<String>();
         try (Connection conn = this.connect();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {

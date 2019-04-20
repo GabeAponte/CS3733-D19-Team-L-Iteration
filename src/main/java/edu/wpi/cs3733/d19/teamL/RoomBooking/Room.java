@@ -25,13 +25,19 @@ public class Room{
         String startDate = "";
         String endDate = "";
 
-        if(startTime.getHour() >= 12){
+        if(startTime.getHour() == 12){
             startDate = startTime.toString() + " PM";
-        }else {
+        }else if(startTime.getHour() >= 13){
+            LocalTime sTime = startTime.minusHours(12);
+            startDate = sTime.toString() + " PM";
+        }else{
             startDate = startTime.toString() + " AM";
         }
-        if(endTime.getHour() >= 12){
+        if(endTime.getHour() == 12){
             endDate = endTime.toString() + " PM";
+        }else if(endTime.getHour() >= 13){
+            LocalTime sTime = startTime.minusHours(12);
+            endDate = sTime.toString() + " PM";
         }else {
             endDate = endTime.toString() + " AM";
         }
