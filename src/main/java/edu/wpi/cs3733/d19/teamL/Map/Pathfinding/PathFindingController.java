@@ -1136,36 +1136,15 @@ public class PathFindingController {
                 fBut.setPrefSize(50,50);
                 fBut.setText(floors.get(i));
                 final String next = floors.get(i);
+                System.out.println("F1 " + next);
                 //Can't use clicked, make a new method
+
+                System.out.println("Start: " + start + "  Counter:" + counter );
                 fBut.setOnAction(event -> {
-                    if (next.equals("L2")) {
-                        displaySelected(start, counter);
-                    }
-                    else if (next.equals("L1"))
-                    {
-                        displaySelected(start, counter);
-                    }
-                    else if (next.equals("G"))
-                    {
-                        displaySelected(start, counter);
-                    }
-                    else if (next.equals("1"))
-                    {
-                        displaySelected(start, counter);
-                    }
-                    else if (next.equals("2"))
-                    {
-                        displaySelected(start, counter);
-                    }
-                    else if (next.equals("3"))
-                    {
-                        displaySelected(start, counter);
-                    }
-                    //To be added
-//                    if (next.equals("4"))
-//                    {
-//                        displaySelected(start, counter);
-//                    }
+//                    System.out.println("F1");
+//                    System.out.println("Start: " + start + "  Counter:" + counter );
+                    displaySelected(start, counter);
+
                 });
                 floorButtons.add(fBut);
                 gridPane.getChildren().add(fBut);
@@ -1174,7 +1153,6 @@ public class PathFindingController {
                 //Reduce this as we go so we know how many buttons we have left
                 numOfBut--;
                 //Reset these variables
-                counter = 0;
                 start = i;
             }
             else if(totalNum == 1) {
@@ -1185,32 +1163,13 @@ public class PathFindingController {
                 //fBut.setAlignment(Pos.TOP_CENTER);
                 fBut.setText(floors.get(i));
                 final String same = floors.get(i);
+                System.out.println("F2 " + same);
                 //Probably switch out clicked with new method
+                System.out.println("Start: " + start + "  Counter:" + counter );
                 fBut.setOnAction(event -> {
-                    if (same.equals("L2"))
-                    {
-                        displaySelected(start, counter);
-                    }
-                    else if (same.equals("L1"))
-                    {
-                        displaySelected(start, counter);
-                    }
-                    else if (same.equals("G"))
-                    {
-                        displaySelected(start, counter);
-                    }
-                    else if (same.equals("1"))
-                    {
-                        displaySelected(start, counter);
-                    }
-                    else if (same.equals("2"))
-                    {
-                        displaySelected(start, counter);
-                    }
-                    else if (same.equals("3"))
-                    {
-                        displaySelected(start, counter);
-                    }
+//                    System.out.println("F2");
+//                    System.out.println("Start: " + start + "  Counter:" + counter );
+                    displaySelected(start, counter);
                 });
                 floorButtons.add(fBut);
                 gridPane.getChildren().add(fBut);
@@ -1223,32 +1182,15 @@ public class PathFindingController {
                 //fBut.setAlignment(Pos.TOP_CENTER);
                 fBut.setText(floors.get(i));
                 final String same = floors.get(i);
+                System.out.println("F3 " + same);
                 //Probably switch out clicked with new method
+                System.out.println("Start: " + start + "  Counter:" + counter );
                 fBut.setOnAction(event -> {
-                    if (same.equals("L2"))
-                    {
-                        displaySelected(start, counter);
-                    }
-                    else if (same.equals("L1"))
-                    {
-                        displaySelected(start, counter);
-                    }
-                    else if (same.equals("G"))
-                    {
-                        displaySelected(start, counter);
-                    }
-                    else if (same.equals("1"))
-                    {
-                        displaySelected(start, counter);
-                    }
-                    else if (same.equals("2"))
-                    {
-                        displaySelected(start, counter);
-                    }
-                    else if (same.equals("3"))
-                    {
-                        displaySelected(start, counter);
-                    }
+//                    System.out.println("F3");
+//                    System.out.println("Start: " + start + "  Counter:" + counter );
+
+                    displaySelected(start, counter);
+
                 });
                 floorButtons.add(fBut);
                 gridPane.getChildren().add(fBut);
@@ -1329,7 +1271,8 @@ public class PathFindingController {
         PathTransition travel = new PathTransition();
 
         circles.add(dude);
-
+        System.out.println("Begin " + begin);
+        System.out.println("count " + count);
         //Setting the line display
         for(int i = begin; i < count; i++) {
             Line line = new Line();
@@ -1341,6 +1284,7 @@ public class PathFindingController {
             line.setStroke(DODGERBLUE);
             lines.add(line);
             pathPane.getChildren().add(line);
+            System.out.println("line");
 
             MoveTo next = new MoveTo(line.getStartX(), line.getStartY());
             CubicCurveTo end = new CubicCurveTo(line.getStartX(), line.getStartY(), line.getStartX(), line.getStartY(), line.getEndX(), line.getEndY());
