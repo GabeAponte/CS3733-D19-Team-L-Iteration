@@ -24,7 +24,7 @@ public class PrescriptionServiceRequestController {
     private Button submitButton;
 
     @FXML
-    private Button backButton;
+    private Button back;
 
     @FXML
     private JFXTextField destinationField;
@@ -106,7 +106,7 @@ public class PrescriptionServiceRequestController {
 
         Parent sceneMain = loader.load();
 
-        Stage theStage = (Stage) backButton.getScene().getWindow();
+        Stage theStage = (Stage) back.getScene().getWindow();
 
         Scene scene = new Scene(sceneMain);
         theStage.setScene(scene);

@@ -23,7 +23,7 @@ public class AboutPageFancyController {
     private Stage thestage;
 
     @FXML
-    private Button BackButton;
+    private Button back;
 
     Timeline timeout;
     public void initialize(){
@@ -44,7 +44,7 @@ public class AboutPageFancyController {
 
                         Parent sceneMain = loader.load();
 
-                        Stage thisStage = (Stage) BackButton.getScene().getWindow();
+                        Stage thisStage = (Stage) back.getScene().getWindow();
 
                         Scene newScene = new Scene(sceneMain);
                         thisStage.setScene(newScene);
@@ -71,7 +71,7 @@ public class AboutPageFancyController {
 
         Parent sceneMain = loader.load();
 
-        Stage thisStage = (Stage) BackButton.getScene().getWindow();
+        Stage thisStage = (Stage) back.getScene().getWindow();
 
         Scene newScene = new Scene(sceneMain);
         thisStage.setScene(newScene);

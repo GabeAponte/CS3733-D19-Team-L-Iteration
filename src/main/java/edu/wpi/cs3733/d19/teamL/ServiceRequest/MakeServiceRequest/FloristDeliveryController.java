@@ -25,7 +25,7 @@ public class FloristDeliveryController {
 
 
     @FXML
-    public Button backBtn;
+    public Button back;
 
     @FXML
     public Button Submit;
@@ -120,7 +120,7 @@ public class FloristDeliveryController {
 
         Parent sceneMain = loader.load();
 
-        Stage theStage = (Stage) backBtn.getScene().getWindow();
+        Stage theStage = (Stage) back.getScene().getWindow();
 
         Scene scene = new Scene(sceneMain);
         theStage.setScene(scene);
