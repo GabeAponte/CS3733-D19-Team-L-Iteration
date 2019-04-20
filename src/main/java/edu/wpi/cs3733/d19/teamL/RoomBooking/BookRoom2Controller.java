@@ -49,7 +49,7 @@ public class BookRoom2Controller {
     private JFXScrollPane ScrollPane;
 
     @FXML
-    private Button bookRoom2Back;
+    private Button back;
 
     @FXML
     private TreeTableView<Room> bookedTime;
@@ -114,7 +114,7 @@ public class BookRoom2Controller {
                         controller.displayPopup();
                         single.setLastTime();
 
-                        Stage thisStage = (Stage) bookRoom2Back.getScene().getWindow();
+                        Stage thisStage = (Stage) back.getScene().getWindow();
 
                         Scene newScene = new Scene(sceneMain);
                         thisStage.setScene(newScene);
@@ -141,7 +141,7 @@ public class BookRoom2Controller {
         FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("BookRoom.fxml"));
         Parent sceneMain = loader.load();
         BookRoomController controller = loader.<BookRoomController>getController();
-        Stage theStage = (Stage) bookRoom2Back.getScene().getWindow();
+        Stage theStage = (Stage) back.getScene().getWindow();
         Scene scene = new Scene(sceneMain);
         theStage.setScene(scene);
     }
@@ -473,5 +473,13 @@ public class BookRoom2Controller {
         single.setLastTime();
     }
 
+    @FXML
+    private void logOut() throws IOException {
 
+    }
+
+    @FXML
+    private void goHome() throws IOException {
+
+    }
 }

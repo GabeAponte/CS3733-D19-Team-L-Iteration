@@ -1,6 +1,8 @@
 package edu.wpi.cs3733.d19.teamL.HomeScreens;
 
 import com.jfoenix.controls.JFXButton;
+import edu.wpi.cs3733.d19.teamL.Map.Pathfinding.PathFindingController;
+import edu.wpi.cs3733.d19.teamL.Memento;
 import edu.wpi.cs3733.d19.teamL.ServiceRequest.MakeServiceRequest.ServiceRequestController;
 import edu.wpi.cs3733.d19.teamL.Singleton;
 import edu.wpi.cs3733.d19.teamL.API.Weather;
@@ -35,6 +37,9 @@ public class HomeScreenController {
 
     @FXML
     Button HomeFindPath;
+
+    @FXML
+    private Button back;
 
     @FXML
     private JFXButton aboutButton;
@@ -115,7 +120,6 @@ public class HomeScreenController {
 
                     updateWeatherDisplay();
                 }
-                long second = LocalDateTime.now().getSecond();
                 long minute = LocalDateTime.now().getMinute();
                 long hour = LocalDateTime.now().getHour();
                 if(hour > 12){
@@ -125,23 +129,15 @@ public class HomeScreenController {
                     hour = 12;
                 }
                 if (minute < 10) {
-                    if (second > 9) {
-                        timeLabel.setText(hour + ":0" + (minute));
-                    } else {
-                        timeLabel.setText(hour + ":0" + (minute));
-                    }
+                    timeLabel.setText(hour + ":0" + (minute));
                 } else {
-                    if (second > 9) {
-                        timeLabel.setText(hour + ":" + (minute));
-                    } else {
-                        timeLabel.setText(hour + ":" + (minute));
-                    }
+                    timeLabel.setText(hour + ":" + (minute));
                 }
 
                 if(isAM){
                     timeLabel.setText(timeLabel.getText()+" AM");
                 }
-                else if(! isAM){
+                else{
                     timeLabel.setText(timeLabel.getText()+" PM");
                 }
             }),
@@ -216,8 +212,8 @@ public class HomeScreenController {
     }
     @FXML
     private void SwitchToPathfindScreen() throws IOException{
-        tweets.stop();
-        clock.stop();
+        stop();
+        saveState();
         Singleton single = Singleton.getInstance();
         single.setLastTime();
         FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("HospitalPathFinding.fxml"));
@@ -232,8 +228,8 @@ public class HomeScreenController {
 
     @FXML
     private void SwitchToSuggestionBox() throws IOException{
-        tweets.stop();
-        clock.stop();
+        stop();
+        saveState();
         Singleton single = Singleton.getInstance();
         single.setLastTime();
         Stage thestage = (Stage) HomeSuggestions.getScene().getWindow();
@@ -245,8 +241,8 @@ public class HomeScreenController {
 
     @FXML
     private void SwitchToServiceScreen() throws IOException{
-        tweets.stop();
-        clock.stop();
+        stop();
+        saveState();
         Singleton single = Singleton.getInstance();
         single.setLastTime();
         FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("ServiceRequest.fxml"));
@@ -263,8 +259,8 @@ public class HomeScreenController {
 
     @FXML
     private void SwitchToLoginScreen(ActionEvent event){
-        tweets.stop();
-        clock.stop();
+        stop();
+        saveState();
         Singleton single = Singleton.getInstance();
         single.setLastTime();
         try {
@@ -279,9 +275,8 @@ public class HomeScreenController {
 
     @FXML
     private void AboutPress() throws IOException {
-        System.out.println(System.getProperty("os.name"));
-        tweets.stop();
-        clock.stop();
+        stop();
+        saveState();
         Singleton single = Singleton.getInstance();
         single.setLastTime();
         single.setDoPopup(true);
@@ -293,5 +288,75 @@ public class HomeScreenController {
 
         Scene newScene = new Scene(sceneMain);
         thisStage.setScene(newScene);
+    }
+
+    @FXML
+    private void backPressed() throws IOException{
+        Singleton single = Singleton.getInstance();
+        stop();
+        single = Singleton.getInstance();
+        single.setLastTime();
+        single.setDoPopup(true);
+
+        Memento m = single.restore();
+        FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource(m.getFxml()));
+        Parent sceneMain = loader.load();
+        if(m.getFxml().contains("HospitalPathFinding")){
+            PathFindingController pfc = loader.getController();
+            pfc.initWithMeme(m.getPathPref(), m.getTypeFilter(), m.getFloorFilter(), m.getStart(), m.getEnd());
+        }
+
+        Stage theStage = (Stage) LogIn.getScene().getWindow();
+
+        Scene scene = new Scene(sceneMain);
+        theStage.setScene(scene);
+    }
+
+    /**@author Nathan
+     * Saves the memento state
+     */
+    private void saveState(){
+        Singleton single = Singleton.getInstance();
+        single.saveMemento("HospitalHome.fxml");
+    }
+
+    /**@author Nathan
+     * Stops all timelines on the screen
+     */
+    private void stop(){
+        tweets.stop();
+        clock.stop();
+    }
+
+    @FXML
+    private void logOut() throws IOException {
+        stop();
+        Singleton single = Singleton.getInstance();
+        single.setLastTime();
+        single.setUsername("");
+        single.setIsAdmin(false);
+        single.setLoggedIn(false);
+        single.setDoPopup(true);
+        Stage thestage = (Stage) LogIn.getScene().getWindow();
+        AnchorPane root;
+        Memento m = single.getOrig();
+        root = FXMLLoader.load(getClass().getClassLoader().getResource(m.getFxml()));
+        Scene scene = new Scene(root);
+        thestage.setScene(scene);
+    }
+
+    @FXML
+    private void goHome() throws IOException {
+        stop();
+        Singleton single = Singleton.getInstance();
+        single.setLastTime();
+        single.setDoPopup(true);
+        saveState();
+        Stage thestage = (Stage) LogIn.getScene().getWindow();
+        AnchorPane root;
+        Memento m = single.getOrig();
+        root = FXMLLoader.load(getClass().getClassLoader().getResource(m.getFxml()));
+        Scene scene = new Scene(root);
+        thestage.setScene(scene);
     }
 }

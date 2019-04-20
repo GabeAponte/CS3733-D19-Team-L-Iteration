@@ -1,6 +1,7 @@
 package edu.wpi.cs3733.d19.teamL.ServiceRequest.MakeServiceRequest;
 
 import edu.wpi.cs3733.d19.teamL.HomeScreens.HomeScreenController;
+import edu.wpi.cs3733.d19.teamL.Memento;
 import edu.wpi.cs3733.d19.teamL.Singleton;
 import giftRequest.ServiceException;
 import javafx.animation.KeyFrame;
@@ -59,7 +60,7 @@ public class ServiceRequestController {
 
 
     @FXML
-    public Button Back;
+    public Button back;
 
     Timeline timeout;
 
@@ -83,7 +84,7 @@ public class ServiceRequestController {
                         single.setLastTime();
                         single.setUsername("");
                         single.setIsAdmin(false);
-                        Stage thisStage = (Stage) Back.getScene().getWindow();
+                        Stage thisStage = (Stage) back.getScene().getWindow();
 
                         Scene newScene = new Scene(sceneMain);
                         thisStage.setScene(newScene);
@@ -97,35 +98,19 @@ public class ServiceRequestController {
         timeout.setCycleCount(Timeline.INDEFINITE);
         timeout.play();
     }
+
     @FXML
-    protected void backPressed() throws IOException {
+    private void backPressed() throws IOException {
         timeout.stop();
         Singleton single = Singleton.getInstance();
-        Stage theStage = (Stage) Back.getScene().getWindow();
+        single.setLastTime();
+        single.setDoPopup(true);
+        Stage thestage = (Stage) ITServices.getScene().getWindow();
         AnchorPane root;
-        if (single.isLoggedIn()) {
-
-            FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("EmployeeLoggedInHome.fxml"));
-            if (single.isIsAdmin()) {
-                loader = new FXMLLoader(getClass().getClassLoader().getResource("AdminLoggedInHome.fxml"));
-            }
-            Parent sceneMain = loader.load();
-
-            theStage = (Stage) SanitationServices.getScene().getWindow();
-
-            Scene scene = new Scene(sceneMain);
-            theStage.setScene(scene);
-            return;
-        } else {
-            single.setDoPopup(true);
-            FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("HospitalHome.fxml"));
-            Parent sceneMain = loader.load();
-
-            theStage = (Stage) SanitationServices.getScene().getWindow();
-
-            Scene scene = new Scene(sceneMain);
-            theStage.setScene(scene);
-    }
+        Memento m = single.restore();
+        root = FXMLLoader.load(getClass().getClassLoader().getResource(m.getFxml()));
+        Scene scene = new Scene(root);
+        thestage.setScene(scene);
     }
 
     //passes off type of button
@@ -178,8 +163,8 @@ public class ServiceRequestController {
     @FXML
     private void changeToSub(Object e, String fxml) throws IOException{
         timeout.stop();
-        Stage theStage = (Stage) Back.getScene().getWindow();
-        AnchorPane root;
+        saveState();
+        Stage theStage;
         FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource(fxml));
 
         Parent sceneMain = loader.load();
@@ -199,6 +184,46 @@ public class ServiceRequestController {
             System.out.println("Failed to run API");
             e.printStackTrace();
         }
+    }
+
+    /**@author Nathan
+     * Saves the memento state
+     */
+    private void saveState(){
+        Singleton single = Singleton.getInstance();
+        single.saveMemento("ServiceRequest.fxml");
+    }
+
+    @FXML
+    private void logOut() throws IOException {
+        timeout.stop();
+        Singleton single = Singleton.getInstance();
+        single.setLastTime();
+        single.setUsername("");
+        single.setIsAdmin(false);
+        single.setLoggedIn(false);
+        single.setDoPopup(true);
+        Stage thestage = (Stage) back.getScene().getWindow();
+        AnchorPane root;
+        Memento m = single.getOrig();
+        root = FXMLLoader.load(getClass().getClassLoader().getResource(m.getFxml()));
+        Scene scene = new Scene(root);
+        thestage.setScene(scene);
+    }
+
+    @FXML
+    private void goHome() throws IOException {
+        timeout.stop();
+        Singleton single = Singleton.getInstance();
+        single.setLastTime();
+        single.setDoPopup(true);
+        saveState();
+        Stage thestage = (Stage) back.getScene().getWindow();
+        AnchorPane root;
+        Memento m = single.getOrig();
+        root = FXMLLoader.load(getClass().getClassLoader().getResource(m.getFxml()));
+        Scene scene = new Scene(root);
+        thestage.setScene(scene);
     }
 
 }
