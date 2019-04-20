@@ -3,6 +3,7 @@
 <?import com.jfoenix.controls.JFXButton?>
 <?import com.jfoenix.controls.JFXComboBox?>
 <?import com.jfoenix.controls.JFXRadioButton?>
+<?import com.jfoenix.controls.JFXSlider?>
 <?import com.jfoenix.controls.JFXTextArea?>
 <?import com.jfoenix.controls.JFXTextField?>
 <?import com.jfoenix.controls.JFXToolbar?>
@@ -309,6 +310,11 @@
                         <VBox fx:id="vLeft" maxWidth="-Infinity" minWidth="-Infinity" prefHeight="200.0" prefWidth="4.0" stylesheets="@Default.css" GridPane.halignment="LEFT" />
                         <HBox fx:id="vBottom" maxHeight="-Infinity" minHeight="-Infinity" prefHeight="4.0" prefWidth="200.0" styleClass="vboxMapOutline" stylesheets="@Default.css" GridPane.valignment="BOTTOM" GridPane.vgrow="NEVER" />
                         <VBox maxWidth="-Infinity" minWidth="-Infinity" prefHeight="200.0" prefWidth="3.25" styleClass="vboxMapOutline" stylesheets="@Default.css" GridPane.columnIndex="1" />
+                        <JFXSlider fx:id="sliderBar" blockIncrement="0.01" majorTickUnit="0.1" max="10.0" min="1.0" minorTickCount="1" orientation="VERTICAL" value="1.0" GridPane.halignment="RIGHT">
+                           <GridPane.margin>
+                              <Insets bottom="100.0" right="15.0" top="100.0" />
+                           </GridPane.margin>
+                        </JFXSlider>
                      </children>
                      <StackPane.margin>
                         <Insets />
