@@ -159,12 +159,12 @@
             </GridPane>
          </children>
       </VBox>
-      <JFXTextField editable="false" layoutY="667.0" prefHeight="31.0" prefWidth="1921.0" style="-fx-background-color: white;" AnchorPane.bottomAnchor="22.0">
+      <JFXTextField editable="false" layoutY="667.0" prefHeight="31.0" prefWidth="1921.0" styleClass="jfx-text-field-twitter" stylesheets="@Default.css" AnchorPane.bottomAnchor="22.0">
          <font>
             <Font size="15.0" />
          </font>
       </JFXTextField>
-      <JFXTextField fx:id="tweetBox" editable="false" layoutX="-7.0" layoutY="667.0" prefColumnCount="1" prefHeight="28.0" prefWidth="5000.0" style="-fx-background-color: white;" unFocusColor="BLACK" AnchorPane.bottomAnchor="22.0">
+      <JFXTextField fx:id="tweetBox" editable="false" layoutX="-7.0" layoutY="667.0" prefColumnCount="1" prefHeight="28.0" prefWidth="5000.0" styleClass="jfx-text-field-twitter" stylesheets="@Default.css" unFocusColor="BLACK" AnchorPane.bottomAnchor="22.0">
          <font>
             <Font size="15.0" />
          </font>

@@ -62,6 +62,8 @@ import static java.lang.Math.sqrt;
 public class PathFindingController {
 
     @FXML
+    private ColumnConstraints mapColumn;
+    @FXML
     private TextArea direction;
 
     @FXML
@@ -721,6 +723,44 @@ public class PathFindingController {
 
     @FXML
     private void settingPressed(){
+        TranslateTransition openSetting = new TranslateTransition(new Duration(300.0D), this.settingPane);
+        openSetting.setToX(Map.getFitWidth()-850);
+        TranslateTransition closeSetting = new TranslateTransition(new Duration(300.0D), this.settingPane);
+        this.menubtn.setOnAction((evt) -> {
+          //  settingPane.setLayoutX(mapColumn.getMaxWidth()-200);
+            if (this.settingPane.getTranslateY() != 450.0D) {
+                openSetting.setToY(450.0D);
+                openSetting.play();
+            } else {
+                closeSetting.setToY(-this.settingPane.getHeight());
+                closeSetting.play();
+            }
+
+        });
+
+        this.menuBack.setOnAction((evt) -> {
+            if (this.navList.getTranslateY() != 450.0D) {
+                openSetting.setToY(450);
+                openSetting.play();
+            } else {
+                closeSetting.setToY(-this.settingPane.getHeight());
+                closeSetting.play();
+            }
+
+        });
+        if (this.navList.getTranslateY() != 450.0D) {
+            openSetting.setToY(450);
+            openSetting.play();
+        } else {
+            closeSetting.setToX(-this.navList.getHeight());
+            closeSetting.play();
+        }
+
+
+    }
+
+
+        /*
         showingSettings = !showingSettings;
 
         if(showingSettings){
@@ -731,7 +771,7 @@ public class PathFindingController {
             settingPane.setDisable(true);
             settingPane.setLayoutY(-320);
         }
-    }
+    }*/
 
     @FXML
     private void updateKiosk(){

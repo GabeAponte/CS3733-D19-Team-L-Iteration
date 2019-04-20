@@ -99,7 +99,7 @@
                         <Font size="23.0" />
                      </font>
                   </JFXButton>
-                  <JFXTextField fx:id="Identifiers" focusColor="#f6bd38" onAction="#reenableSubmit" prefHeight="40.0" prefWidth="148.0" promptText="Identifiers " stylesheets="@Default.css" unFocusColor="WHITE" GridPane.rowIndex="2">
+                  <JFXTextField fx:id="Identifiers" focusColor="#f6bd38" onAction="#reenableSubmit" prefHeight="40.0" prefWidth="148.0" promptText="Identifiers " styleClass="jfx-text-field-normal" stylesheets="@Default.css" unFocusColor="WHITE" GridPane.rowIndex="2">
                      <font>
                         <Font size="20.0" />
                      </font>
@@ -107,7 +107,7 @@
                         <Insets left="20.0" right="20.0" />
                      </GridPane.margin>
                   </JFXTextField>
-                  <JFXTextField fx:id="Location" focusColor="#f6bd38" onAction="#reenableSubmit" prefHeight="40.0" prefWidth="248.0" promptText="Location" stylesheets="@Default.css" unFocusColor="WHITE" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                  <JFXTextField fx:id="Location" focusColor="#f6bd38" onAction="#reenableSubmit" prefHeight="40.0" prefWidth="248.0" promptText="Location" styleClass="jfx-text-field-normal" stylesheets="@Default.css" unFocusColor="WHITE" GridPane.columnIndex="1" GridPane.rowIndex="2">
                      <font>
                         <Font size="20.0" />
                      </font>

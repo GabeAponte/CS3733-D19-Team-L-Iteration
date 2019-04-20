@@ -3,6 +3,7 @@
 <?import com.jfoenix.controls.JFXButton?>
 <?import com.jfoenix.controls.JFXComboBox?>
 <?import com.jfoenix.controls.JFXDatePicker?>
+<?import com.jfoenix.controls.JFXListView?>
 <?import com.jfoenix.controls.JFXRadioButton?>
 <?import com.jfoenix.controls.JFXTextArea?>
 <?import com.jfoenix.controls.JFXTextField?>
@@ -168,7 +169,7 @@
                 </VBox>
             </children>
         </GridPane>
-      <AnchorPane layoutX="1306.0" layoutY="344.0" prefHeight="380.0" prefWidth="444.0" style="-fx-border-color: yellow;" styleClass="AnchorPainMain" stylesheets="@Default.css">
+      <AnchorPane layoutX="1306.0" layoutY="344.0" prefHeight="380.0" prefWidth="444.0" style="-fx-border-color: #f5d96b; -fx-background-radius: 10; -fx-border-radius: 10;" styleClass="AnchorPainMain" stylesheets="@Default.css">
          <children>
             <GridPane layoutX="1.0" layoutY="12.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
               <columnConstraints>
@@ -181,6 +182,7 @@
                   <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                   <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                   <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
               </rowConstraints>
                <children>
                   <Label styleClass="labelTitle" stylesheets="@Default.css" text="Make Reservation" GridPane.halignment="CENTER">
@@ -188,19 +190,27 @@
                         <Font size="20.0" />
                      </font>
                   </Label>
-                  <JFXRadioButton text="Private Event" GridPane.rowIndex="4">
+                  <JFXRadioButton text="Private Event" GridPane.rowIndex="5">
                      <font>
                         <Font size="20.0" />
                      </font>
                   </JFXRadioButton>
-                  <JFXTextField promptText="Event Name" GridPane.rowIndex="1">
+                  <JFXTextField promptText="Event Name" styleClass="jfx-text-field-normal" stylesheets="@Default.css" GridPane.rowIndex="1">
                      <font>
                         <Font size="20.0" />
                      </font>
                   </JFXTextField>
-                  <JFXTextArea promptText="Event Description" stylesheets="@Default.css" GridPane.rowIndex="2" />
+                  <JFXTextArea promptText="Event Description" styleClass="jfx-text-field-normal" stylesheets="@Default.css" GridPane.rowIndex="2">
+                     <font>
+                        <Font size="20.0" />
+                     </font></JFXTextArea>
                   <JFXComboBox promptText="Event Type" GridPane.rowIndex="3" />
+                  <JFXListView GridPane.rowIndex="4" />
+                  <JFXButton style="-fx-border-radius: 100; -fx-background-radius: 100;" styleClass="buttonMain" stylesheets="@Default.css" text="Make Reservation" GridPane.halignment="CENTER" GridPane.rowIndex="6" />
                </children>
+               <padding>
+                  <Insets left="10.0" right="10.0" />
+               </padding>
             </GridPane>
          </children>
       </AnchorPane>
