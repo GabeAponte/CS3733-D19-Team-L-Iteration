@@ -24,9 +24,7 @@ import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.geometry.Dimension2D;
-import javafx.geometry.NodeOrientation;
-import javafx.geometry.Point2D;
+import javafx.geometry.*;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -800,6 +798,15 @@ public class PathFindingController {
      */
     public void displayPath(){
         single.setLastTime();
+        //Create stuff for making a slider
+        Slider slider = new Slider(0, path.getPath().size(), 0);
+        slider.setMinWidth(180);
+
+        HBox layout = new HBox(slider);
+        layout.setPadding(new Insets(30));
+        layout.setAlignment(Pos.BOTTOM_CENTER);
+
+        pathPane.getChildren().add(layout);
         //Create all necessary objects for animating path.
         //Image icon = new Image("")
         Circle dude  = new Circle();
@@ -1132,6 +1139,13 @@ public class PathFindingController {
         double xSameVal = (start.getXcoord() + end.getXcoord()) / 2.0*childPane.getWidth()/Map.getImage().getWidth();
         double ySameVal = (start.getYcoord() + end.getYcoord()) / 2.0*childPane.getHeight()/Map.getImage().getHeight();
         gesturePane.centreOn(new Point2D(xSameVal, ySameVal));
+    }
+
+    private void fillSlider(ArrayList<String> floors) {
+        
+        for(int i = 0; i < floors.size(); i++) {
+
+        }
     }
 
     @FXML
