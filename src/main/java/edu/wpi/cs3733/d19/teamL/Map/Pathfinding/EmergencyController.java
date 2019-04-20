@@ -261,7 +261,7 @@ public class EmergencyController {
                 }
             }
         }
-
+        //nodes are now never empty
         if(! nodes.isEmpty()){
 
             AStarStrategy astar = new AStarStrategy(single.lookup);
@@ -299,14 +299,15 @@ public class EmergencyController {
                 //a^2 + b^2 = c^2 therefore sqrt gets the length of the distance between kiosk and this node
 
                 //System.out.println("n:"+n+" m:"+m+" length:"+length);
-                System.out.println("location: "+nodes.get(i).getLongName()+"  smallest distance: "+length);
+                //System.out.println("location: "+nodes.get(i).getLongName()+"  smallest distance: "+length);
 
                 if(length < smallestDistance){
                     smallestDistance = length;
                     //System.out.println("location: "+nodes.get(i).getLongName()+"  smallest distance: "+smallestDistance);
                     //set this node to be for pathing
                     closestLOC = nodes.get(i);
-                    closestPath = findAbstractPath(astar,kioskTemp, closestLOC, "    ");
+                    //restricts elevators here
+                    closestPath = findAbstractPath(astar,kioskTemp, closestLOC, "ELEV");
                 }
             }
 
@@ -316,11 +317,12 @@ public class EmergencyController {
             endNode = closestLOC;
             path = closestPath;
 
+
             //set the closest location label here!
             LongNameOfExit.setText(closestLOC.getLongName());
 
             //TODO: dispaly path doesnt wanna work
-            //displayPath();
+            displayPath();
             //printPath(path.getPath());
             direction.setText(printPath(path.getPath()));
 
