@@ -69,8 +69,6 @@ public class HomeScreenController {
     @FXML
     AnchorPane ap;
 
-    Timeline timeout;
-
     Timeline clock;
     Timeline tweets;
     Boolean isAM = true;
@@ -78,35 +76,7 @@ public class HomeScreenController {
     public void initialize() throws IOException {
         Singleton single = Singleton.getInstance();
 
-        Weather weatherBoy = new Weather();
-        String icon = weatherBoy.getIcon();
-        //clear-day, clear-night, rain, snow, sleet, wind, fog, cloudy, partly-cloudy-day, or partly-cloudy-night
-        if (icon.contains("clear") && icon.contains("day")) {
-            icon = "weatherIcons/SunImage.PNG";
-        } else if(icon.contains("clear") && icon.contains("night")){
-            icon = "weatherIcons/MoonImage.PNG";
-        }else if(icon.contains("rain") || icon.contains("sleet")){
-            icon = "weatherIcons/RainImage.PNG";
-        } else if(icon.contains("partly") && icon.contains("day")){
-            icon = "weatherIcons/PartlyCloudImage.PNG";
-        } else if(icon.contains("partly") && icon.contains("night")){
-            icon = "weatherIcons/PartlyCloudNightImage.PNG";
-        } else if(icon.contains("cloudy")){
-            icon = "weatherIcons/CloudyImage.PNG";
-        } else if(icon.contains("fog")){
-            icon = "weatherIcons/FogImage.PNG";
-        } else if(icon.contains("snow")){
-            icon = "weatherIcons/SnowImage.PNG";
-        } else if(icon.contains("wind")){
-            icon = "weatherIcons/WindImage.PNG";
-        }else{
-            icon = "weatherIcons/ThunderImage.PNG";
-        }
-        //System.out.println("icon is being set to: "+icon);
-        Image img = new Image(icon);
-        weatherIcon.setImage(img);
-        tempDisplay.setText(weatherBoy.getActTemp());
-
+        updateWeatherDisplay();
 
         if(single.isDoPopup()) {
             single.setDoPopup(false);
@@ -138,10 +108,13 @@ public class HomeScreenController {
             tweets.play();
 
 
-
-
-
             clock = new Timeline(new KeyFrame(Duration.ZERO, e -> {
+                if((System.currentTimeMillis() - single.getStartTime()) > 1800000){
+                    single.setStartTime();
+                    single.updateWeather();
+
+                    updateWeatherDisplay();
+                }
                 long second = LocalDateTime.now().getSecond();
                 long minute = LocalDateTime.now().getMinute();
                 long hour = LocalDateTime.now().getHour();
@@ -182,8 +155,41 @@ public class HomeScreenController {
         dateLabel.setText(dtf.format(localDate));
     }
 
+    public void updateWeatherDisplay(){
+        Singleton single = Singleton.getInstance();
+
+        String icon = single.getWeatherIcon();
+        //clear-day, clear-night, rain, snow, sleet, wind, fog, cloudy, partly-cloudy-day, or partly-cloudy-night
+        if (icon.contains("clear") && icon.contains("day")) {
+            icon = "weatherIcons/SunImage.PNG";
+        } else if(icon.contains("clear") && icon.contains("night")){
+            icon = "weatherIcons/MoonImage.PNG";
+        }else if(icon.contains("rain") || icon.contains("sleet")){
+            icon = "weatherIcons/RainImage.PNG";
+        } else if(icon.contains("partly") && icon.contains("day")){
+            icon = "weatherIcons/PartlyCloudImage.PNG";
+        } else if(icon.contains("partly") && icon.contains("night")){
+            icon = "weatherIcons/PartlyCloudNightImage.PNG";
+        } else if(icon.contains("cloudy")){
+            icon = "weatherIcons/CloudyImage.PNG";
+        } else if(icon.contains("fog")){
+            icon = "weatherIcons/FogImage.PNG";
+        } else if(icon.contains("snow")){
+            icon = "weatherIcons/SnowImage.PNG";
+        } else if(icon.contains("wind")){
+            icon = "weatherIcons/WindImage.PNG";
+        }else{
+            icon = "weatherIcons/ThunderImage.PNG";
+        }
+        //System.out.println("icon is being set to: "+icon);
+        Image img = new Image(icon);
+        weatherIcon.setImage(img);
+        tempDisplay.setText(single.getWeatherTemp());
+    }
+
     public void displayPopup(){
         Singleton single = Singleton.getInstance();
+        single.updateWeather();
         try {
                 clock.pause();
                 Stage stage;
@@ -273,6 +279,7 @@ public class HomeScreenController {
 
     @FXML
     private void AboutPress() throws IOException {
+        System.out.println(System.getProperty("os.name"));
         tweets.stop();
         clock.stop();
         Singleton single = Singleton.getInstance();

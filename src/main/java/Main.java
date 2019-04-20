@@ -36,7 +36,10 @@ public class Main extends Application {
         //ea.readCSVintoTable();
         single.setData();
         single.populateTweets();
+        single.updateWeather();
         launch(args);
+
+        System.out.println(System.getProperty("os.name"));
 
 
 
