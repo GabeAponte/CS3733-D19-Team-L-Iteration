@@ -201,7 +201,7 @@
                         </GridPane>
                      </children>
                   </VBox>
-                  <JFXPasswordField fx:id="password" focusColor="#f5d96b" promptText="Password" stylesheets="@Default.css" unFocusColor="WHITE" GridPane.rowIndex="5">
+                  <JFXPasswordField fx:id="password" focusColor="#f5d96b" promptText="Password" styleClass="jfx-password-fieldEdit" stylesheets="@Default.css" unFocusColor="WHITE" GridPane.rowIndex="5">
                      <GridPane.margin>
                         <Insets left="100.0" right="100.0" />
                      </GridPane.margin>
@@ -209,7 +209,7 @@
                         <Font size="20.0" />
                      </font>
                   </JFXPasswordField>
-                  <JFXPasswordField fx:id="confirmPassword" focusColor="#f5d96b" promptText="Password" stylesheets="@Default.css" unFocusColor="WHITE" GridPane.columnIndex="1" GridPane.rowIndex="5">
+                  <JFXPasswordField fx:id="confirmPassword" focusColor="#f5d96b" promptText="Password" styleClass="jfx-password-fieldEdit" stylesheets="@Default.css" unFocusColor="WHITE" GridPane.columnIndex="1" GridPane.rowIndex="5">
                      <font>
                         <Font size="20.0" />
                      </font>
