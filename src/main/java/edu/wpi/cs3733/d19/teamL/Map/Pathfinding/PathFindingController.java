@@ -43,10 +43,12 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.Pane;
 
+import javafx.util.StringConverter;
 import net.kurobako.gesturefx.GesturePane;
 import org.controlsfx.control.textfield.TextFields;
 
 import java.io.IOException;
+import java.rmi.activation.ActivationGroup_Stub;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.ListIterator;
@@ -838,17 +840,7 @@ public class PathFindingController {
      */
     public void displayPath(){
         single.setLastTime();
-        //Create stuff for making a slider
-        Slider slider = new Slider(0, path.getPath().size(), 0);
-        slider.setMinWidth(180);
-
-        HBox layout = new HBox(slider);
-        layout.setPadding(new Insets(30));
-        layout.setAlignment(Pos.BOTTOM_CENTER);
-
-        pathPane.getChildren().add(layout);
         //Create all necessary objects for animating path.
-        //Image icon = new Image("")
         Circle dude  = new Circle();
         dude.setCenterX(startNode.getXcoord()*childPane.getWidth()/Map.getImage().getWidth());
         dude.setCenterY(startNode.getYcoord()*childPane.getHeight()/Map.getImage().getHeight());
@@ -1135,6 +1127,7 @@ public class PathFindingController {
             }
 
             pathPane.getChildren().add(EndCircle);
+            
 
             pathPane.setPrefSize(childPane.getWidth(), childPane.getHeight());
             //Displays the node that travels
@@ -1181,10 +1174,27 @@ public class PathFindingController {
         gesturePane.centreOn(new Point2D(xSameVal, ySameVal));
     }
 
+    /**
+     * @Author Nikhil
+     * This method takes the list of all the floors the path reaches and fills the necessary information for the slider
+     * @param floors
+     */
     private void fillSlider(ArrayList<String> floors) {
-
+        boolean change = false;
+        int counter = 0;
+        int start = 0;
         for(int i = 0; i < floors.size(); i++) {
-
+            if(counter == 0 && change == true) {
+                change = false;
+            }
+            if(floors.get(i).equals(floors.get(start))) {
+                counter++;
+            }
+            if(!floors.get(i).equals(floors.get(start))) {
+                start = i;
+                change = true;
+                counter = 0;
+            }
         }
     }
 
