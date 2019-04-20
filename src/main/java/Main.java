@@ -34,8 +34,6 @@ public class Main extends Application {
         single.updateWeather();
         launch(args);
 
-        System.out.println(System.getProperty("os.name"));
-
 
 
     }
