@@ -8,6 +8,7 @@ package edu.wpi.cs3733.d19.teamL;
   int check = single.getNum();
  */
 
+import edu.wpi.cs3733.d19.teamL.API.Weather;
 import edu.wpi.cs3733.d19.teamL.Map.MapLocations.Edge;
 import edu.wpi.cs3733.d19.teamL.Map.MapLocations.Location;
 import edu.wpi.cs3733.d19.teamL.Map.Pathfinding.EdgesAccess;
@@ -35,9 +36,21 @@ public class Singleton {
     private static int timeoutSec;
     private static boolean doPopup;
     private static Text txt;
+    private static Weather weather;
+    private static long startTime;
 
     private ObservableList<Location> data = FXCollections.observableArrayList();
     public HashMap<String, Location> lookup = new HashMap<String, Location>();
+
+    private Comparator comparator = new Comparator() {
+        @Override
+        public int compare(Object o1, Object o2) {
+            Location l1 = (Location) o1;
+            Location l2 = (Location) o2;
+            return l1.getLongName().compareTo(l2.getLongName());
+
+        }
+    };
 
     private static Singleton single = new Singleton();
     private Singleton(){
@@ -50,6 +63,8 @@ public class Singleton {
         timeoutSec = 4500000; //how long before timeout (in ms) 1000 = 1 second
         doPopup = true; //should be more appropriately named initializeClock
         txt = new Text();
+        weather = new Weather();
+        startTime = System.currentTimeMillis();
     }
 
     public void populateTweets(){
@@ -78,6 +93,25 @@ public class Singleton {
         }
     }
 
+    public static void setStartTime(){
+        startTime = System.currentTimeMillis();
+    }
+
+    public static long getStartTime(){
+        return startTime;
+    }
+
+    public static String getWeatherIcon(){
+        return weather.getIcon();
+    }
+
+    public static void updateWeather(){
+        weather = new Weather();
+    }
+
+    public static String getWeatherTemp(){
+        return weather.getActTemp();
+    }
     public static Text getTxt(){
         return txt;
     }
@@ -145,6 +179,7 @@ public class Singleton {
             }
             count++;
         }
+        data.sort(comparator);
     }
 
     public static boolean isIsAdmin() {
@@ -257,6 +292,7 @@ public class Singleton {
 
         lookup.remove(oldLoc.getLocID(), oldLoc);
         lookup.put(newLoc.getLocID(), newLoc);
+        data.sort(comparator);
     }
 
     /*
@@ -307,5 +343,6 @@ public class Singleton {
     public void addNode (Location l) {
         lookup.put(l.getLocID(), l);
         data.add(l);
+        data.sort(comparator);
     }
 }

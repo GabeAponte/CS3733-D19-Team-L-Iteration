@@ -1,0 +1,294 @@
+
+.buttonToolbar{
+    -fx-background-radius: 10000;
+    -fx-border-color : #012D5A;
+    -fx-border-radius: 100;
+    -fx-border-width: 2;
+    -fx-pref-height: 75;
+}
+
+.buttonToolbar:hover{
+    -fx-background-color: #012d5a;
+    -fx-text-fill: white;
+}
+
+.buttonToolbar:hover .glyph-icon{
+    -fx-fill: white;
+}
+
+.buttonMap{
+    -fx-background-radius: 10000;
+    -fx-border-color : #012D5A;
+    -fx-border-radius: 100;
+    -fx-border-width: 2;
+    -fx-pref-height: 46;
+}
+
+.buttonMap:hover{
+    -fx-background-color: #012d5a;
+    -fx-text-fill: white;
+}
+
+.buttonMap:hover .glyph-icon{
+    -fx-fill: white;
+}
+
+.tool-barMain {
+    -fx-background-color: white;
+}
+
+.tool-barSecondary {
+    -fx-background-color: #F5D96B;
+}
+
+.vboxMapOutline {
+    -fx-background-color: #F5D96B;
+}
+
+.vboxTextfieldOutline {
+    -fx-border-color: #F5D96B;
+
+}
+
+.radio-button {
+    -jfx-selected-color:  #f5d96b;
+    -jfx-unselected-color: white;
+    -fx-text-fill: white;
+}
+
+.labelTitle {
+    -fx-text-fill: #f5d96b;
+}
+.labelPopupTitle {
+    -fx-text-fill: black;
+}
+.labelPopupDesc {
+    -fx-text-fill: white;
+}
+
+.labelMapFloor {
+    -fx-text-fill: #012d5a;
+}
+
+.AnchorPainMain{
+    -fx-background-color: #012d5a;
+}
+
+.text-area{
+    -fx-text-fill: white;
+}
+
+.jfx-tree-table-view {
+    -fx-border-color: #f5d96b ;
+    -fx-background-radius: 20;
+    -fx-border-width: 5;
+    -fx-border-radius: 20;
+}
+
+
+.jfx-tab-pane .headers-region {
+    -fx-background-color: #f5d96b;
+}
+.jfx-tab-pane .tab-header-background {
+    -fx-background-color: #f5d96b;
+}
+
+.tab .tab-label {
+    -fx-alignment: CENTER;
+    -fx-text-fill: BLACK;
+
+}
+
+.tab:selected .tab-label {
+    -fx-alignment: CENTER;
+    -fx-text-fill: BLACK;
+}
+
+.tab:hover{
+    -fx-background-color: #f1cc39;;
+    -fx-background-radius: 1000000;
+    -fx-text-fill: BLACK;
+    /*
+    -fx-text-fill: #f5d96b ;
+     */
+}
+.jfx-tab-pane .tab:selected {
+    -fx-background-color: #efc318;
+    -fx-background-radius: 1000000;
+}
+.tab:hover .tab-label {
+    -fx-alignment: CENTER;
+    -fx-text-fill: BLACK;
+}
+
+.jfx-tab-pane .tab-selected-line {
+    -fx-background-color: f1cc39;
+}
+
+.labelWelcome{
+    -fx-text-fill: black;
+}
+
+.buttonMain{
+    -fx-border-color: #F5D96B;
+    -fx-text-fill: white;
+}
+
+.buttonMain .glyph-icon {
+    -fx-fill: white;
+}
+
+.buttonMain:hover{
+    -fx-background-color: white;
+    -fx-text-fill: #012d5a;
+}
+
+.buttonMain:hover .glyph-icon{
+    -fx-fill: #012d5a;
+}
+
+.jfx-text-field {
+    -fx-prompt-text-fill: WHITE;
+    -fx-text-fill: WHITE;
+    -jfx-focus-color: #f5d96b;
+    -jfx-un-focus-color: white
+}
+
+.jfx-text-field-login{
+    -fx-background-color: white;
+    -fx-prompt-text-fill: black;
+    -fx-text-fill: black;
+    -jfx-focus-color: #f5d96b;
+    -jfx-unfocus-color: transparent
+}
+
+.password-field-login{
+    -fx-background-color: white;
+    -fx-prompt-text-fill: black;
+    -fx-text-fill: black;
+    -jfx-focus-color: #f5d96b;
+    -jfx-unfocus-color: transparent
+}
+
+.jfx-text-areaServiceRequest {
+    -fx-background-color: white;
+    -fx-prompt-text-fill: black;
+    -fx-text-fill: black;
+    -jfx-focus-color: #f5d96b;
+    -jfx-unfocus-color: transparent;
+    -fx-background-radius: 25;
+    -fx-border-color: #f5d96b;
+    -fx-border-width: 3;
+    -fx-border-radius: 20;
+}
+
+.jfx-text-areaSuggestionTable {
+    -fx-text-fill: white;
+    -fx-prompt-text-fill: white;
+    -jfx-focus-color: #f5d96b;
+    -jfx-unfocus-color: transparent;
+    -fx-border-color: #f5d96b;
+    -fx-border-radius: 20;
+}
+
+.jfx-combo-box {
+    -fx-font-size : 20 pt;
+    -fx-text-fill : white;
+    -jfx-focus-color: #f5d96b;
+    -jfx-unfocus-color: white;
+    -fx-prompt-text-fill: white;
+
+}
+
+.jfx-combo-box .text-field {
+    -fx-text-fill : white;
+
+}
+
+.jfx-combo-box .text-area {
+    -fx-text-fill : white;
+
+}
+
+.jfx-combo-box .list-view .list-cell {
+-fx-text-fill : black;
+}
+
+.jfx-combo-box .list-cell {
+    -fx-text-fill : white;
+}
+
+.jfx-combo-box .arrow {
+    -fx-background-color: #f5d96b;
+}
+
+.jfx-combo-box-Popup {
+    -fx-font-size : 17 pt;
+    -fx-text-fill : white;
+    -jfx-focus-color: #f5d96b;
+    -jfx-unfocus-color: white;
+    -fx-prompt-text-fill: white;
+
+}
+
+.jfx-combo-box-Popup .text-field {
+    -fx-text-fill : white;
+
+}
+
+.jfx-combo-box-Popup .text-area {
+    -fx-text-fill : white;
+
+}
+
+.jfx-combo-box-Popup .list-view .list-cell {
+    -fx-text-fill : black;
+}
+
+.jfx-combo-box-Popup .list-cell {
+    -fx-text-fill : white;
+}
+
+.jfx-combo-box-Popup .arrow {
+    -fx-background-color: #f5d96b;
+}
+
+.toggle-button {
+    -fx-text-fill: white;
+
+}
+
+
+.jfx-date-picker{
+    -fx-font-size: 20 pt;
+    -fx-text-fill: black;
+    -jfx-focus-color: #f5d96b;
+    -jfx-unfocus-color: white;
+    -jfx-default-color: #f5d96b;
+}
+.jfx-date-picker .input-line {
+    -fx-background-color: white;
+}
+.jfx-date-picker .input-focused-line {
+    -fx-background-color: #f5d96b;
+}
+
+.jfx-time-picker{
+    -fx-font-size: 20 pt;
+    -fx-text-fill: black;
+    -jfx-focus-color: #f5d96b;
+    -jfx-unfocus-color: white;
+    -jfx-default-color: #f5d96b;
+}
+
+.jfx-time-picker .input-line {
+    -fx-background-color: white;
+}
+.jfx-time-picker .input-focused-line {
+    -fx-background-color: #f5d96b;
+}
+
+.jfx-password-fieldEdit{
+    -fx-prompt-text-fill: white;
+    -fx-text-fill: white;
+}

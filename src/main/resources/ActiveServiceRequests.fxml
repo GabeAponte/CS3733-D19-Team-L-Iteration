@@ -20,16 +20,12 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
-<?import javafx.stage.Screen?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="${screen.visualBounds.height}" prefWidth="${screen.visualBounds.width}" style="-fx-background-color: #012D5A;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.d19.teamL.ServiceRequest.FulfillServiceRequest.ActiveServiceRequestsController">
-    <fx:define>
-        <Screen fx:factory="getPrimary" fx:id="screen"/>
-    </fx:define>
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720" prefWidth="1280" styleClass="AnchorPainMain" stylesheets="@Default.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.d19.teamL.ServiceRequest.FulfillServiceRequest.ActiveServiceRequestsController">
     <children>
         <VBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
             <children>
-                <JFXToolbar prefHeight="100.0" prefWidth="1280.0" style="-fx-background-color: WHITE;">
+                <JFXToolbar prefHeight="100.0" prefWidth="1280.0" styleClass="tool-barMain" stylesheets="@Default.css">
                     <left>
                         <ImageView fitHeight="75.0" fitWidth="325.0" BorderPane.alignment="CENTER">
                             <image>
@@ -46,7 +42,7 @@
                     <right>
                         <HBox alignment="CENTER_RIGHT" prefHeight="100.0" prefWidth="200.0" BorderPane.alignment="CENTER">
                             <children>
-                                <JFXButton fx:id="Back" alignment="CENTER" buttonType="RAISED" contentDisplay="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" onAction="#backPressed" prefHeight="75.0" prefWidth="87.0" style="-fx-background-radius: 100000; -fx-border-color: #012D5A; -fx-border-radius: 100; -fx-border-width: 2;" stylesheets="@toolbarIcons.css" text=" " textFill="WHITE">
+                                <JFXButton fx:id="Back" alignment="CENTER" buttonType="RAISED" contentDisplay="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" onAction="#backPressed" prefHeight="75.0" prefWidth="87.0" styleClass="buttonToolbar" stylesheets="@Default.css" text=" " textFill="WHITE">
                                     <font>
                                         <Font size="20.0" />
                                     </font>
@@ -71,7 +67,7 @@
                         <RowConstraints minHeight="0.0" valignment="CENTER" />
                     </rowConstraints>
                     <children>
-                        <JFXTabPane fx:id="requestType" style="-fx-background-color: white;" stylesheets="@tabs.css" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
+                        <JFXTabPane fx:id="requestType" stylesheets="@Default.css" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
                             <tabs>
                                 <Tab fx:id="tab9" onSelectionChanged="#filterTable" text="Prescriptions">
                                     <content>
@@ -95,7 +91,7 @@
                                                                 <Blend />
                                                             </effect>
                                                         </Label>
-                                                        <JFXTreeTableView fx:id="PrescriptionsRequests" onMouseClicked="#SwitchToFulfillRequestScreen" prefHeight="406.0" prefWidth="1169.0" style="-fx-background-radius: 20; -fx-border-color: #f5d96b; -fx-border-radius: 20; -fx-border-width: 5;" GridPane.rowIndex="1">
+                                                        <JFXTreeTableView fx:id="PrescriptionsRequests" onMouseClicked="#SwitchToFulfillRequestScreen" prefHeight="406.0" prefWidth="1169.0" styleClass="jfx-tree-table-view" stylesheets="@Default.css" GridPane.rowIndex="1">
                                                             <columns>
                                                                 <TreeTableColumn fx:id="hi" prefWidth="188.01975631713867" text="Location" />
                                                                 <TreeTableColumn fx:id="type" prefWidth="161.36790466308594" text="Type" />
@@ -143,7 +139,7 @@
                                                                 <Blend />
                                                             </effect>
                                                         </Label>
-                                                        <JFXTreeTableView fx:id="ITRequest" onMouseClicked="#SwitchToFulfillRequestScreen" prefHeight="406.0" prefWidth="1169.0" style="-fx-background-radius: 20; -fx-border-color: #f5d96b; -fx-border-radius: 20; -fx-border-width: 5;" GridPane.rowIndex="1">
+                                                        <JFXTreeTableView fx:id="ITRequest" onMouseClicked="#SwitchToFulfillRequestScreen" prefHeight="406.0" prefWidth="1169.0" styleClass="jfx-tree-table-view" stylesheets="@Default.css" GridPane.rowIndex="1">
                                                             <columns>
                                                                 <TreeTableColumn fx:id="hi" prefWidth="188.01975631713867" text="Location" />
                                                                 <TreeTableColumn fx:id="type" prefWidth="161.36790466308594" text="Type" />
@@ -191,7 +187,7 @@
                                                                 <Blend />
                                                             </effect>
                                                         </Label>
-                                                        <JFXTreeTableView fx:id="InternalRequests" onMouseClicked="#SwitchToFulfillRequestScreen" prefHeight="406.0" prefWidth="1169.0" style="-fx-background-radius: 20; -fx-border-color: #f5d96b; -fx-border-radius: 20; -fx-border-width: 5;" GridPane.rowIndex="1">
+                                                        <JFXTreeTableView fx:id="InternalRequests" onMouseClicked="#SwitchToFulfillRequestScreen" prefHeight="406.0" prefWidth="1169.0" styleClass="jfx-tree-table-view" stylesheets="@Default.css" GridPane.rowIndex="1">
                                                             <columns>
                                                                 <TreeTableColumn fx:id="hi" prefWidth="188.01975631713867" text="Location" />
                                                                 <TreeTableColumn fx:id="type" prefWidth="161.36790466308594" text="Type" />
@@ -239,7 +235,7 @@
                                                                 <Blend />
                                                             </effect>
                                                         </Label>
-                                                        <JFXTreeTableView fx:id="ExternalRequests" onMouseClicked="#SwitchToFulfillRequestScreen" prefHeight="406.0" prefWidth="1169.0" style="-fx-background-radius: 20; -fx-border-color: #f5d96b; -fx-border-radius: 20; -fx-border-width: 5;" GridPane.rowIndex="1">
+                                                        <JFXTreeTableView fx:id="ExternalRequests" onMouseClicked="#SwitchToFulfillRequestScreen" prefHeight="406.0" prefWidth="1169.0" styleClass="jfx-tree-table-view" stylesheets="@Default.css" GridPane.rowIndex="1">
                                                             <columns>
                                                                 <TreeTableColumn fx:id="hi" prefWidth="188.01975631713867" text="Location" />
                                                                 <TreeTableColumn fx:id="type" prefWidth="161.36790466308594" text="Type" />
@@ -287,7 +283,7 @@
                                                                 <Blend />
                                                             </effect>
                                                         </Label>
-                                                        <JFXTreeTableView fx:id="AVRequests" onMouseClicked="#SwitchToFulfillRequestScreen" prefHeight="406.0" prefWidth="1169.0" style="-fx-background-radius: 20; -fx-border-color: #f5d96b; -fx-border-radius: 20; -fx-border-width: 5;" GridPane.rowIndex="1">
+                                                        <JFXTreeTableView fx:id="AVRequests" onMouseClicked="#SwitchToFulfillRequestScreen" prefHeight="406.0" prefWidth="1169.0" styleClass="jfx-tree-table-view" stylesheets="@Default.css" GridPane.rowIndex="1">
                                                             <columns>
                                                                 <TreeTableColumn fx:id="hi" prefWidth="188.01975631713867" text="Location" />
                                                                 <TreeTableColumn fx:id="type" prefWidth="161.36790466308594" text="Type" />
@@ -335,7 +331,7 @@
                                                                 <Blend />
                                                             </effect>
                                                         </Label>
-                                                        <JFXTreeTableView fx:id="LanguageRequests" onMouseClicked="#SwitchToFulfillRequestScreen" prefHeight="406.0" prefWidth="1169.0" style="-fx-background-radius: 20; -fx-border-color: #f5d96b; -fx-border-radius: 20; -fx-border-width: 5;" GridPane.rowIndex="1">
+                                                        <JFXTreeTableView fx:id="LanguageRequests" onMouseClicked="#SwitchToFulfillRequestScreen" prefHeight="406.0" prefWidth="1169.0" styleClass="jfx-tree-table-view" stylesheets="@Default.css" GridPane.rowIndex="1">
                                                             <columns>
                                                                 <TreeTableColumn fx:id="hi" prefWidth="188.01975631713867" text="Location" />
                                                                 <TreeTableColumn fx:id="type" prefWidth="161.36790466308594" text="Type" />
@@ -383,7 +379,7 @@
                                                                 <Blend />
                                                             </effect>
                                                         </Label>
-                                                        <JFXTreeTableView fx:id="ReligiousRequests" onMouseClicked="#SwitchToFulfillRequestScreen" prefHeight="406.0" prefWidth="1169.0" style="-fx-background-radius: 20; -fx-border-color: #f5d96b; -fx-border-radius: 20; -fx-border-width: 5;" GridPane.rowIndex="1">
+                                                        <JFXTreeTableView fx:id="ReligiousRequests" onMouseClicked="#SwitchToFulfillRequestScreen" prefHeight="406.0" prefWidth="1169.0" styleClass="jfx-tree-table-view" stylesheets="@Default.css" GridPane.rowIndex="1">
                                                             <columns>
                                                                 <TreeTableColumn fx:id="hi" prefWidth="188.01975631713867" text="Location" />
                                                                 <TreeTableColumn fx:id="type" prefWidth="161.36790466308594" text="Type" />
@@ -431,7 +427,7 @@
                                                                 <Blend />
                                                             </effect>
                                                         </Label>
-                                                        <JFXTreeTableView fx:id="MaintenanceRequests" onMouseClicked="#SwitchToFulfillRequestScreen" prefHeight="406.0" prefWidth="1169.0" style="-fx-background-radius: 20; -fx-border-color: #f5d96b; -fx-border-width: 5; -fx-border-radius: 20;" GridPane.rowIndex="1">
+                                                        <JFXTreeTableView fx:id="MaintenanceRequests" onMouseClicked="#SwitchToFulfillRequestScreen" prefHeight="406.0" prefWidth="1169.0" styleClass="jfx-tree-table-view" stylesheets="@Default.css" GridPane.rowIndex="1">
                                                             <columns>
                                                                 <TreeTableColumn fx:id="hi" prefWidth="188.01975631713867" text="Location" />
                                                                 <TreeTableColumn fx:id="type" prefWidth="161.36790466308594" text="Type" />
@@ -479,7 +475,7 @@
                                                                 <Blend />
                                                             </effect>
                                                         </Label>
-                                                        <JFXTreeTableView fx:id="SecurityRequests" onMouseClicked="#SwitchToFulfillRequestScreen" prefHeight="406.0" prefWidth="1169.0" style="-fx-background-radius: 20; -fx-border-color: #f5d96b; -fx-border-radius: 20; -fx-border-width: 5;" GridPane.rowIndex="1">
+                                                        <JFXTreeTableView fx:id="SecurityRequests" onMouseClicked="#SwitchToFulfillRequestScreen" prefHeight="406.0" prefWidth="1169.0" styleClass="jfx-tree-table-view" stylesheets="@Default.css" GridPane.rowIndex="1">
                                                             <columns>
                                                                 <TreeTableColumn fx:id="hi" prefWidth="188.01975631713867" text="Location" />
                                                                 <TreeTableColumn fx:id="type" prefWidth="161.36790466308594" text="Type" />
@@ -519,7 +515,7 @@
                                                         <RowConstraints valignment="CENTER" vgrow="SOMETIMES" />
                                                     </rowConstraints>
                                                     <children>
-                                                        <Label alignment="CENTER" prefHeight="45.0" prefWidth="397.0" text="Active Sanitation Requests" textFill="#f5d96b" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.valignment="CENTER" GridPane.vgrow="NEVER">
+                                                        <Label alignment="CENTER" prefHeight="45.0" prefWidth="397.0" stylesheets="@Default.css" text="Active Sanitation Requests" textFill="#f5d96b" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.valignment="CENTER" GridPane.vgrow="NEVER">
                                                             <font>
                                                                 <Font size="30.0" />
                                                             </font>
@@ -527,7 +523,7 @@
                                                                 <Blend />
                                                             </effect>
                                                         </Label>
-                                                        <JFXTreeTableView fx:id="SanitationRequests" onMouseClicked="#SwitchToFulfillRequestScreen" prefHeight="406.0" prefWidth="1169.0" style="-fx-background-radius: 20; -fx-border-color: #f5d96b; -fx-border-radius: 20; -fx-border-width: 5;" GridPane.rowIndex="1">
+                                                        <JFXTreeTableView fx:id="SanitationRequests" onMouseClicked="#SwitchToFulfillRequestScreen" prefHeight="406.0" prefWidth="1169.0" styleClass="jfx-tree-table-view" stylesheets="@Default.css" GridPane.rowIndex="1">
                                                             <columns>
                                                                 <TreeTableColumn fx:id="hi" prefWidth="188.01975631713867" text="Location" />
                                                                 <TreeTableColumn fx:id="type" prefWidth="161.36790466308594" text="Type" />

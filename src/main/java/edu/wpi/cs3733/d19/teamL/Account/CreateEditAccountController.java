@@ -60,10 +60,10 @@ public class CreateEditAccountController {
     private TextField username;
 
     @FXML
-    private JFXTextField password;
+    private JFXPasswordField password;
 
     @FXML
-    private JFXTextField confrimPassword;
+    private JFXPasswordField confirmPassword;
 
     @FXML
     private TextField firstName;
@@ -420,7 +420,7 @@ public class CreateEditAccountController {
         } else if(password == null || password.getText().trim().isEmpty()){
             submit.setDisable(true);
             return;
-        } else if(confrimPassword == null || confrimPassword.getText().trim().isEmpty()){
+        } else if(confirmPassword == null || confirmPassword.getText().trim().isEmpty()){
             submit.setDisable(true);
             return;
         }else if(department.getValue() == null){
@@ -444,7 +444,7 @@ public class CreateEditAccountController {
             errorLabel.setText("Invalid Email Address");
             return;
         }
-        if(!password.getText().equals(confrimPassword.getText())){
+        if(!password.getText().equals(confirmPassword.getText())){
             errorLabel.setText("Passwords do not match");
             return;
         }

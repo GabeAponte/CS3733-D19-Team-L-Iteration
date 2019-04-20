@@ -34,7 +34,14 @@ public class Weather {
     }
 
     public void getCurrently(){
-        fio = new ForecastIO("88cbab72251b626bd6cf465fc89144b9");
+        try {
+            fio = new ForecastIO("88cbab72251b626bd6cf465fc89144b9");
+            if(fio == null){
+                throw new NullPointerException();
+            }
+        } catch (Exception e){
+            fio = new ForecastIO("8bbd411df62726b90761db369453bcc8");
+        }
         fio.setUnits(ForecastIO.UNITS_US);
         fio.setLang(ForecastIO.LANG_ENGLISH);
         fio.getForecast("42.269478", "-71.807783");
@@ -58,7 +65,7 @@ public class Weather {
      */
     public String getActTemp() {
         String userFriendlyTemp = currently.get().getByKey("temperature");
-        if(userFriendlyTemp.contains(".")) {
+        if(userFriendlyTemp.contains(".") && userFriendlyTemp.indexOf(".") != -1) {
             userFriendlyTemp = userFriendlyTemp.substring(0, userFriendlyTemp.indexOf("."));
         }
         return userFriendlyTemp + " \u00b0 F";
@@ -66,7 +73,7 @@ public class Weather {
 
     /**@author Nathan
      *
-     * @return the "feel" temp
+     * @return the "feels like" temp
      */
     public String getFeelTemp() {
         return currently.get().getByKey("apparentTemperature");
