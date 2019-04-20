@@ -147,6 +147,13 @@
     -fx-fill: #012d5a;
 }
 
+.jfx-text-field-twitter {
+    -fx-prompt-text-fill: black;
+    -fx-text-fill: black;
+    -jfx-focus-color: transparent;
+    -jfx-unfocus-color: transparent
+}
+
 .jfx-text-field {
     -fx-prompt-text-fill: WHITE;
     -fx-text-fill: WHITE;
