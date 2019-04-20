@@ -761,7 +761,7 @@ public class PathFindingController {
         openSetting.setToX(Map.getFitWidth()-850);
         TranslateTransition closeSetting = new TranslateTransition(new Duration(300.0D), this.settingPane);
         this.menubtn.setOnAction((evt) -> {
-          //  settingPane.setLayoutX(mapColumn.getMaxWidth()-200);
+            //  settingPane.setLayoutX(mapColumn.getMaxWidth()-200);
             if (this.settingPane.getTranslateY() != 450.0D) {
                 openSetting.setToY(450.0D);
                 openSetting.play();
@@ -832,13 +832,13 @@ public class PathFindingController {
             }
 
         });
-            if (this.navList.getTranslateX() != 130.0D) {
-                openNav.setToX(130);
-                openNav.play();
-            } else {
-                closeNav.setToX(-this.navList.getWidth());
-                closeNav.play();
-            }
+        if (this.navList.getTranslateX() != 130.0D) {
+            openNav.setToX(130);
+            openNav.play();
+        } else {
+            closeNav.setToX(-this.navList.getWidth());
+            closeNav.play();
+        }
 
 
     }
@@ -1777,7 +1777,7 @@ public class PathFindingController {
             direction.setText(printPath(path.getPath()));
 
 
-        //    sceneGestures.setDrawPath(circles,lines);
+            //    sceneGestures.setDrawPath(circles,lines);
         }
         //do not display any path
     }
@@ -2223,7 +2223,7 @@ public class PathFindingController {
                     return text;
                 }
                 else{
-                        text += "\u21E7 Go straight to " + A.get(1).getLongName() + " (" +
+                    text += "\u21E7 Go straight to " + A.get(1).getLongName() + " (" +
                             convertToExact(A.get(0).findDistance(A.get(1))) + " ft) \n";
                     return text;
                 }
@@ -2371,7 +2371,7 @@ public class PathFindingController {
         @Override
         public void handle(KeyEvent event) {
             //sp.setVisible(false);
-            autoList.takeTopTen(single.lookup, searchField.getText());
+            autoList.takeTopTen(noHallEnd, searchField.getText());
             //System.out.println(autoList);
             suggestions.getChildren().removeAll(suggestions.getChildren());
             if (autoList.size() > 0) {
@@ -2386,14 +2386,14 @@ public class PathFindingController {
                     b.setPadding(new Insets(1));
                     b.setPrefWidth(searchField.getPrefWidth());
                     b.setTooltip(t);
-                   // b.getStyleClass().set(1, "buttonMain");
+                    // b.getStyleClass().set(1, "buttonMain");
                     b.getStyleClass().add("buttonMain");
                     b.setOnAction(event1 -> {
                         String toString = ((JFXButton) event1.getSource()).getText();
                         for (Location l : single.lookup.values()) {
                             if (l.toString().equals(toString)) {
-                               PathFindEndDrop.setValue(l);
-                               searchField.setText(l.toString());
+                                PathFindEndDrop.setValue(l);
+                                searchField.setText(l.toString());
 
                             }
                         }
@@ -2402,9 +2402,10 @@ public class PathFindingController {
                     vBox.getChildren().add(b);
 
                     Text newText = new Text(autoList.get(i).toString());
-                   // Color c = Color.web("white");
-                   // newText.setFill(c);
+                    // Color c = Color.web("white");
+                    // newText.setFill(c);
                     //gp.add(newText, 0, i);
+
                 }
                 suggestions.getChildren().add(vBox);
                 suggestions.setLayoutX(searchField.getLayoutX() + 2);
@@ -2428,22 +2429,9 @@ public class PathFindingController {
     @FXML
     public void submitSearchField(Event ae) {
         searchField.setText("");
-        Filter.setValue(null);
-        Floor.setValue(null);
+        //Filter.setValue(null);
+        //Floor.setValue(null);
         noHall();
-        /*
-        if(PathFindStartDrop.getValue() == null && startNode != kioskTemp){
-            if(nameToLoc.get(searchField.getText()) != null) {
-                PathFindStartDrop.setValue(nameToLoc.get(searchField.getText()));
-                searchField.setText("");
-            }
-        }
-        else{
-            if(nameToLoc.get(searchField.getText()) != null) {
-                PathFindEndDrop.setValue(nameToLoc.get(searchField.getText()));
-                searchField.setText("");
-            }
-        }*/
     }
 
     /**@author Nathan

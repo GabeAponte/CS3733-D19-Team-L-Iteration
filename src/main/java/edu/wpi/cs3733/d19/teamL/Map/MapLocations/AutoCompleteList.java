@@ -1,14 +1,15 @@
 package edu.wpi.cs3733.d19.teamL.Map.MapLocations;
 
+import javafx.collections.ObservableList;
 import me.xdrop.fuzzywuzzy.FuzzySearch;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 
 public class AutoCompleteList extends ArrayList {
-    public void takeTopTen(HashMap<String, Location> lookup, String test) {
+    public void takeTopTen(ObservableList<Location> list, String test) {
         this.clear();
-        for (Location l : lookup.values()) {
+        for (Location l : list) {
             int score = FuzzySearch.ratio(test, l.getLongName());
             l.setNameSimilarityScore(score);
             insert(l);
