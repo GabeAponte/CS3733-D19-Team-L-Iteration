@@ -25,58 +25,86 @@
    <children>
       <VBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
-            <JFXToolbar prefHeight="100.0" prefWidth="1280.0" styleClass="tool-barMain" stylesheets="@Default.css" VBox.vgrow="NEVER">
-               <left>
-                  <ImageView fitHeight="75.0" fitWidth="325.0" preserveRatio="true" BorderPane.alignment="CENTER">
-                     <image>
-                        <Image url="@SoftEng_UI_Mockup_Pics/BWHlogo.png" />
-                     </image>
-                  </ImageView>
-               </left>
-               <right>
-
-               </right>
+            <JFXToolbar prefHeight="100.0" prefWidth="1280.0" styleClass="tool-barMain" stylesheets="@Default.css">
+               <VBox.margin>
+                  <Insets />
+               </VBox.margin>
                <padding>
                   <Insets left="10.0" right="10.0" />
                </padding>
-               <right>
-                  <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="543.0" BorderPane.alignment="CENTER">
+               <center>
+                  <HBox alignment="CENTER" prefHeight="100.0" prefWidth="1315.0" BorderPane.alignment="CENTER">
                      <children>
-                        <HBox fx:id="menuBar" alignment="CENTER_RIGHT" HBox.hgrow="ALWAYS">
+                        <GridPane HBox.hgrow="ALWAYS">
+                           <columnConstraints>
+                              <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                              <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                              <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                           </columnConstraints>
+                           <rowConstraints>
+                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                           </rowConstraints>
                            <children>
-                              <JFXButton fx:id="menubtn" buttonType="RAISED" contentDisplay="GRAPHIC_ONLY" disable="true" onAction="#settingPressed" prefHeight="75.0" prefWidth="87.0" style="-fx-background-radius: 10000; -fx-border-radius: 1000; -fx-border-color: #012d5a; -fx-border-width: 2;" styleClass="buttonToolbar" stylesheets="@Default.css" textFill="#012d5a">
-                                 <graphic>
-                                    <FontAwesomeIconView fx:id="home1" fill="#012d5a" glyphName="GEAR" size="50" />
-                                 </graphic>
-                                 <HBox.margin>
-                                    <Insets right="25.0" />
-                                 </HBox.margin>
-                              </JFXButton>
-                              <JFXButton fx:id="logOut" alignment="CENTER" buttonType="RAISED" contentDisplay="TOP" focusTraversable="false" graphicTextGap="0.0" minHeight="-Infinity" onAction="#logOut" prefHeight="75.0" prefWidth="110.0" ripplerFill="#b0b0b0" styleClass="buttonToolbar" stylesheets="@Default.css" text="Log Out" textAlignment="CENTER" textFill="#012d5a">
-                                 <font>
-                                    <Font name="System Bold" size="17.0" />
-                                 </font>
-                                 <graphic>
-                                    <FontAwesomeIconView fill="#012d5a" glyphName="USER" size="35" strokeMiterLimit="0.0" textAlignment="CENTER" wrappingWidth="27.27392578125" />
-                                 </graphic>
-                                 <HBox.margin>
-                                    <Insets right="10.0" />
-                                 </HBox.margin>
-                              </JFXButton>
-                              <JFXButton fx:id="homebtn" buttonType="RAISED" contentDisplay="GRAPHIC_ONLY" maxHeight="-Infinity" minHeight="-Infinity" onAction="#backPressed" prefHeight="75.0" prefWidth="100.0" styleClass="buttonToolbar" stylesheets="@Default.css" textFill="#012d5a">
-                                 <graphic>
-                                    <FontAwesomeIconView fx:id="home" fill="#012d5a" glyphName="HOME" size="50" />
-                                 </graphic>
-                                 <HBox.margin>
-                                    <Insets right="25.0" />
-                                 </HBox.margin>
-                              </JFXButton>
+                              <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1">
+                                 <children>
+                                    <ImageView fitHeight="75.0" fitWidth="325.0" preserveRatio="true">
+                                       <image>
+                                          <Image url="@SoftEng_UI_Mockup_Pics/BWHlogo.png" />
+                                       </image>
+                                    </ImageView>
+                                 </children>
+                              </HBox>
+                              <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0">
+                                 <children>
+                                    <JFXButton fx:id="back" alignment="CENTER" buttonType="RAISED" contentDisplay="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" onAction="#backPressed" prefHeight="75.0" prefWidth="87.0" styleClass="buttonToolbar" stylesheets="@Default.css" text=" " textFill="WHITE">
+                                       <font>
+                                          <Font size="20.0" />
+                                       </font>
+                                       <graphic>
+                                          <FontAwesomeIconView fill="#012d5a" glyphName="ARROW_LEFT" size="40" wrappingWidth="36.28559112548828" />
+                                       </graphic>
+                                       <HBox.margin>
+                                          <Insets left="10.0" />
+                                       </HBox.margin>
+                                    </JFXButton>
+                                 </children>
+                              </HBox>
+                              <HBox alignment="CENTER_RIGHT" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="2">
+                                 <children>
+                                    <JFXButton fx:id="menubtn" buttonType="RAISED" contentDisplay="GRAPHIC_ONLY" disable="true" onAction="#settingPressed" prefHeight="75.0" prefWidth="100.0" style="-fx-background-radius: 10000; -fx-border-radius: 1000; -fx-border-color: #012d5a; -fx-border-width: 2;" styleClass="buttonToolbar" stylesheets="@Default.css" textFill="#012d5a">
+                                       <graphic>
+                                          <FontAwesomeIconView fx:id="home1" fill="#012d5a" glyphName="GEAR" size="50" />
+                                       </graphic>
+                                       <HBox.margin>
+                                          <Insets right="20.0" />
+                                       </HBox.margin>
+                                    </JFXButton>
+                                    <JFXButton fx:id="logOut" alignment="CENTER" buttonType="RAISED" contentDisplay="TOP" focusTraversable="false" graphicTextGap="0.0" minHeight="-Infinity" onAction="#logOut" prefHeight="75.0" prefWidth="100.0" ripplerFill="#b0b0b0" styleClass="buttonToolbar" stylesheets="@Default.css" text="Log Out" textAlignment="CENTER" textFill="#012d5a">
+                                       <font>
+                                          <Font name="System Bold" size="17.0" />
+                                       </font>
+                                       <graphic>
+                                          <FontAwesomeIconView fill="#012d5a" glyphName="USER" size="35" strokeMiterLimit="0.0" textAlignment="CENTER" wrappingWidth="27.27392578125" />
+                                       </graphic>
+                                       <HBox.margin>
+                                          <Insets right="20.0" />
+                                       </HBox.margin>
+                                    </JFXButton>
+                                    <JFXButton fx:id="homebtn" buttonType="RAISED" contentDisplay="GRAPHIC_ONLY" maxHeight="-Infinity" minHeight="-Infinity" onAction="#goHome" prefHeight="75.0" prefWidth="100.0" styleClass="buttonToolbar" stylesheets="@Default.css" textFill="#012d5a">
+                                       <graphic>
+                                          <FontAwesomeIconView fx:id="home" fill="#012d5a" glyphName="HOME" size="50" />
+                                       </graphic>
+                                       <HBox.margin>
+                                          <Insets right="10.0" />
+                                       </HBox.margin>
+                                    </JFXButton>
+                                 </children>
+                              </HBox>
                            </children>
-                        </HBox>
+                        </GridPane>
                      </children>
                   </HBox>
-               </right>
-
+               </center>
             </JFXToolbar>
             <JFXToolbar maxHeight="-Infinity" minHeight="-Infinity" prefHeight="10.0" prefWidth="1280.0" styleClass="tool-barSecondary" stylesheets="@Default.css" VBox.vgrow="NEVER" />
             <StackPane fx:id="mainContent" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" style="-fx-background-color:rgba(0,0,0,0.30)" VBox.vgrow="ALWAYS">
@@ -311,7 +339,7 @@
                   <RowConstraints vgrow="NEVER" />
                </rowConstraints>
                <children>
-                  <JFXTextField fx:id="searchField" onAction="#submitSearchField" onInputMethodTextChanged="#submitSearchField" onKeyPressed="#submitSearchField" onKeyReleased="#submitSearchField" onKeyTyped="#submitSearchField" onMouseClicked="#submitSearchField" onMousePressed="#submitSearchField" onMouseReleased="#submitSearchField" prefHeight="30.0" prefWidth="274.0" promptText="Search" styleClass="jfx-text-field-normal" stylesheets="@Default.css" unFocusColor="#d33636" GridPane.columnSpan="2147483647" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER">
+                  <JFXTextField fx:id="searchField" onAction="#submitSearchField" onInputMethodTextChanged="#submitSearchField"  onMouseClicked="#submitSearchField" prefHeight="30.0" prefWidth="274.0" promptText="Search" styleClass="jfx-text-field-normal" stylesheets="@Default.css" unFocusColor="#d33636" GridPane.columnSpan="2147483647" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER">
                      <GridPane.margin>
                         <Insets bottom="20.0" left="10.0" right="10.0" top="20.0" />
                      </GridPane.margin>
@@ -358,7 +386,7 @@
                         <Font size="14.0" />
                      </font>
                   </JFXButton>
-                  <JFXButton fx:id="menuBack" buttonType="RAISED" contentDisplay="GRAPHIC_ONLY" onAction="#prepareSlideMenuAnimation" prefHeight="35.0" prefWidth="21.0" style="-fx-border-radius: 2; -fx-background-radius: 100000; -fx-border-color: WHITE; -fx-border-radius: 100; -fx-border-width: 1.5;" text="Back" textFill="WHITE" GridPane.columnIndex="1" GridPane.halignment="RIGHT">
+                  <JFXButton fx:id="menuBack" buttonType="RAISED" contentDisplay="GRAPHIC_ONLY" onAction="#prepareSlideMenuAnimation" prefHeight="35.0" prefWidth="21.0" style="-fx-border-radius: 2; -fx-background-radius: 100000; -fx-border-color: WHITE; -fx-border-radius: 100; -fx-border-width: 1.5;" text="back" textFill="WHITE" GridPane.columnIndex="1" GridPane.halignment="RIGHT">
                      <font>
                         <Font size="14.0" />
                      </font>

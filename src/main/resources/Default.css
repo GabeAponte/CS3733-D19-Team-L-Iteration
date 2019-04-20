@@ -126,7 +126,7 @@
 }
 
 .labelWelcome{
-    -fx-text-fill: black;
+    -fx-text-fill: #F5D96B;
 }
 
 .buttonMain{
@@ -383,3 +383,7 @@
     -fx-prompt-text-fill: white;
     -fx-text-fill: white;
 }
+
+
+
+
