@@ -796,6 +796,7 @@ public class PathFindingController {
      * @author: Nikhil: Displays start node, end node and line in between
      * Also contains code that will generate buttons above transitions between floors
      * Now automatically zooms on the floor's path
+     * Now also does animation on the path
      */
     public void displayPath(){
         single.setLastTime();
