@@ -108,7 +108,7 @@
                                                         <Font size="30.0" />
                                                     </font>
                                                 </Label>
-                                                <JFXTextArea fx:id="direction" stylesheets="@pathfind.css" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="2" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
+                                                <JFXTextArea fx:id="direction" focusColor="#ffffff00" stylesheets="@pathfind.css" text="hullo" unFocusColor="#ffffff00" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="2" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
                                                     <font>
                                                         <Font size="20.0" />
                                                     </font>
@@ -253,7 +253,7 @@
                             </font>
                         </JFXTextField>
                         <JFXPasswordField fx:id="adminPassword" GridPane.columnSpan="2147483647" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER" />
-                        <JFXButton fx:id="DisableEmergMode" buttonType="RAISED" disable="true" onAction="#DisableEmergModePress" onMouseClicked="#prepareSlideMenuAnimation" prefHeight="66.0" prefWidth="441.0" ripplerFill="WHITE" style="-fx-background-color: #7fb1ff;" text="Disable Emergency Mode" textFill="#f5d96b" wrapText="true" GridPane.columnSpan="2147483647" GridPane.halignment="CENTER" GridPane.rowIndex="3">
+                        <JFXButton fx:id="DisableEmergMode" alignment="BOTTOM_LEFT" buttonType="RAISED" disable="true" onAction="#DisableEmergModePress" onMouseClicked="#prepareSlideMenuAnimation" prefHeight="109.0" prefWidth="282.0" ripplerFill="WHITE" style="-fx-background-color: #7fb1ff;" text="Disable Emergency Mode" textFill="#f5d96b" wrapText="true" GridPane.columnSpan="2147483647" GridPane.halignment="CENTER" GridPane.rowIndex="3">
                             <font>
                                 <Font size="30.0" />
                             </font>

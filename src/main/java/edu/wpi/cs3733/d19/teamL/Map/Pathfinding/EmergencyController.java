@@ -348,8 +348,9 @@ public class EmergencyController {
 
 
         direction.setText(printPath(path.getPath()));
+        System.out.println(printPath(path.getPath()));
 
-        //System.out.println(printPath(path.getPath()));
+        DisableEmergMode.setDisable(false);
     }
 
     private void gotoKioskFloor(){
