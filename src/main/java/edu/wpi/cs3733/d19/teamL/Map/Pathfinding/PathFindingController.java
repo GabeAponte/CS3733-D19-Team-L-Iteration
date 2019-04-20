@@ -1232,7 +1232,6 @@ public class PathFindingController {
                 //Reset these variables
                 counter = 0;
                 start = i;
-                System.out.println("if 1");
             }
             else if(totalNum == 1) {
 //                fBut.setLayoutX(450);
@@ -1260,7 +1259,6 @@ public class PathFindingController {
                 floorButtons.add(fBut);
                 gridPane.getChildren().add(fBut);
                 gridPane.setMargin(fBut,new Insets(0,0,midy,midx));
-                System.out.println("if 2");
 
             }
             else if(!change && numOfBut > 1) {
@@ -1290,7 +1288,6 @@ public class PathFindingController {
                 gridPane.setMargin(fBut,new Insets(0,0,midy,midx - diff*(100)));
                 numOfBut--;
                 change = true;
-                System.out.println("if 3");
             }
             else {
                 //Increments while you are still on the same floor
