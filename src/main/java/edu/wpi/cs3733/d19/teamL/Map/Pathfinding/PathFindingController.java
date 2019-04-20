@@ -1189,16 +1189,18 @@ public class PathFindingController {
         int start  = 0;
         int counter = 0;
         int shift = 0;
-        int midx = 450;
-        int midy = 50;
+        int midx = 400;
+        int midy = 550;
+        int numOfBut = countFloors(floors);
+        int totalNum = countFloors(floors);
+        int center = (numOfBut + 1)/2;
         //This boolean is to keep track of if we ever change floors.
         boolean change = false;
         for(int i = 0; i < floors.size(); i++) {
             Button fBut = new Button();
             if(!floors.get(i).equals(floors.get(start))) {
                 change = true;
-                fBut.setLayoutX(midx);
-                fBut.setLayoutY(midy);
+                fBut.setPrefSize(50,50);
 //                fBut.setLayoutX((path.getPath().get(i).getXcoord()*childPane.getWidth()/Map.getImage().getWidth()));
 //                fBut.setLayoutY((path.getPath().get(i).getYcoord()*childPane.getHeight()/Map.getImage().getHeight()));
                 fBut.setText(floors.get(i));
@@ -1220,11 +1222,15 @@ public class PathFindingController {
                 });
                 floorButtons.add(fBut);
                 gridPane.getChildren().add(fBut);
-                gridPane.setMargin(fBut,new Insets(0,0,550,400));
+                int diff  = numOfBut - center;
+                gridPane.setMargin(fBut,new Insets(0,0,midy,midx - diff*(100)));
+                //Reduce this as we go so we know how many buttons we have left
+                numOfBut--;
+                //Reset these variables
                 counter = 0;
                 start = i;
             }
-            else if(!change && floors.get(i).equals(floors.get(floors.size()-1))) {
+            else if(totalNum == 1) {
 //                fBut.setLayoutX(450);
 //                fBut.setLayoutY(200);
                 fBut.setPrefSize(50,50);
@@ -1249,8 +1255,35 @@ public class PathFindingController {
                 });
                 floorButtons.add(fBut);
                 gridPane.getChildren().add(fBut);
-                gridPane.setMargin(fBut,new Insets(0,0,550,400));
+                gridPane.setMargin(fBut,new Insets(0,0,midy,midx));
 
+            }
+            else if(!change && numOfBut >= 1) {
+                fBut.setPrefSize(50,50);
+
+                //fBut.setAlignment(Pos.TOP_CENTER);
+                fBut.setText(floors.get(i));
+                final String same = floors.get(i);
+                //Probably switch out clicked with new method
+                fBut.setOnAction(event -> {
+                    if (same.equals("L2"))
+                        clickedL2();
+                    if (same.equals("L1"))
+                        clickedL1();
+                    if (same.equals("G"))
+                        clickedG();
+                    if (same.equals("1"))
+                        clicked1();
+                    if (same.equals("2"))
+                        clicked2();
+                    if (same.equals("3"))
+                        clicked3();
+                });
+                floorButtons.add(fBut);
+                gridPane.getChildren().add(fBut);
+                int diff  = numOfBut - center;
+                gridPane.setMargin(fBut,new Insets(0,0,midy,midx - diff*(100)));
+                numOfBut--;
             }
             else {
                 //Increments while you are still on the same floor
@@ -1295,6 +1328,16 @@ public class PathFindingController {
             endCircle.setStroke(DODGERBLUE);
             endCircle.setFill(DODGERBLUE);
         }
+    }
+
+    private int countFloors(ArrayList<String> floors) {
+        int floorCounter = 0;
+        for(int i = 0; i < floors.size()-1; i++) {
+            if(!floors.get(i).equals(floors.get(i+1))) {
+                floorCounter++;
+            }
+        }
+        return floorCounter;
     }
 
     @FXML
