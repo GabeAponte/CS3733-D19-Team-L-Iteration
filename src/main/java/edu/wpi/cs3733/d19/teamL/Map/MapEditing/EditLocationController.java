@@ -375,7 +375,7 @@ public class EditLocationController {
 
 
     private void eraseNodes(){
-        circles.add(thisCircle);
+//        circles.add(thisCircle);
         for (Circle c: circles){
             pathPane.getChildren().remove(c);
         }
