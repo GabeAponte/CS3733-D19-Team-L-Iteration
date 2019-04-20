@@ -1189,13 +1189,16 @@ public class PathFindingController {
         int start  = 0;
         int counter = 0;
         int shift = 0;
+        int midx = 450;
+        int midy = 50;
         //This boolean is to keep track of if we ever change floors.
         boolean change = false;
         for(int i = 0; i < floors.size(); i++) {
             Button fBut = new Button();
             if(!floors.get(i).equals(floors.get(start))) {
                 change = true;
-                fBut.setAlignment(Pos.TOP_CENTER);
+                fBut.setLayoutX(midx);
+                fBut.setLayoutY(midy);
 //                fBut.setLayoutX((path.getPath().get(i).getXcoord()*childPane.getWidth()/Map.getImage().getWidth()));
 //                fBut.setLayoutY((path.getPath().get(i).getYcoord()*childPane.getHeight()/Map.getImage().getHeight()));
                 fBut.setText(floors.get(i));
@@ -1216,13 +1219,13 @@ public class PathFindingController {
                         clicked3();
                 });
                 floorButtons.add(fBut);
-                pathPane.getChildren().add(fBut);
+                gridPane.getChildren().add(fBut);
                 counter = 0;
                 start = i;
             }
             else if(!change && floors.get(i).equals(floors.get(floors.size()-1))) {
-                fBut.setLayoutX(450);
-                fBut.setLayoutY(50);
+                fBut.setLayoutX(midx);
+                fBut.setLayoutY(midy);
                 fBut.setText(floors.get(i));
                 final String same = floors.get(i);
                 //Probably switch out clicked with new method
@@ -1241,7 +1244,7 @@ public class PathFindingController {
                         clicked3();
                 });
                 floorButtons.add(fBut);
-                pathPane.getChildren().add(fBut);
+                gridPane.getChildren().add(fBut);
             }
             else {
                 //Increments while you are still on the same floor
