@@ -28,10 +28,12 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
+
 import java.io.IOException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.Timer;
 
 public class HomeScreenController {
 
@@ -149,7 +151,9 @@ public class HomeScreenController {
         DateTimeFormatter dtf = DateTimeFormatter.ofPattern("MM/dd/yyyy");
         LocalDate localDate = LocalDate.now();
         dateLabel.setText(dtf.format(localDate));
+
     }
+
 
     public void updateWeatherDisplay(){
         Singleton single = Singleton.getInstance();

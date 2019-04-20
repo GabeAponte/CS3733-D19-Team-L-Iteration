@@ -64,6 +64,7 @@
 }
 .labelPopupDesc {
     -fx-text-fill: white;
+    -fx-font: Luminari;
 }
 
 .labelMapFloor {
@@ -131,6 +132,7 @@
 
 .buttonMain{
     -fx-border-color: #F5D96B;
+    -fx-background-color: #012d5a;
     -fx-text-fill: white;
 }
 

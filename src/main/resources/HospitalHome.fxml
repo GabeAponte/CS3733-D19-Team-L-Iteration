@@ -20,6 +20,11 @@
 
 <AnchorPane fx:id="ap" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720" prefWidth="1280" styleClass="AnchorPainMain" stylesheets="@Default.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.d19.teamL.HomeScreens.HomeScreenController">
    <children>
+      <ImageView fitHeight="1081.0" fitWidth="1468.0" layoutY="-66.0" opacity="0.09" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@SoftEng_UI_Mockup_Pics/HomeBackground.jpg" />
+         </image>
+      </ImageView>
       <VBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
             <JFXToolbar maxHeight="-Infinity" minHeight="-Infinity" prefHeight="100.0" prefWidth="1280.0" styleClass="tool-barMain" stylesheets="@Default.css" VBox.vgrow="NEVER">
@@ -125,7 +130,7 @@
                <children>
                   <JFXButton fx:id="HomeFindPath" alignment="CENTER" buttonType="RAISED" contentDisplay="TOP" focusTraversable="false" onAction="#SwitchToPathfindScreen" prefHeight="310.0" prefWidth="361.0" ripplerFill="WHITE" style="-fx-border-width: 2; -fx-border-radius: 10; -fx-background-radius: 10;" styleClass="buttonMain" stylesheets="@Default.css" text="Navigation" textFill="WHITE" GridPane.rowIndex="1">
                      <font>
-                        <Font size="50.0" />
+                        <Font name="Heiti TC Light" size="50.0" />
                      </font>
                      <GridPane.margin>
                         <Insets left="200.0" />
@@ -142,7 +147,7 @@
                   </JFXButton>
                   <JFXButton fx:id="HomeServiceRequest" alignment="CENTER" buttonType="RAISED" contentDisplay="TOP" focusTraversable="false" onAction="#SwitchToServiceScreen" prefHeight="366.0" prefWidth="361.0" ripplerFill="WHITE" style="-fx-border-width: 2; -fx-background-radius: 10; -fx-border-radius: 10;" styleClass="buttonMain" stylesheets="@Default.css" text="Request" textFill="WHITE" GridPane.columnIndex="1" GridPane.rowIndex="1">
                      <font>
-                        <Font size="50.0" />
+                        <Font name="Heiti TC Light" size="50.0" />
                      </font>
                      <GridPane.margin>
                         <Insets right="200.0" />
@@ -165,16 +170,16 @@
                           </rowConstraints>
                            <children>
                               <VBox maxWidth="5.0" minWidth="5.0" prefWidth="5.0" style="-fx-background-color: transparent;" GridPane.columnSpan="2147483647" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" GridPane.rowSpan="2147483647" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS" />
-                              <Label prefHeight="65.0" prefWidth="859.0" styleClass="labelTitle" stylesheets="@Default.css" text="Welcome to Brigham and Women's" textFill="#f5d96b" GridPane.columnSpan="3" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+                              <Label prefHeight="65.0" prefWidth="899.0" styleClass="labelTitle" stylesheets="@Default.css" text="Welcome to Brigham and Women's" textFill="#f5d96b" GridPane.columnSpan="3" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
                                  <font>
-                                    <Font size="52.0" />
+                                    <Font name="Heiti TC Light" size="52.0" />
                                  </font>
                               </Label>
                               <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="5.0" GridPane.columnSpan="3" GridPane.rowIndex="1">
                                  <children>
                                     <Label fx:id="dateLabel" alignment="CENTER" contentDisplay="CENTER" prefHeight="52.0" prefWidth="164.0" styleClass="labelPopupDesc" stylesheets="@Default.css" text="99/99/9999" textAlignment="CENTER" textFill="WHITE">
                                        <font>
-                                          <Font size="28.0" />
+                                          <Font name="Heiti SC Light" size="28.0" />
                                        </font>
                                     </Label>
                                     <ImageView fx:id="weatherIcon" fitHeight="46.0" fitWidth="63.0" pickOnBounds="true" preserveRatio="true">
@@ -184,12 +189,12 @@
                                     </ImageView>
                                      <Label fx:id="tempDisplay" alignment="CENTER" contentDisplay="CENTER" prefHeight="52.0" prefWidth="91.0" styleClass="labelPopupDesc" stylesheets="@Default.css" text="99 . F" textAlignment="CENTER" textFill="WHITE">
                                        <font>
-                                          <Font size="28.0" />
+                                          <Font name="Heiti TC Light" size="28.0" />
                                        </font>
                                     </Label>
                                     <Label fx:id="timeLabel" alignment="CENTER" contentDisplay="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="65.0" prefWidth="136.0" styleClass="labelPopupDesc" stylesheets="@Default.css" text="99:99 AM" textAlignment="CENTER" textFill="WHITE">
                                        <font>
-                                          <Font size="28.0" />
+                                          <Font name="Heiti TC Light" size="28.0" />
                                        </font>
                                     </Label>
                                  </children>
