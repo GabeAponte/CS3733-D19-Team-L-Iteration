@@ -1221,7 +1221,8 @@ public class PathFindingController {
                 start = i;
             }
             else if(!change && floors.get(i).equals(floors.get(floors.size()-1))) {
-                fBut.setAlignment(Pos.TOP_CENTER);
+                fBut.setLayoutX(450);
+                fBut.setLayoutY(50);
                 fBut.setText(floors.get(i));
                 final String same = floors.get(i);
                 //Probably switch out clicked with new method
@@ -1243,8 +1244,47 @@ public class PathFindingController {
                 pathPane.getChildren().add(fBut);
             }
             else {
+                //Increments while you are still on the same floor
                 counter++;
             }
+        }
+    }
+
+    private void displaySelected(int begin, int count) {
+        for(int i = begin; i < count; i++) {
+            Line line = new Line();
+            line.setStartX(path.getPath().get(i).getXcoord()*childPane.getWidth()/Map.getImage().getWidth());
+            line.setStartY(path.getPath().get(i).getYcoord()*childPane.getHeight()/Map.getImage().getHeight());
+            line.setEndX(path.getPath().get(i+1).getXcoord()*childPane.getWidth()/Map.getImage().getWidth());
+            line.setEndY(path.getPath().get(i+1).getYcoord()*childPane.getHeight()/Map.getImage().getHeight());
+            line.setStrokeWidth(2.5);
+            line.setStroke(DODGERBLUE);
+        }
+        Circle startCircle = new Circle();
+        //Circle kioskDis = new Circle();
+
+        //Setting the properties of the circle
+        startCircle.setCenterX(path.getPath().get(begin).getXcoord()*childPane.getWidth()/Map.getImage().getWidth());
+        startCircle.setCenterY(path.getPath().get(begin).getYcoord()*childPane.getHeight()/Map.getImage().getHeight());
+        startCircle.setRadius(Math.max(1.5, 1.5f * (gesturePane.getCurrentScale() / 4)));
+        startCircle.setStroke(Color.GREEN);
+        startCircle.setFill(Color.GREEN);
+
+        pathPane.getChildren().add(startCircle);
+
+        Circle endCircle = new Circle();
+
+        //Setting the properties of the circle
+        endCircle.setCenterX(path.getPath().get(count).getXcoord()*childPane.getWidth()/Map.getImage().getWidth());
+        endCircle.setCenterY(path.getPath().get(count).getYcoord()*childPane.getHeight()/Map.getImage().getHeight());
+        endCircle.setRadius(Math.max(1.5, 1.5f * (gesturePane.getCurrentScale() / 5)));
+        if(path.getPath().get(count).equals(endNode)) {
+            endCircle.setStroke(RED);
+            endCircle.setFill(RED);
+        }
+        else {
+            endCircle.setStroke(DODGERBLUE);
+            endCircle.setFill(DODGERBLUE);
         }
     }
 
