@@ -6,7 +6,6 @@
 <?import com.jfoenix.controls.JFXTextField?>
 <?import com.jfoenix.controls.JFXToolbar?>
 <?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
-<?import java.net.URL?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.image.Image?>
@@ -53,7 +52,7 @@
                     <right>
                         <HBox alignment="CENTER_RIGHT" prefHeight="100.0" prefWidth="200.0" BorderPane.alignment="CENTER">
                             <children>
-                                <JFXButton fx:id="AdminRemoveEmerg" alignment="CENTER" buttonType="RAISED" contentDisplay="TOP" focusTraversable="false" graphicTextGap="0.0" maxHeight="-Infinity" minHeight="-Infinity" onAction="#AdminRemoveEmergPress" prefHeight="72.0" prefWidth="110.0" ripplerFill="#b0b0b0" style="-fx-border-color: #012d5a; -fx-border-width: 2; -fx-border-radius: 1000; -fx-background-radius: 1000000;" stylesheets="@toolbarIcons.css" text="Admin" textAlignment="CENTER" textFill="#012d5a">
+                                <JFXButton fx:id="AdminRemoveEmerg" alignment="CENTER" buttonType="RAISED" contentDisplay="TOP" focusTraversable="false" graphicTextGap="0.0" maxHeight="-Infinity" minHeight="-Infinity" onAction="#AdminRemoveEmergPress" prefHeight="72.0" prefWidth="110.0" ripplerFill="#b0b0b0" style="-fx-border-color: #012d5a; -fx-border-width: 2; -fx-border-radius: 1000; -fx-background-radius: 1000000;" text="Admin" textAlignment="CENTER" textFill="#012d5a">
                                     <font>
                                         <Font name="System Bold" size="17.0" />
                                     </font>
@@ -95,7 +94,7 @@
                                                 <RowConstraints maxHeight="487.0" minHeight="290.9999694824219" prefHeight="346.66668701171875" vgrow="ALWAYS" />
                                             </rowConstraints>
                                             <children>
-                                                <Label alignment="CENTER" prefHeight="157.0" prefWidth="318.0" text="PLEASE FIND THE NEAREST EXIT:" textAlignment="CENTER" textFill="RED" underline="true" wrapText="true" GridPane.columnSpan="2147483647" GridPane.halignment="CENTER" GridPane.vgrow="NEVER">
+                                                <Label alignment="CENTER" prefHeight="229.0" prefWidth="318.0" text="PLEASE PROCEDE TO THE NEAREST EXIT:" textAlignment="CENTER" textFill="RED" underline="true" wrapText="true" GridPane.columnSpan="2147483647" GridPane.halignment="CENTER" GridPane.vgrow="NEVER">
                                                     <font>
                                                         <Font size="40.0" />
                                                     </font>
@@ -108,7 +107,7 @@
                                                         <Font size="30.0" />
                                                     </font>
                                                 </Label>
-                                                <JFXTextArea fx:id="direction" focusColor="#ffffff00" stylesheets="@pathfind.css" text="hullo" unFocusColor="#ffffff00" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="2" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
+                                                <JFXTextArea fx:id="direction" focusColor="#ffffff00" stylesheets="@Default.css" text="hullo" unFocusColor="#ffffff00" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="2" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
                                                     <font>
                                                         <Font size="20.0" />
                                                     </font>
@@ -133,7 +132,7 @@
                                         <Font name="System Bold" size="25.0" />
                                     </font>
                                 </Label>
-                                <JFXButton fx:id="L2" alignment="CENTER" buttonType="RAISED" maxHeight="-Infinity" maxWidth="-Infinity" onAction="#clickedL2" prefHeight="46.0" prefWidth="80.0" style="-fx-border-color: #012d5a; -fx-border-radius: 100; -fx-background-radius: 100; -fx-border-width: 2;" stylesheets="@toolbarIcons.css" text="L2" textFill="#012d5a" GridPane.halignment="CENTER" GridPane.valignment="BOTTOM">
+                                <JFXButton fx:id="L2" alignment="CENTER" buttonType="RAISED" maxHeight="-Infinity" maxWidth="-Infinity" onAction="#clickedL2" prefHeight="46.0" prefWidth="80.0" style="-fx-border-color: #012d5a; -fx-border-radius: 100; -fx-background-radius: 100; -fx-border-width: 2;" text="L2" textFill="#012d5a" GridPane.halignment="CENTER" GridPane.valignment="BOTTOM">
                                     <font>
                                         <Font name="System Bold" size="20.0" />
                                     </font>
@@ -141,7 +140,7 @@
                                         <Insets bottom="24.0" right="600.0" />
                                     </GridPane.margin>
                                 </JFXButton>
-                                <JFXButton fx:id="L1" alignment="CENTER" buttonType="RAISED" maxHeight="-Infinity" maxWidth="-Infinity" onAction="#clickedL1" prefHeight="46.0" prefWidth="80.0" style="-fx-border-color: #012d5a; -fx-border-radius: 100; -fx-background-radius: 100; -fx-border-width: 2;" stylesheets="@toolbarIcons.css" text="L1" textFill="#012d5a" GridPane.halignment="CENTER" GridPane.valignment="BOTTOM">
+                                <JFXButton fx:id="L1" alignment="CENTER" buttonType="RAISED" maxHeight="-Infinity" maxWidth="-Infinity" onAction="#clickedL1" prefHeight="46.0" prefWidth="80.0" style="-fx-border-color: #012d5a; -fx-border-radius: 100; -fx-background-radius: 100; -fx-border-width: 2;" text="L1" textFill="#012d5a" GridPane.halignment="CENTER" GridPane.valignment="BOTTOM">
                                     <font>
                                         <Font name="System Bold" size="20.0" />
                                     </font>
@@ -149,7 +148,7 @@
                                         <Insets bottom="24.0" right="400.0" />
                                     </GridPane.margin>
                                 </JFXButton>
-                                <JFXButton fx:id="G" alignment="CENTER" buttonType="RAISED" maxHeight="-Infinity" maxWidth="-Infinity" onAction="#clickedG" prefHeight="46.0" prefWidth="80.0" style="-fx-border-color: #012d5a; -fx-border-radius: 100; -fx-background-radius: 100; -fx-border-width: 2;" stylesheets="@toolbarIcons.css" text="G" textFill="#012d5a" GridPane.halignment="CENTER" GridPane.valignment="BOTTOM">
+                                <JFXButton fx:id="G" alignment="CENTER" buttonType="RAISED" maxHeight="-Infinity" maxWidth="-Infinity" onAction="#clickedG" prefHeight="46.0" prefWidth="80.0" style="-fx-border-color: #012d5a; -fx-border-radius: 100; -fx-background-radius: 100; -fx-border-width: 2;" text="G" textFill="#012d5a" GridPane.halignment="CENTER" GridPane.valignment="BOTTOM">
                                     <font>
                                         <Font name="System Bold" size="20.0" />
                                     </font>
@@ -157,7 +156,7 @@
                                         <Insets bottom="24.0" right="200.0" />
                                     </GridPane.margin>
                                 </JFXButton>
-                                <JFXButton fx:id="F1" alignment="CENTER" buttonType="RAISED" maxHeight="-Infinity" maxWidth="-Infinity" onAction="#clicked1" prefHeight="46.0" prefWidth="80.0" style="-fx-border-color: #012d5a; -fx-border-radius: 100; -fx-background-radius: 100; -fx-border-width: 2;" stylesheets="@toolbarIcons.css" text="F1" textFill="#012d5a" GridPane.halignment="CENTER" GridPane.valignment="BOTTOM">
+                                <JFXButton fx:id="F1" alignment="CENTER" buttonType="RAISED" maxHeight="-Infinity" maxWidth="-Infinity" onAction="#clicked1" prefHeight="46.0" prefWidth="80.0" style="-fx-border-color: #012d5a; -fx-border-radius: 100; -fx-background-radius: 100; -fx-border-width: 2;" text="F1" textFill="#012d5a" GridPane.halignment="CENTER" GridPane.valignment="BOTTOM">
                                     <font>
                                         <Font name="System Bold" size="20.0" />
                                     </font>
@@ -165,7 +164,7 @@
                                         <Insets bottom="24.0" />
                                     </GridPane.margin>
                                 </JFXButton>
-                                <JFXButton fx:id="F2" alignment="CENTER" buttonType="RAISED" maxHeight="-Infinity" maxWidth="-Infinity" onAction="#clicked2" prefHeight="46.0" prefWidth="80.0" style="-fx-border-color: #012d5a; -fx-border-radius: 100; -fx-background-radius: 100; -fx-border-width: 2;" stylesheets="@toolbarIcons.css" text="F2" textFill="#012d5a" GridPane.halignment="CENTER" GridPane.valignment="BOTTOM">
+                                <JFXButton fx:id="F2" alignment="CENTER" buttonType="RAISED" maxHeight="-Infinity" maxWidth="-Infinity" onAction="#clicked2" prefHeight="46.0" prefWidth="80.0" style="-fx-border-color: #012d5a; -fx-border-radius: 100; -fx-background-radius: 100; -fx-border-width: 2;" text="F2" textFill="#012d5a" GridPane.halignment="CENTER" GridPane.valignment="BOTTOM">
                                     <font>
                                         <Font name="System Bold" size="20.0" />
                                     </font>
@@ -173,7 +172,7 @@
                                         <Insets bottom="24.0" left="200.0" />
                                     </GridPane.margin>
                                 </JFXButton>
-                                <JFXButton fx:id="F3" alignment="CENTER" buttonType="RAISED" maxHeight="-Infinity" maxWidth="-Infinity" onAction="#clicked3" prefHeight="46.0" prefWidth="80.0" style="-fx-border-color: #012d5a; -fx-border-radius: 100; -fx-background-radius: 100; -fx-border-width: 2;" stylesheets="@toolbarIcons.css" text="F3" textFill="#012d5a" GridPane.halignment="CENTER" GridPane.valignment="BOTTOM">
+                                <JFXButton fx:id="F3" alignment="CENTER" buttonType="RAISED" maxHeight="-Infinity" maxWidth="-Infinity" onAction="#clicked3" prefHeight="46.0" prefWidth="80.0" style="-fx-border-color: #012d5a; -fx-border-radius: 100; -fx-background-radius: 100; -fx-border-width: 2;" text="F3" textFill="#012d5a" GridPane.halignment="CENTER" GridPane.valignment="BOTTOM">
                                     <font>
                                         <Font name="System Bold" size="20.0" />
                                     </font>
@@ -181,7 +180,7 @@
                                         <Insets bottom="24.0" left="400.0" />
                                     </GridPane.margin>
                                 </JFXButton>
-                                <JFXButton fx:id="F4" alignment="CENTER" buttonType="RAISED" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="46.0" prefWidth="80.0" style="-fx-border-color: #012d5a; -fx-border-radius: 100; -fx-background-radius: 100; -fx-border-width: 2;" stylesheets="@toolbarIcons.css" text="F4" textFill="#012d5a" GridPane.halignment="CENTER" GridPane.valignment="BOTTOM">
+                                <JFXButton fx:id="F4" alignment="CENTER" buttonType="RAISED" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="46.0" prefWidth="80.0" style="-fx-border-color: #012d5a; -fx-border-radius: 100; -fx-background-radius: 100; -fx-border-width: 2;" text="F4" textFill="#012d5a" GridPane.halignment="CENTER" GridPane.valignment="BOTTOM">
                                     <font>
                                         <Font name="System Bold" size="20.0" />
                                     </font>
@@ -229,7 +228,7 @@
                             </GridPane.margin>
                         </Label>
 
-                        <JFXButton fx:id="menuBack" buttonType="RAISED" contentDisplay="GRAPHIC_ONLY" onAction="#prepareSlideMenuAnimation" prefHeight="35.0" prefWidth="21.0" style="-fx-border-radius: 2; -fx-background-radius: 100000; -fx-border-color: WHITE; -fx-border-radius: 100; -fx-border-width: 1.5;" stylesheets="@backPath.css" text="Back" textFill="WHITE" GridPane.columnIndex="1" GridPane.columnSpan="2147483647" GridPane.halignment="RIGHT">
+                        <JFXButton fx:id="menuBack" buttonType="RAISED" contentDisplay="GRAPHIC_ONLY" onAction="#prepareSlideMenuAnimation" prefHeight="35.0" prefWidth="21.0" style="-fx-border-radius: 2; -fx-background-radius: 100000; -fx-border-color: WHITE; -fx-border-radius: 100; -fx-border-width: 1.5;" text="Back" textFill="WHITE" GridPane.columnIndex="1" GridPane.columnSpan="2147483647" GridPane.halignment="RIGHT">
                             <font>
                                 <Font size="14.0" />
                             </font>
@@ -244,10 +243,6 @@
                             <GridPane.margin>
                                 <Insets bottom="20.0" left="10.0" right="10.0" top="20.0" />
                             </GridPane.margin>
-                            <stylesheets>
-                                <URL value="@size.css" />
-                                <URL value="@pathfind.css" />
-                            </stylesheets>
                             <font>
                                 <Font size="15.0" />
                             </font>

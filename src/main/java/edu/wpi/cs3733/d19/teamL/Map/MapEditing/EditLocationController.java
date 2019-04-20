@@ -1331,7 +1331,7 @@ public class EditLocationController {
         single.setIsAdmin(false);
         single.setLoggedIn(false);
         single.setDoPopup(true);
-        Stage thestage = (Stage) back.getScene().getWindow();
+        Stage thestage = (Stage) backButton.getScene().getWindow();
         AnchorPane root;
         Memento m = single.getOrig();
         root = FXMLLoader.load(getClass().getClassLoader().getResource(m.getFxml()));
@@ -1346,7 +1346,7 @@ public class EditLocationController {
         single.setLastTime();
         single.setDoPopup(true);
         saveState();
-        Stage thestage = (Stage) back.getScene().getWindow();
+        Stage thestage = (Stage) backButton.getScene().getWindow();
         AnchorPane root;
         Memento m = single.getOrig();
         root = FXMLLoader.load(getClass().getClassLoader().getResource(m.getFxml()));

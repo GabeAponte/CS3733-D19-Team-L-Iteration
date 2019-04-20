@@ -340,6 +340,7 @@ public class EmergencyController {
         //DISPLAY ALL EXITS
         //DISPLAYS ALL EXITS HERE
         displayExits();
+        gotoKioskFloor();
 
         //FINDS CLOSEST EXIT
         findClosestExit();
@@ -348,7 +349,7 @@ public class EmergencyController {
 
 
         direction.setText(printPath(path.getPath()));
-        System.out.println(printPath(path.getPath()));
+
 
         DisableEmergMode.setDisable(false);
     }
@@ -576,7 +577,7 @@ public class EmergencyController {
                             buttons.clear();
 
 
-                            direction.setText("");
+                           //direction.setText("");
                         };
 
                         ((Stage) newWindow).widthProperty().addListener(stageSizeListener);
