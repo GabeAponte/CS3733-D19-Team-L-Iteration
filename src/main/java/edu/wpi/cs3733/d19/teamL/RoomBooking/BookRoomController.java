@@ -6,6 +6,8 @@ import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXDatePicker;
 import com.jfoenix.controls.JFXTimePicker;
+import edu.wpi.cs3733.d19.teamL.Map.Pathfinding.PathFindingController;
+import edu.wpi.cs3733.d19.teamL.Memento;
 import edu.wpi.cs3733.d19.teamL.Singleton;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
@@ -218,26 +220,6 @@ public class BookRoomController {
     }
 
     @FXML
-    private void backPressed() throws IOException {
-        timeout.stop();
-        try{
-            sim.join();
-        } catch (Exception e){
-            e.printStackTrace();
-            sim.stop();
-        }
-        Singleton single = Singleton.getInstance();
-        FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("EmployeeLoggedInHome.fxml"));
-        if (single.isIsAdmin()) {
-            loader = new FXMLLoader(getClass().getClassLoader().getResource("AdminLoggedInHome.fxml"));
-        }
-        Parent sceneMain = loader.load();
-        Stage theStage = (Stage) back.getScene().getWindow();
-        Scene scene = new Scene(sceneMain);
-        theStage.setScene(scene);
-    }
-
-    @FXML
     private void switchToTable() throws IOException {
         timeout.stop();
         try{
@@ -427,6 +409,7 @@ public class BookRoomController {
                     for(int z = 0; z<listOfRooms.size(); z++){
                         if(DisplayRooms.get(k).getRoomName().equals(listOfRooms.get(z))){
                             if(DisplayRooms.get(k).isAvailable()) {
+                                openCloseReservation();
                                 availableRooms.getSelectionModel().select(listOfRooms.get(z));
                             }
                         }
@@ -631,57 +614,103 @@ public class BookRoomController {
         theStage.setScene(scene);
     }
 
+    /**@author Nathan
+     * Restores previous screen
+     * @throws IOException
+     */
+    @FXML
+    private void backPressed() throws IOException{
+        Singleton single = Singleton.getInstance();
+        timeout.stop();
+        try{
+            sim.join();
+        } catch (Exception e){
+            e.printStackTrace();
+            sim.stop();
+        }
+        single = Singleton.getInstance();
+        single.setLastTime();
+        single.setDoPopup(true);
+
+        Memento m = single.restore();
+        FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource(m.getFxml()));
+        Parent sceneMain = loader.load();
+        if(m.getFxml().contains("HospitalPathFinding")){
+            PathFindingController pfc = loader.getController();
+            pfc.initWithMeme(m.getPathPref(), m.getTypeFilter(), m.getFloorFilter(), m.getStart(), m.getEnd());
+        }
+
+        Stage theStage = (Stage) back.getScene().getWindow();
+
+        Scene scene = new Scene(sceneMain);
+        theStage.setScene(scene);
+    }
+
+    /**@author Nathan
+     * Saves the memento state
+     */
+    private void saveState(){
+        Singleton single = Singleton.getInstance();
+        single.saveMemento("ActiveServiceRequests.fxml");
+    }
 
     @FXML
     private void logOut() throws IOException {
-
+        timeout.stop();
+        try{
+            sim.join();
+        } catch (Exception e){
+            e.printStackTrace();
+            sim.stop();
+        }
+        Singleton single = Singleton.getInstance();
+        single.setLastTime();
+        single.setUsername("");
+        single.setIsAdmin(false);
+        single.setLoggedIn(false);
+        single.setDoPopup(true);
+        thestage = (Stage) back.getScene().getWindow();
+        AnchorPane root;
+        Memento m = single.getOrig();
+        root = FXMLLoader.load(getClass().getClassLoader().getResource(m.getFxml()));
+        Scene scene = new Scene(root);
+        thestage.setScene(scene);
     }
 
     @FXML
     private void goHome() throws IOException {
-
+        timeout.stop();
+        Singleton single = Singleton.getInstance();
+        single.setLastTime();
+        single.setDoPopup(true);
+        saveState();
+        thestage = (Stage) back.getScene().getWindow();
+        AnchorPane root;
+        Memento m = single.getOrig();
+        root = FXMLLoader.load(getClass().getClassLoader().getResource(m.getFxml()));
+        Scene scene = new Scene(root);
+        thestage.setScene(scene);
     }
 
     /** @author Isabella
      * Slides in the reservation menu from the right side
      */
-    @FXML
-    private void reservationMenu() {
+    private void openCloseReservation() {
         TranslateTransition openNav = new TranslateTransition(new Duration(300.0D), this.reservationPane);
         openNav.setToX(0.0D);
         TranslateTransition closeNav = new TranslateTransition(new Duration(300.0D), this.reservationPane);
-        this.openResPane.setOnAction((evt) -> {
-            if (this.reservationPane.getTranslateX() != 130.0D) {
-                openNav.setToX(130);
+            if (this.reservationPane.getTranslateX() != 100.0D) {
+                openNav.setToX(100);
                 openNav.play();
             } else {
                 closeNav.setToX(-this.reservationPane.getWidth());
                 closeNav.play();
             }
-
-        });
-
-         this.openResPane.setOnAction((evt) -> {
-            if (this.reservationPane.getTranslateX() != 130.0D) {
-                openNav.setToX(130);
-                openNav.play();
-            } else {
-                closeNav.setToX(-this.reservationPane.getWidth());
-                closeNav.play();
-            }
-
-        });
-
-        if (this.reservationPane.getTranslateX() != 130.0D) {
-            openNav.setToX(130);
-            openNav.play();
-        } else {
-            closeNav.setToX(-this.reservationPane.getWidth());
-            closeNav.play();
-        }
-
-
     }
+
+
+
+
 
 }
 
