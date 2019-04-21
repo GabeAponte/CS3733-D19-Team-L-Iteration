@@ -116,7 +116,7 @@
                     <children>
                         <JFXButton fx:id="ITServices" buttonType="RAISED" contentDisplay="TOP" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" onAction="#makeRequest" style="-fx-border-radius: 10; -fx-background-radius: 10; -fx-border-width: 5;" styleClass="buttonMain" stylesheets="@Default.css" text="IT Assistance" textFill="WHITE" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
                             <font>
-                                <Font size="25.0" />
+                                <Font name="Trebuchet MS" size="25.0" />
                             </font>
                             <GridPane.margin>
                                 <Insets />
@@ -237,7 +237,7 @@
                         </JFXButton>
                         <Label styleClass="labelTitle" stylesheets="@Default.css" text="Select a Type of Service Request" textFill="#f5d96b" GridPane.columnSpan="4" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
                             <font>
-                                <Font size="30.0" />
+                                <Font name="Trebuchet MS" size="30.0" />
                             </font>
                             <effect>
                                 <Blend />
