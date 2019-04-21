@@ -1240,18 +1240,31 @@ public class PathFindingController {
         startCircle.setCenterX(path.getPath().get(begin).getXcoord()*childPane.getWidth()/Map.getImage().getWidth());
         startCircle.setCenterY(path.getPath().get(begin).getYcoord()*childPane.getHeight()/Map.getImage().getHeight());
         startCircle.setRadius(Math.max(1.5, 1.5f));
-        //Changing the color of the start circle
+
+        //Fills in information for labels
+        startLabel.setLayoutX(path.getPath().get(begin).getXcoord()*childPane.getWidth()/Map.getImage().getWidth() -20);
+        startLabel.setLayoutY(path.getPath().get(begin).getYcoord()*childPane.getHeight()/Map.getImage().getHeight() - 20);
+        endLabel.setLayoutX(path.getPath().get(count).getXcoord()*childPane.getWidth()/Map.getImage().getWidth() - 30);
+        endLabel.setLayoutY(path.getPath().get(count).getYcoord()*childPane.getHeight()/Map.getImage().getHeight() - 20);
+        endLabel.setText(path.getPath().get(count).getLongName());
+        //Changing the color of the start circle and start label
         if(path.getPath().get(begin).getLocID().equals(kioskTemp.getLocID())) {
             startCircle.setStroke(Color.BLUE);
             startCircle.setFill(Color.BLUE);
+            startLabel.setText(" You are here ");
+            startLabel.setStyle("-fx-text-fill: WHITE;-fx-font-size: 6; -fx-background-color: BLUE; -fx-border-color: WHITE; -fx-border-width: 2; -fx-min-width: 40;");
         }
         else if(path.getPath().get(begin).getLocID().equals(startNode.getLocID())) {
             startCircle.setStroke(Color.GREEN);
             startCircle.setFill(Color.GREEN);
+            startLabel.setText(startNode.getLongName());
+            startLabel.setStyle("-fx-text-fill: WHITE;-fx-font-size: 6; -fx-background-color: GREEN; -fx-border-color: WHITE; -fx-border-width: 2; -fx-min-width: 40;");
         }
         else {
             startCircle.setStroke(DODGERBLUE);
             startCircle.setFill(DODGERBLUE);
+            startLabel.setText(path.getPath().get(begin).getLongName());
+            startLabel.setStyle("-fx-text-fill: WHITE;-fx-font-size: 6; -fx-background-color: DODGERBLUE; -fx-border-color: WHITE; -fx-border-width: 2; -fx-min-width: 40;");
         }
 
         circles.add(startCircle);
@@ -1265,10 +1278,12 @@ public class PathFindingController {
         if(path.getPath().get(count).getLocID().equals(endNode.getLocID())) {
             endCircle.setStroke(RED);
             endCircle.setFill(RED);
+            endLabel.setStyle("-fx-text-fill: WHITE;-fx-font-size: 6; -fx-background-color: RED; -fx-border-color: WHITE; -fx-border-width: 2; -fx-min-width: 40;");
         }
         else {
             endCircle.setStroke(DODGERBLUE);
             endCircle.setFill(DODGERBLUE);
+            endLabel.setStyle("-fx-text-fill: WHITE;-fx-font-size: 6; -fx-background-color: DODGERBLUE; -fx-border-color: WHITE; -fx-border-width: 2; -fx-min-width: 40;");
         }
         circles.add(endCircle);
         pathPane.getChildren().add(startCircle);
