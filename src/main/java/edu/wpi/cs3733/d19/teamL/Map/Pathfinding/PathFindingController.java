@@ -840,10 +840,7 @@ public class PathFindingController {
     }
 
     /**
-     * @author: Nikhil: Displays start node, end node and line in between
-     * Also contains code that will generate buttons above transitions between floors
-     * Now automatically zooms on the floor's path
-     * Now also does animation on the path
+     * @author: Nikhil: General method to set up displaying the path
      */
     public void displayPath(){
         single.setLastTime();
@@ -870,193 +867,11 @@ public class PathFindingController {
                     floorSwitch = i;
                     found = true;
                 }
-                //Creates buttons to transition between floors on the map
-//                if((!(path.getPath().get(i + 1).getFloor().equals(currentMap)))) {
-//                    //Sets the start and end nodes on the floor
-//                    if(path.getPath().get(i).getFloor().equals(currentMap)) {
-//                        floorSwitch2 = i;
-//                        floorSwitch1 = i-(floorCount-1);
-//                    }
-//                    floorCount = 0;
-//                    Button nBut = new Button();
-//                    nBut.setLayoutX((path.getPath().get(i).getXcoord()*childPane.getWidth()/Map.getImage().getWidth()));
-//                    nBut.setLayoutY((path.getPath().get(i).getYcoord()*childPane.getHeight()/Map.getImage().getHeight()));
-//                    final int transit = i + 1;
-//                    String transition = path.getPath().get(transit).getFloor();
-//                    String display = "Take Elevator to ";
-//                    if((path.getPath().get(i).getNodeType().equals("STAI")))
-//                    {
-//                        display = "Take Stairs to ";
-//                    }
-//                    //Sets button text
-//                    if (transition.equals("L2"))
-//                        display += "Floor Lower 2";
-//                    if (transition.equals("L1"))
-//                        display += "Floor Lower 1";
-//                    if (transition.equals("G"))
-//                        display += "Ground Floor";
-//                    if (transition.equals("1"))
-//                        display += "First Floor";
-//                    if (transition.equals("2"))
-//                        display += "Second Floor";
-//                    if (transition.equals("3"))
-//                        display += "Third Floor";
-//                    nBut.setText(display);
-//                    //Sets the action to be performed when the button is pressed
-//                    nBut.setOnAction(event -> {
-//                        if (transition.equals("L2"))
-//                            clickedL2();
-//                        if (transition.equals("L1"))
-//                            clickedL1();
-//                        if (transition.equals("G"))
-//                            clickedG();
-//                        if (transition.equals("1"))
-//                            clicked1();
-//                        if (transition.equals("2"))
-//                            clicked2();
-//                        if (transition.equals("3"))
-//                            clicked3();
-//                    });
-//                    if(nBut.getLayoutX() + 400 > pathPane.getWidth())
-//                    {
-//                        nBut.setLayoutX(nBut.getLayoutX() - 400);
-//                    }
-//                    if(nBut.getLayoutY() + 50 > pathPane.getHeight())
-//                    {
-//                        nBut.setMaxHeight(pathPane.getHeight() - nBut.getLayoutY());
-//                    }
-//                    //Sets button visibility
-//                    if (buttons.isEmpty() && (path.getPath().get(i).getFloor().equals(currentMap) || currentMap.equals(startNode.getFloor()) || currentMap.equals(endNode.getFloor()))) {
-//                        buttons.add(nBut);
-//                        nBut.setVisible(true);
-//                        //Change the display of the button based on which floor you're on
-//                        if(currentMap.equals(startNode.getFloor())) {
-//                            nBut.setStyle("-fx-text-fill: WHITE; -fx-font-size: 6; -fx-background-color: GREEN; -fx-border-color: WHITE; -fx-background-radius: 18; -fx-border-radius: 18; -fx-border-width: 3");
-//                            //Should handle weird case for displaying button way out in nowhere.
-//                            if(!path.getPath().get(i+1).getFloor().equals(currentMap)) {
-//                                nBut.setLayoutX((path.getPath().get(floorSwitch2).getXcoord()*childPane.getWidth()/Map.getImage().getWidth()));
-//                                nBut.setLayoutY((path.getPath().get(floorSwitch2).getYcoord()*childPane.getHeight()/Map.getImage().getHeight()));
-//                            }
-//                        }
-//                        else if(!currentMap.equals(startNode.getFloor()) && !currentMap.equals(endNode.getFloor())){
-//                            nBut.setStyle("-fx-text-fill: WHITE; -fx-font-size: 6; -fx-background-color: GREEN; -fx-border-color: WHITE; -fx-background-radius: 18; -fx-border-radius: 18; -fx-border-width: 3");
-//                            nBut.setLayoutX((path.getPath().get(floorSwitch2).getXcoord()*childPane.getWidth()/Map.getImage().getWidth()));
-//                            nBut.setLayoutY((path.getPath().get(floorSwitch2).getYcoord()*childPane.getHeight()/Map.getImage().getHeight()));
-//                        }
-//                        else {
-//                            //Modified the return to start button position.
-//                            nBut.setStyle("-fx-text-fill: WHITE;-fx-font-size: 6; -fx-background-color: RED; -fx-border-color: WHITE; -fx-background-radius: 18; -fx-border-radius: 18; -fx-border-width: 3");
-//                            nBut.setText("Go to Starting Floor");
-//                            nBut.setLayoutX((endNode.getXcoord()*childPane.getWidth()/Map.getImage().getWidth()));
-//                            nBut.setLayoutY((endNode.getYcoord()*childPane.getHeight()/Map.getImage().getHeight()));
-//                        }
-//                        if(nBut.getText().equals("Go to Starting Floor")) {
-//                            countL2 = 0;
-//                            countL1 = 0;
-//                            countG = 0;
-//                            count1 = 0;
-//                            count2 = 0;
-//                            count3 = 0;
-//                            count4 = 0;
-//                        }
-//                        pathPane.getChildren().add(nBut);
-//                    }
-//                }
-//                else if(currentMap.equals(endNode.getFloor())) {
-//                    floorSwitch1 = i - (floorCount-1);
-//                }
             }
             if(floorsVisited.contains(currentMap)) {
                 displaySelected(0, floorSwitch);
             }
             makeButtons(floorsVisited);
-            //Creates the start and end nodes to display them and sets colors.
-//            Circle StartCircle = new Circle();
-//            Circle kioskDis = new Circle();
-//
-//            //Setting the properties of the circle
-//            StartCircle.setCenterX(startNode.getXcoord()*childPane.getWidth()/Map.getImage().getWidth());
-//            StartCircle.setCenterY(startNode.getYcoord()*childPane.getHeight()/Map.getImage().getHeight());
-//            StartCircle.setRadius(Math.max(1.5, 1.5f * (gesturePane.getCurrentScale() / 4)));
-//
-//            startLabel.setLayoutX(startNode.getXcoord()*childPane.getWidth()/Map.getImage().getWidth() -20);
-//            startLabel.setLayoutY(startNode.getYcoord()*childPane.getHeight()/Map.getImage().getHeight() - 20);
-//            //Displays the kiosk location for the startNode, changes the color to indicate the Kiosk, also sets startLabel
-//            if(startNode.equals(kioskTemp)) {
-//                StartCircle.setStroke(Color.BLUE);
-//                StartCircle.setFill(Color.BLUE);
-//                startLabel.setText(" You are here ");
-//                //System.out.println("1");
-//                startLabel.setStyle("-fx-text-fill: WHITE;-fx-font-size: 6; -fx-background-color: BLUE; -fx-border-color: WHITE; -fx-border-width: 2; -fx-min-width: 40;");
-//            }
-//            else {
-//                kioskDis.setCenterX(kioskTemp.getXcoord()*childPane.getWidth()/Map.getImage().getWidth());
-//                kioskDis.setCenterY(kioskTemp.getYcoord()*childPane.getHeight()/Map.getImage().getHeight());
-//                kioskDis.setRadius(Math.max(1.5, 1.5f * (gesturePane.getCurrentScale() / 4)));
-//                kioskDis.setStroke(Color.BLUE);
-//                kioskDis.setFill(Color.BLUE);
-//                StartCircle.setStroke(Color.GREEN);
-//                StartCircle.setFill(Color.GREEN);
-//                //System.out.println("2");
-//                startLabel.setText(startNode.getLongName());
-//                startLabel.setStyle("-fx-text-fill: WHITE;-fx-font-size: 6; -fx-background-color: GREEN; -fx-border-color: WHITE; -fx-border-width: 2; -fx-min-width: 40;");
-//            }
-//            if (!startNode.getFloor().equals(currentMap)) {
-//                StartCircle.setVisible(false);
-//                startLabel.setVisible(false);
-//                //System.out.println("3");
-//            }
-//            else if(currentMap.equals(kioskTemp.getFloor())) {
-//                kioskDis.setVisible(true);
-//                //System.out.println("4");
-//            }
-//            else {
-//                startLabel.setVisible(true);
-//                kioskDis.setVisible(false);
-//                hereLabel.setVisible(true);
-//            }
-//
-//            pathPane.getChildren().add(StartCircle);
-//
-//
-//            Circle EndCircle = new Circle();
-//
-//            //Setting the properties of the circle
-//            EndCircle.setCenterX(endNode.getXcoord()*childPane.getWidth()/Map.getImage().getWidth());
-//            EndCircle.setCenterY(endNode.getYcoord()*childPane.getHeight()/Map.getImage().getHeight());
-//            EndCircle.setRadius(Math.max(1.5, 1.5f * (gesturePane.getCurrentScale() / 5)));
-//            EndCircle.setStroke(Color.RED);
-//            EndCircle.setFill(Color.RED);
-//            //Setting text for the end node
-//            endLabel.setText(endNode.getLongName());
-//            endLabel.setStyle("-fx-text-fill: WHITE;-fx-font-size: 6; -fx-background-color: RED; -fx-border-color: WHITE; -fx-border-width: 2; -fx-min-width: 40;");
-//            endLabel.setLayoutX(endNode.getXcoord()*childPane.getWidth()/Map.getImage().getWidth() - 30);
-//            endLabel.setLayoutY(endNode.getYcoord()*childPane.getHeight()/Map.getImage().getHeight() - 20);
-//            if (!endNode.getFloor().equals(currentMap)) {
-//                EndCircle.setVisible(false);
-//                endLabel.setVisible(false);
-//            }
-//            else {
-//                endLabel.setVisible(true);
-//            }
-//
-//            if(startNode.equals(endNode))
-//            {
-//                EndCircle.setVisible(true);
-//                StartCircle.setVisible(false);
-//                startLabel.setVisible(false);
-//                endLabel.setVisible(true);
-//            }
-//
-//            pathPane.getChildren().add(EndCircle);
-//
-//            //Make the transition buttons
-//            makeButtons(floorsVisited);
-//
-//            pathPane.setPrefSize(childPane.getWidth(), childPane.getHeight());
-//
-//            circles.add(StartCircle);
-//            circles.add(EndCircle);
             changeMapLabel();
         }
     }
@@ -1153,12 +968,16 @@ public class PathFindingController {
                 int diff  = numOfBut - center;
                 gridPane.setMargin(fBut,new Insets(0,0,midy,midx - diff*(100)));
             }
-                counter++;
+            counter++;
         }
     }
 
     /**
-     *
+     * @Author Nikhil
+     * This method displays the path only for the segment the user has selected.
+     * Handles the path animation.
+     * Handles the label displays.
+     * Handles auto-zooming.
      * @param begin
      * @param count
      */
