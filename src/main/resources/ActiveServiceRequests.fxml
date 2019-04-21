@@ -98,7 +98,7 @@
                     <children>
                         <JFXTabPane fx:id="requestType" stylesheets="@Default.css" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
                             <tabs>
-                                <Tab fx:id="tab9" onSelectionChanged="#filterTable" text="Prescriptions">
+                                <Tab fx:id="tab9" onSelectionChanged="#filterTable" styleClass="fontType" text="Prescriptions">
                                     <content>
                                         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="461.0" prefWidth="1280.0" style="-fx-background-color: #012D5A;">
                                             <children>
@@ -112,9 +112,9 @@
                                                         <RowConstraints valignment="CENTER" vgrow="SOMETIMES" />
                                                     </rowConstraints>
                                                     <children>
-                                                        <Label alignment="CENTER" prefHeight="45.0" prefWidth="655.0" text="Active Prescription Requests" textFill="#f5d96b" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.valignment="CENTER" GridPane.vgrow="NEVER">
+                                                        <Label alignment="CENTER" prefHeight="45.0" prefWidth="444.0" style="-fx-font: Heiti TC; -fx-font-style: Light;" stylesheets="@Default.css" text="Active Prescription Requests" textFill="#f5d96b" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.valignment="CENTER" GridPane.vgrow="NEVER">
                                                             <font>
-                                                                <Font size="30.0" />
+                                                                <Font name="Heiti TC Light" size="30.0" />
                                                             </font>
                                                             <effect>
                                                                 <Blend />
@@ -146,7 +146,7 @@
                                         </AnchorPane>
                                     </content>
                                 </Tab>
-                                <Tab fx:id="tab6" onSelectionChanged="#filterTable" text="IT">
+                                <Tab fx:id="tab6" onSelectionChanged="#filterTable" styleClass="fontType" text="IT">
                                     <content>
                                         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="461.0" prefWidth="1280.0" style="-fx-background-color: #012D5A;">
                                             <children>
@@ -160,9 +160,9 @@
                                                         <RowConstraints valignment="CENTER" vgrow="SOMETIMES" />
                                                     </rowConstraints>
                                                     <children>
-                                                        <Label alignment="CENTER" prefHeight="45.0" prefWidth="527.0" text="Active IT Requests" textFill="#f5d96b" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.valignment="CENTER" GridPane.vgrow="NEVER">
+                                                        <Label alignment="CENTER" prefHeight="45.0" prefWidth="527.0" stylesheets="@Default.css" text="Active IT Requests" textFill="#f5d96b" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.valignment="CENTER" GridPane.vgrow="NEVER">
                                                             <font>
-                                                                <Font size="30.0" />
+                                                                <Font name="Heiti TC Light" size="30.0" />
                                                             </font>
                                                             <effect>
                                                                 <Blend />
@@ -194,7 +194,7 @@
                                         </AnchorPane>
                                     </content>
                                 </Tab>
-                                <Tab fx:id="tab2" onSelectionChanged="#filterTable" text="Internal Transportation">
+                                <Tab fx:id="tab2" onSelectionChanged="#filterTable" styleClass="fontType" text="Internal Transportation">
                                     <content>
                                         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="461.0" prefWidth="1280.0" style="-fx-background-color: #012D5A;">
                                             <children>
@@ -208,9 +208,9 @@
                                                         <RowConstraints valignment="CENTER" vgrow="SOMETIMES" />
                                                     </rowConstraints>
                                                     <children>
-                                                        <Label alignment="CENTER" prefHeight="45.0" prefWidth="823.0" text="Active Internal Transportation Requests" textFill="#f5d96b" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.valignment="CENTER" GridPane.vgrow="NEVER">
+                                                        <Label alignment="CENTER" prefHeight="45.0" prefWidth="823.0" stylesheets="@Default.css" text="Active Internal Transportation Requests" textFill="#f5d96b" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.valignment="CENTER" GridPane.vgrow="NEVER">
                                                             <font>
-                                                                <Font size="30.0" />
+                                                                <Font name="Heiti TC Light" size="30.0" />
                                                             </font>
                                                             <effect>
                                                                 <Blend />
@@ -242,7 +242,7 @@
                                         </AnchorPane>
                                     </content>
                                 </Tab>
-                                <Tab fx:id="tab3" onSelectionChanged="#filterTable" text="External Transportation">
+                                <Tab fx:id="tab3" onSelectionChanged="#filterTable" styleClass="fontType" text="External Transportation">
                                     <content>
                                         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="461.0" prefWidth="1280.0" style="-fx-background-color: #012D5A;">
                                             <children>
@@ -256,7 +256,7 @@
                                                         <RowConstraints valignment="CENTER" vgrow="SOMETIMES" />
                                                     </rowConstraints>
                                                     <children>
-                                                        <Label alignment="CENTER" prefHeight="45.0" prefWidth="808.0" text="Active External Transportation Requests" textFill="#f5d96b" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.valignment="CENTER" GridPane.vgrow="NEVER">
+                                                        <Label alignment="CENTER" prefHeight="45.0" prefWidth="808.0" stylesheets="@Default.css" text="Active External Transportation Requests" textFill="#f5d96b" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.valignment="CENTER" GridPane.vgrow="NEVER">
                                                             <font>
                                                                 <Font size="30.0" />
                                                             </font>
@@ -290,7 +290,7 @@
                                         </AnchorPane>
                                     </content>
                                 </Tab>
-                                <Tab fx:id="tab4" onSelectionChanged="#filterTable" text="Audio/Visual">
+                                <Tab fx:id="tab4" onSelectionChanged="#filterTable" styleClass="fontType" text="Audio/Visual">
                                     <content>
                                         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="461.0" prefWidth="1280.0" style="-fx-background-color: #012D5A;">
                                             <children>
@@ -304,9 +304,9 @@
                                                         <RowConstraints valignment="CENTER" vgrow="SOMETIMES" />
                                                     </rowConstraints>
                                                     <children>
-                                                        <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="45.0" prefWidth="641.0" text="Active Audio/Visual Requests" textFill="#f5d96b" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.valignment="CENTER" GridPane.vgrow="NEVER">
+                                                        <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="45.0" prefWidth="641.0" stylesheets="@Default.css" text="Active Audio/Visual Requests" textFill="#f5d96b" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.valignment="CENTER" GridPane.vgrow="NEVER">
                                                             <font>
-                                                                <Font size="30.0" />
+                                                                <Font name="Heiti TC Light" size="30.0" />
                                                             </font>
                                                             <effect>
                                                                 <Blend />
@@ -338,7 +338,7 @@
                                         </AnchorPane>
                                     </content>
                                 </Tab>
-                                <Tab fx:id="tab7" onSelectionChanged="#filterTable" text="Language Assistance">
+                                <Tab fx:id="tab7" onSelectionChanged="#filterTable" styleClass="fontType" text="Language Assistance">
                                     <content>
                                         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="461.0" prefWidth="1280.0" style="-fx-background-color: #012D5A;">
                                             <children>
@@ -352,9 +352,9 @@
                                                         <RowConstraints valignment="CENTER" vgrow="SOMETIMES" />
                                                     </rowConstraints>
                                                     <children>
-                                                        <Label alignment="CENTER" prefHeight="45.0" prefWidth="676.0" text="Active Language Assistance Requests" textFill="#f5d96b" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.valignment="CENTER" GridPane.vgrow="NEVER">
+                                                        <Label alignment="CENTER" prefHeight="45.0" prefWidth="676.0" style="-fx-font: H;" stylesheets="@Default.css" text="Active Language Assistance Requests" textFill="#f5d96b" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.valignment="CENTER" GridPane.vgrow="NEVER">
                                                             <font>
-                                                                <Font size="30.0" />
+                                                                <Font name="Heiti TC Light" size="30.0" />
                                                             </font>
                                                             <effect>
                                                                 <Blend />
@@ -386,7 +386,7 @@
                                         </AnchorPane>
                                     </content>
                                 </Tab>
-                                <Tab fx:id="tab" onSelectionChanged="#filterTable" text="Religious">
+                                <Tab fx:id="tab" onSelectionChanged="#filterTable" styleClass="fontType" text="Religious">
                                     <content>
                                         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="461.0" prefWidth="1280.0" style="-fx-background-color: #012D5A;">
                                             <children>
@@ -400,9 +400,9 @@
                                                         <RowConstraints valignment="CENTER" vgrow="SOMETIMES" />
                                                     </rowConstraints>
                                                     <children>
-                                                        <Label alignment="CENTER" prefHeight="45.0" prefWidth="567.0" text="Active Religious Requests" textFill="#f5d96b" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.valignment="CENTER" GridPane.vgrow="NEVER">
+                                                        <Label alignment="CENTER" prefHeight="45.0" prefWidth="567.0" stylesheets="@Default.css" text="Active Religious Requests" textFill="#f5d96b" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.valignment="CENTER" GridPane.vgrow="NEVER">
                                                             <font>
-                                                                <Font size="30.0" />
+                                                                <Font name="Heiti TC Light" size="30.0" />
                                                             </font>
                                                             <effect>
                                                                 <Blend />
@@ -434,7 +434,7 @@
                                         </AnchorPane>
                                     </content>
                                 </Tab>
-                                <Tab fx:id="tab8" onSelectionChanged="#filterTable" text="Maintenance">
+                                <Tab fx:id="tab8" onSelectionChanged="#filterTable" styleClass="fontType" text="Maintenance">
                                     <content>
                                         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="461.0" prefWidth="1280.0" style="-fx-background-color: #012D5A;">
                                             <children>
@@ -448,9 +448,9 @@
                                                         <RowConstraints valignment="CENTER" vgrow="SOMETIMES" />
                                                     </rowConstraints>
                                                     <children>
-                                                        <Label alignment="CENTER" prefHeight="45.0" prefWidth="606.0" text="Active Maintenance Requests" textFill="#f5d96b" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.valignment="CENTER" GridPane.vgrow="NEVER">
+                                                        <Label alignment="CENTER" prefHeight="45.0" prefWidth="606.0" stylesheets="@Default.css" text="Active Maintenance Requests" textFill="#f5d96b" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.valignment="CENTER" GridPane.vgrow="NEVER">
                                                             <font>
-                                                                <Font size="30.0" />
+                                                                <Font name="Heiti TC Light" size="30.0" />
                                                             </font>
                                                             <effect>
                                                                 <Blend />
@@ -482,7 +482,7 @@
                                         </AnchorPane>
                                     </content>
                                 </Tab>
-                                <Tab fx:id="tab10" onSelectionChanged="#filterTable" text="Security">
+                                <Tab fx:id="tab10" onSelectionChanged="#filterTable" styleClass="fontType" text="Security">
                                     <content>
                                         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="461.0" prefWidth="1280.0" style="-fx-background-color: #012D5A;">
                                             <children>
@@ -498,7 +498,7 @@
                                                     <children>
                                                         <Label alignment="CENTER" prefHeight="45.0" prefWidth="532.0" text="Active Security Requests" textFill="#f5d96b" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.valignment="CENTER" GridPane.vgrow="NEVER">
                                                             <font>
-                                                                <Font size="30.0" />
+                                                                <Font name="Heiti TC Light" size="30.0" />
                                                             </font>
                                                             <effect>
                                                                 <Blend />
@@ -530,7 +530,7 @@
                                         </AnchorPane>
                                     </content>
                                 </Tab>
-                                <Tab fx:id="tab11" onSelectionChanged="#filterTable" text="Sanitation">
+                                <Tab fx:id="tab11" onSelectionChanged="#filterTable" styleClass="fontType" text="Sanitation">
                                     <content>
                                         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="461.0" prefWidth="1280.0" style="-fx-background-color: #012D5A;">
                                             <children>

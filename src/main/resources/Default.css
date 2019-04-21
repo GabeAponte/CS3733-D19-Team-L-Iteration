@@ -8,7 +8,8 @@
 }
 
 .fontType {
-    -fx-font: Heiti TC;
+    -fx-font-family: Heiti TC;
+    -fx-font-style: Light;
 }
 
 .buttonToolbar:hover{
