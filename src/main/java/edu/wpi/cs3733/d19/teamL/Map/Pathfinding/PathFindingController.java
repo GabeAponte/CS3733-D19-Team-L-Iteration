@@ -893,34 +893,29 @@ public class PathFindingController {
         gesturePane.centreOn(new Point2D(xSameVal, ySameVal));
     }
 
+    //Globals used for makeButtons
+    int start  = 0;
+    int counter = 0;
+
     /**
      * @Author Nikhil
      * This function will be used to make the buttons that display on the screen that transition from floor to floor.
      * @param floors
      */
-    int start  = 0;
-    int counter = 0;
     private void makeButtons(ArrayList<String> floors) {
-//        start = 0;
-//        counter = 0;
         int midx = 400;
         int midy = 550;
         int numOfBut = countFloors(floors);
         int totalNum = countFloors(floors);
         int center = (numOfBut + 1)/2;
-        //This boolean is to keep track of if we ever change floors.
-        boolean change = false;
         for(int i = 0; i < floors.size()-1; i++) {
             Button fBut = new Button();
             if(totalNum == 1) {
                 fBut.setPrefSize(50,50);
-
-                //fBut.setAlignment(Pos.TOP_CENTER);
                 fBut.setText(floors.get(i));
                 final String same = floors.get(i);
                 int startstore1 = start;
                 int counterstore1 = counter;
-                //Probably switch out clicked with new method
                 fBut.setOnAction(event -> {
                     displaySelected(startstore1, counterstore1);
                 });
@@ -931,13 +926,11 @@ public class PathFindingController {
 
             }
             else if(!floors.get(i+1).equals(floors.get(start))) {
-                change = true;
                 fBut.setPrefSize(50,50);
                 fBut.setText(floors.get(i));
                 final String next = floors.get(i);
                 int startstore1 = start;
                 int counterstore1 = counter;
-                //Can't use clicked, make a new method
                 fBut.setOnAction(event -> {
                     displaySelected(startstore1, counterstore1);
 
@@ -948,7 +941,7 @@ public class PathFindingController {
                 gridPane.setMargin(fBut,new Insets(0,0,midy,midx - diff*(100)));
                 //Reduce this as we go so we know how many buttons we have left
                 numOfBut--;
-                //Reset these variables
+                //Reset
                 start = i+1;
             }
             //This is the final button
@@ -958,7 +951,6 @@ public class PathFindingController {
                 final String next = floors.get(i);
                 int startstore1 = start;
                 int counterstore1 =floors.size();
-                //Can't use clicked, make a new method
                 fBut.setOnAction(event -> {
                     displaySelected(startstore1, counterstore1);
 
