@@ -128,32 +128,15 @@
                   <Insets />
                </VBox.margin>
                <children>
-                  <JFXButton fx:id="HomeFindPath" alignment="CENTER" buttonType="RAISED" contentDisplay="TOP" focusTraversable="false" onAction="#SwitchToPathfindScreen" prefHeight="310.0" prefWidth="361.0" ripplerFill="WHITE" style="-fx-border-width: 2; -fx-border-radius: 10; -fx-background-radius: 10;" styleClass="buttonMain" stylesheets="@Default.css" text="Navigation" textFill="WHITE" GridPane.rowIndex="1">
+                  <JFXButton fx:id="HomeServiceRequest" alignment="CENTER" buttonType="RAISED" contentDisplay="TOP" focusTraversable="false" onAction="#SwitchToServiceScreen" prefHeight="310.0" prefWidth="361.0" ripplerFill="WHITE" style="-fx-border-width: 2; -fx-background-radius: 10; -fx-border-radius: 10;" styleClass="buttonMain" stylesheets="@Default.css" text="Request" textFill="WHITE" GridPane.columnIndex="1" GridPane.rowIndex="1">
                      <font>
-                        <Font name="Heiti TC Light" size="50.0" />
-                     </font>
-                     <GridPane.margin>
-                        <Insets left="200.0" />
-                     </GridPane.margin>
-                     <graphic>
-                        <FontAwesomeIconView fill="WHITE" glyphName="MAP_ALT" size="250" wrappingWidth="288.32374572753906" />
-                     </graphic>
-                     <opaqueInsets>
-                        <Insets />
-                     </opaqueInsets>
-                     <effect>
-                        <DropShadow color="WHITE" />
-                     </effect>
-                  </JFXButton>
-                  <JFXButton fx:id="HomeServiceRequest" alignment="CENTER" buttonType="RAISED" contentDisplay="TOP" focusTraversable="false" onAction="#SwitchToServiceScreen" prefHeight="366.0" prefWidth="361.0" ripplerFill="WHITE" style="-fx-border-width: 2; -fx-background-radius: 10; -fx-border-radius: 10;" styleClass="buttonMain" stylesheets="@Default.css" text="Request" textFill="WHITE" GridPane.columnIndex="1" GridPane.rowIndex="1">
-                     <font>
-                        <Font name="Heiti TC Light" size="50.0" />
+                        <Font name="Heiti TC Light" size="45.0" />
                      </font>
                      <GridPane.margin>
                         <Insets right="200.0" />
                      </GridPane.margin>
                      <graphic>
-                        <FontAwesomeIconView fill="WHITE" glyphName="BELL_ALT" size="250" text="" />
+                        <FontAwesomeIconView fill="WHITE" glyphName="BELL_ALT" size="200" text="" />
                      </graphic>
                   </JFXButton>
                   <HBox prefHeight="168.0" prefWidth="525.0" spacing="5.0" style="-fx-border-color: transparent; -fx-border-radius: 5; -fx-border-width: 5;" GridPane.columnSpan="2">
@@ -201,6 +184,44 @@
                               </HBox>
                            </children>
                         </GridPane>
+                     </children>
+                  </HBox>
+                  <HBox prefHeight="366.0" prefWidth="440.0" GridPane.rowIndex="1">
+                     <children>
+                        <HBox alignment="BOTTOM_LEFT" prefHeight="415.0" prefWidth="139.0" spacing="5.0">
+                           <children>
+                              <FontAwesomeIconView fill="WHITE" glyphName="TWITTER" size="15" wrappingWidth="13.168289184570312" />
+                              <Label prefHeight="14.0" prefWidth="126.0" text="\@BrighamWomens" textFill="WHITE">
+                                 <font>
+                                    <Font name="Heiti TC Light" size="13.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                           <HBox.margin>
+                              <Insets bottom="10.0" />
+                           </HBox.margin>
+                        </HBox>
+                        <HBox alignment="CENTER" prefHeight="366.0" prefWidth="491.0">
+                           <children>
+                              <JFXButton fx:id="HomeFindPath" alignment="CENTER" buttonType="RAISED" contentDisplay="TOP" focusTraversable="false" onAction="#SwitchToPathfindScreen" prefHeight="310.0" prefWidth="347.0" ripplerFill="WHITE" style="-fx-border-width: 2; -fx-border-radius: 10; -fx-background-radius: 10;" styleClass="buttonMain" stylesheets="@Default.css" text="Navigation" textFill="WHITE">
+                                 <font>
+                                    <Font name="Heiti TC Light" size="45.0" />
+                                 </font>
+                                 <graphic>
+                                    <FontAwesomeIconView fill="WHITE" glyphName="MAP_ALT" size="200" wrappingWidth="230.97364807128906" />
+                                 </graphic>
+                                 <opaqueInsets>
+                                    <Insets />
+                                 </opaqueInsets>
+                                 <effect>
+                                    <DropShadow color="WHITE" />
+                                 </effect>
+                                 <HBox.margin>
+                                    <Insets left="61.0" />
+                                 </HBox.margin>
+                              </JFXButton>
+                           </children>
+                        </HBox>
                      </children>
                   </HBox>
                </children>

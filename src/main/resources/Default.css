@@ -7,6 +7,10 @@
     -fx-pref-height: 75;
 }
 
+.fontType {
+    -fx-font: Heiti TC;
+}
+
 .buttonToolbar:hover{
     -fx-background-color: #012d5a;
     -fx-text-fill: white;
