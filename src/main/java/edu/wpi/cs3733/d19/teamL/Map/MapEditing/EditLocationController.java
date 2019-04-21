@@ -57,7 +57,7 @@ import static javafx.scene.control.ScrollPane.ScrollBarPolicy.NEVER;
 public class EditLocationController {
 
     @FXML
-    Button backButton;
+    Button back;
 
     @FXML
     Button downloadNode;
@@ -243,7 +243,7 @@ public class EditLocationController {
                         HomeScreenController controller = loader.<HomeScreenController>getController();
                         controller.displayPopup();
 
-                        Stage thisStage = (Stage) backButton.getScene().getWindow();
+                        Stage thisStage = (Stage) back.getScene().getWindow();
 
                         Scene newScene = new Scene(sceneMain);
                         thisStage.setScene(newScene);
@@ -513,7 +513,7 @@ public class EditLocationController {
         }
         Parent sceneMain = loader.load();
 
-        Stage theStage = (Stage) backButton.getScene().getWindow();
+        Stage theStage = (Stage) back.getScene().getWindow();
 
         Scene scene = new Scene(sceneMain);
         theStage.setScene(scene);

@@ -76,7 +76,7 @@ public class BookRoomController {
     private ImageView roomImage;
 
     @FXML
-    private Button backBtn;
+    private Button back;
 
     @FXML
     private Button viewWeekly;
@@ -232,7 +232,7 @@ public class BookRoomController {
             loader = new FXMLLoader(getClass().getClassLoader().getResource("AdminLoggedInHome.fxml"));
         }
         Parent sceneMain = loader.load();
-        Stage theStage = (Stage) backBtn.getScene().getWindow();
+        Stage theStage = (Stage) back.getScene().getWindow();
         Scene scene = new Scene(sceneMain);
         theStage.setScene(scene);
     }

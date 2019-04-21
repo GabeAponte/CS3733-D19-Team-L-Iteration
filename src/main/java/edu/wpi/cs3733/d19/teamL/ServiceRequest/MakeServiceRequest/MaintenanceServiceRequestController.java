@@ -35,7 +35,7 @@ public class MaintenanceServiceRequestController {
     private Button Submit;
 
     @FXML
-    public Button Back;
+    public Button back;
 
     @FXML
     public JFXTextArea Description;
@@ -63,7 +63,7 @@ public class MaintenanceServiceRequestController {
                             HomeScreenController controller = loader.<HomeScreenController>getController();
                             controller.displayPopup();
                         }
-                        Stage thisStage = (Stage) Back.getScene().getWindow();
+                        Stage thisStage = (Stage) back.getScene().getWindow();
 
                         Scene newScene = new Scene(sceneMain);
                         thisStage.setScene(newScene);
@@ -114,7 +114,7 @@ public class MaintenanceServiceRequestController {
 
         Parent sceneMain = loader.load();
 
-        Stage theStage = (Stage) Back.getScene().getWindow();
+        Stage theStage = (Stage) back.getScene().getWindow();
 
         Scene scene = new Scene(sceneMain);
         theStage.setScene(scene);

@@ -33,7 +33,7 @@ public class WeeklyScheduleController
     private JFXComboBox roomPicker;
 
     @FXML
-    private Button weeklyBack;
+    private Button back;
 
     @FXML
     private Button goToBookRoom;
@@ -393,7 +393,7 @@ public class WeeklyScheduleController
         FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("BookRoom.fxml"));
         Parent sceneMain = loader.load();
         BookRoomController controller = loader.<BookRoomController>getController();
-        Stage theStage = (Stage) weeklyBack.getScene().getWindow();
+        Stage theStage = (Stage) back.getScene().getWindow();
         Scene scene = new Scene(sceneMain);
         theStage.setScene(scene);
     }
