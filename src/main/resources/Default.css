@@ -1,5 +1,77 @@
 
+.buttonMain{
+    -fx-background-color: white;
+    -fx-border-color: #012d5a;
+    -fx-border-radius: 10;
+    -fx-border-width: 3;
+    -fx-text-fill: #012d5a;
+    -fx-background-radius: 10;
+    -jfx-button-type: RAISED;
+}
+
+.buttonMain .glyph-icon {
+    -fx-fill: #012d5a;
+}
+
+.buttonMain:hover{
+    -fx-background-color: #012d5a;
+    -fx-text-fill: white;
+}
+
+.buttonMain:hover .glyph-icon{
+    -fx-fill: white;
+}
+
+/*.buttonMain{
+    /*-fx-background-color: white;
+    -fx-border-color: #F5D96B;
+    -fx-border-radius: 10;
+    -fx-border-width: 3;
+    -fx-text-fill: white;
+    -fx-background-radius: 10;
+    -fx-border-color : #F5D96B;
+    /*-fx-border-radius: 10;
+    -fx-border-width: 2;
+}
+
+.buttonMain .glyph-icon {
+    -fx-fill: white;
+}
+
+.buttonMain:hover{
+    -fx-background-color: white;
+    -fx-text-fill: #012d5a;
+}
+
+.buttonMain:hover .glyph-icon{
+    -fx-fill: #012d5a;
+} */
+
+.buttonBig{
+    /*-fx-background-color: white;*/
+    -fx-border-color: #F5D96B;
+    -fx-text-fill: white;
+    -fx-background-radius: 10;
+    -fx-border-color : #F5D96B;
+    /*-fx-border-radius: 10;
+    -fx-border-width: 2;*/
+}
+
+.buttonBig .glyph-icon {
+    -fx-fill: white;
+}
+
+.buttonBig:hover{
+    -fx-background-color: white;
+    -fx-text-fill: #012d5a;
+}
+
+.buttonBig:hover .glyph-icon{
+    -fx-fill: #012d5a;
+}
+
 .buttonToolbar{
+    -fx-background-color: white;
     -fx-background-radius: 10000;
     -fx-border-color : #012D5A;
     -fx-border-radius: 100;
@@ -8,6 +80,7 @@
     -fx-font-family: "Trebuchet MS";
     -fx-font-style: Regular;
     -fx-font-size: 17;
+    -jfx-button-type: RAISED;
 }
 
 .buttonToolbar:hover{
@@ -29,6 +102,7 @@
     -fx-pref-height: 46;
     -fx-font-family: "Trebuchet MS";
     -fx-font-style: Regular;
+    -jfx-button-type: RAISED;
 }
 
 .buttonMap:hover{
@@ -60,10 +134,10 @@
 
 .radio-button {
     -jfx-selected-color:  #f5d96b;
-    -jfx-unselected-color: white;
-    -fx-text-fill: white;
     -fx-font-family: "Trebuchet MS";
     -fx-font-style: Regular;
+    -jfx-unselected-color: #012d5a;
+    -fx-text-fill: #012d5a;
 }
 
 .labelTitle {
@@ -199,12 +273,16 @@
 }
 
 .jfx-text-field-normal {
-    -fx-prompt-text-fill: WHITE;
-    -fx-text-fill: WHITE;
+    -fx-prompt-text-fill: #012d5a;
+    -fx-text-fill: #012d5a;
     -jfx-focus-color: #f5d96b;
-    -jfx-unfocus-color: white;
     -fx-font-family: "Trebuchet MS";
     -fx-font-style: Regular;
+    -jfx-unfocus-color: #012d5a;
+}
+
+.jfx-text-field-normal .input-line {
+    -fx-background-size: 4;
 }
 
 .jfx-text-field-login{
@@ -253,10 +331,10 @@
 
 .jfx-combo-box {
     -fx-font-size : 20 pt;
-    -fx-text-fill : white;
+    -fx-text-fill : #012d5a;
     -jfx-focus-color: #f5d96b;
-    -jfx-unfocus-color: white;
-    -fx-prompt-text-fill: white;
+    -jfx-unfocus-color: #012d5a;
+    -fx-prompt-text-fill: #012d5a;
     -fx-font-family: "Trebuchet MS";
     -fx-font-style: Regular;
 
@@ -277,7 +355,7 @@
 }
 
 .jfx-combo-box .list-view .list-cell {
--fx-text-fill : black;
+    -fx-text-fill : black;
     -fx-font-family: "Trebuchet MS";
     -fx-font-style: Regular;
 }
@@ -483,8 +561,10 @@
 }
 
 .jfx-password-fieldEdit{
-    -fx-prompt-text-fill: white;
-    -fx-text-fill: white;
+    -fx-prompt-text-fill: #012d5a;
+    -fx-text-fill: #012d5a;
+    -jfx-focus-color :#f5d96b;
+    -jfx-unfocus-color: #012d5a;
 }
 
 .buttonSecurity1{
