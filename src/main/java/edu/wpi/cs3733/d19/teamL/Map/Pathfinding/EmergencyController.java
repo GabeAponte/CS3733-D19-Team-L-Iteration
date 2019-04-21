@@ -346,8 +346,8 @@ public class EmergencyController {
         //FINDS CLOSEST EXIT
         findClosestExit();
         //also sets the direction setTetxt stuff
-        if(path != null) {
-            System.out.println("path is confirmed not null");
+        if(path != null  &&  currentMap.equals(kioskTemp.getFloor())) {
+            System.out.println("path is confirmed not null and sees same floor");
             displayingPath = true;
             displayPath();
         } else{
@@ -399,6 +399,7 @@ public class EmergencyController {
             cleanLabel();
         }
         displayExits();
+        displayPath();
     }
     @FXML
     private void clickedL1() {
@@ -413,6 +414,7 @@ public class EmergencyController {
             cleanLabel();
         }
         displayExits();
+        displayPath();
     }
     @FXML
     public void clickedL2(){
@@ -427,6 +429,7 @@ public class EmergencyController {
             cleanLabel();
         }
         displayExits();
+        displayPath();
     }
     @FXML
     private void clicked1(){
@@ -441,6 +444,7 @@ public class EmergencyController {
             cleanLabel();
         }
         displayExits();
+        displayPath();
     }
     @FXML
     private void clicked2(){
@@ -455,6 +459,7 @@ public class EmergencyController {
             cleanLabel();
         }
         displayExits();
+        displayPath();
     }
     @FXML
     private void clicked3(){
@@ -469,6 +474,7 @@ public class EmergencyController {
             cleanLabel();
         }
         displayExits();
+        displayPath();
     }
 
 
@@ -643,7 +649,7 @@ public class EmergencyController {
         Circle kiosk = new Circle();
         kiosk.setCenterX(kioskTemp.getXcoord()*childPane.getWidth()/Map.getImage().getWidth());
         kiosk.setCenterY(kioskTemp.getYcoord()*childPane.getHeight()/Map.getImage().getHeight());
-        kiosk.setRadius(Math.max(1.5, 1.5f * (gesturePane.getCurrentScale() / 4)));
+        kiosk.setRadius(Math.max(3.5, 3.5f * (gesturePane.getCurrentScale() / 4)));
         kiosk.setStroke(Color.BLUE);
         kiosk.setFill(Color.BLUE);
         hereLabel.setLayoutX(kioskTemp.getXcoord()*childPane.getWidth()/Map.getImage().getWidth() -20);
@@ -722,7 +728,7 @@ public class EmergencyController {
         //Clears the lines and circles to avoid any duplicates or reproducing data
         if(displayingPath) {
             path.getPath().add(0,startNode);
-/*
+
             for (Circle c : circles) {
                 pathPane.getChildren().remove(c);
             }
@@ -736,7 +742,7 @@ public class EmergencyController {
             circles.clear();
             lines.clear();
             buttons.clear();
-*/
+
             //Counts how many nodes are on the floor
             int floorCount = 0;
             //Start node on floor
