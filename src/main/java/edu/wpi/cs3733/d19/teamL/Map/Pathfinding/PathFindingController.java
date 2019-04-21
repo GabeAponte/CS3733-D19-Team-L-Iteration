@@ -904,7 +904,7 @@ public class PathFindingController {
      */
     private void makeButtons(ArrayList<String> floors) {
         int midx = 400;
-        int midy = 550;
+        int midy = 450;
         int numOfBut = countFloors(floors);
         int totalNum = countFloors(floors);
         int center = (numOfBut + 1)/2;
@@ -913,7 +913,12 @@ public class PathFindingController {
             if(totalNum == 1) {
                 fBut.setPrefSize(50,50);
                 fBut.setText(floors.get(i));
-                final String same = floors.get(i);
+                fBut.setStyle("-fx-background-radius: 10000;" +
+                        "    -fx-border-color : #012D5A;" +
+                        "    -fx-border-radius: 100;" +
+                        "    -fx-border-width: 2;" +
+                        "    -fx-pref-height: 46;" +
+                        "-fx-background-color: transparent");
                 int startstore1 = start;
                 int counterstore1 = counter;
                 fBut.setOnAction(event -> {
@@ -928,6 +933,12 @@ public class PathFindingController {
             else if(!floors.get(i+1).equals(floors.get(start))) {
                 fBut.setPrefSize(50,50);
                 fBut.setText(floors.get(i));
+                fBut.setStyle("-fx-background-radius: 10000;" +
+                        "    -fx-border-color : #012D5A;" +
+                        "    -fx-border-radius: 100;" +
+                        "    -fx-border-width: 2;" +
+                        "    -fx-pref-height: 46;" +
+                        "-fx-background-color: transparent");
                 final String next = floors.get(i);
                 int startstore1 = start;
                 int counterstore1 = counter;
@@ -948,6 +959,12 @@ public class PathFindingController {
             else if(numOfBut == 1){
                 fBut.setPrefSize(50,50);
                 fBut.setText(floors.get(i));
+                fBut.setStyle("-fx-background-radius: 10000;" +
+                        "    -fx-border-color : #012D5A;" +
+                        "    -fx-border-radius: 100;" +
+                        "    -fx-border-width: 2;" +
+                        "    -fx-pref-height: 46;" +
+                        "-fx-background-color: transparent");
                 final String next = floors.get(i);
                 int startstore1 = start;
                 int counterstore1 =floors.size();
