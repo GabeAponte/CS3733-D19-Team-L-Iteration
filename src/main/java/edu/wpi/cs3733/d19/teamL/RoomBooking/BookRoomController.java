@@ -94,9 +94,13 @@ public class BookRoomController {
     @FXML
     private AnchorPane reservationPane;
 
+    @FXML
+    private AnchorPane anchorPane;
+
     Timeline timeout;
     VisualSimulationThread sim;
     private boolean firstTimeRan = true;
+    private boolean resShowing = false;
 
     final ObservableList<String> listOfRooms = FXCollections.observableArrayList();
     ArrayList<String> rooms = new ArrayList<>();
@@ -418,9 +422,17 @@ public class BookRoomController {
                     for(int z = 0; z<listOfRooms.size(); z++){
                         if(DisplayRooms.get(k).getRoomName().equals(listOfRooms.get(z))){
                             if(DisplayRooms.get(k).isAvailable()) {
-                                popupName.setText("Reserve "+ DisplayRooms.get(k).niceName);
-                                openCloseReservation();
                                 availableRooms.getSelectionModel().select(listOfRooms.get(z));
+                                if(popupName.getText().contains(DisplayRooms.get(k).niceName)){
+                                    if(resShowing) {
+                                        openReservation(false);
+                                    }else{
+                                        openReservation(true);
+                                    }
+                                }else {
+                                    popupName.setText("Reserve " + DisplayRooms.get(k).niceName);
+                                    openReservation(true);
+                                }
                             }
                         }
                     }
@@ -439,6 +451,7 @@ public class BookRoomController {
             if(DisplayRooms.get(j).getRoomName().equals(availableRooms.getValue())){
                 for (int i = 0; i < DisplayRooms.size(); i++) {
                     if(DisplayRooms.get(i).isAvailable()){
+                        //openReservation(true);
                         DisplayRooms.get(i).changePolygonColor("GREEN");
                     } else {
                         DisplayRooms.get(i).changePolygonColor("RED");
@@ -705,16 +718,20 @@ public class BookRoomController {
     /** @author Isabella
      * Slides in the reservation menu from the right side
      */
-    private void openCloseReservation() {
-        TranslateTransition openNav = new TranslateTransition(new Duration(300.0D), this.reservationPane);
+    private void openReservation(boolean open) {
+        TranslateTransition openNav = new TranslateTransition(new Duration(400.0D), this.reservationPane);
         openNav.setToX(0.0D);
-        TranslateTransition closeNav = new TranslateTransition(new Duration(300.0D), this.reservationPane);
-            if (this.reservationPane.getTranslateX() != 100.0D) {
-                openNav.setToX(100);
+        TranslateTransition closeNav = new TranslateTransition(new Duration(400.0D), this.reservationPane);
+            if (open == true){
+                openNav.setToX(-100.0D-this.reservationPane.getWidth());
                 openNav.play();
+                resShowing = true;
+                System.out.println("ResShowing = true");
             } else {
-                closeNav.setToX(-this.reservationPane.getWidth());
+                closeNav.setToX(100+this.anchorPane.getWidth()+this.reservationPane.getWidth());
                 closeNav.play();
+                resShowing = false;
+                System.out.println("ResShowing = false");
             }
     }
 

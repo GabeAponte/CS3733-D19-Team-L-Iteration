@@ -24,7 +24,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720" prefWidth="1280" styleClass="AnchorPainMain" stylesheets="@Default.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.d19.teamL.RoomBooking.BookRoomController">
+<AnchorPane maxHeight="-Infinity" fx:id="anchorPane" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720" prefWidth="1280" styleClass="AnchorPainMain" stylesheets="@Default.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.d19.teamL.RoomBooking.BookRoomController">
 
     <children>
         <GridPane fx:id="gridPane" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
@@ -40,6 +40,7 @@
                 <RowConstraints minHeight="10.0" percentHeight="10.0" prefHeight="30.0" vgrow="ALWAYS" />
                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="ALWAYS" />
                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="ALWAYS" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="ALWAYS" />
                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="ALWAYS" />
                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="ALWAYS" />
                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="ALWAYS" />
@@ -119,14 +120,6 @@
                     </center>
                 </JFXToolbar>
                 <JFXToolbar maxHeight="-Infinity" prefHeight="10.0" prefWidth="1280.0" styleClass="tool-barSecondary" stylesheets="@Default.css" GridPane.columnSpan="4" GridPane.rowIndex="1" GridPane.valignment="TOP" />
-                <JFXButton fx:id="requestRoom" buttonType="RAISED" disable="false" onAction="#findRoom" prefHeight="80.0" prefWidth="250.0" ripplerFill="WHITE" style="-fx-border-radius: 100; -fx-border-width: 2; -fx-background-radius: 100;" styleClass="buttonMain" stylesheets="@Default.css" text="Book Room" textFill="white" GridPane.columnIndex="2" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="4">
-                    <font>
-                        <Font name="Avenir Book" size="36.0" />
-                    </font>
-                    <GridPane.margin>
-                        <Insets top="20.0" />
-                    </GridPane.margin>
-                </JFXButton>
                 <Label alignment="BOTTOM_CENTER" contentDisplay="BOTTOM" styleClass="labelTitle" stylesheets="@Default.css" text="Book a Room" textFill="#f5d96b" GridPane.columnSpan="4" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" GridPane.valignment="CENTER">
                     <font>
                         <Font name="Avenir Book" size="36.0" />
@@ -135,7 +128,7 @@
                         <Insets left="30.0" top="10.0" />
                     </GridPane.margin>
                 </Label>
-                <Pane fx:id="imagePane" prefHeight="200.0" prefWidth="200.0" GridPane.columnSpan="2" GridPane.hgrow="ALWAYS" GridPane.rowIndex="2" GridPane.rowSpan="5" GridPane.vgrow="ALWAYS">
+                <Pane fx:id="imagePane" prefHeight="200.0" prefWidth="200.0" GridPane.columnSpan="2" GridPane.hgrow="ALWAYS" GridPane.rowIndex="2" GridPane.rowSpan="6" GridPane.vgrow="ALWAYS">
                     <children>
                         <ImageView fx:id="roomImage" fitHeight="645.0" fitWidth="900.0" pickOnBounds="true" preserveRatio="true">
                             <image>
@@ -147,27 +140,27 @@
                         <Insets left="30.0" />
                     </GridPane.margin>
                 </Pane>
-                <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="2">
+                <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="2" GridPane.halignment="RIGHT" GridPane.rowIndex="2">
                     <children>
                         <Label styleClass="labelTitle" stylesheets="@Default.css" text="Start time:" textFill="#f5d96b">
                             <font>
                                 <Font size="18.0" />
                             </font>
                         </Label>
-                        <JFXTimePicker fx:id="startTime" defaultColor="#f5d96b" onAction="#fieldsEntered" prefHeight="60.0" prefWidth="225.0" promptText="Start Time" styleClass="jfx-time-picker" stylesheets="@Default.css" />
+                        <JFXTimePicker fx:id="startTime" defaultColor="#f5d96b" onAction="#fieldsEntered" prefHeight="50.0" prefWidth="225.0" promptText="Start Time" styleClass="jfx-time-picker" stylesheets="@Default.css" />
                     </children>
                 </VBox>
-                <VBox alignment="CENTER" layoutX="874.0" layoutY="200.0" prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="3" GridPane.rowIndex="2">
+                <VBox alignment="CENTER" layoutX="874.0" layoutY="200.0" prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="2" GridPane.rowIndex="3">
                     <children>
                         <Label styleClass="labelTitle" stylesheets="@Default.css" text="End time:" textFill="#f5d96b">
                             <font>
                                 <Font size="18.0" />
                             </font>
                         </Label>
-                        <JFXTimePicker fx:id="endTime" defaultColor="#f5d96b" onAction="#fieldsEntered" prefHeight="60.0" prefWidth="225.0" promptText="End Time" styleClass="jfx-time-picker" stylesheets="@Default.css" />
+                        <JFXTimePicker fx:id="endTime" defaultColor="#f5d96b" onAction="#fieldsEntered" prefHeight="50.0" prefWidth="225.0" promptText="End Time" styleClass="jfx-time-picker" stylesheets="@Default.css" />
                     </children>
                 </VBox>
-                <JFXButton fx:id="viewSchedule" onAction="#switchToTable" prefHeight="60.0" prefWidth="304.0" style="-fx-border-radius: 100; -fx-border-width: 2; -fx-background-radius: 100;" styleClass="buttonMain" stylesheets="@Default.css" text="View Room Schedule" textFill="WHITE" GridPane.columnIndex="2" GridPane.columnSpan="2147483647" GridPane.halignment="CENTER" GridPane.rowIndex="5" GridPane.valignment="CENTER">
+                <JFXButton fx:id="viewSchedule" onAction="#switchToTable" prefHeight="60.0" prefWidth="304.0" style="-fx-border-radius: 100; -fx-border-width: 2; -fx-background-radius: 100;" styleClass="buttonMain" stylesheets="@Default.css" text="View Room Schedule" textFill="WHITE" GridPane.columnIndex="3" GridPane.columnSpan="2147483647" GridPane.halignment="CENTER" GridPane.rowIndex="6" GridPane.valignment="CENTER">
                     <font>
                         <Font size="24.0" />
                     </font>
@@ -175,19 +168,11 @@
                         <Insets top="30.0" />
                     </GridPane.margin>
                 </JFXButton>
-                <Label fx:id="error" text="" textFill="#f5d96b" GridPane.columnIndex="2" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="5" GridPane.valignment="TOP">
+                <Label fx:id="error" text="" textFill="#f5d96b" GridPane.columnIndex="2" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="6" GridPane.valignment="TOP">
                     <font>
                         <Font name="Avenir Book" size="18.0" />
                     </font>
                 </Label>
-                <JFXButton fx:id="viewWeekly" buttonType="RAISED" disable="false" onAction="#switchToWeekly" prefHeight="60.0" prefWidth="304.0" ripplerFill="WHITE" style="-fx-border-radius: 100; -fx-border-width: 2; -fx-background-radius: 100;" styleClass="buttonMain" stylesheets="@Default.css" text="View Weekly Schedule" textFill="WHITE" GridPane.columnIndex="2" GridPane.columnSpan="2147483647" GridPane.halignment="CENTER" GridPane.rowIndex="6" GridPane.valignment="CENTER">
-                    <font>
-                        <Font size="24.0" />
-                    </font>
-                    <GridPane.margin>
-                        <Insets bottom="25.0" />
-                    </GridPane.margin>
-                </JFXButton>
                 <Label fx:id="roomName" alignment="TOP_CENTER" contentDisplay="CENTER" prefHeight="48.0" prefWidth="427.0" styleClass="labelTitle" stylesheets="@Default.css" text="Select a Room" textFill="#f5d96b" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="TOP">
                     <font>
                         <Font size="24.0" />
@@ -196,9 +181,9 @@
                         <Insets right="40.0" />
                     </GridPane.margin>
                 </Label>
-                <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="3">
+                <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="3" GridPane.halignment="LEFT" GridPane.rowIndex="2">
                     <children>
-                        <Label styleClass="labelTitle" stylesheets="@Default.css" text="Choose Date:" textFill="#f5d96b">
+                        <Label styleClass="labelTitle" stylesheets="@Default.css" text="Start Date:" textFill="#f5d96b">
                             <font>
                                 <Font size="18.0" />
                             </font>
@@ -206,19 +191,37 @@
                         <JFXDatePicker fx:id="datePicker" defaultColor="#f5d96b" onAction="#fieldsEntered" prefHeight="60.0" prefWidth="225.0" promptText="Start Date" styleClass="date-picker" stylesheets="@Default.css" />
                     </children>
                 </VBox>
-                <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="3" GridPane.rowIndex="3">
+                <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="2" GridPane.columnSpan="2" GridPane.rowIndex="4">
                     <children>
                         <Label styleClass="labelTitle" stylesheets="@Default.css" text="Choose Room:" textFill="#f5d96b">
                             <font>
                                 <Font size="18.0" />
                             </font>
                         </Label>
-                        <JFXComboBox fx:id="availableRooms" focusColor="#f5d96b" onAction="#highlightFromDropdown" prefHeight="60.0" prefWidth="225.0" promptText="Select Room" stylesheets="@Default.css" unFocusColor="#f5d96b" />
+                        <JFXComboBox fx:id="availableRooms" focusColor="#f5d96b" onAction="#highlightFromDropdown" prefHeight="60.0" prefWidth="300.0" promptText="Select Room" stylesheets="@Default.css" unFocusColor="#f5d96b" />
                     </children>
                 </VBox>
+            <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="3" GridPane.rowIndex="3">
+               <children>
+                  <Label styleClass="labelTitle" stylesheets="@Default.css" text="End Date:" textFill="#f5d96b">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </Label>
+                  <JFXDatePicker defaultColor="#f5d96b" onAction="#fieldsEntered" prefHeight="50.0" prefWidth="225.0" promptText="End Date" styleClass="date-picker" stylesheets="@Default.css" />
+               </children>
+            </VBox>
+                <JFXButton fx:id="viewWeekly" buttonType="RAISED" disable="false" onAction="#switchToWeekly" prefHeight="60.0" prefWidth="304.0" ripplerFill="WHITE" style="-fx-border-radius: 100; -fx-border-width: 2; -fx-background-radius: 100;" styleClass="buttonMain" stylesheets="@Default.css" text="View Weekly Schedule" textFill="WHITE" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="6" GridPane.valignment="CENTER">
+                    <font>
+                        <Font size="24.0" />
+                    </font>
+               <GridPane.margin>
+                  <Insets top="30.0" />
+               </GridPane.margin>
+                </JFXButton>
             </children>
         </GridPane>
-      <AnchorPane fx:id="reservationPane" layoutX="1287.0" layoutY="330.0" prefHeight="328.0" prefWidth="365.0" style="-fx-border-color: #f5d96b; -fx-background-radius: 10; -fx-border-radius: 10;" styleClass="AnchorPainMain" stylesheets="@Default.css" AnchorPane.bottomAnchor="20.0" AnchorPane.rightAnchor="-372.0">
+      <AnchorPane fx:id="reservationPane" layoutX="1287.0" layoutY="330.0" prefHeight="328.0" prefWidth="400.0" style="-fx-border-color: #f5d96b; -fx-background-radius: 10; -fx-border-radius: 10;" styleClass="AnchorPainMain" stylesheets="@Default.css" AnchorPane.bottomAnchor="20.0" AnchorPane.rightAnchor="-400.0">
          <children>
             <GridPane layoutX="1.0" layoutY="12.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
               <columnConstraints>
@@ -234,7 +237,7 @@
                   <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
               </rowConstraints>
                <children>
-                  <Label styleClass="labelTitle" fx:id="popupName" stylesheets="@Default.css" text="Reserve Room X" GridPane.columnSpan="2" GridPane.halignment="CENTER">
+                  <Label fx:id="popupName" styleClass="labelTitle" stylesheets="@Default.css" text="Reserve Room X" GridPane.columnSpan="2" GridPane.halignment="CENTER">
                      <font>
                         <Font size="20.0" />
                      </font>
@@ -255,7 +258,7 @@
                      </font></JFXTextArea>
                   <JFXComboBox fx:id="eventType" maxWidth="1.7976931348623157E308" promptText="Event Type" styleClass="jfx-combo-box-PathMenu" GridPane.rowIndex="3" />
                   <JFXListView GridPane.columnSpan="2" GridPane.rowIndex="4" />
-                  <JFXButton style="-fx-border-radius: 100; -fx-background-radius: 100;" styleClass="buttonMain" stylesheets="@Default.css" text="Make Reservation" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="5" />
+                  <JFXButton fx:id="requestRoom" onAction="#findRoom" style="-fx-border-radius: 100; -fx-background-radius: 100;" styleClass="buttonMain" stylesheets="@Default.css" text="Make Reservation" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="5" />
                </children>
                <padding>
                   <Insets left="10.0" right="10.0" />

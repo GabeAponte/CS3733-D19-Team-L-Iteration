@@ -19,7 +19,7 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
-        Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getClassLoader().getResource("HospitalHome.fxml")));
+        Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getClassLoader().getResource("BookRoom.fxml")));
         primaryStage.setTitle("Team L Iteration 3");
         primaryStage.setScene(new Scene(root));
         //primaryStage.setFullScreen(true);
