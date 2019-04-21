@@ -109,7 +109,7 @@
                         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                     </rowConstraints>
                     <children>
-                        <JFXButton fx:id="ITServices" buttonType="RAISED" contentDisplay="TOP" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" onAction="#makeRequest" style="-fx-border-radius: 10; -fx-background-radius: 10; -fx-border-width: 5;" styleClass="buttonMain" stylesheets="@Default.css" text="IT Assistance" textFill="WHITE" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
+                        <JFXButton fx:id="ITServices" buttonType="RAISED" contentDisplay="TOP" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" onAction="#makeRequest" style="-fx-border-radius: 10; -fx-background-radius: 10; -fx-border-width: 5;" styleClass="buttonBig" stylesheets="@Default.css" text="IT Assistance" textFill="WHITE" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
                             <font>
                                 <Font size="25.0" />
                             </font>
@@ -120,7 +120,7 @@
                         <FontAwesomeIconView fill="WHITE" glyphName="LAPTOP" size="40" />
                      </graphic>
                         </JFXButton>
-                        <JFXButton fx:id="ReligiousServices" buttonType="RAISED" contentDisplay="TOP" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" onAction="#makeRequest" style="-fx-border-radius: 10; -fx-background-radius: 10; -fx-border-width: 5;" styleClass="buttonMain" stylesheets="@Default.css" text="Religious Services" textFill="WHITE" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="2" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
+                        <JFXButton fx:id="ReligiousServices" buttonType="RAISED" contentDisplay="TOP" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" onAction="#makeRequest" style="-fx-border-radius: 10; -fx-background-radius: 10; -fx-border-width: 5;" styleClass="buttonBig" stylesheets="@Default.css" text="Religious Services" textFill="WHITE" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="2" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
                             <font>
                                 <Font size="25.0" />
                             </font>
@@ -131,7 +131,7 @@
                         <FontAwesomeIconView fill="WHITE" glyphName="BOOK" size="40" />
                      </graphic>
                         </JFXButton>
-                        <JFXButton fx:id="LanguageInterpreter" buttonType="RAISED" contentDisplay="TOP" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" onAction="#makeRequest" style="-fx-border-radius: 10; -fx-background-radius: 10; -fx-border-width: 5;" styleClass="buttonMain" stylesheets="@Default.css" text="Language Interpretrer" textFill="WHITE" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="3" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
+                        <JFXButton fx:id="LanguageInterpreter" buttonType="RAISED" contentDisplay="TOP" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" onAction="#makeRequest" style="-fx-border-radius: 10; -fx-background-radius: 10; -fx-border-width: 5;" styleClass="buttonBig" stylesheets="@Default.css" text="Language Interpretrer" textFill="WHITE" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="3" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
                             <font>
                                 <Font size="25.0" />
                             </font>
@@ -142,7 +142,7 @@
                         <FontAwesomeIconView fill="WHITE" glyphName="LANGUAGE" size="40" />
                      </graphic>
                         </JFXButton>
-                        <JFXButton fx:id="FacilitiesMaintenance" buttonType="RAISED" contentDisplay="TOP" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" onAction="#makeRequest" style="-fx-border-radius: 10; -fx-background-radius: 10; -fx-border-width: 5;" styleClass="buttonMain" stylesheets="@Default.css" text="Facilities Maintenance" textFill="WHITE" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
+                        <JFXButton fx:id="FacilitiesMaintenance" buttonType="RAISED" contentDisplay="TOP" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" onAction="#makeRequest" style="-fx-border-radius: 10; -fx-background-radius: 10; -fx-border-width: 5;" styleClass="buttonBig" stylesheets="@Default.css" text="Facilities Maintenance" textFill="WHITE" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
                             <font>
                                 <Font size="25.0" />
                             </font>
@@ -153,7 +153,7 @@
                         <FontAwesomeIconView fill="WHITE" glyphName="WRENCH" size="40" />
                      </graphic>
                         </JFXButton>
-                        <JFXButton fx:id="SecurityStaff" buttonType="RAISED" contentDisplay="TOP" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" onAction="#makeRequest" style="-fx-border-radius: 10; -fx-background-radius: 10; -fx-border-width: 5;" styleClass="buttonMain" stylesheets="@Default.css" text="Security Staff" textFill="WHITE" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="3" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
+                        <JFXButton fx:id="SecurityStaff" buttonType="RAISED" contentDisplay="TOP" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" onAction="#makeRequest" style="-fx-border-radius: 10; -fx-background-radius: 10; -fx-border-width: 5;" styleClass="buttonBig" stylesheets="@Default.css" text="Security Staff" textFill="WHITE" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="3" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
                             <font>
                                 <Font size="25.0" />
                             </font>
@@ -164,7 +164,7 @@
                         <FontAwesomeIconView fill="WHITE" glyphName="EXCLAMATION_TRIANGLE" size="40" />
                      </graphic>
                         </JFXButton>
-                        <JFXButton fx:id="SanitationServices" buttonType="RAISED" contentDisplay="TOP" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" onAction="#makeRequest" style="-fx-border-radius: 10; -fx-background-radius: 10; -fx-border-width: 5;" styleClass="buttonMain" stylesheets="@Default.css" text="Sanitation" textFill="WHITE" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="2" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
+                        <JFXButton fx:id="SanitationServices" buttonType="RAISED" contentDisplay="TOP" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" onAction="#makeRequest" style="-fx-border-radius: 10; -fx-background-radius: 10; -fx-border-width: 5;" styleClass="buttonBig" stylesheets="@Default.css" text="Sanitation" textFill="WHITE" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="2" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
                             <font>
                                 <Font size="25.0" />
                             </font>
@@ -175,7 +175,7 @@
                         <FontAwesomeIconView fill="WHITE" glyphName="TINT" size="40" />
                      </graphic>
                         </JFXButton>
-                        <JFXButton fx:id="ExternalTransportation" buttonType="RAISED" contentDisplay="TOP" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" onAction="#makeRequest" style="-fx-border-radius: 10; -fx-background-radius: 10; -fx-border-width: 5;" styleClass="buttonMain" stylesheets="@Default.css" text="External Transportation" textFill="WHITE" GridPane.columnIndex="1" GridPane.rowIndex="1" GridPane.vgrow="ALWAYS">
+                        <JFXButton fx:id="ExternalTransportation" buttonType="RAISED" contentDisplay="TOP" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" onAction="#makeRequest" style="-fx-border-radius: 10; -fx-background-radius: 10; -fx-border-width: 5;" styleClass="buttonBig" stylesheets="@Default.css" text="External Transportation" textFill="WHITE" GridPane.columnIndex="1" GridPane.rowIndex="1" GridPane.vgrow="ALWAYS">
                             <font>
                                 <Font size="25.0" />
                             </font>
@@ -186,7 +186,7 @@
                         <FontAwesomeIconView fill="WHITE" glyphName="BUS" size="40" />
                      </graphic>
                         </JFXButton>
-                        <JFXButton fx:id="InternalTransportation" buttonType="RAISED" contentDisplay="TOP" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" onAction="#makeRequest" style="-fx-border-radius: 10; -fx-background-radius: 10; -fx-border-width: 5;" styleClass="buttonMain" stylesheets="@Default.css" text="Internal Transportation" textFill="WHITE" GridPane.columnIndex="1" GridPane.rowIndex="2" GridPane.vgrow="ALWAYS">
+                        <JFXButton fx:id="InternalTransportation" buttonType="RAISED" contentDisplay="TOP" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" onAction="#makeRequest" style="-fx-border-radius: 10; -fx-background-radius: 10; -fx-border-width: 5;" styleClass="buttonBig" stylesheets="@Default.css" text="Internal Transportation" textFill="WHITE" GridPane.columnIndex="1" GridPane.rowIndex="2" GridPane.vgrow="ALWAYS">
                             <font>
                                 <Font size="25.0" />
                             </font>
@@ -197,7 +197,7 @@
                         <FontAwesomeIconView fill="WHITE" glyphName="WHEELCHAIR" size="40" />
                      </graphic>
                         </JFXButton>
-                        <JFXButton fx:id="AudioVisual" buttonType="RAISED" contentDisplay="TOP" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" onAction="#makeRequest" style="-fx-border-radius: 10; -fx-background-radius: 10; -fx-border-width: 5;" styleClass="buttonMain" stylesheets="@Default.css" text="Audio/Visual" textFill="WHITE" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
+                        <JFXButton fx:id="AudioVisual" buttonType="RAISED" contentDisplay="TOP" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" onAction="#makeRequest" style="-fx-border-radius: 10; -fx-background-radius: 10; -fx-border-width: 5;" styleClass="buttonBig" stylesheets="@Default.css" text="Audio/Visual" textFill="WHITE" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
                             <font>
                                 <Font size="25.0" />
                             </font>
@@ -208,7 +208,7 @@
                         <FontAwesomeIconView fill="WHITE" glyphName="BULLHORN" size="40" />
                      </graphic>
                         </JFXButton>
-                        <JFXButton fx:id="Florist" buttonType="RAISED" contentDisplay="TOP" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" onAction="#openGiftService" style="-fx-border-radius: 10; -fx-background-radius: 10; -fx-border-width: 5;" styleClass="buttonMain" stylesheets="@Default.css" text="Gift Store" textFill="WHITE" GridPane.columnIndex="2" GridPane.rowIndex="3" GridPane.vgrow="ALWAYS">
+                        <JFXButton fx:id="Florist" buttonType="RAISED" contentDisplay="TOP" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" onAction="#openGiftService" style="-fx-border-radius: 10; -fx-background-radius: 10; -fx-border-width: 5;" styleClass="buttonBig" stylesheets="@Default.css" text="Gift Store" textFill="WHITE" GridPane.columnIndex="2" GridPane.rowIndex="3" GridPane.vgrow="ALWAYS">
                             <font>
                                 <Font size="25.0" />
                             </font>
@@ -219,7 +219,7 @@
                         <FontAwesomeIconView fill="WHITE" glyphName="GIFT" size="40" />
                      </graphic>
                         </JFXButton>
-                        <JFXButton fx:id="PrescriptionServices" buttonType="RAISED" contentDisplay="TOP" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" onAction="#makeRequest" style="-fx-border-radius: 10; -fx-background-radius: 10; -fx-border-width: 5;" styleClass="buttonMain" stylesheets="@Default.css" text="Prescriptions" textFill="WHITE" GridPane.columnIndex="2" GridPane.rowIndex="2" GridPane.vgrow="ALWAYS">
+                        <JFXButton fx:id="PrescriptionServices" buttonType="RAISED" contentDisplay="TOP" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" onAction="#makeRequest" style="-fx-border-radius: 10; -fx-background-radius: 10; -fx-border-width: 5;" styleClass="buttonBig" stylesheets="@Default.css" text="Prescriptions" textFill="WHITE" GridPane.columnIndex="2" GridPane.rowIndex="2" GridPane.vgrow="ALWAYS">
                             <font>
                                 <Font size="25.0" />
                             </font>

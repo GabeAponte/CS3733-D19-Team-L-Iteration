@@ -152,7 +152,7 @@
                                           <Font size="24.0" />
                                        </font>
                                     </Label>
-                                    <JFXTextArea editable="false" focusColor="#405aa800" styleClass="text-area" stylesheets="@Default.css" text="-Click to show node information&#10;- Shift click to show edges between nodes&#10;- Right click to add a node&#10;- Right click to add a node&#10;- Control click and drag to move a node&#10;- This change can be confirmed by clicking on the node and clicking the checkmark, otherwise you can cancel the movement by clicking the X&#10;- Shift right click to add an edge from the clicked node to the selected node&#10;- Alt click to delete a node or edge&#10;" unFocusColor="#4d4d4d00" GridPane.columnSpan="2147483647" GridPane.rowIndex="2">
+                                    <JFXTextArea editable="false" focusColor="#405aa800" styleClass="text-area" stylesheets="@Default.css" text="-Right click on node to show information&#10;- Shift click on a node to show all edges between it&#10;- Right click to add a node anywhere&#10;- Control click and drag to move a node&#10;- This change can be confirmed by clicking on the node and clicking the checkmark, otherwise you can cancel the movement by clicking the X&#10;- Shift right click to add an edge from the clicked node to the selected node&#10;- Alt click to delete a node or edge&#10;" unFocusColor="#4d4d4d00" GridPane.columnSpan="2147483647" GridPane.rowIndex="2">
                                        <font>
                                           <Font size="18.0" />
                                        </font>

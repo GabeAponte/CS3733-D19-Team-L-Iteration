@@ -123,7 +123,7 @@
                   <Insets />
                </VBox.margin>
                <children>
-                  <JFXButton fx:id="HomeFindPath" alignment="CENTER" buttonType="RAISED" contentDisplay="TOP" focusTraversable="false" onAction="#SwitchToPathfindScreen" prefHeight="310.0" prefWidth="361.0" ripplerFill="WHITE" style="-fx-border-width: 2; -fx-border-radius: 10; -fx-background-radius: 10;" styleClass="buttonMain" stylesheets="@Default.css" text="Navigation" textFill="WHITE" GridPane.rowIndex="1">
+                  <JFXButton fx:id="HomeFindPath" alignment="CENTER" buttonType="RAISED" contentDisplay="TOP" focusTraversable="false" onAction="#SwitchToPathfindScreen" prefHeight="310.0" prefWidth="361.0" ripplerFill="WHITE" style="-fx-border-width: 2; -fx-border-radius: 10; -fx-background-radius: 10;" styleClass="buttonBig" stylesheets="@Default.css" text="Navigation" textFill="WHITE" GridPane.rowIndex="1">
                      <font>
                         <Font size="50.0" />
                      </font>
@@ -140,7 +140,7 @@
                         <DropShadow color="WHITE" />
                      </effect>
                   </JFXButton>
-                  <JFXButton fx:id="HomeServiceRequest" alignment="CENTER" buttonType="RAISED" contentDisplay="TOP" focusTraversable="false" onAction="#SwitchToServiceScreen" prefHeight="366.0" prefWidth="361.0" ripplerFill="WHITE" style="-fx-border-width: 2; -fx-background-radius: 10; -fx-border-radius: 10;" styleClass="buttonMain" stylesheets="@Default.css" text="Request" textFill="WHITE" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                  <JFXButton fx:id="HomeServiceRequest" alignment="CENTER" buttonType="RAISED" contentDisplay="TOP" focusTraversable="false" onAction="#SwitchToServiceScreen" prefHeight="366.0" prefWidth="361.0" ripplerFill="WHITE" style="-fx-border-width: 2; -fx-background-radius: 10; -fx-border-radius: 10;" styleClass="buttonBig" stylesheets="@Default.css" text="Request" textFill="WHITE" GridPane.columnIndex="1" GridPane.rowIndex="1">
                      <font>
                         <Font size="50.0" />
                      </font>
