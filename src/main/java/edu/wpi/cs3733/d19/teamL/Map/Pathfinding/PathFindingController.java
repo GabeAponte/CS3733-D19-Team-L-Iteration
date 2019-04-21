@@ -301,9 +301,7 @@ public class PathFindingController {
 
         changeMapLabel();
         displayKiosk();
-        if(path != null) {
-            displayPath();
-        }
+        clear();
     }
     @FXML
     private void clickedL1() {
@@ -313,9 +311,7 @@ public class PathFindingController {
 
         changeMapLabel();
         displayKiosk();
-        if(path != null){
-            displayPath();
-        }
+        clear();
     }
 
     @FXML public void clickedL2(){
@@ -325,9 +321,7 @@ public class PathFindingController {
 
         changeMapLabel();
         displayKiosk();
-        if(path != null){
-            displayPath();
-        }
+        clear();
     }
     @FXML
     private void clicked1(){
@@ -337,9 +331,7 @@ public class PathFindingController {
 
         changeMapLabel();
         displayKiosk();
-        if(path != null){
-            displayPath();
-        }
+        clear();
     }
     @FXML
     private void clicked2(){
@@ -349,9 +341,7 @@ public class PathFindingController {
 
         changeMapLabel();
         displayKiosk();
-        if(path != null){
-            displayPath();
-        }
+        clear();
     }
     @FXML
     private void clicked3(){
@@ -361,9 +351,7 @@ public class PathFindingController {
 
         changeMapLabel();
         displayKiosk();
-        if(path != null){
-            displayPath();
-        }
+        clear();
     }
 
 
