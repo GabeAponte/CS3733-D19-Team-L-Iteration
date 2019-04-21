@@ -112,7 +112,7 @@ public class EmergencyController {
 
     private boolean displayingPath;
     private ArrayList<Button> buttons = new ArrayList<Button>();
-    private Path path;
+    private Path path = null;
 
     private GesturePane gesturePane;
     private StackPane childPane;
@@ -341,14 +341,19 @@ public class EmergencyController {
         //DISPLAY ALL EXITS
         //DISPLAYS ALL EXITS HERE
         displayExits();
-        gotoKioskFloor();
+
 
         //FINDS CLOSEST EXIT
         findClosestExit();
         //also sets the direction setTetxt stuff
-        displayingPath = true;
-        displayPath();
-
+        if(path != null) {
+            System.out.println("path is confirmed not null");
+            displayingPath = true;
+            displayPath();
+        } else{
+            System.out.println("paht is confirmed null -figure out how to fix");
+        }
+        gotoKioskFloor();
         DisableEmergMode.setDisable(false);
     }
 
