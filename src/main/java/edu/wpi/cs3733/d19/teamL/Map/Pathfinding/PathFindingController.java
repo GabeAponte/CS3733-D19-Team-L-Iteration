@@ -1114,6 +1114,8 @@ public class PathFindingController {
         gesturePane.centreOn(new Point2D(xSameVal, ySameVal));
     }
 
+    HashMap<String, ArrayList<Integer>> floorButs = new HashMap<String, ArrayList<Integer>>();
+
     /**
      * @Author Nikhil
      * This function will be used to make the buttons that display on the screen that transition from floor to floor.
@@ -1136,15 +1138,14 @@ public class PathFindingController {
                 fBut.setPrefSize(50,50);
                 fBut.setText(floors.get(i));
                 final String next = floors.get(i);
-                System.out.println("F1 " + next);
-                //Can't use clicked, make a new method
-
-                System.out.println("Start: " + start + "  Counter:" + counter );
+                //How to access the necessary information
+                ArrayList<Integer> floorNums = new ArrayList<Integer>();
+                floorNums.add(start);
+                floorNums.add(counter);
+                floorButs.put(fBut.getId(), floorNums);
                 fBut.setOnAction(event -> {
-//                    System.out.println("F1");
-//                    System.out.println("Start: " + start + "  Counter:" + counter );
+                    
                     displaySelected(start, counter);
-
                 });
                 floorButtons.add(fBut);
                 gridPane.getChildren().add(fBut);
