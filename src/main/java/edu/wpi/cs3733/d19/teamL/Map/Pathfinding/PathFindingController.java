@@ -31,6 +31,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
 import javafx.scene.image.Image;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
@@ -499,6 +500,30 @@ public class PathFindingController {
 
         Map.fitHeightProperty().bind(gesturePane.heightProperty());
         Map.fitWidthProperty().bind(gesturePane.widthProperty());
+
+        gesturePane.setOnMouseClicked(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+                Location clostestToClick = single.getData().get(0);
+                for (Location l: single.getData()) {
+                    if(currentMap.equals(l.getFloor()) && Math.pow(event.getX()*Map.getImage().getWidth()/gesturePane.getWidth() - l.getXcoord(), 2) + Math.pow(event.getY()*Map.getImage().getHeight()/gesturePane.getHeight()  - l.getYcoord(), 2) <
+                            Math.pow(event.getX()*Map.getImage().getWidth()/gesturePane.getWidth()  - clostestToClick.getXcoord(), 2) + Math.pow(event.getY()*Map.getImage().getHeight()/gesturePane.getHeight()  - clostestToClick.getYcoord(), 2)){
+                        clostestToClick = l;
+                    }
+                }
+                System.out.println(clostestToClick);
+                if(Math.pow(event.getX() - clostestToClick.getXcoord(), 2) + Math.pow(event.getY() - clostestToClick.getYcoord(), 2) <= 100){
+                    Floor.setValue("All");
+                    Filter.setValue("All");
+                    noHall();
+
+                    PathFindEndDrop.setValue(clostestToClick);
+
+                    submitPressed();
+                }
+            }
+        });
+
         menu.toFront();
         thisMap.toFront();
         L1.toFront();
@@ -2337,5 +2362,4 @@ public class PathFindingController {
             }
         }
     }
-
 }
