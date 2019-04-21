@@ -13,6 +13,7 @@ import edu.wpi.cs3733.d19.teamL.Map.MapLocations.Edge;
 import edu.wpi.cs3733.d19.teamL.Map.MapLocations.Location;
 import edu.wpi.cs3733.d19.teamL.Map.Pathfinding.EdgesAccess;
 import edu.wpi.cs3733.d19.teamL.Map.Pathfinding.NodesAccess;
+import edu.wpi.cs3733.d19.teamL.RoomBooking.VisualSimulationThread;
 import edu.wpi.cs3733.d19.teamL.SearchingAlgorithms.AStarStrategy;
 import edu.wpi.cs3733.d19.teamL.SearchingAlgorithms.PathfindingStrategy;
 import javafx.collections.FXCollections;
@@ -41,6 +42,7 @@ public class Singleton {
     private static Weather weather;
     private static long startTime;
     private static CareTaker ct;
+    private static VisualSimulationThread sim;
 
     private ObservableList<Location> data = FXCollections.observableArrayList();
     public HashMap<String, Location> lookup = new HashMap<String, Location>();
@@ -69,6 +71,12 @@ public class Singleton {
         weather = new Weather();
         startTime = System.currentTimeMillis();
         ct = new CareTaker();
+        sim = new VisualSimulationThread(86);
+        sim.start();
+    }
+
+    public static ArrayList<Boolean> getSimulation(){
+        return sim.getSimulation();
     }
 
     public void populateTweets(){
