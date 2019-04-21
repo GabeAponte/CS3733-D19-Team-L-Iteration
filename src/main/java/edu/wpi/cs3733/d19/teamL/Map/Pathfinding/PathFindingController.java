@@ -417,13 +417,6 @@ public class PathFindingController {
     Label hereLabel;
     Location startNode;
     Location endNode;
-    int countL2 = 0;
-    int countL1 = 0;
-    int countG = 0;
-    int count1 = 0;
-    int count2 = 0;
-    int count3 = 0;
-    int count4 = 0;
 
     @FXML
     private void strategySelected() {
@@ -733,7 +726,7 @@ public class PathFindingController {
         }
 
         displayPath();
-        //printPath(path.getPath());
+
         direction.setText(printPath(path.getPath()));
 
         direction.setWrapText(true);
@@ -867,45 +860,26 @@ public class PathFindingController {
     public void displayPath(){
         single.setLastTime();
 
-        //Add an arraylist and boolean(s) to keep track of what floors you are visiting
+        //Add an arraylist to keep track of what floors you are visiting
         ArrayList<String> floorsVisited = new ArrayList<>();
-        boolean revisit = false;
-        boolean changeFloor = false;
-        //Clears the lines and circles to avoid any duplicates or reproducing data
+
         if(displayingPath) {
             path.getPath().add(0,startNode);
             start = 0;
             counter = 0;
 
-            for (Circle c : circles) {
-                pathPane.getChildren().remove(c);
-            }
-            for (Line l : lines) {
-                pathPane.getChildren().remove(l);
-            }
-            for (Button b : buttons) {
-                pathPane.getChildren().remove(b);
-            }
-            for (Button b : floorButtons) {
-                gridPane.getChildren().remove(b);
-            }
-
-            floorButtons.clear();
-            circles.clear();
-            lines.clear();
-            buttons.clear();
+            //Clears the lines and circles to avoid any duplicates or reproducing data
+            clear();
 
             //Used to check for first switch
             boolean found = false;
-            //Start node on floor
-            int floorSwitch1 = 0;
             //End node on floor
-            int floorSwitch2 = path.getPath().size()-1;
+            int floorSwitch = path.getPath().size()-1;
             //Creates the path for the user to follow, and displays based on the current floor.
             for (int i = 0; i < path.getPath().size() - 1; i++) {
                 floorsVisited.add(path.getPath().get(i).getFloor());
                 if((!(path.getPath().get(i + 1).getFloor().equals(currentMap))) && !found) {
-                    floorSwitch2 = i;
+                    floorSwitch = i;
                     found = true;
                 }
                 //Creates buttons to transition between floors on the map
@@ -1004,7 +978,9 @@ public class PathFindingController {
 //                    floorSwitch1 = i - (floorCount-1);
 //                }
             }
-            displaySelected(0, floorSwitch2);
+            if(floorsVisited.contains(currentMap)) {
+                displaySelected(0, floorSwitch);
+            }
             makeButtons(floorsVisited);
             //Creates the start and end nodes to display them and sets colors.
 //            Circle StartCircle = new Circle();
@@ -1114,8 +1090,6 @@ public class PathFindingController {
         gesturePane.centreOn(new Point2D(xSameVal, ySameVal));
     }
 
-    HashMap<String, ArrayList<Integer>> floorButs = new HashMap<String, ArrayList<Integer>>();
-
     /**
      * @Author Nikhil
      * This function will be used to make the buttons that display on the screen that transition from floor to floor.
@@ -1124,6 +1098,8 @@ public class PathFindingController {
     int start  = 0;
     int counter = 0;
     private void makeButtons(ArrayList<String> floors) {
+//        start = 0;
+//        counter = 0;
         int midx = 400;
         int midy = 550;
         int numOfBut = countFloors(floors);
@@ -1131,21 +1107,37 @@ public class PathFindingController {
         int center = (numOfBut + 1)/2;
         //This boolean is to keep track of if we ever change floors.
         boolean change = false;
-        for(int i = 0; i < floors.size(); i++) {
+        for(int i = 0; i < floors.size()-1; i++) {
             Button fBut = new Button();
-            if(!floors.get(i).equals(floors.get(start))) {
+            if(totalNum == 1) {
+                fBut.setPrefSize(50,50);
+
+                //fBut.setAlignment(Pos.TOP_CENTER);
+                fBut.setText(floors.get(i));
+                final String same = floors.get(i);
+                int startstore1 = start;
+                int counterstore1 = counter;
+                //Probably switch out clicked with new method
+                fBut.setOnAction(event -> {
+                    displaySelected(startstore1, counterstore1);
+                });
+                floorButtons.add(fBut);
+                gridPane.getChildren().add(fBut);
+                gridPane.setMargin(fBut,new Insets(0,0,midy,midx));
+                numOfBut--;
+
+            }
+            else if(!floors.get(i+1).equals(floors.get(start))) {
                 change = true;
                 fBut.setPrefSize(50,50);
                 fBut.setText(floors.get(i));
                 final String next = floors.get(i);
-                //How to access the necessary information
-                ArrayList<Integer> floorNums = new ArrayList<Integer>();
-                floorNums.add(start);
-                floorNums.add(counter);
-                floorButs.put(fBut.getId(), floorNums);
+                int startstore1 = start;
+                int counterstore1 = counter;
+                //Can't use clicked, make a new method
                 fBut.setOnAction(event -> {
-                    
-                    displaySelected(start, counter);
+                    displaySelected(startstore1, counterstore1);
+
                 });
                 floorButtons.add(fBut);
                 gridPane.getChildren().add(fBut);
@@ -1154,56 +1146,26 @@ public class PathFindingController {
                 //Reduce this as we go so we know how many buttons we have left
                 numOfBut--;
                 //Reset these variables
-                start = i;
+                start = i+1;
             }
-            else if(totalNum == 1) {
-//                fBut.setLayoutX(450);
-//                fBut.setLayoutY(200);
+            //This is the final button
+            else if(numOfBut == 1){
                 fBut.setPrefSize(50,50);
-
-                //fBut.setAlignment(Pos.TOP_CENTER);
                 fBut.setText(floors.get(i));
-                final String same = floors.get(i);
-                System.out.println("F2 " + same);
-                //Probably switch out clicked with new method
-                System.out.println("Start: " + start + "  Counter:" + counter );
+                final String next = floors.get(i);
+                int startstore1 = start;
+                int counterstore1 =floors.size();
+                //Can't use clicked, make a new method
                 fBut.setOnAction(event -> {
-//                    System.out.println("F2");
-//                    System.out.println("Start: " + start + "  Counter:" + counter );
-                    displaySelected(start, counter);
-                });
-                floorButtons.add(fBut);
-                gridPane.getChildren().add(fBut);
-                gridPane.setMargin(fBut,new Insets(0,0,midy,midx));
-
-            }
-            else if(!change && numOfBut > 1) {
-                fBut.setPrefSize(50,50);
-
-                //fBut.setAlignment(Pos.TOP_CENTER);
-                fBut.setText(floors.get(i));
-                final String same = floors.get(i);
-                System.out.println("F3 " + same);
-                //Probably switch out clicked with new method
-                System.out.println("Start: " + start + "  Counter:" + counter );
-                fBut.setOnAction(event -> {
-//                    System.out.println("F3");
-//                    System.out.println("Start: " + start + "  Counter:" + counter );
-
-                    displaySelected(start, counter);
+                    displaySelected(startstore1, counterstore1);
 
                 });
                 floorButtons.add(fBut);
                 gridPane.getChildren().add(fBut);
                 int diff  = numOfBut - center;
                 gridPane.setMargin(fBut,new Insets(0,0,midy,midx - diff*(100)));
-                numOfBut--;
-                change = true;
             }
-            else {
-                //Increments while you are still on the same floor
                 counter++;
-            }
         }
     }
 
@@ -1213,7 +1175,7 @@ public class PathFindingController {
      * @param count
      */
     private void displaySelected(int begin, int count) {
-        //Clears everything before displaying
+        //Clears everything before displaying, needs to be different from clear() because we need the buttons
         for (Circle c : circles) {
             pathPane.getChildren().remove(c);
         }
@@ -1253,17 +1215,12 @@ public class PathFindingController {
             Map.setImage(new Image("/SoftEng_UI_Mockup_Pics/03_thethirdfloor.png"));
             currentMap = "3";
         }
-        //To be added
-//        if(floor.equals("4")) {
-//            Map.setImage(new Image("/SoftEng_UI_Mockup_Pics/04_thefourthfloor.png"));
-//            currentMap = "4";
-//        }
 
         //Create all necessary objects for animating path.
         Circle dude  = new Circle();
         dude.setCenterX(path.getPath().get(begin).getXcoord()*childPane.getWidth()/Map.getImage().getWidth());
         dude.setCenterY(path.getPath().get(begin).getYcoord()*childPane.getHeight()/Map.getImage().getHeight());
-        dude.setRadius(Math.max(6, 6f * (gesturePane.getCurrentScale() / 4)));
+        dude.setRadius(Math.max(6, 6f));
         dude.setFill(new ImagePattern((new Image("/SoftEng_UI_Mockup_Pics/IconPerson.png"))));
 
         javafx.scene.shape.Path path2 = new  javafx.scene.shape.Path();
@@ -1272,8 +1229,6 @@ public class PathFindingController {
         PathTransition travel = new PathTransition();
 
         circles.add(dude);
-        System.out.println("Begin " + begin);
-        System.out.println("count " + count);
         //Setting the line display
         for(int i = begin; i < count; i++) {
             Line line = new Line();
@@ -1285,7 +1240,6 @@ public class PathFindingController {
             line.setStroke(DODGERBLUE);
             lines.add(line);
             pathPane.getChildren().add(line);
-            System.out.println("line");
 
             MoveTo next = new MoveTo(line.getStartX(), line.getStartY());
             CubicCurveTo end = new CubicCurveTo(line.getStartX(), line.getStartY(), line.getStartX(), line.getStartY(), line.getEndX(), line.getEndY());
@@ -1297,13 +1251,13 @@ public class PathFindingController {
         //Setting the properties of the circle
         startCircle.setCenterX(path.getPath().get(begin).getXcoord()*childPane.getWidth()/Map.getImage().getWidth());
         startCircle.setCenterY(path.getPath().get(begin).getYcoord()*childPane.getHeight()/Map.getImage().getHeight());
-        startCircle.setRadius(Math.max(1.5, 1.5f * (gesturePane.getCurrentScale() / 4)));
+        startCircle.setRadius(Math.max(1.5, 1.5f));
         //Changing the color of the start circle
-        if(currentMap.equals(kioskTemp.getFloor())) {
+        if(path.getPath().get(begin).getLocID().equals(kioskTemp.getLocID())) {
             startCircle.setStroke(Color.BLUE);
             startCircle.setFill(Color.BLUE);
         }
-        else if(currentMap.equals(startNode.getFloor())) {
+        else if(path.getPath().get(begin).getLocID().equals(startNode.getLocID())) {
             startCircle.setStroke(Color.GREEN);
             startCircle.setFill(Color.GREEN);
         }
@@ -1318,8 +1272,9 @@ public class PathFindingController {
         //Setting the properties of the circle
         endCircle.setCenterX(path.getPath().get(count).getXcoord()*childPane.getWidth()/Map.getImage().getWidth());
         endCircle.setCenterY(path.getPath().get(count).getYcoord()*childPane.getHeight()/Map.getImage().getHeight());
-        endCircle.setRadius(Math.max(1.5, 1.5f * (gesturePane.getCurrentScale() / 5)));
-        if(path.getPath().get(count).equals(endNode)) {
+        endCircle.setRadius(Math.max(1.5, 1.5f));
+
+        if(path.getPath().get(count).getLocID().equals(endNode.getLocID())) {
             endCircle.setStroke(RED);
             endCircle.setFill(RED);
         }
@@ -1346,6 +1301,36 @@ public class PathFindingController {
         autoZoom(path.getPath().get(begin), path.getPath().get(count));
     }
 
+    /**
+     * @Author Nikhil
+     * Method to clear all path display on map
+     */
+    private void clear() {
+        for (Circle c : circles) {
+            pathPane.getChildren().remove(c);
+        }
+        for (Line l : lines) {
+            pathPane.getChildren().remove(l);
+        }
+        for (Button b : buttons) {
+            pathPane.getChildren().remove(b);
+        }
+        for (Button b : floorButtons) {
+            gridPane.getChildren().remove(b);
+        }
+
+        floorButtons.clear();
+        circles.clear();
+        lines.clear();
+        buttons.clear();
+    }
+
+    /**
+     * @Author Nikhil
+     * Helper for makeButtons
+     * @param floors
+     * @return
+     */
     private int countFloors(ArrayList<String> floors) {
         int floorCounter = 1;
         for(int i = 0; i < floors.size()-1; i++) {
