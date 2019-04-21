@@ -1144,7 +1144,7 @@ public class PathFindingController {
                 floorNums.add(counter);
                 floorButs.put(fBut.getId(), floorNums);
                 fBut.setOnAction(event -> {
-
+                    
                     displaySelected(start, counter);
                 });
                 floorButtons.add(fBut);
