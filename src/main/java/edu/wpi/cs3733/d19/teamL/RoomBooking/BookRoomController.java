@@ -38,6 +38,8 @@ import java.io.IOException;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
+import java.util.Arrays;
+
 import javafx.util.Duration;
 
 public class BookRoomController {
@@ -48,10 +50,16 @@ public class BookRoomController {
     private JFXComboBox<String> availableRooms;
 
     @FXML
+    private JFXComboBox<String> eventType;
+
+    @FXML
     private Label error;
 
     @FXML
     private Label roomName;
+
+    @FXML
+    private Label popupName;
 
     @FXML
     private JFXButton viewSchedule;
@@ -82,9 +90,6 @@ public class BookRoomController {
 
     @FXML
     private Button viewWeekly;
-
-    @FXML
-    private Button openResPane;
 
     @FXML
     private AnchorPane reservationPane;
@@ -162,6 +167,10 @@ public class BookRoomController {
         });
 
         displayFlexSpaces(sim.getSimulation());
+
+        ArrayList<String> events = new ArrayList<String> (Arrays.asList("Meeting", "Party", "Conference", "Reception"));
+        ObservableList obList = FXCollections.observableList(events);
+        eventType.setItems(obList);
 
         startTime.setValue(LocalTime.now().plusMinutes(1));
         endTime.setValue(LocalTime.now().plusHours(1).plusMinutes(1));
@@ -409,6 +418,7 @@ public class BookRoomController {
                     for(int z = 0; z<listOfRooms.size(); z++){
                         if(DisplayRooms.get(k).getRoomName().equals(listOfRooms.get(z))){
                             if(DisplayRooms.get(k).isAvailable()) {
+                                popupName.setText("Reserve "+ DisplayRooms.get(k).niceName);
                                 openCloseReservation();
                                 availableRooms.getSelectionModel().select(listOfRooms.get(z));
                             }
