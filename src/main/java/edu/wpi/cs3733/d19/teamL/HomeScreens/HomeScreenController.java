@@ -325,9 +325,9 @@ public class HomeScreenController {
 
         ArrayList<Integer> counts = p.getTypeCounts();
         List<PieChartData> pieChartData = new ArrayList<PieChartData>();
-        pieChartData.add(new PieChartData("search", counts.get(0)+1));
-        pieChartData.add(new PieChartData("poi", counts.get(1)+1));
-        pieChartData.add(new PieChartData("selected", counts.get(2)+1));
+        pieChartData.add(new PieChartData("search", counts.get(0)));
+        pieChartData.add(new PieChartData("poi", counts.get(1)));
+        pieChartData.add(new PieChartData("selected", counts.get(2)));
         System.out.println(counts.get(0));
         System.out.println(counts.get(1));
         System.out.println(counts.get(2));
