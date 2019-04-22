@@ -242,6 +242,7 @@ public class PathFindingController {
     private ArrayList<String> mapURLs = new ArrayList<String>();
     private ArrayList<Circle> circles = new ArrayList<Circle>();
     private ArrayList<Line> lines = new ArrayList<Line>();
+    private ArrayList<Label> labels = new ArrayList<Label>();
 
     private ListIterator<String> listIterator = null;
     private boolean showingSettings;
@@ -407,11 +408,11 @@ public class PathFindingController {
         mapURLs.add("/SoftEng_UI_Mockup_Pics/02_thesecondfloor.png");
     }
 
-    Label startLabel;
-    Label endLabel;
-    Label hereLabel;
-    Location startNode;
-    Location endNode;
+    private Label startLabel;
+    private Label endLabel;
+    private Label hereLabel;
+    private Location startNode;
+    private Location endNode;
 
     @FXML
     private void strategySelected() {
@@ -554,8 +555,6 @@ public class PathFindingController {
         endLabel = new Label();
         hereLabel = new Label();
         //Adds the text to the screen
-        pathPane.getChildren().add(startLabel);
-        pathPane.getChildren().add(endLabel);
         pathPane.getChildren().add(hereLabel);
         menubtn.setVisible(false);
         if(!single.isLoggedIn()){
@@ -993,10 +992,14 @@ public class PathFindingController {
         for (Button b : buttons) {
             pathPane.getChildren().remove(b);
         }
+        for (Label la : labels) {
+            pathPane.getChildren().remove(la);
+        }
 
         circles.clear();
         lines.clear();
         buttons.clear();
+        labels.clear();
         //Changes the map displayed to the floor of begin and count
         String floor = path.getPath().get(begin).getFloor();
         if(floor.equals("L2")) {
@@ -1111,9 +1114,14 @@ public class PathFindingController {
             endCircle.setFill(DODGERBLUE);
             endLabel.setStyle("-fx-text-fill: WHITE;-fx-font-size: 6; -fx-background-color: DODGERBLUE; -fx-border-color: WHITE; -fx-border-width: 2; -fx-min-width: 40;");
         }
+        //Adding everything necessary to display the path
+        labels.add(startLabel);
+        labels.add(endLabel);
         circles.add(endCircle);
         pathPane.getChildren().add(startCircle);
         pathPane.getChildren().add(endCircle);
+        pathPane.getChildren().add(startLabel);
+        pathPane.getChildren().add(endLabel);
         //Displays the node that travels
         pathPane.getChildren().add(dude);
 
@@ -1175,11 +1183,15 @@ public class PathFindingController {
         for (Button b : floorButtons) {
             gridPane.getChildren().remove(b);
         }
+        for (Label la : labels) {
+            pathPane.getChildren().remove(la);
+        }
 
         floorButtons.clear();
         circles.clear();
         lines.clear();
         buttons.clear();
+        labels.clear();
     }
 
     /**
