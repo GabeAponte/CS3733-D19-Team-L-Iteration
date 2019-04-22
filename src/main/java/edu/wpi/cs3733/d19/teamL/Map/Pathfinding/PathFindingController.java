@@ -885,14 +885,20 @@ public class PathFindingController {
      * @param end
      */
     private void autoZoom(Location start, Location end) {
-        double x = gesturePane.getWidth()/(Math.abs((start.getXcoord() - end.getXcoord())));
-        double y = gesturePane.getHeight()/Math.abs(((start.getYcoord() - end.getYcoord())));
-        double scale = (Math.min(x, y)/2.5) + 1.1;
-        gesturePane.reset();
-        gesturePane.zoomTo(scale, gesturePane.targetPointAtViewportCentre());
-        double xSameVal = (start.getXcoord() + end.getXcoord()) / 2.0*childPane.getWidth()/Map.getImage().getWidth();
-        double ySameVal = (start.getYcoord() + end.getYcoord()) / 2.0*childPane.getHeight()/Map.getImage().getHeight();
-        gesturePane.centreOn(new Point2D(xSameVal, ySameVal));
+        if((Math.abs((start.getXcoord() - end.getXcoord()))) < 2200 &&
+                Math.abs(((start.getYcoord() - end.getYcoord()))) < 750){
+            double x = gesturePane.getWidth()/(Math.abs((start.getXcoord() - end.getXcoord())));
+            double y = gesturePane.getHeight()/Math.abs(((start.getYcoord() - end.getYcoord())));
+            double scale = (Math.min(x, y)/2.5) + 2.0;
+            gesturePane.reset();
+            gesturePane.zoomTo(scale, gesturePane.targetPointAtViewportCentre());
+            double xSameVal = (start.getXcoord() + end.getXcoord()) / 2.0*childPane.getWidth()/Map.getImage().getWidth();
+            double ySameVal = (start.getYcoord() + end.getYcoord()) / 2.0*childPane.getHeight()/Map.getImage().getHeight();
+            gesturePane.centreOn(new Point2D(xSameVal, ySameVal));
+        }
+        else {
+            gesturePane.reset();
+        }
     }
 
     //Globals used for makeButtons
@@ -1124,7 +1130,7 @@ public class PathFindingController {
         autoZoom(path.getPath().get(begin), path.getPath().get(count));
 
         direction.clear();
-        
+
         ArrayList<Location> al = new ArrayList<Location>();
         for (int i = begin; i < count + 1; i++){
             al.add(path.getPath().get(i));
