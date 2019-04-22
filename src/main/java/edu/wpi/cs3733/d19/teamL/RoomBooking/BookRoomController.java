@@ -90,6 +90,9 @@ public class BookRoomController {
     private Button back;
 
     @FXML
+    private Button homebtn;
+
+    @FXML
     private Button viewWeekly;
 
     @FXML
@@ -148,14 +151,14 @@ public class BookRoomController {
         roomImage.fitWidthProperty().bind(imagePane.widthProperty());
         roomImage.fitHeightProperty().bind(imagePane.heightProperty());
 
-        imagePane.sceneProperty().addListener((observableScene, oldScene, newScene) -> {
+        anchorPane.sceneProperty().addListener((observableScene, oldScene, newScene) -> {
             if (oldScene == null && newScene != null) {
                 // scene is set for the first time. Now its the time to listen stage changes.
                 newScene.windowProperty().addListener((observableWindow, oldWindow, newWindow) -> {
                     if (oldWindow == null && newWindow != null) {
                         // stage is set. now is the right time to do whatever we need to the stage in the controller.
                         ChangeListener<Number> stageSizeListener = (observable, oldValue, newValue) -> {
-
+                        System.out.println("Screen resized");
                             for(int i = 0; i < DisplayRooms.size(); i++){
                                 imagePane.getChildren().remove(DisplayRooms.get(i).getPolygon());
                             }
@@ -437,7 +440,7 @@ public class BookRoomController {
                                 availableRooms.getSelectionModel().select(listOfRooms.get(z));
                                 if(popupName.getText().contains(DisplayRooms.get(k).niceName)){
                                     resPaneCalled = true;
-                                    System.out.println("Same");
+                                    //System.out.println("Same");
                                     if(resShowing) {
                                         openReservation(false);
                                     }else{
@@ -446,7 +449,7 @@ public class BookRoomController {
                                 }else {
                                     resPaneCalled = true;
                                     popupName.setText("Reserve " + DisplayRooms.get(k).niceName);
-                                    System.out.println("New");
+                                    //System.out.println("New");
                                     openReservation(true);
                                 }
                             }
@@ -466,7 +469,7 @@ public class BookRoomController {
     };
 
     public void highlightFromDropdown(){
-        System.out.println("VisClick:"+calledFromVisualClick);
+        //System.out.println("VisClick:"+calledFromVisualClick);
         for(int j = 0; j<DisplayRooms.size(); j++){
             if(DisplayRooms.get(j).getRoomName().equals(availableRooms.getValue())){
                 for (int i = 0; i < DisplayRooms.size(); i++) {
@@ -751,12 +754,12 @@ public class BookRoomController {
             openNav.play();
             resShowing = true;
             openEventInfo(false);
-            System.out.println("ResShowing = true");
+            //System.out.println("ResShowing = true");
         } else {
             closeNav.setToX(100+this.anchorPane.getWidth()+this.reservationPane.getWidth());
             closeNav.play();
             resShowing = false;
-            System.out.println("ResShowing = false");
+            //System.out.println("ResShowing = false");
         }
     }
 
@@ -764,7 +767,7 @@ public class BookRoomController {
      * Slides in the event information menu from the right side
      */
     private void openEventInfo(boolean open) {
-        System.out.println("Open Event Info called");
+        //System.out.println("Open Event Info called");
         TranslateTransition openNav = new TranslateTransition(new Duration(400.0D), this.bookedEventPane);
         openNav.setToX(0.0D);
         TranslateTransition closeNav = new TranslateTransition(new Duration(400.0D), this.bookedEventPane);
