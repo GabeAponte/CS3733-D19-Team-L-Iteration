@@ -127,6 +127,21 @@ public class pathReportAccess extends DBAccess {
         return 0;
     }
 
+    public int getNumTraveledTo(String locName) {
+        String sql = "select COUNT(*) from pathReport where endLocation =?;";
+        try (Connection conn = this.connect();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            pstmt.setString(1, locName);
+            ResultSet rs = pstmt.executeQuery(); {
+
+                return rs.getInt(1);
+            }
+        }catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        return 0;
+    }
+
     public static void main(String[] args) {
         pathReportAccess pa = new pathReportAccess();
     }
