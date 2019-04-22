@@ -135,7 +135,7 @@
     -jfx-selected-color:  #f5d96b;
 
     -jfx-unselected-color: #012d5a;
-    -fx-text-fill: #012d5a;
+    -fx-text-fill: white;
 }
 
 .labelTitle {
