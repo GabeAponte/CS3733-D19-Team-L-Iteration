@@ -18,20 +18,25 @@
     <title>
         <band height="79" splitType="Stretch">
             <staticText>
-                <reportElement x="180" y="30" width="202" height="30"/>
+                <reportElement x="154" y="30" width="254" height="30"/>
                 <textElement>
-                    <font size="12"/>
+                    <font size="18"/>
                 </textElement>
-                <text><![CDATA[Floor Number of first 10 locations]]></text>
+                <text><![CDATA[Brigham and Women's Hospital]]></text>
             </staticText>
         </band>
     </title>
     <pageHeader>
-        <band height="50" splitType="Stretch"/>
+        <band height="54" splitType="Stretch">
+            <staticText>
+                <reportElement x="180" y="10" width="200" height="30"/>
+                <textElement>
+                    <font size="14"/>
+                </textElement>
+                <text><![CDATA[Pathfinding Application Report]]></text>
+            </staticText>
+        </band>
     </pageHeader>
-    <columnHeader>
-        <band height="61" splitType="Stretch"/>
-    </columnHeader>
     <detail>
         <band height="500" splitType="Stretch">
             <barChart>
