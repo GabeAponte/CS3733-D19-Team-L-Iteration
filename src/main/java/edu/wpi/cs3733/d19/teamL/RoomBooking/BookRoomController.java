@@ -146,8 +146,6 @@ public class BookRoomController {
     @FXML
     private Label popupName;
 
-    @FXML
-    private JFXButton viewSchedule;
 
     @FXML
     private JFXButton requestRoom;
@@ -328,21 +326,6 @@ public class BookRoomController {
             }
         });
 
-    }
-
-    @FXML
-    private void switchToTable(ActionEvent event) throws IOException {
-        timeout.stop();
-        try{
-            sim.join();
-        } catch (Exception e){
-            e.printStackTrace();
-            sim.stop();
-        }
-        Singleton single = Singleton.getInstance();
-        single.setLastTime();
-        Parent newPage = FXMLLoader.load(getClass().getClassLoader().getResource("BookRoom2.fxml"));
-        ((Node) event.getSource()).getScene().setRoot(newPage);
     }
 
     @FXML
@@ -855,7 +838,7 @@ public class BookRoomController {
 //----------------------------------------------------------------------------------------------------------------------
 //                                          BOOK ROOM 2 CONTROLLER
 //----------------------------------------------------------------------------------------------------------------------
-
+//todo edit this portion of the vode to allow for the booking across days
     @FXML
     private void dailyTab() {
         Singleton single = Singleton.getInstance();
@@ -1247,7 +1230,7 @@ public class BookRoomController {
 // ---------------------------------------------------------------------------------------------------------------------
 //                                          WEEKLY SCHEDULE CONTROLLER
 //----------------------------------------------------------------------------------------------------------------------
-
+//todo edit this portion of the vode to allow for the booking across days
     @FXML
     public void weeklyTab(){
         Singleton single = Singleton.getInstance();
