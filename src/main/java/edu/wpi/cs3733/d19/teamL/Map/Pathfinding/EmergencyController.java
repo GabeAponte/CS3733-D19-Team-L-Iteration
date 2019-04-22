@@ -360,7 +360,6 @@ public class EmergencyController {
         gotoKioskFloor();
         displayKiosk();
         displayExits();
-        
         DisableEmergMode.setDisable(false);
     }
 
