@@ -29,6 +29,7 @@ import javafx.util.Duration;
 import net.sf.jasperreports.engine.*;
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 
+import javax.management.AttributeList;
 import java.io.File;
 import java.io.IOException;
 import java.time.LocalDate;
@@ -313,7 +314,7 @@ public class HomeScreenController {
 
 
         List<BarGraphChartData> cList = new ArrayList<BarGraphChartData>();
-        for (int k = 0; k < 5; k++) {
+        for (int k = 0; k < 10; k++) {
             cList.add(new BarGraphChartData("Locations", toAdd.get(k).getLongName(),toAdd.get(k).getXcoord()));
         }
         System.out.println("LOOPS COMPLETE");
@@ -323,10 +324,13 @@ public class HomeScreenController {
         System.out.println(filePath);
         jasperReport = JasperCompileManager.compileReport(filePath);
         Map<String, Object> paramMap = new HashMap<String, Object>();
-        JRBeanCollectionDataSource dataSource = new JRBeanCollectionDataSource(cList);
-        Map<String, Object> params = new HashMap<String, Object>();
-        JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, params, dataSource);
-        String outputPath = "C:/Users/PJ-Mara/Desktop/College Files/Sophomore Year/D Term/Soft Eng/Team4/CS3733-D19-Team-L-Iteration/outputPDF.pdf";
+        paramMap.put("CHART_DATASET", new JRBeanCollectionDataSource(cList));
+        List<Object> data = new ArrayList<Object>();
+        data.add(cList);
+        JRBeanCollectionDataSource dataSource = new JRBeanCollectionDataSource(data);
+        JasperPrint print2 = JasperFillManager.fillReport(jasperReport, paramMap);
+        JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, paramMap, dataSource);
+        String outputPath = "outputPDF.pdf";
         JasperExportManager.exportReportToPdfFile(jasperPrint, outputPath);
 
 
