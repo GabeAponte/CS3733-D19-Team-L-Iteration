@@ -6,7 +6,12 @@
         <field name="category" class="java.lang.String"/>
         <field name="value" class="java.lang.Double"/>
     </subDataset>
+    <subDataset name="piechartDataSet">
+        <field name="serie" class="java.lang.String"/>
+        <field name="value" class="java.lang.Double"/>
+    </subDataset>
     <parameter name="CHART_DATASET" class="net.sf.jasperreports.engine.data.JRBeanCollectionDataSource" isForPrompting="false"/>
+    <parameter name="PIE_CHART" class="net.sf.jasperreports.engine.data.JRBeanCollectionDataSource" isForPrompting="false"/>
     <background>
         <band splitType="Stretch"/>
     </background>
@@ -28,7 +33,7 @@
         <band height="61" splitType="Stretch"/>
     </columnHeader>
     <detail>
-        <band height="254" splitType="Stretch">
+        <band height="500" splitType="Stretch">
             <barChart>
                 <chart evaluationTime="Report">
                     <reportElement x="10" y="27" width="500" height="200"/>
@@ -59,6 +64,27 @@
                     </valueAxisFormat>
                 </barPlot>
             </barChart>
+            <pieChart>
+                <chart evaluationTime="Report">
+                    <reportElement x="140" y="210" width="270" height="200"/>
+                    <chartTitle/>
+                    <chartSubtitle/>
+                    <chartLegend/>
+                </chart>
+                <pieDataset>
+                    <dataset>
+                        <datasetRun subDataset="piechartDataSet">
+                            <dataSourceExpression><![CDATA[$P{PIE_CHART}]]></dataSourceExpression>
+                        </datasetRun>
+                    </dataset>
+                    <keyExpression><![CDATA[$F{serie}]]></keyExpression>
+                    <valueExpression><![CDATA[$F{value}]]></valueExpression>
+                </pieDataset>
+                <piePlot>
+                    <plot/>
+                    <itemLabel/>
+                </piePlot>
+            </pieChart>
         </band>
     </detail>
     <columnFooter>

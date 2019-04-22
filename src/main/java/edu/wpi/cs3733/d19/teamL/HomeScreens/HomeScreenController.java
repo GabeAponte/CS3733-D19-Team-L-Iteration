@@ -5,6 +5,8 @@ import edu.wpi.cs3733.d19.teamL.Map.MapLocations.Location;
 import edu.wpi.cs3733.d19.teamL.Map.Pathfinding.PathFindingController;
 import edu.wpi.cs3733.d19.teamL.Memento;
 import edu.wpi.cs3733.d19.teamL.Reports.BarGraphChartData;
+import edu.wpi.cs3733.d19.teamL.Reports.PieChartData;
+import edu.wpi.cs3733.d19.teamL.Reports.pathReportAccess;
 import edu.wpi.cs3733.d19.teamL.ServiceRequest.MakeServiceRequest.ServiceRequestController;
 import edu.wpi.cs3733.d19.teamL.Singleton;
 import javafx.animation.Animation;
@@ -32,6 +34,7 @@ import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 import javax.management.AttributeList;
 import java.io.File;
 import java.io.IOException;
+import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -282,7 +285,7 @@ public class HomeScreenController {
     }
 
     @FXML
-    private void AboutPress() throws IOException, JRException {
+    private void AboutPress() throws IOException, JRException, SQLException {
         Singleton single = Singleton.getInstance();
         ArrayList<Location> toAdd = new ArrayList<Location>();
         for (Location l : single.lookup.values()) {
@@ -317,6 +320,16 @@ public class HomeScreenController {
         for (int k = 0; k < 5; k++) {
             cList.add(new BarGraphChartData("Locations", toAdd.get(k).getLongName(),toAdd.get(k).getXcoord()));
         }
+        pathReportAccess p = new pathReportAccess();
+        ArrayList<Integer> counts = p.getTypeCounts();
+        List<PieChartData> pieChartData = new ArrayList<PieChartData>();
+        pieChartData.add(new PieChartData("search", counts.get(0)+1));
+        pieChartData.add(new PieChartData("poi", counts.get(1)+1));
+        pieChartData.add(new PieChartData("selected", counts.get(2)+1));
+        System.out.println(counts.get(0));
+        System.out.println(counts.get(1));
+        System.out.println(counts.get(2));
+
         System.out.println("LOOPS COMPLETE");
         File f = new File("PathFindStats.jrxml");
         JasperReport jasperReport = null;
@@ -324,8 +337,10 @@ public class HomeScreenController {
         jasperReport = JasperCompileManager.compileReport(filePath);
         Map<String, Object> paramMap = new HashMap<String, Object>();
         paramMap.put("CHART_DATASET", new JRBeanCollectionDataSource(cList));
+        paramMap.put("PIE_CHART", new JRBeanCollectionDataSource(pieChartData));
         List<Object> data = new ArrayList<Object>();
         data.add(cList);
+        data.add(pieChartData);
         JRBeanCollectionDataSource dataSource = new JRBeanCollectionDataSource(data);
         JasperPrint print2 = JasperFillManager.fillReport(jasperReport, paramMap);
         JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, paramMap, dataSource);

@@ -670,7 +670,7 @@ public class PathFindingController {
             direction.setDisable(true);
             direction.setEditable(false);
         }
-        typeSelected = "search";
+        typeSelected = "selected";
     }
 
     /**Nathan modified this to include a path preference choice (restriction)

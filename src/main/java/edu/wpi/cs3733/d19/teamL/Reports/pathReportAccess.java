@@ -51,6 +51,66 @@ public class pathReportAccess extends DBAccess {
         }
     }
 
+    public ArrayList<String> getItems(int getNum) {
+        String sql = "SELECT * FROM pathReport";
+        int count = 0;
+        //noinspection Convert2Diamond
+        ArrayList<String> data = new ArrayList<String>();
+        try (Connection conn = this.connect();
+             Statement stmt = conn.createStatement();
+             ResultSet rs = stmt.executeQuery(sql)) {
+            while (rs.next()) {
+                if (count == getNum) {
+                    data.add(rs.getString("timeCreate"));
+                    return getFields(data, rs);
+                }
+                count++;
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+
+        return null;
+    }
+
+    private ArrayList<String> getFields(ArrayList<String> data, ResultSet rs) throws SQLException {
+        data.add(rs.getString("startLoc"));
+        data.add(rs.getString("endLoc"));
+        data.add(rs.getString("foundType"));
+        return data;
+    }
+
+    public ArrayList<Integer> getTypeCounts() throws SQLException {
+        ArrayList<Integer> counts = new ArrayList<Integer>();
+        int searched = 0;
+        int poi = 0;
+        int selected = 0;
+        searched = getSingleCount("search");
+        poi = getSingleCount("poi");
+        selected = getSingleCount("selected");
+        counts.add(searched);
+        counts.add(poi);
+        counts.add(selected);
+        return counts;
+    }
+
+
+    public int getSingleCount(String types) throws SQLException {
+        String sql = "select COUNT(*) from pathReport where foundType =?;";
+        try (Connection conn = this.connect();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            pstmt.setString(1, types);
+
+            ResultSet rs = pstmt.executeQuery(); {
+
+                return rs.getInt(1);
+            }
+        }catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        return 0;
+    }
+
     public static void main(String[] args) {
         pathReportAccess pa = new pathReportAccess();
     }
