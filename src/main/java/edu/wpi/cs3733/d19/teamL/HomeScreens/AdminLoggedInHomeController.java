@@ -13,13 +13,16 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
 import java.io.IOException;
+import java.util.Optional;
 
 public class AdminLoggedInHomeController {
     @FXML
@@ -54,6 +57,9 @@ public class AdminLoggedInHomeController {
 
     @FXML
     private Label welcome;
+
+    @FXML
+    private Button EmergencyButton;
 
     Timeline timeout;
 
@@ -300,5 +306,35 @@ public class AdminLoggedInHomeController {
     private void saveState(){
         Singleton single = Singleton.getInstance();
         single.saveMemento("AdminLoggedInHome.fxml");
+    }
+
+    /** Grace
+     * do a popup that brings user to emergency mode
+     */
+    @FXML
+    private void EmergencyButtonPress() throws IOException {
+        // popup - activate emergency mode?
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Confirmation Dialog");
+        alert.setHeaderText("Look, a Confirmation Dialog");
+        alert.setContentText("Are you ok with this?");
+
+        Optional<ButtonType> result = alert.showAndWait();
+        if (result.get() == ButtonType.OK){
+            // ... user chose OK
+            FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("EmergencyScreen.fxml"));
+
+            Parent sceneMain = loader.load();
+
+            Stage theStage = (Stage) EmergencyButton.getScene().getWindow();
+
+            Scene scene = new Scene(sceneMain);
+            theStage.setScene(scene);
+        } else {
+            // ... user chose CANCEL or closed the dialog
+        }
+
+
+
     }
 }

@@ -180,8 +180,6 @@ public class EmergencyController {
     }
 
     private void SwitchToNonEmergen(String fxml) throws IOException{
-        Singleton single = Singleton.getInstance();
-        single.setLastTime();
         FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource(fxml));
 
         Parent sceneMain = loader.load();
