@@ -1,5 +1,9 @@
 package edu.wpi.cs3733.d19.teamL.HomeScreens;
 
+import com.github.sarxos.webcam.Webcam;
+import com.github.sarxos.webcam.WebcamPanel;
+import com.github.sarxos.webcam.WebcamResolution;
+import edu.wpi.cs3733.d19.teamL.API.ImageComparison;
 import edu.wpi.cs3733.d19.teamL.Account.CreateEditAccountController;
 import edu.wpi.cs3733.d19.teamL.Account.EmployeeAccess;
 import edu.wpi.cs3733.d19.teamL.Map.Pathfinding.PathFindingController;
@@ -21,8 +25,15 @@ import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
+import javax.imageio.ImageIO;
+import javax.swing.*;
+import java.awt.image.BufferedImage;
+import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Optional;
+
+import static java.lang.Thread.sleep;
 
 public class AdminLoggedInHomeController {
     @FXML
@@ -317,8 +328,72 @@ public class AdminLoggedInHomeController {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setTitle("ACTIVATING EMERGENCY MODE");
         alert.setHeaderText("YOU ARE ACTIVATING EMERGENCY MODE. THIS WILL HAVE CONSEQUENCES IF THERE IS NO REAL EMERGENCY PRESENT");
-        alert.setContentText("CONFIRM?");
+        alert.setContentText("YOUR PICTURE HAS BEEN TAKEN. IF YOU PROCEED TO ACTIVATE EMERGENCY MODE, YOUR FACE WILL BE STORED IN OUR DATABASE. " +
+                "\n CONFIRM?");
 
+        //CODE TO TAKE PICTURE
+        try {
+            Webcam webcam;
+            webcam = Webcam.getDefault();
+            //THE VIEW SIZE WILL PROBABLY CHANGE DEPENDING ON THE COMPUTER
+            //IMAGE COMPARISON WILL FAIL IMMEDIATELY IF SIZE CHANGES
+            webcam.setViewSize(WebcamResolution.VGA.getSize());
+            WebcamPanel wp = new WebcamPanel(webcam);
+            wp.setFPSDisplayed(true);
+            wp.setDisplayDebugInfo(true);
+            wp.setImageSizeDisplayed(true);
+            wp.setMirrored(true);
+            JFrame window = new JFrame("Hold still for 2.5 seconds");
+            window.add(wp);
+            window.setResizable(true);
+            window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+            window.pack();
+            window.setLocationRelativeTo(null);
+            window.setVisible(true);
+            try {
+                sleep(2500);
+            } catch (InterruptedException e) {
+                System.out.println(e);
+                System.out.println(e.getMessage());
+            }
+            wp.stop();
+            webcam.close();
+            window.dispose();
+
+            webcam.open();
+            BufferedImage image = webcam.getImage();
+            ImageIO.write(image, "JPG", new File("TempOutput.jpg"));
+            webcam.close();
+
+
+            /*
+            ImageComparison ic = new ImageComparison();
+            //double diff = ic.doIT(username.getText());
+            ArrayList<String> results = ic.doWithAll();
+            double diff = Double.parseDouble(results.get(0));
+
+            Singleton single = Singleton.getInstance();
+            EmployeeAccess ea = new EmployeeAccess();
+            if (diff < 10) {
+                single.setLoggedIn(true);
+                single.setUsername(results.get(1));
+                System.out.println(results.get(1));
+                single.setIsAdmin(false);
+                if (ea.getEmployeeInformation(results.get(1)).get(2).equals("true")) {
+                    single.setIsAdmin(true);
+                    SwitchToSignedIn("AdminLoggedInHome.fxml");
+                    return;
+                }
+                SwitchToSignedIn("EmployeeLoggedInHome.fxml");
+            } else {
+                displayError();
+            }//*/
+        } catch (Exception e){
+            e.printStackTrace();
+        }
+
+
+        //when press ok, store pic in database
         Optional<ButtonType> result = alert.showAndWait();
         if (result.get() == ButtonType.OK){
             // ... user chose OK
