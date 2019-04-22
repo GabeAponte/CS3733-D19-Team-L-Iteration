@@ -488,6 +488,7 @@ public class PathFindingController {
         timeout = new Timeline(new KeyFrame(Duration.seconds(2), new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
+                updateFlexSpaces(single.getSimulation());
                 if((System.currentTimeMillis() - single.getLastTime()) > single.getTimeoutSec()){
                     try{
                         single.setLastTime();
@@ -2585,18 +2586,7 @@ public class PathFindingController {
         flexSpaces.add(new Polygon((860+11310)*sr*.303, ( 1190+5624)*sr*.313, ( 960+11310)*sr*.303, ( 1190+5624)*sr*.313, ( 960+11310)*sr*.303, ( 1270+5624)*sr*.313, ( 860+11310)*sr*.303, ( 1270+5624)*sr*.313));
         flexSpaces.add(new Polygon((960+11310)*sr*.303, ( 1190+5624)*sr*.313, ( 1060+11310)*sr*.303, ( 1190+5624)*sr*.313, ( 1060+11310)*sr*.303, ( 1270+5624)*sr*.313, ( 960+11310)*sr*.303, ( 1270+5624)*sr*.313));
         flexSpaces.add(new Polygon((1060+11310)*sr*.303, ( 1190+5624)*sr*.313, ( 1160+11310)*sr*.303, ( 1190+5624)*sr*.313, ( 1160+11310)*sr*.303, ( 1270+5624)*sr*.313, ( 1060+11310)*sr*.303, ( 1270+5624)*sr*.313));
-        
-//        DisplayRooms.add(new Polygon((2230+11310)*sr*.303, (1630+5624)*sr*.313, (2650+11310)*sr*.303, (1630+5624)*sr*.313, (2650+11310)*sr*.303, (1880+5624)*sr*.313, (2230+11310)*sr*.303, (1880+5624)*sr*.313));
-//        DisplayRooms.add(new Polygon((2860+11310)*sr*.303, (1130+5624)*sr*.313, (3040+11310)*sr*.303, (1070+5624)*sr*.313, (3180+11310)*sr*.303, (1430+5624)*sr*.313, (2990+11310)*sr*.303, (1500+5624)*sr*.313));
-//        DisplayRooms.add(new Polygon((2720+11310)*sr*.303, (750+5624)*sr*.313, (2850+11310)*sr*.303, (1120+5624)*sr*.313, (3040+11310)*sr*.303, (1060+5624)*sr*.313, (2970+11310)*sr*.303, (850+5624)*sr*.313, (3000+11310)*sr*.303, (840+5624)*sr*.313, (2970+11310)*sr*.303, (770+5624)*sr*.313, (2900+11310)*sr*.303, (720+5624)*sr*.313, (2810+11310)*sr*.303, (690+5624)*sr*.313));
-//        DisplayRooms.add(new Polygon((2420+11310)*sr*.303, (180+5624)*sr*.313, (2610+11310)*sr*.303, (180+5624)*sr*.313, (2730+11310)*sr*.303, (540+5624)*sr*.313, (2420+11310)*sr*.303, (540+5624)*sr*.313));
-//        DisplayRooms.add(new Polygon((2240+11310)*sr*.303, (755+5624)*sr*.313, (2540+11310)*sr*.303, (755+5624)*sr*.313, (2540+11310)*sr*.303, (1080+5624)*sr*.313, (2240+11310)*sr*.303, (1080+5624)*sr*.313));
-//        DisplayRooms.add(new Polygon((2090+11310)*sr*.303, (180+5624)*sr*.313, (2410+11310)*sr*.303, (180+5624)*sr*.313, (2410+11310)*sr*.303, (540+5624)*sr*.313, (2090+11310)*sr*.303, (540+5624)*sr*.313));
-//        DisplayRooms.add(new Polygon((2000+11310)*sr*.303, (755+5624)*sr*.313, (2230+11310)*sr*.303, (755+5624)*sr*.313, (2230+11310)*sr*.303, (1080+5624)*sr*.313, (2000+11310)*sr*.303, (1080+5624)*sr*.313));
-//        DisplayRooms.add(new Polygon((1750+11310)*sr*.303, (180+5624)*sr*.313, (2080+11310)*sr*.303, (180+5624)*sr*.313, (2080+11310)*sr*.303, (540+5624)*sr*.313, (1750+11310)*sr*.303, (540+5624)*sr*.313));
-//        DisplayRooms.add(new Polygon((1775+11310)*sr*.303, (710+5624)*sr*.313, (1840+11310)*sr*.303, (710+5624)*sr*.313, (1840+11310)*sr*.303, (750+5624)*sr*.313, (1980+11310)*sr*.303, (750+5624)*sr*.313, (1980+11310)*sr*.303, (930+5624)*sr*.313, (1775+11310)*sr*.303, (930+5624)*sr*.313));
-//        DisplayRooms.add(new Polygon((2860+11310)*sr*.303, (1920+5624)*sr*.313, (2860+11310)*sr*.303, (2030+5624)*sr*.313, (3130+11310)*sr*.303, (2030+5624)*sr*.313, (3150+11310)*sr*.303, (2060+5624)*sr*.313, (3240+11310)*sr*.303, (2000+5624)*sr*.313, (3320+11310)*sr*.303, (1870+5624)*sr*.313, (3330+11310)*sr*.303, (1770+5624)*sr*.313, (3310+11310)*sr*.303, (1730+5624)*sr*.313, (3270+11310)*sr*.303, (1720+5624)*sr*.313, (3190+11310)*sr*.303, (1460+5624)*sr*.313, (3040+11310)*sr*.303, (1500+5624)*sr*.313, (3070+11310)*sr*.303, (1590+5624)*sr*.313, (3030+11310)*sr*.303, (1600+5624)*sr*.313));
-//
+
         double room1[] = {(2230+11310)*.303, (1630+5624)*.313, (2650+11310)*.303, (1630+5624)*.313, (2650+11310)*.303, (1880+5624)*.313, (2230+11310)*.303, (1880+5624)*.313};
         double room2[] = {(2860+11310)*.303, (1130+5624)*.313, (3040+11310)*.303, (1070+5624)*.313, (3180+11310)*.303, (1430+5624)*.313, (2990+11310)*.303, (1500+5624)*.313};
         double room3[] = {(2720+11310)*.303, (750+5624)*.313, (2850+11310)*.303, (1120+5624)*.313, (3040+11310)*.303, (1060+5624)*.313, (2970+11310)*.303, (850+5624)*.313, (3000+11310)*.303, (840+5624)*.313, (2970+11310)*.303, (770+5624)*.313, (2900+11310)*.303, (720+5624)*.313, (2810+11310)*.303, (690+5624)*.313};
@@ -2651,19 +2641,32 @@ public class PathFindingController {
     }
 
     private EventHandler<MouseEvent> onMouseClickedEventHandler = new EventHandler<MouseEvent>() {
-
         @Override
         public void handle(MouseEvent event) {
             for (int k = 0; k < DisplayRooms.size(); k++) {
                 Point2D mousePress = new Point2D(event.getX(), event.getY());
                 if (DisplayRooms.get(k).getPolygon().contains(mousePress)) {
-
+                    System.out.println("Clicked on " + DisplayRooms.get(k).getRoomName());
                 }
             }
-
         }
-
     };
+
+    private void updateFlexSpaces(ArrayList<Boolean> booleans){
+        if(flexSpaces.size() > 0) {
+            for (int i = 0; i < booleans.size(); i++) {
+                if (booleans.get(i)) {
+                    flexSpaces.get(i).setStroke(Color.web("TURQUOISE"));
+                    flexSpaces.get(i).setFill(Color.web("TURQUOISE"));
+                    flexSpaces.get(i).setOpacity(0.5);
+                } else {
+                    flexSpaces.get(i).setStroke(Color.web("RED"));
+                    flexSpaces.get(i).setFill(Color.web("RED"));
+                    flexSpaces.get(i).setOpacity(0.3);
+                }
+            }
+        }
+    }
 
     private void hideFlexSpaces(){
         for(int i = 0; i < flexSpaces.size(); i++){
