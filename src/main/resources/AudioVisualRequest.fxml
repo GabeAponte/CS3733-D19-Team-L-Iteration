@@ -112,6 +112,11 @@
                   <RowConstraints maxHeight="59.111358642578125" minHeight="0.0" prefHeight="0.0" valignment="CENTER" vgrow="ALWAYS" />
               </rowConstraints>
                <children>
+                  <VBox prefHeight="258.0" prefWidth="1230.0" style="-fx-background-color: white; -fx-background-radius: 10;" GridPane.columnSpan="2147483647" GridPane.rowIndex="1" GridPane.rowSpan="5">
+                     <GridPane.margin>
+                        <Insets left="25.0" right="25.0" />
+                     </GridPane.margin>
+                  </VBox>
                   <JFXTextField fx:id="Name" focusColor="#f6bd38" onAction="#reenableSubmit" promptText="Name" styleClass="jfx-text-field-normal" stylesheets="@Default.css" unFocusColor="WHITE" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" GridPane.vgrow="ALWAYS">
                      <GridPane.margin>
                         <Insets left="100.0" right="100.0" />

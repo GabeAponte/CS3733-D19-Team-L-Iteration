@@ -5,7 +5,7 @@
     -fx-border-radius: 10;
     -fx-border-width: 3;
     -fx-text-fill: #012d5a;
-    -fx-background-radius: 10;
+    -fx-background-radius: 15;
     -jfx-button-type: RAISED;
 
 }
@@ -223,7 +223,7 @@
 
 }
 
-.buttonMain{
+/*.buttonMain{
     -fx-border-color: #F5D96B;
     -fx-background-color: #012d5a;
     -fx-text-fill: white;
@@ -243,7 +243,7 @@
 
 .buttonMain:hover .glyph-icon{
     -fx-fill: #012d5a;
-}
+}*/
 
 .jfx-text-field-twitter {
     -fx-background-color: white;
