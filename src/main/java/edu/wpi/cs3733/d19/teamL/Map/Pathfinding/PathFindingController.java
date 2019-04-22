@@ -215,7 +215,7 @@ public class PathFindingController {
     //Arraylist for the buttons that generate on path
     private ArrayList<Button> buttons = new ArrayList<Button>();
     //Arraylist of floor buttons
-    private ArrayList<Button> floorButtons = new ArrayList<Button>();
+    private ArrayList<JFXButton> floorButtons = new ArrayList<JFXButton>();
     private Path path;
 
     private GesturePane gesturePane;
@@ -926,19 +926,13 @@ public class PathFindingController {
         }
         boolean change = false;
         for(int i = 0; i < floors.size()-1; i++) {
-            Button fBut = new Button();
-
+            //Sets up the buttons
+            JFXButton fBut = new JFXButton();
             if(!floors.get(i+1).equals(floors.get(start))) {
                 fBut.setPrefSize(50,50);
                 fBut.setText(floors.get(i));
                 fBut.getStyleClass().add("buttonMap");
-//                fBut.setStyle("-fx-background-radius: 10000;" +
-//                        "    -fx-border-color : #012D5A;" +
-//                        "    -fx-border-radius: 100;" +
-//                        "    -fx-border-width: 2;" +
-//                        "    -fx-pref-height: 46;" +
-//                        "-fx-background-color: transparent");
-                final String next = floors.get(i);
+                fBut.setStyle("-fx-font-weight: BOLD; -fx-text-color: #012D5A");
                 int startstore1 = start;
                 int counterstore1 = counter;
                 fBut.setOnAction(event -> {
@@ -960,8 +954,7 @@ public class PathFindingController {
                 fBut.setPrefSize(50,50);
                 fBut.setText(floors.get(i));
                 fBut.getStyleClass().add("buttonMap");
-                fBut.setStyle("-fx-fill-color: transparent");
-                final String next = floors.get(i);
+                fBut.setStyle("-fx-font-weight: BOLD; -fx-text-color: #012D5A");
                 int startstore1 = start;
                 int counterstore1 =floors.size();
                 fBut.setOnAction(event -> {
@@ -1081,6 +1074,7 @@ public class PathFindingController {
         startLabel.setLayoutY(path.getPath().get(begin).getYcoord()*childPane.getHeight()/Map.getImage().getHeight() - 20);
         endLabel.setLayoutX(path.getPath().get(count).getXcoord()*childPane.getWidth()/Map.getImage().getWidth() - 30);
         endLabel.setLayoutY(path.getPath().get(count).getYcoord()*childPane.getHeight()/Map.getImage().getHeight() - 20);
+        //if(startLabel.getLayoutX() > endLabel.getLayoutX())
         endLabel.setText(path.getPath().get(count).getLongName());
         //Changing the color of the start circle and start label
         if(path.getPath().get(begin).getLocID().equals(kioskTemp.getLocID())) {
@@ -1186,8 +1180,8 @@ public class PathFindingController {
         for (Button b : buttons) {
             pathPane.getChildren().remove(b);
         }
-        for (Button b : floorButtons) {
-            gridPane.getChildren().remove(b);
+        for (JFXButton jb : floorButtons) {
+            gridPane.getChildren().remove(jb);
         }
         for (Label la : labels) {
             pathPane.getChildren().remove(la);
