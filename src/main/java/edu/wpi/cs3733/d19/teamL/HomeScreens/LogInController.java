@@ -44,6 +44,7 @@ import static org.bytedeco.opencv.helper.opencv_imgcodecs.cvSaveImage;
 
 public class LogInController {
 
+    @FXML
     private Stage thestage;
 
     @FXML
@@ -65,6 +66,7 @@ public class LogInController {
     private JFXButton facialRec;
 
     Timeline timeout;
+    @FXML
     public void initialize(){
         //facialRec.setDisable(true);
         Singleton single = Singleton.getInstance();
