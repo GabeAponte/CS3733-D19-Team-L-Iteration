@@ -400,8 +400,6 @@ public class EditLocationController {
         lines.clear();
         pns.clear();
         pathPane.getChildren().removeAll();
-        circles.add(thisCircle);
-        pathPane.getChildren().add(thisCircle);
     }
 
 
