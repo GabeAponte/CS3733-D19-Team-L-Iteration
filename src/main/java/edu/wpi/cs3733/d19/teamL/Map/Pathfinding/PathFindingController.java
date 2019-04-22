@@ -944,8 +944,8 @@ public class PathFindingController {
             if(!floors.get(i+1).equals(floors.get(start))) {
                 fBut.setPrefSize(50,50);
                 fBut.setText(floors.get(i));
+                fBut.setStyle("-fx-font-weight: BOLD");
                 fBut.getStyleClass().add("buttonMap");
-                fBut.setStyle("-fx-font-weight: BOLD; -fx-text-color: #012D5A");
                 int startstore1 = start;
                 int counterstore1 = counter;
                 fBut.setOnAction(event -> {
@@ -966,8 +966,8 @@ public class PathFindingController {
             else if(numOfBut == 1 && change){
                 fBut.setPrefSize(50,50);
                 fBut.setText(floors.get(i));
+                fBut.setStyle("-fx-font-weight: BOLD");
                 fBut.getStyleClass().add("buttonMap");
-                fBut.setStyle("-fx-font-weight: BOLD; -fx-text-color: #012D5A");
                 int startstore1 = start;
                 int counterstore1 =floors.size();
                 fBut.setOnAction(event -> {
@@ -2531,8 +2531,8 @@ public class PathFindingController {
                         for (Location l : single.lookup.values()) {
                             if (l.toString().equals(toString)) {
                                 PathFindEndDrop.setValue(l);
+                                typeSelected = "search";
                                 searchField.setText(l.toString());
-
                             }
                         }
                         suggestions.setVisible(false);
@@ -2555,8 +2555,6 @@ public class PathFindingController {
                 suggestions.setLayoutY(searchField.getLayoutY()+50);
                 suggestions.toFront();
                 suggestions.setVisible(true);
-                typeSelected = "search";
-                System.out.println("search");
                 //sp.setContent(gp);
                 //sp.setLayoutX(searchField.getLayoutX() + 2);
                 //sp.setLayoutY(searchField.getLayoutY()+50);

@@ -22,6 +22,7 @@
     -fx-border-radius: 100;
     -fx-border-width: 2;
     -fx-pref-height: 46;
+    -fx-text-fill:  #012d5a ;
 }
 
 .buttonMap:hover{
