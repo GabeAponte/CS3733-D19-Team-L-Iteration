@@ -203,7 +203,7 @@
                 </StackPane>
             </children>
         </VBox>
-        <AnchorPane fx:id="navList" layoutX="-62.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="470.0" prefWidth="300.0" style="-fx-background-color: #012D5A; -fx-background-radius: 20; -fx-border-color: F5D96B; -fx-border-radius: 15; -fx-border-width: 3;" translateX="-180" AnchorPane.leftAnchor="-122.0" AnchorPane.topAnchor="120.0">
+        <AnchorPane fx:id="navList" layoutX="-62.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="470.0" prefWidth="300.0" style="-fx-background-color: #012D5A; -fx-background-radius: 20; -fx-border-color: RED; -fx-border-radius: 15; -fx-border-width: 3;" translateX="-180" AnchorPane.leftAnchor="-122.0" AnchorPane.topAnchor="120.0">
             <children>
                 <GridPane alignment="CENTER" layoutX="12.0" layoutY="12.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="353.0" prefWidth="278.0" AnchorPane.bottomAnchor="9.0" AnchorPane.leftAnchor="9.0" AnchorPane.rightAnchor="9.0" AnchorPane.topAnchor="9.0">
                     <columnConstraints>
@@ -219,12 +219,12 @@
                     </rowConstraints>
 
                     <children>
-                        <Label contentDisplay="CENTER" text="Enter Admin Login" textFill="#f5d96b" GridPane.columnSpan="2147483647" GridPane.halignment="CENTER">
+                        <Label contentDisplay="CENTER" text="Enter Admin Login" textFill="RED" GridPane.columnSpan="2147483647" GridPane.halignment="LEFT">
                             <font>
                                 <Font size="25.0" />
                             </font>
                             <GridPane.margin>
-                                <Insets top="3.0" />
+                                <Insets left="10.0" top="3.0" />
                             </GridPane.margin>
                         </Label>
 
@@ -239,7 +239,7 @@
                                 <Insets right="10.0" />
                             </GridPane.margin>
                         </JFXButton>
-                        <JFXTextField fx:id="adminUser" promptText="Enter Username" GridPane.columnSpan="2147483647" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
+                        <JFXTextField fx:id="adminUser" focusColor="#405aa800" prefHeight="31.0" prefWidth="266.0" promptText="Enter Username" style="-fx-background-color: WHITE;" unFocusColor="#4d4d4d00" GridPane.columnSpan="2147483647" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
                             <GridPane.margin>
                                 <Insets bottom="20.0" left="10.0" right="10.0" top="20.0" />
                             </GridPane.margin>
@@ -247,8 +247,11 @@
                                 <Font size="15.0" />
                             </font>
                         </JFXTextField>
-                        <JFXPasswordField fx:id="adminPassword" GridPane.columnSpan="2147483647" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER" />
-                        <JFXButton fx:id="DisableEmergMode" alignment="BOTTOM_LEFT" buttonType="RAISED" disable="true" onAction="#DisableEmergModePress" onMouseClicked="#prepareSlideMenuAnimation" prefHeight="109.0" prefWidth="282.0" ripplerFill="WHITE" style="-fx-background-color: #7fb1ff;" text="Disable Emergency Mode" textFill="#f5d96b" wrapText="true" GridPane.columnSpan="2147483647" GridPane.halignment="CENTER" GridPane.rowIndex="3">
+                        <JFXPasswordField fx:id="adminPassword" focusColor="#405aa800" prefHeight="25.0" prefWidth="253.0" promptText="Enter Password" style="-fx-background-color: WHITE;" unFocusColor="#4d4d4d00" GridPane.columnSpan="2147483647" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER">
+                     <GridPane.margin>
+                        <Insets bottom="20.0" left="10.0" right="10.0" top="20.0" />
+                     </GridPane.margin></JFXPasswordField>
+                        <JFXButton fx:id="DisableEmergMode" buttonType="RAISED" disable="true" onAction="#DisableEmergModePress" onMouseClicked="#prepareSlideMenuAnimation" prefHeight="138.0" prefWidth="276.0" ripplerFill="WHITE" style="-fx-background-color: #F1F1F1; -fx-border-color: RED; -fx-border-radius: 3;" text="Disable Emergency Mode" textFill="RED" wrapText="true" GridPane.columnSpan="2147483647" GridPane.halignment="CENTER" GridPane.rowIndex="3">
                             <font>
                                 <Font size="30.0" />
                             </font>
@@ -256,7 +259,7 @@
                                 <Insets bottom="20.0" top="10.0" />
                             </GridPane.margin>
                         </JFXButton>
-                        <Label fx:id="errorLabel" prefHeight="77.0" prefWidth="305.0" textFill="RED" wrapText="true" GridPane.columnSpan="2147483647" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="4" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
+                        <Label fx:id="errorLabel" nodeOrientation="RIGHT_TO_LEFT" prefHeight="67.0" prefWidth="217.0" textFill="RED" wrapText="true" GridPane.columnSpan="2147483647" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="4" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
                             <font>
                                 <Font size="15.0" />
                             </font>
