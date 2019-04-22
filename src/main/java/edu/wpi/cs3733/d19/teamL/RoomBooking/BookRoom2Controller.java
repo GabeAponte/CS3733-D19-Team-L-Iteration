@@ -18,6 +18,8 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 
 import javafx.util.Duration;
 
@@ -152,34 +154,15 @@ public class BookRoom2Controller {
         Root.getChildren().clear();
         RoomAccess ra = new RoomAccess();
         String theDate = datePicker.getValue().toString();
-        int startTime = 0;
-        int endTime = 30;
-        for(int i = 0; i < 47; i++){
+        LocalTime startLT = LocalTime.of(0,0);
+        LocalTime endLT = LocalTime.of(0, 30);
+        for(int i = 0; i < 48; i++){
            // System.out.println("Start Time: " + startTime + " End Time: " + endTime);
-            TreeItem<Room> bookedRooms = new TreeItem<Room>(new Room(Integer.toString(startTime), Integer.toString(endTime), ra.getAvailRooms(theDate, theDate, startTime, endTime)));
+            TreeItem<Room> bookedRooms = new TreeItem<Room>(new Room(startLT, endLT, ra.getAvailRooms(theDate, theDate)));
             Root.getChildren().add(bookedRooms);
-            //System.out.println(bookedRooms.getValue().getTime());
-            if(i == 33) {
-               // System.out.println("Start Time: " + startTime + "End Time: " +endTime);
-            }
-            if(i == 0){
-                startTime += 30;
-                endTime += 70;
-            }
-            else if(i%2 == 0) {
-                startTime += 30;
-                endTime += 70;
-            }
-            else{
-                startTime +=70;
-                endTime +=30;
-            }
-            startTime %= 2400;
-            endTime %= 2400;
+            startLT = startLT.plusMinutes(30);
+            endLT = endLT.plusMinutes(30);
         }
-        //System.out.println("Start Time: " + startTime + " End Time: " + endTime);
-        TreeItem<Room> bookedRooms2 = new TreeItem<Room>(new Room(Integer.toString(startTime), Integer.toString(endTime), ra.getAvailRooms(theDate, theDate, startTime, endTime)));
-        Root.getChildren().add(bookedRooms2);
 
         //timeCol = new TreeTableColumn<Room, String>("Time");
         timeCol.setCellValueFactory(cellData -> {

@@ -250,16 +250,16 @@ public class BookRoomController {
         } else {
             error.setTextFill(Color.WHITE);
             error.setText("Room booked.");
-            int startTimeMil = startTime.getValue().getHour() * 100 + startTime.getValue().getMinute();
-            int endTimeMil = endTime.getValue().getHour() * 100 + endTime.getValue().getMinute();
             String date = datePicker.getValue().toString();
-            String endDate;
+            String endDate = datePicker.getValue().plusDays(1).toString();
+            date += "T" + startTime.getValue().getHour() + ":" + startTime.getValue().getMinute() + ":00";
+            endDate += "T" + endTime.getValue().getHour()  + ":" + endTime.getValue().getMinute() + ":00";
             String roomName = availableRooms.getValue().toString();
             EmployeeAccess ea = new EmployeeAccess();
             String employeeID = ea.getEmployeeInformation(single.getUsername()).get(0);
             ReservationAccess roomReq = new ReservationAccess();
             RoomAccess ra = new RoomAccess();
-            roomReq.makeReservation(ra.getRoomID(roomName), employeeID, date, date, startTimeMil, endTimeMil);
+            roomReq.makeReservation(ra.getRoomID(roomName), employeeID, date, endDate);
             fieldsEntered();
         }
     }
@@ -277,12 +277,13 @@ public class BookRoomController {
         String endDate = "";
 
         if (startTime.getValue() != null && endTime.getValue() != null && datePicker.getValue() != null) {
-            startTimeMil = startTime.getValue().getHour() * 100 + startTime.getValue().getMinute();
-            endTimeMil = endTime.getValue().getHour() * 100 + endTime.getValue().getMinute();
             date = datePicker.getValue().toString();
+            endDate = datePicker.getValue().toString();
+            date += "T" + startTime.getValue().getHour() * 100 + ":" + startTime.getValue().getMinute() + ":00";
+            endDate += "T" + endTime.getValue().getHour() * 100 + ":" + endTime.getValue().getMinute() + ":00";
             availableRooms.getSelectionModel().clearSelection();
 
-            rooms = ra.getAvailRooms(date, date, startTimeMil, endTimeMil);
+            rooms = ra.getAvailRooms(date, endDate);
             /*for (int i = 0; i < rooms.size(); i++) {
                 System.out.println("Available Rooms: " + rooms.get(i));
             }*/
@@ -294,7 +295,7 @@ public class BookRoomController {
             }
 
                 //System.out.println("startTimeMil: " + startTimeMil + "\n endTimeMil:" + endTimeMil);
-            rooms = ra.getAvailRooms(date, date, startTimeMil, endTimeMil);
+            rooms = ra.getAvailRooms(date, endDate);
 
             for(int j = 0; j < rooms.size(); j ++) {
                 listOfRooms.add(rooms.get(j));
