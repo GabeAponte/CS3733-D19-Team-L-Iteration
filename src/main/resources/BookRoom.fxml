@@ -257,7 +257,7 @@
                                         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="ALWAYS" />
                                     </rowConstraints>
                                     <children>
-                                        <Label alignment="BOTTOM_CENTER" contentDisplay="BOTTOM" styleClass="labelTitle" stylesheets="@Default.css" text="Booked Rooms" textFill="#f5d96b" GridPane.columnSpan="3" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.valignment="CENTER">
+                                        <Label alignment="BOTTOM_CENTER" contentDisplay="BOTTOM" styleClass="labelTitle" stylesheets="@Default.css" text="Daily Schedule" textFill="#f5d96b" GridPane.columnSpan="3" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.valignment="CENTER">
                                             <font>
                                                 <Font name="Avenir Book" size="36.0" />
                                             </font>
@@ -299,7 +299,59 @@
                         </Tab>
                         <Tab text="Weekly Schedule">
                             <content>
-
+                                <GridPane layoutX="8.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                    <columnConstraints>
+                                        <ColumnConstraints hgrow="ALWAYS" minWidth="10.0" percentWidth="30.0" prefWidth="483.0" />
+                                        <ColumnConstraints hgrow="ALWAYS" minWidth="10.0" percentWidth="30.0" prefWidth="376.0" />
+                                        <ColumnConstraints hgrow="ALWAYS" minWidth="10.0" percentWidth="20.0" prefWidth="285.0" />
+                                        <ColumnConstraints hgrow="ALWAYS" minWidth="10.0" percentWidth="20.0" prefWidth="306.0" />
+                                        <ColumnConstraints />
+                                    </columnConstraints>
+                                    <rowConstraints>
+                                        <RowConstraints minHeight="10.0" percentHeight="15.0" prefHeight="30.0" vgrow="ALWAYS" />
+                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="ALWAYS" />
+                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="ALWAYS" />
+                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="ALWAYS" />
+                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="ALWAYS" />
+                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="ALWAYS" />
+                                    </rowConstraints>
+                                    <children>
+                                        <Label fx:id="classroomLabel" alignment="BOTTOM_CENTER" contentDisplay="BOTTOM" styleClass="labelTitle" stylesheets="@Default.css" text="Weekly Schedule" textFill="#f5d96b" GridPane.columnSpan="3" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.valignment="CENTER">
+                                            <font>
+                                                <Font name="Avenir Book" size="36.0" />
+                                            </font>
+                                            <GridPane.margin>
+                                                <Insets left="30.0" />
+                                            </GridPane.margin>
+                                        </Label>
+                                        <VBox alignment="CENTER" layoutX="874.0" layoutY="200.0" prefHeight="200.0" prefWidth="256.0" spacing="30.0" GridPane.columnIndex="3" GridPane.rowIndex="1" GridPane.rowSpan="2">
+                                            <children>
+                                                <JFXComboBox fx:id="roomPicker" prefHeight="51.0" prefWidth="200.0" promptText="Choose Room" styleClass="jfx-combo-box" stylesheets="@Default.css" />
+                                                <JFXDatePicker fx:id="datePicker" defaultColor="#f5d96b" prefHeight="51.0" prefWidth="200.0" promptText="Select Date" styleClass="jfx-date-picker" stylesheets="@Default.css" />
+                                                <JFXButton fx:id="selectSchedule" prefHeight="57.0" prefWidth="187.0" style="-fx-border-radius: 50; -fx-background-radius: 50; -fx-border-width: 2;" styleClass="buttonMain" stylesheets="@Default.css" text="View Schedule" textFill="white">
+                                                    <font>
+                                                        <Font name="Avenir Book" size="18.0" />
+                                                    </font>
+                                                </JFXButton>
+                                            </children>
+                                        </VBox>
+                                        <JFXTreeTableView fx:id="bookedTime" styleClass="jfx-tree-table-view" stylesheets="@Default.css" GridPane.columnSpan="3" GridPane.rowIndex="1" GridPane.rowSpan="4">
+                                            <columns>
+                                                <TreeTableColumn fx:id="timeCol" prefWidth="155.0" text="Time" />
+                                                <TreeTableColumn fx:id="sunCol" editable="false" minWidth="66.0" prefWidth="120.0" sortable="false" text="Sunday" />
+                                                <TreeTableColumn fx:id="monCol" editable="false" minWidth="150.0" prefWidth="150.0" sortable="false" text="Monday" />
+                                                <TreeTableColumn fx:id="tueCol" editable="false" minWidth="150.0" prefWidth="150.0" sortable="false" text="Tuesday" />
+                                                <TreeTableColumn fx:id="wedCol" editable="false" minWidth="150.0" prefWidth="150.0" sortable="false" text="Wednesday" />
+                                                <TreeTableColumn fx:id="thuCol" editable="false" minWidth="150.0" prefWidth="150.0" sortable="false" text="Thursday" />
+                                                <TreeTableColumn fx:id="friCol" editable="false" minWidth="150.0" prefWidth="150.0" sortable="false" text="Friday" />
+                                                <TreeTableColumn fx:id="satCol" editable="false" minWidth="150.0" prefWidth="150.0" sortable="false" text="Saturday" />
+                                            </columns>
+                                            <GridPane.margin>
+                                                <Insets left="30.0" />
+                                            </GridPane.margin>
+                                        </JFXTreeTableView>
+                                    </children>
+                                </GridPane>
                             </content>
                         </Tab>
                     </tabs>
