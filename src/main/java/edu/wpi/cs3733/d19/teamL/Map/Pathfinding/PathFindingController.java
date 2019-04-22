@@ -1028,7 +1028,7 @@ public class PathFindingController {
         Circle dude  = new Circle();
         dude.setCenterX(path.getPath().get(begin).getXcoord()*childPane.getWidth()/Map.getImage().getWidth());
         dude.setCenterY(path.getPath().get(begin).getYcoord()*childPane.getHeight()/Map.getImage().getHeight());
-        dude.setRadius(Math.max(6, 6f));
+        dude.setRadius(Math.max(5, 5f));
         dude.setFill(new ImagePattern((new Image("/SoftEng_UI_Mockup_Pics/IconPerson.png"))));
 
         javafx.scene.shape.Path path2 = new  javafx.scene.shape.Path();
@@ -1124,17 +1124,25 @@ public class PathFindingController {
         autoZoom(path.getPath().get(begin), path.getPath().get(count));
 
         direction.clear();
+        
         ArrayList<Location> al = new ArrayList<Location>();
         for (int i = begin; i < count + 1; i++){
             al.add(path.getPath().get(i));
         }
+
         String directionS = printPath(al);
+
         if(path.getPath().get(count) != null){
             if(isStairELe(al.get(al.size()-1)) && isStairELe(path.getPath().get(count))){
-            //        System.out.println("Go to floor " + b.getFloor() + " by " + a.getLongName());
+                if(path.getPath().get(count).getLocID().equals(path.getPath().get(path.getPath().size()-1).getLocID())){
+                    directionS += "\u2191 Go straight to " + path.getPath().get(count).getLongName() +
+                            " (" + convertToExact(path.getPath().get(count-1).findDistance(path.getPath().get(count)))
+                            + " ft) \n";
+                }
+                else {
                 directionS += "\u21C5 Go to floor " + path.getPath().get(count).getFloor() + " by "
                         + al.get(al.size()-1).getLongName() +"\n";
-
+                }
             }
         }
         direction.setText(directionS);
@@ -2431,12 +2439,14 @@ public class PathFindingController {
                         //nothing handle error in case
                     }
                 }
-
+                if(i == A.size() - 3){
+                    return text;
+                }
 
             }
             if(i == A.size() - 3){
                 text += "\u2191 Go straight to " + A.get(A.size()-1).getLongName() +
-                        " (" + convertToExact(b.findDistance(c)) + " ft) \n";
+                        " (" + convertToExact(A.get(A.size()-3).findDistance(A.get(A.size()-1))) + " ft) \n";
                 return text;
             }
 
