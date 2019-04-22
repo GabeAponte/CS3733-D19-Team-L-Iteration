@@ -237,8 +237,6 @@
 .buttonMain:hover {
     -fx-background-color: white;
     -fx-text-fill: #012d5a;
-
-    -fx-font-size: 45;
 }
 
 .buttonMain:hover .glyph-icon{

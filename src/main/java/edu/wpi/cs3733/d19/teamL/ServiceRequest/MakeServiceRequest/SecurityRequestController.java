@@ -13,6 +13,7 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -143,39 +144,29 @@ public class SecurityRequestController {
         }
     }
     @FXML
-    private void submitClicked() throws IOException {
+    private void submitClicked(ActionEvent event) throws IOException {
         Singleton single = Singleton.getInstance();
         single.setLastTime();
         ServiceRequestAccess sra = new ServiceRequestAccess();
         sra.makeSecurityRequest(Description.getText(), Location.getText(),Identifiers.getText(), Type.getValue(), Level);
-
         Memento m = single.getOrig();
-        single.setDoPopup(true);
-        FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource(m.getFxml()));
-
-        Parent sceneMain = loader.load();
-        Stage theStage = (Stage) Description.getScene().getWindow();
-
-        Scene scene = new Scene(sceneMain);
-        theStage.setScene(scene);
+        Parent newPage = FXMLLoader.load(getClass().getClassLoader().getResource(m.getFxml()));
+        ((Node) event.getSource()).getScene().setRoot(newPage);
     }
 
     @FXML
-    private void backPressed() throws IOException {
+    private void backPressed(ActionEvent event) throws IOException {
         timeout.stop();
         Singleton single = Singleton.getInstance();
         single.setLastTime();
         single.setDoPopup(true);
-        Stage thestage = (Stage) Description.getScene().getWindow();
-        AnchorPane root;
         Memento m = single.restore();
-        root = FXMLLoader.load(getClass().getClassLoader().getResource(m.getFxml()));
-        Scene scene = new Scene(root);
-        thestage.setScene(scene);
+        Parent newPage = FXMLLoader.load(getClass().getClassLoader().getResource(m.getFxml()));
+        ((Node) event.getSource()).getScene().setRoot(newPage);
     }
 
     @FXML
-    private void logOut() throws IOException {
+    private void logOut(ActionEvent event) throws IOException {
         timeout.stop();
         Singleton single = Singleton.getInstance();
         single.setLastTime();
@@ -183,26 +174,21 @@ public class SecurityRequestController {
         single.setIsAdmin(false);
         single.setLoggedIn(false);
         single.setDoPopup(true);
-        Stage thestage = (Stage) back.getScene().getWindow();
-        AnchorPane root;
         Memento m = single.getOrig();
-        root = FXMLLoader.load(getClass().getClassLoader().getResource(m.getFxml()));
-        Scene scene = new Scene(root);
-        thestage.setScene(scene);
+        Parent newPage = FXMLLoader.load(getClass().getClassLoader().getResource(m.getFxml()));
+        ((Node) event.getSource()).getScene().setRoot(newPage);
     }
 
     @FXML
-    private void goHome() throws IOException {
+    private void goHome(ActionEvent event) throws IOException {
         timeout.stop();
         Singleton single = Singleton.getInstance();
         single.setLastTime();
         single.setDoPopup(true);
-        Stage thestage = (Stage) back.getScene().getWindow();
-        AnchorPane root;
+        //saveState();
         Memento m = single.getOrig();
-        root = FXMLLoader.load(getClass().getClassLoader().getResource(m.getFxml()));
-        Scene scene = new Scene(root);
-        thestage.setScene(scene);
+        Parent newPage = FXMLLoader.load(getClass().getClassLoader().getResource(m.getFxml()));
+        ((Node) event.getSource()).getScene().setRoot(newPage);
     }
 
 }
