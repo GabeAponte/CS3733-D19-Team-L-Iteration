@@ -1,15 +1,86 @@
 
+.buttonMain{
+    -fx-background-color: white;
+    -fx-border-color: #012d5a;
+    -fx-border-radius: 10;
+    -fx-border-width: 3;
+    -fx-text-fill: #012d5a;
+    -fx-background-radius: 10;
+    -jfx-button-type: RAISED;
+}
+
+.buttonMain .glyph-icon {
+    -fx-fill: #012d5a;
+}
+
+.buttonMain:hover{
+    -fx-background-color: #012d5a;
+    -fx-text-fill: white;
+}
+
+.buttonMain:hover .glyph-icon{
+    -fx-fill: white;
+}
+
+/*.buttonMain{
+    /*-fx-background-color: white;
+    -fx-border-color: #F5D96B;
+    -fx-border-radius: 10;
+    -fx-border-width: 3;
+    -fx-text-fill: white;
+    -fx-background-radius: 10;
+    -fx-border-color : #F5D96B;
+    /*-fx-border-radius: 10;
+    -fx-border-width: 2;
+}
+
+.buttonMain .glyph-icon {
+    -fx-fill: white;
+}
+
+.buttonMain:hover{
+    -fx-background-color: white;
+    -fx-text-fill: #012d5a;
+}
+
+.buttonMain:hover .glyph-icon{
+    -fx-fill: #012d5a;
+} */
+
+.buttonBig{
+    -fx-background-color: transparent;
+    /*-fx-border-color: #F5D96B;*/
+    -fx-text-fill: white;
+    -fx-background-radius: 10;
+   /* -fx-border-color : #F5D96B;
+    /*-fx-border-radius: 10;
+    -fx-border-width: 2;*/
+}
+
+.buttonBig .glyph-icon {
+    -fx-fill: white;
+}
+
+.buttonBig:hover{
+    -fx-background-color: white;
+    -fx-text-fill: #012d5a;
+}
+
+.buttonBig:hover .glyph-icon{
+    -fx-fill: #012d5a;
+}
+
 .buttonToolbar{
+    -fx-background-color: white;
     -fx-background-radius: 10000;
     -fx-border-color : #012D5A;
     -fx-border-radius: 100;
     -fx-border-width: 2;
     -fx-pref-height: 75;
-}
-
-.fontType {
     -fx-font-family: "Trebuchet MS";
     -fx-font-style: Regular;
+    -fx-font-size: 17;
+    -jfx-button-type: RAISED;
 }
 
 .buttonToolbar:hover{
@@ -29,11 +100,16 @@
     -fx-border-radius: 100;
     -fx-border-width: 2;
     -fx-pref-height: 46;
+    -fx-font-family: "Trebuchet MS";
+    -fx-font-style: Regular;
+    -jfx-button-type: RAISED;
 }
 
 .buttonMap:hover{
     -fx-background-color: #012d5a;
     -fx-text-fill: white;
+    -fx-font-family: "Trebuchet MS";
+    -fx-font-style: Regular;
 }
 
 .buttonMap:hover .glyph-icon{
@@ -54,28 +130,38 @@
 
 .vboxTextfieldOutline {
     -fx-border-color: #F5D96B;
-
 }
 
 .radio-button {
     -jfx-selected-color:  #f5d96b;
-    -jfx-unselected-color: white;
-    -fx-text-fill: white;
+    -fx-font-family: "Trebuchet MS";
+    -fx-font-style: Regular;
+    -jfx-unselected-color: #012d5a;
+    -fx-text-fill: #012d5a;
 }
 
 .labelTitle {
     -fx-text-fill: #f5d96b;
+    -fx-font-family: "Trebuchet MS";
+    -fx-font-style: Regular;
 }
+
 .labelPopupTitle {
     -fx-text-fill: black;
+    -fx-font-family: "Trebuchet MS";
+    -fx-font-style: Regular;
 }
+
 .labelPopupDesc {
     -fx-text-fill: white;
-    -fx-font: Luminari;
+    -fx-font-family: "Trebuchet MS";
+    -fx-font-style: Regular;
 }
 
 .labelMapFloor {
     -fx-text-fill: #012d5a;
+    -fx-font-family: Trebuchet MS;
+    -fx-font-style: Regular;
 }
 
 .AnchorPainMain{
@@ -84,6 +170,8 @@
 
 .text-area{
     -fx-text-fill: white;
+    -fx-font-family: "Trebuchet MS";
+    -fx-font-style: Regular;
 }
 
 .jfx-tree-table-view {
@@ -91,6 +179,8 @@
     -fx-background-radius: 20;
     -fx-border-width: 5;
     -fx-border-radius: 20;
+    -fx-font-family: "Trebuchet MS";
+    -fx-font-style: Regular;
 }
 
 
@@ -104,18 +194,23 @@
 .tab .tab-label {
     -fx-alignment: CENTER;
     -fx-text-fill: BLACK;
-
+    -fx-font-family: "Trebuchet MS";
+    -fx-font-style: Regular;
 }
 
 .tab:selected .tab-label {
     -fx-alignment: CENTER;
     -fx-text-fill: BLACK;
+    -fx-font-family: Trebuchet MS;
+    -fx-font-style: Regular;
 }
 
 .tab:hover{
     -fx-background-color: #f1cc39;;
     -fx-background-radius: 1000000;
     -fx-text-fill: BLACK;
+    -fx-font-family: "Trebuchet MS";
+    -fx-font-style: Regular;
     /*
     -fx-text-fill: #f5d96b ;
      */
@@ -123,10 +218,14 @@
 .jfx-tab-pane .tab:selected {
     -fx-background-color: #efc318;
     -fx-background-radius: 1000000;
+    -fx-font-family: Trebuchet MS;
+    -fx-font-style: Regular;
 }
 .tab:hover .tab-label {
     -fx-alignment: CENTER;
     -fx-text-fill: BLACK;
+    -fx-font-family: "Trebuchet MS";
+    -fx-font-style: Regular;
 }
 
 .jfx-tab-pane .tab-selected-line {
@@ -135,6 +234,8 @@
 
 .labelWelcome{
     -fx-text-fill: #F5D96B;
+    -fx-font-family: "Trebuchet MS";
+    -fx-font-style: Regular;
 }
 
 .buttonMain{
@@ -149,11 +250,12 @@
     -fx-fill: white;
 }
 
-.buttonMain:hover{
+.buttonMain:hover {
     -fx-background-color: white;
     -fx-text-fill: #012d5a;
     -fx-font-family: "Trebuchet MS";
     -fx-font-style: Regular;
+    -fx-font-size: 45;
 }
 
 .buttonMain:hover .glyph-icon{
@@ -164,15 +266,23 @@
     -fx-background-color: white;
     -fx-prompt-text-fill: black;
     -fx-text-fill: black;
+    -fx-font-family: "Trebuchet MS";
+    -fx-font-style: Regular;
     -jfx-focus-color: transparent;
-    -jfx-unfocus-color: transparent
+    -jfx-unfocus-color: transparent;
 }
 
 .jfx-text-field-normal {
-    -fx-prompt-text-fill: WHITE;
-    -fx-text-fill: WHITE;
+    -fx-prompt-text-fill: #012d5a;
+    -fx-text-fill: #012d5a;
     -jfx-focus-color: #f5d96b;
-    -jfx-unfocus-color: white
+    -fx-font-family: "Trebuchet MS";
+    -fx-font-style: Regular;
+    -jfx-unfocus-color: #012d5a;
+}
+
+.jfx-text-field-normal .input-line {
+    -fx-background-size: 4;
 }
 
 .jfx-text-field-login{
@@ -180,7 +290,10 @@
     -fx-prompt-text-fill: black;
     -fx-text-fill: black;
     -jfx-focus-color: #f5d96b;
-    -jfx-unfocus-color: transparent
+    -jfx-unfocus-color: transparent;
+    -fx-font-family: "Trebuchet MS";
+    -fx-font-style: Regular;
+
 }
 
 .password-field-login{
@@ -201,6 +314,8 @@
     -fx-border-color: #f5d96b;
     -fx-border-width: 3;
     -fx-border-radius: 20;
+    -fx-font-family: "Trebuchet MS";
+    -fx-font-style: Regular;
 }
 
 .jfx-text-areaSuggestionTable {
@@ -210,33 +325,45 @@
     -jfx-unfocus-color: transparent;
     -fx-border-color: #f5d96b;
     -fx-border-radius: 20;
+    -fx-font-family: "Trebuchet MS";
+    -fx-font-style: Regular;
 }
 
 .jfx-combo-box {
     -fx-font-size : 20 pt;
-    -fx-text-fill : white;
+    -fx-text-fill : #012d5a;
     -jfx-focus-color: #f5d96b;
-    -jfx-unfocus-color: white;
-    -fx-prompt-text-fill: white;
+    -jfx-unfocus-color: #012d5a;
+    -fx-prompt-text-fill: #012d5a;
+    -fx-font-family: "Trebuchet MS";
+    -fx-font-style: Regular;
 
 }
 
 .jfx-combo-box .text-field {
     -fx-text-fill : white;
+    -fx-font-family: "Trebuchet MS";
+    -fx-font-style: Regular;
 
 }
 
 .jfx-combo-box .text-area {
     -fx-text-fill : white;
+    -fx-font-family: "Trebuchet MS";
+    -fx-font-style: Regular;
 
 }
 
 .jfx-combo-box .list-view .list-cell {
--fx-text-fill : black;
+    -fx-text-fill : black;
+    -fx-font-family: "Trebuchet MS";
+    -fx-font-style: Regular;
 }
 
 .jfx-combo-box .list-cell {
     -fx-text-fill : white;
+    -fx-font-family: "Trebuchet MS";
+    -fx-font-style: Regular;
 }
 
 .jfx-combo-box .arrow {
@@ -249,25 +376,35 @@
     -jfx-focus-color: #f5d96b;
     -jfx-unfocus-color: white;
     -fx-prompt-text-fill: white;
+    -fx-font-family: "Trebuchet MS";
+    -fx-font-style: Regular;
 
 }
 
 .jfx-combo-box-Popup .text-field {
     -fx-text-fill : white;
+    -fx-font-family: "Trebuchet MS";
+    -fx-font-style: Regular;
 
 }
 
 .jfx-combo-box-Popup .text-area {
     -fx-text-fill : white;
+    -fx-font-family: "Trebuchet MS";
+    -fx-font-style: Regular;
 
 }
 
 .jfx-combo-box-Popup .list-view .list-cell {
     -fx-text-fill : black;
+    -fx-font-family: "Trebuchet MS";
+    -fx-font-style: Regular;
 }
 
 .jfx-combo-box-Popup .list-cell {
     -fx-text-fill : white;
+    -fx-font-family: "Trebuchet MS";
+    -fx-font-style: Regular;
 }
 
 .jfx-combo-box-Popup .arrow {
@@ -281,25 +418,35 @@
     -jfx-focus-color: #f5d96b;
     -jfx-unfocus-color: white;
     -fx-prompt-text-fill: white;
+    -fx-font-family: "Trebuchet MS";
+    -fx-font-style: Regular;
 
 }
 
 .jfx-combo-box-PathMenu .text-field {
     -fx-text-fill : white;
+    -fx-font-family: "Trebuchet MS";
+    -fx-font-style: Regular;
 
 }
 
 .jfx-combo-box-PathMenu .text-area {
     -fx-text-fill : white;
+    -fx-font-family: "Trebuchet MS";
+    -fx-font-style: Regular;
 
 }
 
 .jfx-combo-box-PathMenu .list-view .list-cell {
     -fx-text-fill : black;
+    -fx-font-family: "Trebuchet MS";
+    -fx-font-style: Regular;
 }
 
 .jfx-combo-box-PathMenu .list-cell {
     -fx-text-fill : white;
+    -fx-font-family: "Trebuchet MS";
+    -fx-font-style: Regular;
 }
 
 .jfx-combo-box-PathMenu .arrow {
@@ -312,25 +459,35 @@
     -jfx-focus-color: #f5d96b;
     -jfx-unfocus-color: white;
     -fx-prompt-text-fill: white;
+    -fx-font-family: "Trebuchet MS";
+    -fx-font-style: Regular;
 
 }
 
 .jfx-combo-box-PathMenu2 .text-field {
     -fx-text-fill : white;
+    -fx-font-family: "Trebuchet MS";
+    -fx-font-style: Regular;
 
 }
 
 .jfx-combo-box-PathMenu2 .text-area {
     -fx-text-fill : white;
+    -fx-font-family: "Trebuchet MS";
+    -fx-font-style: Regular;
 
 }
 
 .jfx-combo-box-PathMenu2 .list-view .list-cell {
     -fx-text-fill : black;
+    -fx-font-family: "Trebuchet MS";
+    -fx-font-style: Regular;
 }
 
 .jfx-combo-box-PathMenu2 .list-cell {
     -fx-text-fill : white;
+    -fx-font-family: "Trebuchet MS";
+    -fx-font-style: Regular;
 }
 
 .jfx-combo-box-PathMenu2 .arrow {
@@ -339,6 +496,8 @@
 
 .toggle-button {
     -fx-text-fill: white;
+    -fx-font-family: "Trebuchet MS";
+    -fx-font-style: Regular;
 
 }
 
@@ -350,6 +509,9 @@
     -jfx-focus-color: #f5d96b;
     -jfx-unfocus-color: white;
     -jfx-default-color: #f5d96b;
+    -fx-font-family: "Trebuchet MS";
+    -fx-font-style: Regular;
+
 }
 
 .jfx-date-picker .text-field{
@@ -359,6 +521,8 @@
     -jfx-focus-color: #f5d96b;
     -jfx-unfocus-color: white;
     -jfx-default-color: #f5d96b;
+    -fx-font-family: "Trebuchet MS";
+    -fx-font-style: Regular;
 }
 .jfx-date-picker .input-line {
     -fx-background-color: white;
@@ -374,6 +538,8 @@
     -jfx-focus-color: #f5d96b;
     -jfx-unfocus-color: white;
     -jfx-default-color: #f5d96b;
+    -fx-font-family: "Trebuchet MS";
+    -fx-font-style: Regular;
 }
 
 .jfx-time-picker .text-field{
@@ -383,6 +549,8 @@
     -jfx-focus-color: #f5d96b;
     -jfx-unfocus-color: white;
     -jfx-default-color: #f5d96b;
+    -fx-font-family: "Trebuchet MS";
+    -fx-font-style: Regular;
 }
 
 .jfx-time-picker .input-line {
@@ -393,61 +561,83 @@
 }
 
 .jfx-password-fieldEdit{
-    -fx-prompt-text-fill: white;
-    -fx-text-fill: white;
+    -fx-prompt-text-fill: #012d5a;
+    -fx-text-fill: #012d5a;
+    -jfx-focus-color :#f5d96b;
+    -jfx-unfocus-color: #012d5a;
 }
 
 .buttonSecurity1{
     -fx-border-color: green;
     -fx-text-fill: white;
+    -fx-font-family: "Trebuchet MS";
+    -fx-font-style: Regular;
 }
 
 .buttonSecurity1:hover{
     -fx-border-color: white;
     -fx-background-color: green;
     -fx-text-fill: #012d5a;
+    -fx-font-family: "Trebuchet MS";
+    -fx-font-style: Regular;
 }
 
 .buttonSecurity2{
     -fx-border-color: #ccff00;
     -fx-text-fill: white;
+    -fx-font-family: "Trebuchet MS";
+    -fx-font-style: Regular;
 }
 
 .buttonSecurity2:hover{
     -fx-border-color: white;
     -fx-background-color: #ccff00;
     -fx-text-fill: #012d5a;
+    -fx-font-family: "Trebuchet MS";
+    -fx-font-style: Regular;
 }
 
 .buttonSecurity3{
     -fx-border-color: #ffb300;
     -fx-text-fill: white;
+    -fx-font-family: "Trebuchet MS";
+    -fx-font-style: Regular;
 }
 
 .buttonSecurity3:hover{
     -fx-border-color: white;
     -fx-background-color: #ffb300;
     -fx-text-fill: #012d5a;
+    -fx-font-family: "Trebuchet MS";
+    -fx-font-style: Regular;
 }
 
 .buttonSecurity4{
     -fx-border-color: #ff7700;
     -fx-text-fill: white;
+    -fx-font-family: "Trebuchet MS";
+    -fx-font-style: Regular;
 }
 
 .buttonSecurity4:hover{
     -fx-border-color: white;
     -fx-background-color: #ff7700;
     -fx-text-fill: #012d5a;
+    -fx-font-family: "Trebuchet MS";
+    -fx-font-style: Regular;
 }
 
 .buttonSecurity5{
     -fx-border-color: #ff1100;
     -fx-text-fill: white;
+    -fx-font-family: "Trebuchet MS";
+    -fx-font-style: Regular;
 }
 
 .buttonSecurity5:hover{
     -fx-border-color: white;
     -fx-background-color:  #ff1100;
     -fx-text-fill: #012d5a;
+    -fx-font-family: "Trebuchet MS";
+    -fx-font-style: Regular;
 }

@@ -73,7 +73,7 @@
                               </HBox>
                               <HBox alignment="CENTER_RIGHT" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="2">
                                  <children>
-                                    <JFXButton fx:id="HomeSuggestions" alignment="CENTER" contentDisplay="TOP" focusTraversable="false" graphicTextGap="0.0" onAction="#SwitchToSuggestionBox" prefHeight="75.0" prefWidth="111.0" ripplerFill="#b0b0b0" styleClass="buttonToolbar" stylesheets="@Default.css" text="Feedback" textFill="#012d5a">
+                                    <JFXButton fx:id="HomeSuggestions" alignment="CENTER" buttonType="RAISED" contentDisplay="TOP" focusTraversable="false" graphicTextGap="0.0" onAction="#SwitchToSuggestionBox" prefHeight="75.0" prefWidth="111.0" ripplerFill="#b0b0b0" styleClass="buttonToolbar" stylesheets="@Default.css" text="Feedback" textFill="#012d5a">
                                        <font>
                                           <Font size="17.0" />
                                        </font>
@@ -84,7 +84,7 @@
                                           <Insets right="20.0" />
                                        </HBox.margin>
                                     </JFXButton>
-                                    <JFXButton fx:id="LogIn" alignment="CENTER" contentDisplay="TOP" focusTraversable="false" graphicTextGap="0.0" minHeight="-Infinity" onAction="#SwitchToLoginScreen" prefHeight="75.0" prefWidth="100.0" ripplerFill="#b0b0b0" styleClass="buttonToolbar" stylesheets="@Default.css" text="Log In" textAlignment="CENTER" textFill="#012d5a">
+                                    <JFXButton fx:id="LogIn" alignment="CENTER" buttonType="RAISED" contentDisplay="TOP" focusTraversable="false" graphicTextGap="0.0" minHeight="-Infinity" onAction="#SwitchToLoginScreen" prefHeight="75.0" prefWidth="100.0" ripplerFill="#b0b0b0" styleClass="buttonToolbar" stylesheets="@Default.css" text="Log In" textAlignment="CENTER" textFill="#012d5a">
                                        <font>
                                           <Font name="System Bold" size="17.0" />
                                        </font>
@@ -95,9 +95,9 @@
                                           <Insets right="20.0" />
                                        </HBox.margin>
                                     </JFXButton>
-                                    <JFXButton fx:id="aboutButton" contentDisplay="GRAPHIC_ONLY" onAction="#AboutPress" prefHeight="75.0" prefWidth="100.0" styleClass="buttonToolbar" stylesheets="@Default.css">
+                                    <JFXButton fx:id="aboutButton" buttonType="RAISED" contentDisplay="TOP" graphicTextGap="0.0" onAction="#AboutPress" prefHeight="75.0" prefWidth="100.0" styleClass="buttonToolbar" stylesheets="@Default.css" text="About">
                                        <graphic>
-                                          <FontAwesomeIconView fill="#012d5a" glyphName="INFO" size="50" />
+                                          <FontAwesomeIconView fill="#012d5a" glyphName="INFO" size="35" />
                                        </graphic>
                                        <HBox.margin>
                                           <Insets right="10.0" />
@@ -112,7 +112,7 @@
                </center>
             </JFXToolbar>
             <JFXToolbar maxHeight="-Infinity" minHeight="-Infinity" prefHeight="10.0" prefWidth="1280.0" styleClass="tool-barSecondary" stylesheets="@Default.css" VBox.vgrow="NEVER" />
-            <GridPane alignment="CENTER" maxHeight="1.7976931348623157E308" prefHeight="569.0" prefWidth="1280.0" VBox.vgrow="ALWAYS">
+            <GridPane alignment="CENTER_RIGHT" maxHeight="1.7976931348623157E308" prefHeight="569.0" prefWidth="1280.0" VBox.vgrow="ALWAYS">
                <columnConstraints>
                   <ColumnConstraints halignment="CENTER" hgrow="ALWAYS" maxWidth="1.7976931348623157E308" minWidth="-Infinity" percentWidth="50.0" prefWidth="0.0" />
                   <ColumnConstraints halignment="CENTER" hgrow="ALWAYS" maxWidth="1.7976931348623157E308" minWidth="-Infinity" percentWidth="50.0" prefWidth="0.0" />
@@ -128,12 +128,12 @@
                   <Insets />
                </VBox.margin>
                <children>
-                  <JFXButton fx:id="HomeServiceRequest" alignment="CENTER" buttonType="RAISED" contentDisplay="TOP" focusTraversable="false" onAction="#SwitchToServiceScreen" prefHeight="310.0" prefWidth="345.0" ripplerFill="WHITE" style="-fx-border-width: 2; -fx-background-radius: 10; -fx-border-radius: 10;" styleClass="buttonMain" stylesheets="@Default.css" text="Request" textFill="WHITE" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                  <JFXButton fx:id="HomeServiceRequest" alignment="CENTER" buttonType="RAISED" contentDisplay="TOP" focusTraversable="false" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onAction="#SwitchToServiceScreen" prefHeight="298.0" prefWidth="325.0" ripplerFill="WHITE" style="-fx-border-width: 3; -fx-background-radius: 10; -fx-border-radius: 10;" styleClass="buttonBig" stylesheets="@Default.css" text="Request" textFill="WHITE" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.rowIndex="1" GridPane.valignment="CENTER">
                      <font>
-                        <Font name="Trebuchet MS" size="45.0" />
+                        <Font name="Heiti TC Light" size="45.0" />
                      </font>
                      <GridPane.margin>
-                        <Insets right="200.0" />
+                        <Insets left="75.0" />
                      </GridPane.margin>
                      <graphic>
                         <FontAwesomeIconView fill="WHITE" glyphName="BELL_ALT" size="200" text="" />
@@ -153,16 +153,16 @@
                           </rowConstraints>
                            <children>
                               <VBox maxWidth="5.0" minWidth="5.0" prefWidth="5.0" style="-fx-background-color: transparent;" GridPane.columnSpan="2147483647" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" GridPane.rowSpan="2147483647" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS" />
-                              <Label prefHeight="72.0" prefWidth="807.0" styleClass="labelTitle" stylesheets="@Default.css" text="Welcome to Brigham and Women's" textFill="#f5d96b" GridPane.columnSpan="3" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+                              <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="65.0" prefWidth="899.0" styleClass="labelTitle" stylesheets="@Default.css" text="Welcome to Brigham and Women's" textFill="#f5d96b" GridPane.columnSpan="2147483647" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
                                  <font>
-                                    <Font name="Trebuchet MS" size="52.0" />
+                                    <Font name="Heiti TC Light" size="52.0" />
                                  </font>
                               </Label>
                               <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="5.0" GridPane.columnSpan="3" GridPane.rowIndex="1">
                                  <children>
                                     <Label fx:id="dateLabel" alignment="CENTER" contentDisplay="CENTER" prefHeight="52.0" prefWidth="164.0" styleClass="labelPopupDesc" stylesheets="@Default.css" text="99/99/9999" textAlignment="CENTER" textFill="WHITE">
                                        <font>
-                                          <Font name="System Bold" size="28.0" />
+                                          <Font name="Trebuchet MS" size="28.0" />
                                        </font>
                                     </Label>
                                     <ImageView fx:id="weatherIcon" fitHeight="46.0" fitWidth="63.0" pickOnBounds="true" preserveRatio="true">
@@ -186,44 +186,23 @@
                         </GridPane>
                      </children>
                   </HBox>
-                  <HBox prefHeight="366.0" prefWidth="440.0" GridPane.rowIndex="1" GridPane.vgrow="ALWAYS">
-                     <children>
-                        <HBox alignment="BOTTOM_LEFT" prefHeight="415.0" prefWidth="139.0" spacing="5.0">
-                           <children>
-                              <FontAwesomeIconView fill="WHITE" glyphName="TWITTER" size="15" wrappingWidth="13.168289184570312" />
-                              <Label prefHeight="14.0" prefWidth="126.0" styleClass="fontType" stylesheets="@Default.css" text="\@BrighamWomens" textFill="WHITE">
-                                 <font>
-                                    <Font name="Heiti TC Light" size="13.0" />
-                                 </font>
-                              </Label>
-                           </children>
-                           <HBox.margin>
-                              <Insets bottom="10.0" />
-                           </HBox.margin>
-                        </HBox>
-                        <HBox alignment="CENTER" prefHeight="366.0" prefWidth="491.0">
-                           <children>
-                              <JFXButton fx:id="HomeFindPath" alignment="CENTER" buttonType="RAISED" contentDisplay="TOP" focusTraversable="false" onAction="#SwitchToPathfindScreen" prefHeight="310.0" prefWidth="345.0" ripplerFill="WHITE" style="-fx-border-width: 2; -fx-border-radius: 10; -fx-background-radius: 10;" styleClass="buttonMain" stylesheets="@Default.css" text="Navigation" textFill="WHITE">
-                                 <font>
-                                    <Font name="Trebuchet MS" size="45.0" />
-                                 </font>
-                                 <graphic>
-                                    <FontAwesomeIconView fill="WHITE" glyphName="MAP_ALT" size="200" wrappingWidth="230.97364807128906" />
-                                 </graphic>
-                                 <opaqueInsets>
-                                    <Insets />
-                                 </opaqueInsets>
-                                 <effect>
-                                    <DropShadow color="WHITE" />
-                                 </effect>
-                                 <HBox.margin>
-                                    <Insets left="61.0" />
-                                 </HBox.margin>
-                              </JFXButton>
-                           </children>
-                        </HBox>
-                     </children>
-                  </HBox>
+                  <JFXButton fx:id="HomeFindPath" alignment="CENTER" buttonType="RAISED" contentDisplay="TOP" focusTraversable="false" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onAction="#SwitchToPathfindScreen" prefHeight="298.0" prefWidth="325.0" ripplerFill="WHITE" style="-fx-border-width: 3; -fx-border-radius: 10; -fx-background-radius: 10;" styleClass="buttonBig" stylesheets="@Default.css" text="Navigation" textFill="WHITE" GridPane.halignment="RIGHT" GridPane.rowIndex="1" GridPane.valignment="CENTER">
+                     <font>
+                        <Font name="Heiti TC Light" size="45.0" />
+                     </font>
+                     <graphic>
+                        <FontAwesomeIconView fill="WHITE" glyphName="MAP_ALT" size="200" wrappingWidth="230.97364807128906" />
+                     </graphic>
+                     <opaqueInsets>
+                        <Insets />
+                     </opaqueInsets>
+                     <effect>
+                        <DropShadow color="WHITE" />
+                     </effect>
+                     <GridPane.margin>
+                        <Insets right="75.0" />
+                     </GridPane.margin>
+                  </JFXButton>
                </children>
             </GridPane>
          </children>
@@ -238,5 +217,11 @@
             <Font size="15.0" />
          </font>
       </JFXTextField>
+      <Label layoutX="40.0" layoutY="839.0" prefHeight="30.0" prefWidth="185.0" text="\@BrighamWomens" textFill="WHITE" AnchorPane.bottomAnchor="55.0" AnchorPane.leftAnchor="43.0">
+         <font>
+            <Font size="20.0" />
+         </font>
+      </Label>
+      <FontAwesomeIconView fill="#38a1f3" glyphName="TWITTER" layoutX="3.0" layoutY="750.0" size="30" wrappingWidth="13.168289184570312" AnchorPane.bottomAnchor="53.0" AnchorPane.leftAnchor="10.0" />
    </children>
 </AnchorPane>
