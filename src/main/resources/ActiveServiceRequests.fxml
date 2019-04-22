@@ -119,7 +119,7 @@
                                                     <children>
                                                         <Label alignment="CENTER" prefHeight="45.0" prefWidth="444.0" styleClass="labelTitle" stylesheets="@Default.css" text="Active Prescription Requests" textFill="#f5d96b" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.valignment="CENTER" GridPane.vgrow="NEVER">
                                                             <font>
-                                                                <Font name="Heiti TC Light" size="30.0" />
+                                                                <Font name="Trebuchet MS" size="30.0" />
                                                             </font>
                                                             <effect>
                                                                 <Blend />

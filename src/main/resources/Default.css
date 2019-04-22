@@ -80,8 +80,7 @@
     -fx-border-radius: 10;
     -fx-border-width: 2;
     -fx-pref-height: 75;
-
-    -fx-font-size: 17;
+    -fx-pref-width: 110;
     -jfx-button-type: RAISED;
 }
 
