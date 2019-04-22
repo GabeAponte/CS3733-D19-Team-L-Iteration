@@ -18,6 +18,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
 import javafx.geometry.Point2D;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
@@ -148,7 +149,7 @@ public class EmergencyController {
 
 
     @FXML
-    private void DisableEmergModePress() throws IOException {
+    private void DisableEmergModePress(ActionEvent event) throws IOException {
         //TODO: this v
         //get adminUser.getText() or something like that idk
         // & get adminPassword.getWhatever()
@@ -172,7 +173,8 @@ public class EmergencyController {
             single.setIsAdmin(false);
             if(ea.getEmployeeInformation(uname).get(2).equals("true")){
                 single.setIsAdmin(true);
-                SwitchToNonEmergen("HospitalPathFinding.fxml");
+                Parent newPage = FXMLLoader.load(getClass().getClassLoader().getResource("HospitalPathFinding.fxml"));
+                ((Node) event.getSource()).getScene().setRoot(newPage);
             }
             //do not do anything unless admin logs in correctly
             //SwitchToSignedIn("EmployeeLoggedInHome.fxml");

@@ -270,7 +270,7 @@ public class AdminLoggedInHomeController {
      * do a popup that brings user to emergency mode
      */
     @FXML
-    private void ActivateEmergencyMode() throws IOException {
+    private void ActivateEmergencyMode(ActionEvent event) throws IOException {
         // popup - activate emergency mode?
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setTitle("ACTIVATING EMERGENCY MODE");
@@ -344,14 +344,8 @@ public class AdminLoggedInHomeController {
         Optional<ButtonType> result = alert.showAndWait();
         if (result.get() == ButtonType.OK){
             // ... user chose OK
-            FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("EmergencyScreen.fxml"));
-
-            Parent sceneMain = loader.load();
-
-            Stage theStage = (Stage) EmergencyButton.getScene().getWindow();
-
-            Scene scene = new Scene(sceneMain);
-            theStage.setScene(scene);
+            Parent newPage = FXMLLoader.load(getClass().getClassLoader().getResource("EmergencyScreen.fxml"));
+            ((Node) event.getSource()).getScene().setRoot(newPage);
         } else {
             // ... user chose CANCEL or closed the dialog
         }
