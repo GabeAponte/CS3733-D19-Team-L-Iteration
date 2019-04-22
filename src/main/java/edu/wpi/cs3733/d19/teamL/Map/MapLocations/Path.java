@@ -3,7 +3,7 @@ package edu.wpi.cs3733.d19.teamL.Map.MapLocations;
 import java.util.ArrayList;
 import java.util.Collections;
 
-public class Path {
+public class Path extends javafx.scene.shape.Path {
 
     private ArrayList<Location> path;
 
