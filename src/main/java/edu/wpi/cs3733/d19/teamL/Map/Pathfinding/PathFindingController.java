@@ -304,6 +304,7 @@ public class PathFindingController {
         changeMapLabel();
         displayKiosk();
         clear();
+        gesturePane.reset();
         direction.clear();
     }
     @FXML
@@ -326,6 +327,7 @@ public class PathFindingController {
         changeMapLabel();
         displayKiosk();
         clear();
+        gesturePane.reset();
         direction.clear();
     }
     @FXML
@@ -337,6 +339,7 @@ public class PathFindingController {
         changeMapLabel();
         displayKiosk();
         clear();
+        gesturePane.reset();
         direction.clear();
     }
     @FXML
@@ -348,6 +351,7 @@ public class PathFindingController {
         changeMapLabel();
         displayKiosk();
         clear();
+        gesturePane.reset();
         direction.clear();
     }
     @FXML
@@ -359,6 +363,7 @@ public class PathFindingController {
         changeMapLabel();
         displayKiosk();
         clear();
+        gesturePane.reset();
         direction.clear();
     }
 
@@ -750,6 +755,7 @@ public class PathFindingController {
         }
         circles.add(kiosk);
         pathPane.getChildren().add(kiosk);
+        labels.add(hereLabel);
     }
 
     @FXML
