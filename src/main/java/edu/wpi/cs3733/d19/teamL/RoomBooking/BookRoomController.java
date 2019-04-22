@@ -79,9 +79,6 @@ public class BookRoomController {
     private ImageView roomImage;
 
     @FXML
-    private Button bookRoomBack;
-
-    @FXML
     private Button viewWeekly;
 
     Timeline timeout;

@@ -118,9 +118,6 @@
                   <ColumnConstraints halignment="CENTER" hgrow="ALWAYS" maxWidth="1.7976931348623157E308" minWidth="-Infinity" percentWidth="50.0" prefWidth="0.0" />
                </columnConstraints>
                <rowConstraints>
-                  <RowConstraints fillHeight="false" minHeight="100.0" prefHeight="30.0" vgrow="NEVER" />
-                  <RowConstraints fillHeight="false" minHeight="100.0" prefHeight="30.0" vgrow="NEVER" />
-                  <RowConstraints fillHeight="false" minHeight="10.0" prefHeight="30.0" vgrow="NEVER" />
                   <RowConstraints fillHeight="false" vgrow="NEVER" />
                   <RowConstraints vgrow="ALWAYS" />
                </rowConstraints>
@@ -131,7 +128,7 @@
                   <Insets />
                </VBox.margin>
                <children>
-                  <JFXButton fx:id="HomeServiceRequest" alignment="CENTER" buttonType="RAISED" contentDisplay="TOP" focusTraversable="false" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onAction="#SwitchToServiceScreen" prefHeight="298.0" prefWidth="325.0" ripplerFill="WHITE" style="-fx-border-width: 3; -fx-background-radius: 10; -fx-border-radius: 10;" styleClass="buttonHome" stylesheets="@Default.css" text="Request" textFill="WHITE" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.rowIndex="4" GridPane.valignment="CENTER">
+                  <JFXButton fx:id="HomeServiceRequest" alignment="CENTER" buttonType="RAISED" contentDisplay="TOP" focusTraversable="false" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onAction="#SwitchToServiceScreen" prefHeight="298.0" prefWidth="325.0" ripplerFill="WHITE" style="-fx-border-width: 3; -fx-background-radius: 10; -fx-border-radius: 10;" styleClass="buttonHome" stylesheets="@Default.css" text="Request" textFill="WHITE" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.rowIndex="1" GridPane.valignment="CENTER">
                      <font>
                         <Font name="Heiti TC Light" size="45.0" />
                      </font>
@@ -142,7 +139,60 @@
                         <FontAwesomeIconView fill="WHITE" glyphName="BELL_ALT" size="200" text="" />
                      </graphic>
                   </JFXButton>
-                  <JFXButton fx:id="HomeFindPath" alignment="CENTER" buttonType="RAISED" contentDisplay="TOP" focusTraversable="false" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onAction="#SwitchToPathfindScreen" prefHeight="298.0" prefWidth="325.0" ripplerFill="WHITE" style="-fx-border-width: 3; -fx-border-radius: 10; -fx-background-radius: 10;" styleClass="buttonHome" stylesheets="@Default.css" text="Navigation" textFill="WHITE" GridPane.halignment="RIGHT" GridPane.rowIndex="4" GridPane.valignment="CENTER">
+                  <HBox prefHeight="168.0" prefWidth="525.0" spacing="5.0" style="-fx-border-color: transparent; -fx-border-radius: 5; -fx-border-width: 5;" GridPane.columnSpan="2">
+                     <children>
+                        <GridPane prefHeight="182.0" prefWidth="1270.0" HBox.hgrow="ALWAYS">
+                          <columnConstraints>
+                            <ColumnConstraints hgrow="SOMETIMES" maxWidth="1.7976931348623157E308" minWidth="10.0" percentWidth="50.0" prefWidth="640.0" />
+                            <ColumnConstraints hgrow="SOMETIMES" maxWidth="1.7976931348623157E308" minWidth="0.0" percentWidth="5.0" prefWidth="101.033935546875" />
+                              <ColumnConstraints hgrow="SOMETIMES" maxWidth="1.7976931348623157E308" minWidth="0.0" percentWidth="45.0" prefWidth="533.966064453125" />
+                          </columnConstraints>
+                          <rowConstraints>
+                              <RowConstraints maxHeight="73.147705078125" minHeight="10.0" percentHeight="50.0" prefHeight="73.147705078125" vgrow="NEVER" />
+                            <RowConstraints maxHeight="70.0" minHeight="0.0" percentHeight="50.0" prefHeight="66.852294921875" vgrow="NEVER" />
+                          </rowConstraints>
+                           <children>
+                              <VBox maxWidth="5.0" minWidth="5.0" prefWidth="5.0" style="-fx-background-color: transparent;" GridPane.columnSpan="2147483647" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" GridPane.rowSpan="2147483647" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS" />
+                              <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="65.0" prefWidth="899.0" styleClass="labelTitle" stylesheets="@Default.css" text="Welcome to Brigham and Women's" textFill="#f5d96b" GridPane.columnSpan="2147483647" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+                                 <font>
+                                    <Font name="Heiti TC Light" size="52.0" />
+                                 </font>
+                                 <GridPane.margin>
+                                    <Insets top="100.0" />
+                                 </GridPane.margin>
+                              </Label>
+                              <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="5.0" GridPane.columnSpan="3" GridPane.rowIndex="1">
+                                 <children>
+                                    <Label fx:id="dateLabel" alignment="CENTER" contentDisplay="CENTER" prefHeight="52.0" prefWidth="164.0" styleClass="labelPopupDesc" stylesheets="@Default.css" text="99/99/9999" textAlignment="CENTER" textFill="WHITE">
+                                       <font>
+                                          <Font name="Trebuchet MS" size="28.0" />
+                                       </font>
+                                    </Label>
+                                    <ImageView fx:id="weatherIcon" fitHeight="46.0" fitWidth="63.0" pickOnBounds="true" preserveRatio="true">
+                                       <HBox.margin>
+                                          <Insets left="5.0" />
+                                       </HBox.margin>
+                                    </ImageView>
+                                     <Label fx:id="tempDisplay" alignment="CENTER" contentDisplay="CENTER" prefHeight="52.0" prefWidth="91.0" styleClass="labelPopupDesc" stylesheets="@Default.css" text="99 . F" textAlignment="CENTER" textFill="WHITE">
+                                       <font>
+                                          <Font name="Heiti TC Light" size="28.0" />
+                                       </font>
+                                    </Label>
+                                    <Label fx:id="timeLabel" alignment="CENTER" contentDisplay="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="65.0" prefWidth="136.0" styleClass="labelPopupDesc" stylesheets="@Default.css" text="99:99 AM" textAlignment="CENTER" textFill="WHITE">
+                                       <font>
+                                          <Font name="Heiti TC Light" size="28.0" />
+                                       </font>
+                                    </Label>
+                                 </children>
+                                 <GridPane.margin>
+                                    <Insets top="75.0" />
+                                 </GridPane.margin>
+                              </HBox>
+                           </children>
+                        </GridPane>
+                     </children>
+                  </HBox>
+                  <JFXButton fx:id="HomeFindPath" alignment="CENTER" buttonType="RAISED" contentDisplay="TOP" focusTraversable="false" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onAction="#SwitchToPathfindScreen" prefHeight="298.0" prefWidth="325.0" ripplerFill="WHITE" style="-fx-border-width: 3; -fx-border-radius: 10; -fx-background-radius: 10;" styleClass="buttonHome" stylesheets="@Default.css" text="Navigation" textFill="WHITE" GridPane.halignment="RIGHT" GridPane.rowIndex="1" GridPane.valignment="CENTER">
                      <font>
                         <Font name="Heiti TC Light" size="45.0" />
                      </font>
@@ -159,39 +209,6 @@
                         <Insets bottom="40.0" right="75.0" />
                      </GridPane.margin>
                   </JFXButton>
-                  <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="65.0" prefWidth="899.0" styleClass="labelTitle" stylesheets="@Default.css" text="Welcome to Brigham and Women's" textFill="#f5d96b" GridPane.columnSpan="2147483647">
-                     <font>
-                        <Font name="Heiti TC Light" size="52.0" />
-                     </font>
-                  </Label>
-                  <Label fx:id="timeLabel" alignment="CENTER" contentDisplay="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="65.0" prefWidth="136.0" styleClass="labelPopupDesc" stylesheets="@Default.css" text="99:99 AM" textAlignment="CENTER" textFill="WHITE" GridPane.rowIndex="1">
-                     <font>
-                        <Font name="Trebuchet MS" size="28.0" />
-                     </font>
-                  </Label>
-                  <ImageView fx:id="weatherIcon" fitHeight="46.0" fitWidth="63.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.rowIndex="2">
-                     <GridPane.margin>
-                        <Insets right="75.0" />
-                     </GridPane.margin>
-                  </ImageView>
-                  <Label fx:id="dateLabel" alignment="CENTER" contentDisplay="CENTER" prefHeight="52.0" prefWidth="164.0" styleClass="labelPopupDesc" stylesheets="@Default.css" text="99/99/9999" textAlignment="CENTER" textFill="WHITE" GridPane.rowIndex="2">
-                     <font>
-                        <Font name="Trebuchet MS" size="28.0" />
-                     </font>
-                  </Label>
-                  <Label fx:id="tempDisplay" alignment="CENTER" contentDisplay="CENTER" prefHeight="52.0" prefWidth="91.0" styleClass="labelPopupDesc" stylesheets="@Default.css" text="99 . F" textAlignment="CENTER" textFill="WHITE" GridPane.columnIndex="1" GridPane.rowIndex="2">
-                     <font>
-                        <Font name="Trebuchet MS" size="28.0" />
-                     </font>
-                     <GridPane.margin>
-                        <Insets left="75.0" />
-                     </GridPane.margin>
-                  </Label>
-                  <Label styleClass="labelPopupDesc" stylesheets="@Default.css" text="Boston, MA" GridPane.columnIndex="1" GridPane.rowIndex="1">
-                     <font>
-                        <Font name="Trebuchet MS" size="28.0" />
-                     </font>
-                  </Label>
                </children>
             </GridPane>
          </children>

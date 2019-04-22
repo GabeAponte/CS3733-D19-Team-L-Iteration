@@ -1,15 +1,94 @@
 
+.buttonMain{
+    -fx-background-color: white;
+    -fx-border-color: #012d5a;
+    -fx-border-radius: 10;
+    -fx-border-width: 3;
+    -fx-text-fill: #012d5a;
+    -fx-background-radius: 10;
+    -jfx-button-type: RAISED;
+
+}
+
+.buttonMain .glyph-icon {
+    -fx-fill: #012d5a;
+}
+
+.buttonMain:hover{
+    -fx-background-color: #012d5a;
+    -fx-text-fill: white;
+
+}
+
+.buttonMain:hover .glyph-icon{
+    -fx-fill: white;
+}
+
+.buttonBig{
+    fx-background-color: trasnparent;
+    -fx-border-color: #F5D96B;
+    -fx-border-radius: 10;
+    -fx-border-width: 3;
+    -fx-text-fill: white;
+    -fx-background-radius: 10;
+
+}
+
+.buttonBig .glyph-icon {
+    -fx-fill: white;
+}
+
+.buttonBig:hover{
+    -fx-background-color: white;
+    -fx-text-fill: #012d5a;
+
+}
+
+.buttonBig:hover .glyph-icon{
+    -fx-fill: #012d5a;
+}
+
+.buttonHome{
+    -fx-background-color: transparent;
+    /*-fx-border-color: #F5D96B;*/
+    -fx-text-fill: white;
+    -fx-background-radius: 10;
+   /* -fx-border-color : #F5D96B;
+    /*-fx-border-radius: 10;
+    -fx-border-width: 2;*/
+
+}
+
+.buttonHome .glyph-icon {
+    -fx-fill: white;
+}
+
+.buttonHome:hover{
+    -fx-background-color: white;
+    -fx-text-fill: #012d5a;
+
+}
+
+.buttonHome:hover .glyph-icon{
+    -fx-fill: #012d5a;
+}
+
 .buttonToolbar{
+    -fx-background-color: white;
     -fx-background-radius: 10000;
     -fx-border-color : #012D5A;
     -fx-border-radius: 100;
     -fx-border-width: 2;
     -fx-pref-height: 75;
+
+    -fx-font-size: 17;
+    -jfx-button-type: RAISED;
 }
 
 .buttonToolbar:hover{
     -fx-background-color: #012d5a;
     -fx-text-fill: white;
+
 }
 
 .buttonToolbar:hover .glyph-icon{
@@ -22,11 +101,14 @@
     -fx-border-radius: 100;
     -fx-border-width: 2;
     -fx-pref-height: 46;
+
+    -jfx-button-type: RAISED;
 }
 
 .buttonMap:hover{
     -fx-background-color: #012d5a;
     -fx-text-fill: white;
+
 }
 
 .buttonMap:hover .glyph-icon{
@@ -47,27 +129,32 @@
 
 .vboxTextfieldOutline {
     -fx-border-color: #F5D96B;
-
 }
 
 .radio-button {
     -jfx-selected-color:  #f5d96b;
-    -jfx-unselected-color: white;
-    -fx-text-fill: white;
+
+    -jfx-unselected-color: #012d5a;
+    -fx-text-fill: #012d5a;
 }
 
 .labelTitle {
     -fx-text-fill: #f5d96b;
+
 }
+
 .labelPopupTitle {
     -fx-text-fill: black;
+
 }
+
 .labelPopupDesc {
     -fx-text-fill: white;
 }
 
 .labelMapFloor {
     -fx-text-fill: #012d5a;
+
 }
 
 .AnchorPainMain{
@@ -76,6 +163,7 @@
 
 .text-area{
     -fx-text-fill: white;
+
 }
 
 .jfx-tree-table-view {
@@ -83,6 +171,7 @@
     -fx-background-radius: 20;
     -fx-border-width: 5;
     -fx-border-radius: 20;
+
 }
 
 
@@ -102,12 +191,14 @@
 .tab:selected .tab-label {
     -fx-alignment: CENTER;
     -fx-text-fill: BLACK;
+
 }
 
 .tab:hover{
     -fx-background-color: #f1cc39;;
     -fx-background-radius: 1000000;
     -fx-text-fill: BLACK;
+
     /*
     -fx-text-fill: #f5d96b ;
      */
@@ -115,10 +206,12 @@
 .jfx-tab-pane .tab:selected {
     -fx-background-color: #efc318;
     -fx-background-radius: 1000000;
+
 }
 .tab:hover .tab-label {
     -fx-alignment: CENTER;
     -fx-text-fill: BLACK;
+
 }
 
 .jfx-tab-pane .tab-selected-line {
@@ -127,20 +220,25 @@
 
 .labelWelcome{
     -fx-text-fill: #F5D96B;
+
 }
 
 .buttonMain{
     -fx-border-color: #F5D96B;
+    -fx-background-color: #012d5a;
     -fx-text-fill: white;
+
 }
 
 .buttonMain .glyph-icon {
     -fx-fill: white;
 }
 
-.buttonMain:hover{
+.buttonMain:hover {
     -fx-background-color: white;
     -fx-text-fill: #012d5a;
+
+    -fx-font-size: 45;
 }
 
 .buttonMain:hover .glyph-icon{
@@ -151,15 +249,21 @@
     -fx-background-color: white;
     -fx-prompt-text-fill: black;
     -fx-text-fill: black;
+
     -jfx-focus-color: transparent;
-    -jfx-unfocus-color: transparent
+    -jfx-unfocus-color: transparent;
 }
 
 .jfx-text-field-normal {
-    -fx-prompt-text-fill: WHITE;
-    -fx-text-fill: WHITE;
+    -fx-prompt-text-fill: #012d5a;
+    -fx-text-fill: #012d5a;
     -jfx-focus-color: #f5d96b;
-    -jfx-unfocus-color: white
+
+    -jfx-unfocus-color: #012d5a;
+}
+
+.jfx-text-field-normal .input-line {
+    -fx-background-size: 4;
 }
 
 .jfx-text-field-login{
@@ -167,7 +271,9 @@
     -fx-prompt-text-fill: black;
     -fx-text-fill: black;
     -jfx-focus-color: #f5d96b;
-    -jfx-unfocus-color: transparent
+    -jfx-unfocus-color: transparent;
+
+
 }
 
 .password-field-login{
@@ -188,6 +294,7 @@
     -fx-border-color: #f5d96b;
     -fx-border-width: 3;
     -fx-border-radius: 20;
+
 }
 
 .jfx-text-areaSuggestionTable {
@@ -197,33 +304,39 @@
     -jfx-unfocus-color: transparent;
     -fx-border-color: #f5d96b;
     -fx-border-radius: 20;
+
 }
 
 .jfx-combo-box {
     -fx-font-size : 20 pt;
-    -fx-text-fill : white;
+    -fx-text-fill : #012d5a;
     -jfx-focus-color: #f5d96b;
-    -jfx-unfocus-color: white;
-    -fx-prompt-text-fill: white;
+    -jfx-unfocus-color: #012d5a;
+    -fx-prompt-text-fill: #012d5a;
+
 
 }
 
 .jfx-combo-box .text-field {
     -fx-text-fill : white;
 
+
 }
 
 .jfx-combo-box .text-area {
     -fx-text-fill : white;
 
+
 }
 
 .jfx-combo-box .list-view .list-cell {
--fx-text-fill : black;
+    -fx-text-fill : black;
+
 }
 
 .jfx-combo-box .list-cell {
     -fx-text-fill : white;
+
 }
 
 .jfx-combo-box .arrow {
@@ -237,24 +350,29 @@
     -jfx-unfocus-color: white;
     -fx-prompt-text-fill: white;
 
+
 }
 
 .jfx-combo-box-Popup .text-field {
     -fx-text-fill : white;
+
 
 }
 
 .jfx-combo-box-Popup .text-area {
     -fx-text-fill : white;
 
+
 }
 
 .jfx-combo-box-Popup .list-view .list-cell {
     -fx-text-fill : black;
+
 }
 
 .jfx-combo-box-Popup .list-cell {
     -fx-text-fill : white;
+
 }
 
 .jfx-combo-box-Popup .arrow {
@@ -269,24 +387,29 @@
     -jfx-unfocus-color: white;
     -fx-prompt-text-fill: white;
 
+
 }
 
 .jfx-combo-box-PathMenu .text-field {
     -fx-text-fill : white;
+
 
 }
 
 .jfx-combo-box-PathMenu .text-area {
     -fx-text-fill : white;
 
+
 }
 
 .jfx-combo-box-PathMenu .list-view .list-cell {
     -fx-text-fill : black;
+
 }
 
 .jfx-combo-box-PathMenu .list-cell {
     -fx-text-fill : white;
+
 }
 
 .jfx-combo-box-PathMenu .arrow {
@@ -300,24 +423,29 @@
     -jfx-unfocus-color: white;
     -fx-prompt-text-fill: white;
 
+
 }
 
 .jfx-combo-box-PathMenu2 .text-field {
     -fx-text-fill : white;
+
 
 }
 
 .jfx-combo-box-PathMenu2 .text-area {
     -fx-text-fill : white;
 
+
 }
 
 .jfx-combo-box-PathMenu2 .list-view .list-cell {
     -fx-text-fill : black;
+
 }
 
 .jfx-combo-box-PathMenu2 .list-cell {
     -fx-text-fill : white;
+
 }
 
 .jfx-combo-box-PathMenu2 .arrow {
@@ -326,6 +454,7 @@
 
 .toggle-button {
     -fx-text-fill: white;
+
 
 }
 
@@ -337,6 +466,8 @@
     -jfx-focus-color: #f5d96b;
     -jfx-unfocus-color: white;
     -jfx-default-color: #f5d96b;
+
+
 }
 
 .jfx-date-picker .text-field{
@@ -346,6 +477,7 @@
     -jfx-focus-color: #f5d96b;
     -jfx-unfocus-color: white;
     -jfx-default-color: #f5d96b;
+
 }
 .jfx-date-picker .input-line {
     -fx-background-color: white;
@@ -361,6 +493,7 @@
     -jfx-focus-color: #f5d96b;
     -jfx-unfocus-color: white;
     -jfx-default-color: #f5d96b;
+
 }
 
 .jfx-time-picker .text-field{
@@ -370,6 +503,7 @@
     -jfx-focus-color: #f5d96b;
     -jfx-unfocus-color: white;
     -jfx-default-color: #f5d96b;
+
 }
 
 .jfx-time-picker .input-line {
@@ -380,10 +514,73 @@
 }
 
 .jfx-password-fieldEdit{
-    -fx-prompt-text-fill: white;
-    -fx-text-fill: white;
+    -fx-prompt-text-fill: #012d5a;
+    -fx-text-fill: #012d5a;
+    -jfx-focus-color :#f5d96b;
+    -jfx-unfocus-color: #012d5a;
 }
 
+.buttonSecurity1{
+    -fx-border-color: green;
+    -fx-text-fill: white;
 
+}
 
+.buttonSecurity1:hover{
+    -fx-border-color: white;
+    -fx-background-color: green;
+    -fx-text-fill: #012d5a;
 
+}
+
+.buttonSecurity2{
+    -fx-border-color: #ccff00;
+    -fx-text-fill: white;
+
+}
+
+.buttonSecurity2:hover{
+    -fx-border-color: white;
+    -fx-background-color: #ccff00;
+    -fx-text-fill: #012d5a;
+
+}
+
+.buttonSecurity3{
+    -fx-border-color: #ffb300;
+    -fx-text-fill: white;
+
+}
+
+.buttonSecurity3:hover{
+    -fx-border-color: white;
+    -fx-background-color: #ffb300;
+    -fx-text-fill: #012d5a;
+
+}
+
+.buttonSecurity4{
+    -fx-border-color: #ff7700;
+    -fx-text-fill: white;
+
+}
+
+.buttonSecurity4:hover{
+    -fx-border-color: white;
+    -fx-background-color: #ff7700;
+    -fx-text-fill: #012d5a;
+
+}
+
+.buttonSecurity5{
+    -fx-border-color: #ff1100;
+    -fx-text-fill: white;
+
+}
+
+.buttonSecurity5:hover{
+    -fx-border-color: white;
+    -fx-background-color:  #ff1100;
+    -fx-text-fill: #012d5a;
+
+}
