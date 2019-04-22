@@ -348,11 +348,8 @@ public class EmergencyController {
         //sets the path
 
         if(path != null  &&  currentMap.equals(kioskTemp.getFloor())) {
-            System.out.println("path is confirmed not null and sees same floor");
             displayingPath = true;
             displayPath();
-        } else{
-            System.out.println("paht is confirmed null -figure out how to fix");
         }
         gotoKioskFloor();
         displayKiosk();
@@ -401,7 +398,6 @@ public class EmergencyController {
             cleanLabel();
         }
         if(path != null){
-            System.out.println("def not null");
             displayingPath = true;
             displayPath();
         }
@@ -420,7 +416,6 @@ public class EmergencyController {
             cleanLabel();
         }
         if(path != null){
-            System.out.println("def not null");
             displayingPath = true;
             displayPath();
         }
@@ -438,7 +433,6 @@ public class EmergencyController {
             cleanLabel();
         }
         if(path != null){
-            System.out.println("def not null");
             displayingPath = true;
             displayPath();
         }
@@ -456,7 +450,6 @@ public class EmergencyController {
             cleanLabel();
         }
         if(path != null){
-            System.out.println("def not null");
             displayingPath = true;
             displayPath();
         }
@@ -474,7 +467,6 @@ public class EmergencyController {
             cleanLabel();
         }
         if(path != null){
-            System.out.println("def not null");
             displayingPath = true;
             displayPath();
         }
@@ -492,7 +484,6 @@ public class EmergencyController {
             cleanLabel();
         }
         if(path != null){
-            System.out.println("def not null");
             displayingPath = true;
             displayPath();
         }
