@@ -65,7 +65,7 @@
                     </right>
 
                 </JFXToolbar>
-                <JFXToolbar minHeight="-Infinity" prefHeight="10.0" prefWidth="1280.0" style="-fx-background-color: F5D96B;" />
+                <JFXToolbar minHeight="-Infinity" prefHeight="10.0" prefWidth="1280.0" style="-fx-background-color: RED;" />
                 <StackPane fx:id="mainContent" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" style="-fx-background-color:rgba(0,0,0,0.30)" VBox.vgrow="ALWAYS">
                     <children>
                         <GridPane fx:id="gridPane" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
@@ -188,9 +188,9 @@
                                         <Insets bottom="24.0" left="600.0" />
                                     </GridPane.margin>
                                 </JFXButton>
-                                <VBox fx:id="vLeft" maxWidth="-Infinity" minWidth="-Infinity" prefHeight="200.0" prefWidth="4.0" style="-fx-background-color: f5d96b;" GridPane.halignment="LEFT" />
-                                <HBox fx:id="vBottom" maxHeight="-Infinity" minHeight="-Infinity" prefHeight="4.0" prefWidth="200.0" style="-fx-background-color: f5d96b;" GridPane.valignment="BOTTOM" GridPane.vgrow="NEVER" />
-                                <VBox maxWidth="-Infinity" minWidth="-Infinity" prefHeight="200.0" prefWidth="3.25" style="-fx-background-color: f5d96b;" GridPane.columnIndex="1" />
+                                <VBox fx:id="vLeft" maxWidth="-Infinity" minWidth="-Infinity" prefHeight="200.0" prefWidth="4.0" style="-fx-background-color: RED;" GridPane.halignment="LEFT" />
+                                <HBox fx:id="vBottom" maxHeight="-Infinity" minHeight="-Infinity" prefHeight="4.0" prefWidth="200.0" style="-fx-background-color: RED;" GridPane.valignment="BOTTOM" GridPane.vgrow="NEVER" />
+                                <VBox maxWidth="-Infinity" minWidth="-Infinity" prefHeight="200.0" prefWidth="3.25" style="-fx-background-color: RED;" GridPane.columnIndex="1" />
                             </children>
                             <StackPane.margin>
                                 <Insets />

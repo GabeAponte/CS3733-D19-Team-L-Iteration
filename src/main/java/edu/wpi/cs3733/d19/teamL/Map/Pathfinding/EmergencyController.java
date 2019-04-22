@@ -342,10 +342,11 @@ public class EmergencyController {
         //DISPLAYS ALL EXITS HERE
         displayExits();
 
-
         //FINDS CLOSEST EXIT
         findClosestExit();
         //also sets the direction setTetxt stuff
+        //sets the path
+
         if(path != null  &&  currentMap.equals(kioskTemp.getFloor())) {
             System.out.println("path is confirmed not null and sees same floor");
             displayingPath = true;
@@ -354,6 +355,8 @@ public class EmergencyController {
             System.out.println("paht is confirmed null -figure out how to fix");
         }
         gotoKioskFloor();
+        displayKiosk();
+        displayExits();
         DisableEmergMode.setDisable(false);
     }
 
@@ -388,7 +391,6 @@ public class EmergencyController {
 
     @FXML
     private void clickedG(){
-        single.setLastTime();
         Map.setImage(new Image("/SoftEng_UI_Mockup_Pics/00_thegroundfloor.png"));
         currentMap = "G";
         changeMapLabel();
@@ -398,12 +400,16 @@ public class EmergencyController {
         } else{
             cleanLabel();
         }
+        if(path != null){
+            System.out.println("def not null");
+            displayingPath = true;
+            displayPath();
+        }
         displayExits();
-        displayPath();
+
     }
     @FXML
     private void clickedL1() {
-        single.setLastTime();
         Map.setImage(new Image("/SoftEng_UI_Mockup_Pics/00_thelowerlevel1.png"));
         currentMap = "L1";
         changeMapLabel();
@@ -413,12 +419,15 @@ public class EmergencyController {
         } else{
             cleanLabel();
         }
+        if(path != null){
+            System.out.println("def not null");
+            displayingPath = true;
+            displayPath();
+        }
         displayExits();
-        displayPath();
     }
     @FXML
     public void clickedL2(){
-        single.setLastTime();
         Map.setImage(new Image("/SoftEng_UI_Mockup_Pics/00_thelowerlevel2.png"));
         currentMap = "L2";
         changeMapLabel();
@@ -428,12 +437,15 @@ public class EmergencyController {
         } else{
             cleanLabel();
         }
+        if(path != null){
+            System.out.println("def not null");
+            displayingPath = true;
+            displayPath();
+        }
         displayExits();
-        displayPath();
     }
     @FXML
     private void clicked1(){
-        single.setLastTime();
         Map.setImage(new Image("/SoftEng_UI_Mockup_Pics/01_thefirstfloor.png"));
         currentMap = "1";
         changeMapLabel();
@@ -443,12 +455,15 @@ public class EmergencyController {
         } else{
             cleanLabel();
         }
+        if(path != null){
+            System.out.println("def not null");
+            displayingPath = true;
+            displayPath();
+        }
         displayExits();
-        displayPath();
     }
     @FXML
     private void clicked2(){
-        single.setLastTime();
         Map.setImage(new Image("/SoftEng_UI_Mockup_Pics/02_thesecondfloor.png"));
         currentMap = "2";
         changeMapLabel();
@@ -458,12 +473,15 @@ public class EmergencyController {
         } else{
             cleanLabel();
         }
+        if(path != null){
+            System.out.println("def not null");
+            displayingPath = true;
+            displayPath();
+        }
         displayExits();
-        displayPath();
     }
     @FXML
     private void clicked3(){
-        single.setLastTime();
         Map.setImage(new Image("/SoftEng_UI_Mockup_Pics/03_thethirdfloor.png"));
         currentMap = "3";
         changeMapLabel();
@@ -473,8 +491,12 @@ public class EmergencyController {
         } else{
             cleanLabel();
         }
+        if(path != null){
+            System.out.println("def not null");
+            displayingPath = true;
+            displayPath();
+        }
         displayExits();
-        displayPath();
     }
 
 
@@ -723,7 +745,6 @@ public class EmergencyController {
      * Also contains code that will generate buttons above transitions between floors
      * Now automatically zooms on the floor's path
      */
-
     public void displayPath(){
         //Clears the lines and circles to avoid any duplicates or reproducing data
         if(displayingPath) {
@@ -946,8 +967,6 @@ public class EmergencyController {
             autoZoom(path.getPath().get(floorSwitch1), path.getPath().get(floorSwitch2));
         }
     }
-
-
     /**
      * @Author: Nikhil
      * This function automatically zooms on our map when we display paths.
