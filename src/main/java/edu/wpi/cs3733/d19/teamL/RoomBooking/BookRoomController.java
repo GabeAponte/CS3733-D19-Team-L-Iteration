@@ -416,7 +416,7 @@ public class BookRoomController {
         flexSpaces.add(new Polygon(150*sr, 230*sr, 200*sr, 230*sr, 200*sr, 340*sr, 150*sr, 340*sr)); //left side desk top
         flexSpaces.add(new Polygon(150*sr, 420*sr, 200*sr, 420*sr, 200*sr, 530*sr, 150*sr, 530*sr)); //left side desk middle
         flexSpaces.add(new Polygon(150*sr, 590*sr, 200*sr, 590*sr, 200*sr, 740*sr, 150*sr, 740*sr)); //left side desk lower
-        flexSpaces.add(new Polygon(320*sr, 560*sr, 540*sr, 560*sr, 540*sr, 710*sr, 340*sr, 710*sr)); //left conference room
+        flexSpaces.add(new Polygon(340*sr, 560*sr, 540*sr, 560*sr, 540*sr, 710*sr, 340*sr, 710*sr)); //left conference room
         flexSpaces.add(new Polygon(200*sr, 1300*sr, 270*sr, 1300*sr, 270*sr, 1360*sr, 200*sr, 1360*sr)); //small three chairs
         flexSpaces.add(new Polygon(570*sr, 1340*sr, 630*sr, 1340*sr, 630*sr, 1430*sr, 570*sr, 1430*sr)); //standalone square
         flexSpaces.add(new Polygon(1320*sr, 2070*sr, 1380*sr, 2070*sr, 1380*sr, 2100*sr, 1320*sr, 2100*sr)); //small two chairs

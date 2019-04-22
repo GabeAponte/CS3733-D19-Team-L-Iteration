@@ -299,7 +299,7 @@
                               <Insets bottom="24.0" left="400.0" />
                            </GridPane.margin>
                         </JFXButton>
-                        <JFXButton fx:id="F4" alignment="CENTER" buttonType="RAISED" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="46.0" prefWidth="80.0" styleClass="buttonMap" stylesheets="@Default.css" text="F4" textFill="#012d5a" GridPane.halignment="CENTER" GridPane.valignment="BOTTOM">
+                        <JFXButton fx:id="F4" alignment="CENTER" buttonType="RAISED" maxHeight="-Infinity" maxWidth="-Infinity" onAction="#clicked4" prefHeight="46.0" prefWidth="80.0" styleClass="buttonMap" stylesheets="@Default.css" text="F4" textFill="#012d5a" GridPane.halignment="CENTER" GridPane.valignment="BOTTOM">
                            <font>
                               <Font name="System Bold" size="20.0" />
                            </font>
@@ -345,7 +345,7 @@
                   <RowConstraints vgrow="NEVER" />
                </rowConstraints>
                <children>
-                  <JFXTextField fx:id="searchField" onAction="#submitSearchField" onInputMethodTextChanged="#submitSearchField"  onMouseClicked="#submitSearchField" prefHeight="30.0" prefWidth="274.0" promptText="Search" styleClass="jfx-text-field-normal" stylesheets="@Default.css" unFocusColor="#d33636" GridPane.columnSpan="2147483647" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER">
+                  <JFXTextField fx:id="searchField" onAction="#submitSearchField" onInputMethodTextChanged="#submitSearchField" onMouseClicked="#submitSearchField" prefHeight="30.0" prefWidth="274.0" promptText="Search" styleClass="jfx-text-field-normal" stylesheets="@Default.css" unFocusColor="#d33636" GridPane.columnSpan="2147483647" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER">
                      <GridPane.margin>
                         <Insets bottom="20.0" left="10.0" right="10.0" top="20.0" />
                      </GridPane.margin>

@@ -15,7 +15,7 @@ public class RoomDisplay {
     double coordinates[] = {0};
     Polygon p;
 
-    RoomDisplay(String name, double[] coords, String niceName){
+    public RoomDisplay(String name, double[] coords, String niceName){
         this.roomName = name;
         this.coordinates = coords;
         this.niceName = niceName;
