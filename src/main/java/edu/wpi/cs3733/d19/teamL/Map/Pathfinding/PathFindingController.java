@@ -885,11 +885,11 @@ public class PathFindingController {
      * @param end
      */
     private void autoZoom(Location start, Location end) {
-        if((Math.abs((start.getXcoord() - end.getXcoord()))) < 2200 &&
-                Math.abs(((start.getYcoord() - end.getYcoord()))) < 750){
+        if((Math.abs((start.getXcoord() - end.getXcoord()))) < 3200 &&
+                Math.abs(((start.getYcoord() - end.getYcoord()))) < 1050){
             double x = gesturePane.getWidth()/(Math.abs((start.getXcoord() - end.getXcoord())));
             double y = gesturePane.getHeight()/Math.abs(((start.getYcoord() - end.getYcoord())));
-            double scale = (Math.min(x, y)/2.5) + 2.0;
+            double scale = (Math.min(x, y)/2) + 1.1;
             gesturePane.reset();
             gesturePane.zoomTo(scale, gesturePane.targetPointAtViewportCentre());
             double xSameVal = (start.getXcoord() + end.getXcoord()) / 2.0*childPane.getWidth()/Map.getImage().getWidth();
