@@ -996,26 +996,32 @@ public class PathFindingController {
         if(floor.equals("L2")) {
             Map.setImage(new Image("/SoftEng_UI_Mockup_Pics/00_thelowerlevel2.png"));
             currentMap = "L2";
+            changeMapLabel();
         }
         if(floor.equals("L1")) {
             Map.setImage(new Image("/SoftEng_UI_Mockup_Pics/00_thelowerlevel1.png"));
             currentMap = "L1";
+            changeMapLabel();
         }
         if(floor.equals("G")) {
             Map.setImage(new Image("/SoftEng_UI_Mockup_Pics/00_thegroundfloor.png"));
             currentMap = "G";
+            changeMapLabel();
         }
         if(floor.equals("1")) {
             Map.setImage(new Image("/SoftEng_UI_Mockup_Pics/01_thefirstfloor.png"));
             currentMap = "1";
+            changeMapLabel();
         }
         if(floor.equals("2")) {
             Map.setImage(new Image("/SoftEng_UI_Mockup_Pics/02_thesecondfloor.png"));
             currentMap = "2";
+            changeMapLabel();
         }
         if(floor.equals("3")) {
             Map.setImage(new Image("/SoftEng_UI_Mockup_Pics/03_thethirdfloor.png"));
             currentMap = "3";
+            changeMapLabel();
         }
 
         //Create all necessary objects for animating path.
