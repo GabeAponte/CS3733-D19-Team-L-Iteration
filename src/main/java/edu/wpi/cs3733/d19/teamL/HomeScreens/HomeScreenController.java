@@ -1,11 +1,12 @@
 package edu.wpi.cs3733.d19.teamL.HomeScreens;
 
 import com.jfoenix.controls.JFXButton;
+import edu.wpi.cs3733.d19.teamL.Map.MapLocations.Location;
 import edu.wpi.cs3733.d19.teamL.Map.Pathfinding.PathFindingController;
 import edu.wpi.cs3733.d19.teamL.Memento;
+import edu.wpi.cs3733.d19.teamL.Reports.BarGraphChartData;
 import edu.wpi.cs3733.d19.teamL.ServiceRequest.MakeServiceRequest.ServiceRequestController;
 import edu.wpi.cs3733.d19.teamL.Singleton;
-import edu.wpi.cs3733.d19.teamL.API.Weather;
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
@@ -21,17 +22,23 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
-import javafx.scene.text.TextFlow;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.util.Duration;
+import net.sf.jasperreports.engine.*;
+import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 
+import java.io.File;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 
 public class HomeScreenController {
 
@@ -274,8 +281,56 @@ public class HomeScreenController {
     }
 
     @FXML
-    private void AboutPress() throws IOException {
-        stop();
+    private void AboutPress() throws IOException, JRException {
+        Singleton single = Singleton.getInstance();
+        ArrayList<Location> toAdd = new ArrayList<Location>();
+        for (Location l : single.lookup.values()) {
+            if (toAdd.size() < 10) {
+                if (toAdd.size() == 0) {
+                    toAdd.add(l);
+                }
+                else {
+                    for (int j = 0; j < toAdd.size(); j++) {
+                        if (l.getXcoord() > toAdd.get(j).getXcoord()) {
+                            //System.out.println("ADDING: size < 10");
+                            toAdd.add(j, l);
+                            break;
+                        }
+                    }
+                }
+                }
+            else {
+                for (int i = 0; i < 10; i++) {
+                    if (l.getXcoord() > toAdd.get(i).getXcoord()) {
+                        //System.out.println("ADDING: size > 10");
+                        toAdd.add(i, l);
+                        toAdd.remove(10);
+                        break;
+                    }
+                }
+            }
+        }
+
+
+        List<BarGraphChartData> cList = new ArrayList<BarGraphChartData>();
+        for (int k = 0; k < 5; k++) {
+            cList.add(new BarGraphChartData(toAdd.get(k).getLongName(), "all",toAdd.get(k).getXcoord()));
+        }
+        System.out.println("LOOPS COMPLETE");
+        File f = new File("PathFindStats.jrxml");
+        JasperReport jasperReport = null;
+        String filePath = f.getAbsolutePath().replace('\\','/');
+        System.out.println(filePath);
+        jasperReport = JasperCompileManager.compileReport(filePath);
+        Map<String, Object> paramMap = new HashMap<String, Object>();
+        JRBeanCollectionDataSource dataSource = new JRBeanCollectionDataSource(cList);
+        Map<String, Object> params = new HashMap<String, Object>();
+        JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, params, dataSource);
+        String outputPath = "C:/Users/PJ-Mara/Desktop/College Files/Sophomore Year/D Term/Soft Eng/Team4/CS3733-D19-Team-L-Iteration/outputPDF.pdf";
+        JasperExportManager.exportReportToPdfFile(jasperPrint, outputPath);
+
+
+        /* stop();
         saveState();
         Singleton single = Singleton.getInstance();
         single.setLastTime();
@@ -288,6 +343,7 @@ public class HomeScreenController {
 
         Scene newScene = new Scene(sceneMain);
         thisStage.setScene(newScene);
+        */
     }
 
     @FXML

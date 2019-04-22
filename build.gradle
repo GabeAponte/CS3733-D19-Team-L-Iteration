@@ -69,7 +69,7 @@ dependencies {
             [group: 'com.github.sarxos', name: 'webcam-capture', version: '0.3.12'],
             [group: 'com.nativelibs4java', name: 'bridj', version: '0.7.0'],
             [group: 'me.xdrop', name: 'fuzzywuzzy', version: '1.2.0'],
-            [group: 'net.sf.jasperreports', name: 'jasperreports', version: '6.1.0']
+            [group: 'net.sf.jasperreports', name: 'jasperreports', version: '4.5.0']
     )
     compile files("jars/ServiceRequest-1.0-SNAPSHOT.jar")
     compile files("jars/jxbrowser-6.23.1.jar")
