@@ -915,30 +915,11 @@ public class PathFindingController {
         int numOfBut = countFloors(floors);
         int totalNum = countFloors(floors);
         int center = (numOfBut + 1)/2;
+        boolean change = false;
         for(int i = 0; i < floors.size()-1; i++) {
             Button fBut = new Button();
-            if(totalNum == 1) {
-                fBut.setPrefSize(50,50);
-                fBut.setText(floors.get(i));
-                fBut.getStyleClass().add("buttonMap");
-//                fBut.setStyle("-fx-background-radius: 10000;" +
-//                        "    -fx-border-color : #012D5A;" +
-//                        "    -fx-border-radius: 100;" +
-//                        "    -fx-border-width: 2;" +
-//                        "    -fx-pref-height: 46;" +
-//                        "-fx-background-color: transparent");
-                int startstore1 = start;
-                int counterstore1 = counter;
-                fBut.setOnAction(event -> {
-                    displaySelected(startstore1, counterstore1);
-                });
-                floorButtons.add(fBut);
-                gridPane.getChildren().add(fBut);
-                gridPane.setMargin(fBut,new Insets(0,0,midy,midx));
-                numOfBut--;
 
-            }
-            else if(!floors.get(i+1).equals(floors.get(start))) {
+            if(!floors.get(i+1).equals(floors.get(start))) {
                 fBut.setPrefSize(50,50);
                 fBut.setText(floors.get(i));
                 fBut.getStyleClass().add("buttonMap");
@@ -963,9 +944,10 @@ public class PathFindingController {
                 numOfBut--;
                 //Reset
                 start = i+1;
+                change = true;
             }
             //This is the final button
-            else if(numOfBut == 1){
+            else if(numOfBut == 1 && change){
                 fBut.setPrefSize(50,50);
                 fBut.setText(floors.get(i));
                 fBut.getStyleClass().add("buttonMap");
