@@ -905,11 +905,14 @@ public class PathFindingController {
      * @param floors
      */
     private void makeButtons(ArrayList<String> floors) {
-        int midx = 400;
-        int midy = 425;
+        int midx = 500;
+        int midy = 650;
         int numOfBut = countFloors(floors);
         int totalNum = countFloors(floors);
         int center = (numOfBut + 1)/2;
+        if(totalNum % 2 == 0){
+            midx = 550;
+        }
         boolean change = false;
         for(int i = 0; i < floors.size()-1; i++) {
             Button fBut = new Button();
