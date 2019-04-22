@@ -60,16 +60,22 @@ public class RoomAccess extends DBAccess {
      * @return
      */
     public ArrayList<String> getAvailRooms(String startDate, String endDate) {
-        String sql = "select name from room left outer join (select rID from reservation where ((? between startDate and endDate) or (? between startDate and endDate) or (startDate between ? and ?) or (endDate between ? and ?))) on roomID = rID where rID is null;";
+        String sql = "select name from room as ro where ro.roomID not in\n" +
+                "            (\n" +
+                "              select re.rID\n" +
+                "              from reservation as re\n" +
+                "              where (startDate <= ? and endDate > ?)\n" +
+                "                or (startDate < ? and endDate >= ?)\n" +
+
+                "\n" +
+                "             )";
         ArrayList<String> data = new ArrayList<String>();
         try (Connection conn = this.connect();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
             pstmt.setString(1, startDate);
-            pstmt.setString(2, endDate);
-            pstmt.setString(3, startDate);
+            pstmt.setString(2, startDate);
+            pstmt.setString(3, endDate);
             pstmt.setString(4, endDate);
-            pstmt.setString(5, startDate);
-            pstmt.setString(6, endDate);
 
             ResultSet rs = pstmt.executeQuery();
             while(rs.next()){
@@ -96,19 +102,18 @@ public class RoomAccess extends DBAccess {
                 "            (\n" +
                 "              select re.rID\n" +
                 "              from reservation as re\n" +
-                "              where (startDate >= ? and startDate < ?)\n" +
-                "                or (endDate > ? and endDate < ?)\n" +
-                "                or (endDate >= ? and startDate <= ?)\n" +
+                "              where (startDate <= ? and endDate > ?)\n" +
+                "                or (startDate < ? and endDate >= ?)\n" +
+
                 "\n" +
                 "             )";
         try (Connection conn = this.connect();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
             pstmt.setString(1, startDate);
-            pstmt.setString(2, endDate);
-            pstmt.setString(3, startDate);
+            pstmt.setString(2, startDate);
+            pstmt.setString(3, endDate);
             pstmt.setString(4, endDate);
-            pstmt.setString(5, endDate);
-            pstmt.setString(6, startDate);
+
 
             ResultSet rs = pstmt.executeQuery();
             while(rs.next()){
