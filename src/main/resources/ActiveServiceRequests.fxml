@@ -68,7 +68,7 @@
                                     <children>
                                         <JFXButton fx:id="logOut" alignment="CENTER" buttonType="RAISED" contentDisplay="TOP" focusTraversable="false" graphicTextGap="0.0" minHeight="-Infinity" onAction="#logOut" prefHeight="75.0" prefWidth="100.0" ripplerFill="#b0b0b0" styleClass="buttonToolbar" stylesheets="@Default.css" text="Log Out" textAlignment="CENTER" textFill="#012d5a">
                                             <font>
-                                                <Font name="System Bold" size="17.0" />
+                                                <Font name="Trebuchet MS Bold" size="17.0" />
                                             </font>
                                             <graphic>
                                                 <FontAwesomeIconView fill="#012d5a" glyphName="USER" size="35" strokeMiterLimit="0.0" textAlignment="CENTER" wrappingWidth="27.27392578125" />
@@ -84,6 +84,9 @@
                                             <HBox.margin>
                                                 <Insets right="10.0" />
                                             </HBox.margin>
+                                 <font>
+                                    <Font name="Trebuchet MS Bold" size="17.0" />
+                                 </font>
                                         </JFXButton>
                                     </children>
                                 </HBox>
@@ -170,7 +173,7 @@
                                                     <children>
                                                         <Label alignment="CENTER" prefHeight="45.0" prefWidth="527.0" styleClass="labelTitle" stylesheets="@Default.css" text="Active IT Requests" textFill="#f5d96b" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.valignment="CENTER" GridPane.vgrow="NEVER">
                                                             <font>
-                                                                <Font name="Heiti TC Light" size="30.0" />
+                                                                <Font name="Trebuchet MS" size="30.0" />
                                                             </font>
                                                             <effect>
                                                                 <Blend />
@@ -221,7 +224,7 @@
                                                     <children>
                                                         <Label alignment="CENTER" prefHeight="45.0" prefWidth="823.0" stylesheets="@Default.css" text="Active Internal Transportation Requests" textFill="#f5d96b" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.valignment="CENTER" GridPane.vgrow="NEVER">
                                                             <font>
-                                                                <Font name="Heiti TC Light" size="30.0" />
+                                                                <Font name="Trebuchet MS" size="30.0" />
                                                             </font>
                                                             <effect>
                                                                 <Blend />
@@ -272,7 +275,7 @@
                                                     <children>
                                                         <Label alignment="CENTER" prefHeight="45.0" prefWidth="808.0" stylesheets="@Default.css" text="Active External Transportation Requests" textFill="#f5d96b" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.valignment="CENTER" GridPane.vgrow="NEVER">
                                                             <font>
-                                                                <Font size="30.0" />
+                                                                <Font name="Trebuchet MS" size="30.0" />
                                                             </font>
                                                             <effect>
                                                                 <Blend />
@@ -323,7 +326,7 @@
                                                     <children>
                                                         <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="45.0" prefWidth="641.0" stylesheets="@Default.css" text="Active Audio/Visual Requests" textFill="#f5d96b" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.valignment="CENTER" GridPane.vgrow="NEVER">
                                                             <font>
-                                                                <Font name="Heiti TC Light" size="30.0" />
+                                                                <Font name="Trebuchet MS" size="30.0" />
                                                             </font>
                                                             <effect>
                                                                 <Blend />
@@ -374,7 +377,7 @@
                                                     <children>
                                                         <Label alignment="CENTER" prefHeight="45.0" prefWidth="676.0" style="-fx-font: H;" stylesheets="@Default.css" text="Active Language Assistance Requests" textFill="#f5d96b" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.valignment="CENTER" GridPane.vgrow="NEVER">
                                                             <font>
-                                                                <Font name="Heiti TC Light" size="30.0" />
+                                                                <Font name="Trebuchet MS" size="30.0" />
                                                             </font>
                                                             <effect>
                                                                 <Blend />
@@ -425,7 +428,7 @@
                                                     <children>
                                                         <Label alignment="CENTER" prefHeight="45.0" prefWidth="567.0" stylesheets="@Default.css" text="Active Religious Requests" textFill="#f5d96b" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.valignment="CENTER" GridPane.vgrow="NEVER">
                                                             <font>
-                                                                <Font name="Heiti TC Light" size="30.0" />
+                                                                <Font name="Trebuchet MS" size="30.0" />
                                                             </font>
                                                             <effect>
                                                                 <Blend />
@@ -476,7 +479,7 @@
                                                     <children>
                                                         <Label alignment="CENTER" prefHeight="45.0" prefWidth="606.0" stylesheets="@Default.css" text="Active Maintenance Requests" textFill="#f5d96b" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.valignment="CENTER" GridPane.vgrow="NEVER">
                                                             <font>
-                                                                <Font name="Heiti TC Light" size="30.0" />
+                                                                <Font name="Trebuchet MS" size="30.0" />
                                                             </font>
                                                             <effect>
                                                                 <Blend />
@@ -527,7 +530,7 @@
                                                     <children>
                                                         <Label alignment="CENTER" prefHeight="45.0" prefWidth="532.0" text="Active Security Requests" textFill="#f5d96b" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.valignment="CENTER" GridPane.vgrow="NEVER">
                                                             <font>
-                                                                <Font name="Heiti TC Light" size="30.0" />
+                                                                <Font name="Trebuchet MS" size="30.0" />
                                                             </font>
                                                             <effect>
                                                                 <Blend />
@@ -578,7 +581,7 @@
                                                     <children>
                                                         <Label alignment="CENTER" prefHeight="45.0" prefWidth="606.0" stylesheets="@Default.css" text="Active Sanitation Requests" textFill="#f5d96b" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.valignment="CENTER" GridPane.vgrow="NEVER">
                                                             <font>
-                                                                <Font size="30.0" />
+                                                                <Font name="Trebuchet MS" size="30.0" />
                                                             </font>
                                                             <effect>
                                                                 <Blend />
