@@ -17,11 +17,11 @@
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<?import javafx.scene.layout.HBox?>
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720" prefWidth="1280" styleClass="AnchorPainMain" stylesheets="@Default.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.d19.teamL.Account.CreateEditAccountController">
 
    <children>
@@ -107,7 +107,7 @@
                 <ColumnConstraints halignment="CENTER" hgrow="ALWAYS" maxWidth="1.7976931348623157E308" minWidth="-Infinity" prefWidth="625.0" />
               </columnConstraints>
               <rowConstraints>
-                  <RowConstraints maxHeight="1.7976931348623157E308" minHeight="0.0" prefHeight="105.96965026855469" valignment="CENTER" vgrow="ALWAYS" />
+                  <RowConstraints maxHeight="-Infinity" minHeight="0.0" valignment="CENTER" vgrow="NEVER" />
                 <RowConstraints maxHeight="1.7976931348623157E308" minHeight="66.57586669921875" prefHeight="75.03034973144531" valignment="CENTER" vgrow="ALWAYS" />
                 <RowConstraints maxHeight="1.7976931348623157E308" minHeight="40.357818603515625" prefHeight="40.357818603515625" valignment="CENTER" vgrow="ALWAYS" />
                   <RowConstraints maxHeight="1.7976931348623157E308" minHeight="65.58786010742188" prefHeight="85.53353881835938" valignment="CENTER" vgrow="ALWAYS" />
@@ -116,6 +116,11 @@
                   <RowConstraints maxHeight="1.7976931348623157E308" minHeight="10.0" prefHeight="173.0" valignment="CENTER" vgrow="ALWAYS" />
               </rowConstraints>
                <children>
+                  <VBox prefHeight="200.0" prefWidth="100.0" style="-fx-background-color: white; -fx-background-radius: 10;" GridPane.columnSpan="2147483647" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" GridPane.rowSpan="2147483647">
+                     <GridPane.margin>
+                        <Insets bottom="50.0" left="75.0" right="75.0" top="10.0" />
+                     </GridPane.margin>
+                  </VBox>
                   <JFXTextField fx:id="employeeID" focusColor="#f6bd38" onKeyReleased="#checkSubmit" prefHeight="40.0" prefWidth="311.0" promptText="Employee ID (Can't be Changed)" styleClass="jfx-text-field-normal" stylesheets="@Default.css" unFocusColor="WHITE" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" GridPane.vgrow="ALWAYS">
                      <GridPane.margin>
                         <Insets left="100.0" right="100.0" />
@@ -147,6 +152,9 @@
                      <effect>
                         <Blend />
                      </effect>
+                     <GridPane.margin>
+                        <Insets bottom="25.0" top="25.0" />
+                     </GridPane.margin>
                   </Label>
                   <JFXTextField fx:id="nickname" focusColor="#f6bd38" onKeyReleased="#checkSubmit" promptText="Nickname" styleClass="jfx-text-field-normal" stylesheets="@Default.css" unFocusColor="WHITE" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="3" GridPane.vgrow="ALWAYS">
                      <font>
@@ -178,12 +186,12 @@
                         <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
                      </rowConstraints>
                      <children>
-                        <JFXButton fx:id="picbtn" alignment="CENTER" buttonType="RAISED" contentDisplay="TOP" focusTraversable="false" onAction="#takePic" prefHeight="110.0" prefWidth="129.0" ripplerFill="WHITE" style="-fx-border-width: 2; -fx-border-radius: 10; -fx-background-radius: 10;" styleClass="buttonMain" stylesheets="@Default.css" text="Add Photo" textAlignment="CENTER" textFill="WHITE" wrapText="true">
+                        <JFXButton fx:id="picbtn" alignment="CENTER" buttonType="RAISED" contentDisplay="TOP" focusTraversable="false" onAction="#takePic" prefHeight="70.0" prefWidth="160.0" ripplerFill="WHITE" styleClass="buttonMain" stylesheets="@Default.css" text="Add Photo" textAlignment="CENTER" textFill="WHITE" wrapText="true">
                            <font>
                               <Font size="18.0" />
                            </font>
                            <graphic>
-                              <FontAwesomeIconView fill="WHITE" glyphName="CAMERA" size="50" textAlignment="CENTER" wrappingWidth="100.93809509277344" />
+                              <FontAwesomeIconView fill="WHITE" glyphName="CAMERA" size="25" textAlignment="CENTER" wrappingWidth="100.93809509277344" />
                            </graphic>
                            <opaqueInsets>
                               <Insets />
@@ -230,7 +238,7 @@
                             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                           </rowConstraints>
                            <children>
-                              <JFXButton fx:id="submit" buttonType="RAISED" onAction="#submitPressed" prefHeight="55.0" prefWidth="160.0" style="-fx-border-width: 2; -fx-border-radius: 50; -fx-background-radius: 50;" styleClass="buttonMain" stylesheets="@Default.css" text="Submit" textFill="WHITE" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.halignment="RIGHT">
+                              <JFXButton fx:id="submit" buttonType="RAISED" onAction="#submitPressed" prefHeight="55.0" prefWidth="160.0" styleClass="buttonMain" stylesheets="@Default.css" text="Submit" textFill="WHITE" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.halignment="RIGHT" GridPane.valignment="TOP">
                                  <font>
                                     <Font size="30.0" />
                                  </font>
@@ -238,7 +246,7 @@
                                     <Insets bottom="20.0" right="100.0" />
                                  </GridPane.margin>
                               </JFXButton>
-                              <JFXButton fx:id="delete" alignment="CENTER" buttonType="RAISED" contentDisplay="RIGHT" onAction="#deleteClicked" prefHeight="7.0" prefWidth="160.0" style="-fx-border-width: 2; -fx-border-radius: 50; -fx-background-radius: 50;" styleClass="buttonMain" stylesheets="@Default.css" text="Delete" textAlignment="CENTER" textFill="WHITE" GridPane.halignment="LEFT">
+                              <JFXButton fx:id="delete" alignment="CENTER" buttonType="RAISED" contentDisplay="RIGHT" onAction="#deleteClicked" prefHeight="7.0" prefWidth="160.0" styleClass="buttonMain" stylesheets="@Default.css" text="Delete" textAlignment="CENTER" textFill="WHITE" GridPane.halignment="LEFT" GridPane.valignment="TOP">
                                  <font>
                                     <Font size="30.0" />
                                  </font>

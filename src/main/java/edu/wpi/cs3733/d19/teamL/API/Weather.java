@@ -73,7 +73,7 @@ public class Weather {
         if(userFriendlyTemp.contains(".") && userFriendlyTemp.indexOf(".") != -1) {
             userFriendlyTemp = userFriendlyTemp.substring(0, userFriendlyTemp.indexOf("."));
         }
-        return userFriendlyTemp + " \u00b0 F";
+        return userFriendlyTemp + "\u00b0F";
     }
 
     /**@author Nathan
