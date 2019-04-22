@@ -929,15 +929,15 @@ public class PathFindingController {
      * @param floors
      */
     private void makeButtons(ArrayList<String> floors) {
-        int midx = 500;
-        int midy = 650;
+        int shift = 0;
         int numOfBut = countFloors(floors);
         int totalNum = countFloors(floors);
         int center = (numOfBut + 1)/2;
         if(totalNum % 2 == 0){
-            midx = 550;
+            shift = 150;
         }
         boolean change = false;
+        boolean stop = false;
         for(int i = 0; i < floors.size()-1; i++) {
             //Sets up the buttons
             JFXButton fBut = new JFXButton();
@@ -954,8 +954,12 @@ public class PathFindingController {
                 });
                 floorButtons.add(fBut);
                 gridPane.getChildren().add(fBut);
-                int diff  = numOfBut - center;
-                gridPane.setMargin(fBut,new Insets(0,0,midy,midx - diff*(100)));
+                gridPane.setHalignment(fBut, HPos.CENTER);
+                gridPane.setValignment(fBut, VPos.TOP);
+                //int diff  = numOfBut - center;
+                int diff  = center - numOfBut;
+                gridPane.setMargin(fBut,new Insets(55,0,0,diff*(200)+ shift));
+
                 //Reduce this as we go so we know how many buttons we have left
                 numOfBut--;
                 //Reset
@@ -963,7 +967,7 @@ public class PathFindingController {
                 change = true;
             }
             //This is the final button
-            else if(numOfBut == 1 && change){
+            else if(numOfBut == 1 && change && !stop){
                 fBut.setPrefSize(50,50);
                 fBut.setText(floors.get(i));
                 fBut.setStyle("-fx-font-weight: BOLD");
@@ -976,8 +980,12 @@ public class PathFindingController {
                 });
                 floorButtons.add(fBut);
                 gridPane.getChildren().add(fBut);
-                int diff  = numOfBut - center;
-                gridPane.setMargin(fBut,new Insets(0,0,midy,midx - diff*(100)));
+                gridPane.setHalignment(fBut, HPos.CENTER);
+                gridPane.setValignment(fBut, VPos.TOP);
+                //int diff  = numOfBut - center;
+                int diff  = center - numOfBut;
+                gridPane.setMargin(fBut,new Insets(55,0,0,diff*(200)+ shift));
+                stop = true;
             }
             counter++;
         }
