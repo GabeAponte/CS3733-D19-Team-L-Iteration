@@ -85,7 +85,6 @@ public class BookRoomController {
     private Button viewWeekly;
 
     Timeline timeout;
-    VisualSimulationThread sim;
     private boolean firstTimeRan = true;
 
     final ObservableList<String> listOfRooms = FXCollections.observableArrayList();
@@ -96,8 +95,7 @@ public class BookRoomController {
     private ArrayList<RoomDisplay> DisplayRooms = new ArrayList<RoomDisplay>();
 
     public void initialize() {
-        sim = new VisualSimulationThread(86);
-        sim.start();
+        Singleton single = Singleton.getInstance();
 
         double room1[] = {2230, 1630, 2650, 1630, 2650, 1880, 2230, 1880};
         double room2[] = {2860, 1130, 3040, 1070, 3180, 1430, 2990, 1500};
@@ -124,18 +122,17 @@ public class BookRoomController {
         roomImage.fitWidthProperty().bind(imagePane.widthProperty());
         roomImage.fitHeightProperty().bind(imagePane.heightProperty());
 
-        displayFlexSpaces(sim.getSimulation());
+        displayFlexSpaces(single.getSimulation());
 
         startTime.setValue(LocalTime.now().plusMinutes(1));
         endTime.setValue(LocalTime.now().plusHours(1).plusMinutes(1));
         datePicker.setValue(LocalDate.now());
-        Singleton single = Singleton.getInstance();
         single.setLastTime();
         timeout = new Timeline(new KeyFrame(Duration.millis(1500), new EventHandler<ActionEvent>() {
 
             @Override
             public void handle(ActionEvent event) {
-                displayFlexSpaces(sim.getSimulation());
+                displayFlexSpaces(single.getSimulation());
                 if ((System.currentTimeMillis() - single.getLastTime()) > single.getTimeoutSec()) {
                     try {
                         single.setLastTime();
@@ -143,12 +140,6 @@ public class BookRoomController {
                         single.setLoggedIn(false);
                         single.setUsername("");
                         single.setIsAdmin(false);
-                        try{
-                            sim.join();
-                        } catch (Exception e){
-                            e.printStackTrace();
-                            sim.stop();
-                        }
                         FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("HospitalHome.fxml"));
 
                         Parent sceneMain = loader.load();
@@ -185,12 +176,6 @@ public class BookRoomController {
     @FXML
     private void switchToTable() throws IOException {
         timeout.stop();
-        try{
-            sim.join();
-        } catch (Exception e){
-            e.printStackTrace();
-            sim.stop();
-        }
         Singleton single = Singleton.getInstance();
         single.setLastTime();
         FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("BookRoom2.fxml"));
@@ -539,12 +524,6 @@ public class BookRoomController {
 
     public void switchToWeekly() throws IOException {
         timeout.stop();
-        try{
-            sim.join();
-        } catch (Exception e){
-            e.printStackTrace();
-            sim.stop();
-        }
         Singleton single = Singleton.getInstance();
         single.setLastTime();
         FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("WeeklySchedule.fxml"));
@@ -579,12 +558,6 @@ public class BookRoomController {
     private void backPressed() throws IOException{
         Singleton single = Singleton.getInstance();
         timeout.stop();
-        try{
-            sim.join();
-        } catch (Exception e){
-            e.printStackTrace();
-            sim.stop();
-        }
         single = Singleton.getInstance();
         single.setLastTime();
         single.setDoPopup(true);
@@ -614,12 +587,6 @@ public class BookRoomController {
     @FXML
     private void logOut() throws IOException {
         timeout.stop();
-        try{
-            sim.join();
-        } catch (Exception e){
-            e.printStackTrace();
-            sim.stop();
-        }
         Singleton single = Singleton.getInstance();
         single.setLastTime();
         single.setUsername("");
