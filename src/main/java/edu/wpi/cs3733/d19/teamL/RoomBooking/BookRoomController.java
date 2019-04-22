@@ -750,13 +750,13 @@ public class BookRoomController {
         openNav.setToX(0.0D);
         TranslateTransition closeNav = new TranslateTransition(new Duration(400.0D), this.reservationPane);
         if (open == true){
-            openNav.setToX(-100.0D-this.reservationPane.getWidth());
+            openNav.setToX(-20.0D-this.reservationPane.getWidth());
             openNav.play();
             resShowing = true;
             openEventInfo(false);
             //System.out.println("ResShowing = true");
         } else {
-            closeNav.setToX(100+this.anchorPane.getWidth()+this.reservationPane.getWidth());
+            closeNav.setToX(20+this.anchorPane.getWidth()+this.reservationPane.getWidth());
             closeNav.play();
             resShowing = false;
             //System.out.println("ResShowing = false");
@@ -772,12 +772,12 @@ public class BookRoomController {
         openNav.setToX(0.0D);
         TranslateTransition closeNav = new TranslateTransition(new Duration(400.0D), this.bookedEventPane);
         if (open == true){
-            openNav.setToX(-500.0D-this.bookedEventPane.getWidth());
+            openNav.setToX(-570.0D-this.bookedEventPane.getWidth());
             openNav.play();
             openReservation(false);
             bookedEventShowing = true;
         } else {
-            closeNav.setToX(500+this.anchorPane.getWidth()+this.reservationPane.getWidth());
+            closeNav.setToX(570+this.anchorPane.getWidth()+this.reservationPane.getWidth());
             closeNav.play();
             bookedEventShowing = false;
         }
