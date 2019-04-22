@@ -237,7 +237,6 @@ public class PathFindingController {
 
     private ArrayList<Polygon> flexSpaces = new ArrayList<Polygon>();
     private ArrayList<Polygon> DisplayRooms = new ArrayList<Polygon>();
-    private VisualSimulationThread sim;
     private final ObservableList<String> listOfRooms = FXCollections.observableArrayList();
     private ArrayList<String> rooms = new ArrayList<>();
 
@@ -384,7 +383,7 @@ public class PathFindingController {
 
         changeMapLabel();
         displayKiosk();
-        displayFlexSpaces(sim.getSimulation());
+        displayFlexSpaces(single.getSimulation());
 
         if(path != null){
             displayPath();
@@ -610,9 +609,6 @@ public class PathFindingController {
         suggestions.setVisible(false);
         suggestions.setPrefWidth(searchField.getPrefWidth());
         suggestions.setStyle("-fx-background-color:  #012d5a;");
-
-        sim = new VisualSimulationThread(86);
-        sim.start();
 
         //Code to immediately set kiosk
         Platform.runLater(new Runnable() {
@@ -2604,10 +2600,11 @@ public class PathFindingController {
             pathPane.getChildren().add(DisplayRooms.get(i));
         }
 
+        RoomAccess ra = new RoomAccess();
 
         for (int i = 0; i < DisplayRooms.size(); i++) {
 
-//            if(DisplayRooms.get(i)){
+//            if(ra.getAvailRooms()){
 ////                DisplayRooms.get(i).changePolygonColor("GREEN");
 //            } else {
 ////                DisplayRooms.get(i).changePolygonColor("RED");
