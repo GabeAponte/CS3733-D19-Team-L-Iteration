@@ -23,6 +23,11 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720" prefWidth="1280" styleClass="AnchorPainMain" stylesheets="@Default.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.d19.teamL.ServiceRequest.FulfillServiceRequest.ActiveServiceRequestsController">
     <children>
+      <ImageView fitHeight="1125.0" fitWidth="1779.0" layoutX="-1.0" layoutY="-2.0" opacity="0.14" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@SoftEng_UI_Mockup_Pics/otherBackground.jpg" />
+         </image>
+      </ImageView>
         <VBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
             <children>
                 <JFXToolbar prefHeight="100.0" prefWidth="1280.0" styleClass="tool-barMain" stylesheets="@Default.css">
@@ -37,7 +42,7 @@
                             <children>
                                 <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" HBox.hgrow="ALWAYS">
                            <children>
-                              <JFXButton fx:id="back" alignment="CENTER" buttonType="RAISED" contentDisplay="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" onAction="#backPressed" prefHeight="75.0" prefWidth="87.0" styleClass="buttonToolbar" stylesheets="@Default.css" text=" " textFill="WHITE">
+                              <JFXButton fx:id="back" alignment="CENTER" buttonType="RAISED" contentDisplay="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" onAction="#backPressed" prefHeight="75.0" prefWidth="100.0" styleClass="buttonToolbar" stylesheets="@Default.css" text=" " textFill="WHITE">
                                  <font>
                                     <Font size="20.0" />
                                  </font>
@@ -72,9 +77,9 @@
                                                 <Insets right="20.0" />
                                             </HBox.margin>
                                         </JFXButton>
-                                        <JFXButton fx:id="homebtn" buttonType="RAISED" contentDisplay="GRAPHIC_ONLY" maxHeight="-Infinity" minHeight="-Infinity" onAction="#goHome" prefHeight="75.0" prefWidth="100.0" styleClass="buttonToolbar" stylesheets="@Default.css" textFill="#012d5a">
+                                        <JFXButton fx:id="homebtn" buttonType="RAISED" contentDisplay="TOP" graphicTextGap="0.0" maxHeight="-Infinity" minHeight="-Infinity" onAction="#goHome" prefHeight="75.0" prefWidth="100.0" styleClass="buttonToolbar" stylesheets="@Default.css" text="Home" textAlignment="CENTER" textFill="#012d5a">
                                             <graphic>
-                                                <FontAwesomeIconView fx:id="home" fill="#012d5a" glyphName="HOME" size="50" />
+                                                <FontAwesomeIconView fx:id="home" fill="#012d5a" glyphName="HOME" size="40" />
                                             </graphic>
                                             <HBox.margin>
                                                 <Insets right="10.0" />
@@ -100,7 +105,7 @@
                             <tabs>
                                 <Tab fx:id="tab9" onSelectionChanged="#filterTable" styleClass="fontType" text="Prescriptions">
                                     <content>
-                                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="461.0" prefWidth="1280.0" style="-fx-background-color: #012D5A;">
+                                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="461.0" prefWidth="1280.0">
                                             <children>
                                                 <GridPane alignment="CENTER" layoutX="7.0" layoutY="-7.0" vgap="20.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                                     <columnConstraints>
@@ -133,6 +138,9 @@
                                                                 <TreeTableColumn fx:id="field2" prefWidth="236.9478759765625" text="field2" />
                                                                 <TreeTableColumn fx:id="field3" minWidth="250.0" prefWidth="0.0" text="field3" />
                                                             </columns>
+                                             <GridPane.margin>
+                                                <Insets bottom="25.0" left="50.0" right="50.0" />
+                                             </GridPane.margin>
                                                         </JFXTreeTableView>
                                                     </children>
                                                     <opaqueInsets>
@@ -148,7 +156,7 @@
                                 </Tab>
                                 <Tab fx:id="tab6" onSelectionChanged="#filterTable" styleClass="fontType" text="IT">
                                     <content>
-                                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="461.0" prefWidth="1280.0" style="-fx-background-color: #012D5A;">
+                                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="461.0" prefWidth="1280.0">
                                             <children>
                                                 <GridPane alignment="CENTER" layoutX="14.0" layoutY="32.0" vgap="20.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                                     <columnConstraints>
@@ -181,6 +189,9 @@
                                                                 <TreeTableColumn fx:id="field2" prefWidth="236.9478759765625" text="field2" />
                                                                 <TreeTableColumn fx:id="field3" minWidth="250.0" prefWidth="0.0" text="field3" />
                                                             </columns>
+                                             <GridPane.margin>
+                                                <Insets bottom="25.0" left="50.0" right="50.0" />
+                                             </GridPane.margin>
                                                         </JFXTreeTableView>
                                                     </children>
                                                     <opaqueInsets>
@@ -196,7 +207,7 @@
                                 </Tab>
                                 <Tab fx:id="tab2" onSelectionChanged="#filterTable" styleClass="fontType" text="Internal Transportation">
                                     <content>
-                                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="461.0" prefWidth="1280.0" style="-fx-background-color: #012D5A;">
+                                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="461.0" prefWidth="1280.0">
                                             <children>
                                                 <GridPane alignment="CENTER" layoutX="14.0" layoutY="32.0" vgap="20.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                                     <columnConstraints>
@@ -229,6 +240,9 @@
                                                                 <TreeTableColumn fx:id="field2" prefWidth="236.9478759765625" text="field2" />
                                                                 <TreeTableColumn fx:id="field3" minWidth="250.0" prefWidth="0.0" text="field3" />
                                                             </columns>
+                                             <GridPane.margin>
+                                                <Insets bottom="25.0" left="50.0" right="50.0" />
+                                             </GridPane.margin>
                                                         </JFXTreeTableView>
                                                     </children>
                                                     <opaqueInsets>
@@ -244,7 +258,7 @@
                                 </Tab>
                                 <Tab fx:id="tab3" onSelectionChanged="#filterTable" styleClass="fontType" text="External Transportation">
                                     <content>
-                                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="461.0" prefWidth="1280.0" style="-fx-background-color: #012D5A;">
+                                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="461.0" prefWidth="1280.0">
                                             <children>
                                                 <GridPane alignment="CENTER" layoutX="14.0" layoutY="32.0" vgap="20.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                                     <columnConstraints>
@@ -277,6 +291,9 @@
                                                                 <TreeTableColumn fx:id="field2" prefWidth="236.9478759765625" text="field2" />
                                                                 <TreeTableColumn fx:id="field3" minWidth="250.0" prefWidth="0.0" text="field3" />
                                                             </columns>
+                                             <GridPane.margin>
+                                                <Insets bottom="25.0" left="50.0" right="50.0" />
+                                             </GridPane.margin>
                                                         </JFXTreeTableView>
                                                     </children>
                                                     <opaqueInsets>
@@ -292,7 +309,7 @@
                                 </Tab>
                                 <Tab fx:id="tab4" onSelectionChanged="#filterTable" styleClass="fontType" text="Audio/Visual">
                                     <content>
-                                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="461.0" prefWidth="1280.0" style="-fx-background-color: #012D5A;">
+                                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="461.0" prefWidth="1280.0">
                                             <children>
                                                 <GridPane alignment="CENTER" layoutX="14.0" layoutY="32.0" vgap="20.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                                     <columnConstraints>
@@ -325,6 +342,9 @@
                                                                 <TreeTableColumn fx:id="field2" prefWidth="236.9478759765625" text="field2" />
                                                                 <TreeTableColumn fx:id="field3" minWidth="250.0" prefWidth="0.0" text="field3" />
                                                             </columns>
+                                             <GridPane.margin>
+                                                <Insets bottom="25.0" left="50.0" right="50.0" />
+                                             </GridPane.margin>
                                                         </JFXTreeTableView>
                                                     </children>
                                                     <opaqueInsets>
@@ -340,7 +360,7 @@
                                 </Tab>
                                 <Tab fx:id="tab7" onSelectionChanged="#filterTable" styleClass="fontType" text="Language Assistance">
                                     <content>
-                                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="461.0" prefWidth="1280.0" style="-fx-background-color: #012D5A;">
+                                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="461.0" prefWidth="1280.0">
                                             <children>
                                                 <GridPane alignment="CENTER" layoutX="14.0" layoutY="32.0" vgap="20.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                                     <columnConstraints>
@@ -373,6 +393,9 @@
                                                                 <TreeTableColumn fx:id="field2" prefWidth="236.9478759765625" text="field2" />
                                                                 <TreeTableColumn fx:id="field3" minWidth="250.0" prefWidth="0.0" text="field3" />
                                                             </columns>
+                                             <GridPane.margin>
+                                                <Insets bottom="25.0" left="50.0" right="50.0" />
+                                             </GridPane.margin>
                                                         </JFXTreeTableView>
                                                     </children>
                                                     <opaqueInsets>
@@ -388,7 +411,7 @@
                                 </Tab>
                                 <Tab fx:id="tab" onSelectionChanged="#filterTable" styleClass="fontType" text="Religious">
                                     <content>
-                                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="461.0" prefWidth="1280.0" style="-fx-background-color: #012D5A;">
+                                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="461.0" prefWidth="1280.0">
                                             <children>
                                                 <GridPane alignment="CENTER" layoutX="14.0" layoutY="32.0" vgap="20.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                                     <columnConstraints>
@@ -421,6 +444,9 @@
                                                                 <TreeTableColumn fx:id="field2" prefWidth="236.9478759765625" text="field2" />
                                                                 <TreeTableColumn fx:id="field3" minWidth="250.0" prefWidth="0.0" text="field3" />
                                                             </columns>
+                                             <GridPane.margin>
+                                                <Insets bottom="25.0" left="50.0" right="50.0" />
+                                             </GridPane.margin>
                                                         </JFXTreeTableView>
                                                     </children>
                                                     <opaqueInsets>
@@ -436,7 +462,7 @@
                                 </Tab>
                                 <Tab fx:id="tab8" onSelectionChanged="#filterTable" styleClass="fontType" text="Maintenance">
                                     <content>
-                                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="461.0" prefWidth="1280.0" style="-fx-background-color: #012D5A;">
+                                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="461.0" prefWidth="1280.0">
                                             <children>
                                                 <GridPane alignment="CENTER" layoutX="14.0" layoutY="32.0" vgap="20.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                                     <columnConstraints>
@@ -469,6 +495,9 @@
                                                                 <TreeTableColumn fx:id="field2" prefWidth="236.9478759765625" text="field2" />
                                                                 <TreeTableColumn fx:id="field3" minWidth="250.0" prefWidth="0.0" text="field3" />
                                                             </columns>
+                                             <GridPane.margin>
+                                                <Insets bottom="25.0" left="50.0" right="50.0" />
+                                             </GridPane.margin>
                                                         </JFXTreeTableView>
                                                     </children>
                                                     <opaqueInsets>
@@ -484,7 +513,7 @@
                                 </Tab>
                                 <Tab fx:id="tab10" onSelectionChanged="#filterTable" styleClass="fontType" text="Security">
                                     <content>
-                                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="461.0" prefWidth="1280.0" style="-fx-background-color: #012D5A;">
+                                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="461.0" prefWidth="1280.0">
                                             <children>
                                                 <GridPane alignment="CENTER" layoutX="14.0" layoutY="32.0" vgap="20.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                                     <columnConstraints>
@@ -517,6 +546,9 @@
                                                                 <TreeTableColumn fx:id="field2" prefWidth="236.9478759765625" text="field2" />
                                                                 <TreeTableColumn fx:id="field3" minWidth="250.0" prefWidth="0.0" text="field3" />
                                                             </columns>
+                                             <GridPane.margin>
+                                                <Insets bottom="25.0" left="50.0" right="50.0" />
+                                             </GridPane.margin>
                                                         </JFXTreeTableView>
                                                     </children>
                                                     <opaqueInsets>
@@ -532,7 +564,7 @@
                                 </Tab>
                                 <Tab fx:id="tab11" onSelectionChanged="#filterTable" styleClass="fontType" text="Sanitation">
                                     <content>
-                                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="461.0" prefWidth="1280.0" style="-fx-background-color: #012D5A;">
+                                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="461.0" prefWidth="1280.0">
                                             <children>
                                                 <GridPane alignment="CENTER" layoutX="14.0" layoutY="32.0" vgap="20.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                                     <columnConstraints>
@@ -552,7 +584,7 @@
                                                                 <Blend />
                                                             </effect>
                                                         </Label>
-                                                        <JFXTreeTableView fx:id="SanitationRequests" onMouseClicked="#SwitchToFulfillRequestScreen" prefHeight="406.0" prefWidth="1169.0" styleClass="jfx-tree-table-view" stylesheets="@Default.css" GridPane.rowIndex="1">
+                                                        <JFXTreeTableView fx:id="SanitationRequests" onMouseClicked="#SwitchToFulfillRequestScreen" prefHeight="468.0" prefWidth="1168.0" styleClass="jfx-tree-table-view" stylesheets="@Default.css" GridPane.rowIndex="1">
                                                             <columns>
                                                                 <TreeTableColumn fx:id="hi" prefWidth="188.01975631713867" text="Location" />
                                                                 <TreeTableColumn fx:id="type" prefWidth="161.36790466308594" text="Type" />
@@ -565,6 +597,9 @@
                                                                 <TreeTableColumn fx:id="field2" prefWidth="236.9478759765625" text="field2" />
                                                                 <TreeTableColumn fx:id="field3" minWidth="250.0" prefWidth="0.0" text="field3" />
                                                             </columns>
+                                             <GridPane.margin>
+                                                <Insets bottom="25.0" left="50.0" right="50.0" />
+                                             </GridPane.margin>
                                                         </JFXTreeTableView>
                                                     </children>
                                                     <opaqueInsets>
