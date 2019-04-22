@@ -88,7 +88,6 @@
 .buttonToolbar:hover{
     -fx-background-color: #012d5a;
     -fx-text-fill: white;
-
 }
 
 .buttonToolbar:hover .glyph-icon{
@@ -101,6 +100,7 @@
     -fx-border-radius: 100;
     -fx-border-width: 2;
     -fx-pref-height: 46;
+    -fx-text-fill:  #012d5a ;
 
     -jfx-button-type: RAISED;
 }
@@ -108,7 +108,6 @@
 .buttonMap:hover{
     -fx-background-color: #012d5a;
     -fx-text-fill: white;
-
 }
 
 .buttonMap:hover .glyph-icon{
@@ -140,21 +139,16 @@
 
 .labelTitle {
     -fx-text-fill: #f5d96b;
-
 }
-
 .labelPopupTitle {
     -fx-text-fill: black;
-
 }
-
 .labelPopupDesc {
     -fx-text-fill: white;
 }
 
 .labelMapFloor {
     -fx-text-fill: #012d5a;
-
 }
 
 .AnchorPainMain{
@@ -163,7 +157,6 @@
 
 .text-area{
     -fx-text-fill: white;
-
 }
 
 .jfx-tree-table-view {
@@ -171,7 +164,6 @@
     -fx-background-radius: 20;
     -fx-border-width: 5;
     -fx-border-radius: 20;
-
 }
 
 
@@ -191,14 +183,12 @@
 .tab:selected .tab-label {
     -fx-alignment: CENTER;
     -fx-text-fill: BLACK;
-
 }
 
 .tab:hover{
     -fx-background-color: #f1cc39;;
     -fx-background-radius: 1000000;
     -fx-text-fill: BLACK;
-
     /*
     -fx-text-fill: #f5d96b ;
      */
@@ -206,12 +196,10 @@
 .jfx-tab-pane .tab:selected {
     -fx-background-color: #efc318;
     -fx-background-radius: 1000000;
-
 }
 .tab:hover .tab-label {
     -fx-alignment: CENTER;
     -fx-text-fill: BLACK;
-
 }
 
 .jfx-tab-pane .tab-selected-line {
@@ -220,21 +208,18 @@
 
 .labelWelcome{
     -fx-text-fill: #F5D96B;
-
 }
 
 .buttonMain{
     -fx-border-color: #F5D96B;
-    -fx-background-color: #012d5a;
     -fx-text-fill: white;
-
 }
 
 .buttonMain .glyph-icon {
     -fx-fill: white;
 }
 
-.buttonMain:hover {
+.buttonMain:hover{
     -fx-background-color: white;
     -fx-text-fill: #012d5a;
 }
@@ -247,7 +232,6 @@
     -fx-background-color: white;
     -fx-prompt-text-fill: black;
     -fx-text-fill: black;
-
     -jfx-focus-color: transparent;
     -jfx-unfocus-color: transparent;
 }
@@ -292,7 +276,6 @@
     -fx-border-color: #f5d96b;
     -fx-border-width: 3;
     -fx-border-radius: 20;
-
 }
 
 .jfx-text-areaSuggestionTable {
@@ -302,7 +285,6 @@
     -jfx-unfocus-color: transparent;
     -fx-border-color: #f5d96b;
     -fx-border-radius: 20;
-
 }
 
 .jfx-combo-box {
@@ -318,12 +300,10 @@
 .jfx-combo-box .text-field {
     -fx-text-fill : white;
 
-
 }
 
 .jfx-combo-box .text-area {
     -fx-text-fill : white;
-
 
 }
 
@@ -334,7 +314,6 @@
 
 .jfx-combo-box .list-cell {
     -fx-text-fill : white;
-
 }
 
 .jfx-combo-box .arrow {
@@ -348,29 +327,24 @@
     -jfx-unfocus-color: white;
     -fx-prompt-text-fill: white;
 
-
 }
 
 .jfx-combo-box-Popup .text-field {
     -fx-text-fill : white;
-
 
 }
 
 .jfx-combo-box-Popup .text-area {
     -fx-text-fill : white;
 
-
 }
 
 .jfx-combo-box-Popup .list-view .list-cell {
     -fx-text-fill : black;
-
 }
 
 .jfx-combo-box-Popup .list-cell {
     -fx-text-fill : white;
-
 }
 
 .jfx-combo-box-Popup .arrow {
@@ -385,29 +359,24 @@
     -jfx-unfocus-color: white;
     -fx-prompt-text-fill: white;
 
-
 }
 
 .jfx-combo-box-PathMenu .text-field {
     -fx-text-fill : white;
-
 
 }
 
 .jfx-combo-box-PathMenu .text-area {
     -fx-text-fill : white;
 
-
 }
 
 .jfx-combo-box-PathMenu .list-view .list-cell {
     -fx-text-fill : black;
-
 }
 
 .jfx-combo-box-PathMenu .list-cell {
     -fx-text-fill : white;
-
 }
 
 .jfx-combo-box-PathMenu .arrow {
@@ -421,29 +390,24 @@
     -jfx-unfocus-color: white;
     -fx-prompt-text-fill: white;
 
-
 }
 
 .jfx-combo-box-PathMenu2 .text-field {
     -fx-text-fill : white;
-
 
 }
 
 .jfx-combo-box-PathMenu2 .text-area {
     -fx-text-fill : white;
 
-
 }
 
 .jfx-combo-box-PathMenu2 .list-view .list-cell {
     -fx-text-fill : black;
-
 }
 
 .jfx-combo-box-PathMenu2 .list-cell {
     -fx-text-fill : white;
-
 }
 
 .jfx-combo-box-PathMenu2 .arrow {
@@ -452,7 +416,6 @@
 
 .toggle-button {
     -fx-text-fill: white;
-
 
 }
 
@@ -464,8 +427,6 @@
     -jfx-focus-color: #f5d96b;
     -jfx-unfocus-color: white;
     -jfx-default-color: #f5d96b;
-
-
 }
 
 .jfx-date-picker .text-field{
@@ -475,7 +436,6 @@
     -jfx-focus-color: #f5d96b;
     -jfx-unfocus-color: white;
     -jfx-default-color: #f5d96b;
-
 }
 .jfx-date-picker .input-line {
     -fx-background-color: white;
@@ -491,7 +451,6 @@
     -jfx-focus-color: #f5d96b;
     -jfx-unfocus-color: white;
     -jfx-default-color: #f5d96b;
-
 }
 
 .jfx-time-picker .text-field{
@@ -501,7 +460,6 @@
     -jfx-focus-color: #f5d96b;
     -jfx-unfocus-color: white;
     -jfx-default-color: #f5d96b;
-
 }
 
 .jfx-time-picker .input-line {
