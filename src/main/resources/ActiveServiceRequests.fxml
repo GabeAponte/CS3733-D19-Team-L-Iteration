@@ -96,7 +96,7 @@
                         <RowConstraints minHeight="0.0" valignment="CENTER" />
                     </rowConstraints>
                     <children>
-                        <JFXTabPane fx:id="requestType" stylesheets="@Default.css" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
+                        <JFXTabPane fx:id="requestType" styleClass="jfx-tab-pane" stylesheets="@Default.css" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
                             <tabs>
                                 <Tab fx:id="tab9" onSelectionChanged="#filterTable" styleClass="fontType" text="Prescriptions">
                                     <content>
@@ -112,7 +112,7 @@
                                                         <RowConstraints valignment="CENTER" vgrow="SOMETIMES" />
                                                     </rowConstraints>
                                                     <children>
-                                                        <Label alignment="CENTER" prefHeight="45.0" prefWidth="444.0" style="-fx-font: Heiti TC; -fx-font-style: Light;" stylesheets="@Default.css" text="Active Prescription Requests" textFill="#f5d96b" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.valignment="CENTER" GridPane.vgrow="NEVER">
+                                                        <Label alignment="CENTER" prefHeight="45.0" prefWidth="444.0" styleClass="labelTitle" stylesheets="@Default.css" text="Active Prescription Requests" textFill="#f5d96b" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.valignment="CENTER" GridPane.vgrow="NEVER">
                                                             <font>
                                                                 <Font name="Heiti TC Light" size="30.0" />
                                                             </font>
@@ -160,7 +160,7 @@
                                                         <RowConstraints valignment="CENTER" vgrow="SOMETIMES" />
                                                     </rowConstraints>
                                                     <children>
-                                                        <Label alignment="CENTER" prefHeight="45.0" prefWidth="527.0" stylesheets="@Default.css" text="Active IT Requests" textFill="#f5d96b" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.valignment="CENTER" GridPane.vgrow="NEVER">
+                                                        <Label alignment="CENTER" prefHeight="45.0" prefWidth="527.0" styleClass="labelTitle" stylesheets="@Default.css" text="Active IT Requests" textFill="#f5d96b" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.valignment="CENTER" GridPane.vgrow="NEVER">
                                                             <font>
                                                                 <Font name="Heiti TC Light" size="30.0" />
                                                             </font>
