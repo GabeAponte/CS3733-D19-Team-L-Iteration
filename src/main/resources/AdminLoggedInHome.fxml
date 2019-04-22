@@ -73,7 +73,7 @@
                                           <Font name="System Bold" size="17.0" />
                                        </font>
                                        <graphic>
-                                          <FontAwesomeIconView fill="RED" glyphName="EXCLAMATION_TRIANGLE" size="35" strokeMiterLimit="0.0" textAlignment="CENTER" wrappingWidth="27.27392578125" />
+                                          <FontAwesomeIconView fill="RED" glyphName="EXCLAMATION_TRIANGLE" size="35" strokeMiterLimit="0.0" textAlignment="CENTER" wrappingWidth="35.27392578125" />
                                        </graphic>
                                        <HBox.margin>
                                           <Insets left="20.0" />

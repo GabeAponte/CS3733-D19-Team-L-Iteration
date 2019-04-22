@@ -312,12 +312,12 @@ public class AdminLoggedInHomeController {
      * do a popup that brings user to emergency mode
      */
     @FXML
-    private void EmergencyButtonPress() throws IOException {
+    private void ActivateEmergencyMode() throws IOException {
         // popup - activate emergency mode?
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-        alert.setTitle("Confirmation Dialog");
-        alert.setHeaderText("Look, a Confirmation Dialog");
-        alert.setContentText("Are you ok with this?");
+        alert.setTitle("ACTIVATING EMERGENCY MODE");
+        alert.setHeaderText("YOU ARE ACTIVATING EMERGENCY MODE. THIS WILL HAVE CONSEQUENCES IF THERE IS NO REAL EMERGENCY PRESENT");
+        alert.setContentText("CONFIRM?");
 
         Optional<ButtonType> result = alert.showAndWait();
         if (result.get() == ButtonType.OK){
@@ -333,8 +333,6 @@ public class AdminLoggedInHomeController {
         } else {
             // ... user chose CANCEL or closed the dialog
         }
-
-
 
     }
 }
