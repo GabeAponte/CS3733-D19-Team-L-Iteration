@@ -345,8 +345,6 @@ public class BookRoomController {
         ((Node) event.getSource()).getScene().setRoot(newPage);
     }
 
-    //LocalTime startTimeValue = null;
-
     @FXML
     /** @author Gabe, Nikhil
      * When a user selcts a valid start and end time and a date, they are given the option
