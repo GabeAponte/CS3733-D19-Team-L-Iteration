@@ -25,6 +25,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.ListView;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
@@ -97,10 +98,15 @@ public class BookRoomController {
     @FXML
     private AnchorPane anchorPane;
 
+    @FXML
+    private ListView<EmployeeAccess> myListView;
+    private ObservableList<EmployeeAccess> listViewData = FXCollections.observableArrayList();
+
     Timeline timeout;
     VisualSimulationThread sim;
     private boolean firstTimeRan = true;
     private boolean resShowing = false;
+    private boolean calledFromVisualClick = false;
 
     final ObservableList<String> listOfRooms = FXCollections.observableArrayList();
     ArrayList<String> rooms = new ArrayList<>();
@@ -412,6 +418,7 @@ public class BookRoomController {
 
         @Override
         public void handle(MouseEvent event) {
+            calledFromVisualClick = true;
             displayAllRooms();
             for (int k = 0; k < DisplayRooms.size(); k++) {
                 Point2D mousePress = new Point2D(event.getX(), event.getY());
@@ -438,6 +445,7 @@ public class BookRoomController {
                     }
                     DisplayRooms.get(k).changePolygonColor("BLUE");
                     imagePane.getChildren().add(DisplayRooms.get(k).getPolygon());
+                    calledFromVisualClick = false;
                 }
             }
 
@@ -446,18 +454,20 @@ public class BookRoomController {
     };
 
     public void highlightFromDropdown(){
-
         for(int j = 0; j<DisplayRooms.size(); j++){
             if(DisplayRooms.get(j).getRoomName().equals(availableRooms.getValue())){
                 for (int i = 0; i < DisplayRooms.size(); i++) {
-                    if(DisplayRooms.get(i).isAvailable()){
-                        //openReservation(true);
-                        DisplayRooms.get(i).changePolygonColor("GREEN");
-                    } else {
-                        DisplayRooms.get(i).changePolygonColor("RED");
+                    if(calledFromVisualClick == false) {
+                        if (DisplayRooms.get(i).isAvailable()) {
+                            DisplayRooms.get(i).changePolygonColor("GREEN");
+                            openReservation(true);
+                        } else {
+                            DisplayRooms.get(i).changePolygonColor("RED");
+                        }
                     }
                 }
                 roomName.setText(DisplayRooms.get(j).niceName);
+                popupName.setText("Reserve " + DisplayRooms.get(j).niceName);
                 DisplayRooms.get(j).changePolygonColor("BLUE");
             }
         }
