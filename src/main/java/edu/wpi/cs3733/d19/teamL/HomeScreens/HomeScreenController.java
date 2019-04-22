@@ -297,12 +297,17 @@ public class HomeScreenController {
                     toAdd.add(l);
                 }
                 else {
+                    boolean hotFix = false;
                     for (int j = 0; j < toAdd.size(); j++) {
                         if (p.getNumSearched(l.getLongName()) > p.getNumSearched(toAdd.get(j).getLongName())) {
                             //System.out.println("ADDING: size < 10");
                             toAdd.add(j, l);
+                            hotFix = true;
                             break;
                         }
+                    }
+                    if (!hotFix) {
+                        toAdd.add(l);
                     }
                 }
                 }
