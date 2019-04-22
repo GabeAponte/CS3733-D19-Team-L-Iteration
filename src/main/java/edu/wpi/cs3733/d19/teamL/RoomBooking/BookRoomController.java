@@ -179,6 +179,9 @@ public class BookRoomController {
                 fieldsEntered();
             }
         });
+    }
+
+    public void loafFromPathfind(String roomName){
 
     }
 
