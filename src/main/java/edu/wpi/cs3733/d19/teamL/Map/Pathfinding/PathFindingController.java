@@ -947,7 +947,7 @@ public class PathFindingController {
                 gridPane.setValignment(fBut, VPos.TOP);
                 //int diff  = numOfBut - center;
                 int diff  = center - numOfBut;
-                gridPane.setMargin(fBut,new Insets(55,0,0,diff*(200)+ shift));
+                gridPane.setMargin(fBut,new Insets(65,0,0,diff*(200)+ shift));
 
                 //Reduce this as we go so we know how many buttons we have left
                 numOfBut--;
@@ -973,7 +973,7 @@ public class PathFindingController {
                 gridPane.setValignment(fBut, VPos.TOP);
                 //int diff  = numOfBut - center;
                 int diff  = center - numOfBut;
-                gridPane.setMargin(fBut,new Insets(55,0,0,diff*(200)+ shift));
+                gridPane.setMargin(fBut,new Insets(65,0,0,diff*(200)+ shift));
                 stop = true;
             }
             counter++;
