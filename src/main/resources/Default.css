@@ -7,6 +7,8 @@
     -fx-text-fill: #012d5a;
     -fx-background-radius: 10;
     -jfx-button-type: RAISED;
+    -fx-font-family: "Trebuchet MS";
+    -fx-font-style: Regular;
 }
 
 .buttonMain .glyph-icon {
@@ -16,45 +18,23 @@
 .buttonMain:hover{
     -fx-background-color: #012d5a;
     -fx-text-fill: white;
+    -fx-font-family: "Trebuchet MS";
+    -fx-font-style: Regular;
 }
 
 .buttonMain:hover .glyph-icon{
     -fx-fill: white;
 }
 
-/*.buttonMain{
-    /*-fx-background-color: white;
+.buttonBig{
+    fx-background-color: trasnparent;
     -fx-border-color: #F5D96B;
     -fx-border-radius: 10;
     -fx-border-width: 3;
     -fx-text-fill: white;
     -fx-background-radius: 10;
-    -fx-border-color : #F5D96B;
-    /*-fx-border-radius: 10;
-    -fx-border-width: 2;
-}
-
-.buttonMain .glyph-icon {
-    -fx-fill: white;
-}
-
-.buttonMain:hover{
-    -fx-background-color: white;
-    -fx-text-fill: #012d5a;
-}
-
-.buttonMain:hover .glyph-icon{
-    -fx-fill: #012d5a;
-} */
-
-.buttonBig{
-    -fx-background-color: transparent;
-    /*-fx-border-color: #F5D96B;*/
-    -fx-text-fill: white;
-    -fx-background-radius: 10;
-   /* -fx-border-color : #F5D96B;
-    /*-fx-border-radius: 10;
-    -fx-border-width: 2;*/
+    -fx-font-family: "Trebuchet MS";
+    -fx-font-style: Regular;
 }
 
 .buttonBig .glyph-icon {
@@ -64,9 +44,38 @@
 .buttonBig:hover{
     -fx-background-color: white;
     -fx-text-fill: #012d5a;
+    -fx-font-family: "Trebuchet MS";
+    -fx-font-style: Regular;
 }
 
 .buttonBig:hover .glyph-icon{
+    -fx-fill: #012d5a;
+}
+
+.buttonHome{
+    -fx-background-color: transparent;
+    /*-fx-border-color: #F5D96B;*/
+    -fx-text-fill: white;
+    -fx-background-radius: 10;
+   /* -fx-border-color : #F5D96B;
+    /*-fx-border-radius: 10;
+    -fx-border-width: 2;*/
+    -fx-font-family: "Trebuchet MS";
+    -fx-font-style: Regular;
+}
+
+.buttonHome .glyph-icon {
+    -fx-fill: white;
+}
+
+.buttonHome:hover{
+    -fx-background-color: white;
+    -fx-text-fill: #012d5a;
+    -fx-font-family: "Trebuchet MS";
+    -fx-font-style: Regular;
+}
+
+.buttonHome:hover .glyph-icon{
     -fx-fill: #012d5a;
 }
 
