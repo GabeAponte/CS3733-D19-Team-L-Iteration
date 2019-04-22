@@ -364,7 +364,7 @@ public class BookRoomController {
                 DisplayRooms.get(i).setAvailable(false);
             }
 
-                //System.out.println("startTimeMil: " + startTimeMil + "\n endTimeMil:" + endTimeMil);
+            //System.out.println("startTimeMil: " + startTimeMil + "\n endTimeMil:" + endTimeMil);
             rooms = ra.getAvailRooms(date, date, startTimeMil, endTimeMil);
 
             for(int j = 0; j < rooms.size(); j ++) {
@@ -431,6 +431,7 @@ public class BookRoomController {
                             if(DisplayRooms.get(k).isAvailable()) {
                                 availableRooms.getSelectionModel().select(listOfRooms.get(z));
                                 if(popupName.getText().contains(DisplayRooms.get(k).niceName)){
+                                    System.out.println("Same");
                                     if(resShowing) {
                                         openReservation(false);
                                     }else{
@@ -438,6 +439,7 @@ public class BookRoomController {
                                     }
                                 }else {
                                     popupName.setText("Reserve " + DisplayRooms.get(k).niceName);
+                                    System.out.println("New");
                                     openReservation(true);
                                 }
                             }
@@ -454,20 +456,22 @@ public class BookRoomController {
     };
 
     public void highlightFromDropdown(){
+        System.out.println("VisClick:"+calledFromVisualClick);
         for(int j = 0; j<DisplayRooms.size(); j++){
             if(DisplayRooms.get(j).getRoomName().equals(availableRooms.getValue())){
                 for (int i = 0; i < DisplayRooms.size(); i++) {
-                    if(calledFromVisualClick == false) {
-                        if (DisplayRooms.get(i).isAvailable()) {
-                            DisplayRooms.get(i).changePolygonColor("GREEN");
-                            openReservation(true);
-                        } else {
-                            DisplayRooms.get(i).changePolygonColor("RED");
+                    if(DisplayRooms.get(i).isAvailable()){
+                        if(calledFromVisualClick == false){
+                                popupName.setText("Reserve " + DisplayRooms.get(j).niceName);
+                                System.out.println("hd");
+                                openReservation(true);
                         }
+                        DisplayRooms.get(i).changePolygonColor("GREEN");
+                    } else {
+                        DisplayRooms.get(i).changePolygonColor("RED");
                     }
                 }
                 roomName.setText(DisplayRooms.get(j).niceName);
-                popupName.setText("Reserve " + DisplayRooms.get(j).niceName);
                 DisplayRooms.get(j).changePolygonColor("BLUE");
             }
         }
@@ -605,9 +609,9 @@ public class BookRoomController {
                 flexSpaces.get(i).setFill(Color.web("TURQUOISE"));
                 flexSpaces.get(i).setOpacity(0.5);
             }else{
-               flexSpaces.get(i).setStroke(Color.web("RED"));
-               flexSpaces.get(i).setFill(Color.web("RED"));
-               flexSpaces.get(i).setOpacity(0.3);
+                flexSpaces.get(i).setStroke(Color.web("RED"));
+                flexSpaces.get(i).setFill(Color.web("RED"));
+                flexSpaces.get(i).setOpacity(0.3);
             }
             imagePane.getChildren().add(flexSpaces.get(i));
         }
@@ -732,17 +736,17 @@ public class BookRoomController {
         TranslateTransition openNav = new TranslateTransition(new Duration(400.0D), this.reservationPane);
         openNav.setToX(0.0D);
         TranslateTransition closeNav = new TranslateTransition(new Duration(400.0D), this.reservationPane);
-            if (open == true){
-                openNav.setToX(-100.0D-this.reservationPane.getWidth());
-                openNav.play();
-                resShowing = true;
-                System.out.println("ResShowing = true");
-            } else {
-                closeNav.setToX(100+this.anchorPane.getWidth()+this.reservationPane.getWidth());
-                closeNav.play();
-                resShowing = false;
-                System.out.println("ResShowing = false");
-            }
+        if (open == true){
+            openNav.setToX(-100.0D-this.reservationPane.getWidth());
+            openNav.play();
+            resShowing = true;
+            System.out.println("ResShowing = true");
+        } else {
+            closeNav.setToX(100+this.anchorPane.getWidth()+this.reservationPane.getWidth());
+            closeNav.play();
+            resShowing = false;
+            System.out.println("ResShowing = false");
+        }
     }
 
 
