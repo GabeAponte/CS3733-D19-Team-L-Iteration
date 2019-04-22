@@ -119,7 +119,7 @@ public class EmergencyController {
     private ArrayList<Button> buttons = new ArrayList<Button>();
     //Arraylist of floor buttons
     private ArrayList<Button> floorButtons = new ArrayList<Button>();
-
+    private int count;
 
     private Path path = null;
 
@@ -189,17 +189,6 @@ public class EmergencyController {
         errorLabel.setText("Login is incorrect. Cannot disable emergency mode.");
     }
 
-    private void SwitchToNonEmergen(String fxml) throws IOException{
-        FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource(fxml));
-
-        Parent sceneMain = loader.load();
-
-        Stage theStage = (Stage) DisableEmergMode.getScene().getWindow();
-
-        Scene scene = new Scene(sceneMain);
-        theStage.setScene(scene);
-    }
-
     private void displayExits(){
         ArrayList<Location> nodes = new ArrayList<Location>();
         //want to fill nodes w/ floor = currrentKioskFloor && nodeLongName? or nodeType? .contains(keyword)
@@ -238,6 +227,7 @@ public class EmergencyController {
         for (Line l: lines) {
             pathPane.getChildren().remove(l);
         }
+        cleanLabel();
     }
 
     private void findClosestExit(){
@@ -316,6 +306,8 @@ public class EmergencyController {
                     closestLOC = nodes.get(i);
                     //restricts elevators here
                     closestPath = findAbstractPath(astar,kioskTemp, closestLOC, "ELEV");
+
+                    count = i;
                 }
             }
 
@@ -395,6 +387,8 @@ public class EmergencyController {
 
     private void cleanLabel(){
         hereLabel.setVisible(false);
+        endLabel.setVisible(false);
+        startLabel.setVisible(false);
     }
 
 
@@ -406,8 +400,6 @@ public class EmergencyController {
         cleanMap();
         if(kioskTemp.getFloor().equals(currentMap)){
             displayKiosk();
-        } else{
-            cleanLabel();
         }
         if(path != null){
             displayingPath = true;
@@ -424,8 +416,6 @@ public class EmergencyController {
         cleanMap();
         if(kioskTemp.getFloor().equals(currentMap)){
             displayKiosk();
-        } else{
-            cleanLabel();
         }
         if(path != null){
             displayingPath = true;
@@ -441,8 +431,6 @@ public class EmergencyController {
         cleanMap();
         if(kioskTemp.getFloor().equals(currentMap)){
             displayKiosk();
-        } else{
-            cleanLabel();
         }
         if(path != null){
             displayingPath = true;
@@ -458,8 +446,6 @@ public class EmergencyController {
         cleanMap();
         if(kioskTemp.getFloor().equals(currentMap)){
             displayKiosk();
-        } else{
-            cleanLabel();
         }
         if(path != null){
             displayingPath = true;
@@ -475,8 +461,6 @@ public class EmergencyController {
         cleanMap();
         if(kioskTemp.getFloor().equals(currentMap)){
             displayKiosk();
-        } else{
-            cleanLabel();
         }
         if(path != null){
             displayingPath = true;
@@ -492,8 +476,6 @@ public class EmergencyController {
         cleanMap();
         if(kioskTemp.getFloor().equals(currentMap)){
             displayKiosk();
-        } else{
-            cleanLabel();
         }
         if(path != null){
             displayingPath = true;
@@ -740,13 +722,11 @@ public class EmergencyController {
 
 
 
-
-
-
     /**
      * @author: Nikhil: General method to set up displaying the path
      */
     public void displayPath(){
+        single.setLastTime();
 
         //Add an arraylist to keep track of what floors you are visiting
         ArrayList<String> floorsVisited = new ArrayList<>();
@@ -778,6 +758,9 @@ public class EmergencyController {
             changeMapLabel();
         }
     }
+
+
+
 
     /**
      * @Author: Nikhil
@@ -1030,6 +1013,10 @@ public class EmergencyController {
 
             }
         }
+
+        startLabel.setVisible(true);
+        endLabel.setVisible(true);
+
         direction.setText(directionS);
         direction.setWrapText(true);
         direction.setDisable(false);
