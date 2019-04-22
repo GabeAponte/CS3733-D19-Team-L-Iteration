@@ -314,7 +314,7 @@ public class HomeScreenController {
 
         List<BarGraphChartData> cList = new ArrayList<BarGraphChartData>();
         for (int k = 0; k < 5; k++) {
-            cList.add(new BarGraphChartData(toAdd.get(k).getLongName(), "all",toAdd.get(k).getXcoord()));
+            cList.add(new BarGraphChartData("Locations", toAdd.get(k).getLongName(),toAdd.get(k).getXcoord()));
         }
         System.out.println("LOOPS COMPLETE");
         File f = new File("PathFindStats.jrxml");
