@@ -19,6 +19,7 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Point2D;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -77,9 +78,6 @@ public class BookRoomController {
 
     @FXML
     private ImageView roomImage;
-
-    @FXML
-    private Button bookRoomBack;
 
     @FXML
     private Button viewWeekly;
@@ -183,7 +181,7 @@ public class BookRoomController {
     }
 
     @FXML
-    private void switchToTable() throws IOException {
+    private void switchToTable(ActionEvent event) throws IOException {
         timeout.stop();
         try{
             sim.join();
@@ -193,11 +191,8 @@ public class BookRoomController {
         }
         Singleton single = Singleton.getInstance();
         single.setLastTime();
-        FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("BookRoom2.fxml"));
-        Parent sceneMain = loader.load();
-        Stage theStage = (Stage) viewSchedule.getScene().getWindow();
-        Scene scene = new Scene(sceneMain);
-        theStage.setScene(scene);
+        Parent newPage = FXMLLoader.load(getClass().getClassLoader().getResource("BookRoom2.fxml"));
+        ((Node) event.getSource()).getScene().setRoot(newPage);
     }
 
     //LocalTime startTimeValue = null;
@@ -537,7 +532,7 @@ public class BookRoomController {
         }
     }
 
-    public void switchToWeekly() throws IOException {
+    public void switchToWeekly(ActionEvent event) throws IOException {
         timeout.stop();
         try{
             sim.join();
@@ -565,10 +560,7 @@ public class BookRoomController {
         System.out.println(name);
         wsc.loadWeekly(name, datePicker.getValue());
 
-        Scene scene = new Scene(sceneMain);
-
-        Stage theStage = (Stage) viewSchedule.getScene().getWindow();
-        theStage.setScene(scene);
+        ((Node) event.getSource()).getScene().setRoot(sceneMain);
     }
 
     /**@author Nathan
@@ -576,7 +568,7 @@ public class BookRoomController {
      * @throws IOException
      */
     @FXML
-    private void backPressed() throws IOException{
+    private void backPressed(ActionEvent event) throws IOException{
         Singleton single = Singleton.getInstance();
         timeout.stop();
         try{
@@ -585,22 +577,20 @@ public class BookRoomController {
             e.printStackTrace();
             sim.stop();
         }
-        single = Singleton.getInstance();
+
         single.setLastTime();
         single.setDoPopup(true);
 
         Memento m = single.restore();
         FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource(m.getFxml()));
-        Parent sceneMain = loader.load();
+        Parent newPage = loader.load();
         if(m.getFxml().contains("HospitalPathFinding")){
             PathFindingController pfc = loader.getController();
             pfc.initWithMeme(m.getPathPref(), m.getTypeFilter(), m.getFloorFilter(), m.getStart(), m.getEnd());
         }
 
-        Stage theStage = (Stage) back.getScene().getWindow();
-
-        Scene scene = new Scene(sceneMain);
-        theStage.setScene(scene);
+        //Parent newPage = FXMLLoader.load(getClass().getClassLoader().getResource(m.getFxml()));
+        ((Node) event.getSource()).getScene().setRoot(newPage);
     }
 
     /**@author Nathan
@@ -612,7 +602,7 @@ public class BookRoomController {
     }
 
     @FXML
-    private void logOut() throws IOException {
+    private void logOut(ActionEvent event) throws IOException {
         timeout.stop();
         try{
             sim.join();
@@ -626,36 +616,20 @@ public class BookRoomController {
         single.setIsAdmin(false);
         single.setLoggedIn(false);
         single.setDoPopup(true);
-        thestage = (Stage) back.getScene().getWindow();
-        AnchorPane root;
         Memento m = single.getOrig();
-        root = FXMLLoader.load(getClass().getClassLoader().getResource(m.getFxml()));
-        Scene scene = new Scene(root);
-        thestage.setScene(scene);
+        Parent newPage = FXMLLoader.load(getClass().getClassLoader().getResource(m.getFxml()));
+        ((Node) event.getSource()).getScene().setRoot(newPage);
     }
 
     @FXML
-    private void goHome() throws IOException {
+    private void goHome(ActionEvent event) throws IOException {
         timeout.stop();
         Singleton single = Singleton.getInstance();
         single.setLastTime();
         single.setDoPopup(true);
-        saveState();
-        thestage = (Stage) back.getScene().getWindow();
-        AnchorPane root;
+        // saveState();
         Memento m = single.getOrig();
-        root = FXMLLoader.load(getClass().getClassLoader().getResource(m.getFxml()));
-        Scene scene = new Scene(root);
-        thestage.setScene(scene);
+        Parent newPage = FXMLLoader.load(getClass().getClassLoader().getResource(m.getFxml()));
+        ((Node) event.getSource()).getScene().setRoot(newPage);
     }
-
-
 }
-
-
-
-
-
-
-
-

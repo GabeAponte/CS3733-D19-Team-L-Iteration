@@ -19,6 +19,11 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720" prefWidth="1280" styleClass="AnchorPainMain" stylesheets="@Default.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.d19.teamL.HomeScreens.AdminLoggedInHomeController">
    <children>
+      <ImageView fitHeight="1122.0" fitWidth="1486.0" opacity="0.14" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@SoftEng_UI_Mockup_Pics/otherBackground.jpg" />
+         </image>
+      </ImageView>
       <VBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
             <JFXToolbar prefHeight="100.0" prefWidth="1280.0" styleClass="tool-barMain" stylesheets="@Default.css">
@@ -52,7 +57,7 @@
                               </HBox>
                               <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0">
                                  <children>
-                                    <JFXButton fx:id="back" alignment="CENTER" buttonType="RAISED" contentDisplay="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" onAction="#backPressed" prefHeight="75.0" prefWidth="87.0" styleClass="buttonToolbar" stylesheets="@Default.css" text=" " textFill="WHITE">
+                                    <JFXButton fx:id="back" alignment="CENTER" buttonType="RAISED" contentDisplay="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" onAction="#backPressed" prefHeight="75.0" prefWidth="100.0" styleClass="buttonToolbar" stylesheets="@Default.css" text=" " textFill="WHITE">
                                        <font>
                                           <Font size="20.0" />
                                        </font>
@@ -78,9 +83,9 @@
                                           <Insets right="20.0" />
                                        </HBox.margin>
                                     </JFXButton>
-                                    <JFXButton fx:id="homebtn" buttonType="RAISED" contentDisplay="GRAPHIC_ONLY" maxHeight="-Infinity" minHeight="-Infinity" onAction="#goHome" prefHeight="75.0" prefWidth="100.0" styleClass="buttonToolbar" stylesheets="@Default.css" textFill="#012d5a">
+                                    <JFXButton fx:id="homebtn" alignment="CENTER" buttonType="RAISED" contentDisplay="TOP" graphicTextGap="0.0" maxHeight="-Infinity" minHeight="-Infinity" onAction="#goHome" prefHeight="75.0" prefWidth="100.0" styleClass="buttonToolbar" stylesheets="@Default.css" text="Home" textAlignment="CENTER" textFill="#012d5a">
                                        <graphic>
-                                          <FontAwesomeIconView fx:id="home" fill="#012d5a" glyphName="HOME" size="50" />
+                                          <FontAwesomeIconView fx:id="home" fill="#012d5a" glyphName="HOME" size="37" />
                                        </graphic>
                                        <HBox.margin>
                                           <Insets right="10.0" />
@@ -112,7 +117,18 @@
                               <RowConstraints maxHeight="1.7976931348623157E308" percentHeight="45.0" vgrow="ALWAYS" />
                           </rowConstraints>
                            <children>
-                              <JFXButton fx:id="newAccount" alignment="CENTER" buttonType="RAISED" contentDisplay="TOP" onAction="#SwitchToAddAccountScreen" prefHeight="185.0" prefWidth="844.0" ripplerFill="WHITE" style="-fx-border-radius: 10; -fx-border-width: 5; -fx-background-radius: 10;" styleClass="buttonMain" stylesheets="@Default.css" text="New Account" textFill="WHITE" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="2" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
+                              <JFXButton fx:id="newAccount" alignment="CENTER" buttonType="RAISED" contentDisplay="TOP" onAction="#SwitchToAddAccountScreen" prefHeight="185.0" prefWidth="844.0" ripplerFill="WHITE" style="-fx-border-radius: 10; -fx-border-width: 5; -fx-background-radius: 10;" styleClass="buttonBig" stylesheets="@Default.css" text="New Account" textFill="WHITE" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="2" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
+                                 <font>
+                                    <Font name="Trebuchet MS" size="35.0" />
+                                 </font>
+                                 <GridPane.margin>
+                                    <Insets bottom="70.0" left="10.0" right="10.0" />
+                                 </GridPane.margin>
+                                 <graphic>
+                                    <FontAwesomeIconView fill="WHITE" glyphName="USER" size="75" />
+                                 </graphic>
+                              </JFXButton>
+                              <JFXButton fx:id="editAccount" alignment="CENTER" buttonType="RAISED" contentDisplay="TOP" onAction="#SwitchToEditAccountScreen" prefHeight="185.0" prefWidth="1099.0" ripplerFill="WHITE" style="-fx-border-radius: 10; -fx-border-width: 5; -fx-background-radius: 10;" styleClass="buttonBig" stylesheets="@Default.css" text="Edit Accounts" textFill="WHITE" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="2" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
                                  <font>
                                     <Font size="35.0" />
                                  </font>
@@ -120,21 +136,21 @@
                                     <Insets bottom="70.0" left="10.0" right="10.0" />
                                  </GridPane.margin>
                                  <graphic>
-                                    <FontAwesomeIconView fill="WHITE" glyphName="USER" size="55" />
+                                    <FontAwesomeIconView fill="WHITE" glyphName="EDIT" size="75" />
                                  </graphic>
                               </JFXButton>
-                              <JFXButton fx:id="editAccount" alignment="CENTER" buttonType="RAISED" contentDisplay="TOP" onAction="#SwitchToEditAccountScreen" prefHeight="185.0" prefWidth="1099.0" ripplerFill="WHITE" style="-fx-border-radius: 10; -fx-border-width: 5; -fx-background-radius: 10;" styleClass="buttonMain" stylesheets="@Default.css" text="Edit Accounts" textFill="WHITE" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="2" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
+                              <JFXButton fx:id="serviceRequest" buttonType="RAISED" contentDisplay="TOP" onAction="#SwitchToServiceScreen" prefHeight="185.0" prefWidth="1180.0" ripplerFill="WHITE" style="-fx-border-radius: 10; -fx-border-width: 5; -fx-background-radius: 10;" styleClass="buttonBig" stylesheets="@Default.css" text="Service Request" textFill="WHITE" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
                                  <font>
-                                    <Font size="35.0" />
+                                    <Font name="Trebuchet MS" size="35.0" />
                                  </font>
                                  <GridPane.margin>
-                                    <Insets bottom="70.0" left="10.0" right="10.0" />
+                                    <Insets left="10.0" right="10.0" />
                                  </GridPane.margin>
                                  <graphic>
-                                    <FontAwesomeIconView fill="WHITE" glyphName="EDIT" size="55" />
+                                    <FontAwesomeIconView fill="WHITE" glyphName="BELL_ALT" size="75" />
                                  </graphic>
                               </JFXButton>
-                              <JFXButton fx:id="serviceRequest" buttonType="RAISED" contentDisplay="TOP" onAction="#SwitchToServiceScreen" prefHeight="185.0" prefWidth="1180.0" ripplerFill="WHITE" style="-fx-border-radius: 10; -fx-border-width: 5; -fx-background-radius: 10;" styleClass="buttonMain" stylesheets="@Default.css" text="Service Request" textFill="WHITE" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
+                              <JFXButton fx:id="editLocations" buttonType="RAISED" contentDisplay="TOP" onAction="#SwitchToEditLocationScreen" prefHeight="185.0" prefWidth="1099.0" ripplerFill="WHITE" style="-fx-border-radius: 10; -fx-background-radius: 10; -fx-border-width: 5;" styleClass="buttonBig" stylesheets="@Default.css" text="Edit Locations" textFill="WHITE" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
                                  <font>
                                     <Font size="35.0" />
                                  </font>
@@ -142,10 +158,21 @@
                                     <Insets left="10.0" right="10.0" />
                                  </GridPane.margin>
                                  <graphic>
-                                    <FontAwesomeIconView fill="WHITE" glyphName="BELL_ALT" size="55" />
+                                    <FontAwesomeIconView fill="WHITE" glyphName="MAP_MARKER" size="75" />
                                  </graphic>
                               </JFXButton>
-                              <JFXButton fx:id="editLocations" buttonType="RAISED" contentDisplay="TOP" onAction="#SwitchToEditLocationScreen" prefHeight="185.0" prefWidth="1099.0" ripplerFill="WHITE" style="-fx-border-radius: 10; -fx-background-radius: 10; -fx-border-width: 5;" styleClass="buttonMain" stylesheets="@Default.css" text="Edit Locations" textFill="WHITE" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
+                              <JFXButton fx:id="findPath" buttonType="RAISED" contentDisplay="TOP" onAction="#SwitchToPathfindScreen" prefHeight="185.0" prefWidth="844.0" ripplerFill="WHITE" style="-fx-background-radius: 10; -fx-border-width: 5; -fx-border-radius: 10;" styleClass="buttonBig" stylesheets="@Default.css" text="Navigation" textFill="WHITE" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
+                                 <font>
+                                    <Font name="Trebuchet MS" size="35.0" />
+                                 </font>
+                                 <GridPane.margin>
+                                    <Insets left="10.0" right="10.0" />
+                                 </GridPane.margin>
+                                 <graphic>
+                                    <FontAwesomeIconView fill="WHITE" glyphName="MAP_ALT" size="75" />
+                                 </graphic>
+                              </JFXButton>
+                              <JFXButton fx:id="seeSuggestions" alignment="CENTER" buttonType="RAISED" contentDisplay="TOP" onAction="#SwitchToSuggestionScreen" prefHeight="185.0" prefWidth="1076.0" style="-fx-background-radius: 10; -fx-border-width: 5; -fx-border-radius: 10;" styleClass="buttonBig" stylesheets="@Default.css" text="See Suggestions" textFill="WHITE" GridPane.columnIndex="3" GridPane.rowIndex="1">
                                  <font>
                                     <Font size="35.0" />
                                  </font>
@@ -153,48 +180,26 @@
                                     <Insets left="10.0" right="10.0" />
                                  </GridPane.margin>
                                  <graphic>
-                                    <FontAwesomeIconView fill="WHITE" glyphName="MAP_MARKER" size="55" />
+                                    <FontAwesomeIconView fill="WHITE" glyphName="COMMENTING" size="75" />
                                  </graphic>
                               </JFXButton>
-                              <JFXButton fx:id="findPath" buttonType="RAISED" contentDisplay="TOP" onAction="#SwitchToPathfindScreen" prefHeight="185.0" prefWidth="844.0" ripplerFill="WHITE" style="-fx-background-radius: 10; -fx-border-width: 5; -fx-border-radius: 10;" styleClass="buttonMain" stylesheets="@Default.css" text="Find Path" textFill="WHITE" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
-                                 <font>
-                                    <Font size="35.0" />
-                                 </font>
-                                 <GridPane.margin>
-                                    <Insets left="10.0" right="10.0" />
-                                 </GridPane.margin>
-                                 <graphic>
-                                    <FontAwesomeIconView fill="WHITE" glyphName="MAP_ALT" size="55" />
-                                 </graphic>
-                              </JFXButton>
-                              <JFXButton fx:id="seeSuggestions" buttonType="RAISED" contentDisplay="TOP" onAction="#SwitchToSuggestionScreen" prefHeight="185.0" prefWidth="1076.0" style="-fx-background-radius: 10; -fx-border-width: 5; -fx-border-radius: 10;" styleClass="buttonMain" stylesheets="@Default.css" text="See Suggestions" textFill="WHITE" GridPane.columnIndex="3" GridPane.rowIndex="1">
-                                 <font>
-                                    <Font size="35.0" />
-                                 </font>
-                                 <GridPane.margin>
-                                    <Insets left="10.0" right="10.0" />
-                                 </GridPane.margin>
-                                 <graphic>
-                                    <FontAwesomeIconView fill="WHITE" glyphName="COMMENTING" size="55" />
-                                 </graphic>
-                              </JFXButton>
-                              <JFXButton fx:id="fufillServiceRequest" buttonType="RAISED" contentDisplay="TOP" onAction="#SwitchToFullfillRequestScreen" prefHeight="185.0" prefWidth="1180.0" ripplerFill="WHITE" style="-fx-border-radius: 10; -fx-border-width: 5; -fx-background-radius: 10;" styleClass="buttonMain" stylesheets="@Default.css" text="Fulfill Request" textFill="WHITE" GridPane.rowIndex="2">
+                              <JFXButton fx:id="fufillServiceRequest" buttonType="RAISED" contentDisplay="TOP" onAction="#SwitchToFullfillRequestScreen" prefHeight="185.0" prefWidth="1180.0" ripplerFill="WHITE" style="-fx-border-radius: 10; -fx-border-width: 5; -fx-background-radius: 10;" styleClass="buttonBig" stylesheets="@Default.css" text="Fulfill Request" textFill="WHITE" GridPane.rowIndex="2">
                                  <font>
                                     <Font size="35.0" />
                                  </font>
                                  <graphic>
-                                    <FontAwesomeIconView fill="WHITE" glyphName="CHECK_SQUARE" size="55" />
+                                    <FontAwesomeIconView fill="WHITE" glyphName="CHECK_SQUARE" size="75" />
                                  </graphic>
                                  <GridPane.margin>
                                     <Insets bottom="70.0" left="10.0" right="10.0" />
                                  </GridPane.margin>
                               </JFXButton>
-                              <JFXButton fx:id="bookRoom" buttonType="RAISED" contentDisplay="TOP" onAction="#bookRoom" prefHeight="185.0" prefWidth="1076.0" ripplerFill="WHITE" style="-fx-border-radius: 10; -fx-border-width: 5; -fx-background-radius: 10;" styleClass="buttonMain" stylesheets="@Default.css" text="Room Booking" textFill="WHITE" GridPane.columnIndex="3" GridPane.rowIndex="2">
+                              <JFXButton fx:id="bookRoom" buttonType="RAISED" contentDisplay="TOP" onAction="#bookRoom" prefHeight="185.0" prefWidth="1076.0" ripplerFill="WHITE" style="-fx-border-radius: 10; -fx-border-width: 5; -fx-background-radius: 10;" styleClass="buttonBig" stylesheets="@Default.css" text="Room Booking" textFill="WHITE" GridPane.columnIndex="3" GridPane.rowIndex="2">
                                  <font>
                                     <Font size="35.0" />
                                  </font>
                                  <graphic>
-                                    <FontAwesomeIconView fill="WHITE" glyphName="CALENDAR" size="55" />
+                                    <FontAwesomeIconView fill="WHITE" glyphName="CALENDAR" size="75" />
                                  </graphic>
                                  <GridPane.margin>
                                     <Insets bottom="70.0" left="10.0" right="10.0" />
@@ -202,7 +207,7 @@
                               </JFXButton>
                               <Label fx:id="welcome" alignment="CENTER" contentDisplay="CENTER" prefHeight="57.0" prefWidth="787.0" styleClass="labelWelcome" stylesheets="@Default.css" text="Welcome, [Nickname]" textFill="#fdebeb" GridPane.columnIndex="1" GridPane.columnSpan="2">
                                  <font>
-                                    <Font size="35.0" />
+                                    <Font name="Trebuchet MS" size="35.0" />
                                  </font>
                                  <effect>
                                     <Blend />

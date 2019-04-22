@@ -23,7 +23,8 @@ public class Main extends Application {
         Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getClassLoader().getResource("HospitalHome.fxml")));
         primaryStage.setTitle("Team L Iteration 3");
         primaryStage.setScene(new Scene(root));
-        //primaryStage.setFullScreen(true);
+        primaryStage.setMaximized(true);
+        primaryStage.setResizable(false);
         primaryStage.show();
     }
 
