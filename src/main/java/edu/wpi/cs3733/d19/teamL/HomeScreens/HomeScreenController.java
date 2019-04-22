@@ -13,6 +13,7 @@ import javafx.animation.Timeline;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -216,50 +217,33 @@ public class HomeScreenController {
         stage.close();
     }
     @FXML
-    private void SwitchToPathfindScreen() throws IOException{
+    private void SwitchToPathfindScreen(ActionEvent event) throws IOException{
         stop();
         saveState();
         Singleton single = Singleton.getInstance();
         single.setLastTime();
-        FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("HospitalPathFinding.fxml"));
-
-        Parent sceneMain = loader.load();
-
-        Stage theStage = (Stage) HomeFindPath.getScene().getWindow();
-
-        Scene scene = new Scene(sceneMain);
-        theStage.setScene(scene);
+        Parent newPage = FXMLLoader.load(getClass().getClassLoader().getResource("HospitalPathFinding.fxml"));
+        ((Node) event.getSource()).getScene().setRoot(newPage);
     }
 
     @FXML
-    private void SwitchToSuggestionBox() throws IOException{
+    private void SwitchToSuggestionBox(ActionEvent event) throws IOException{
         stop();
         saveState();
         Singleton single = Singleton.getInstance();
         single.setLastTime();
-        Stage thestage = (Stage) HomeSuggestions.getScene().getWindow();
-        AnchorPane root;
-        root = FXMLLoader.load(getClass().getClassLoader().getResource("SuggestionBox.fxml"));
-        Scene scene = new Scene(root);
-        thestage.setScene(scene);
+        Parent newPage = FXMLLoader.load(getClass().getClassLoader().getResource("SuggestionBox.fxml"));
+        ((Node) event.getSource()).getScene().setRoot(newPage);
     }
 
     @FXML
-    private void SwitchToServiceScreen() throws IOException{
+    private void SwitchToServiceScreen(ActionEvent event) throws IOException{
         stop();
         saveState();
         Singleton single = Singleton.getInstance();
         single.setLastTime();
-        FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("ServiceRequest.fxml"));
-
-        Parent sceneMain = loader.load();
-
-        ServiceRequestController controller = loader.<ServiceRequestController>getController();
-
-        Stage theStage = (Stage) HomeServiceRequest.getScene().getWindow();
-
-        Scene scene = new Scene(sceneMain);
-        theStage.setScene(scene);
+        Parent newPage = FXMLLoader.load(getClass().getClassLoader().getResource("ServiceRequest.fxml"));
+        ((Node) event.getSource()).getScene().setRoot(newPage);
     }
 
     @FXML
@@ -269,34 +253,26 @@ public class HomeScreenController {
         Singleton single = Singleton.getInstance();
         single.setLastTime();
         try {
-            Stage thestage = (Stage) LogIn.getScene().getWindow();
-            AnchorPane root;
-            root = FXMLLoader.load(getClass().getClassLoader().getResource("LogIn.fxml"));
-            Scene scene = new Scene(root);
-            thestage.setScene(scene);
+            Parent newPage = FXMLLoader.load(getClass().getClassLoader().getResource("LogIn.fxml"));
+            ((Node) event.getSource()).getScene().setRoot(newPage);
+
         } catch (Exception e){
         }
     }
 
     @FXML
-    private void AboutPress() throws IOException {
+    private void AboutPress(ActionEvent event) throws IOException {
         stop();
         saveState();
         Singleton single = Singleton.getInstance();
         single.setLastTime();
         single.setDoPopup(true);
-        FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("AboutPage_fancy.fxml"));
-
-        Parent sceneMain = loader.load();
-
-        Stage thisStage = (Stage) aboutButton.getScene().getWindow();
-
-        Scene newScene = new Scene(sceneMain);
-        thisStage.setScene(newScene);
+        Parent newPage = FXMLLoader.load(getClass().getClassLoader().getResource("AboutPage_fancy.fxml"));
+        ((Node) event.getSource()).getScene().setRoot(newPage);
     }
 
     @FXML
-    private void backPressed() throws IOException{
+    private void backPressed(ActionEvent event) throws IOException{
         Singleton single = Singleton.getInstance();
         stop();
         single = Singleton.getInstance();
@@ -305,16 +281,14 @@ public class HomeScreenController {
 
         Memento m = single.restore();
         FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource(m.getFxml()));
-        Parent sceneMain = loader.load();
+        Parent newPage = loader.load();
         if(m.getFxml().contains("HospitalPathFinding")){
             PathFindingController pfc = loader.getController();
             pfc.initWithMeme(m.getPathPref(), m.getTypeFilter(), m.getFloorFilter(), m.getStart(), m.getEnd());
         }
 
-        Stage theStage = (Stage) LogIn.getScene().getWindow();
-
-        Scene scene = new Scene(sceneMain);
-        theStage.setScene(scene);
+        //Parent newPage = FXMLLoader.load(getClass().getClassLoader().getResource(m.getFxml()));
+        ((Node) event.getSource()).getScene().setRoot(newPage);
     }
 
     /**@author Nathan
@@ -334,7 +308,7 @@ public class HomeScreenController {
     }
 
     @FXML
-    private void logOut() throws IOException {
+    private void logOut(ActionEvent event) throws IOException {
         stop();
         Singleton single = Singleton.getInstance();
         single.setLastTime();
@@ -345,13 +319,12 @@ public class HomeScreenController {
         Stage thestage = (Stage) LogIn.getScene().getWindow();
         AnchorPane root;
         Memento m = single.getOrig();
-        root = FXMLLoader.load(getClass().getClassLoader().getResource(m.getFxml()));
-        Scene scene = new Scene(root);
-        thestage.setScene(scene);
+        Parent newPage = FXMLLoader.load(getClass().getClassLoader().getResource(m.getFxml()));
+        ((Node) event.getSource()).getScene().setRoot(newPage);
     }
 
     @FXML
-    private void goHome() throws IOException {
+    private void goHome(ActionEvent event) throws IOException {
         stop();
         Singleton single = Singleton.getInstance();
         single.setLastTime();
@@ -360,8 +333,7 @@ public class HomeScreenController {
         Stage thestage = (Stage) LogIn.getScene().getWindow();
         AnchorPane root;
         Memento m = single.getOrig();
-        root = FXMLLoader.load(getClass().getClassLoader().getResource(m.getFxml()));
-        Scene scene = new Scene(root);
-        thestage.setScene(scene);
+        Parent newPage = FXMLLoader.load(getClass().getClassLoader().getResource(m.getFxml()));
+        ((Node) event.getSource()).getScene().setRoot(newPage);
     }
 }

@@ -13,6 +13,7 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -163,16 +164,16 @@ public class CreateEditAccountController {
         errorLabel.setText("");
         department.getItems().addAll("Sanitation", "Security", "IT", "Religious", "Audio Visual", "External Transportation", "Internal Transportation",
                 "Language", "Maintenance", "Prescription", "Florist Delivery");
-        if(picView.getImage() == null){
+        if (picView.getImage() == null) {
             picbtn.setText("Add Photo");
         }
-        if(picView.getImage() != null){
+        if (picView.getImage() != null) {
             picbtn.setText("Retake Photo");
         }
     }
 
     @FXML
-    private void takePic(){
+    private void takePic() {
         Webcam webcam;
         webcam = Webcam.getDefault();
         //THE VIEW SIZE WILL PROBABLY CHANGE DEPENDING ON THE COMPUTER
@@ -192,7 +193,7 @@ public class CreateEditAccountController {
         window.setVisible(true);
         try {
             sleep(2500);
-        } catch (InterruptedException e){
+        } catch (InterruptedException e) {
             System.out.println(e);
             System.out.println(e.getMessage());
         }
@@ -204,7 +205,7 @@ public class CreateEditAccountController {
         try {
             BufferedImage image = webcam.getImage();
             ImageIO.write(image, "JPG", new File("TempOutput.jpg"));
-        } catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
         webcam.close();
@@ -215,7 +216,7 @@ public class CreateEditAccountController {
             Image image = ImageIO.read(new File("TempOutput.jpg"));
             BufferedImage buffered = (BufferedImage) image;
             ea.updateEmployeeImg(single.getUsername(), buffered);
-        } catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
@@ -235,27 +236,29 @@ public class CreateEditAccountController {
         thestage.setScene(scene);
     }
 
-    /**ANDREW MADE THIS
+    /**
+     * ANDREW MADE THIS
      * sets the type of the controller when dealing with editing or creating an account
      * type = 1 when creating, type = 2 when editing your employee account, type = 3 when admin editing any account
+     *
      * @param check check
-     * @param user current user
+     * @param user  current user
      */
-    public void setType(int check, String user){
+    public void setType(int check, String user) {
         Singleton single = Singleton.getInstance();
         type = check;
-        if(type == 1){
+        if (type == 1) {
             title.setText("Create an Account");
             delete.setVisible(false);
             delete.setDisable(true);
-        }else if(type == 2){
+        } else if (type == 2) {
             title.setText("Edit your Account");
             EmployeeAccess ea = new EmployeeAccess();
             ArrayList<String> data = ea.getEmployeeInformation(single.getUsername());
             username.setText(single.getUsername());
             employeeID.setText(data.get(0));
             department.getSelectionModel().select(data.get(1));
-            if(data.get(2).equals("true")){
+            if (data.get(2).equals("true")) {
                 isAdmin.setSelected(true);
             }
             nickname.setText(data.get(3));
@@ -271,14 +274,14 @@ public class CreateEditAccountController {
                 BufferedImage img1 = ea.getEmpImg(pusername);
                 //File outputfile = new File("DBInput.jpg");
                 //ImageIO.write(img1, "jpg", outputfile);
-                if(img1 != null) {
+                if (img1 != null) {
                     picView.setImage(SwingFXUtils.toFXImage(img1, null));
                 }
-            } catch (Exception e){
+            } catch (Exception e) {
                 e.printStackTrace();
             }
 
-        }else if(type == 3){
+        } else if (type == 3) {
             title.setText("Edit an Account");
             employeeID.setDisable(true);
             EmployeeAccess ea = new EmployeeAccess();
@@ -288,7 +291,7 @@ public class CreateEditAccountController {
             empID = data.get(0);
             employeeID.setText(data.get(0));
             department.getSelectionModel().select(data.get(1));
-            if(data.get(2).equals("true")){
+            if (data.get(2).equals("true")) {
                 isAdmin.setSelected(true);
             }
             nickname.setText(data.get(3));
@@ -303,25 +306,27 @@ public class CreateEditAccountController {
                 BufferedImage img1 = ea.getEmpImg(pusername);
                 //File outputfile = new File("DBInput.jpg");
                 //ImageIO.write(img1, "jpg", outputfile);
-                if(img1 != null) {
+                if (img1 != null) {
                     picView.setImage(SwingFXUtils.toFXImage(img1, null));
                 }
-            } catch (Exception e){
+            } catch (Exception e) {
                 e.printStackTrace();
             }
         }
-        if(!single.getUsername().equals(username.getText())){
+        if (!single.getUsername().equals(username.getText())) {
             picbtn.setDisable(true);
         }
     }
 
 
-    /**Andrew made this
+    /**
+     * Andrew made this
      * deletes an employee
+     *
      * @throws IOException throwsException
      */
     @FXML
-    public void deleteClicked() throws IOException{
+    public void deleteClicked() throws IOException {
         timeout.pause();
         Singleton single = Singleton.getInstance();
         single.setLastTime();
@@ -338,7 +343,7 @@ public class CreateEditAccountController {
         clickedDelete = true;
         stage.showAndWait();
 
-        if(clickedDelete) {
+        if (clickedDelete) {
             AnchorPane root2;
             timeout.stop();
             Memento m = single.restore();
@@ -375,8 +380,10 @@ public class CreateEditAccountController {
 
     }
 
-    /**ANDREW MADE THIS
+    /**
+     * ANDREW MADE THIS
      * helper method that validates an email address
+     *
      * @param email employee email
      * @return boolean
      */
@@ -390,47 +397,48 @@ public class CreateEditAccountController {
         } catch (AddressException ex) {
             result = false;
         }
-        if(email.lastIndexOf('.') < email.lastIndexOf('@')){
+        if (email.lastIndexOf('.') < email.lastIndexOf('@')) {
             result = false;
         }
         return result;
     }
 
-    /**ANDREW MADE THIS
+    /**
+     * ANDREW MADE THIS
      * disables submit button until all fields are entered
      */
     @FXML
-    private void checkSubmit(){
+    private void checkSubmit() {
         Singleton single = Singleton.getInstance();
         single.setLastTime();
-        if(employeeID == null || employeeID.getText().trim().isEmpty()) {
+        if (employeeID == null || employeeID.getText().trim().isEmpty()) {
             submit.setDisable(true);
             return;
-        } else if(username == null || username.getText().trim().isEmpty()){
+        } else if (username == null || username.getText().trim().isEmpty()) {
             submit.setDisable(true);
             return;
-        } else if(lastName == null || lastName.getText().trim().isEmpty()){
+        } else if (lastName == null || lastName.getText().trim().isEmpty()) {
             submit.setDisable(true);
             return;
-        } else if(firstName == null || firstName.getText().trim().isEmpty()){
+        } else if (firstName == null || firstName.getText().trim().isEmpty()) {
             submit.setDisable(true);
             return;
-        } else if(nickname == null || nickname.getText().trim().isEmpty()){
+        } else if (nickname == null || nickname.getText().trim().isEmpty()) {
             submit.setDisable(true);
             return;
-        } else if(email == null || email.getText().trim().isEmpty()){
+        } else if (email == null || email.getText().trim().isEmpty()) {
             submit.setDisable(true);
             return;
-        } else if(position == null || position.getText().trim().isEmpty()){
+        } else if (position == null || position.getText().trim().isEmpty()) {
             submit.setDisable(true);
             return;
-        } else if(password == null || password.getText().trim().isEmpty()){
+        } else if (password == null || password.getText().trim().isEmpty()) {
             submit.setDisable(true);
             return;
-        } else if(confirmPassword == null || confirmPassword.getText().trim().isEmpty()){
+        } else if (confirmPassword == null || confirmPassword.getText().trim().isEmpty()) {
             submit.setDisable(true);
             return;
-        }else if(department.getValue() == null){
+        } else if (department.getValue() == null) {
             submit.setDisable(true);
             return;
         }
@@ -439,28 +447,29 @@ public class CreateEditAccountController {
     }
 
 
-    /**ANDREW MADE THIS
+    /**
+     * ANDREW MADE THIS
      * submit button functionality - does a lot of error checking
      */
     @FXML
-    private void submitPressed()throws IOException{
+    private void submitPressed() throws IOException {
         Singleton single = Singleton.getInstance();
         single.setLastTime();
         EmployeeAccess ea = new EmployeeAccess();
-        if(!isValidEmailAddress(email.getText())){
+        if (!isValidEmailAddress(email.getText())) {
             errorLabel.setText("Invalid Email Address");
             return;
         }
-        if(!password.getText().equals(confirmPassword.getText())){
+        if (!password.getText().equals(confirmPassword.getText())) {
             errorLabel.setText("Passwords do not match");
             return;
         }
-        if(nickname.getText().length() > 8){
+        if (nickname.getText().length() > 8) {
             errorLabel.setText("The nickname is too long");
             return;
         }
-        if(type == 1){
-            if(ea.checkFields(employeeID.getText(), username.getText())){
+        if (type == 1) {
+            if (ea.checkFields(employeeID.getText(), username.getText())) {
                 errorLabel.setText("The Username or Employee ID is taken");
                 return;
             }
@@ -476,14 +485,14 @@ public class CreateEditAccountController {
             list.add(email.getText());
             errorLabel.setText("");
             ea.addEmployee(list);
-            if(isAdmin.isSelected()) {
+            if (isAdmin.isSelected()) {
                 ea.changeAdmin(employeeID.getText(), true);
-            }else{
+            } else {
                 ea.changeAdmin(employeeID.getText(), false);
             }
             backPressed();
-        }else if(type == 2){
-            if(!pusername.equals(username.getText())) {
+        } else if (type == 2) {
+            if (!pusername.equals(username.getText())) {
                 try {
                     ea.updateEmployee(employeeID.getText(), "username", username.getText());
                 } catch (SQLException e) {
@@ -500,13 +509,13 @@ public class CreateEditAccountController {
                 ea.updateEmployee(employeeID.getText(), "lastName", lastName.getText());
                 ea.updateEmployee(employeeID.getText(), "nickname", nickname.getText());
                 ea.updateEmployee(employeeID.getText(), "email", email.getText());
-            } catch (SQLException e){
+            } catch (SQLException e) {
                 System.out.println(e.getMessage());
             }
             errorLabel.setText("");
             backPressed();
         } else {
-            if(!pusername.equals(username.getText())) {
+            if (!pusername.equals(username.getText())) {
                 try {
                     ea.updateEmployee(employeeID.getText(), "username", username.getText());
                 } catch (SQLException e) {
@@ -523,7 +532,7 @@ public class CreateEditAccountController {
                 ea.updateEmployee(employeeID.getText(), "lastName", lastName.getText());
                 ea.updateEmployee(employeeID.getText(), "nickname", nickname.getText());
                 ea.updateEmployee(employeeID.getText(), "email", email.getText());
-            } catch (SQLException e){
+            } catch (SQLException e) {
                 System.out.println(e.getMessage());
             }
             errorLabel.setText("");
@@ -533,7 +542,7 @@ public class CreateEditAccountController {
     }
 
     @FXML
-    private void logOut() throws IOException {
+    private void logOut(ActionEvent event) throws IOException {
         timeout.stop();
         Singleton single = Singleton.getInstance();
         single.setLastTime();
@@ -541,25 +550,20 @@ public class CreateEditAccountController {
         single.setIsAdmin(false);
         single.setLoggedIn(false);
         single.setDoPopup(true);
-        thestage = (Stage) back.getScene().getWindow();
-        AnchorPane root;
         Memento m = single.getOrig();
-        root = FXMLLoader.load(getClass().getClassLoader().getResource(m.getFxml()));
-        Scene scene = new Scene(root);
-        thestage.setScene(scene);
+        Parent newPage = FXMLLoader.load(getClass().getClassLoader().getResource(m.getFxml()));
+        ((Node) event.getSource()).getScene().setRoot(newPage);
     }
 
     @FXML
-    private void goHome() throws IOException {
+    private void goHome(ActionEvent event) throws IOException {
         timeout.stop();
         Singleton single = Singleton.getInstance();
         single.setLastTime();
         single.setDoPopup(true);
-        thestage = (Stage) back.getScene().getWindow();
-        AnchorPane root;
+        //saveState();
         Memento m = single.getOrig();
-        root = FXMLLoader.load(getClass().getClassLoader().getResource(m.getFxml()));
-        Scene scene = new Scene(root);
-        thestage.setScene(scene);
+        Parent newPage = FXMLLoader.load(getClass().getClassLoader().getResource(m.getFxml()));
+        ((Node) event.getSource()).getScene().setRoot(newPage);
     }
 }
