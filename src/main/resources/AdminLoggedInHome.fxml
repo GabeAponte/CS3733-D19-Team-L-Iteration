@@ -172,7 +172,7 @@
                                     <FontAwesomeIconView fill="WHITE" glyphName="MAP_ALT" size="75" />
                                  </graphic>
                               </JFXButton>
-                              <JFXButton fx:id="seeSuggestions" buttonType="RAISED" contentDisplay="TOP" onAction="#SwitchToSuggestionScreen" prefHeight="185.0" prefWidth="1076.0" style="-fx-background-radius: 10; -fx-border-width: 5; -fx-border-radius: 10;" styleClass="buttonBig" stylesheets="@Default.css" text="See Suggestions" textFill="WHITE" GridPane.columnIndex="3" GridPane.rowIndex="1">
+                              <JFXButton fx:id="seeSuggestions" alignment="CENTER" buttonType="RAISED" contentDisplay="TOP" onAction="#SwitchToSuggestionScreen" prefHeight="185.0" prefWidth="1076.0" style="-fx-background-radius: 10; -fx-border-width: 5; -fx-border-radius: 10;" styleClass="buttonBig" stylesheets="@Default.css" text="See Suggestions" textFill="WHITE" GridPane.columnIndex="3" GridPane.rowIndex="1">
                                  <font>
                                     <Font size="35.0" />
                                  </font>
