@@ -11,6 +11,7 @@ import edu.wpi.cs3733.d19.teamL.Map.MapLocations.CircleLocation;
 import edu.wpi.cs3733.d19.teamL.Map.MapLocations.Location;
 import edu.wpi.cs3733.d19.teamL.Map.MapLocations.Path;
 import edu.wpi.cs3733.d19.teamL.Memento;
+import edu.wpi.cs3733.d19.teamL.Reports.pathReportAccess;
 import edu.wpi.cs3733.d19.teamL.SearchingAlgorithms.*;
 import edu.wpi.cs3733.d19.teamL.Singleton;
 import javafx.animation.*;
@@ -253,6 +254,8 @@ public class PathFindingController {
     private String type = "test";
     private String type2 = "";
     private String currentMap = "G"; //defaults to floor G
+
+    private String typeSelected = "selected";
 
 
     @FXML
@@ -673,6 +676,8 @@ public class PathFindingController {
             direction.setDisable(true);
             direction.setEditable(false);
         }
+        typeSelected = "selected";
+        System.out.println("selected");
     }
 
     /**Nathan modified this to include a path preference choice (restriction)
@@ -727,6 +732,14 @@ public class PathFindingController {
         displayPath();
 
 
+        direction.setDisable(false);
+        direction.setEditable(false);
+        pathReportAccess p = new pathReportAccess();
+        p.addReport(Long.toString(System.currentTimeMillis()), startNode.getLongName(), endNode.getLongName(), typeSelected);
+        if (typeSelected.equals("search")) {
+            typeSelected = "selected"; //only way to reset properly
+            System.out.println("sick");
+        }
     }
 
     /**
@@ -1246,6 +1259,7 @@ public class PathFindingController {
         PathFindStartDrop.getSelectionModel().clearSelection();
         PathFindStartDrop.setValue(null);
         startNode = kioskTemp;
+        PathFindSubmit.setDisable(true);
         noHall();
     }
 
@@ -1254,6 +1268,7 @@ public class PathFindingController {
         single.setLastTime();
         PathFindEndDrop.getSelectionModel().clearSelection();
         PathFindEndDrop.setValue(null);
+        PathFindSubmit.setDisable(true);
         noHall();
     }
     @FXML
@@ -1885,9 +1900,11 @@ public class PathFindingController {
                     //System.out.println("xxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"+"  smallest distance: "+smallestDistance);
                     //set this node to be for pathing
                     closestLOC = nodes.get(i);
-                    closestPath = findAbstractPath(astar,kioskTemp, closestLOC, "    ");
                 }
             }
+            closestPath = findAbstractPath(astar,kioskTemp, closestLOC, "    ");
+            pathReportAccess p = new pathReportAccess();
+            p.addReport(Long.toString(System.currentTimeMillis()), kioskTemp.getLongName(), closestLOC.getLongName(), "poi");
 
             //displayPath(closestPath.getPath(), kioskTemp, closestLOC);
 
@@ -2519,13 +2536,18 @@ public class PathFindingController {
                             }
                         }
                         suggestions.setVisible(false);
+                        if((PathFindStartDrop.getValue() != null || startNode != null) && PathFindEndDrop.getValue() != null){
+                            PathFindSubmit.setDisable(false);
+                        }
+                        else{
+                            PathFindSubmit.setDisable(true);
+                            direction.setDisable(true);
+                            direction.setEditable(false);
+                        }
                     });
                     vBox.getChildren().add(b);
 
                     Text newText = new Text(autoList.get(i).toString());
-                    // Color c = Color.web("white");
-                    // newText.setFill(c);
-                    //gp.add(newText, 0, i);
 
                 }
                 suggestions.getChildren().add(vBox);
@@ -2533,6 +2555,8 @@ public class PathFindingController {
                 suggestions.setLayoutY(searchField.getLayoutY()+50);
                 suggestions.toFront();
                 suggestions.setVisible(true);
+                typeSelected = "search";
+                System.out.println("search");
                 //sp.setContent(gp);
                 //sp.setLayoutX(searchField.getLayoutX() + 2);
                 //sp.setLayoutY(searchField.getLayoutY()+50);
@@ -2550,8 +2574,8 @@ public class PathFindingController {
     @FXML
     public void submitSearchField(Event ae) {
         searchField.setText("");
-        //Filter.setValue(null);
-        //Floor.setValue(null);
+        Filter.setValue(null);
+        Floor.setValue(null);
         noHall();
     }
 
