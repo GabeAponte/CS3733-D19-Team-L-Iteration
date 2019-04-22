@@ -35,6 +35,7 @@
     -fx-background-radius: 10;
     -fx-font-family: "Trebuchet MS";
     -fx-font-style: Regular;
+    -fx-font-size: 35;
 }
 
 .buttonBig .glyph-icon {
@@ -46,6 +47,7 @@
     -fx-text-fill: #012d5a;
     -fx-font-family: "Trebuchet MS";
     -fx-font-style: Regular;
+    -fx-font-size: 35;
 }
 
 .buttonBig:hover .glyph-icon{
