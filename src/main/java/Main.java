@@ -1,5 +1,6 @@
 import edu.wpi.cs3733.d19.teamL.Map.Pathfinding.EdgesAccess;
 import edu.wpi.cs3733.d19.teamL.Map.Pathfinding.NodesAccess;
+import edu.wpi.cs3733.d19.teamL.Reports.pathReportAccess;
 import edu.wpi.cs3733.d19.teamL.Singleton;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -26,9 +27,11 @@ public class Main extends Application {
         Singleton single = Singleton.getInstance();
         NodesAccess na = new NodesAccess();
         EdgesAccess ea = new EdgesAccess();
+        pathReportAccess p = new pathReportAccess();
         //ea.deleteRecords();
         //na.readCSVintoTable();
         //ea.readCSVintoTable();
+
         single.setData();
         single.populateTweets();
         single.updateWeather();
