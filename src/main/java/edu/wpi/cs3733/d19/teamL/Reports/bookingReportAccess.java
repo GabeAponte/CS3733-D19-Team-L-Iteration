@@ -6,6 +6,7 @@ import java.io.InputStream;
 import java.sql.*;
 import java.util.ArrayList;
 import edu.wpi.cs3733.d19.teamL.DBAccess;
+import edu.wpi.cs3733.d19.teamL.ServiceRequest.ServiceRequestDBAccess.ReligiousRequestAccess;
 import javafx.scene.control.TreeItem;
 
 import javax.imageio.ImageIO;
@@ -49,6 +50,10 @@ public class bookingReportAccess extends DBAccess {
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
+    }
+
+    public static void main(String[] args) {
+        bookingReportAccess ba = new bookingReportAccess();
     }
 
 }
