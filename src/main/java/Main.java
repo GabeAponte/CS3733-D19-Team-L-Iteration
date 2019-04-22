@@ -33,7 +33,6 @@ public class Main extends Application {
         NodesAccess na = new NodesAccess();
         EdgesAccess ea = new EdgesAccess();
         pathReportAccess p = new pathReportAccess();
-        p.deleteRecords();
         //ea.deleteRecords();
         //na.readCSVintoTable();
         //ea.readCSVintoTable();

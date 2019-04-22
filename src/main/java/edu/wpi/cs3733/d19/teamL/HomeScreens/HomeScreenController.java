@@ -290,7 +290,6 @@ public class HomeScreenController {
         //Complete Pathfinding report
         Singleton single = Singleton.getInstance();
         ArrayList<Location> toAdd = new ArrayList<Location>();
-        System.out.println(single.lookup.size());
         for (Location l : single.lookup.values()) {
             if (toAdd.size() < 10) {
                 if (toAdd.size() == 0) {
