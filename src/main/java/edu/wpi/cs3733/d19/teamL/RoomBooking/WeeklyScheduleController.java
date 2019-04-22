@@ -140,19 +140,21 @@ public class WeeklyScheduleController
         LocalDate givenDate = datePicker.getValue();
         LocalTime startLT = LocalTime.of(0,0);
         LocalTime endLT = LocalTime.of(0, 30);
-        for(int i = 0; i < 48; i++){
+        for(int i = 0; i < 48; i++) {
             //System.out.println("Start Time: " + startLT + " End Time: " + endLT);
-            if(i == 47)
-            {
-                System.out.println(startLT.toString());
-                System.out.println(endLT.toString());
-            }
-            TreeItem<WeeklyRoom> bookedRooms = new TreeItem<WeeklyRoom>(new WeeklyRoom(startLT, endLT, theDate, roomName ));
+            TreeItem<WeeklyRoom> bookedRooms = new TreeItem<WeeklyRoom>(new WeeklyRoom(startLT, endLT, theDate, roomName));
             Root.getChildren().add(bookedRooms);
-            startLT = startLT.plusMinutes(30);
-            endLT = endLT.plusMinutes(30);
-        }
 
+            if(i == 46){
+                startLT = startLT.plusMinutes(30);
+                endLT = endLT.plusMinutes(29);
+            }
+            else{
+                startLT = startLT.plusMinutes(30);
+                endLT = endLT.plusMinutes(30);
+
+            }
+        }
         //timeCol = new TreeTableColumn<Room, String>("Time");
         timeCol.setCellValueFactory(cellData -> {
             if(cellData.getValue().getValue()instanceof WeeklyRoom) {
