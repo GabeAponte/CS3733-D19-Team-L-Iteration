@@ -48,11 +48,11 @@
 } */
 
 .buttonBig{
-    /*-fx-background-color: white;*/
-    -fx-border-color: #F5D96B;
+    -fx-background-color: transparent;
+    /*-fx-border-color: #F5D96B;*/
     -fx-text-fill: white;
     -fx-background-radius: 10;
-    -fx-border-color : #F5D96B;
+   /* -fx-border-color : #F5D96B;
     /*-fx-border-radius: 10;
     -fx-border-width: 2;*/
 }

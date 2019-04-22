@@ -128,7 +128,7 @@
                   <Insets />
                </VBox.margin>
                <children>
-                  <JFXButton fx:id="HomeServiceRequest" alignment="CENTER" buttonType="RAISED" contentDisplay="TOP" focusTraversable="false" onAction="#SwitchToServiceScreen" prefHeight="310.0" prefWidth="361.0" ripplerFill="WHITE" style="-fx-border-width: 2; -fx-background-radius: 10; -fx-border-radius: 10;" styleClass="buttonMain" stylesheets="@Default.css" text="Request" textFill="WHITE" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.rowIndex="1" GridPane.valignment="CENTER">
+                  <JFXButton fx:id="HomeServiceRequest" alignment="CENTER" buttonType="RAISED" contentDisplay="TOP" focusTraversable="false" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onAction="#SwitchToServiceScreen" prefHeight="298.0" prefWidth="325.0" ripplerFill="WHITE" style="-fx-border-width: 3; -fx-background-radius: 10; -fx-border-radius: 10;" styleClass="buttonBig" stylesheets="@Default.css" text="Request" textFill="WHITE" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.rowIndex="1" GridPane.valignment="CENTER">
                      <font>
                         <Font name="Heiti TC Light" size="45.0" />
                      </font>
@@ -153,7 +153,7 @@
                           </rowConstraints>
                            <children>
                               <VBox maxWidth="5.0" minWidth="5.0" prefWidth="5.0" style="-fx-background-color: transparent;" GridPane.columnSpan="2147483647" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" GridPane.rowSpan="2147483647" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS" />
-                              <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="65.0" prefWidth="899.0" styleClass="labelTitle" stylesheets="@Default.css" text="Welcome to Brigham and Women's" textFill="#f5d96b" GridPane.columnSpan="3" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+                              <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="65.0" prefWidth="899.0" styleClass="labelTitle" stylesheets="@Default.css" text="Welcome to Brigham and Women's" textFill="#f5d96b" GridPane.columnSpan="2147483647" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
                                  <font>
                                     <Font name="Heiti TC Light" size="52.0" />
                                  </font>
@@ -186,7 +186,7 @@
                         </GridPane>
                      </children>
                   </HBox>
-                  <JFXButton fx:id="HomeFindPath" alignment="CENTER" buttonType="RAISED" contentDisplay="TOP" focusTraversable="false" onAction="#SwitchToPathfindScreen" prefHeight="310.0" prefWidth="347.0" ripplerFill="WHITE" style="-fx-border-width: 2; -fx-border-radius: 10; -fx-background-radius: 10;" styleClass="buttonMain" stylesheets="@Default.css" text="Navigation" textFill="WHITE" GridPane.halignment="RIGHT" GridPane.rowIndex="1" GridPane.valignment="CENTER">
+                  <JFXButton fx:id="HomeFindPath" alignment="CENTER" buttonType="RAISED" contentDisplay="TOP" focusTraversable="false" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onAction="#SwitchToPathfindScreen" prefHeight="298.0" prefWidth="325.0" ripplerFill="WHITE" style="-fx-border-width: 3; -fx-border-radius: 10; -fx-background-radius: 10;" styleClass="buttonBig" stylesheets="@Default.css" text="Navigation" textFill="WHITE" GridPane.halignment="RIGHT" GridPane.rowIndex="1" GridPane.valignment="CENTER">
                      <font>
                         <Font name="Heiti TC Light" size="45.0" />
                      </font>
