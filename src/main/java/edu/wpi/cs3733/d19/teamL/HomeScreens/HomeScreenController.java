@@ -1,11 +1,14 @@
 package edu.wpi.cs3733.d19.teamL.HomeScreens;
 
 import com.jfoenix.controls.JFXButton;
+import edu.wpi.cs3733.d19.teamL.Map.MapLocations.Location;
 import edu.wpi.cs3733.d19.teamL.Map.Pathfinding.PathFindingController;
 import edu.wpi.cs3733.d19.teamL.Memento;
+import edu.wpi.cs3733.d19.teamL.Reports.BarGraphChartData;
+import edu.wpi.cs3733.d19.teamL.Reports.PieChartData;
+import edu.wpi.cs3733.d19.teamL.Reports.pathReportAccess;
 import edu.wpi.cs3733.d19.teamL.ServiceRequest.MakeServiceRequest.ServiceRequestController;
 import edu.wpi.cs3733.d19.teamL.Singleton;
-import edu.wpi.cs3733.d19.teamL.API.Weather;
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
@@ -13,7 +16,6 @@ import javafx.animation.Timeline;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -22,20 +24,25 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
-import javafx.scene.text.TextFlow;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.util.Duration;
+import net.sf.jasperreports.engine.*;
+import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 
-
-import java.awt.*;
+import javax.management.AttributeList;
+import java.io.File;
 import java.io.IOException;
+import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.Timer;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 
 public class HomeScreenController {
 
@@ -153,9 +160,7 @@ public class HomeScreenController {
         DateTimeFormatter dtf = DateTimeFormatter.ofPattern("MM/dd/yyyy");
         LocalDate localDate = LocalDate.now();
         dateLabel.setText(dtf.format(localDate));
-
     }
-
 
     public void updateWeatherDisplay(){
         Singleton single = Singleton.getInstance();
@@ -202,7 +207,6 @@ public class HomeScreenController {
                 stage.setTitle("Inactivity Popup");
                 stage.initModality(Modality.APPLICATION_MODAL);
                 single.setLastTime();
-                stage.setResizable(false);
                 stage.show();
                 single = Singleton.getInstance();
                 single.setLastTime();
@@ -218,33 +222,50 @@ public class HomeScreenController {
         stage.close();
     }
     @FXML
-    private void SwitchToPathfindScreen(ActionEvent event) throws IOException{
+    private void SwitchToPathfindScreen() throws IOException{
         stop();
         saveState();
         Singleton single = Singleton.getInstance();
         single.setLastTime();
-        Parent newPage = FXMLLoader.load(getClass().getClassLoader().getResource("HospitalPathFinding.fxml"));
-        ((Node) event.getSource()).getScene().setRoot(newPage);
+        FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("HospitalPathFinding.fxml"));
+
+        Parent sceneMain = loader.load();
+
+        Stage theStage = (Stage) HomeFindPath.getScene().getWindow();
+
+        Scene scene = new Scene(sceneMain);
+        theStage.setScene(scene);
     }
 
     @FXML
-    private void SwitchToSuggestionBox(ActionEvent event) throws IOException{
+    private void SwitchToSuggestionBox() throws IOException{
         stop();
         saveState();
         Singleton single = Singleton.getInstance();
         single.setLastTime();
-        Parent newPage = FXMLLoader.load(getClass().getClassLoader().getResource("SuggestionBox.fxml"));
-        ((Node) event.getSource()).getScene().setRoot(newPage);
+        Stage thestage = (Stage) HomeSuggestions.getScene().getWindow();
+        AnchorPane root;
+        root = FXMLLoader.load(getClass().getClassLoader().getResource("SuggestionBox.fxml"));
+        Scene scene = new Scene(root);
+        thestage.setScene(scene);
     }
 
     @FXML
-    private void SwitchToServiceScreen(ActionEvent event) throws IOException{
+    private void SwitchToServiceScreen() throws IOException{
         stop();
         saveState();
         Singleton single = Singleton.getInstance();
         single.setLastTime();
-        Parent newPage = FXMLLoader.load(getClass().getClassLoader().getResource("ServiceRequest.fxml"));
-        ((Node) event.getSource()).getScene().setRoot(newPage);
+        FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("ServiceRequest.fxml"));
+
+        Parent sceneMain = loader.load();
+
+        ServiceRequestController controller = loader.<ServiceRequestController>getController();
+
+        Stage theStage = (Stage) HomeServiceRequest.getScene().getWindow();
+
+        Scene scene = new Scene(sceneMain);
+        theStage.setScene(scene);
     }
 
     @FXML
@@ -254,26 +275,88 @@ public class HomeScreenController {
         Singleton single = Singleton.getInstance();
         single.setLastTime();
         try {
-            Parent newPage = FXMLLoader.load(getClass().getClassLoader().getResource("LogIn.fxml"));
-            ((Node) event.getSource()).getScene().setRoot(newPage);
-
+            Stage thestage = (Stage) LogIn.getScene().getWindow();
+            AnchorPane root;
+            root = FXMLLoader.load(getClass().getClassLoader().getResource("LogIn.fxml"));
+            Scene scene = new Scene(root);
+            thestage.setScene(scene);
         } catch (Exception e){
         }
     }
 
     @FXML
-    private void AboutPress(ActionEvent event) throws IOException {
-        stop();
-        saveState();
+    private void AboutPress() throws IOException, JRException, SQLException {
+        pathReportAccess p = new pathReportAccess();
+        //Complete Pathfinding report
         Singleton single = Singleton.getInstance();
-        single.setLastTime();
-        single.setDoPopup(true);
-        Parent newPage = FXMLLoader.load(getClass().getClassLoader().getResource("AboutPage_fancy.fxml"));
-        ((Node) event.getSource()).getScene().setRoot(newPage);
+        ArrayList<Location> toAdd = new ArrayList<Location>();
+        for (Location l : single.lookup.values()) {
+            if (toAdd.size() < 10) {
+                if (toAdd.size() == 0) {
+                    toAdd.add(l);
+                }
+                else {
+                    boolean hotFix = false;
+                    for (int j = 0; j < toAdd.size(); j++) {
+                        if (p.getNumSearched(l.getLongName()) > p.getNumSearched(toAdd.get(j).getLongName())) {
+                            //System.out.println("ADDING: size < 10");
+                            toAdd.add(j, l);
+                            hotFix = true;
+                            break;
+                        }
+                    }
+                    if (!hotFix) {
+                        toAdd.add(l);
+                    }
+                }
+                }
+            else {
+                for (int i = 0; i < 10; i++) {
+                    if (p.getNumSearched(l.getLongName()) > p.getNumSearched(toAdd.get(i).getLongName())) {
+                        //System.out.println("ADDING: size > 10");
+                        toAdd.add(i, l);
+                        toAdd.remove(10);
+                        break;
+                    }
+                }
+            }
+        }
+
+
+        List<BarGraphChartData> cList = new ArrayList<BarGraphChartData>();
+        for (int k = 0; k < 5; k++) {
+            cList.add(new BarGraphChartData("Locations", toAdd.get(k).getLongName(),p.getNumSearched(toAdd.get(k).getLongName())));
+        }
+
+        ArrayList<Integer> counts = p.getTypeCounts();
+        List<PieChartData> pieChartData = new ArrayList<PieChartData>();
+        pieChartData.add(new PieChartData("search", counts.get(0)));
+        pieChartData.add(new PieChartData("poi", counts.get(1)));
+        pieChartData.add(new PieChartData("selected", counts.get(2)));
+        System.out.println(counts.get(0));
+        System.out.println(counts.get(1));
+        System.out.println(counts.get(2));
+
+        System.out.println("LOOPS COMPLETE");
+        File f = new File("PathFindStats.jrxml");
+        JasperReport jasperReport = null;
+        String filePath = f.getAbsolutePath().replace('\\','/');
+        jasperReport = JasperCompileManager.compileReport(filePath);
+        Map<String, Object> paramMap = new HashMap<String, Object>();
+        paramMap.put("CHART_DATASET", new JRBeanCollectionDataSource(cList));
+        paramMap.put("PIE_CHART", new JRBeanCollectionDataSource(pieChartData));
+        List<Object> data = new ArrayList<Object>();
+        data.add(cList);
+        data.add(pieChartData);
+        JRBeanCollectionDataSource dataSource = new JRBeanCollectionDataSource(data);
+        JasperPrint print2 = JasperFillManager.fillReport(jasperReport, paramMap);
+        JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, paramMap, dataSource);
+        String outputPath = "outputPDF.pdf";
+        JasperExportManager.exportReportToPdfFile(jasperPrint, outputPath);
     }
 
     @FXML
-    private void backPressed(ActionEvent event) throws IOException{
+    private void backPressed() throws IOException{
         Singleton single = Singleton.getInstance();
         stop();
         single = Singleton.getInstance();
@@ -282,14 +365,16 @@ public class HomeScreenController {
 
         Memento m = single.restore();
         FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource(m.getFxml()));
-        Parent newPage = loader.load();
+        Parent sceneMain = loader.load();
         if(m.getFxml().contains("HospitalPathFinding")){
             PathFindingController pfc = loader.getController();
             pfc.initWithMeme(m.getPathPref(), m.getTypeFilter(), m.getFloorFilter(), m.getStart(), m.getEnd());
         }
 
-        //Parent newPage = FXMLLoader.load(getClass().getClassLoader().getResource(m.getFxml()));
-        ((Node) event.getSource()).getScene().setRoot(newPage);
+        Stage theStage = (Stage) LogIn.getScene().getWindow();
+
+        Scene scene = new Scene(sceneMain);
+        theStage.setScene(scene);
     }
 
     /**@author Nathan
@@ -309,7 +394,7 @@ public class HomeScreenController {
     }
 
     @FXML
-    private void logOut(ActionEvent event) throws IOException {
+    private void logOut() throws IOException {
         stop();
         Singleton single = Singleton.getInstance();
         single.setLastTime();
@@ -320,12 +405,13 @@ public class HomeScreenController {
         Stage thestage = (Stage) LogIn.getScene().getWindow();
         AnchorPane root;
         Memento m = single.getOrig();
-        Parent newPage = FXMLLoader.load(getClass().getClassLoader().getResource(m.getFxml()));
-        ((Node) event.getSource()).getScene().setRoot(newPage);
+        root = FXMLLoader.load(getClass().getClassLoader().getResource(m.getFxml()));
+        Scene scene = new Scene(root);
+        thestage.setScene(scene);
     }
 
     @FXML
-    private void goHome(ActionEvent event) throws IOException {
+    private void goHome() throws IOException {
         stop();
         Singleton single = Singleton.getInstance();
         single.setLastTime();
@@ -334,7 +420,8 @@ public class HomeScreenController {
         Stage thestage = (Stage) LogIn.getScene().getWindow();
         AnchorPane root;
         Memento m = single.getOrig();
-        Parent newPage = FXMLLoader.load(getClass().getClassLoader().getResource(m.getFxml()));
-        ((Node) event.getSource()).getScene().setRoot(newPage);
+        root = FXMLLoader.load(getClass().getClassLoader().getResource(m.getFxml()));
+        Scene scene = new Scene(root);
+        thestage.setScene(scene);
     }
 }

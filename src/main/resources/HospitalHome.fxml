@@ -75,7 +75,7 @@
                                  <children>
                                     <JFXButton fx:id="HomeSuggestions" alignment="CENTER" buttonType="RAISED" contentDisplay="TOP" focusTraversable="false" graphicTextGap="0.0" onAction="#SwitchToSuggestionBox" prefHeight="75.0" prefWidth="111.0" ripplerFill="#b0b0b0" styleClass="buttonToolbar" stylesheets="@Default.css" text="Feedback" textFill="#012d5a">
                                        <font>
-                                          <Font size="17.0" />
+                                          <Font name="Trebuchet MS Bold" size="17.0" />
                                        </font>
                                        <graphic>
                                           <FontAwesomeIconView fill="#012d5a" glyphName="COMMENTING" size="35" text="" />
@@ -86,7 +86,7 @@
                                     </JFXButton>
                                     <JFXButton fx:id="LogIn" alignment="CENTER" buttonType="RAISED" contentDisplay="TOP" focusTraversable="false" graphicTextGap="0.0" minHeight="-Infinity" onAction="#SwitchToLoginScreen" prefHeight="75.0" prefWidth="100.0" ripplerFill="#b0b0b0" styleClass="buttonToolbar" stylesheets="@Default.css" text="Log In" textAlignment="CENTER" textFill="#012d5a">
                                        <font>
-                                          <Font name="System Bold" size="17.0" />
+                                          <Font name="Trebuchet MS Bold" size="17.0" />
                                        </font>
                                        <graphic>
                                           <FontAwesomeIconView fill="#012d5a" glyphName="USER" size="35" strokeMiterLimit="0.0" textAlignment="CENTER" wrappingWidth="27.27392578125" />
@@ -95,13 +95,16 @@
                                           <Insets right="20.0" />
                                        </HBox.margin>
                                     </JFXButton>
-                                    <JFXButton fx:id="aboutButton" buttonType="RAISED" contentDisplay="TOP" graphicTextGap="0.0" onAction="#AboutPress" prefHeight="75.0" prefWidth="100.0" styleClass="buttonToolbar" stylesheets="@Default.css" text="About">
+                                    <JFXButton fx:id="aboutButton" buttonType="RAISED" contentDisplay="TOP" graphicTextGap="0.0" onAction="#AboutPress" prefHeight="75.0" prefWidth="100.0" styleClass="buttonToolbar" stylesheets="@Default.css" text="About" textFill="#012d5a">
                                        <graphic>
                                           <FontAwesomeIconView fill="#012d5a" glyphName="INFO" size="35" />
                                        </graphic>
                                        <HBox.margin>
                                           <Insets right="10.0" />
                                        </HBox.margin>
+                                       <font>
+                                          <Font name="Trebuchet MS Bold" size="17.0" />
+                                       </font>
                                     </JFXButton>
                                  </children>
                               </HBox>
@@ -133,7 +136,7 @@
                <children>
                   <JFXButton fx:id="HomeServiceRequest" alignment="CENTER" buttonType="RAISED" contentDisplay="TOP" focusTraversable="false" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onAction="#SwitchToServiceScreen" prefHeight="298.0" prefWidth="325.0" ripplerFill="WHITE" style="-fx-border-width: 3; -fx-background-radius: 10; -fx-border-radius: 10;" styleClass="buttonHome" stylesheets="@Default.css" text="Request" textFill="WHITE" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.rowIndex="4" GridPane.valignment="CENTER">
                      <font>
-                        <Font name="Heiti TC Light" size="45.0" />
+                        <Font name="Trebuchet MS" size="45.0" />
                      </font>
                      <GridPane.margin>
                         <Insets bottom="40.0" left="75.0" />
@@ -147,7 +150,7 @@
                   </JFXButton>
                   <JFXButton fx:id="HomeFindPath" alignment="CENTER" buttonType="RAISED" contentDisplay="TOP" focusTraversable="false" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onAction="#SwitchToPathfindScreen" prefHeight="298.0" prefWidth="325.0" ripplerFill="WHITE" style="-fx-border-width: 3; -fx-border-radius: 10; -fx-background-radius: 10;" styleClass="buttonHome" stylesheets="@Default.css" text="Navigation" textFill="WHITE" GridPane.halignment="RIGHT" GridPane.rowIndex="4" GridPane.valignment="CENTER">
                      <font>
-                        <Font name="Heiti TC Light" size="45.0" />
+                        <Font name="Trebuchet MS" size="45.0" />
                      </font>
                      <graphic>
                         <FontAwesomeIconView fill="WHITE" glyphName="MAP_ALT" size="200" wrappingWidth="230.97364807128906" />
