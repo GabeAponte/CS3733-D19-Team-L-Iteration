@@ -317,7 +317,7 @@ public class CreateEditAccountController {
      * @throws IOException throwsException
      */
     @FXML
-    public void deleteClicked() throws IOException {
+    public void deleteClicked(ActionEvent event) throws IOException {
         timeout.pause();
         Singleton single = Singleton.getInstance();
         single.setLastTime();
@@ -331,17 +331,14 @@ public class CreateEditAccountController {
         stage.initModality(Modality.APPLICATION_MODAL);
         stage.initOwner(delete.getScene().getWindow());
         stage.setUserData(ID);
-        clickedDelete = true;
         stage.setResizable(false);
         stage.showAndWait();
 
         if (clickedDelete) {
-            AnchorPane root2;
             timeout.stop();
             Memento m = single.restore();
-            root2 = FXMLLoader.load(getClass().getClassLoader().getResource(m.getFxml()));
-            Scene scene2 = new Scene(root2);
-            editStage.setScene(scene2);
+            Parent newPage = FXMLLoader.load(getClass().getClassLoader().getResource(m.getFxml()));
+            ((Node) event.getSource()).getScene().setRoot(newPage);
 
 
         } else {
