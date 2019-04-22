@@ -242,7 +242,7 @@ public class PathFindingController {
     private String type2 = "";
     private String currentMap = "G"; //defaults to floor G
 
-    private String typeSelected;
+    private String typeSelected = "selected";
 
 
     @FXML
@@ -671,6 +671,7 @@ public class PathFindingController {
             direction.setEditable(false);
         }
         typeSelected = "selected";
+        System.out.println("selected");
     }
 
     /**Nathan modified this to include a path preference choice (restriction)
@@ -740,6 +741,10 @@ public class PathFindingController {
         direction.setEditable(false);
         pathReportAccess p = new pathReportAccess();
         p.addReport(Long.toString(System.currentTimeMillis()), startNode.getLongName(), endNode.getLongName(), typeSelected);
+        if (typeSelected.equals("search")) {
+            typeSelected = "selected"; //only way to reset properly
+            System.out.println("sick");
+        }
     }
 
     /**
@@ -909,8 +914,6 @@ public class PathFindingController {
                     //Sets the start and end nodes on the floor
                     if(path.getPath().get(i).getFloor().equals(currentMap)) {
                         floorSwitch2 = i;
-                        System.out.println("FL " + floorCount);
-                        System.out.println("i " + i);
                         floorSwitch1 = i-(floorCount-1);
                     }
                     floorCount = 0;
@@ -957,7 +960,6 @@ public class PathFindingController {
                     if(nBut.getLayoutX() + 400 > pathPane.getWidth())
                     {
                         nBut.setLayoutX(nBut.getLayoutX() - 400);
-                        System.out.println(nBut.getLayoutX() + nBut.getPrefWidth() + " " +  pathPane.getWidth());
                     }
                     if(nBut.getLayoutY() + 50 > pathPane.getHeight())
                     {
@@ -1097,9 +1099,6 @@ public class PathFindingController {
         double x = gesturePane.getWidth()/(Math.abs((start.getXcoord() - end.getXcoord())));
         double y = gesturePane.getHeight()/Math.abs(((start.getYcoord() - end.getYcoord())));
         double scale = (Math.min(x, y)/2.5) + 1.1;
-        System.out.println("Scale " + scale);
-        System.out.println(start.getLocID());
-        System.out.println(end.getLocID());
         gesturePane.reset();
         gesturePane.zoomTo(scale, gesturePane.targetPointAtViewportCentre());
         double xSameVal = (start.getXcoord() + end.getXcoord()) / 2.0*childPane.getWidth()/Map.getImage().getWidth();
@@ -1143,6 +1142,7 @@ public class PathFindingController {
         PathFindStartDrop.getSelectionModel().clearSelection();
         PathFindStartDrop.setValue(null);
         startNode = kioskTemp;
+        PathFindSubmit.setDisable(true);
         noHall();
     }
 
@@ -1151,6 +1151,7 @@ public class PathFindingController {
         single.setLastTime();
         PathFindEndDrop.getSelectionModel().clearSelection();
         PathFindEndDrop.setValue(null);
+        PathFindSubmit.setDisable(true);
         noHall();
     }
     @FXML
@@ -2425,6 +2426,14 @@ public class PathFindingController {
                             }
                         }
                         suggestions.setVisible(false);
+                        if((PathFindStartDrop.getValue() != null || startNode != null) && PathFindEndDrop.getValue() != null){
+                            PathFindSubmit.setDisable(false);
+                        }
+                        else{
+                            PathFindSubmit.setDisable(true);
+                            direction.setDisable(true);
+                            direction.setEditable(false);
+                        }
                     });
                     vBox.getChildren().add(b);
 
@@ -2438,6 +2447,8 @@ public class PathFindingController {
                 suggestions.setLayoutY(searchField.getLayoutY()+50);
                 suggestions.toFront();
                 suggestions.setVisible(true);
+                typeSelected = "search";
+                System.out.println("search");
                 //sp.setContent(gp);
                 //sp.setLayoutX(searchField.getLayoutX() + 2);
                 //sp.setLayoutY(searchField.getLayoutY()+50);
@@ -2449,6 +2460,7 @@ public class PathFindingController {
             }
 
         }
+
     };
 
     //Alex
@@ -2458,7 +2470,7 @@ public class PathFindingController {
         Filter.setValue(null);
         Floor.setValue(null);
         noHall();
-        typeSelected = "search";
+
         /*
         if(PathFindStartDrop.getValue() == null && startNode != kioskTemp){
             if(nameToLoc.get(searchField.getText()) != null) {

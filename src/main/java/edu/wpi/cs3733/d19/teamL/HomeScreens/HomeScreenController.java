@@ -286,6 +286,8 @@ public class HomeScreenController {
 
     @FXML
     private void AboutPress() throws IOException, JRException, SQLException {
+        pathReportAccess p = new pathReportAccess();
+        //Complete Pathfinding report
         Singleton single = Singleton.getInstance();
         ArrayList<Location> toAdd = new ArrayList<Location>();
         for (Location l : single.lookup.values()) {
@@ -295,7 +297,7 @@ public class HomeScreenController {
                 }
                 else {
                     for (int j = 0; j < toAdd.size(); j++) {
-                        if (l.getXcoord() > toAdd.get(j).getXcoord()) {
+                        if (p.getNumSearched(l.getLongName()) > p.getNumSearched(toAdd.get(j).getLongName())) {
                             //System.out.println("ADDING: size < 10");
                             toAdd.add(j, l);
                             break;
@@ -305,7 +307,7 @@ public class HomeScreenController {
                 }
             else {
                 for (int i = 0; i < 10; i++) {
-                    if (l.getXcoord() > toAdd.get(i).getXcoord()) {
+                    if (p.getNumSearched(l.getLongName()) > p.getNumSearched(toAdd.get(i).getLongName())) {
                         //System.out.println("ADDING: size > 10");
                         toAdd.add(i, l);
                         toAdd.remove(10);
@@ -318,9 +320,9 @@ public class HomeScreenController {
 
         List<BarGraphChartData> cList = new ArrayList<BarGraphChartData>();
         for (int k = 0; k < 5; k++) {
-            cList.add(new BarGraphChartData("Locations", toAdd.get(k).getLongName(),toAdd.get(k).getXcoord()));
+            cList.add(new BarGraphChartData("Locations", toAdd.get(k).getLongName(),p.getNumSearched(toAdd.get(k).getLongName())));
         }
-        pathReportAccess p = new pathReportAccess();
+
         ArrayList<Integer> counts = p.getTypeCounts();
         List<PieChartData> pieChartData = new ArrayList<PieChartData>();
         pieChartData.add(new PieChartData("search", counts.get(0)+1));
@@ -346,22 +348,6 @@ public class HomeScreenController {
         JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, paramMap, dataSource);
         String outputPath = "outputPDF.pdf";
         JasperExportManager.exportReportToPdfFile(jasperPrint, outputPath);
-
-
-        /* stop();
-        saveState();
-        Singleton single = Singleton.getInstance();
-        single.setLastTime();
-        single.setDoPopup(true);
-        FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("AboutPage_fancy.fxml"));
-
-        Parent sceneMain = loader.load();
-
-        Stage thisStage = (Stage) aboutButton.getScene().getWindow();
-
-        Scene newScene = new Scene(sceneMain);
-        thisStage.setScene(newScene);
-        */
     }
 
     @FXML
