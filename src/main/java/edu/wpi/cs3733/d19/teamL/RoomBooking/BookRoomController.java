@@ -96,6 +96,9 @@ public class BookRoomController {
     private AnchorPane reservationPane;
 
     @FXML
+    private AnchorPane bookedEventPane;
+
+    @FXML
     private AnchorPane anchorPane;
 
     @FXML
@@ -106,6 +109,7 @@ public class BookRoomController {
     VisualSimulationThread sim;
     private boolean firstTimeRan = true;
     private boolean resShowing = false;
+    private boolean bookedEventShowing = false;
     private boolean calledFromVisualClick = false;
 
     final ObservableList<String> listOfRooms = FXCollections.observableArrayList();
@@ -418,6 +422,7 @@ public class BookRoomController {
 
         @Override
         public void handle(MouseEvent event) {
+            boolean resPaneCalled = false;
             calledFromVisualClick = true;
             displayAllRooms();
             for (int k = 0; k < DisplayRooms.size(); k++) {
@@ -431,6 +436,7 @@ public class BookRoomController {
                             if(DisplayRooms.get(k).isAvailable()) {
                                 availableRooms.getSelectionModel().select(listOfRooms.get(z));
                                 if(popupName.getText().contains(DisplayRooms.get(k).niceName)){
+                                    resPaneCalled = true;
                                     System.out.println("Same");
                                     if(resShowing) {
                                         openReservation(false);
@@ -438,12 +444,16 @@ public class BookRoomController {
                                         openReservation(true);
                                     }
                                 }else {
+                                    resPaneCalled = true;
                                     popupName.setText("Reserve " + DisplayRooms.get(k).niceName);
                                     System.out.println("New");
                                     openReservation(true);
                                 }
                             }
                         }
+                    }
+                    if(resPaneCalled == false){
+                        openEventInfo(true);
                     }
                     DisplayRooms.get(k).changePolygonColor("BLUE");
                     imagePane.getChildren().add(DisplayRooms.get(k).getPolygon());
@@ -740,12 +750,33 @@ public class BookRoomController {
             openNav.setToX(-100.0D-this.reservationPane.getWidth());
             openNav.play();
             resShowing = true;
+            openEventInfo(false);
             System.out.println("ResShowing = true");
         } else {
             closeNav.setToX(100+this.anchorPane.getWidth()+this.reservationPane.getWidth());
             closeNav.play();
             resShowing = false;
             System.out.println("ResShowing = false");
+        }
+    }
+
+    /** @author Isabella
+     * Slides in the event information menu from the right side
+     */
+    private void openEventInfo(boolean open) {
+        System.out.println("Open Event Info called");
+        TranslateTransition openNav = new TranslateTransition(new Duration(400.0D), this.bookedEventPane);
+        openNav.setToX(0.0D);
+        TranslateTransition closeNav = new TranslateTransition(new Duration(400.0D), this.bookedEventPane);
+        if (open == true){
+            openNav.setToX(-500.0D-this.bookedEventPane.getWidth());
+            openNav.play();
+            openReservation(false);
+            bookedEventShowing = true;
+        } else {
+            closeNav.setToX(500+this.anchorPane.getWidth()+this.reservationPane.getWidth());
+            closeNav.play();
+            bookedEventShowing = false;
         }
     }
 
