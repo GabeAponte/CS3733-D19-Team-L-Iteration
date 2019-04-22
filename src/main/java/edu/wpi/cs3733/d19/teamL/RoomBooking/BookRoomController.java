@@ -181,7 +181,7 @@ public class BookRoomController {
     }
 
     @FXML
-    private void switchToTable() throws IOException {
+    private void switchToTable(ActionEvent event) throws IOException {
         timeout.stop();
         try{
             sim.join();
@@ -191,11 +191,8 @@ public class BookRoomController {
         }
         Singleton single = Singleton.getInstance();
         single.setLastTime();
-        FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("BookRoom2.fxml"));
-        Parent sceneMain = loader.load();
-        Stage theStage = (Stage) viewSchedule.getScene().getWindow();
-        Scene scene = new Scene(sceneMain);
-        theStage.setScene(scene);
+        Parent newPage = FXMLLoader.load(getClass().getClassLoader().getResource("BookRoom2.fxml"));
+        ((Node) event.getSource()).getScene().setRoot(newPage);
     }
 
     //LocalTime startTimeValue = null;
@@ -535,7 +532,7 @@ public class BookRoomController {
         }
     }
 
-    public void switchToWeekly() throws IOException {
+    public void switchToWeekly(ActionEvent event) throws IOException {
         timeout.stop();
         try{
             sim.join();
@@ -563,10 +560,7 @@ public class BookRoomController {
         System.out.println(name);
         wsc.loadWeekly(name, datePicker.getValue());
 
-        Scene scene = new Scene(sceneMain);
-
-        Stage theStage = (Stage) viewSchedule.getScene().getWindow();
-        theStage.setScene(scene);
+        ((Node) event.getSource()).getScene().setRoot(sceneMain);
     }
 
     /**@author Nathan
