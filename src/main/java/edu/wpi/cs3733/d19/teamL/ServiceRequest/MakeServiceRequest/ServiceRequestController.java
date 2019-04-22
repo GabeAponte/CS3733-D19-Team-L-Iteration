@@ -110,41 +110,88 @@ public class ServiceRequestController {
         String serviceFXML = "";
         if(e.getSource() == ITServices) {
             serviceFXML = "ITServiceRequest.fxml";
+            timeout.stop();
+            saveState();
+            Parent newPage = FXMLLoader.load(getClass().getClassLoader().getResource(serviceFXML));
+            ((Node) e.getSource()).getScene().setRoot(newPage);
         }
         else if(e.getSource() == ReligiousServices) {
             serviceFXML = "ReligiousServiceRequest.fxml";
+            timeout.stop();
+            saveState();
+            Parent newPage = FXMLLoader.load(getClass().getClassLoader().getResource(serviceFXML));
+            ((Node) e.getSource()).getScene().setRoot(newPage);
         }
         else if(e.getSource() == LanguageInterpreter) {
             serviceFXML = "ServiceRequestLanguage.fxml";
+            timeout.stop();
+            saveState();
+            Parent newPage = FXMLLoader.load(getClass().getClassLoader().getResource(serviceFXML));
+            ((Node) e.getSource()).getScene().setRoot(newPage);
         }
         else if(e.getSource() == ExternalTransportation) {
             serviceFXML = "ExternalTransportationServiceRequest.fxml";
+            timeout.stop();
+            saveState();
+            Parent newPage = FXMLLoader.load(getClass().getClassLoader().getResource(serviceFXML));
+            ((Node) e.getSource()).getScene().setRoot(newPage);
         }
         else if(e.getSource() == Florist) {
             serviceFXML = "FloristDeliveryServiceRequest.fxml";
+            timeout.stop();
+            saveState();
+            Parent newPage = FXMLLoader.load(getClass().getClassLoader().getResource(serviceFXML));
+            ((Node) e.getSource()).getScene().setRoot(newPage);
         }
         else if(e.getSource() == AudioVisual) {
             serviceFXML = "AudioVisualRequest.fxml";
+            timeout.stop();
+            saveState();
+            Parent newPage = FXMLLoader.load(getClass().getClassLoader().getResource(serviceFXML));
+            ((Node) e.getSource()).getScene().setRoot(newPage);
         }
         else if(e.getSource() == FacilitiesMaintenance) {
             serviceFXML = "ServiceRequestMaintenance.fxml";
+            timeout.stop();
+            saveState();
+            Parent newPage = FXMLLoader.load(getClass().getClassLoader().getResource(serviceFXML));
+            ((Node) e.getSource()).getScene().setRoot(newPage);
         }
         else if(e.getSource() == SecurityStaff) {
             serviceFXML = "SecurityServiceRequest.fxml";
+            timeout.stop();
+            saveState();
+            Parent newPage = FXMLLoader.load(getClass().getClassLoader().getResource(serviceFXML));
+            ((Node) e.getSource()).getScene().setRoot(newPage);
         }
         else if(e.getSource() == SanitationServices) {
             serviceFXML = "sanitationServiceRequest.fxml";
+            timeout.stop();
+            saveState();
+            Parent newPage = FXMLLoader.load(getClass().getClassLoader().getResource(serviceFXML));
+            ((Node) e.getSource()).getScene().setRoot(newPage);
         }
         else if(e.getSource() == InternalTransportation) {
             serviceFXML = "InternalTransport.fxml";
+            timeout.stop();
+            saveState();
+            Parent newPage = FXMLLoader.load(getClass().getClassLoader().getResource(serviceFXML));
+            ((Node) e.getSource()).getScene().setRoot(newPage);
         }
         else if(e.getSource() == PrescriptionServices) {
             serviceFXML = "PrescriptionServiceRequest.fxml";
+            timeout.stop();
+            saveState();
+            Parent newPage = FXMLLoader.load(getClass().getClassLoader().getResource(serviceFXML));
+            ((Node) e.getSource()).getScene().setRoot(newPage);
         }
         else if(e.getSource() == GiftStoreServices) {
             serviceFXML = "ReligiousServiceRequest.fxml";
+            timeout.stop();
+            saveState();
+            Parent newPage = FXMLLoader.load(getClass().getClassLoader().getResource(serviceFXML));
+            ((Node) e.getSource()).getScene().setRoot(newPage);
         }
-        changeToSub(e.getSource(), serviceFXML);
     }
 
     //Nathan - changes screen to service sub screen, param "service" determines label on sub scree
@@ -152,15 +199,7 @@ public class ServiceRequestController {
     private void changeToSub(Object e, String fxml) throws IOException{
         timeout.stop();
         saveState();
-        Stage theStage;
-        FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource(fxml));
 
-        Parent sceneMain = loader.load();
-
-        theStage = (Stage) SanitationServices.getScene().getWindow();
-
-        Scene scene = new Scene(sceneMain);
-        theStage.setScene(scene);
     }
 
     @FXML

@@ -118,8 +118,8 @@ public class LogInController {
     //grace
     //
     @FXML
-    public void enterKeyPressToLogin(ActionEvent ae) throws IOException {
-        LogIn();
+    public void enterKeyPressToLogin(ActionEvent event) throws IOException {
+        LogIn(event);
     }
 
     @FXML
@@ -136,7 +136,7 @@ public class LogInController {
     }
 
     @FXML
-    private void tryFR() {
+    private void tryFR(ActionEvent event) {
         try {
             Webcam webcam;
             webcam = Webcam.getDefault();
@@ -184,10 +184,10 @@ public class LogInController {
                 single.setIsAdmin(false);
                 if (ea.getEmployeeInformation(results.get(1)).get(2).equals("true")) {
                     single.setIsAdmin(true);
-                    SwitchToSignedIn("AdminLoggedInHome.fxml");
+                    SwitchToSignedIn(event, "AdminLoggedInHome.fxml");
                     return;
                 }
-                SwitchToSignedIn("EmployeeLoggedInHome.fxml");
+                SwitchToSignedIn(event,"EmployeeLoggedInHome.fxml");
             } else {
                 displayError();
             }//*/
@@ -197,7 +197,7 @@ public class LogInController {
     }
 
     @FXML
-    private void LogIn() throws IOException {
+    private void LogIn(ActionEvent event) throws IOException {
         String uname = username.getText();
         String pass = password.getText();
 
@@ -213,28 +213,22 @@ public class LogInController {
             single.setIsAdmin(false);
             if (ea.getEmployeeInformation(uname).get(2).equals("true")) {
                 single.setIsAdmin(true);
-                SwitchToSignedIn("AdminLoggedInHome.fxml");
+                SwitchToSignedIn(event, "AdminLoggedInHome.fxml");
                 return;
             }
-            SwitchToSignedIn("EmployeeLoggedInHome.fxml");
+            SwitchToSignedIn(event,"EmployeeLoggedInHome.fxml");
         } else {
             displayError();
         }
     }
 
-    private void SwitchToSignedIn(String fxml) throws IOException {
+    private void SwitchToSignedIn(ActionEvent event, String fxml) throws IOException {
         timeout.stop();
         saveState();
         Singleton single = Singleton.getInstance();
         single.setLastTime();
-        FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource(fxml));
-
-        Parent sceneMain = loader.load();
-
-        Stage theStage = (Stage) login.getScene().getWindow();
-
-        Scene scene = new Scene(sceneMain);
-        theStage.setScene(scene);
+        Parent newPage = FXMLLoader.load(getClass().getClassLoader().getResource(fxml));
+        ((Node) event.getSource()).getScene().setRoot(newPage);
     }
 
     private void displayError() {

@@ -94,21 +94,15 @@ public class PrescriptionServiceRequestController {
         }
     }
     @FXML
-    private void submitClicked() throws IOException {
+    private void submitClicked(ActionEvent event) throws IOException {
         Singleton single = Singleton.getInstance();
         single.setLastTime();
         single.setDoPopup(true);
         ServiceRequestAccess sra = new ServiceRequestAccess();
         sra.makePrescriptionRequest(commentsField.getText(),destinationField.getText(), medicineTypeField.getText(), destinationField.getText(), deliveryTimeField.getText(), amountField.getText());
         Memento m = single.getOrig();
-        FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource(m.getFxml()));
-
-        Parent sceneMain = loader.load();
-
-        Stage theStage = (Stage) back.getScene().getWindow();
-
-        Scene scene = new Scene(sceneMain);
-        theStage.setScene(scene);
+        Parent newPage = FXMLLoader.load(getClass().getClassLoader().getResource(m.getFxml()));
+        ((Node) event.getSource()).getScene().setRoot(newPage);
     }
 
     @FXML

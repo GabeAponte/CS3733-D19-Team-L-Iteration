@@ -211,11 +211,11 @@ public class EmployeeTableController{
                     Parent roots = loader.load();
 
                     CreateEditAccountController scene2Controller = loader.getController();
-                    Scene scene = new Scene(roots);
+                   // Scene scene = new Scene(roots);
                     scene2Controller.setType(3, selectedEmployee.getValue().getID());
 
-                    thestage = (Stage) back.getScene().getWindow();
-                    thestage.setScene(scene);
+                    //Parent newPage = FXMLLoader.load(getClass().getClassLoader().getResource(m.getFxml()));
+                    ((Node) event.getSource()).getScene().setRoot(roots);
 
                 } catch (IOException ex) {
                     //noinspection ThrowablePrintedToSystemOut

@@ -93,7 +93,7 @@ public class MaintenanceServiceRequestController {
         }
     }
     @FXML
-    private void submitClicked() throws IOException {
+    private void submitClicked(ActionEvent event) throws IOException {
         Singleton single = Singleton.getInstance();
         single.setLastTime();
         single.setDoPopup(true);
@@ -105,15 +105,9 @@ public class MaintenanceServiceRequestController {
             check = false;
         }
         sra.makeMaintenanceRequest(Description.getText(), Location.getText(), field1.getText(), Boolean.toString(check));
-
         Memento m = single.getOrig();
-        FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource(m.getFxml()));
-
-        Parent sceneMain = loader.load();
-        Stage theStage = (Stage) Location.getScene().getWindow();
-
-        Scene scene = new Scene(sceneMain);
-        theStage.setScene(scene);
+        Parent newPage = FXMLLoader.load(getClass().getClassLoader().getResource(m.getFxml()));
+        ((Node) event.getSource()).getScene().setRoot(newPage);
     }
 
     @FXML

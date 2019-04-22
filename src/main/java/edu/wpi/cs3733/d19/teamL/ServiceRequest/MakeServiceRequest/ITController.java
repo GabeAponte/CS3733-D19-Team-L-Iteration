@@ -97,20 +97,15 @@ public class ITController {
     }
 
     @FXML
-    private void submitRequest() throws IOException {
+    private void submitRequest(ActionEvent event) throws IOException {
         Singleton single = Singleton.getInstance();
         single.setLastTime();
         single.setDoPopup(true);
         ServiceRequestAccess sra = new ServiceRequestAccess();
         sra.makeITRequest(description.getText(), loc.getValue(), device.getValue(), problem.getValue());
         Memento m = single.getOrig();
-        FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource(m.getFxml()));
-
-        Parent sceneMain = loader.load();
-        Stage theStage = (Stage) loc.getScene().getWindow();
-
-        Scene scene = new Scene(sceneMain);
-        theStage.setScene(scene);
+        Parent newPage = FXMLLoader.load(getClass().getClassLoader().getResource(m.getFxml()));
+        ((Node) event.getSource()).getScene().setRoot(newPage);
 
     }
 

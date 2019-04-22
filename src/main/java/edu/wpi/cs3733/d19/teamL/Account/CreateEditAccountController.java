@@ -164,12 +164,7 @@ public class CreateEditAccountController {
         errorLabel.setText("");
         department.getItems().addAll("Sanitation", "Security", "IT", "Religious", "Audio Visual", "External Transportation", "Internal Transportation",
                 "Language", "Maintenance", "Prescription", "Florist Delivery");
-        if (picView.getImage() == null) {
-            picbtn.setText("Add Photo");
-        }
-        if (picView.getImage() != null) {
-            picbtn.setText("Retake Photo");
-        }
+
     }
 
     @FXML
@@ -222,18 +217,14 @@ public class CreateEditAccountController {
     }
 
     @FXML
-    private void backPressed() throws IOException {
+    private void backPressed(ActionEvent event) throws IOException {
         timeout.stop();
         Singleton single = Singleton.getInstance();
         single.setLastTime();
         single.setDoPopup(true);
-        thestage = (Stage) back.getScene().getWindow();
-        AnchorPane root;
         Memento m = single.restore();
-        System.out.println(m.getFxml());
-        root = FXMLLoader.load(getClass().getClassLoader().getResource(m.getFxml()));
-        Scene scene = new Scene(root);
-        thestage.setScene(scene);
+        Parent newPage = FXMLLoader.load(getClass().getClassLoader().getResource(m.getFxml()));
+        ((Node) event.getSource()).getScene().setRoot(newPage);
     }
 
     /**
@@ -341,6 +332,7 @@ public class CreateEditAccountController {
         stage.initOwner(delete.getScene().getWindow());
         stage.setUserData(ID);
         clickedDelete = true;
+        stage.setResizable(false);
         stage.showAndWait();
 
         if (clickedDelete) {
@@ -350,6 +342,8 @@ public class CreateEditAccountController {
             root2 = FXMLLoader.load(getClass().getClassLoader().getResource(m.getFxml()));
             Scene scene2 = new Scene(root2);
             editStage.setScene(scene2);
+
+
         } else {
             single.setLastTime();
             timeout.play();
@@ -452,7 +446,7 @@ public class CreateEditAccountController {
      * submit button functionality - does a lot of error checking
      */
     @FXML
-    private void submitPressed() throws IOException {
+    private void submitPressed(ActionEvent event) throws IOException {
         Singleton single = Singleton.getInstance();
         single.setLastTime();
         EmployeeAccess ea = new EmployeeAccess();
@@ -490,7 +484,7 @@ public class CreateEditAccountController {
             } else {
                 ea.changeAdmin(employeeID.getText(), false);
             }
-            backPressed();
+            backPressed(event);
         } else if (type == 2) {
             if (!pusername.equals(username.getText())) {
                 try {
@@ -513,7 +507,7 @@ public class CreateEditAccountController {
                 System.out.println(e.getMessage());
             }
             errorLabel.setText("");
-            backPressed();
+            backPressed(event);
         } else {
             if (!pusername.equals(username.getText())) {
                 try {
@@ -537,7 +531,7 @@ public class CreateEditAccountController {
             }
             errorLabel.setText("");
             timeout.stop();
-            backPressed();
+            backPressed(event);
         }
     }
 

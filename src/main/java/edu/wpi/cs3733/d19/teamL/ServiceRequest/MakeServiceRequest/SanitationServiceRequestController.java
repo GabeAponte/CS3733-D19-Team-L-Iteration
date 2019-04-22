@@ -155,20 +155,15 @@ public class SanitationServiceRequestController {
      * submits the request fields to be stored in the database
      */
     @FXML
-    private void makeRequest() throws IOException{
+    private void makeRequest(ActionEvent event) throws IOException{
         Singleton single = Singleton.getInstance();
         single.setLastTime();
         single.setDoPopup(true);
         SanitationAccess sa = new SanitationAccess();
         sa.makeRequest(location1.getValue().getLocID(), comment1.getText(), typeBox1.getValue(), urgencyLevel1.getValue());
         Memento m = single.getOrig();
-        FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource(m.getFxml()));
-
-        Parent sceneMain = loader.load();
-        Stage theStage = (Stage) comment1.getScene().getWindow();
-
-        Scene scene = new Scene(sceneMain);
-        theStage.setScene(scene);
+        Parent newPage = FXMLLoader.load(getClass().getClassLoader().getResource(m.getFxml()));
+        ((Node) event.getSource()).getScene().setRoot(newPage);
     }
 
     @FXML

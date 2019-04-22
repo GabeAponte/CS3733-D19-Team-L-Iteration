@@ -144,21 +144,14 @@ public class SecurityRequestController {
         }
     }
     @FXML
-    private void submitClicked() throws IOException {
+    private void submitClicked(ActionEvent event) throws IOException {
         Singleton single = Singleton.getInstance();
         single.setLastTime();
         ServiceRequestAccess sra = new ServiceRequestAccess();
         sra.makeSecurityRequest(Description.getText(), Location.getText(),Identifiers.getText(), Type.getValue(), Level);
-
         Memento m = single.getOrig();
-        single.setDoPopup(true);
-        FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource(m.getFxml()));
-
-        Parent sceneMain = loader.load();
-        Stage theStage = (Stage) Description.getScene().getWindow();
-
-        Scene scene = new Scene(sceneMain);
-        theStage.setScene(scene);
+        Parent newPage = FXMLLoader.load(getClass().getClassLoader().getResource(m.getFxml()));
+        ((Node) event.getSource()).getScene().setRoot(newPage);
     }
 
     @FXML

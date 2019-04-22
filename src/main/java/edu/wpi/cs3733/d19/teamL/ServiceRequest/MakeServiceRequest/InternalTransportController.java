@@ -149,7 +149,7 @@ public class InternalTransportController {
     }
 
     @FXML
-    private void submitPressed() throws IOException{
+    private void submitPressed(ActionEvent event) throws IOException{
         timeout.stop();
         Singleton single = Singleton.getInstance();
         single.setLastTime();
@@ -162,13 +162,8 @@ public class InternalTransportController {
         InternalTransportAccess ita = new InternalTransportAccess();
         ita.makeRequest(comment, startNode, endNode, type, phone);
         Memento m = single.getOrig();
-        FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource(m.getFxml()));
-
-        Parent sceneMain = loader.load();
-        Stage theStage = (Stage) back.getScene().getWindow();
-
-        Scene scene = new Scene(sceneMain);
-        theStage.setScene(scene);
+        Parent newPage = FXMLLoader.load(getClass().getClassLoader().getResource(m.getFxml()));
+        ((Node) event.getSource()).getScene().setRoot(newPage);
 
     }
 

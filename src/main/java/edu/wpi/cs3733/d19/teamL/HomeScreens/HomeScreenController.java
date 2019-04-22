@@ -202,6 +202,7 @@ public class HomeScreenController {
                 stage.setTitle("Inactivity Popup");
                 stage.initModality(Modality.APPLICATION_MODAL);
                 single.setLastTime();
+                stage.setResizable(false);
                 stage.show();
                 single = Singleton.getInstance();
                 single.setLastTime();

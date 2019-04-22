@@ -1210,6 +1210,7 @@ public class ActiveServiceRequestsController {
             stage.setScene(new Scene(sceneMain));
             stage.initModality(Modality.APPLICATION_MODAL);
             stage.initOwner(requestType.getScene().getWindow());
+            stage.setResizable(false);
             stage.showAndWait();
             filterTable();
 
