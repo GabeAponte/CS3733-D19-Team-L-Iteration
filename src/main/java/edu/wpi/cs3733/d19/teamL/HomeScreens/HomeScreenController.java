@@ -314,14 +314,13 @@ public class HomeScreenController {
 
 
         List<BarGraphChartData> cList = new ArrayList<BarGraphChartData>();
-        for (int k = 0; k < 10; k++) {
+        for (int k = 0; k < 5; k++) {
             cList.add(new BarGraphChartData("Locations", toAdd.get(k).getLongName(),toAdd.get(k).getXcoord()));
         }
         System.out.println("LOOPS COMPLETE");
         File f = new File("PathFindStats.jrxml");
         JasperReport jasperReport = null;
         String filePath = f.getAbsolutePath().replace('\\','/');
-        System.out.println(filePath);
         jasperReport = JasperCompileManager.compileReport(filePath);
         Map<String, Object> paramMap = new HashMap<String, Object>();
         paramMap.put("CHART_DATASET", new JRBeanCollectionDataSource(cList));
