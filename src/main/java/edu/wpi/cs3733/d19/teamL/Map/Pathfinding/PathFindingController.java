@@ -1126,9 +1126,9 @@ public class PathFindingController {
         }
         String directionS = printPath(al);
         if(path.getPath().get(count) != null){
-            if(isStairELe(al.get(al.size()-1)) && isStairELe(path.getPath().get(count + 1))){
+            if(isStairELe(al.get(al.size()-1)) && isStairELe(path.getPath().get(count))){
             //        System.out.println("Go to floor " + b.getFloor() + " by " + a.getLongName());
-                directionS += "\u21C5 Go to floor " + path.getPath().get(count + 1).getFloor() + " by "
+                directionS += "\u21C5 Go to floor " + path.getPath().get(count).getFloor() + " by "
                         + al.get(al.size()-1).getLongName() +"\n";
 
             }
