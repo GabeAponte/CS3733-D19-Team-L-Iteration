@@ -8,6 +8,7 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -73,24 +74,6 @@ public class SuggestionBoxController {
 
     @FXML
     /**@author Gabe
-     * Returns user to memento screen when the back button is pressed
-     */
-    private void backPressed() throws IOException {
-        timeout.stop();
-        Singleton single = Singleton.getInstance();
-        single.setLastTime();
-        single.setDoPopup(true);
-        Memento m = single.restore();
-        FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource(m.getFxml()));
-        Parent sceneMain = loader.load();
-        Stage thisStage = (Stage) submitFeedback.getScene().getWindow();
-
-        Scene newScene = new Scene(sceneMain);
-        thisStage.setScene(newScene);
-    }
-
-    @FXML
-    /**@author Gabe
      * When the submit button is pressed, the suggestion is added to the databse if the inputed
      * value is valid.
      */
@@ -133,7 +116,18 @@ public class SuggestionBoxController {
     }
 
     @FXML
-    private void logOut() throws IOException {
+    private void backPressed(ActionEvent event) throws IOException {
+        timeout.stop();
+        Singleton single = Singleton.getInstance();
+        single.setLastTime();
+        single.setDoPopup(true);
+        Memento m = single.restore();
+        Parent newPage = FXMLLoader.load(getClass().getClassLoader().getResource(m.getFxml()));
+        ((Node) event.getSource()).getScene().setRoot(newPage);
+    }
+
+    @FXML
+    private void logOut(ActionEvent event) throws IOException {
         timeout.stop();
         Singleton single = Singleton.getInstance();
         single.setLastTime();
@@ -141,27 +135,21 @@ public class SuggestionBoxController {
         single.setIsAdmin(false);
         single.setLoggedIn(false);
         single.setDoPopup(true);
-        Stage thestage = (Stage) back.getScene().getWindow();
-        AnchorPane root;
         Memento m = single.getOrig();
-        root = FXMLLoader.load(getClass().getClassLoader().getResource(m.getFxml()));
-        Scene scene = new Scene(root);
-        thestage.setScene(scene);
+        Parent newPage = FXMLLoader.load(getClass().getClassLoader().getResource(m.getFxml()));
+        ((Node) event.getSource()).getScene().setRoot(newPage);
     }
 
     @FXML
-    private void goHome() throws IOException {
+    private void goHome(ActionEvent event) throws IOException {
         timeout.stop();
         Singleton single = Singleton.getInstance();
         single.setLastTime();
         single.setDoPopup(true);
         saveState();
-        Stage thestage = (Stage) back.getScene().getWindow();
-        AnchorPane root;
         Memento m = single.getOrig();
-        root = FXMLLoader.load(getClass().getClassLoader().getResource(m.getFxml()));
-        Scene scene = new Scene(root);
-        thestage.setScene(scene);
+        Parent newPage = FXMLLoader.load(getClass().getClassLoader().getResource(m.getFxml()));
+        ((Node) event.getSource()).getScene().setRoot(newPage);
     }
 
 }

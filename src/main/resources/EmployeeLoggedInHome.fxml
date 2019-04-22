@@ -111,7 +111,7 @@
                               <RowConstraints maxHeight="1.7976931348623157E308" percentHeight="45.0" vgrow="ALWAYS" />
                            </rowConstraints>
                            <children>
-                              <JFXButton fx:id="serviceRequest" buttonType="RAISED" contentDisplay="TOP" onAction="#SwitchToServiceScreen" prefHeight="180.0" prefWidth="350.0" ripplerFill="WHITE" style="-fx-border-radius: 10; -fx-border-width: 5; -fx-background-radius: 10;" styleClass="buttonMain" stylesheets="@Default.css" text="Service Request" textFill="WHITE" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
+                              <JFXButton fx:id="serviceRequest" buttonType="RAISED" contentDisplay="TOP" onAction="#SwitchToServiceScreen" prefHeight="180.0" prefWidth="350.0" ripplerFill="WHITE" style="-fx-border-radius: 10; -fx-border-width: 5; -fx-background-radius: 10;" styleClass="buttonBig" stylesheets="@Default.css" text="Service Request" textFill="WHITE" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
                                  <font>
                                     <Font size="35.0" />
                                  </font>
@@ -122,7 +122,7 @@
                                     <FontAwesomeIconView fill="WHITE" glyphName="BELL_ALT" size="55" />
                                  </graphic>
                               </JFXButton>
-                              <JFXButton fx:id="fufillServiceRequest" buttonType="RAISED" contentDisplay="TOP" onAction="#SwitchToFullfillRequestScreen" prefHeight="180.0" prefWidth="350.0" ripplerFill="WHITE" style="-fx-border-radius: 10; -fx-border-width: 5; -fx-background-radius: 10;" styleClass="buttonMain" stylesheets="@Default.css" text="Fulfill Requests" textFill="WHITE" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
+                              <JFXButton fx:id="fufillServiceRequest" buttonType="RAISED" contentDisplay="TOP" onAction="#SwitchToFullfillRequestScreen" prefHeight="180.0" prefWidth="350.0" ripplerFill="WHITE" style="-fx-border-radius: 10; -fx-border-width: 5; -fx-background-radius: 10;" styleClass="buttonBig" stylesheets="@Default.css" text="Fulfill Requests" textFill="WHITE" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
                                  <font>
                                     <Font size="35.0" />
                                  </font>
@@ -133,7 +133,7 @@
                                     <FontAwesomeIconView fill="WHITE" glyphName="CHECK_SQUARE" size="55" />
                                  </graphic>
                               </JFXButton>
-                              <JFXButton fx:id="findPath" buttonType="RAISED" contentDisplay="TOP" onAction="#SwitchToPathfindScreen" prefHeight="180.0" prefWidth="350.0" ripplerFill="WHITE" style="-fx-background-radius: 10; -fx-border-width: 5; -fx-border-radius: 10;" styleClass="buttonMain" stylesheets="@Default.css" text="Find Path" textFill="WHITE" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="2" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
+                              <JFXButton fx:id="findPath" buttonType="RAISED" contentDisplay="TOP" onAction="#SwitchToPathfindScreen" prefHeight="180.0" prefWidth="350.0" ripplerFill="WHITE" style="-fx-background-radius: 10; -fx-border-width: 5; -fx-border-radius: 10;" styleClass="buttonBig" stylesheets="@Default.css" text="Find Path" textFill="WHITE" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="2" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
                                  <font>
                                     <Font size="35.0" />
                                  </font>
@@ -144,7 +144,7 @@
                                     <FontAwesomeIconView fill="WHITE" glyphName="MAP_ALT" size="55" />
                                  </graphic>
                               </JFXButton>
-                              <JFXButton fx:id="bookRoom" buttonType="RAISED" contentDisplay="TOP" onAction="#bookRoom" prefHeight="180.0" prefWidth="350.0" ripplerFill="WHITE" style="-fx-border-radius: 10; -fx-border-width: 5; -fx-background-radius: 10;" styleClass="buttonMain" stylesheets="@Default.css" text="Room Booking" textFill="WHITE" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="2" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
+                              <JFXButton fx:id="bookRoom" buttonType="RAISED" contentDisplay="TOP" onAction="#bookRoom" prefHeight="180.0" prefWidth="350.0" ripplerFill="WHITE" style="-fx-border-radius: 10; -fx-border-width: 5; -fx-background-radius: 10;" styleClass="buttonBig" stylesheets="@Default.css" text="Room Booking" textFill="WHITE" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="2" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
                                  <font>
                                     <Font size="35.0" />
                                  </font>
@@ -155,7 +155,7 @@
                                     <FontAwesomeIconView fill="WHITE" glyphName="CALENDAR" size="55" />
                                  </graphic>
                               </JFXButton>
-                              <JFXButton fx:id="myAccount" alignment="CENTER" buttonType="RAISED" contentDisplay="TOP" onAction="#SwitchToEditAccountScreen" prefHeight="180.0" prefWidth="350.0" ripplerFill="WHITE" style="-fx-border-radius: 10; -fx-border-width: 5; -fx-background-radius: 10;" styleClass="buttonMain" stylesheets="@Default.css" text="My Account" textFill="WHITE" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
+                              <JFXButton fx:id="myAccount" alignment="CENTER" buttonType="RAISED" contentDisplay="TOP" onAction="#SwitchToEditAccountScreen" prefHeight="180.0" prefWidth="350.0" ripplerFill="WHITE" style="-fx-border-radius: 10; -fx-border-width: 5; -fx-background-radius: 10;" styleClass="buttonBig" stylesheets="@Default.css" text="My Account" textFill="WHITE" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
                                  <font>
                                     <Font size="35.0" />
                                  </font>
@@ -166,7 +166,7 @@
                                     <FontAwesomeIconView fill="WHITE" glyphName="USER" size="55" />
                                  </graphic>
                               </JFXButton>
-                              <JFXButton fx:id="seeSuggestions" buttonType="RAISED" contentDisplay="TOP" onAction="#SwitchToSuggestionScreen" prefHeight="180.0" prefWidth="350.0" style="-fx-background-radius: 10; -fx-border-width: 5; -fx-border-radius: 10;" styleClass="buttonMain" stylesheets="@Default.css" text="See Suggestions" textFill="WHITE" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="2" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
+                              <JFXButton fx:id="seeSuggestions" buttonType="RAISED" contentDisplay="TOP" onAction="#SwitchToSuggestionScreen" prefHeight="180.0" prefWidth="350.0" style="-fx-background-radius: 10; -fx-border-width: 5; -fx-border-radius: 10;" styleClass="buttonBig" stylesheets="@Default.css" text="See Suggestions" textFill="WHITE" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="2" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
                                  <font>
                                     <Font size="35.0" />
                                  </font>
