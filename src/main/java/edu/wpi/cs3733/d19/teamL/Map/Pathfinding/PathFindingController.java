@@ -893,8 +893,7 @@ public class PathFindingController {
      * @param end
      */
     private void autoZoom(Location start, Location end) {
-        if((Math.abs((start.getXcoord() - end.getXcoord()))) < 3200 &&
-                Math.abs(((start.getYcoord() - end.getYcoord()))) < 1050){
+        if((Math.abs((start.getXcoord() - end.getXcoord()))) < 3200 && Math.abs(((start.getYcoord() - end.getYcoord()))) < 1050 || (Math.abs((start.getXcoord() - end.getXcoord()))) < 2500 && Math.abs(((start.getYcoord() - end.getYcoord()))) < 3050 ){
             double x = gesturePane.getWidth()/(Math.abs((start.getXcoord() - end.getXcoord())));
             double y = gesturePane.getHeight()/Math.abs(((start.getYcoord() - end.getYcoord())));
             double scale = (Math.min(x, y)/2) + 1.1;
@@ -924,7 +923,7 @@ public class PathFindingController {
         int totalNum = countFloors(floors);
         int center = (numOfBut + 1)/2;
         if(totalNum % 2 == 0){
-            shift = 130;
+            shift = 135;
         }
         boolean change = false;
         for(int i = 0; i < floors.size()-1; i++) {
@@ -1146,6 +1145,14 @@ public class PathFindingController {
             endCircle.setStroke(DODGERBLUE);
             endCircle.setFill(DODGERBLUE);
             endLabel.setStyle("-fx-text-fill: WHITE;-fx-font-size: 6; -fx-background-color: rgba(51, 100, 255, 0.75); -fx-border-color: WHITE; -fx-border-width: 1; -fx-min-width: 40;");
+        }
+        //Handles cases when you only display one location
+        if(path.getPath().get(begin).getLocID().equals(path.getPath().get(count).getLocID())) {
+            startLabel.setVisible(false);
+        }
+        else {
+            startLabel.setVisible(true);
+            endLabel.setVisible(true);
         }
         //Adding everything necessary to display the path
         labels.add(startLabel);
