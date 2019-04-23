@@ -30,7 +30,7 @@
                <center>
                         <Label alignment="CENTER" contentDisplay="CENTER" styleClass="labelPopupTitle" stylesheets="@Default.css" text="Fulfill Request" BorderPane.alignment="CENTER">
                             <font>
-                                <Font size="25.0" />
+                                <Font name="Trebuchet MS" size="25.0" />
                             </font>
                             <effect>
                                 <Blend />
@@ -51,17 +51,17 @@
                         <RowConstraints maxHeight="59.111358642578125" valignment="CENTER" vgrow="ALWAYS" />
                     </rowConstraints>
                     <children>
-                        <JFXButton fx:id="submit" buttonType="RAISED" onAction="#submitPressed" prefHeight="31.0" prefWidth="119.0" style="-fx-border-width: 2; -fx-border-radius: 50; -fx-background-radius: 50;" styleClass="buttonMain" stylesheets="@Default.css" text="Submit" textFill="WHITE" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="3" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
+                        <JFXButton fx:id="submit" buttonType="RAISED" onAction="#submitPressed" prefHeight="36.0" prefWidth="129.0" style="-fx-border-width: 5;" styleClass="buttonMainNoB" stylesheets="@Default.css" text="Submit" textFill="WHITE" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="3" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
                             <font>
-                                <Font size="25.0" />
+                                <Font name="Trebuchet MS" size="25.0" />
                             </font>
                             <GridPane.margin>
                                 <Insets bottom="70.0" />
                             </GridPane.margin>
                         </JFXButton>
-                        <Label fx:id="assignLabel" alignment="CENTER" contentDisplay="CENTER" prefHeight="29.0" prefWidth="138.0" styleClass="labelPopupDesc" stylesheets="@Default.css" text="Assign to:" textFill="WHITE" GridPane.halignment="RIGHT" GridPane.rowIndex="1">
+                        <Label fx:id="assignLabel" alignment="CENTER" contentDisplay="CENTER" prefHeight="29.0" prefWidth="138.0" styleClass="labelPopupDesc" stylesheets="@Default.css" text="Assign to :" textFill="WHITE" GridPane.halignment="RIGHT" GridPane.rowIndex="1">
                             <font>
-                                <Font size="20.0" />
+                                <Font name="Trebuchet MS" size="20.0" />
                             </font>
                             <GridPane.margin>
                                 <Insets bottom="25.0" />
@@ -69,7 +69,7 @@
                         </Label>
                         <JFXToggleButton fx:id="fulfill" minHeight="-Infinity" onAction="#activateSubmit" prefHeight="38.0" prefWidth="176.0" stylesheets="@Default.css" text="Fulfilled" textFill="WHITE" toggleColor="WHITE" toggleLineColor="#f5d96b" GridPane.columnSpan="2147483647" GridPane.rowIndex="2" GridPane.valignment="TOP">
                      <font>
-                        <Font size="15.0" />
+                        <Font name="Trebuchet MS" size="15.0" />
                      </font>
                      <GridPane.margin>
                         <Insets bottom="35.0" />

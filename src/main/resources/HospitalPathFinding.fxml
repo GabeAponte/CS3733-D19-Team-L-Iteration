@@ -294,7 +294,7 @@
                               <Insets bottom="24.0" left="400.0" />
                            </GridPane.margin>
                         </JFXButton>
-                        <JFXButton fx:id="F4" alignment="CENTER" buttonType="RAISED" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="46.0" prefWidth="80.0" styleClass="buttonMap" stylesheets="@Default.css" text="F4" textFill="#012d5a" GridPane.halignment="CENTER" GridPane.valignment="BOTTOM">
+                        <JFXButton fx:id="F4" alignment="CENTER" buttonType="RAISED" maxHeight="-Infinity" maxWidth="-Infinity" onAction="#clicked4" prefHeight="46.0" prefWidth="80.0" styleClass="buttonMap" stylesheets="@Default.css" text="F4" textFill="#012d5a" GridPane.halignment="CENTER" GridPane.valignment="BOTTOM">
                            <font>
                               <Font name="System Bold" size="20.0" />
                            </font>
@@ -428,9 +428,9 @@
             </GridPane>
          </children>
       </AnchorPane>
-      <AnchorPane fx:id="settingPane" layoutX="680.0" layoutY="-320.0" prefHeight="300.0" prefWidth="200.0" style="-fx-border-color: #F5D96B; -fx-border-radius: 15; -fx-border-width: 3; -fx-background-radius: 20;" styleClass="AnchorPainMain" stylesheets="@Default.css" AnchorPane.topAnchor="-320.0">
+      <AnchorPane fx:id="settingPane" layoutX="680.0" layoutY="-320.0" prefHeight="300.0" prefWidth="200.0" style="-fx-border-color: #F5D96B; -fx-border-radius: 15; -fx-border-width: 3; -fx-background-radius: 20;" styleClass="AnchorPainMain" stylesheets="@Default.css" AnchorPane.leftAnchor="680.0" AnchorPane.topAnchor="-320.0">
          <children>
-            <GridPane prefHeight="300.0" prefWidth="200.0">
+            <GridPane prefHeight="300.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                <columnConstraints>
                   <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                </columnConstraints>

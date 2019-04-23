@@ -77,7 +77,7 @@ public class SuggestionBoxController {
      * When the submit button is pressed, the suggestion is added to the databse if the inputed
      * value is valid.
      */
-    private void submitPressed() {
+    private void submitPressed(ActionEvent event) {
         Singleton single = Singleton.getInstance();
         single.setLastTime();
         SuggestionBasicAccess sga = new SuggestionBasicAccess();
@@ -95,12 +95,8 @@ public class SuggestionBoxController {
             try {
                 Memento m = single.getOrig();
                 single.setDoPopup(true);
-                FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource(m.getFxml()));
-                Parent sceneMain = loader.load();
-                Stage thisStage = (Stage) submitFeedback.getScene().getWindow();
-
-                Scene newScene = new Scene(sceneMain);
-                thisStage.setScene(newScene);
+                Parent newPage = FXMLLoader.load(getClass().getClassLoader().getResource(m.getFxml()));
+                ((Node) event.getSource()).getScene().setRoot(newPage);
             } catch (Exception e){
                 e.printStackTrace();
             }

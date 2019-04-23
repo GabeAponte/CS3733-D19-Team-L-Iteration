@@ -205,6 +205,9 @@ public class Location implements Comparable<Location>{
         if(this.nodeType.equals("STAI") || endNode.nodeType.equals("STAI")){
             zDiff *= 3;
         }
+        else if(this.nodeType.equals("ELEV") || endNode.nodeType.equals("ELEV")){
+            zDiff *= 2;
+        }
         xDiff = Math.pow(xDiff, 2);
         yDiff = Math.pow(yDiff, 2);
         zDiff = Math.pow(zDiff, 2);
