@@ -80,6 +80,7 @@ public class AdminLoggedInHomeController {
     @FXML
     private Button EmergencyButton;
 
+    @FXML
     Timeline timeout;
 
     public void initialize(){

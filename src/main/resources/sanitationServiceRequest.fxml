@@ -14,13 +14,18 @@
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<?import javafx.scene.layout.HBox?>
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720" prefWidth="1280" styleClass="AnchorPainMain" stylesheets="@Default.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.d19.teamL.ServiceRequest.MakeServiceRequest.SanitationServiceRequestController">
     <children>
+        <ImageView fitHeight="1194.0" fitWidth="1645.0" layoutX="-17.0" layoutY="-17.0" opacity="0.2" pickOnBounds="true" preserveRatio="true">
+            <image>
+                <Image url="@SoftEng_UI_Mockup_Pics/otherBackground.jpg" />
+            </image>
+        </ImageView>
         <VBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
             <children>
                 <JFXToolbar prefHeight="100.0" prefWidth="1280.0" styleClass="tool-barMain" stylesheets="@Default.css">
@@ -31,7 +36,7 @@
                         <Insets left="10.0" right="10.0" />
                     </padding>
                     <center>
-                        <HBox alignment="CENTER" prefHeight="100.0" prefWidth="1315.0" BorderPane.alignment="CENTER">
+                        <HBox alignment="CENTER" maxHeight="-Infinity" minHeight="-Infinity" prefHeight="100.0" prefWidth="1315.0" BorderPane.alignment="CENTER">
                             <children>
                                 <GridPane HBox.hgrow="ALWAYS">
                                     <columnConstraints>
@@ -71,7 +76,7 @@
                                             <children>
                                                 <JFXButton fx:id="logOut" alignment="CENTER" buttonType="RAISED" contentDisplay="TOP" focusTraversable="false" graphicTextGap="0.0" minHeight="-Infinity" onAction="#logOut" prefHeight="75.0" prefWidth="100.0" ripplerFill="#b0b0b0" styleClass="buttonToolbar" stylesheets="@Default.css" text="Log Out" textAlignment="CENTER" textFill="#012d5a">
                                                     <font>
-                                                        <Font name="System Bold" size="17.0" />
+                                                        <Font name="Trebuchet MS Bold" size="17.0" />
                                                     </font>
                                                     <graphic>
                                                         <FontAwesomeIconView fill="#012d5a" glyphName="USER" size="35" strokeMiterLimit="0.0" textAlignment="CENTER" wrappingWidth="27.27392578125" />
@@ -80,13 +85,16 @@
                                                         <Insets right="20.0" />
                                                     </HBox.margin>
                                                 </JFXButton>
-                                                <JFXButton fx:id="homebtn" buttonType="RAISED" contentDisplay="GRAPHIC_ONLY" maxHeight="-Infinity" minHeight="-Infinity" onAction="#goHome" prefHeight="75.0" prefWidth="100.0" styleClass="buttonToolbar" stylesheets="@Default.css" textFill="#012d5a">
+                                                <JFXButton fx:id="homebtn" buttonType="RAISED" contentDisplay="TOP" graphicTextGap="0.0" maxHeight="-Infinity" minHeight="-Infinity" onAction="#goHome" prefHeight="75.0" prefWidth="100.0" styleClass="buttonToolbar" stylesheets="@Default.css" text="Home" textFill="#012d5a">
                                                     <graphic>
-                                                        <FontAwesomeIconView fx:id="home" fill="#012d5a" glyphName="HOME" size="50" />
+                                                        <FontAwesomeIconView fx:id="home" fill="#012d5a" glyphName="HOME" size="40" />
                                                     </graphic>
                                                     <HBox.margin>
                                                         <Insets right="10.0" />
                                                     </HBox.margin>
+                                       <font>
+                                          <Font name="Trebuchet MS Bold" size="17.0" />
+                                       </font>
                                                 </JFXButton>
                                             </children>
                                         </HBox>
@@ -96,58 +104,100 @@
                         </HBox>
                     </center>
                 </JFXToolbar>
-            <JFXToolbar prefHeight="10.0" prefWidth="1280.0" styleClass="tool-barSecondary" stylesheets="@Default.css" />
-            <GridPane alignment="CENTER" hgap="25.0" onMouseMoved="#checkSubmit" prefHeight="264.0" prefWidth="1280.0" vgap="50.0" VBox.vgrow="ALWAYS">
-              <columnConstraints>
-                <ColumnConstraints halignment="CENTER" hgrow="ALWAYS" maxWidth="1.7976931348623157E308" minWidth="-Infinity" prefWidth="625.0" />
-                <ColumnConstraints halignment="CENTER" hgrow="ALWAYS" maxWidth="1.7976931348623157E308" minWidth="-Infinity" prefWidth="625.0" />
-              </columnConstraints>
-              <rowConstraints>
-                  <RowConstraints valignment="CENTER" vgrow="ALWAYS" />
-                <RowConstraints maxHeight="1.7976931348623157E308" valignment="CENTER" vgrow="ALWAYS" />
-                <RowConstraints maxHeight="1.7976931348623157E308" valignment="CENTER" vgrow="ALWAYS" />
-                <RowConstraints maxHeight="94.0" minHeight="0.0" prefHeight="0.0" valignment="CENTER" vgrow="ALWAYS" />
-                  <RowConstraints maxHeight="94.0" minHeight="0.0" prefHeight="94.0" valignment="CENTER" vgrow="ALWAYS" />
-                  <RowConstraints maxHeight="59.111358642578125" minHeight="0.0" prefHeight="0.0" valignment="CENTER" vgrow="ALWAYS" />
-              </rowConstraints>
+            <JFXToolbar maxHeight="-Infinity" minHeight="-Infinity" prefHeight="10.0" prefWidth="1280.0" styleClass="tool-barSecondary" stylesheets="@Default.css" />
+            <GridPane prefHeight="492.0" prefWidth="1280.0" VBox.vgrow="ALWAYS">
+               <columnConstraints>
+                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="50.0" prefWidth="100.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="50.0" prefWidth="100.0" />
+               </columnConstraints>
+               <rowConstraints>
+                  <RowConstraints minHeight="10.0" percentHeight="19.0" prefHeight="30.0" vgrow="NEVER" />
+                  <RowConstraints maxHeight="1.7976931348623157E308" minHeight="127.0" prefHeight="140.0" vgrow="NEVER" />
+                  <RowConstraints maxHeight="1.7976931348623157E308" minHeight="104.0" percentHeight="20.0" prefHeight="105.0" vgrow="NEVER" />
+                  <RowConstraints maxHeight="1.7976931348623157E308" percentHeight="20.0" vgrow="NEVER" />
+                  <RowConstraints percentHeight="20.0" vgrow="NEVER" />
+               </rowConstraints>
                <children>
-                  <Label styleClass="labelTitle" stylesheets="@Default.css" text="Sanitation Service Request" textFill="#f5d96b" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
+                  <VBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" style="-fx-background-color: white; -fx-border-radius: 10; -fx-background-radius: 15;" styleClass="jfx-text-areaServiceRequest" GridPane.rowIndex="1" GridPane.rowSpan="3">
+                     <GridPane.margin>
+                        <Insets left="150.0" right="50.0" />
+                     </GridPane.margin>
+                  </VBox>
+                  <JFXTextArea fx:id="comment1" focusColor="#f6bd38" onKeyReleased="#checkSubmit" prefHeight="245.0" prefWidth="403.0" promptText="Add a description here" styleClass="jfx-text-areaServiceRequest" stylesheets="@Default.css" unFocusColor="#ffffff00" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.rowIndex="1" GridPane.rowSpan="3" GridPane.valignment="CENTER">
                      <font>
-                        <Font size="30.0" />
+                        <Font name="Trebuchet MS" size="20.0" />
+                     </font>
+                     <GridPane.margin>
+                        <Insets left="50.0" right="150.0" />
+                     </GridPane.margin>
+                     <padding>
+                        <Insets bottom="5.0" left="10.0" right="10.0" top="5.0" />
+                     </padding>
+                  </JFXTextArea>
+                  <JFXButton fx:id="submit1" buttonType="RAISED" onAction="#makeRequest" prefHeight="60.0" prefWidth="145.0" styleClass="buttonMainNoB" stylesheets="@Default.css" text="Submit" textFill="WHITE" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="4" GridPane.valignment="CENTER">
+                     <font>
+                        <Font name="Trebuchet MS" size="25.0" />
+                     </font>
+                     <GridPane.margin>
+                        <Insets />
+                     </GridPane.margin>
+                  </JFXButton>
+                  <Label alignment="CENTER" contentDisplay="CENTER" styleClass="labelTitle" stylesheets="@Default.css" text="Sanitation Service Request" textFill="#f5d96b" GridPane.columnSpan="2147483647" GridPane.halignment="CENTER">
+                     <font>
+                        <Font name="Trebuchet MS" size="35.0" />
                      </font>
                      <effect>
                         <Blend />
                      </effect>
                   </Label>
-                  <JFXTextArea fx:id="comment1" focusColor="#f6bd38" onKeyReleased="#checkSubmit" promptText="Type a description here" styleClass="jfx-text-areaServiceRequest" stylesheets="@Default.css" unFocusColor="WHITE" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.hgrow="SOMETIMES" GridPane.rowIndex="3" GridPane.rowSpan="2" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
-                     <font>
-                        <Font size="20.0" />
-                     </font>
+                  <VBox prefHeight="200.0" prefWidth="100.0" style="-fx-background-color: transparent;" styleClass="jfx-text-areaServiceRequest" stylesheets="@Default.css" GridPane.rowIndex="1" GridPane.rowSpan="3">
                      <GridPane.margin>
-                        <Insets left="200.0" right="200.0" />
+                        <Insets left="150.0" right="50.0" />
                      </GridPane.margin>
-                  </JFXTextArea>
-                  <JFXButton fx:id="submit1" buttonType="RAISED" onAction="#makeRequest" prefHeight="61.0" prefWidth="148.0" style="-fx-border-width: 2; -fx-border-radius: 50; -fx-background-radius: 50;" styleClass="buttonMain" stylesheets="@Default.css" text="Submit" textFill="WHITE" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="5" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
-                     <font>
-                        <Font size="30.0" />
-                     </font>
-                     <GridPane.margin>
-                        <Insets top="25.0" />
-                     </GridPane.margin>
-                  </JFXButton>
-                  <JFXComboBox fx:id="location1" onMouseReleased="#checkSubmit" prefHeight="25.0" prefWidth="427.0" promptText="Location" stylesheets="@Default.css" GridPane.rowIndex="1" />
-                  <JFXComboBox fx:id="typeBox1" prefHeight="25.0" prefWidth="441.0" promptText="Type" stylesheets="@Default.css" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                  <JFXComboBox fx:id="urgencyLevel1" prefHeight="25.0" prefWidth="429.0" promptText="Urgency Level" stylesheets="@Default.css" GridPane.rowIndex="2" />
+                     <children>
+                        <GridPane VBox.vgrow="ALWAYS">
+                           <columnConstraints>
+                              <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                              <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                           </columnConstraints>
+                           <rowConstraints>
+                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                           </rowConstraints>
+                           <children>
+                              <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" GridPane.columnSpan="2147483647" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.valignment="CENTER">
+                                 <children>
+                                    <JFXComboBox fx:id="location1" onMouseReleased="#checkSubmit" prefHeight="39.0" prefWidth="551.0" promptText="Location" stylesheets="@Default.css">
+                                       <VBox.margin>
+                                          <Insets left="50.0" right="50.0" />
+                                       </VBox.margin>
+                                    </JFXComboBox>
+                                 </children>
+                              </VBox>
+                              <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" GridPane.columnSpan="2147483647" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" GridPane.valignment="CENTER">
+                                 <children>
+                                    <JFXComboBox fx:id="typeBox1" prefHeight="25.0" prefWidth="441.0" promptText="Type" stylesheets="@Default.css">
+                                       <VBox.margin>
+                                          <Insets left="50.0" right="50.0" />
+                                       </VBox.margin>
+                                    </JFXComboBox>
+                                 </children>
+                              </VBox>
+                              <VBox alignment="CENTER_RIGHT" prefHeight="200.0" prefWidth="100.0" GridPane.columnSpan="2147483647" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="2" GridPane.valignment="CENTER">
+                                 <children>
+                                    <JFXComboBox fx:id="urgencyLevel1" prefHeight="39.0" prefWidth="491.0" promptText="Urgency Level" stylesheets="@Default.css">
+                                       <VBox.margin>
+                                          <Insets left="50.0" right="50.0" />
+                                       </VBox.margin>
+                                    </JFXComboBox>
+                                 </children>
+                              </VBox>
+                           </children>
+                        </GridPane>
+                     </children>
+                  </VBox>
                </children>
-               <opaqueInsets>
-                  <Insets />
-               </opaqueInsets>
-               <padding>
-                  <Insets bottom="100.0" top="50.0" />
-               </padding>
-               <VBox.margin>
-                  <Insets />
-               </VBox.margin>
             </GridPane>
          </children>
       </VBox>

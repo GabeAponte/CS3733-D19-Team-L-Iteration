@@ -181,12 +181,12 @@
                         <Font name="Trebuchet MS" size="28.0" />
                      </font>
                      <GridPane.margin>
-                        <Insets right="170.0" top="60.0" />
+                        <Insets right="183.0" top="60.0" />
                      </GridPane.margin>
                   </Label>
                   <ImageView fx:id="weatherIcon" fitHeight="46.0" fitWidth="63.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.rowIndex="2">
                      <GridPane.margin>
-                        <Insets left="133.0" top="10.0" />
+                        <Insets left="183.0" top="10.0" />
                      </GridPane.margin>
                   </ImageView>
                   <Label fx:id="dateLabel" alignment="CENTER" contentDisplay="CENTER" prefHeight="52.0" prefWidth="164.0" styleClass="labelPopupDesc" stylesheets="@Default.css" text="99/99/9999" textAlignment="CENTER" textFill="WHITE" GridPane.halignment="RIGHT" GridPane.rowIndex="2">
@@ -194,7 +194,7 @@
                         <Font name="Trebuchet MS" size="28.0" />
                      </font>
                      <GridPane.margin>
-                        <Insets right="140.0" top="10.0" />
+                        <Insets right="155.0" top="10.0" />
                      </GridPane.margin>
                   </Label>
                   <Label fx:id="tempDisplay" alignment="CENTER" contentDisplay="CENTER" prefHeight="52.0" prefWidth="91.0" styleClass="labelPopupDesc" stylesheets="@Default.css" text="99 . F" textAlignment="CENTER" textFill="WHITE" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.rowIndex="2">
@@ -202,7 +202,7 @@
                         <Font name="Trebuchet MS" size="28.0" />
                      </font>
                      <GridPane.margin>
-                        <Insets left="188.0" top="10.0" />
+                        <Insets left="228.0" top="10.0" />
                      </GridPane.margin>
                   </Label>
                   <Label styleClass="labelPopupDesc" stylesheets="@Default.css" text="Boston, MA" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.rowIndex="1" GridPane.valignment="TOP">
@@ -210,7 +210,7 @@
                         <Font name="Trebuchet MS" size="28.0" />
                      </font>
                      <GridPane.margin>
-                        <Insets left="130.0" top="60.0" />
+                        <Insets left="175.0" top="60.0" />
                      </GridPane.margin>
                   </Label>
                </children>
