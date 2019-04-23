@@ -204,6 +204,7 @@ public class BookRoomController {
 
     @FXML
     CheckComboBox<String> eventEmployees;
+    final ObservableList<String> eventEmployeeData = FXCollections.observableArrayList();
 
     Timeline timeout;
     VisualSimulationThread sim;
@@ -344,7 +345,8 @@ public class BookRoomController {
             }
         });
 
-        eventEmployees.setAccessibleText("Choose Employees");
+        eventEmployeeData.addAll("Bella", "Grace", "Alex", "Gabe");
+        eventEmployees.getItems().addAll(eventEmployeeData);
 
         dailyDatePicker.setValue(LocalDate.now());
         findRooms();

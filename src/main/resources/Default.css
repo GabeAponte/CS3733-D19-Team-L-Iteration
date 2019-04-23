@@ -643,9 +643,13 @@
     -fx-background-color:  #012d5a;
     -fx-border-color: #f5d96b;
     -fx-border-radius: 10px;
-    -fx-prompt-text-fill: #f5d96b;
+    -fx-text-fill: #012d5a;
 }
 
 .check-combo-box .arrow {
     -fx-background-color: #f5d96b;
+}
+
+.check-combo-box .text-area {
+    -fx-text-fill : white;
 }
