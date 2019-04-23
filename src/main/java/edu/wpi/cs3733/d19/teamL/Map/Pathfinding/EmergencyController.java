@@ -920,7 +920,7 @@ public class EmergencyController {
             line.setEndX(path.getPath().get(i+1).getXcoord()*childPane.getWidth()/Map.getImage().getWidth());
             line.setEndY(path.getPath().get(i+1).getYcoord()*childPane.getHeight()/Map.getImage().getHeight());
             line.setStrokeWidth(2.5);
-            line.setStroke(DODGERBLUE);
+            line.setStroke(RED);
             lines.add(line);
             pathPane.getChildren().add(line);
 

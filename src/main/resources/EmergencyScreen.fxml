@@ -102,12 +102,12 @@
                                                         <Insets bottom="5.0" top="10.0" />
                                                     </GridPane.margin>
                                                 </Label>
-                                                <Label fx:id="LongNameOfExit" alignment="CENTER" contentDisplay="CENTER" text="GET LONGNAME" textFill="WHITE" wrapText="true" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
+                                                <Label fx:id="LongNameOfExit" alignment="CENTER" contentDisplay="CENTER" text=" " textFill="WHITE" wrapText="true" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
                                                     <font>
                                                         <Font size="30.0" />
                                                     </font>
                                                 </Label>
-                                                <JFXTextArea fx:id="direction" focusColor="#ffffff00" stylesheets="@Default.css" text="hullo" unFocusColor="#ffffff00" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="2" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
+                                                <JFXTextArea fx:id="direction" focusColor="#ffffff00" stylesheets="@Default.css" text="Please follow the exit signs to your closest exit" unFocusColor="#ffffff00" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="2" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
                                                     <font>
                                                         <Font size="20.0" />
                                                     </font>
