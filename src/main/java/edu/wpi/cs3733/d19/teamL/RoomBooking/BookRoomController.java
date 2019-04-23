@@ -328,6 +328,11 @@ public class BookRoomController {
             }
         });
 
+        dailyDatePicker.setValue(LocalDate.now());
+        findRooms();
+        roomPicker.getItems().addAll("Room 1 - Computer", "Room 2 - Computer", "Room 3 - Computer", "Room 4 - Classroom", "Room 5 - Computer", "Room 6 - Classroom", "Room 7 - Computer", "Room 8 - Classroom", "Room 9 - Computer", "Mission Hall Auditorium");
+
+
     }
 
     @FXML
@@ -896,8 +901,7 @@ public class BookRoomController {
 
         timeout.setCycleCount(Timeline.INDEFINITE);
         timeout.play();
-        dailyDatePicker.setValue(LocalDate.now());
-        findRooms();
+
     }
 
     @FXML
@@ -1249,46 +1253,6 @@ public class BookRoomController {
 // ---------------------------------------------------------------------------------------------------------------------
 //                                          WEEKLY SCHEDULE CONTROLLER
 //----------------------------------------------------------------------------------------------------------------------
-
-    @FXML
-    public void weeklyTab(){
-        Singleton single = Singleton.getInstance();
-        single.setLastTime();
-        timeout = new Timeline(new KeyFrame(Duration.seconds(2), new EventHandler<ActionEvent>() {
-
-            @Override
-            public void handle(ActionEvent event) {
-                if((System.currentTimeMillis() - single.getLastTime()) > single.getTimeoutSec()){
-                    try{
-                        single.setLastTime();
-                        single.setDoPopup(true);
-                        single.setLoggedIn(false);
-                        single.setUsername("");
-                        single.setIsAdmin(false);
-                        FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("HospitalHome.fxml"));
-
-                        Parent sceneMain = loader.load();
-                        HomeScreenController controller = loader.<HomeScreenController>getController();
-                        single.setLastTime();
-                        controller.displayPopup();
-                        single.setLastTime();
-
-                        Stage thisStage = (Stage) roomPicker.getScene().getWindow();
-
-                        Scene newScene = new Scene(sceneMain);
-                        thisStage.setScene(newScene);
-                        timeout.stop();
-                    } catch (IOException io){
-                        System.out.println(io.getMessage());
-                    }
-                }
-            }
-        }));
-        timeout.setCycleCount(Timeline.INDEFINITE);
-        timeout.play();
-
-        roomPicker.getItems().addAll("Room 1 - Computer", "Room 2 - Computer", "Room 3 - Computer", "Room 4 - Classroom", "Room 5 - Computer", "Room 6 - Classroom", "Room 7 - Computer", "Room 8 - Classroom", "Room 9 - Computer", "Mission Hall Auditorium");
-    }
 
     @FXML
     private void viewSched(){
