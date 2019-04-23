@@ -380,6 +380,7 @@ public class PathFindingController {
         displayKiosk();
         if (single.isLoggedIn()) {
             displayFlexSpaces(single.getSimulation());
+            displayBookableRooms();
         }
         gesturePane.reset();
         clear();
@@ -2768,6 +2769,24 @@ public class PathFindingController {
         flexSpaces.add(new Polygon((960+11310)* srWidth *.303, ( 1190+5624)* srHeight *.3023, ( 1060+11310)* srWidth *.303, ( 1190+5624)* srHeight *.3023, ( 1060+11310)* srWidth *.303, ( 1270+5624)* srHeight *.3023, ( 960+11310)* srWidth *.303, ( 1270+5624)* srHeight *.3023));
         flexSpaces.add(new Polygon((1060+11310)* srWidth *.303, ( 1190+5624)* srHeight *.3023, ( 1160+11310)* srWidth *.303, ( 1190+5624)* srHeight *.3023, ( 1160+11310)* srWidth *.303, ( 1270+5624)* srHeight *.3023, ( 1060+11310)* srWidth *.303, ( 1270+5624)* srHeight *.3023));
 
+        for(int i = 0; i < flexSpaces.size(); i++){
+            if(flexSpaceAvailable.get(i)) {
+                flexSpaces.get(i).setStroke(Color.web("TURQUOISE"));
+                flexSpaces.get(i).setFill(Color.web("TURQUOISE"));
+                flexSpaces.get(i).setOpacity(0.5);
+            }else{
+                flexSpaces.get(i).setStroke(Color.web("RED"));
+                flexSpaces.get(i).setFill(Color.web("RED"));
+                flexSpaces.get(i).setOpacity(0.3);
+            }
+            pathPane.getChildren().add(flexSpaces.get(i));
+        }
+    }
+
+    private void displayBookableRooms(){
+        double srWidth = gesturePane.getWidth() / Map.getImage().getWidth();
+        double srHeight = gesturePane.getHeight() / Map.getImage().getHeight();
+
         double room1[] = {(2230+11310)*.303, (1630+5624)*.3023, (2650+11310)*.303, (1630+5624)*.3023, (2650+11310)*.303, (1880+5624)*.3023, (2230+11310)*.303, (1880+5624)*.3023};
         double room2[] = {(2860+11310)*.303, (1130+5624)*.3023, (3040+11310)*.303, (1070+5624)*.3023, (3180+11310)*.303, (1430+5624)*.3023, (2990+11310)*.303, (1500+5624)*.3023};
         double room3[] = {(2720+11310)*.303, (750+5624)*.3023, (2850+11310)*.303, (1120+5624)*.3023, (3040+11310)*.303, (1060+5624)*.3023, (2970+11310)*.303, (850+5624)*.3023, (3000+11310)*.303, (840+5624)*.3023, (2970+11310)*.303, (770+5624)*.3023, (2900+11310)*.303, (720+5624)*.3023, (2810+11310)*.303, (690+5624)*.3023};
@@ -2792,7 +2811,10 @@ public class PathFindingController {
 
         RoomAccess ra = new RoomAccess();
         LocalDateTime ldt = LocalDateTime.now();
-        LocalDateTime ldt2 = ldt.plusSeconds(1);
+        LocalDateTime ldt2 = ldt.plusMinutes(1);
+
+        System.out.println(ldt2.toString());
+        System.out.println(ra.getAvailRooms(ldt.toString(), ldt2.toString()));
 
         for (int i = 0; i < DisplayRooms.size(); i++) {
             DisplayRooms.get(i).makePolygon(srWidth, srHeight);
@@ -2805,19 +2827,6 @@ public class PathFindingController {
                     DisplayRooms.get(i).changePolygonColor("GREEN");
                 }
             }
-        }
-
-        for(int i = 0; i < flexSpaces.size(); i++){
-            if(flexSpaceAvailable.get(i)) {
-                flexSpaces.get(i).setStroke(Color.web("TURQUOISE"));
-                flexSpaces.get(i).setFill(Color.web("TURQUOISE"));
-                flexSpaces.get(i).setOpacity(0.5);
-            }else{
-                flexSpaces.get(i).setStroke(Color.web("RED"));
-                flexSpaces.get(i).setFill(Color.web("RED"));
-                flexSpaces.get(i).setOpacity(0.3);
-            }
-            pathPane.getChildren().add(flexSpaces.get(i));
         }
     }
 

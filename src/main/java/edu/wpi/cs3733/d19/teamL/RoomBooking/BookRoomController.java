@@ -440,10 +440,13 @@ public class BookRoomController {
         if (startTime.getValue() != null && endTime.getValue() != null && datePicker.getValue() != null) {
             date = datePicker.getValue().toString();
             endDate = endDatePicker.getValue().toString();
-            date += "T" + startTime.getValue().getHour() * 100 + ":" + startTime.getValue().getMinute() + ":00";
-            endDate += "T" + endTime.getValue().getHour() * 100 + ":" + endTime.getValue().getMinute() + ":00";
+            date += "T" + String.format("%2d", startTime.getValue().getHour()) + ":" + String.format("%2d", startTime.getValue().getMinute()) + ":00";
+            endDate += "T" + String.format("%2d", endTime.getValue().getHour()) + ":" + String.format("%2d", endTime.getValue().getMinute()) + ":00";
             availableRooms.getSelectionModel().clearSelection();
 
+            System.out.println(ra.getAvailRooms(date, endDate));
+
+            System.out.println(endDate);
             rooms = ra.getAvailRooms(date, endDate);
             /*for (int i = 0; i < rooms.size(); i++) {
                 System.out.println("Available Rooms: " + rooms.get(i));
