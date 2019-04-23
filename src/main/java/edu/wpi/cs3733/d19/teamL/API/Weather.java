@@ -36,17 +36,22 @@ public class Weather {
     public void getCurrently(){
         try {
             fio = new ForecastIO("88cbab72251b626bd6cf465fc89144b9");
-            if(fio == null){
+            fio.setUnits(ForecastIO.UNITS_US);
+            fio.setLang(ForecastIO.LANG_ENGLISH);
+            fio.getForecast("42.269478", "-71.807783");
+            //System.out.println("Timezone: "+fio.getTimezone());
+            currently = new FIOCurrently(fio);
+            if(currently == null){
                 throw new NullPointerException();
             }
         } catch (Exception e){
             fio = new ForecastIO("8bbd411df62726b90761db369453bcc8");
+            fio.setUnits(ForecastIO.UNITS_US);
+            fio.setLang(ForecastIO.LANG_ENGLISH);
+            fio.getForecast("42.269478", "-71.807783");
+            //System.out.println("Timezone: "+fio.getTimezone());
+            currently = new FIOCurrently(fio);
         }
-        fio.setUnits(ForecastIO.UNITS_US);
-        fio.setLang(ForecastIO.LANG_ENGLISH);
-        fio.getForecast("42.269478", "-71.807783");
-        //System.out.println("Timezone: "+fio.getTimezone());
-        currently = new FIOCurrently(fio);
     }
 
     /**@author Nathan
@@ -68,7 +73,7 @@ public class Weather {
         if(userFriendlyTemp.contains(".") && userFriendlyTemp.indexOf(".") != -1) {
             userFriendlyTemp = userFriendlyTemp.substring(0, userFriendlyTemp.indexOf("."));
         }
-        return userFriendlyTemp + " \u00b0 F";
+        return userFriendlyTemp + "\u00b0F";
     }
 
     /**@author Nathan

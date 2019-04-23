@@ -1,6 +1,7 @@
 package edu.wpi.cs3733.d19.teamL.ServiceRequest.MakeServiceRequest;
 
 import edu.wpi.cs3733.d19.teamL.HomeScreens.HomeScreenController;
+import edu.wpi.cs3733.d19.teamL.Memento;
 import edu.wpi.cs3733.d19.teamL.ServiceRequest.ServiceRequestDBAccess.ServiceRequestAccess;
 import edu.wpi.cs3733.d19.teamL.Singleton;
 import com.jfoenix.controls.JFXComboBox;
@@ -12,9 +13,11 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.layout.AnchorPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.util.Duration;
@@ -23,7 +26,7 @@ import java.io.IOException;
 
 public class ExternalTransportationController {
     @FXML
-    public Button Back;
+    public Button back;
 
     @FXML
     public Button maps;
@@ -74,26 +77,12 @@ public class ExternalTransportationController {
             }
         }));
     }
-
-    @FXML
-    protected void backPressed() throws IOException {
-        timeout.stop();
-        Singleton single = Singleton.getInstance();
-        single.setLastTime();
-        FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("ServiceRequest.fxml"));
-        Parent sceneMain = loader.load();
-
-        Stage theStage = (Stage) Back.getScene().getWindow();
-
-        Scene scene = new Scene(sceneMain);
-        theStage.setScene(scene);
-    }
-
+    
     public void openBrowser() throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("Browser.fxml"));
         Parent sceneMain = loader.load();
 
-        Stage theStage = (Stage) Back.getScene().getWindow();
+        Stage theStage = (Stage) back.getScene().getWindow();
 
         Scene scene = new Scene(sceneMain);
         theStage.setScene(scene);
@@ -173,4 +162,42 @@ public class ExternalTransportationController {
         single = Singleton.getInstance();
         single.setLastTime();
     }
+
+    @FXML
+    private void backPressed(ActionEvent event) throws IOException {
+        timeout.stop();
+        Singleton single = Singleton.getInstance();
+        single.setLastTime();
+        single.setDoPopup(true);
+        Memento m = single.restore();
+        Parent newPage = FXMLLoader.load(getClass().getClassLoader().getResource(m.getFxml()));
+        ((Node) event.getSource()).getScene().setRoot(newPage);
+    }
+
+    @FXML
+    private void logOut(ActionEvent event) throws IOException {
+        timeout.stop();
+        Singleton single = Singleton.getInstance();
+        single.setLastTime();
+        single.setUsername("");
+        single.setIsAdmin(false);
+        single.setLoggedIn(false);
+        single.setDoPopup(true);
+        Memento m = single.getOrig();
+        Parent newPage = FXMLLoader.load(getClass().getClassLoader().getResource(m.getFxml()));
+        ((Node) event.getSource()).getScene().setRoot(newPage);
+    }
+
+    @FXML
+    private void goHome(ActionEvent event) throws IOException {
+        timeout.stop();
+        Singleton single = Singleton.getInstance();
+        single.setLastTime();
+        single.setDoPopup(true);
+        //saveState();
+        Memento m = single.getOrig();
+        Parent newPage = FXMLLoader.load(getClass().getClassLoader().getResource(m.getFxml()));
+        ((Node) event.getSource()).getScene().setRoot(newPage);
+    }
+
 }

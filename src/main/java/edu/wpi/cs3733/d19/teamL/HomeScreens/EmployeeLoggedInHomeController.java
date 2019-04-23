@@ -2,6 +2,8 @@ package edu.wpi.cs3733.d19.teamL.HomeScreens;
 
 import edu.wpi.cs3733.d19.teamL.Account.CreateEditAccountController;
 import edu.wpi.cs3733.d19.teamL.Account.EmployeeAccess;
+import edu.wpi.cs3733.d19.teamL.Map.Pathfinding.PathFindingController;
+import edu.wpi.cs3733.d19.teamL.Memento;
 import edu.wpi.cs3733.d19.teamL.ServiceRequest.FulfillServiceRequest.ActiveServiceRequestsController;
 import edu.wpi.cs3733.d19.teamL.Singleton;
 import edu.wpi.cs3733.d19.teamL.Suggestion.SuggestionTableController;
@@ -11,6 +13,7 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -24,6 +27,9 @@ import java.io.IOException;
 public class EmployeeLoggedInHomeController {
     @FXML
     private Button fufillServiceRequest;
+
+    @FXML
+    private Button back;
 
     @FXML
     private Button logOut;
@@ -94,126 +100,122 @@ public class EmployeeLoggedInHomeController {
         timeout.setCycleCount(Timeline.INDEFINITE);
         timeout.play();
     }
+
     @FXML
-    private void logOut() throws IOException {
+    private void bookRoom(ActionEvent event) throws IOException {
         timeout.stop();
+        saveState();
         Singleton single = Singleton.getInstance();
         single.setLastTime();
-        Stage thestage = (Stage) logOut.getScene().getWindow();
-        AnchorPane root;
-        single.setLoggedIn(false);
-        single.setUsername("");
+        Parent newPage = FXMLLoader.load(getClass().getClassLoader().getResource("BookRoom.fxml"));
+        ((Node) event.getSource()).getScene().setRoot(newPage);
+    }
+
+    @FXML
+    private void SwitchToPathfindScreen(ActionEvent event) throws IOException{
+        timeout.stop();
+        saveState();
+        Singleton single = Singleton.getInstance();
+        single.setLastTime();
+        Parent newPage = FXMLLoader.load(getClass().getClassLoader().getResource("HospitalPathFinding.fxml"));
+        ((Node) event.getSource()).getScene().setRoot(newPage);
+    }
+
+    @FXML
+    private void SwitchToServiceScreen(ActionEvent event) throws IOException{
+        timeout.stop();
+        saveState();
+        Singleton single = Singleton.getInstance();
+        single.setLastTime();
+        Parent newPage = FXMLLoader.load(getClass().getClassLoader().getResource("ServiceRequest.fxml"));
+        ((Node) event.getSource()).getScene().setRoot(newPage);
+    }
+
+    @FXML
+    private void SwitchToFullfillRequestScreen(ActionEvent event) throws IOException{
+        timeout.stop();
+        saveState();
+        Singleton single = Singleton.getInstance();
+        single.setLastTime();
+
+        Parent newPage = FXMLLoader.load(getClass().getClassLoader().getResource("ActiveServiceRequests.fxml"));
+        ((Node) event.getSource()).getScene().setRoot(newPage);
+    }
+
+    @FXML
+    private void SwitchToEditAccountScreen(ActionEvent event) throws IOException{
+        timeout.stop();
+        saveState();
+        Singleton single = Singleton.getInstance();
+        single.setLastTime();
+        Parent newPage = FXMLLoader.load(getClass().getClassLoader().getResource("EmployeeTable.fxml"));
+        ((Node) event.getSource()).getScene().setRoot(newPage);
+    }
+
+    @FXML
+    private void SwitchToSuggestionScreen(ActionEvent event) throws IOException{
+        timeout.stop();
+        saveState();
+        Singleton single = Singleton.getInstance();
+        single.setLastTime();
+        Parent newPage = FXMLLoader.load(getClass().getClassLoader().getResource("SuggestionTable.fxml"));
+        ((Node) event.getSource()).getScene().setRoot(newPage);
+    }
+
+    @FXML
+    private void backPressed(ActionEvent event) throws IOException{
+        Singleton single = Singleton.getInstance();
+        timeout.stop();
+        single = Singleton.getInstance();
+        single.setLastTime();
         single.setDoPopup(true);
-        root = FXMLLoader.load(getClass().getClassLoader().getResource("HospitalHome.fxml"));
-        Scene scene = new Scene(root);
-        thestage.setScene(scene);
+
+        Memento m = single.restore();
+        FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource(m.getFxml()));
+        Parent newPage = loader.load();
+        if(m.getFxml().contains("HospitalPathFinding")){
+            PathFindingController pfc = loader.getController();
+            pfc.initWithMeme(m.getPathPref(), m.getTypeFilter(), m.getFloorFilter(), m.getStart(), m.getEnd());
+        }
+
+        //Parent newPage = FXMLLoader.load(getClass().getClassLoader().getResource(m.getFxml()));
+        ((Node) event.getSource()).getScene().setRoot(newPage);
     }
 
+
     @FXML
-    private void bookRoom() throws IOException {
+    private void logOut(ActionEvent event) throws IOException {
         timeout.stop();
         Singleton single = Singleton.getInstance();
         single.setLastTime();
-        FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("BookRoom.fxml"));
-
-        Parent sceneMain = loader.load();
-
-        Stage theStage = (Stage) bookRoom.getScene().getWindow();
-
-        Scene scene = new Scene(sceneMain);
-
-        theStage.setScene(scene);
-    }
-
-    @FXML
-    private void SwitchToPathfindScreen() throws IOException {
-        timeout.stop();
-        Singleton single = Singleton.getInstance();
-        single.setLastTime();
-        FXMLLoader pLoader = new FXMLLoader(getClass().getClassLoader().getResource("HospitalPathFinding.fxml"));
-
-        Parent sceneMain = pLoader.load();
-
-        Stage theStage = (Stage) findPath.getScene().getWindow();
-
-        Scene scene = new Scene(sceneMain);
-        theStage.setScene(scene);
-    }
-
-    @FXML
-    private void SwitchToServiceScreen() throws IOException {
-        timeout.stop();
-        Singleton single = Singleton.getInstance();
-        single.setLastTime();
-        FXMLLoader sLoader = new FXMLLoader(getClass().getClassLoader().getResource("ServiceRequest.fxml"));
-
-        Parent sceneMain = sLoader.load();
-
-        Stage theStage = (Stage) findPath.getScene().getWindow();
-
-        Scene scene = new Scene(sceneMain);
-        theStage.setScene(scene);
-    }
-
-    @FXML
-    private void SwitchToFullfillRequestScreen() throws IOException {
-        timeout.stop();
-        Singleton single = Singleton.getInstance();
-        single.setLastTime();
+        single.setUsername("");
         single.setIsAdmin(false);
-        FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("ActiveServiceRequests.fxml"));
-
-        Parent sceneMain = loader.load();
-
-        ActiveServiceRequestsController controller = loader.<ActiveServiceRequestsController>getController();
-
-        Stage theStage = (Stage) fufillServiceRequest.getScene().getWindow();
-
-        Scene scene = new Scene(sceneMain);
-        theStage.setScene(scene);
+        single.setLoggedIn(false);
+        single.setDoPopup(true);
+        Memento m = single.getOrig();
+        Parent newPage = FXMLLoader.load(getClass().getClassLoader().getResource(m.getFxml()));
+        ((Node) event.getSource()).getScene().setRoot(newPage);
     }
 
     @FXML
-    private void SwitchToEditAccountScreen() throws IOException{
+    private void goHome(ActionEvent event) throws IOException {
         timeout.stop();
         Singleton single = Singleton.getInstance();
         single.setLastTime();
-        FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("CreateEditAccount.fxml"));
-
-        Parent sceneMain = loader.load();
-
-        CreateEditAccountController controller = loader.<CreateEditAccountController>getController();
-        controller.setType(2, "");
-
-        Stage theStage = (Stage) fufillServiceRequest.getScene().getWindow();
-
-        Scene scene = new Scene(sceneMain);
-        theStage.setScene(scene);
+        single.setDoPopup(true);
+        saveState();
+        Memento m = single.getOrig();
+        Parent newPage = FXMLLoader.load(getClass().getClassLoader().getResource(m.getFxml()));
+        ((Node) event.getSource()).getScene().setRoot(newPage);
     }
 
 
-    @FXML
-    private void myAccount() throws IOException {
-        //timeout.stop();
+    /**@author Nathan
+     * Saves the memento state
+     */
+    private void saveState(){
         Singleton single = Singleton.getInstance();
-        single.setLastTime();
+        single.saveMemento("EmployeeLoggedInHome.fxml");
     }
 
-    @FXML
-    private void SwitchToSuggestionScreen() throws IOException{
-        timeout.stop();
-        Singleton single = Singleton.getInstance();
-        single.setLastTime();
-        FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("SuggestionTable.fxml"));
-
-        Parent sceneMain = loader.load();
-
-        SuggestionTableController controller = loader.<SuggestionTableController>getController();
-
-        Stage theStage = (Stage) fufillServiceRequest.getScene().getWindow();
-
-        Scene scene = new Scene(sceneMain);
-        theStage.setScene(scene);
-    }
-
-    }
+}

@@ -1,6 +1,7 @@
 package edu.wpi.cs3733.d19.teamL.ServiceRequest.MakeServiceRequest;
 
 import edu.wpi.cs3733.d19.teamL.HomeScreens.HomeScreenController;
+import edu.wpi.cs3733.d19.teamL.Memento;
 import edu.wpi.cs3733.d19.teamL.ServiceRequest.ServiceRequestDBAccess.ServiceRequestAccess;
 import com.jfoenix.controls.JFXTextArea;
 import com.jfoenix.controls.JFXTextField;
@@ -11,10 +12,12 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.RadioButton;
+import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
@@ -35,7 +38,7 @@ public class MaintenanceServiceRequestController {
     private Button Submit;
 
     @FXML
-    public Button Back;
+    public Button back;
 
     @FXML
     public JFXTextArea Description;
@@ -63,7 +66,7 @@ public class MaintenanceServiceRequestController {
                             HomeScreenController controller = loader.<HomeScreenController>getController();
                             controller.displayPopup();
                         }
-                        Stage thisStage = (Stage) Back.getScene().getWindow();
+                        Stage thisStage = (Stage) back.getScene().getWindow();
 
                         Scene newScene = new Scene(sceneMain);
                         thisStage.setScene(newScene);
@@ -90,33 +93,58 @@ public class MaintenanceServiceRequestController {
         }
     }
     @FXML
-    private void submitClicked() throws IOException {
+    private void submitClicked(ActionEvent event) throws IOException {
         Singleton single = Singleton.getInstance();
         single.setLastTime();
+        single.setDoPopup(true);
         ServiceRequestAccess sra = new ServiceRequestAccess();
-        boolean check = false;
+        boolean check;
         if(hazardYes.isSelected()){
             check = true;
         }else {
             check = false;
         }
         sra.makeMaintenanceRequest(Description.getText(), Location.getText(), field1.getText(), Boolean.toString(check));
-       // System.out.println("Submit Pressed");
-        backPressed();
+        Memento m = single.getOrig();
+        Parent newPage = FXMLLoader.load(getClass().getClassLoader().getResource(m.getFxml()));
+        ((Node) event.getSource()).getScene().setRoot(newPage);
     }
 
     @FXML
-    protected void backPressed() throws IOException {
+    private void backPressed(ActionEvent event) throws IOException {
         timeout.stop();
         Singleton single = Singleton.getInstance();
         single.setLastTime();
-        FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("ServiceRequest.fxml"));
-
-        Parent sceneMain = loader.load();
-
-        Stage theStage = (Stage) Back.getScene().getWindow();
-
-        Scene scene = new Scene(sceneMain);
-        theStage.setScene(scene);
+        single.setDoPopup(true);
+        Memento m = single.restore();
+        Parent newPage = FXMLLoader.load(getClass().getClassLoader().getResource(m.getFxml()));
+        ((Node) event.getSource()).getScene().setRoot(newPage);
     }
+
+    @FXML
+    private void logOut(ActionEvent event) throws IOException {
+        timeout.stop();
+        Singleton single = Singleton.getInstance();
+        single.setLastTime();
+        single.setUsername("");
+        single.setIsAdmin(false);
+        single.setLoggedIn(false);
+        single.setDoPopup(true);
+        Memento m = single.getOrig();
+        Parent newPage = FXMLLoader.load(getClass().getClassLoader().getResource(m.getFxml()));
+        ((Node) event.getSource()).getScene().setRoot(newPage);
+    }
+
+    @FXML
+    private void goHome(ActionEvent event) throws IOException {
+        timeout.stop();
+        Singleton single = Singleton.getInstance();
+        single.setLastTime();
+        single.setDoPopup(true);
+        //saveState();
+        Memento m = single.getOrig();
+        Parent newPage = FXMLLoader.load(getClass().getClassLoader().getResource(m.getFxml()));
+        ((Node) event.getSource()).getScene().setRoot(newPage);
+    }
+
 }

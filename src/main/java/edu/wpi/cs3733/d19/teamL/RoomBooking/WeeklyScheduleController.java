@@ -4,6 +4,7 @@ import com.android.dx.gen.Local;
 import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXDatePicker;
 import edu.wpi.cs3733.d19.teamL.HomeScreens.HomeScreenController;
+import edu.wpi.cs3733.d19.teamL.Memento;
 import edu.wpi.cs3733.d19.teamL.Singleton;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
@@ -12,6 +13,7 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
@@ -20,6 +22,7 @@ import javafx.util.Duration;
 
 import java.io.IOException;
 import java.time.LocalDate;
+import java.time.LocalTime;
 
 public class WeeklyScheduleController
 {
@@ -33,7 +36,7 @@ public class WeeklyScheduleController
     private JFXComboBox roomPicker;
 
     @FXML
-    private Button weeklyBack;
+    private Button back;
 
     @FXML
     private Button goToBookRoom;
@@ -137,35 +140,23 @@ public class WeeklyScheduleController
         Root.getChildren().clear();
         RoomAccess ra = new RoomAccess();
         LocalDate givenDate = datePicker.getValue();
-        int startTime = 0;
-        int endTime = 30;
-        for(int i = 0; i < 47; i++){
-            // System.out.println("Start Time: " + startTime + " End Time: " + endTime);
-            TreeItem<WeeklyRoom> bookedRooms = new TreeItem<WeeklyRoom>(new WeeklyRoom(startTime, endTime, theDate, roomName ));
+        LocalTime startLT = LocalTime.of(0,0);
+        LocalTime endLT = LocalTime.of(0, 30);
+        for(int i = 0; i < 48; i++) {
+            //System.out.println("Start Time: " + startLT + " End Time: " + endLT);
+            TreeItem<WeeklyRoom> bookedRooms = new TreeItem<WeeklyRoom>(new WeeklyRoom(startLT, endLT, theDate, roomName));
             Root.getChildren().add(bookedRooms);
-            //System.out.println(bookedRooms.getValue().getTime());
-            if(i == 33) {
-                // System.out.println("Start Time: " + startTime + "End Time: " +endTime);
-            }
-            if(i == 0){
-                startTime += 30;
-                endTime += 70;
-            }
-            else if(i%2 == 0) {
-                startTime += 30;
-                endTime += 70;
+
+            if(i == 46){
+                startLT = startLT.plusMinutes(30);
+                endLT = endLT.plusMinutes(29);
             }
             else{
-                startTime +=70;
-                endTime +=30;
-            }
-            startTime %= 2400;
-            endTime %= 2400;
-        }
-        //System.out.println("Start Time: " + startTime + " End Time: " + endTime);
-        TreeItem<WeeklyRoom> bookedRooms = new TreeItem<WeeklyRoom>(new WeeklyRoom(startTime, endTime, theDate, roomName));
-        Root.getChildren().add(bookedRooms);
+                startLT = startLT.plusMinutes(30);
+                endLT = endLT.plusMinutes(30);
 
+            }
+        }
         //timeCol = new TreeTableColumn<Room, String>("Time");
         timeCol.setCellValueFactory(cellData -> {
             if(cellData.getValue().getValue()instanceof WeeklyRoom) {
@@ -386,17 +377,40 @@ public class WeeklyScheduleController
     }
 
     @FXML
-    public void backPressed() throws IOException {
+    private void backPressed(ActionEvent event) throws IOException {
         timeout.stop();
         Singleton single = Singleton.getInstance();
         single.setLastTime();
-        FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("BookRoom.fxml"));
-        Parent sceneMain = loader.load();
-        BookRoomController controller = loader.<BookRoomController>getController();
-        Stage theStage = (Stage) weeklyBack.getScene().getWindow();
-        Scene scene = new Scene(sceneMain);
-        theStage.setScene(scene);
+        single.setDoPopup(true);
+        Memento m = single.restore();
+        Parent newPage = FXMLLoader.load(getClass().getClassLoader().getResource(m.getFxml()));
+        ((Node) event.getSource()).getScene().setRoot(newPage);
     }
 
+    @FXML
+    private void logOut(ActionEvent event) throws IOException {
+        timeout.stop();
+        Singleton single = Singleton.getInstance();
+        single.setLastTime();
+        single.setUsername("");
+        single.setIsAdmin(false);
+        single.setLoggedIn(false);
+        single.setDoPopup(true);
+        Memento m = single.getOrig();
+        Parent newPage = FXMLLoader.load(getClass().getClassLoader().getResource(m.getFxml()));
+        ((Node) event.getSource()).getScene().setRoot(newPage);
+    }
+
+    @FXML
+    private void goHome(ActionEvent event) throws IOException {
+        timeout.stop();
+        Singleton single = Singleton.getInstance();
+        single.setLastTime();
+        single.setDoPopup(true);
+       // saveState();
+        Memento m = single.getOrig();
+        Parent newPage = FXMLLoader.load(getClass().getClassLoader().getResource(m.getFxml()));
+        ((Node) event.getSource()).getScene().setRoot(newPage);
+    }
 
 }

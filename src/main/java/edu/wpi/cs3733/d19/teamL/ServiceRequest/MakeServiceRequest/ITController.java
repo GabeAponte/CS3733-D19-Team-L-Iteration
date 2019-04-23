@@ -2,6 +2,7 @@ package edu.wpi.cs3733.d19.teamL.ServiceRequest.MakeServiceRequest;
 
 import edu.wpi.cs3733.d19.teamL.HomeScreens.HomeScreenController;
 import edu.wpi.cs3733.d19.teamL.Map.Pathfinding.NodesAccess;
+import edu.wpi.cs3733.d19.teamL.Memento;
 import edu.wpi.cs3733.d19.teamL.ServiceRequest.ServiceRequestDBAccess.ServiceRequestAccess;
 import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXTextArea;
@@ -12,10 +13,12 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
+import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
@@ -94,12 +97,15 @@ public class ITController {
     }
 
     @FXML
-    private void submitRequest() throws IOException {
+    private void submitRequest(ActionEvent event) throws IOException {
         Singleton single = Singleton.getInstance();
         single.setLastTime();
+        single.setDoPopup(true);
         ServiceRequestAccess sra = new ServiceRequestAccess();
         sra.makeITRequest(description.getText(), loc.getValue(), device.getValue(), problem.getValue());
-        backPressed();
+        Memento m = single.getOrig();
+        Parent newPage = FXMLLoader.load(getClass().getClassLoader().getResource(m.getFxml()));
+        ((Node) event.getSource()).getScene().setRoot(newPage);
 
     }
 
@@ -151,21 +157,6 @@ public class ITController {
     }
 
     @FXML
-    protected void backPressed() throws IOException {
-        timeout.stop();
-        Singleton single = Singleton.getInstance();
-        single.setLastTime();
-        FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("ServiceRequest.fxml"));
-
-        Parent sceneMain = loader.load();
-
-        Stage theStage = (Stage) back.getScene().getWindow();
-
-        Scene scene = new Scene(sceneMain);
-        theStage.setScene(scene);
-    }
-
-    @FXML
     private void checkIfNull() {
         Singleton single = Singleton.getInstance();
         single.setLastTime();
@@ -177,6 +168,41 @@ public class ITController {
         }
     }
 
+    @FXML
+    private void backPressed(ActionEvent event) throws IOException {
+        timeout.stop();
+        Singleton single = Singleton.getInstance();
+        single.setLastTime();
+        single.setDoPopup(true);
+        Memento m = single.restore();
+        Parent newPage = FXMLLoader.load(getClass().getClassLoader().getResource(m.getFxml()));
+        ((Node) event.getSource()).getScene().setRoot(newPage);
+    }
 
+    @FXML
+    private void logOut(ActionEvent event) throws IOException {
+        timeout.stop();
+        Singleton single = Singleton.getInstance();
+        single.setLastTime();
+        single.setUsername("");
+        single.setIsAdmin(false);
+        single.setLoggedIn(false);
+        single.setDoPopup(true);
+        Memento m = single.getOrig();
+        Parent newPage = FXMLLoader.load(getClass().getClassLoader().getResource(m.getFxml()));
+        ((Node) event.getSource()).getScene().setRoot(newPage);
+    }
+
+    @FXML
+    private void goHome(ActionEvent event) throws IOException {
+        timeout.stop();
+        Singleton single = Singleton.getInstance();
+        single.setLastTime();
+        single.setDoPopup(true);
+        //saveState();
+        Memento m = single.getOrig();
+        Parent newPage = FXMLLoader.load(getClass().getClassLoader().getResource(m.getFxml()));
+        ((Node) event.getSource()).getScene().setRoot(newPage);
+    }
 
 }

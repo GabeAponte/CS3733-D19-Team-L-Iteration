@@ -1,6 +1,5 @@
 package edu.wpi.cs3733.d19.teamL.RoomBooking;
 
-import com.sun.org.apache.xpath.internal.operations.Bool;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -14,7 +13,7 @@ public class VisualSimulationThread extends Thread{
         length = total;
         sim = new ArrayList<Boolean>();
         for(int i = 0; i < length; i++){
-            sim.add(false);
+            sim.add(true);
         }
     }
 
@@ -22,26 +21,16 @@ public class VisualSimulationThread extends Thread{
         Random random = new Random();
         int num = random.nextInt(2) + 1;
         int natural = random.nextInt(length);
-        int natural2 = -1;
+        sim.set(natural, switchValue(natural));
         if(num == 2){
-            natural2 = random.nextInt(length);
+            int natural2 = random.nextInt(length);
+            sim.set(natural2, switchValue(natural2));
         }
-        for (int i = 0; i < length; i++) {
-            if(i == natural){
-                sim.set(i, switchValue(i));
-            } else if(i == natural2){
-                sim.set(i, switchValue(i));
-            }
 
-        }
     }
 
     private boolean switchValue(int i){
-        if(sim.get(i)){
-            return false;
-        } else {
-            return true;
-        }
+        return !sim.get(i);
     }
 
     public ArrayList<Boolean> getSimulation(){

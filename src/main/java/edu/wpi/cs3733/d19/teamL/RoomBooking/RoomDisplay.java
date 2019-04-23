@@ -15,7 +15,7 @@ public class RoomDisplay {
     double coordinates[] = {0};
     Polygon p;
 
-    RoomDisplay(String name, double[] coords, String niceName){
+    public RoomDisplay(String name, double[] coords, String niceName){
         this.roomName = name;
         this.coordinates = coords;
         this.niceName = niceName;
@@ -28,6 +28,18 @@ public class RoomDisplay {
     public void makePolygon(double scaleRatio){
         for (int j = 0; j < this.coordinates.length; j++) {
             coordinates[j] = coordinates[j] * scaleRatio;
+        }
+        p = new Polygon(coordinates);
+        p.setOnMouseEntered(setOnMouseEntered);
+        p.setOnMouseExited(setOnMouseExited);
+    }
+
+    public void makePolygon(double scaleRatioWidth, double scaleRatioHeight){
+        for (int j = 0; j < this.coordinates.length; j+=2) {
+            coordinates[j] = coordinates[j] * scaleRatioWidth;
+        }
+        for (int j = 1; j < this.coordinates.length; j+=2) {
+            coordinates[j] = coordinates[j] * scaleRatioHeight;
         }
         p = new Polygon(coordinates);
         p.setOnMouseEntered(setOnMouseEntered);

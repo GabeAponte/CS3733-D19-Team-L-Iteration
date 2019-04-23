@@ -8,6 +8,7 @@ import edu.wpi.cs3733.d19.teamL.API.FaceDetector;
 import edu.wpi.cs3733.d19.teamL.API.ImageComparison;
 import edu.wpi.cs3733.d19.teamL.API.faceDetectionJavaFXX;
 import edu.wpi.cs3733.d19.teamL.Account.EmployeeAccess;
+import edu.wpi.cs3733.d19.teamL.Memento;
 import edu.wpi.cs3733.d19.teamL.Singleton;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
@@ -15,12 +16,14 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.image.WritableImage;
+import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 import org.bytedeco.javacv.Frame;
@@ -42,6 +45,7 @@ import static org.bytedeco.opencv.helper.opencv_imgcodecs.cvSaveImage;
 
 public class LogInController {
 
+    @FXML
     private Stage thestage;
 
     @FXML
@@ -63,7 +67,9 @@ public class LogInController {
     private JFXButton facialRec;
 
     Timeline timeout;
-    public void initialize(){
+
+    @FXML
+    public void initialize() {
         //facialRec.setDisable(true);
         Singleton single = Singleton.getInstance();
         single.setLastTime();
@@ -71,8 +77,8 @@ public class LogInController {
 
             @Override
             public void handle(ActionEvent event) {
-                if((System.currentTimeMillis() - single.getLastTime()) > single.getTimeoutSec()){
-                    try{
+                if ((System.currentTimeMillis() - single.getLastTime()) > single.getTimeoutSec()) {
+                    try {
                         single.setLastTime();
                         single.setDoPopup(true);
                         single.setLoggedIn(false);
@@ -87,7 +93,7 @@ public class LogInController {
                         Scene newScene = new Scene(sceneMain);
                         thisStage.setScene(newScene);
                         timeout.stop();
-                    } catch (IOException io){
+                    } catch (IOException io) {
                         System.out.println(io.getMessage());
                     }
                 }
@@ -96,42 +102,33 @@ public class LogInController {
         timeout.setCycleCount(Timeline.INDEFINITE);
         timeout.play();
     }
+
     @SuppressWarnings("Duplicates")
     @FXML
-    private void backPressed() throws IOException {
+    private void backPressed(ActionEvent event) throws IOException {
         timeout.stop();
         Singleton single = Singleton.getInstance();
         single.setLastTime();
         single.setDoPopup(true);
-        FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("HospitalHome.fxml"));
-
-        Parent sceneMain = loader.load();
-
-        Stage thisStage = (Stage) username.getScene().getWindow();
-
-        Scene newScene = new Scene(sceneMain);
-        thisStage.setScene(newScene);
+        Memento m = single.restore();
+        Parent newPage = FXMLLoader.load(getClass().getClassLoader().getResource(m.getFxml()));
+        ((Node) event.getSource()).getScene().setRoot(newPage);
     }
 
     //grace
     //
     @FXML
-    public void enterKeyPressToLogin(ActionEvent ae) throws IOException {
-        LogIn();
+    public void enterKeyPressToLogin(ActionEvent event) throws IOException {
+        LogIn(event);
     }
 
     @FXML
-    private void enableLogin(){
+    private void enableLogin() {
         Singleton single = Singleton.getInstance();
         single.setLastTime();
 
-        /*if(username.getText().trim().isEmpty()){
-            facialRec.setDisable(true);
-        } else {
-            facialRec.setDisable(false);
-        }*/
         Boolean disable = (username.getText().isEmpty() || username.getText().trim().isEmpty() || password.getText().isEmpty() || password.getText().trim().isEmpty());
-        if(!disable){
+        if (!disable) {
             login.setDisable(false);
         } else {
             login.setDisable(true);
@@ -139,7 +136,7 @@ public class LogInController {
     }
 
     @FXML
-    private void tryFR(){
+    private void tryFR(ActionEvent event) {
         try {
             Webcam webcam;
             webcam = Webcam.getDefault();
@@ -187,20 +184,20 @@ public class LogInController {
                 single.setIsAdmin(false);
                 if (ea.getEmployeeInformation(results.get(1)).get(2).equals("true")) {
                     single.setIsAdmin(true);
-                    SwitchToSignedIn("AdminLoggedInHome.fxml");
+                    SwitchToSignedIn(event, "AdminLoggedInHome.fxml");
                     return;
                 }
-                SwitchToSignedIn("EmployeeLoggedInHome.fxml");
+                SwitchToSignedIn(event,"EmployeeLoggedInHome.fxml");
             } else {
                 displayError();
             }//*/
-        } catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
     @FXML
-    private void LogIn() throws IOException{
+    private void LogIn(ActionEvent event) throws IOException {
         String uname = username.getText();
         String pass = password.getText();
 
@@ -210,39 +207,69 @@ public class LogInController {
 
         EmployeeAccess ea = new EmployeeAccess();
         validLogin = ea.checkEmployee(uname, pass);
-        if(validLogin){
+        if (validLogin) {
             single.setLoggedIn(true);
             single.setUsername(uname);
             single.setIsAdmin(false);
-            if(ea.getEmployeeInformation(uname).get(2).equals("true")){
+            if (ea.getEmployeeInformation(uname).get(2).equals("true")) {
                 single.setIsAdmin(true);
-                SwitchToSignedIn("AdminLoggedInHome.fxml");
+                SwitchToSignedIn(event, "AdminLoggedInHome.fxml");
                 return;
             }
-            SwitchToSignedIn("EmployeeLoggedInHome.fxml");
+            SwitchToSignedIn(event,"EmployeeLoggedInHome.fxml");
         } else {
             displayError();
         }
     }
 
-    private void SwitchToSignedIn(String fxml) throws IOException{
+    private void SwitchToSignedIn(ActionEvent event, String fxml) throws IOException {
         timeout.stop();
+        saveState();
         Singleton single = Singleton.getInstance();
         single.setLastTime();
-        FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource(fxml));
-
-        Parent sceneMain = loader.load();
-
-        Stage theStage = (Stage) login.getScene().getWindow();
-
-        Scene scene = new Scene(sceneMain);
-        theStage.setScene(scene);
+        Parent newPage = FXMLLoader.load(getClass().getClassLoader().getResource(fxml));
+        ((Node) event.getSource()).getScene().setRoot(newPage);
     }
 
-    private void displayError(){
+    private void displayError() {
         errorLabel.setText("Username or Password is incorrect");
     }
 
+    /**
+     * @author Nathan
+     * Saves the memento state
+     */
+    private void saveState() {
+        Singleton single = Singleton.getInstance();
+        single.saveMemento("LogIn.fxml");
+    }
 
+    @FXML
+    private void logOut() throws IOException {
+        timeout.stop();
+        Singleton single = Singleton.getInstance();
+        single.setLastTime();
+        single.setUsername("");
+        single.setIsAdmin(false);
+        single.setLoggedIn(false);
+        single.setDoPopup(true);
+        thestage = (Stage) back.getScene().getWindow();
+        AnchorPane root;
+        Memento m = single.getOrig();
+        root = FXMLLoader.load(getClass().getClassLoader().getResource(m.getFxml()));
+        Scene scene = new Scene(root);
+        thestage.setScene(scene);
+    }
 
+    @FXML
+    private void goHome(ActionEvent event) throws IOException {
+        timeout.stop();
+        Singleton single = Singleton.getInstance();
+        single.setLastTime();
+        single.setDoPopup(true);
+        saveState();
+        Memento m = single.getOrig();
+        Parent newPage = FXMLLoader.load(getClass().getClassLoader().getResource(m.getFxml()));
+        ((Node) event.getSource()).getScene().setRoot(newPage);
+    }
 }

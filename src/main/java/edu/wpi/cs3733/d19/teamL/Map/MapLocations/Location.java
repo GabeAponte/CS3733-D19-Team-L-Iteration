@@ -12,6 +12,8 @@ public class Location implements Comparable<Location>{
     private String locID, building, nodeType, longName, shortName, parentID, floor;
     private ArrayList<Edge> connectedEdges;
     private double score, gScore;
+    private int nameSimilarityScore;
+
 
     public Location(String idIn, int xcoordIn, int ycoordIn, String floorIn, String buildingIn, String nodeTypeIn,
                     String longNameIn, String shortNameIn) {
@@ -331,6 +333,14 @@ public class Location implements Comparable<Location>{
         else {
             return false;
         }
+    }
+
+    public int getNameSimilarityScore() {
+        return nameSimilarityScore;
+    }
+
+    public void setNameSimilarityScore(int nameSimilarityScore) {
+        this.nameSimilarityScore = nameSimilarityScore;
     }
 
 }

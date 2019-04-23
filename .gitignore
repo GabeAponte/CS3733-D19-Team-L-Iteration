@@ -3,6 +3,8 @@
 myDB/MasterDB
 MasterDB
 ServiceRequestDB
+TempOutput.jpg
+DBInput.jpg
 classes/
 build/
 out/
@@ -13,3 +15,4 @@ derby.log
 *.jar
 *.lock
 *.iml
+*.pdf

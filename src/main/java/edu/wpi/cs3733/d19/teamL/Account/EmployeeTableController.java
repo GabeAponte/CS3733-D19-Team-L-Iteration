@@ -1,6 +1,7 @@
 package edu.wpi.cs3733.d19.teamL.Account;
 
 import edu.wpi.cs3733.d19.teamL.HomeScreens.HomeScreenController;
+import edu.wpi.cs3733.d19.teamL.Memento;
 import edu.wpi.cs3733.d19.teamL.Singleton;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
@@ -9,6 +10,7 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
@@ -66,7 +68,8 @@ public class EmployeeTableController{
                         single.setLoggedIn(false);
                         single.setUsername("");
                         single.setIsAdmin(false);
-                        FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("HospitalHome.fxml"));
+                        Memento m = single.getOrig();
+                        FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource(m.getFxml()));
 
                         Parent sceneMain = loader.load();
                         HomeScreenController controller = loader.<HomeScreenController>getController();
@@ -140,22 +143,46 @@ public class EmployeeTableController{
     }
 
     /**@author Gabe
-     * Returns admin to the Admin Logged In Home screen when the back button is pressed
+     * Returns admin to the memento's screen when the back button is pressed
      */
     @FXML
-    private void backPressed() throws IOException {
+    private void backPressed(ActionEvent event) throws IOException {
         timeout.stop();
         Singleton single = Singleton.getInstance();
         single.setLastTime();
+        Memento m = single.restore();
+        single.setDoPopup(true);
 
-        thestage = (Stage) back.getScene().getWindow();
-        AnchorPane root;
-
-        root = FXMLLoader.load(getClass().getClassLoader().getResource("AdminLoggedInHome.fxml"));
-
-        Scene scene = new Scene(root);
-        thestage.setScene(scene);
+        Parent newPage = FXMLLoader.load(getClass().getClassLoader().getResource(m.getFxml()));
+        ((Node) event.getSource()).getScene().setRoot(newPage);
     }
+
+    @FXML
+    private void logOut(ActionEvent event) throws IOException {
+        timeout.stop();
+        Singleton single = Singleton.getInstance();
+        single.setLastTime();
+        single.setUsername("");
+        single.setIsAdmin(false);
+        single.setLoggedIn(false);
+        single.setDoPopup(true);
+        Memento m = single.getOrig();
+        Parent newPage = FXMLLoader.load(getClass().getClassLoader().getResource(m.getFxml()));
+        ((Node) event.getSource()).getScene().setRoot(newPage);
+    }
+
+    @FXML
+    private void goHome(ActionEvent event) throws IOException {
+        timeout.stop();
+        Singleton single = Singleton.getInstance();
+        single.setLastTime();
+        single.setDoPopup(true);
+        saveState();
+        Memento m = single.getOrig();
+        Parent newPage = FXMLLoader.load(getClass().getClassLoader().getResource(m.getFxml()));
+        ((Node) event.getSource()).getScene().setRoot(newPage);
+    }
+
 
     /**@author Gabe
      * When double clicking on a row in the table, admin is sent to the create/edit screen
@@ -179,16 +206,16 @@ public class EmployeeTableController{
                     timeout.stop();
                     //timeout.pause();
                     //Load second scene
+                    saveState();
                     FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("CreateEditAccount.fxml"));
                     Parent roots = loader.load();
-                    //Get controller of scene2
+
                     CreateEditAccountController scene2Controller = loader.getController();
-                    Scene scene = new Scene(roots);
+                   // Scene scene = new Scene(roots);
                     scene2Controller.setType(3, selectedEmployee.getValue().getID());
-                    //timeout.stop();
-                    thestage = (Stage) back.getScene().getWindow();
-                    //Show scene 2 in new window
-                    thestage.setScene(scene);
+
+                    //Parent newPage = FXMLLoader.load(getClass().getClassLoader().getResource(m.getFxml()));
+                    ((Node) event.getSource()).getScene().setRoot(roots);
 
                 } catch (IOException ex) {
                     //noinspection ThrowablePrintedToSystemOut
@@ -198,6 +225,14 @@ public class EmployeeTableController{
 
             }
         });
+    }
+
+    /**@author Nathan
+     * Saves the memento state
+     */
+    private void saveState(){
+        Singleton single = Singleton.getInstance();
+        single.saveMemento("EmployeeTable.fxml");
     }
 }
 

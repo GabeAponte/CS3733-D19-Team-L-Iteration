@@ -3,6 +3,7 @@ package edu.wpi.cs3733.d19.teamL.RoomBooking;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -17,94 +18,201 @@ public class WeeklyRoom{
     boolean isSaturday;
     boolean isSunday;
 
-    public WeeklyRoom(int startTime, int endTime, LocalDate theDate, String classroomName){
+    public WeeklyRoom(LocalTime startTime, LocalTime endTime, LocalDate theDate, String classroomName){
         RoomAccess ra = new RoomAccess();
-        int milTime = startTime;
-        int endMilTime = endTime;
+        String startDate = "";
+        String endDate = "";
 
-        Date startDate = null;
-        try {
-            startDate = new SimpleDateFormat("hhmm").parse(String.format("%04d", milTime));
-        } catch (ParseException e) {
-            e.printStackTrace();
+        if(startTime.getHour() == 0){
+            LocalTime sTime = startTime.plusHours(12);
+            startDate = sTime.toString() + " AM";
+        }else if(startTime.getHour() == 12){
+            startDate = startTime.toString() + " PM";
+        }else if(startTime.getHour() >= 13){
+            LocalTime sTime = startTime.minusHours(12);
+            startDate = sTime.toString() + " PM";
+        }else{
+            startDate = startTime.toString() + " AM";
         }
-        SimpleDateFormat startSimpleDate = new SimpleDateFormat("hh:mm a");
-
-        Date endDate = null;
-        try {
-            endDate = new SimpleDateFormat("hhmm").parse(String.format("%04d", endMilTime));
-        } catch (ParseException e) {
-            e.printStackTrace();
+        if(endTime.getHour() == 0){
+            LocalTime sTime = endTime.plusHours(12);
+            endDate = sTime.toString() + " AM";
+        }else if(endTime.getHour() == 12){
+            endDate = endTime.toString() + " PM";
+        }else if(endTime.getHour() >= 13){
+            LocalTime sTime = endTime.minusHours(12);
+            endDate = sTime.toString() + " PM";
+        }else {
+            endDate = endTime.toString() + " AM";
         }
-        SimpleDateFormat endSimpleDate = new SimpleDateFormat("hh:mm a");
 
-        time = startSimpleDate.format(startDate) + " - " + endSimpleDate.format(endDate);
+        time = startDate + " - " + endDate;
 
         LocalDate weekDay = theDate;
         String dayOfWeek = theDate.getDayOfWeek().toString();
+        String sDate = "";
+        String eDate = "";
         switch(dayOfWeek){
             case "SUNDAY":
-                isSunday = ra.checkRoom(startTime, endTime,classroomName, weekDay.toString());
-                isMonday = ra.checkRoom(startTime, endTime,classroomName, weekDay.plusDays(1).toString());
-                isTuesday = ra.checkRoom(startTime, endTime,classroomName, weekDay.plusDays(2).toString());
-                isWednesday = ra.checkRoom(startTime, endTime,classroomName, weekDay.plusDays(3).toString());
-                isThursday = ra.checkRoom(startTime, endTime,classroomName, weekDay.plusDays(4).toString());
-                isFriday = ra.checkRoom(startTime, endTime,classroomName, weekDay.plusDays(5).toString());
-                isSaturday = ra.checkRoom(startTime, endTime,classroomName, weekDay.plusDays(6).toString());
+                sDate = weekDay.toString() + "T" + startTime.getHour() + ":" + startTime.getMinute() + ":00";
+                eDate = weekDay.toString() + "T" + endTime.getHour() + ":" + endTime.getMinute() + ":00";
+                isSunday = ra.checkRoom(sDate, eDate,classroomName);
+                sDate = weekDay.plusDays(1).toString() + "T" + startTime.getHour() + ":" + startTime.getMinute() + ":00";
+                eDate = weekDay.plusDays(1).toString() + "T" + endTime.getHour() + ":" + endTime.getMinute() + ":00";
+                isMonday = ra.checkRoom(sDate, eDate,classroomName);
+                sDate = weekDay.plusDays(2).toString() + "T" + startTime.getHour() + ":" + startTime.getMinute() + ":00";
+                eDate = weekDay.plusDays(2).toString() + "T" + endTime.getHour() + ":" + endTime.getMinute() + ":00";
+                isTuesday = ra.checkRoom(sDate, eDate,classroomName);
+                sDate = weekDay.plusDays(3).toString() + "T" + startTime.getHour() + ":" + startTime.getMinute() + ":00";
+                eDate = weekDay.plusDays(3).toString() + "T" + endTime.getHour() + ":" + endTime.getMinute() + ":00";
+                isWednesday = ra.checkRoom(sDate, eDate,classroomName);
+                sDate = weekDay.plusDays(4).toString() + "T" + startTime.getHour() + ":" + startTime.getMinute() + ":00";
+                eDate = weekDay.plusDays(4).toString() + "T" + endTime.getHour() + ":" + endTime.getMinute() + ":00";
+                isThursday = ra.checkRoom(sDate, eDate,classroomName);
+                sDate = weekDay.plusDays(5).toString() + "T" + startTime.getHour() + ":" + startTime.getMinute() + ":00";
+                eDate = weekDay.plusDays(5).toString() + "T" + endTime.getHour() + ":" + endTime.getMinute() + ":00";
+                isFriday = ra.checkRoom(sDate, eDate,classroomName);
+                sDate = weekDay.plusDays(6).toString() + "T" + startTime.getHour() + ":" + startTime.getMinute() + ":00";
+                eDate = weekDay.plusDays(6).toString() + "T" + endTime.getHour() + ":" + endTime.getMinute() + ":00";
+                isSaturday = ra.checkRoom(sDate, eDate,classroomName);
                 break;
             case "MONDAY":
-                isSunday = ra.checkRoom(startTime, endTime,classroomName, weekDay.minusDays(1).toString());
-                isMonday = ra.checkRoom(startTime, endTime,classroomName, weekDay.toString());
-                isTuesday = ra.checkRoom(startTime, endTime,classroomName, weekDay.plusDays(1).toString());
-                isWednesday = ra.checkRoom(startTime, endTime,classroomName, weekDay.plusDays(2).toString());
-                isThursday = ra.checkRoom(startTime, endTime,classroomName, weekDay.plusDays(3).toString());
-                isFriday = ra.checkRoom(startTime, endTime,classroomName, weekDay.plusDays(4).toString());
-                isSaturday = ra.checkRoom(startTime, endTime,classroomName, weekDay.plusDays(5).toString());
+                sDate = weekDay.minusDays(1).toString() + "T" + startTime.getHour() + ":" + startTime.getMinute() + ":00";
+                eDate = weekDay.minusDays(1).toString() + "T" + endTime.getHour() + ":" + endTime.getMinute() + ":00";
+                isSunday = ra.checkRoom(sDate, eDate,classroomName);
+                sDate = weekDay.toString() + "T" + startTime.getHour() + ":" + startTime.getMinute() + ":00";
+                eDate = weekDay.toString() + "T" + endTime.getHour() + ":" + endTime.getMinute() + ":00";
+                isMonday = ra.checkRoom(sDate, eDate,classroomName);
+                sDate = weekDay.plusDays(1).toString() + "T" + startTime.getHour() + ":" + startTime.getMinute() + ":00";
+                eDate = weekDay.plusDays(1).toString() + "T" + endTime.getHour() + ":" + endTime.getMinute() + ":00";
+                isTuesday = ra.checkRoom(sDate, eDate,classroomName);
+                sDate = weekDay.plusDays(2).toString() + "T" + startTime.getHour() + ":" + startTime.getMinute() + ":00";
+                eDate = weekDay.plusDays(2).toString() + "T" + endTime.getHour() + ":" + endTime.getMinute() + ":00";
+                isWednesday = ra.checkRoom(sDate, eDate,classroomName);
+                sDate = weekDay.plusDays(3).toString() + "T" + startTime.getHour() + ":" + startTime.getMinute() + ":00";
+                eDate = weekDay.plusDays(3).toString() + "T" + endTime.getHour() + ":" + endTime.getMinute() + ":00";
+                isThursday = ra.checkRoom(sDate, eDate,classroomName);
+                sDate = weekDay.plusDays(4).toString() + "T" + startTime.getHour() + ":" + startTime.getMinute() + ":00";
+                eDate = weekDay.plusDays(4).toString() + "T" + endTime.getHour() + ":" + endTime.getMinute() + ":00";
+                isFriday = ra.checkRoom(sDate, eDate,classroomName);
+                sDate = weekDay.plusDays(5).toString() + "T" + startTime.getHour() + ":" + startTime.getMinute() + ":00";
+                eDate = weekDay.plusDays(5).toString() + "T" + endTime.getHour() + ":" + endTime.getMinute() + ":00";
+                isSaturday = ra.checkRoom(sDate, eDate,classroomName);
                 break;
             case "TUESDAY":
-                isSunday = ra.checkRoom(startTime, endTime,classroomName, weekDay.minusDays(2).toString());
-                isMonday = ra.checkRoom(startTime, endTime,classroomName, weekDay.minusDays(1).toString());
-                isTuesday = ra.checkRoom(startTime, endTime,classroomName, weekDay.toString());
-                isWednesday = ra.checkRoom(startTime, endTime,classroomName, weekDay.plusDays(1).toString());
-                isThursday = ra.checkRoom(startTime, endTime,classroomName, weekDay.plusDays(2).toString());
-                isFriday = ra.checkRoom(startTime, endTime,classroomName, weekDay.plusDays(3).toString());
-                isSaturday = ra.checkRoom(startTime, endTime,classroomName, weekDay.plusDays(4).toString());
+                sDate = weekDay.minusDays(2).toString() + "T" + startTime.getHour() + ":" + startTime.getMinute() + ":00";
+                eDate = weekDay.minusDays(2).toString() + "T" + endTime.getHour() + ":" + endTime.getMinute() + ":00";
+                isSunday = ra.checkRoom(sDate, eDate,classroomName);
+                sDate = weekDay.minusDays(1).toString() + "T" + startTime.getHour() + ":" + startTime.getMinute() + ":00";
+                eDate = weekDay.minusDays(1).toString() + "T" + endTime.getHour() + ":" + endTime.getMinute() + ":00";
+                isMonday = ra.checkRoom(sDate, eDate,classroomName);
+                sDate = weekDay.toString() + "T" + startTime.getHour() + ":" + startTime.getMinute() + ":00";
+                eDate = weekDay.toString() + "T" + endTime.getHour() + ":" + endTime.getMinute() + ":00";
+                isTuesday = ra.checkRoom(sDate, eDate,classroomName);
+                sDate = weekDay.plusDays(1).toString() + "T" + startTime.getHour() + ":" + startTime.getMinute() + ":00";
+                eDate = weekDay.plusDays(1).toString() + "T" + endTime.getHour() + ":" + endTime.getMinute() + ":00";
+                isWednesday = ra.checkRoom(sDate, eDate,classroomName);
+                sDate = weekDay.plusDays(2).toString() + "T" + startTime.getHour() + ":" + startTime.getMinute() + ":00";
+                eDate = weekDay.plusDays(2).toString() + "T" + endTime.getHour() + ":" + endTime.getMinute() + ":00";
+                isThursday = ra.checkRoom(sDate, eDate,classroomName);
+                sDate = weekDay.plusDays(3).toString() + "T" + startTime.getHour() + ":" + startTime.getMinute() + ":00";
+                eDate = weekDay.plusDays(3).toString() + "T" + endTime.getHour() + ":" + endTime.getMinute() + ":00";
+                isFriday = ra.checkRoom(sDate, eDate,classroomName);
+                sDate = weekDay.plusDays(4).toString() + "T" + startTime.getHour() + ":" + startTime.getMinute() + ":00";
+                eDate = weekDay.plusDays(4).toString() + "T" + endTime.getHour() + ":" + endTime.getMinute() + ":00";
+                isSaturday = ra.checkRoom(sDate, eDate,classroomName);
                 break;
             case "WEDNESDAY":
-                isSunday = ra.checkRoom(startTime, endTime,classroomName, weekDay.minusDays(3).toString());
-                isMonday = ra.checkRoom(startTime, endTime,classroomName, weekDay.minusDays(2).toString());
-                isTuesday = ra.checkRoom(startTime, endTime,classroomName, weekDay.minusDays(1).toString());
-                isWednesday = ra.checkRoom(startTime, endTime,classroomName, weekDay.toString());
-                isThursday = ra.checkRoom(startTime, endTime,classroomName, weekDay.plusDays(1).toString());
-                isFriday = ra.checkRoom(startTime, endTime,classroomName, weekDay.plusDays(2).toString());
-                isSaturday = ra.checkRoom(startTime, endTime,classroomName, weekDay.plusDays(3).toString());
+                sDate = weekDay.minusDays(3).toString() + "T" + startTime.getHour() + ":" + startTime.getMinute() + ":00";
+                eDate = weekDay.minusDays(3).toString() + "T" + endTime.getHour() + ":" + endTime.getMinute() + ":00";
+                isSunday = ra.checkRoom(sDate, eDate,classroomName);
+                sDate = weekDay.minusDays(2).toString() + "T" + startTime.getHour() + ":" + startTime.getMinute() + ":00";
+                eDate = weekDay.minusDays(2).toString() + "T" + endTime.getHour() + ":" + endTime.getMinute() + ":00";
+                isMonday = ra.checkRoom(sDate, eDate,classroomName);
+                sDate = weekDay.minusDays(1).toString() + "T" + startTime.getHour() + ":" + startTime.getMinute() + ":00";
+                eDate = weekDay.minusDays(1).toString() + "T" + endTime.getHour() + ":" + endTime.getMinute() + ":00";
+                isTuesday = ra.checkRoom(sDate, eDate,classroomName);
+                sDate = weekDay.toString() + "T" + startTime.getHour() + ":" + startTime.getMinute() + ":00";
+                eDate = weekDay.toString() + "T" + endTime.getHour() + ":" + endTime.getMinute() + ":00";
+                isWednesday = ra.checkRoom(sDate, eDate,classroomName);
+                sDate = weekDay.plusDays(1).toString() + "T" + startTime.getHour() + ":" + startTime.getMinute() + ":00";
+                eDate = weekDay.plusDays(1).toString() + "T" + endTime.getHour() + ":" + endTime.getMinute() + ":00";
+                isThursday = ra.checkRoom(sDate, eDate,classroomName);
+                sDate = weekDay.plusDays(2).toString() + "T" + startTime.getHour() + ":" + startTime.getMinute() + ":00";
+                eDate = weekDay.plusDays(2).toString() + "T" + endTime.getHour() + ":" + endTime.getMinute() + ":00";
+                isFriday = ra.checkRoom(sDate, eDate,classroomName);
+                sDate = weekDay.plusDays(3).toString() + "T" + startTime.getHour() + ":" + startTime.getMinute() + ":00";
+                eDate = weekDay.plusDays(3).toString() + "T" + endTime.getHour() + ":" + endTime.getMinute() + ":00";
+                isSaturday = ra.checkRoom(sDate, eDate,classroomName);
                 break;
             case "THURSDAY":
-                isSunday = ra.checkRoom(startTime, endTime,classroomName, weekDay.minusDays(4).toString());
-                isMonday = ra.checkRoom(startTime, endTime,classroomName, weekDay.minusDays(3).toString());
-                isTuesday = ra.checkRoom(startTime, endTime,classroomName, weekDay.minusDays(2).toString());
-                isWednesday = ra.checkRoom(startTime, endTime,classroomName, weekDay.minusDays(1).toString());
-                isThursday = ra.checkRoom(startTime, endTime,classroomName, weekDay.toString());
-                isFriday = ra.checkRoom(startTime, endTime,classroomName, weekDay.plusDays(1).toString());
-                isSaturday = ra.checkRoom(startTime, endTime,classroomName, weekDay.plusDays(2).toString());
+                sDate = weekDay.minusDays(4).toString() + "T" + startTime.getHour() + ":" + startTime.getMinute() + ":00";
+                eDate = weekDay.minusDays(4).toString() + "T" + endTime.getHour() + ":" + endTime.getMinute() + ":00";
+                isSunday = ra.checkRoom(sDate, eDate,classroomName);
+                sDate = weekDay.minusDays(3).toString() + "T" + startTime.getHour() + ":" + startTime.getMinute() + ":00";
+                eDate = weekDay.minusDays(3).toString() + "T" + endTime.getHour() + ":" + endTime.getMinute() + ":00";
+                isMonday = ra.checkRoom(sDate, eDate,classroomName);
+                sDate = weekDay.minusDays(2).toString() + "T" + startTime.getHour() + ":" + startTime.getMinute() + ":00";
+                eDate = weekDay.minusDays(2).toString() + "T" + endTime.getHour() + ":" + endTime.getMinute() + ":00";
+                isTuesday = ra.checkRoom(sDate, eDate,classroomName);
+                sDate = weekDay.minusDays(1).toString() + "T" + startTime.getHour() + ":" + startTime.getMinute() + ":00";
+                eDate = weekDay.minusDays(1).toString() + "T" + endTime.getHour() + ":" + endTime.getMinute() + ":00";
+                isWednesday = ra.checkRoom(sDate, eDate,classroomName);
+                sDate = weekDay.toString() + "T" + startTime.getHour() + ":" + startTime.getMinute() + ":00";
+                eDate = weekDay.toString() + "T" + endTime.getHour() + ":" + endTime.getMinute() + ":00";
+                isThursday = ra.checkRoom(sDate, eDate,classroomName);
+                sDate = weekDay.plusDays(1).toString() + "T" + startTime.getHour() + ":" + startTime.getMinute() + ":00";
+                eDate = weekDay.plusDays(1).toString() + "T" + endTime.getHour() + ":" + endTime.getMinute() + ":00";
+                isFriday = ra.checkRoom(sDate, eDate,classroomName);
+                sDate = weekDay.plusDays(2).toString() + "T" + startTime.getHour() + ":" + startTime.getMinute() + ":00";
+                eDate = weekDay.plusDays(2).toString() + "T" + endTime.getHour() + ":" + endTime.getMinute() + ":00";
+                isSaturday = ra.checkRoom(sDate, eDate,classroomName);
                 break;
             case "FRIDAY":
-                isSunday = ra.checkRoom(startTime, endTime,classroomName, weekDay.minusDays(5).toString());
-                isMonday = ra.checkRoom(startTime, endTime,classroomName, weekDay.minusDays(4).toString());
-                isTuesday = ra.checkRoom(startTime, endTime,classroomName, weekDay.minusDays(3).toString());
-                isWednesday = ra.checkRoom(startTime, endTime,classroomName, weekDay.minusDays(2).toString());
-                isThursday = ra.checkRoom(startTime, endTime,classroomName, weekDay.minusDays(1).toString());
-                isFriday = ra.checkRoom(startTime, endTime,classroomName, weekDay.toString());
-                isSaturday = ra.checkRoom(startTime, endTime,classroomName, weekDay.plusDays(1).toString());
+                sDate = weekDay.minusDays(5).toString() + "T" + startTime.getHour() + ":" + startTime.getMinute() + ":00";
+                eDate = weekDay.minusDays(5).toString() + "T" + endTime.getHour() + ":" + endTime.getMinute() + ":00";
+                isSunday = ra.checkRoom(sDate, eDate,classroomName);
+                sDate = weekDay.minusDays(4).toString() + "T" + startTime.getHour() + ":" + startTime.getMinute() + ":00";
+                eDate = weekDay.minusDays(4).toString() + "T" + endTime.getHour() + ":" + endTime.getMinute() + ":00";
+                isMonday = ra.checkRoom(sDate, eDate,classroomName);
+                sDate = weekDay.minusDays(3).toString() + "T" + startTime.getHour() + ":" + startTime.getMinute() + ":00";
+                eDate = weekDay.minusDays(3).toString() + "T" + endTime.getHour() + ":" + endTime.getMinute() + ":00";
+                isTuesday = ra.checkRoom(sDate, eDate,classroomName);
+                sDate = weekDay.minusDays(2).toString() + "T" + startTime.getHour() + ":" + startTime.getMinute() + ":00";
+                eDate = weekDay.minusDays(2).toString() + "T" + endTime.getHour() + ":" + endTime.getMinute() + ":00";
+                isWednesday = ra.checkRoom(sDate, eDate,classroomName);
+                sDate = weekDay.minusDays(1).toString() + "T" + startTime.getHour() + ":" + startTime.getMinute() + ":00";
+                eDate = weekDay.minusDays(1).toString() + "T" + endTime.getHour() + ":" + endTime.getMinute() + ":00";
+                isThursday = ra.checkRoom(sDate, eDate,classroomName);
+                sDate = weekDay.toString() + "T" + startTime.getHour() + ":" + startTime.getMinute() + ":00";
+                eDate = weekDay.toString() + "T" + endTime.getHour() + ":" + endTime.getMinute() + ":00";
+                isFriday = ra.checkRoom(sDate, eDate,classroomName);
+                sDate = weekDay.plusDays(1).toString() + "T" + startTime.getHour() + ":" + startTime.getMinute() + ":00";
+                eDate = weekDay.plusDays(1).toString() + "T" + endTime.getHour() + ":" + endTime.getMinute() + ":00";
+                isSaturday = ra.checkRoom(sDate, eDate,classroomName);
                 break;
             case "SATURDAY":
-                isSunday = ra.checkRoom(startTime, endTime,classroomName, weekDay.minusDays(6).toString());
-                isMonday = ra.checkRoom(startTime, endTime,classroomName, weekDay.minusDays(5).toString());
-                isTuesday = ra.checkRoom(startTime, endTime,classroomName, weekDay.minusDays(4).toString());
-                isWednesday = ra.checkRoom(startTime, endTime,classroomName, weekDay.minusDays(3).toString());
-                isThursday = ra.checkRoom(startTime, endTime,classroomName, weekDay.minusDays(2).toString());
-                isFriday = ra.checkRoom(startTime, endTime,classroomName, weekDay.minusDays(1).toString());
-                isSaturday = ra.checkRoom(startTime, endTime,classroomName, weekDay.toString());
+                sDate = weekDay.minusDays(6).toString() + "T" + startTime.getHour() + ":" + startTime.getMinute() + ":00";
+                eDate = weekDay.minusDays(6).toString() + "T" + endTime.getHour() + ":" + endTime.getMinute() + ":00";
+                isSunday = ra.checkRoom(sDate, eDate,classroomName);
+                sDate = weekDay.minusDays(5).toString() + "T" + startTime.getHour() + ":" + startTime.getMinute() + ":00";
+                eDate = weekDay.minusDays(5).toString() + "T" + endTime.getHour() + ":" + endTime.getMinute() + ":00";
+                isMonday = ra.checkRoom(sDate, eDate,classroomName);
+                sDate = weekDay.minusDays(4).toString() + "T" + startTime.getHour() + ":" + startTime.getMinute() + ":00";
+                eDate = weekDay.minusDays(4).toString() + "T" + endTime.getHour() + ":" + endTime.getMinute() + ":00";
+                isTuesday = ra.checkRoom(sDate, eDate,classroomName);
+                sDate = weekDay.minusDays(3).toString() + "T" + startTime.getHour() + ":" + startTime.getMinute() + ":00";
+                eDate = weekDay.minusDays(3).toString() + "T" + endTime.getHour() + ":" + endTime.getMinute() + ":00";
+                isWednesday = ra.checkRoom(sDate, eDate,classroomName);
+                sDate = weekDay.minusDays(2).toString() + "T" + startTime.getHour() + ":" + startTime.getMinute() + ":00";
+                eDate = weekDay.minusDays(2).toString() + "T" + endTime.getHour() + ":" + endTime.getMinute() + ":00";
+                isThursday = ra.checkRoom(sDate, eDate,classroomName);
+                sDate = weekDay.minusDays(1).toString() + "T" + startTime.getHour() + ":" + startTime.getMinute() + ":00";
+                eDate = weekDay.minusDays(1).toString() + "T" + endTime.getHour() + ":" + endTime.getMinute() + ":00";
+                isFriday = ra.checkRoom(sDate, eDate,classroomName);
+                sDate = weekDay.toString() + "T" + startTime.getHour() + ":" + startTime.getMinute() + ":00";
+                eDate = weekDay.toString() + "T" + endTime.getHour() + ":" + endTime.getMinute() + ":00";
+                isSaturday = ra.checkRoom(sDate, eDate,classroomName);
                 break;
         }
     }

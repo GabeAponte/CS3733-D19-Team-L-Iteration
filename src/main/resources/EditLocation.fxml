@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXTextArea?>
 <?import com.jfoenix.controls.JFXToolbar?>
 <?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
 <?import javafx.geometry.Insets?>
@@ -18,48 +19,89 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720" prefWidth="1280" styleClass="AnchorPainMain" stylesheets="@Default.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.d19.teamL.Map.MapEditing.EditLocationController">
+<?import com.jfoenix.controls.JFXTextArea?>
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720" prefWidth="1280" style="-fx-background-color: #012D5A;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.d19.teamL.Map.MapEditing.EditLocationController">
+
    <children>
       <VBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
-            <JFXToolbar prefHeight="100.0" prefWidth="1280.0" styleClass="tool-barMain" stylesheets="@Default.css">
-               <left>
-                  <ImageView fitHeight="75.0" fitWidth="325.0" BorderPane.alignment="CENTER">
-                     <image>
-                        <Image url="@SoftEng_UI_Mockup_Pics/BWHlogo.png" />
-                     </image>
-                  </ImageView>
-               </left>
-               <right>
-
-               </right>
+            <JFXToolbar maxHeight="-Infinity" minHeight="-Infinity" prefHeight="100.0" prefWidth="1280.0" styleClass="tool-barMain" stylesheets="@Default.css">
+               <VBox.margin>
+                  <Insets />
+               </VBox.margin>
                <padding>
                   <Insets left="10.0" right="10.0" />
                </padding>
-               <right>
-                  <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="543.0" BorderPane.alignment="CENTER">
+               <center>
+                  <HBox alignment="CENTER" prefHeight="100.0" prefWidth="1315.0" BorderPane.alignment="CENTER">
                      <children>
-                        <HBox alignment="CENTER_RIGHT" HBox.hgrow="ALWAYS" />
-                        <JFXButton fx:id="backButton" alignment="CENTER" buttonType="RAISED" contentDisplay="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" onAction="#backPressed" prefHeight="75.0" prefWidth="87.0" styleClass="buttonToolbar" stylesheets="@Default.css" text=" " textFill="WHITE">
-                           <font>
-                              <Font size="20.0" />
-                           </font>
-                           <graphic>
-                              <FontAwesomeIconView fill="#012d5a" glyphName="ARROW_LEFT" size="40" wrappingWidth="36.28559112548828" />
-                           </graphic>
-                           <HBox.margin>
-                              <Insets right="10.0" />
-                           </HBox.margin>
-                        </JFXButton>
+                        <GridPane HBox.hgrow="ALWAYS">
+                           <columnConstraints>
+                              <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                              <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                              <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                           </columnConstraints>
+                           <rowConstraints>
+                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                           </rowConstraints>
+                           <children>
+                              <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1">
+                                 <children>
+                                    <ImageView fitHeight="75.0" fitWidth="325.0" preserveRatio="true">
+                                       <image>
+                                          <Image url="@SoftEng_UI_Mockup_Pics/BWHlogo.png" />
+                                       </image>
+                                    </ImageView>
+                                 </children>
+                              </HBox>
+                              <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0">
+                                 <children>
+                                    <JFXButton fx:id="back" alignment="CENTER" buttonType="RAISED" contentDisplay="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" onAction="#backPressed" prefHeight="75.0" prefWidth="87.0" styleClass="buttonToolbar" stylesheets="@Default.css" text=" " textFill="WHITE">
+                                       <font>
+                                          <Font size="20.0" />
+                                       </font>
+                                       <graphic>
+                                          <FontAwesomeIconView fill="#012d5a" glyphName="ARROW_LEFT" size="40" wrappingWidth="36.28559112548828" />
+                                       </graphic>
+                                       <HBox.margin>
+                                          <Insets left="10.0" />
+                                       </HBox.margin>
+                                    </JFXButton>
+                                 </children>
+                              </HBox>
+                              <HBox alignment="CENTER_RIGHT" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="2">
+                                 <children>
+                                    <JFXButton fx:id="logOut" alignment="CENTER" buttonType="RAISED" contentDisplay="TOP" focusTraversable="false" graphicTextGap="0.0" minHeight="-Infinity" onAction="#logOut" prefHeight="75.0" prefWidth="100.0" ripplerFill="#b0b0b0" styleClass="buttonToolbar" stylesheets="@Default.css" text="Log Out" textAlignment="CENTER" textFill="#012d5a">
+                                       <font>
+                                          <Font name="System Bold" size="17.0" />
+                                       </font>
+                                       <graphic>
+                                          <FontAwesomeIconView fill="#012d5a" glyphName="USER" size="35" strokeMiterLimit="0.0" textAlignment="CENTER" wrappingWidth="27.27392578125" />
+                                       </graphic>
+                                       <HBox.margin>
+                                          <Insets right="20.0" />
+                                       </HBox.margin>
+                                    </JFXButton>
+                                    <JFXButton fx:id="homebtn" buttonType="RAISED" contentDisplay="GRAPHIC_ONLY" maxHeight="-Infinity" minHeight="-Infinity" onAction="#goHome" prefHeight="75.0" prefWidth="100.0" styleClass="buttonToolbar" stylesheets="@Default.css" textFill="#012d5a">
+                                       <graphic>
+                                          <FontAwesomeIconView fx:id="home" fill="#012d5a" glyphName="HOME" size="50" />
+                                       </graphic>
+                                       <HBox.margin>
+                                          <Insets right="10.0" />
+                                       </HBox.margin>
+                                    </JFXButton>
+                                 </children>
+                              </HBox>
+                           </children>
+                        </GridPane>
                      </children>
                   </HBox>
-               </right>
-
+               </center>
             </JFXToolbar>
             <JFXToolbar minHeight="-Infinity" prefHeight="10.0" prefWidth="1280.0" styleClass="tool-barSecondary" stylesheets="@Default.css" />
             <StackPane fx:id="mainContent" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" style="-fx-background-color: #012d5a;" VBox.vgrow="ALWAYS">
                <children>
-                  <GridPane fx:id="gridPane" vgap="10.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                  <GridPane fx:id="gridPane" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                      <columnConstraints>
                         <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="70.0" prefWidth="100.0" />
                         <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="30.0" prefWidth="100.0" />
@@ -81,115 +123,53 @@
                         </Pane>
                         <VBox fx:id="scrollVBox" alignment="CENTER_LEFT" prefHeight="550.0" prefWidth="242.0" GridPane.columnIndex="1">
                            <children>
-                              <GridPane>
+                              <GridPane prefHeight="260.0" prefWidth="384.0" VBox.vgrow="ALWAYS">
                                 <columnConstraints>
-                                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="50.0" prefWidth="100.0" />
-                                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="50.0" prefWidth="100.0" />
+                                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                                 </columnConstraints>
                                 <rowConstraints>
+                                    <RowConstraints minHeight="10.0" percentHeight="10.0" prefHeight="30.0" vgrow="NEVER" />
+                                  <RowConstraints minHeight="10.0" percentHeight="10.0" prefHeight="30.0" vgrow="NEVER" />
                                   <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                  <RowConstraints minHeight="10.0" percentHeight="10.0" prefHeight="30.0" vgrow="NEVER" />
                                 </rowConstraints>
                                  <children>
-                                    <JFXButton fx:id="downloadNode" buttonType="RAISED" onAction="#downloadNodes" prefHeight="28.0" ripplerFill="#b0b0b0" style="-fx-border-radius: 1000; -fx-background-radius: 1000; -fx-border-width: 2;" styleClass="buttonMain" stylesheets="@Default.css" text="Download node csv" textFill="WHITE" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+                                    <JFXButton fx:id="downloadNode" buttonType="RAISED" onAction="#downloadNodes" prefHeight="28.0" ripplerFill="#b0b0b0" style="-fx-border-radius: 1000; -fx-background-radius: 1000; -fx-border-width: 2;" styleClass="buttonMain" stylesheets="@Default.css" text="Download node csv" textFill="WHITE" GridPane.halignment="CENTER" GridPane.rowIndex="3" GridPane.valignment="CENTER">
                                        <font>
                                           <Font size="15.0" />
                                        </font>
                                     </JFXButton>
-                                    <JFXButton fx:id="downloadEdge" buttonType="RAISED" onAction="#downloadEdges" prefHeight="28.0" ripplerFill="#b0b0b0" style="-fx-border-radius: 1000; -fx-background-radius: 1000; -fx-border-width: 2;" styleClass="buttonMain" stylesheets="@Default.css" text="Download edge csv" textFill="WHITE" GridPane.columnIndex="1" GridPane.halignment="CENTER">
+                                    <JFXButton fx:id="downloadEdge" buttonType="RAISED" onAction="#downloadEdges" prefHeight="28.0" ripplerFill="#b0b0b0" style="-fx-border-radius: 1000; -fx-background-radius: 1000; -fx-border-width: 2;" styleClass="buttonMain" stylesheets="@Default.css" text="Download edge csv" textFill="WHITE" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="3">
                                        <font>
                                           <Font size="15.0" />
                                        </font>
+                                    </JFXButton>
+                                    <Label alignment="CENTER" maxWidth="1.7976931348623157E308" styleClass="labelTitle" stylesheets="@Default.css" text="Directions for use:" textAlignment="CENTER" textFill="#f5d96b" underline="true" wrapText="true" GridPane.columnSpan="2147483647" GridPane.rowIndex="1">
+                                       <padding>
+                                          <Insets top="5.0" />
+                                       </padding>
+                                       <font>
+                                          <Font size="24.0" />
+                                       </font>
+                                    </Label>
+                                    <JFXTextArea editable="false" focusColor="#405aa800" styleClass="text-area" stylesheets="@Default.css" text="-Right click on node to show information&#10;- Shift click on a node to show all edges between it&#10;- Right click to add a node anywhere&#10;- Control click and drag to move a node&#10;- This change can be confirmed by clicking on the node and clicking the checkmark, otherwise you can cancel the movement by clicking the X&#10;- Shift right click to add an edge from the clicked node to the selected node&#10;- Alt click to delete a node or edge&#10;" unFocusColor="#4d4d4d00" GridPane.columnSpan="2147483647" GridPane.rowIndex="2">
+                                       <font>
+                                          <Font size="18.0" />
+                                       </font>
+                                       <GridPane.margin>
+                                          <Insets left="15.0" right="15.0" />
+                                       </GridPane.margin></JFXTextArea>
+                                    <JFXButton alignment="CENTER" buttonType="RAISED" maxHeight="-Infinity" maxWidth="-Infinity" onAction="#buttonShowEdges" prefHeight="34.0" prefWidth="104.0" style="-fx-border-radius: 100; -fx-background-radius: 100; -fx-border-width: 2;" styleClass="buttonMain" stylesheets="@Default.css" text="All Edges" textFill="#012d5a" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+                                       <font>
+                                          <Font size="15.0" />
+                                       </font>
+                                       <GridPane.margin>
+                                          <Insets />
+                                       </GridPane.margin>
                                     </JFXButton>
                                  </children>
                               </GridPane>
-                              <Label alignment="CENTER" maxWidth="1.7976931348623157E308" styleClass="labelTitle" stylesheets="@Default.css" text="Directions for use:" textAlignment="CENTER" textFill="#f5d96b" underline="true" wrapText="true">
-                                 <VBox.margin>
-                                    <Insets top="5.0" />
-                                 </VBox.margin>
-                                 <padding>
-                                    <Insets top="5.0" />
-                                 </padding>
-                                 <font>
-                                    <Font size="24.0" />
-                                 </font>
-                              </Label>
-                              <Label maxWidth="1.7976931348623157E308" styleClass="text-field" stylesheets="@Default.css" text="-Click to show node information" textFill="WHITE" wrapText="true">
-                                 <VBox.margin>
-                                    <Insets left="8.0" />
-                                 </VBox.margin>
-                                 <padding>
-                                    <Insets top="5.0" />
-                                 </padding>
-                                 <font>
-                                    <Font size="18.0" />
-                                 </font>
-                              </Label>
-                              <Label maxWidth="1.7976931348623157E308" styleClass="text-field" stylesheets="@Default.css" text="- Shift click to show edges between nodes" textFill="WHITE" wrapText="true">
-                                 <VBox.margin>
-                                    <Insets left="8.0" />
-                                 </VBox.margin>
-                                 <padding>
-                                    <Insets top="5.0" />
-                                 </padding>
-                                 <font>
-                                    <Font size="18.0" />
-                                 </font>
-                              </Label>
-                              <Label maxWidth="1.7976931348623157E308" styleClass="text-field" stylesheets="@Default.css" text="- Right click to add a node" textFill="WHITE" wrapText="true">
-                                 <VBox.margin>
-                                    <Insets left="8.0" />
-                                 </VBox.margin>
-                                 <padding>
-                                    <Insets top="5.0" />
-                                 </padding>
-                                 <font>
-                                    <Font size="18.0" />
-                                 </font>
-                              </Label>
-                              <Label maxWidth="1.7976931348623157E308" styleClass="text-field" stylesheets="@Default.css" text="- Control click and drag to move a node" textFill="WHITE" wrapText="true">
-                                 <VBox.margin>
-                                    <Insets left="8.0" />
-                                 </VBox.margin>
-                                 <padding>
-                                    <Insets top="5.0" />
-                                 </padding>
-                                 <font>
-                                    <Font size="18.0" />
-                                 </font>
-                              </Label>
-                              <Label maxWidth="1.7976931348623157E308" prefWidth="374.0" styleClass="text-field" stylesheets="@Default.css" text="- This change can be confirmed by clicking on the node and clicking the checkmark, otherwise you can cancel the movement by clicking the X" textFill="WHITE" wrapText="true">
-                                 <VBox.margin>
-                                    <Insets left="8.0" />
-                                 </VBox.margin>
-                                 <padding>
-                                    <Insets top="5.0" />
-                                 </padding>
-                                 <font>
-                                    <Font size="18.0" />
-                                 </font>
-                              </Label>
-                              <Label maxWidth="1.7976931348623157E308" styleClass="text-field" stylesheets="@Default.css" text="- Shift right click to add an edge from the clicked node to the selected node" textFill="WHITE" wrapText="true">
-                                 <VBox.margin>
-                                    <Insets left="8.0" />
-                                 </VBox.margin>
-                                 <padding>
-                                    <Insets top="5.0" />
-                                 </padding>
-                                 <font>
-                                    <Font size="18.0" />
-                                 </font>
-                              </Label>
-                              <Label maxWidth="1.7976931348623157E308" styleClass="text-field" stylesheets="@Default.css" text="- Alt click to delete a node or edge" textFill="WHITE" wrapText="true">
-                                 <VBox.margin>
-                                    <Insets left="8.0" />
-                                 </VBox.margin>
-                                 <padding>
-                                    <Insets top="5.0" />
-                                 </padding>
-                                 <font>
-                                    <Font size="18.0" />
-                                 </font>
-                              </Label>
                            </children>
                         </VBox>
                         <Label fx:id="thisMap" alignment="CENTER" contentDisplay="CENTER" prefHeight="0.0" prefWidth="191.0" styleClass="labelMapFloor" stylesheets="@Default.css" text="Lower Level 1" textFill="#012d5a" GridPane.halignment="CENTER" GridPane.valignment="TOP">
@@ -256,6 +236,9 @@
                               <Insets bottom="24.0" left="600.0" />
                            </GridPane.margin>
                         </JFXButton>
+                        <VBox fx:id="vLeft" maxWidth="-Infinity" minWidth="-Infinity" prefHeight="200.0" prefWidth="4.0" styleClass="vboxMapOutline" stylesheets="@Default.css" />
+                        <HBox fx:id="vBottom" maxHeight="-Infinity" minHeight="-Infinity" prefHeight="4.0" prefWidth="200.0" styleClass="vboxMapOutline" stylesheets="@Default.css" GridPane.hgrow="ALWAYS" GridPane.valignment="BOTTOM" GridPane.vgrow="NEVER" />
+                        <VBox maxWidth="-Infinity" minWidth="-Infinity" prefHeight="200.0" prefWidth="3.25" styleClass="vboxMapOutline" stylesheets="@Default.css" GridPane.halignment="RIGHT" GridPane.hgrow="NEVER" GridPane.vgrow="ALWAYS" />
                      </children>
                      <StackPane.margin>
                         <Insets />

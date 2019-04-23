@@ -1,6 +1,7 @@
 package edu.wpi.cs3733.d19.teamL.ServiceRequest.MakeServiceRequest;
 
 import edu.wpi.cs3733.d19.teamL.HomeScreens.HomeScreenController;
+import edu.wpi.cs3733.d19.teamL.Memento;
 import edu.wpi.cs3733.d19.teamL.ServiceRequest.ServiceRequestDBAccess.InternalTransportAccess;
 import edu.wpi.cs3733.d19.teamL.Map.Pathfinding.NodesAccess;
 import com.jfoenix.controls.JFXButton;
@@ -17,8 +18,10 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
@@ -46,7 +49,7 @@ public class InternalTransportController {
     JFXButton submitbtn;
 
     @FXML
-    JFXButton backBtn;
+    JFXButton back;
 
     private NodesAccess na;
     private final ObservableList<Location> data = FXCollections.observableArrayList();
@@ -146,10 +149,11 @@ public class InternalTransportController {
     }
 
     @FXML
-    private void submitPressed() throws IOException{
+    private void submitPressed(ActionEvent event) throws IOException{
         timeout.stop();
         Singleton single = Singleton.getInstance();
         single.setLastTime();
+        single.setDoPopup(true);
         Location startNode = single.lookup.get(startBox.getValue().getLocID());
         Location endNode = single.lookup.get(endBox.getValue().getLocID());
         String comment = commentBox.getText();
@@ -157,28 +161,47 @@ public class InternalTransportController {
         String phone = phoneField.getText();
         InternalTransportAccess ita = new InternalTransportAccess();
         ita.makeRequest(comment, startNode, endNode, type, phone);
-
-        FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("ServiceRequest.fxml"));
-
-        Parent sceneMain = loader.load();
-        Stage theStage = (Stage) backBtn.getScene().getWindow();
-
-        Scene scene = new Scene(sceneMain);
-        theStage.setScene(scene);
+        Memento m = single.getOrig();
+        Parent newPage = FXMLLoader.load(getClass().getClassLoader().getResource(m.getFxml()));
+        ((Node) event.getSource()).getScene().setRoot(newPage);
 
     }
 
     @FXML
-    private void backPressed() throws IOException {
+    private void backPressed(ActionEvent event) throws IOException {
         timeout.stop();
         Singleton single = Singleton.getInstance();
         single.setLastTime();
-        FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("ServiceRequest.fxml"));
-
-        Parent sceneMain = loader.load();
-        Stage theStage = (Stage) backBtn.getScene().getWindow();
-
-        Scene scene = new Scene(sceneMain);
-        theStage.setScene(scene);
+        single.setDoPopup(true);
+        Memento m = single.restore();
+        Parent newPage = FXMLLoader.load(getClass().getClassLoader().getResource(m.getFxml()));
+        ((Node) event.getSource()).getScene().setRoot(newPage);
     }
+
+    @FXML
+    private void logOut(ActionEvent event) throws IOException {
+        timeout.stop();
+        Singleton single = Singleton.getInstance();
+        single.setLastTime();
+        single.setUsername("");
+        single.setIsAdmin(false);
+        single.setLoggedIn(false);
+        single.setDoPopup(true);
+        Memento m = single.getOrig();
+        Parent newPage = FXMLLoader.load(getClass().getClassLoader().getResource(m.getFxml()));
+        ((Node) event.getSource()).getScene().setRoot(newPage);
+    }
+
+    @FXML
+    private void goHome(ActionEvent event) throws IOException {
+        timeout.stop();
+        Singleton single = Singleton.getInstance();
+        single.setLastTime();
+        single.setDoPopup(true);
+        //saveState();
+        Memento m = single.getOrig();
+        Parent newPage = FXMLLoader.load(getClass().getClassLoader().getResource(m.getFxml()));
+        ((Node) event.getSource()).getScene().setRoot(newPage);
+    }
+
 }

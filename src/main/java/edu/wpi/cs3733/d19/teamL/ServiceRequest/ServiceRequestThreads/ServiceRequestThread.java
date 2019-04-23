@@ -31,7 +31,6 @@ public class ServiceRequestThread extends Thread{
         for(int i = firstParen + 1; i < lastParen; i++){
             username += uname.charAt(i);
         }
-        System.out.println(username);
         EmployeeAccess ea = new EmployeeAccess();
         String to = ea.getEmpEmail(username);
 

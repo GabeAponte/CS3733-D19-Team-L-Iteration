@@ -13,6 +13,7 @@ import edu.wpi.cs3733.d19.teamL.Map.MapLocations.Edge;
 import edu.wpi.cs3733.d19.teamL.Map.MapLocations.Location;
 import edu.wpi.cs3733.d19.teamL.Map.Pathfinding.EdgesAccess;
 import edu.wpi.cs3733.d19.teamL.Map.Pathfinding.NodesAccess;
+import edu.wpi.cs3733.d19.teamL.RoomBooking.VisualSimulationThread;
 import edu.wpi.cs3733.d19.teamL.SearchingAlgorithms.AStarStrategy;
 import edu.wpi.cs3733.d19.teamL.SearchingAlgorithms.PathfindingStrategy;
 import javafx.collections.FXCollections;
@@ -40,6 +41,8 @@ public class Singleton {
     private static Text txt;
     private static Weather weather;
     private static long startTime;
+    private static CareTaker ct;
+    private static VisualSimulationThread sim;
 
     private ObservableList<Location> data = FXCollections.observableArrayList();
     public HashMap<String, Location> lookup = new HashMap<String, Location>();
@@ -67,6 +70,13 @@ public class Singleton {
         txt = new Text();
         weather = new Weather();
         startTime = System.currentTimeMillis();
+        ct = new CareTaker();
+        sim = new VisualSimulationThread(86);
+        sim.start();
+    }
+
+    public static ArrayList<Boolean> getSimulation(){
+        return sim.getSimulation();
     }
 
     public void populateTweets(){
@@ -93,6 +103,30 @@ public class Singleton {
             //System.out.println(e.getCause());
             return null;
         }
+    }
+
+    public static void saveMemento(String fxml){
+        Memento m = new Memento(fxml);
+        ct.save(m);
+    }
+
+    public static void saveMemento(String fxml, String Preference, String type, String floorFilter, Location start, Location end){
+        Memento m = new Memento(fxml, Preference, type, floorFilter, start, end);
+        ct.save(m);
+    }
+
+    public static Memento getOrig(){
+        if(loggedIn){
+            if(isAdmin){
+                return ct.getAdmin();
+            }
+            return ct.getEmp();
+        }
+        return ct.getOriginal();
+    }
+
+    public static Memento restore(){
+        return ct.restore();
     }
 
     public static void setStartTime(){
