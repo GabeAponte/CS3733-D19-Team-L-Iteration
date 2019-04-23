@@ -82,7 +82,7 @@
                                     </JFXButton>
                                     <JFXButton fx:id="logOut" alignment="CENTER" buttonType="RAISED" contentDisplay="TOP" focusTraversable="false" graphicTextGap="0.0" minHeight="-Infinity" onAction="#logOut" prefHeight="75.0" prefWidth="100.0" ripplerFill="#b0b0b0" styleClass="buttonToolbar" stylesheets="@Default.css" text="Log Out" textAlignment="CENTER" textFill="#012d5a">
                                        <font>
-                                          <Font name="System Bold" size="17.0" />
+                                          <Font name="Trebuchet MS Bold" size="17.0" />
                                        </font>
                                        <graphic>
                                           <FontAwesomeIconView fill="#012d5a" glyphName="USER" size="35" strokeMiterLimit="0.0" textAlignment="CENTER" wrappingWidth="27.27392578125" />
@@ -91,13 +91,16 @@
                                           <Insets right="20.0" />
                                        </HBox.margin>
                                     </JFXButton>
-                                    <JFXButton fx:id="homebtn" buttonType="RAISED" contentDisplay="GRAPHIC_ONLY" maxHeight="-Infinity" minHeight="-Infinity" onAction="#goHome" prefHeight="75.0" prefWidth="100.0" styleClass="buttonToolbar" stylesheets="@Default.css" textFill="#012d5a">
+                                    <JFXButton fx:id="homebtn" buttonType="RAISED" contentDisplay="TOP" graphicTextGap="0.0" maxHeight="-Infinity" minHeight="-Infinity" onAction="#goHome" prefHeight="75.0" prefWidth="100.0" styleClass="buttonToolbar" stylesheets="@Default.css" text="Home" textFill="#012d5a">
                                        <graphic>
-                                          <FontAwesomeIconView fx:id="home" fill="#012d5a" glyphName="HOME" size="50" />
+                                          <FontAwesomeIconView fx:id="home" fill="#012d5a" glyphName="HOME" size="40" />
                                        </graphic>
                                        <HBox.margin>
                                           <Insets right="10.0" />
                                        </HBox.margin>
+                                       <font>
+                                          <Font name="Trebuchet MS Bold" size="17.0" />
+                                       </font>
                                     </JFXButton>
                                  </children>
                               </HBox>
@@ -142,7 +145,7 @@
                                  <children>
                                     <Label alignment="CENTER" styleClass="labelTitle" stylesheets="@Default.css" text="Find Nearest:" textAlignment="CENTER" textFill="#e4e2da" underline="true" GridPane.columnSpan="2147483647" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.vgrow="NEVER">
                                        <font>
-                                          <Font size="25.0" />
+                                          <Font name="Trebuchet MS" size="25.0" />
                                        </font>
                                        <GridPane.margin>
                                           <Insets bottom="5.0" top="10.0" />
@@ -150,7 +153,7 @@
                                     </Label>
                                     <VBox alignment="CENTER_LEFT" prefHeight="126.0" prefWidth="205.0" GridPane.columnSpan="2147483647" GridPane.halignment="CENTER" GridPane.rowIndex="3" GridPane.valignment="CENTER">
                                        <children>
-                                          <JFXRadioButton fx:id="bathroomRadButton" contentDisplay="CENTER" onAction="#bathRadButtPressed" stylesheets="@Default.css" text="Bathroom" textFill="WHITE">
+                                          <JFXRadioButton fx:id="bathroomRadButton" contentDisplay="CENTER" onAction="#bathRadButtPressed" text="Bathroom" textFill="WHITE">
                                              <font>
                                                 <Font size="18.0" />
                                              </font>
@@ -220,7 +223,7 @@
                                        </font></JFXTextArea>
                                     <Label alignment="CENTER" styleClass="labelTitle" stylesheets="@Default.css" text="Text Directions:" textAlignment="CENTER" textFill="#f5d96b" underline="true" GridPane.columnSpan="2147483647" GridPane.halignment="CENTER" GridPane.rowIndex="4">
                                        <font>
-                                          <Font size="25.0" />
+                                          <Font name="Trebuchet MS" size="25.0" />
                                        </font>
                                     </Label>
                                  </children>
@@ -248,7 +251,7 @@
                         </JFXButton>
                         <JFXButton fx:id="L2" alignment="CENTER" buttonType="RAISED" maxHeight="-Infinity" maxWidth="-Infinity" onAction="#clickedL2" prefHeight="46.0" prefWidth="80.0" styleClass="buttonMap" stylesheets="@Default.css" text="L2" textFill="#012d5a" GridPane.halignment="CENTER" GridPane.valignment="BOTTOM">
                            <font>
-                              <Font name="System Bold" size="20.0" />
+                              <Font name="Trebuchet MS Bold" size="20.0" />
                            </font>
                            <GridPane.margin>
                               <Insets bottom="24.0" right="600.0" />
@@ -256,7 +259,7 @@
                         </JFXButton>
                         <JFXButton fx:id="L1" alignment="CENTER" buttonType="RAISED" maxHeight="-Infinity" maxWidth="-Infinity" onAction="#clickedL1" prefHeight="46.0" prefWidth="80.0" styleClass="buttonMap" stylesheets="@Default.css" text="L1" textFill="#012d5a" GridPane.halignment="CENTER" GridPane.valignment="BOTTOM">
                            <font>
-                              <Font name="System Bold" size="20.0" />
+                              <Font name="Trebuchet MS Bold" size="20.0" />
                            </font>
                            <GridPane.margin>
                               <Insets bottom="24.0" right="400.0" />
@@ -264,7 +267,7 @@
                         </JFXButton>
                         <JFXButton fx:id="G" alignment="CENTER" buttonType="RAISED" maxHeight="-Infinity" maxWidth="-Infinity" onAction="#clickedG" prefHeight="46.0" prefWidth="80.0" styleClass="buttonMap" stylesheets="@Default.css" text="G" textFill="#012d5a" GridPane.halignment="CENTER" GridPane.valignment="BOTTOM">
                            <font>
-                              <Font name="System Bold" size="20.0" />
+                              <Font name="Trebuchet MS Bold" size="20.0" />
                            </font>
                            <GridPane.margin>
                               <Insets bottom="24.0" right="200.0" />
@@ -272,7 +275,7 @@
                         </JFXButton>
                         <JFXButton fx:id="F1" alignment="CENTER" buttonType="RAISED" maxHeight="-Infinity" maxWidth="-Infinity" onAction="#clicked1" prefHeight="46.0" prefWidth="80.0" styleClass="buttonMap" stylesheets="@Default.css" text="F1" textFill="#012d5a" GridPane.halignment="CENTER" GridPane.valignment="BOTTOM">
                            <font>
-                              <Font name="System Bold" size="20.0" />
+                              <Font name="Trebuchet MS Bold" size="20.0" />
                            </font>
                            <GridPane.margin>
                               <Insets bottom="24.0" />
@@ -280,7 +283,7 @@
                         </JFXButton>
                         <JFXButton fx:id="F2" alignment="CENTER" buttonType="RAISED" maxHeight="-Infinity" maxWidth="-Infinity" onAction="#clicked2" prefHeight="46.0" prefWidth="80.0" styleClass="buttonMap" stylesheets="@Default.css" text="F2" textFill="#012d5a" GridPane.halignment="CENTER" GridPane.valignment="BOTTOM">
                            <font>
-                              <Font name="System Bold" size="20.0" />
+                              <Font name="Trebuchet MS Bold" size="20.0" />
                            </font>
                            <GridPane.margin>
                               <Insets bottom="24.0" left="200.0" />
@@ -288,7 +291,7 @@
                         </JFXButton>
                         <JFXButton fx:id="F3" alignment="CENTER" buttonType="RAISED" maxHeight="-Infinity" maxWidth="-Infinity" onAction="#clicked3" prefHeight="46.0" prefWidth="80.0" styleClass="buttonMap" stylesheets="@Default.css" text="F3" textFill="#012d5a" GridPane.halignment="CENTER" GridPane.valignment="BOTTOM">
                            <font>
-                              <Font name="System Bold" size="20.0" />
+                              <Font name="Trebuchet MS Bold" size="20.0" />
                            </font>
                            <GridPane.margin>
                               <Insets bottom="24.0" left="400.0" />
@@ -296,7 +299,7 @@
                         </JFXButton>
                         <JFXButton fx:id="F4" alignment="CENTER" buttonType="RAISED" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="46.0" prefWidth="80.0" styleClass="buttonMap" stylesheets="@Default.css" text="F4" textFill="#012d5a" GridPane.halignment="CENTER" GridPane.valignment="BOTTOM">
                            <font>
-                              <Font name="System Bold" size="20.0" />
+                              <Font name="Trebuchet MS Bold" size="20.0" />
                            </font>
                            <GridPane.margin>
                               <Insets bottom="24.0" left="600.0" />
@@ -315,7 +318,7 @@
                               <Insets top="28.0" />
                            </GridPane.margin>
                            <font>
-                              <Font name="System Bold" size="25.0" />
+                              <Font name="Trebuchet MS Bold" size="25.0" />
                            </font>
                         </Label>
                      </children>
