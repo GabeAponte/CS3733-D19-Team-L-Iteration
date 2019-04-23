@@ -352,7 +352,6 @@ public class EmergencyController {
             displayPath();
         }
         gotoKioskFloor();
-        displayKiosk();
         displayExits();
         DisableEmergMode.setDisable(false);
     }
@@ -633,11 +632,11 @@ public class EmergencyController {
             public void run() {
                 displayKiosk();
                 startNode = kioskTemp;
+
+                activateEmergencyMode();
+                displayPath();
             }
         });
-
-        activateEmergencyMode();
-
     }
 
 
@@ -1022,6 +1021,7 @@ public class EmergencyController {
         direction.setDisable(false);
         direction.setEditable(false);
 
+        displayExits();
     }
 
     /**

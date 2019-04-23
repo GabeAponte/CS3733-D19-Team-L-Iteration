@@ -313,28 +313,6 @@ public class AdminLoggedInHomeController {
             webcam.close();
 
 
-            /*
-            ImageComparison ic = new ImageComparison();
-            //double diff = ic.doIT(username.getText());
-            ArrayList<String> results = ic.doWithAll();
-            double diff = Double.parseDouble(results.get(0));
-
-            Singleton single = Singleton.getInstance();
-            EmployeeAccess ea = new EmployeeAccess();
-            if (diff < 10) {
-                single.setLoggedIn(true);
-                single.setUsername(results.get(1));
-                System.out.println(results.get(1));
-                single.setIsAdmin(false);
-                if (ea.getEmployeeInformation(results.get(1)).get(2).equals("true")) {
-                    single.setIsAdmin(true);
-                    SwitchToSignedIn("AdminLoggedInHome.fxml");
-                    return;
-                }
-                SwitchToSignedIn("EmployeeLoggedInHome.fxml");
-            } else {
-                displayError();
-            }//*/
         } catch (Exception e){
             e.printStackTrace();
         }
