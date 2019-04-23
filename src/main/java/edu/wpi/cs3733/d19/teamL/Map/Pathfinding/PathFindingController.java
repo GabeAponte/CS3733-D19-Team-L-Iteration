@@ -38,6 +38,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
 import javafx.scene.image.Image;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
@@ -570,29 +571,31 @@ public class PathFindingController {
         childPane.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent event) {
-                Location clostestToClick = single.getData().get(0);
+                if(event.getButton().equals(MouseButton.SECONDARY)) {
+                    Location clostestToClick = single.getData().get(0);
 //                Point2D topLeftPoint = new Point2D(Math.abs(gesturePane.getCurrentX()), Math.abs(gesturePane.getCurrentY()));
 
-                for (Location l: single.getData()) {
-                    double distanceToL = Math.pow(event.getX()*Map.getImage().getWidth()/childPane.getWidth() - l.getXcoord(), 2) + Math.pow(event.getY()*Map.getImage().getHeight()/childPane.getHeight() - l.getYcoord(), 2);
-                    double distanceToClosest = Math.pow(event.getX()*Map.getImage().getWidth()/childPane.getWidth()  - clostestToClick.getXcoord(), 2) + Math.pow(event.getY()*Map.getImage().getHeight()/childPane.getHeight()  - clostestToClick.getYcoord(), 2);
-                    if(!l.getNodeType().equals("HALL") && currentMap.equals(l.getFloor()) && distanceToL < distanceToClosest){
-                        clostestToClick = l;
+                    for (Location l : single.getData()) {
+                        double distanceToL = Math.pow(event.getX() * Map.getImage().getWidth() / childPane.getWidth() - l.getXcoord(), 2) + Math.pow(event.getY() * Map.getImage().getHeight() / childPane.getHeight() - l.getYcoord(), 2);
+                        double distanceToClosest = Math.pow(event.getX() * Map.getImage().getWidth() / childPane.getWidth() - clostestToClick.getXcoord(), 2) + Math.pow(event.getY() * Map.getImage().getHeight() / childPane.getHeight() - clostestToClick.getYcoord(), 2);
+                        if (!l.getNodeType().equals("HALL") && currentMap.equals(l.getFloor()) && distanceToL < distanceToClosest) {
+                            clostestToClick = l;
+                        }
                     }
-                }
 
-                System.out.println(clostestToClick);
-                System.out.println(event.getX()*Map.getImage().getWidth()/childPane.getWidth() + " " + event.getY()*Map.getImage().getHeight()/childPane.getHeight());
+                    System.out.println(clostestToClick);
+                    System.out.println(event.getX() * Map.getImage().getWidth() / childPane.getWidth() + " " + event.getY() * Map.getImage().getHeight() / childPane.getHeight());
 //                System.out.println(Math.pow(topLeftPoint.getX()+event.getX()*Map.getImage().getWidth()/gesturePane.getViewportWidth() - clostestToClick.getXcoord(), 2) + Math.pow(topLeftPoint.getY()+event.getY()*Map.getImage().getHeight()/gesturePane.getViewportHeight() - clostestToClick.getYcoord(), 2));
 
-                if( Math.pow(event.getX()*Map.getImage().getWidth()/childPane.getWidth() - clostestToClick.getXcoord(), 2) + Math.pow(event.getY()*Map.getImage().getHeight()/childPane.getHeight() - clostestToClick.getYcoord(), 2) <= 65*65){
-                    Floor.setValue("All");
-                    Filter.setValue("All");
-                    noHall();
+                    if (Math.pow(event.getX() * Map.getImage().getWidth() / childPane.getWidth() - clostestToClick.getXcoord(), 2) + Math.pow(event.getY() * Map.getImage().getHeight() / childPane.getHeight() - clostestToClick.getYcoord(), 2) <= 65 * 65) {
+                        Floor.setValue("All");
+                        Filter.setValue("All");
+                        noHall();
 
-                    PathFindEndDrop.setValue(clostestToClick);
+                        PathFindEndDrop.setValue(clostestToClick);
 
-                    submitPressed();
+                        submitPressed();
+                    }
                 }
             }
         });
