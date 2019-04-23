@@ -386,8 +386,17 @@ public class BookRoomController {
         LocalDate curDate = LocalDate.now();
         LocalTime curTime = LocalTime.now();
         boolean eventIsPrivate = false;
+        String eventTypeString = eventType.getSelectionModel().getSelectedItem();
+        String eventNameString = eventName.getText();
+        String eventDescriptionString = eventDescription.getText();
+        String listOfGuests = "";
 
         List<String> guestList = eventEmployees.getCheckModel().getCheckedItems();
+        for(int i = 0; i < guestList.size(); i ++){
+            listOfGuests = listOfGuests + guestList.get(i) + ",";
+        }
+
+        System.out.println(listOfGuests);
         System.out.println(guestList);
 
         if(privateEvent.isSelected()){
@@ -416,11 +425,11 @@ public class BookRoomController {
             error.setText("Please select an end time and a date.");
         }
 
-        else if (eventName == null) {
+        else if (eventNameString == null) {
             error.setText("Please enter an event name.");
         }
 
-        else if (eventDescription == null) {
+        else if (eventDescriptionString == null) {
             error.setText("Please enter an event description.");
         }
 
@@ -449,7 +458,7 @@ public class BookRoomController {
             String employeeID = ea.getEmployeeInformation(single.getUsername()).get(0);
             ReservationAccess roomReq = new ReservationAccess();
             RoomAccess ra = new RoomAccess();
-            roomReq.makeReservation(ra.getRoomID(roomName), employeeID, date, endDate);
+            roomReq.makeReservation(ra.getRoomID(roomName), employeeID, date, endDate, eventNameString, eventDescriptionString, listOfGuests, eventTypeString, eventIsPrivate);
             //add event name, event description, event type, guestList (String), privacy (boolean)
             fieldsEntered();
         }
