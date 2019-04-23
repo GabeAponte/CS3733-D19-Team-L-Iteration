@@ -334,6 +334,7 @@ public class BookRoomController {
         findRooms();
         roomPicker.getItems().addAll("Room 1 - Computer", "Room 2 - Computer", "Room 3 - Computer", "Room 4 - Classroom", "Room 5 - Computer", "Room 6 - Classroom", "Room 7 - Computer", "Room 8 - Classroom", "Room 9 - Computer", "Mission Hall Auditorium");
         roomPicker.getSelectionModel().select(0);
+        viewSched();
 
     }
 
