@@ -45,7 +45,7 @@ import javafx.util.Duration;
 
 public class BookRoomController {
 
-    //Weekly Schedule Stuff
+    //Weekly Schedule Stuff ------------------------------------------------------------------------------------
 
     @FXML
     private Label classroomLabel;
@@ -90,7 +90,7 @@ public class BookRoomController {
     String chosenRoom;
     LocalDate chosenDate;
 
-    //Daily Schedule Stuff
+    //Daily Schedule Stuff ------------------------------------------------------------------------------------
 
     @FXML
     private JFXDatePicker dailyDatePicker;
@@ -131,7 +131,7 @@ public class BookRoomController {
     @FXML
     private TreeTableColumn<Room, Boolean> auditorium;
 
-    //Visual Display Stuff
+    //Visual Display Stuff ------------------------------------------------------------------------------------
 
     @FXML
     private JFXDatePicker datePicker;
@@ -189,6 +189,9 @@ public class BookRoomController {
 
     @FXML
     private AnchorPane anchorPane;
+
+    //Reservation Pop-up
+    
 
     @FXML
     private ListView<EmployeeAccess> myListView;

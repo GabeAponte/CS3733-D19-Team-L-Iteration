@@ -28,7 +28,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="anchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720" prefWidth="1280" styleClass="AnchorPainMain" stylesheets="@Default.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.d19.teamL.RoomBooking.BookRoomController">
+<AnchorPane fx:id="anchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720" prefWidth="1280" styleClass="AnchorPainMain" stylesheets="@Default.css" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.d19.teamL.RoomBooking.BookRoomController">
 
     <children>
         <VBox prefHeight="200.0" prefWidth="100.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
@@ -116,7 +116,7 @@
                                         <ColumnConstraints />
                                     </columnConstraints>
                                     <rowConstraints>
-                                        <RowConstraints maxHeight="-Infinity" minHeight="10.0" prefHeight="100.0" vgrow="ALWAYS" />
+                                        <RowConstraints maxHeight="-Infinity" minHeight="10.0" prefHeight="80.0" vgrow="ALWAYS" />
                                         <RowConstraints minHeight="10.0" percentHeight="10.0" prefHeight="30.0" vgrow="ALWAYS" />
                                         <RowConstraints minHeight="10.0" percentHeight="10.0" prefHeight="30.0" vgrow="ALWAYS" />
                                         <RowConstraints minHeight="10.0" percentHeight="15.0" prefHeight="30.0" vgrow="ALWAYS" />
@@ -198,7 +198,10 @@
                                                         <Font size="18.0" />
                                                     </font>
                                                 </Label>
-                                                <JFXComboBox fx:id="availableRooms" focusColor="#f5d96b" onAction="#highlightFromDropdown" prefHeight="60.0" prefWidth="300.0" promptText="Select Room" styleClass="jfx-combo-box-PathMenu" stylesheets="@Default.css" unFocusColor="#f5d96b" />
+                                                <JFXComboBox fx:id="availableRooms" focusColor="#f5d96b" onAction="#highlightFromDropdown" prefHeight="60.0" prefWidth="300.0" promptText="Select Room" styleClass="jfx-combo-box-PathMenu" stylesheets="@Default.css" unFocusColor="#f5d96b">
+                                       <VBox.margin>
+                                          <Insets bottom="10.0" />
+                                       </VBox.margin></JFXComboBox>
                                             </children>
                                  <GridPane.margin>
                                     <Insets top="20.0" />
@@ -260,7 +263,7 @@
                                         <VBox alignment="CENTER" layoutX="874.0" layoutY="200.0" prefHeight="200.0" prefWidth="100.0" spacing="30.0" GridPane.columnIndex="3" GridPane.rowIndex="1">
                                             <children>
                                                 <JFXDatePicker fx:id="dailyDatePicker" defaultColor="#f5d96b" prefHeight="51.0" prefWidth="200.0" promptText="Select Date" styleClass="jfx-date-picker" stylesheets="@Default.css" />
-                                                <JFXButton onAction="#findRooms" prefHeight="57.0" prefWidth="187.0" style="-fx-border-radius: 50; -fx-background-radius: 50; -fx-border-width: 2;" styleClass="buttonMain" stylesheets="@Default.css" text="View Schedule" textFill="white">
+                                                <JFXButton onAction="#findRooms" prefHeight="57.0" prefWidth="187.0" style="-fx-border-radius: 50; -fx-background-radius: 50; -fx-border-width: 2;" styleClass="buttonDJ" stylesheets="@Default.css" text="View Schedule" textFill="white">
                                                     <font>
                                                         <Font name="Avenir Book" size="18.0" />
                                                     </font>
@@ -269,7 +272,7 @@
                                         </VBox>
                                         <JFXTreeTableView fx:id="dailySchedule" styleClass="jfx-tree-table-view" stylesheets="@Default.css" GridPane.columnSpan="3" GridPane.rowIndex="1" GridPane.rowSpan="4">
                                             <columns>
-                                                <TreeTableColumn fx:id="dailyTimeCol" prefWidth="125.0" text="Time" />
+                                                <TreeTableColumn fx:id="dailyTimeCol" minWidth="200.0" prefWidth="200.0" text="Time" />
                                                 <TreeTableColumn fx:id="class1Col" editable="false" minWidth="116.0" prefWidth="150.0" sortable="false" text="Classroom 1" />
                                                 <TreeTableColumn fx:id="class2Col" editable="false" minWidth="150.0" prefWidth="150.0" sortable="false" text="Classroom 2" />
                                                 <TreeTableColumn fx:id="class3Col" editable="false" minWidth="150.0" prefWidth="150.0" sortable="false" text="Classroom 3" />
@@ -318,7 +321,7 @@
                                         </Label>
                                         <VBox alignment="CENTER" layoutX="874.0" layoutY="200.0" prefHeight="200.0" prefWidth="256.0" spacing="30.0" GridPane.columnIndex="3" GridPane.rowIndex="1" GridPane.rowSpan="2">
                                             <children>
-                                                <JFXComboBox fx:id="roomPicker"  onAction="#changeRooms" prefHeight="51.0" prefWidth="200.0" promptText="Choose Room" styleClass="jfx-combo-box-PathMenu" stylesheets="@Default.css" />
+                                                <JFXComboBox fx:id="roomPicker" onAction="#changeRooms" prefHeight="51.0" prefWidth="200.0" promptText="Choose Room" styleClass="jfx-combo-box-PathMenu" stylesheets="@Default.css" />
                                                 <JFXDatePicker fx:id="weeklyDatePicker" defaultColor="#f5d96b" onAction="#changeRooms" prefHeight="51.0" prefWidth="200.0" promptText="Select Date" styleClass="jfx-date-picker" stylesheets="@Default.css" />
                                                 <JFXButton onAction="#viewSched" prefHeight="57.0" prefWidth="187.0" style="-fx-border-radius: 50; -fx-background-radius: 50; -fx-border-width: 2;" styleClass="buttonDJ" stylesheets="@Default.css" text="View Schedule" textFill="white">
                                                     <font>
@@ -329,14 +332,14 @@
                                         </VBox>
                                         <JFXTreeTableView fx:id="weeklySchedule" styleClass="jfx-tree-table-view" stylesheets="@Default.css" GridPane.columnSpan="3" GridPane.rowIndex="1" GridPane.rowSpan="4">
                                             <columns>
-                                                <TreeTableColumn fx:id="weeklyTimeCol" prefWidth="155.0" text="Time" />
-                                                <TreeTableColumn fx:id="sunCol" editable="false" minWidth="66.0" prefWidth="120.0" sortable="false" text="Sunday" />
-                                                <TreeTableColumn fx:id="monCol" editable="false" minWidth="150.0" prefWidth="150.0" sortable="false" text="Monday" />
-                                                <TreeTableColumn fx:id="tueCol" editable="false" minWidth="150.0" prefWidth="150.0" sortable="false" text="Tuesday" />
-                                                <TreeTableColumn fx:id="wedCol" editable="false" minWidth="150.0" prefWidth="150.0" sortable="false" text="Wednesday" />
-                                                <TreeTableColumn fx:id="thuCol" editable="false" minWidth="150.0" prefWidth="150.0" sortable="false" text="Thursday" />
-                                                <TreeTableColumn fx:id="friCol" editable="false" minWidth="150.0" prefWidth="150.0" sortable="false" text="Friday" />
-                                                <TreeTableColumn fx:id="satCol" editable="false" minWidth="150.0" prefWidth="150.0" sortable="false" text="Saturday" />
+                                                <TreeTableColumn fx:id="weeklyTimeCol" minWidth="200.0" prefWidth="200.0" text="Time" />
+                                                <TreeTableColumn fx:id="sunCol" editable="false" minWidth="120.0" prefWidth="130.0" sortable="false" text="Sunday" />
+                                                <TreeTableColumn fx:id="monCol" editable="false" minWidth="120.0" prefWidth="130.0" sortable="false" text="Monday" />
+                                                <TreeTableColumn fx:id="tueCol" editable="false" minWidth="120.0" prefWidth="130.0" sortable="false" text="Tuesday" />
+                                                <TreeTableColumn fx:id="wedCol" editable="false" minWidth="120.0" prefWidth="130.0" sortable="false" text="Wednesday" />
+                                                <TreeTableColumn fx:id="thuCol" editable="false" minWidth="120.0" prefWidth="130.0" sortable="false" text="Thursday" />
+                                                <TreeTableColumn fx:id="friCol" editable="false" minWidth="120.0" prefWidth="130.0" sortable="false" text="Friday" />
+                                                <TreeTableColumn fx:id="satCol" editable="false" minWidth="120.0" prefWidth="130.0" sortable="false" text="Saturday" />
                                             </columns>
                                             <GridPane.margin>
                                                 <Insets left="30.0" />
