@@ -198,7 +198,7 @@
                                                         <Font size="18.0" />
                                                     </font>
                                                 </Label>
-                                                <JFXComboBox fx:id="availableRooms" focusColor="#f5d96b" onAction="#highlightFromDropdown" prefHeight="60.0" prefWidth="300.0" promptText="Select Room" stylesheets="@Default.css" unFocusColor="#f5d96b" />
+                                                <JFXComboBox fx:id="availableRooms" focusColor="#f5d96b" onAction="#highlightFromDropdown" prefHeight="60.0" prefWidth="300.0" promptText="Select Room" styleClass="jfx-combo-box-PathMenu" stylesheets="@Default.css" unFocusColor="#f5d96b" />
                                             </children>
                                  <GridPane.margin>
                                     <Insets top="20.0" />
@@ -318,7 +318,7 @@
                                         </Label>
                                         <VBox alignment="CENTER" layoutX="874.0" layoutY="200.0" prefHeight="200.0" prefWidth="256.0" spacing="30.0" GridPane.columnIndex="3" GridPane.rowIndex="1" GridPane.rowSpan="2">
                                             <children>
-                                                <JFXComboBox fx:id="roomPicker" onAction="#changeRooms" prefHeight="51.0" prefWidth="200.0" promptText="Choose Room" styleClass="jfx-combo-box" stylesheets="@Default.css" />
+                                                <JFXComboBox fx:id="roomPicker"  onAction="#changeRooms" prefHeight="51.0" prefWidth="200.0" promptText="Choose Room" styleClass="jfx-combo-box-PathMenu" stylesheets="@Default.css" />
                                                 <JFXDatePicker fx:id="weeklyDatePicker" defaultColor="#f5d96b" onAction="#changeRooms" prefHeight="51.0" prefWidth="200.0" promptText="Select Date" styleClass="jfx-date-picker" stylesheets="@Default.css" />
                                                 <JFXButton onAction="#viewSched" prefHeight="57.0" prefWidth="187.0" style="-fx-border-radius: 50; -fx-background-radius: 50; -fx-border-width: 2;" styleClass="buttonMain" stylesheets="@Default.css" text="View Schedule" textFill="white">
                                                     <font>
