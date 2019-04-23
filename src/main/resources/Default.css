@@ -270,6 +270,13 @@
     -jfx-unfocus-color: #012d5a;
 }
 
+.jfx-text-field-servicerequest {
+    -fx-prompt-text-fill: #012d5a;
+    -fx-text-fill: #012d5a;
+    -jfx-focus-color: #012d5a;
+    -jfx-unfocus-color: #012d5a;
+}
+
 /*.jfx-text-field-normal .input-line {
     -fx-background-size: 4;
     -fx-prompt-text-fill: #012d5a;
@@ -298,9 +305,9 @@
 
 .jfx-text-areaServiceRequest {
     -fx-background-color: white;
-    -fx-prompt-text-fill: black;
-    -fx-text-fill: black;
-    -jfx-focus-color: #012d5a;
+    -fx-prompt-text-fill: #012d5a;
+    -fx-text-fill: #012d5a;
+    -jfx-focus-color: transparen;
     -jfx-unfocus-color: transparent;
     -fx-background-radius: 15;
     -fx-border-color: #f5d96b;
