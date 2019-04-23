@@ -130,7 +130,7 @@
 
 .buttonToolbar{
     -fx-background-color: white;
-    -fx-background-radius: 10;
+    -fx-background-radius: 15;
     -fx-border-color : #012D5A;
     -fx-border-radius: 10;
     -fx-border-width: 2;
@@ -150,9 +150,9 @@
 }
 
 .buttonMap{
-    -fx-background-radius: 10000;
+    -fx-background-radius: 15;
     -fx-border-color : #012D5A;
-    -fx-border-radius: 100;
+    -fx-border-radius: 10;
     -fx-border-width: 2;
     -fx-pref-height: 46;
     -fx-text-fill:  #012d5a ;
