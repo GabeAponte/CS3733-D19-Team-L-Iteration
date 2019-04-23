@@ -1,4 +1,16 @@
 
+.vboxImage {
+    -fx-background-image: url("SoftEng_UI_Mockup_Pics/otherBackground.jpg");
+    -fx-background-size: cover;
+    -fx-opacity: .20;
+}
+
+.vboxHomeImage {
+    -fx-background-image: url("SoftEng_UI_Mockup_Pics/HomeBackground.jpg");
+    -fx-background-size: cover;
+    -fx-opacity: .20;
+}
+
 .buttonMain{
     -fx-background-color: white;
     -fx-border-color: #012d5a;
