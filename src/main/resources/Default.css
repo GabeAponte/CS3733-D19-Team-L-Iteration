@@ -650,6 +650,10 @@
     -fx-background-color: #f5d96b;
 }
 
-.check-combo-box .text-area {
-    -fx-text-fill : white;
+.check-combo-box .list-cell {
+    -fx-text-fill : #012d5a;
+}
+
+.check-combo-box .list-view .list-cell {
+    -fx-text-fill : black;
 }

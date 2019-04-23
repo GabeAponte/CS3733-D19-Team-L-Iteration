@@ -345,7 +345,15 @@ public class BookRoomController {
             }
         });
 
-        eventEmployeeData.addAll("Bella", "Grace", "Alex", "Gabe");
+        EmployeeAccess ea = new EmployeeAccess();
+        ArrayList<ArrayList<String>> emps = ea.getEmployees("","");
+
+        for(int i = 0; i < emps.size(); i++){
+            String temp = "";
+            temp = emps.get(i).get(4) + " " + emps.get(i).get(5) + " " + "(" + emps.get(i).get(6) + ")";
+            eventEmployeeData.add(temp);
+        }
+
         eventEmployees.getItems().addAll(eventEmployeeData);
 
         dailyDatePicker.setValue(LocalDate.now());
