@@ -28,7 +28,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="anchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720" prefWidth="1280" styleClass="AnchorPainMain" stylesheets="@Default.css" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.d19.teamL.RoomBooking.BookRoomController">
+<AnchorPane fx:id="anchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720" prefWidth="1280" styleClass="AnchorPainMain" stylesheets="@Default.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.d19.teamL.RoomBooking.BookRoomController">
 
     <children>
         <VBox prefHeight="200.0" prefWidth="100.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
@@ -377,12 +377,12 @@
                                 <Font size="16.0" />
                             </font>
                         </JFXRadioButton>
-                        <JFXTextField promptText="Event Name" styleClass="jfx-text-field-normal" stylesheets="@Default.css" GridPane.columnSpan="2" GridPane.rowIndex="1">
+                        <JFXTextField promptText="Event Name" styleClass="jfx-text-areaServiceRequest" stylesheets="@Default.css" GridPane.columnSpan="2" GridPane.rowIndex="1">
                             <font>
                                 <Font size="18.0" />
                             </font>
                         </JFXTextField>
-                        <JFXTextArea promptText="Event Description" styleClass="jfx-text-field-normal" stylesheets="@Default.css" GridPane.columnSpan="2" GridPane.rowIndex="2">
+                        <JFXTextArea promptText="Event Description" styleClass="jfx-text-areaServiceRequest" stylesheets="@Default.css" GridPane.columnSpan="2" GridPane.rowIndex="2">
                             <font>
                                 <Font size="18.0" />
                             </font></JFXTextArea>
