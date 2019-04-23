@@ -238,7 +238,7 @@
 
                             </content>
                         </Tab>
-                        <Tab text="Daily Schedule">
+                        <Tab text="Daily Schedule" onSelectionChanged="#dailyTab">
                             <content>
                                 <GridPane layoutX="8.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                     <columnConstraints>
@@ -297,7 +297,7 @@
                                 </GridPane>
                             </content>
                         </Tab>
-                        <Tab text="Weekly Schedule" >
+                        <Tab text="Weekly Schedule" onSelectionChanged="#weeklyTab" >
                             <content>
                                 <GridPane layoutX="8.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                     <columnConstraints>

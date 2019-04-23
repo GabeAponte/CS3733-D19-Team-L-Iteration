@@ -543,7 +543,11 @@ public class BookRoomController {
                         }
                     }
                     if(resPaneCalled == false){
-                        openEventInfo(true);
+                        if(bookedEventShowing) {
+                            openEventInfo(false);
+                        }else{
+                            openEventInfo(true);
+                        }
                     }
                     DisplayRooms.get(k).changePolygonColor("BLUE");
                     imagePane.getChildren().add(DisplayRooms.get(k).getPolygon());
@@ -865,43 +869,8 @@ public class BookRoomController {
 
     @FXML
     private void dailyTab() {
-        Singleton single = Singleton.getInstance();
-        single.setLastTime();
-        timeout = new Timeline(new KeyFrame(Duration.seconds(2), new EventHandler<ActionEvent>() {
-
-            @Override
-            public void handle(ActionEvent event) {
-                if((System.currentTimeMillis() - single.getLastTime()) > single.getTimeoutSec()){
-                    try{
-                        single.setLastTime();
-                        single.setDoPopup(true);
-                        single.setLoggedIn(false);
-                        single.setUsername("");
-                        single.setIsAdmin(false);
-                        FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("HospitalHome.fxml"));
-
-                        Parent sceneMain = loader.load();
-                        HomeScreenController controller = loader.<HomeScreenController>getController();
-                        single.setLastTime();
-                        controller.displayPopup();
-                        single.setLastTime();
-
-                        Stage thisStage = (Stage) back.getScene().getWindow();
-
-                        Scene newScene = new Scene(sceneMain);
-                        thisStage.setScene(newScene);
-                        timeout.stop();
-                    } catch (IOException io){
-                        System.out.println(io.getMessage());
-                    }
-                }
-            }
-        }));
-
-
-        timeout.setCycleCount(Timeline.INDEFINITE);
-        timeout.play();
-
+        openReservation(false);
+        openEventInfo(false);
     }
 
     @FXML
@@ -1255,6 +1224,12 @@ public class BookRoomController {
 //----------------------------------------------------------------------------------------------------------------------
 
     @FXML
+    private void weeklyTab(){
+        openReservation(false);
+        openEventInfo(false);
+    }
+
+    @FXML
     private void viewSched(){
         changeRooms();
     }
@@ -1307,8 +1282,6 @@ public class BookRoomController {
         //System.out.println("Start Time: " + startTime + " End Time: " + endTime);
         TreeItem<WeeklyRoom> bookedRooms = new TreeItem<WeeklyRoom>(new WeeklyRoom(startTime, endTime, theDate, roomName));
         Root.getChildren().add(bookedRooms);
-
-        System.out.println("Trying to make weekly");
 
         //timeCol = new TreeTableColumn<Room, String>("Time");
         weeklyTimeCol.setCellValueFactory(cellData -> {
