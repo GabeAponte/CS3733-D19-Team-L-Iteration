@@ -1176,8 +1176,6 @@ public class PathFindingController {
         }
 
         String directionS = printPath(al);
-        System.out.println(al);
-        System.out.println(directionS);
         if(al.size() >1){
             if(path.getPath().get(count) != null){
                 if(isStairELe(al.get(al.size()-1)) && isStairELe(path.getPath().get(count))){
