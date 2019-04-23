@@ -21,7 +21,7 @@
 <?import javafx.scene.text.Font?>
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720" prefWidth="1280" styleClass="AnchorPainMain" stylesheets="@Default.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.d19.teamL.ServiceRequest.MakeServiceRequest.ReligiousRequestController">
-   <ImageView fitHeight="1122.0" fitWidth="1486.0" opacity="0.20" pickOnBounds="true" preserveRatio="true">
+   <ImageView fitHeight="1194.0" fitWidth="1645.0" layoutX="-17.0" layoutY="-17.0" opacity="0.2" pickOnBounds="true" preserveRatio="true">
       <image>
          <Image url="@SoftEng_UI_Mockup_Pics/otherBackground.jpg" />
       </image>
