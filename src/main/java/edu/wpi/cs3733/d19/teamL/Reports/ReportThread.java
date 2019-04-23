@@ -18,6 +18,7 @@ import java.util.*;
 
 public class ReportThread extends Thread {
     int type;
+    String requestType;
 
     public ReportThread(int type){
         this.type = type;
@@ -208,7 +209,7 @@ public class ReportThread extends Thread {
                     String key = monthHashData.getKey();
                     String justType = key.substring(key.indexOf("_")+1);
 
-                    monthTypeData.add(new BarGraphChartData(monthHash.get(key), justType, specificMonthHash.get(key)));
+                    monthTypeData.add(new BarGraphChartData(justType, monthHash.get(key), specificMonthHash.get(key)));
                 }
                 List<PieChartData> typeData = new ArrayList<PieChartData>();
                 for (String p : typeCountHash.keySet()) {
@@ -250,10 +251,31 @@ public class ReportThread extends Thread {
                 e.printStackTrace();
             }
         }
+        else if (type == 3) {
+            int count = 0;
+            requestReportAccess ra = new requestReportAccess();
+            ArrayList<serviceRequestReportData> completeList = new ArrayList<serviceRequestReportData>();
+            while (count < ra.countRecords()) { //get all the report data for service requests
+                ArrayList<String> data = ra.getItems(count);
+                if (data.get(3).equals(requestType)) {
+                    serviceRequestReportData d = new serviceRequestReportData(data.get(0),
+                            data.get(1), data.get(2), data.get(3), data.get(4), data.get(5));
+                    completeList.add(d);
+                }
+                count++;
+            }
+            HashMap<String, Integer> employeeHash = new HashMap<String, Integer>();
+            HashMap<String, Integer> specificType = new HashMap<String, Integer>();
+            int countMeter = completeList.size();
+            
+
+        }
         Thread.currentThread().stop();
     }
 
-
+    public void setRequestType(String requestType) {
+        this.requestType = requestType;
+    }
     //found online- geeks4geeks- sorts hashmap
     public static HashMap<String, Integer> sortByValue(HashMap<String, Integer> hm)
     {
