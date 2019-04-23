@@ -127,6 +127,7 @@
                         <RowConstraints />
                      </rowConstraints>
                      <children>
+                        <VBox prefHeight="200.0" prefWidth="100.0" styleClass="vboxPathImage" GridPane.columnIndex="1" />
                         <VBox fx:id="scrollVBox" alignment="TOP_CENTER" style="-fx-border-radius: 15; -fx-border-width: 2.25;" styleClass="vboxTextfieldOutline" stylesheets="@Default.css" GridPane.columnIndex="1" GridPane.hgrow="ALWAYS" GridPane.rowSpan="2" GridPane.vgrow="ALWAYS">
                            <children>
                               <GridPane alignment="CENTER" style="-fx-border-width: 4;" VBox.vgrow="ALWAYS">

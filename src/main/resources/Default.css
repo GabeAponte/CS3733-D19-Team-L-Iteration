@@ -14,7 +14,7 @@
 .vboxPathImage {
     -fx-background-image: url("SoftEng_UI_Mockup_Pics/pathfindBackground.jpg");
     -fx-background-size: cover;
-    -fx-opacity: .20;
+    -fx-opacity: .17;
 }
 
 .buttonMain{
