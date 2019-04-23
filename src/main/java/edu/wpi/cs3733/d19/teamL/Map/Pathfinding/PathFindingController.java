@@ -432,6 +432,7 @@ public class PathFindingController {
     public void initialize() {
         Singleton single = Singleton.getInstance();
         single.setLastTime();
+        settingPressed();
 
         na = new NodesAccess();
         ea = new EdgesAccess();
@@ -763,7 +764,7 @@ public class PathFindingController {
     @FXML
     private void settingPressed(){
         TranslateTransition openSetting = new TranslateTransition(new Duration(300.0D), this.settingPane);
-        openSetting.setToX(Map.getFitWidth()-850);
+        openSetting.setToY(0.0D);
         TranslateTransition closeSetting = new TranslateTransition(new Duration(300.0D), this.settingPane);
         this.menubtn.setOnAction((evt) -> {
             //  settingPane.setLayoutX(mapColumn.getMaxWidth()-200);
@@ -776,25 +777,6 @@ public class PathFindingController {
             }
 
         });
-
-        this.menuBack.setOnAction((evt) -> {
-            if (this.navList.getTranslateY() != 450.0D) {
-                openSetting.setToY(450);
-                openSetting.play();
-            } else {
-                closeSetting.setToY(-this.settingPane.getHeight());
-                closeSetting.play();
-            }
-
-        });
-        if (this.navList.getTranslateY() != 450.0D) {
-            openSetting.setToY(450);
-            openSetting.play();
-        } else {
-            closeSetting.setToX(-this.navList.getHeight());
-            closeSetting.play();
-        }
-
 
     }
 
