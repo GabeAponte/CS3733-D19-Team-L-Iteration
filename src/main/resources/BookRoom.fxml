@@ -3,7 +3,6 @@
 <?import com.jfoenix.controls.JFXButton?>
 <?import com.jfoenix.controls.JFXComboBox?>
 <?import com.jfoenix.controls.JFXDatePicker?>
-<?import com.jfoenix.controls.JFXListView?>
 <?import com.jfoenix.controls.JFXRadioButton?>
 <?import com.jfoenix.controls.JFXTabPane?>
 <?import com.jfoenix.controls.JFXTextArea?>
@@ -27,8 +26,9 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
+<?import org.controlsfx.control.CheckComboBox?>
 
-<AnchorPane fx:id="anchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720" prefWidth="1280" styleClass="AnchorPainMain" stylesheets="@Default.css" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.d19.teamL.RoomBooking.BookRoomController">
+<AnchorPane fx:id="anchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720" prefWidth="1280" styleClass="AnchorPainMain" stylesheets="@Default.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.d19.teamL.RoomBooking.BookRoomController">
 
     <children>
         <VBox prefHeight="200.0" prefWidth="100.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
@@ -374,23 +374,31 @@
                                 <Font size="20.0" />
                             </font>
                         </Label>
-                        <JFXRadioButton fx:id="privateEvent" styleClass="radio-buttonDJ" stylesheets="@Default.css" text="Private Event" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="3">
+                        <JFXRadioButton fx:id="privateEvent" styleClass="radio-buttonDJ" stylesheets="@Default.css" text="Private Event" GridPane.halignment="LEFT" GridPane.rowIndex="4">
                             <font>
                                 <Font size="16.0" />
                             </font>
                         </JFXRadioButton>
-                        <JFXTextField promptText="Event Name" fx:id="eventName" styleClass="jfx-text-areaServiceRequest" stylesheets="@Default.css" GridPane.columnSpan="2" GridPane.rowIndex="1">
+                        <JFXTextField fx:id="eventName" promptText="Event Name" styleClass="jfx-text-areaServiceRequest" stylesheets="@Default.css" GridPane.columnSpan="2" GridPane.rowIndex="1">
                             <font>
                                 <Font size="18.0" />
                             </font>
                         </JFXTextField>
-                        <JFXTextArea promptText="Event Description" fx:id="eventDescription" styleClass="jfx-text-areaServiceRequest" stylesheets="@Default.css" GridPane.columnSpan="2" GridPane.rowIndex="2">
+                        <JFXTextArea fx:id="eventDescription" promptText="Event Description" styleClass="jfx-text-areaServiceRequest" stylesheets="@Default.css" GridPane.columnSpan="2" GridPane.rowIndex="2">
                             <font>
                                 <Font size="18.0" />
                             </font></JFXTextArea>
                         <JFXComboBox fx:id="eventType" maxWidth="1.7976931348623157E308" promptText="Event Type" styleClass="jfx-combo-box-PathMenu" GridPane.rowIndex="3" />
-                        <JFXListView GridPane.columnSpan="2" GridPane.rowIndex="4" />
                         <JFXButton fx:id="requestRoom" onAction="#findRoom" style="-fx-border-radius: 100; -fx-background-radius: 100;" styleClass="buttonDJ" stylesheets="@Default.css" text="Make Reservation" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="5" />
+                  <CheckComboBox fx:id="eventEmployees" maxWidth="1.7976931348623157E308" styleClass="check-combo-box" stylesheets="@Default.css" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                  <Label text="Invite Employees" textFill="WHITE" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.rowIndex="3">
+                     <font>
+                        <Font name="Trebuchet MS" size="14.0" />
+                     </font>
+                     <GridPane.margin>
+                        <Insets left="10.0" />
+                     </GridPane.margin>
+                  </Label>
                     </children>
                     <padding>
                         <Insets left="10.0" right="10.0" />

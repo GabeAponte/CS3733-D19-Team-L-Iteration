@@ -42,6 +42,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 import javafx.util.Duration;
+import org.controlsfx.control.CheckComboBox;
 import org.w3c.dom.Text;
 
 public class BookRoomController {
@@ -202,8 +203,7 @@ public class BookRoomController {
     private JFXComboBox<String> eventType;
 
     @FXML
-    private ListView<EmployeeAccess> myListView;
-    private ObservableList<EmployeeAccess> listViewData = FXCollections.observableArrayList();
+    CheckComboBox<String> eventEmployees;
 
     Timeline timeout;
     VisualSimulationThread sim;
@@ -343,6 +343,8 @@ public class BookRoomController {
                 fieldsEntered();
             }
         });
+
+        eventEmployees.setAccessibleText("Choose Employees");
 
         dailyDatePicker.setValue(LocalDate.now());
         findRooms();
