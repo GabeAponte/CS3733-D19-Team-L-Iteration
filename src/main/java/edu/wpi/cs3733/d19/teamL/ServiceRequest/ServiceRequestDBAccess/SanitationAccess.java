@@ -32,10 +32,10 @@ public class SanitationAccess extends DBAccess {
      * adds a new religious request to the database
      *
      */
-    public void makeRequest(String desc, String location, String type, String urgency){
+    public void makeRequest(String desc, String location, String type, String urgency, String reportTime){
         String sql = "insert into sanitationRequest(" +
-                "comment, type, location, creationTime, creationDate, urgencyLevel)" +
-                "values (?, ?, ?, ?, ?, ?)";
+                "comment, type, location, creationTime, creationDate, urgencyLevel, reportTime)" +
+                "values (?, ?, ?, ?, ?, ?, ?)";
 
         try (Connection conn = this.connect();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
@@ -46,6 +46,7 @@ public class SanitationAccess extends DBAccess {
             pstmt.setInt(4, Integer.parseInt(tdf.format(date.getTime())));
             pstmt.setString(5, sdf.format(date));
             pstmt.setString(6, urgency);
+            pstmt.setString(7, reportTime);
             pstmt.executeUpdate();
         } catch (SQLException e) {
             System.out.println(e.getMessage());

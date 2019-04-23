@@ -32,10 +32,10 @@ public class FloristDeliveryAccess extends DBAccess {
      * adds a new religious request to the database
      *
      */
-    public void makeRequest(String desc, String recieverName, String location, String flowerName){
+    public void makeRequest(String desc, String recieverName, String location, String flowerName, String reportTime){
         String sql = "insert into floristDeliveryRequest(" +
-                "comment, receiverName, room, creationTime, creationDate, flowerName)" +
-                "values (?, ?, ?, ?, ?, ?)";
+                "comment, receiverName, room, creationTime, creationDate, flowerName, reportTime)" +
+                "values (?, ?, ?, ?, ?, ?, ?)";
 
         try (Connection conn = this.connect();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
@@ -46,6 +46,7 @@ public class FloristDeliveryAccess extends DBAccess {
             pstmt.setInt(4, Integer.parseInt(tdf.format(date.getTime())));
             pstmt.setString(5, sdf.format(date));
             pstmt.setString(6, flowerName);
+            pstmt.setString(7, reportTime);
             pstmt.executeUpdate();
         } catch (SQLException e) {
             System.out.println(e.getMessage());
