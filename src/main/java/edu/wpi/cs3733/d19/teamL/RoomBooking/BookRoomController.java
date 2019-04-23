@@ -85,6 +85,8 @@ public class BookRoomController {
 
     private TreeItem Root = new TreeItem<>("rootxxx");
 
+    private TreeItem WeeklyRoot = new TreeItem("rootxxx");
+
     String chosenRoom;
     LocalDate chosenDate;
 
@@ -331,6 +333,7 @@ public class BookRoomController {
         dailyDatePicker.setValue(LocalDate.now());
         findRooms();
         roomPicker.getItems().addAll("Room 1 - Computer", "Room 2 - Computer", "Room 3 - Computer", "Room 4 - Classroom", "Room 5 - Computer", "Room 6 - Classroom", "Room 7 - Computer", "Room 8 - Classroom", "Room 9 - Computer", "Mission Hall Auditorium");
+        roomPicker.getSelectionModel().select(0);
 
     }
 
@@ -1219,7 +1222,7 @@ public class BookRoomController {
         Singleton single = Singleton.getInstance();
         single.setLastTime();
         weeklySchedule.setRoot(null);
-        Root.getChildren().clear();
+        WeeklyRoot.getChildren().clear();
         RoomAccess ra = new RoomAccess();
         LocalDate givenDate = weeklyDatePicker.getValue();
         LocalTime startLT = LocalTime.of(0,0);
@@ -1227,7 +1230,7 @@ public class BookRoomController {
         for(int i = 0; i < 48; i++) {
             //System.out.println("Start Time: " + startLT + " End Time: " + endLT);
             TreeItem<WeeklyRoom> bookedRooms = new TreeItem<WeeklyRoom>(new WeeklyRoom(startLT, endLT, theDate, roomName));
-            Root.getChildren().add(bookedRooms);
+            WeeklyRoot.getChildren().add(bookedRooms);
 
             if(i == 46){
                 startLT = startLT.plusMinutes(30);
@@ -1453,7 +1456,7 @@ public class BookRoomController {
         weeklySchedule.getColumns().clear();
         weeklySchedule.getColumns().addAll(weeklyTimeCol, sunCol, monCol, tueCol, wedCol, thuCol, friCol, satCol);
         weeklySchedule.setTreeColumn(weeklyTimeCol);
-        weeklySchedule.setRoot(Root);
+        weeklySchedule.setRoot(WeeklyRoot);
         weeklySchedule.setShowRoot(false);
         single.setLastTime();
     }
