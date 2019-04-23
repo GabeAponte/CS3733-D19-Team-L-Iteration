@@ -2,6 +2,7 @@ package edu.wpi.cs3733.d19.teamL.ServiceRequest.FulfillServiceRequest;
 
 import edu.wpi.cs3733.d19.teamL.Account.EmployeeAccess;
 import edu.wpi.cs3733.d19.teamL.HomeScreens.HomeScreenController;
+import edu.wpi.cs3733.d19.teamL.Reports.requestReportAccess;
 import edu.wpi.cs3733.d19.teamL.ServiceRequest.ServiceRequestDBAccess.ServiceRequestAccess;
 import edu.wpi.cs3733.d19.teamL.ServiceRequest.ServiceRequestThreads.ServiceRequestThread;
 import edu.wpi.cs3733.d19.teamL.Singleton;
@@ -19,6 +20,7 @@ import javafx.stage.Stage;
 import javafx.util.Duration;
 
 import java.io.IOException;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 
 public class FulfillRequestController {
@@ -215,6 +217,7 @@ public class FulfillRequestController {
         Singleton single = Singleton.getInstance();
         single.setLastTime();
         ServiceRequestAccess sra = new ServiceRequestAccess();
+        requestReportAccess ra = new requestReportAccess();
         if(single.isIsAdmin() && !fulfill.isSelected()) {
             sra.assignEmployee(this.rid, staffMember.getValue(), this.table);
             ServiceRequestThread sThread = new ServiceRequestThread(srt, staffMember.getValue(), field);
@@ -222,9 +225,14 @@ public class FulfillRequestController {
         }
         if(fulfill.isSelected()){
             sra.fulfillRequest(this.rid,this.table);
+            String reportTime = sra.getReportTime(this.table, this.rid);
+            String timeCompleted = LocalDateTime.now().toString();
+            ra.assignReportAndFufill(reportTime, staffMember.getValue(),timeCompleted);
         }
         if(staffMember.getValue() != null){
             backPressed();
+            String reportTime = sra.getReportTime(this.table, this.rid);
+            ra.assignReport(reportTime, staffMember.getValue());
         }
     }
 

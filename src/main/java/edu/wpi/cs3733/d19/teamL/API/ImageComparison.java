@@ -1,7 +1,6 @@
 package edu.wpi.cs3733.d19.teamL.API;
 
 import edu.wpi.cs3733.d19.teamL.Account.EmployeeAccess;
-import org.opencv.imgcodecs.Imgcodecs;
 
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
