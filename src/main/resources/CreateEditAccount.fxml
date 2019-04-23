@@ -25,7 +25,7 @@
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720" prefWidth="1280" styleClass="AnchorPainMain" stylesheets="@Default.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.d19.teamL.Account.CreateEditAccountController">
 
    <children>
-      <ImageView fitHeight="1122.0" fitWidth="1486.0" opacity="0.20" pickOnBounds="true" preserveRatio="true">
+      <ImageView fitHeight="1194.0" fitWidth="1645.0" layoutX="-17.0" layoutY="-17.0" opacity="0.2" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@SoftEng_UI_Mockup_Pics/otherBackground.jpg" />
          </image>
@@ -131,7 +131,7 @@
                   </VBox>
                   <JFXTextField fx:id="employeeID" focusColor="#f6bd38" onKeyReleased="#checkSubmit" prefHeight="40.0" prefWidth="311.0" promptText="Employee ID (Can't be Changed)" styleClass="jfx-text-field-normal" stylesheets="@Default.css" unFocusColor="WHITE" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" GridPane.vgrow="ALWAYS">
                      <GridPane.margin>
-                        <Insets left="250.0" right="150.0" />
+                        <Insets left="175.0" right="75.0" />
                      </GridPane.margin>
                      <font>
                         <Font name="Trebuchet MS" size="19.0" />
@@ -139,7 +139,7 @@
                   </JFXTextField>
                   <JFXTextField fx:id="lastName" focusColor="#f6bd38" onKeyReleased="#checkSubmit" promptText="Last Name" styleClass="jfx-text-field-normal" stylesheets="@Default.css" unFocusColor="WHITE" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="2" GridPane.vgrow="ALWAYS">
                      <GridPane.margin>
-                        <Insets left="250.0" right="150.0" />
+                        <Insets left="175.0" right="75.0" />
                      </GridPane.margin>
                      <font>
                         <Font name="Trebuchet MS" size="20.0" />
@@ -147,7 +147,7 @@
                   </JFXTextField>
                   <JFXTextField fx:id="firstName" focusColor="#f6bd38" onKeyReleased="#checkSubmit" promptText="First Name" styleClass="jfx-text-field-normal" stylesheets="@Default.css" unFocusColor="WHITE" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="2" GridPane.vgrow="ALWAYS">
                      <GridPane.margin>
-                        <Insets left="150.0" right="250.0" />
+                        <Insets left="75.0" right="175.0" />
                      </GridPane.margin>
                      <font>
                         <Font name="Trebuchet MS" size="20.0" />
@@ -169,7 +169,7 @@
                         <Font name="Trebuchet MS" size="20.0" />
                      </font>
                      <GridPane.margin>
-                        <Insets left="250.0" right="150.0" />
+                        <Insets left="175.0" right="75.0" />
                      </GridPane.margin>
                   </JFXTextField>
                   <JFXTextField fx:id="email" focusColor="#f6bd38" onKeyReleased="#checkSubmit" prefHeight="40.0" prefWidth="551.0" promptText="Email address" styleClass="jfx-text-field-normal" stylesheets="@Default.css" unFocusColor="WHITE" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="3" GridPane.vgrow="ALWAYS">
@@ -177,7 +177,7 @@
                         <Font name="Trebuchet MS" size="20.0" />
                      </font>
                      <GridPane.margin>
-                        <Insets left="150.0" right="250.0" />
+                        <Insets left="75.0" right="175.0" />
                      </GridPane.margin>
                   </JFXTextField>
                   <JFXRadioButton fx:id="isAdmin" contentDisplay="CENTER" prefHeight="26.0" prefWidth="122.0" stylesheets="@Default.css" text="Is Admin?" textFill="WHITE" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="4" GridPane.valignment="CENTER">
@@ -211,7 +211,7 @@
                               <DropShadow color="WHITE" />
                            </effect>
                            <GridPane.margin>
-                              <Insets bottom="20.0" left="100.0" />
+                              <Insets bottom="20.0" left="100.0" top="20.0" />
                            </GridPane.margin>
                         </JFXButton>
                         <ImageView fx:id="picView" fitHeight="121.0" fitWidth="193.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1">
@@ -226,7 +226,7 @@
                         <Font name="Trebuchet MS" size="20.0" />
                      </font>
                      <GridPane.margin>
-                        <Insets left="150.0" right="250.0" />
+                        <Insets left="75.0" right="175.0" />
                      </GridPane.margin>
                   </JFXTextField>
                   <VBox prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="1" GridPane.rowIndex="6">
@@ -252,7 +252,7 @@
                             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                           </rowConstraints>
                            <children>
-                              <JFXButton fx:id="submit" alignment="CENTER" buttonType="RAISED" onAction="#submitPressed" prefHeight="55.0" prefWidth="160.0" styleClass="buttonMain" stylesheets="@Default.css" text="Submit" textFill="WHITE" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.halignment="LEFT" GridPane.valignment="CENTER">
+                              <JFXButton fx:id="submit" alignment="CENTER" buttonType="RAISED" onAction="#submitPressed" prefHeight="70.0" prefWidth="160.0" styleClass="buttonMain" stylesheets="@Default.css" text="Submit" textFill="WHITE" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.halignment="LEFT" GridPane.valignment="CENTER">
                                  <font>
                                     <Font name="Trebuchet MS" size="30.0" />
                                  </font>
@@ -260,7 +260,7 @@
                                     <Insets bottom="50.0" right="100.0" />
                                  </GridPane.margin>
                               </JFXButton>
-                              <JFXButton fx:id="delete" alignment="CENTER" buttonType="RAISED" contentDisplay="RIGHT" onAction="#deleteClicked" prefHeight="7.0" prefWidth="160.0" styleClass="buttonMain" stylesheets="@Default.css" text="Delete" textAlignment="CENTER" textFill="WHITE" GridPane.halignment="RIGHT" GridPane.valignment="CENTER">
+                              <JFXButton fx:id="delete" alignment="CENTER" buttonType="RAISED" contentDisplay="RIGHT" onAction="#deleteClicked" prefHeight="70.0" prefWidth="160.0" styleClass="buttonMain" stylesheets="@Default.css" text="Delete" textAlignment="CENTER" textFill="WHITE" GridPane.halignment="RIGHT" GridPane.valignment="CENTER">
                                  <font>
                                     <Font name="Trebuchet MS" size="30.0" />
                                  </font>
@@ -274,18 +274,18 @@
                   </VBox>
                   <JFXPasswordField fx:id="password" focusColor="#f5d96b" promptText="Password" styleClass="jfx-password-fieldEdit" stylesheets="@Default.css" unFocusColor="WHITE" GridPane.rowIndex="5">
                      <GridPane.margin>
-                        <Insets left="250.0" right="150.0" />
+                        <Insets left="175.0" right="75.0" />
                      </GridPane.margin>
                      <font>
                         <Font name="Trebuchet MS" size="20.0" />
                      </font>
                   </JFXPasswordField>
-                  <JFXPasswordField fx:id="confirmPassword" focusColor="#f5d96b" promptText="Password" styleClass="jfx-password-fieldEdit" stylesheets="@Default.css" unFocusColor="WHITE" GridPane.columnIndex="1" GridPane.rowIndex="5">
+                  <JFXPasswordField fx:id="confirmPassword" focusColor="#f5d96b" promptText="Confirm Password" styleClass="jfx-password-fieldEdit" stylesheets="@Default.css" unFocusColor="WHITE" GridPane.columnIndex="1" GridPane.rowIndex="5">
                      <font>
                         <Font name="Trebuchet MS" size="20.0" />
                      </font>
                      <GridPane.margin>
-                        <Insets left="150.0" right="250.0" />
+                        <Insets left="75.0" right="175.0" />
                      </GridPane.margin>
                   </JFXPasswordField>
                   <GridPane hgap="10.0" GridPane.rowIndex="4">
@@ -297,17 +297,17 @@
                       <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="ALWAYS" />
                     </rowConstraints>
                      <children>
-                        <JFXTextField fx:id="position" focusColor="#f6bd38" minWidth="-Infinity" onKeyReleased="#checkSubmit" prefHeight="40.0" prefWidth="203.0" promptText="Position" styleClass="jfx-text-field-normal" stylesheets="@Default.css" unFocusColor="WHITE" GridPane.halignment="LEFT" GridPane.hgrow="ALWAYS">
+                        <JFXTextField fx:id="position" focusColor="#f6bd38" minWidth="-Infinity" onKeyReleased="#checkSubmit" prefHeight="40.0" prefWidth="167.0" promptText="Position" styleClass="jfx-text-field-normal" stylesheets="@Default.css" unFocusColor="WHITE" GridPane.halignment="LEFT" GridPane.hgrow="ALWAYS">
                            <font>
                               <Font name="Trebuchet MS" size="20.0" />
                            </font>
                            <GridPane.margin>
-                              <Insets left="150.0" />
+                              <Insets left="175.0" />
                            </GridPane.margin>
                         </JFXTextField>
                         <JFXComboBox fx:id="department" maxWidth="1.7976931348623157E308" prefHeight="40.0" prefWidth="198.0" promptText="Department" stylesheets="@Default.css" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
                            <GridPane.margin>
-                              <Insets right="50.0" />
+                              <Insets left="10.0" right="75.0" />
                            </GridPane.margin>
                         </JFXComboBox>
                      </children>
