@@ -68,17 +68,30 @@ public class AboutPageFancyController {
     @FXML
     private void backPressed(ActionEvent event){
         timeout.stop();
-        saveState();
         Singleton single = Singleton.getInstance();
+        single.setDoPopup(true);
         single.setLastTime();
+        Memento m = single.restore();
+        Parent newPage = null;
         try {
-            Parent newPage = FXMLLoader.load(getClass().getClassLoader().getResource("HospitalHome.fxml"));
-            ((Node) event.getSource()).getScene().setRoot(newPage);
-
-        } catch (Exception e){
+            newPage = FXMLLoader.load(getClass().getClassLoader().getResource(m.getFxml()));
+        } catch (IOException e) {
+            e.printStackTrace();
         }
+        ((Node) event.getSource()).getScene().setRoot(newPage);
     }
 
+    @FXML
+    private void goHome(ActionEvent event) throws IOException {
+        timeout.stop();
+        Singleton single = Singleton.getInstance();
+        single.setLastTime();
+        single.setDoPopup(true);
+        saveState();
+        Memento m = single.getOrig();
+        Parent newPage = FXMLLoader.load(getClass().getClassLoader().getResource(m.getFxml()));
+        ((Node) event.getSource()).getScene().setRoot(newPage);
+    }
 
     /**@author Nathan
      * Saves the memento state
