@@ -371,6 +371,19 @@ public class PathFindingController {
         direction.clear();
     }
 
+    @FXML
+    private void clicked4(){
+        single.setLastTime();
+        Map.setImage(new Image("/SoftEng_UI_Mockup_Pics/04_thefourthfloor.png"));
+        currentMap = "4";
+
+        changeMapLabel();
+        displayKiosk();
+        clear();
+        gesturePane.reset();
+        direction.clear();
+    }
+
 
 
     @FXML
@@ -415,6 +428,7 @@ public class PathFindingController {
         mapURLs.add("/SoftEng_UI_Mockup_Pics/00_thelowerlevel2.png");
         mapURLs.add("/SoftEng_UI_Mockup_Pics/01_thefirstfloor.png");
         mapURLs.add("/SoftEng_UI_Mockup_Pics/02_thesecondfloor.png");
+        mapURLs.add("/SoftEng_UI_Mockup_Pics/04_thefourthfloor.png");
     }
 
     private Label startLabel;
@@ -718,6 +732,9 @@ public class PathFindingController {
         if (startNode.getFloor().equals("3") && !currentMap.equals("3")) {
             clicked3();
         }
+        if (startNode.getFloor().equals("4") && !currentMap.equals("4")) {
+            clicked4();
+        }
 
         displayPath();
 
@@ -875,8 +892,8 @@ public class PathFindingController {
      * @param end
      */
     private void autoZoom(Location start, Location end) {
-        if((Math.abs((start.getXcoord() - end.getXcoord()))) < 3200 &&
-                Math.abs(((start.getYcoord() - end.getYcoord()))) < 1050){
+        if((Math.abs((start.getXcoord() - end.getXcoord()))) < 3200 && Math.abs(((start.getYcoord() - end.getYcoord()))) < 1050
+                || (Math.abs((start.getXcoord() - end.getXcoord()))) < 2500 && Math.abs(((start.getYcoord() - end.getYcoord()))) < 3050 ){
             double x = gesturePane.getWidth()/(Math.abs((start.getXcoord() - end.getXcoord())));
             double y = gesturePane.getHeight()/Math.abs(((start.getYcoord() - end.getYcoord())));
             double scale = (Math.min(x, y)/2) + 1.1;
@@ -906,7 +923,7 @@ public class PathFindingController {
         int totalNum = countFloors(floors);
         int center = (numOfBut + 1)/2;
         if(totalNum % 2 == 0){
-            shift = 130;
+            shift = 135;
         }
         boolean change = false;
         for(int i = 0; i < floors.size()-1; i++) {
@@ -981,6 +998,10 @@ public class PathFindingController {
                 }
             }
             counter++;
+            //Displays the part of the path you're on by highlighting the button.
+//            if(fBut.getText().equals(currentMap)) {
+//                fBut.setStyle("-fx-background-color: #012d5a; -fx-text-fill: white");
+//            }
         }
 
     }
@@ -1046,6 +1067,12 @@ public class PathFindingController {
             currentMap = "3";
             changeMapLabel();
         }
+        if(floor.equals("4")) {
+            Map.setImage(new Image("/SoftEng_UI_Mockup_Pics/04_thefourthfloor.png"));
+            currentMap = "4";
+            changeMapLabel();
+        }
+
 
         //Create all necessary objects for animating path.
         Circle dude  = new Circle();
@@ -1128,6 +1155,18 @@ public class PathFindingController {
             endCircle.setStroke(DODGERBLUE);
             endCircle.setFill(DODGERBLUE);
             endLabel.setStyle("-fx-text-fill: WHITE;-fx-font-size: 6; -fx-background-color: rgba(51, 100, 255, 0.75); -fx-border-color: WHITE; -fx-border-width: 1; -fx-min-width: 40;");
+        }
+        //Handles cases when you only display one location
+        if(path.getPath().get(begin).getLocID().equals(path.getPath().get(count).getLocID()) && path.getPath().get(begin).getLocID().equals(startNode.getLocID())) {
+            endLabel.setVisible(false);
+        }
+        else if(path.getPath().get(begin).getLocID().equals(path.getPath().get(count).getLocID())) {
+            startLabel.setVisible(false);
+            endLabel.setVisible(true);
+        }
+        else {
+            startLabel.setVisible(true);
+            endLabel.setVisible(true);
         }
         //Adding everything necessary to display the path
         labels.add(startLabel);
@@ -1245,6 +1284,9 @@ public class PathFindingController {
         }
         if (Floor.getValue() == "3") {
             pickedFloor = "3";
+        }
+        if (Floor.getValue() == "4") {
+            pickedFloor = "4";
         }
     }
 
@@ -1769,6 +1811,7 @@ public class PathFindingController {
         floorList.add("1");
         floorList.add("2");
         floorList.add("3");
+        floorList.add("4");
     }
 
     @FXML
@@ -2232,6 +2275,9 @@ public class PathFindingController {
         }
         if (currentMap.equals("3")) {
             clicked3();
+        }
+        if (currentMap.equals("4")) {
+            clicked4();
         }
     }
 
