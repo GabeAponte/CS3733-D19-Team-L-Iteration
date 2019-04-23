@@ -2792,21 +2792,8 @@ public class PathFindingController {
 
                         saveState();
 
-                        FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("BookRoom.fxml"));
-
-                        Parent sceneMain = loader.load();
-
-                        BookRoomController controller = loader.<BookRoomController>getController();
-//                        controller.loadToPathFind(DisplayRooms.get(k).getRoomName());
-
-                        Scene scene = new Scene(sceneMain);
-
-                        Stage theStage = (Stage) back.getScene().getWindow();
-                        theStage.setScene(scene);
-//                        stage.initModality(Modality.APPLICATION_MODAL);
-//                        stage.initOwner(requestType.getScene().getWindow());
-//                        stage.showAndWait();
-
+                        Parent newPage = FXMLLoader.load(getClass().getClassLoader().getResource("BookRoom.fxml"));
+                        ((Node) event.getSource()).getScene().setRoot(newPage);
                     } catch (IOException ex) {
 
                     }
