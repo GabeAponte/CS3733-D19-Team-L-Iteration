@@ -10,6 +10,22 @@
 
 }
 
+.buttonMainNoB{
+    -fx-background-color: white;
+    -fx-border-color: #F5D96B;
+    -fx-border-radius: 10;
+    -fx-border-width: 4;
+    -fx-text-fill: #012d5a;
+    -fx-background-radius: 15;
+    -jfx-button-type: RAISED;
+}
+
+.buttonMainNoB:hover{
+    -fx-background-color: #012d5a;
+    -fx-text-fill: white;
+
+}
+
 .buttonMain .glyph-icon {
     -fx-fill: #012d5a;
 }
@@ -28,9 +44,9 @@
     -fx-background-color: transparent;
     -fx-border-color: #F5D96B;
     -fx-border-radius: 10;
-    -fx-border-width: 3;
+    -fx-border-width: 4;
     -fx-text-fill: white;
-    -fx-background-radius: 10;
+    -fx-background-radius: 15;
 
 }
 
@@ -87,6 +103,7 @@
 .buttonToolbar:hover{
     -fx-background-color: #012d5a;
     -fx-text-fill: white;
+
 }
 
 .buttonToolbar:hover .glyph-icon{
@@ -107,6 +124,7 @@
 .buttonMap:hover{
     -fx-background-color: #012d5a;
     -fx-text-fill: white;
+
 }
 
 .buttonMap:hover .glyph-icon{
@@ -133,21 +151,31 @@
     -jfx-selected-color:  #f5d96b;
 
     -jfx-unselected-color: #012d5a;
+    -fx-text-fill: #012d5a;
+}
+
+.radio-buttonDJ{
+    -jfx-selected-color:  #f5d96b;
+
+    -jfx-unselected-color: white;
     -fx-text-fill: white;
 }
 
 .labelTitle {
     -fx-text-fill: #f5d96b;
+
 }
 .labelPopupTitle {
-    -fx-text-fill: black;
+    -fx-text-fill: #012d5a;
 }
+
 .labelPopupDesc {
     -fx-text-fill: white;
 }
 
 .labelMapFloor {
     -fx-text-fill: #012d5a;
+
 }
 
 .AnchorPainMain{
@@ -157,6 +185,7 @@
 
 .text-area{
     -fx-text-fill: white;
+
 }
 
 .jfx-tree-table-view {
@@ -164,6 +193,9 @@
     -fx-background-radius: 20;
     -fx-border-width: 5;
     -fx-border-radius: 20;
+    -fx-font-size: 20;
+    -fx-font-family: "Trebuchet MS";
+
 }
 
 
@@ -210,28 +242,30 @@
     -fx-text-fill: #F5D96B;
 }
 
-/*.buttonMain{
+.buttonDJ{
     -fx-border-color: #F5D96B;
+    -fx-background-color: #012d5a;
     -fx-text-fill: white;
 }
 
-.buttonMain .glyph-icon {
+.buttonDJ .glyph-icon {
     -fx-fill: white;
 }
 
-.buttonMain:hover{
+.buttonDJ:hover {
     -fx-background-color: white;
     -fx-text-fill: #012d5a;
 }
 
-.buttonMain:hover .glyph-icon{
+.buttonDJ:hover .glyph-icon{
     -fx-fill: #012d5a;
-}*/
+}
 
 .jfx-text-field-twitter {
     -fx-background-color: white;
     -fx-prompt-text-fill: black;
     -fx-text-fill: black;
+
     -jfx-focus-color: transparent;
     -jfx-unfocus-color: transparent;
 }
@@ -275,25 +309,32 @@
     -fx-text-fill: black;
     -jfx-focus-color: #012d5a;
     -jfx-unfocus-color: transparent;
-    -fx-background-radius: 25;
-    -fx-border-color: #012d5a;
-    -fx-border-width: 3;
-    -fx-border-radius: 20;
+    -fx-background-radius: 15;
+    -fx-border-color: #f5d96b;
+    -fx-border-width: 4;
+    -fx-border-radius: 10;
+
 }
 
 .jfx-text-areaSuggestionTable {
-    -fx-text-fill: white;
-    -fx-prompt-text-fill: white;
-    -jfx-focus-color: #f5d96b;
+    -fx-text-fill: #012d5a;
+    -fx-prompt-text-fill: #012d5a;
+    -jfx-focus-color: transparent;
     -jfx-unfocus-color: transparent;
     -fx-border-color: #f5d96b;
     -fx-border-radius: 20;
+    -fx-background-radius: 25;
+    -fx-background-color: white;
+    -fx-border-width: 4;
+
+
 }
 
 .jfx-combo-box {
     -fx-font-size : 20 pt;
+    -fx-font-family: "Trebuchet MS";
     -fx-text-fill : #012d5a;
-    -jfx-focus-color: #f5d96b;
+    -jfx-focus-color: #012d5a;
     -jfx-unfocus-color: #012d5a;
     -fx-prompt-text-fill: #012d5a;
 
@@ -301,12 +342,14 @@
 }
 
 .jfx-combo-box .text-field {
-    -fx-text-fill : white;
+    -fx-text-fill : #012d5a;
+
 
 }
 
 .jfx-combo-box .text-area {
-    -fx-text-fill : white;
+    -fx-text-fill : #012d5a;
+
 
 }
 
@@ -316,15 +359,16 @@
 }
 
 .jfx-combo-box .list-cell {
-    -fx-text-fill : white;
+    -fx-text-fill : #012d5a;
+
 }
 
 .jfx-combo-box .arrow {
-    -fx-background-color: #f5d96b;
+    -fx-background-color: #012d5a;
 }
 
 .jfx-combo-box-Popup {
-    -fx-font-size : 17 pt;
+    -fx-font-size : 15 pt;
     -fx-text-fill : white;
     -jfx-focus-color: #f5d96b;
     -jfx-unfocus-color: white;
@@ -454,6 +498,7 @@
     -jfx-focus-color: #f5d96b;
     -jfx-unfocus-color: white;
     -jfx-default-color: #f5d96b;
+
 }
 
 .jfx-time-picker .text-field{
@@ -463,6 +508,7 @@
     -jfx-focus-color: #f5d96b;
     -jfx-unfocus-color: white;
     -jfx-default-color: #f5d96b;
+
 }
 
 .jfx-time-picker .input-line {

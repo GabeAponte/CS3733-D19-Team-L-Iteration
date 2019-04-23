@@ -74,7 +74,7 @@
                                             <children>
                                                 <JFXButton fx:id="logOut" alignment="CENTER" buttonType="RAISED" contentDisplay="TOP" focusTraversable="false" graphicTextGap="0.0" minHeight="-Infinity" onAction="#logOut" prefHeight="75.0" prefWidth="100.0" ripplerFill="#b0b0b0" styleClass="buttonToolbar" stylesheets="@Default.css" text="Log Out" textAlignment="CENTER" textFill="#012d5a">
                                                     <font>
-                                                        <Font name="System Bold" size="17.0" />
+                                                        <Font name="Trebuchet MS Bold" size="17.0" />
                                                     </font>
                                                     <graphic>
                                                         <FontAwesomeIconView fill="#012d5a" glyphName="USER" size="35" strokeMiterLimit="0.0" textAlignment="CENTER" wrappingWidth="27.27392578125" />
@@ -130,7 +130,7 @@
                         </JFXButton>
                         <JFXButton fx:id="ReligiousServices" buttonType="RAISED" contentDisplay="TOP" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" onAction="#makeRequest" style="-fx-border-radius: 10; -fx-background-radius: 10; -fx-border-width: 5;" styleClass="buttonBig" stylesheets="@Default.css" text="Religious Services" textFill="WHITE" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="2" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
                             <font>
-                                <Font size="25.0" />
+                                <Font name="Trebuchet MS" size="25.0" />
                             </font>
                             <GridPane.margin>
                                 <Insets />
@@ -141,7 +141,7 @@
                         </JFXButton>
                         <JFXButton fx:id="LanguageInterpreter" buttonType="RAISED" contentDisplay="TOP" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" onAction="#makeRequest" style="-fx-border-radius: 10; -fx-background-radius: 10; -fx-border-width: 5;" styleClass="buttonBig" stylesheets="@Default.css" text="Language Interpretrer" textFill="WHITE" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="3" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
                             <font>
-                                <Font size="25.0" />
+                                <Font name="Trebuchet MS" size="25.0" />
                             </font>
                             <GridPane.margin>
                                 <Insets />
@@ -152,7 +152,7 @@
                         </JFXButton>
                         <JFXButton fx:id="FacilitiesMaintenance" buttonType="RAISED" contentDisplay="TOP" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" onAction="#makeRequest" style="-fx-border-radius: 10; -fx-background-radius: 10; -fx-border-width: 5;" styleClass="buttonBig" stylesheets="@Default.css" text="Facilities Maintenance" textFill="WHITE" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
                             <font>
-                                <Font size="25.0" />
+                                <Font name="Trebuchet MS" size="25.0" />
                             </font>
                             <GridPane.margin>
                                 <Insets />
@@ -163,7 +163,7 @@
                         </JFXButton>
                         <JFXButton fx:id="SecurityStaff" buttonType="RAISED" contentDisplay="TOP" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" onAction="#makeRequest" style="-fx-border-radius: 10; -fx-background-radius: 10; -fx-border-width: 5;" styleClass="buttonBig" stylesheets="@Default.css" text="Security Staff" textFill="WHITE" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="3" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
                             <font>
-                                <Font size="25.0" />
+                                <Font name="Trebuchet MS" size="25.0" />
                             </font>
                             <GridPane.margin>
                                 <Insets />
@@ -174,7 +174,7 @@
                         </JFXButton>
                         <JFXButton fx:id="SanitationServices" buttonType="RAISED" contentDisplay="TOP" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" onAction="#makeRequest" style="-fx-border-radius: 10; -fx-background-radius: 10; -fx-border-width: 5;" styleClass="buttonBig" stylesheets="@Default.css" text="Sanitation" textFill="WHITE" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="2" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
                             <font>
-                                <Font size="25.0" />
+                                <Font name="Trebuchet MS" size="25.0" />
                             </font>
                             <GridPane.margin>
                                 <Insets />
@@ -185,7 +185,7 @@
                         </JFXButton>
                         <JFXButton fx:id="ExternalTransportation" buttonType="RAISED" contentDisplay="TOP" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" onAction="#makeRequest" style="-fx-border-radius: 10; -fx-background-radius: 10; -fx-border-width: 5;" styleClass="buttonBig" stylesheets="@Default.css" text="External Transportation" textFill="WHITE" GridPane.columnIndex="1" GridPane.rowIndex="1" GridPane.vgrow="ALWAYS">
                             <font>
-                                <Font size="25.0" />
+                                <Font name="Trebuchet MS" size="25.0" />
                             </font>
                             <GridPane.margin>
                                 <Insets />
@@ -196,7 +196,7 @@
                         </JFXButton>
                         <JFXButton fx:id="InternalTransportation" buttonType="RAISED" contentDisplay="TOP" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" onAction="#makeRequest" style="-fx-border-radius: 10; -fx-background-radius: 10; -fx-border-width: 5;" styleClass="buttonBig" stylesheets="@Default.css" text="Internal Transportation" textFill="WHITE" GridPane.columnIndex="1" GridPane.rowIndex="2" GridPane.vgrow="ALWAYS">
                             <font>
-                                <Font size="25.0" />
+                                <Font name="Trebuchet MS" size="25.0" />
                             </font>
                             <GridPane.margin>
                                 <Insets />
@@ -207,7 +207,7 @@
                         </JFXButton>
                         <JFXButton fx:id="AudioVisual" buttonType="RAISED" contentDisplay="TOP" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" onAction="#makeRequest" style="-fx-border-radius: 10; -fx-background-radius: 10; -fx-border-width: 5;" styleClass="buttonBig" stylesheets="@Default.css" text="Audio/Visual" textFill="WHITE" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
                             <font>
-                                <Font size="25.0" />
+                                <Font name="Trebuchet MS" size="25.0" />
                             </font>
                             <GridPane.margin>
                                 <Insets />
@@ -218,7 +218,7 @@
                         </JFXButton>
                         <JFXButton fx:id="Florist" buttonType="RAISED" contentDisplay="TOP" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" onAction="#openGiftService" style="-fx-border-radius: 10; -fx-background-radius: 10; -fx-border-width: 5;" styleClass="buttonBig" stylesheets="@Default.css" text="Gift Store" textFill="WHITE" GridPane.columnIndex="2" GridPane.rowIndex="3" GridPane.vgrow="ALWAYS">
                             <font>
-                                <Font size="25.0" />
+                                <Font name="Trebuchet MS" size="25.0" />
                             </font>
                             <GridPane.margin>
                                 <Insets />
@@ -229,7 +229,7 @@
                         </JFXButton>
                         <JFXButton fx:id="PrescriptionServices" buttonType="RAISED" contentDisplay="TOP" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" onAction="#makeRequest" style="-fx-border-radius: 10; -fx-background-radius: 10; -fx-border-width: 5;" styleClass="buttonBig" stylesheets="@Default.css" text="Prescriptions" textFill="WHITE" GridPane.columnIndex="2" GridPane.rowIndex="2" GridPane.vgrow="ALWAYS">
                             <font>
-                                <Font size="25.0" />
+                                <Font name="Trebuchet MS" size="25.0" />
                             </font>
                             <GridPane.margin>
                                 <Insets />
