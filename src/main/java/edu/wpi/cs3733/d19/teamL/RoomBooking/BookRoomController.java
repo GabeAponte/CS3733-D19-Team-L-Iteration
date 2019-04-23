@@ -16,6 +16,7 @@ import javafx.application.Platform;
 import javafx.beans.property.ReadOnlyObjectWrapper;
 import javafx.beans.value.ChangeListener;
 import javafx.collections.FXCollections;
+import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -40,6 +41,7 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 import javafx.util.Duration;
 import org.controlsfx.control.CheckComboBox;
@@ -383,6 +385,14 @@ public class BookRoomController {
         LocalDate endRoomDate = endDatePicker.getValue();
         LocalDate curDate = LocalDate.now();
         LocalTime curTime = LocalTime.now();
+        boolean eventIsPrivate = false;
+
+        List<String> guestList = eventEmployees.getCheckModel().getCheckedItems();
+        System.out.println(guestList);
+
+        if(privateEvent.isSelected()){
+            eventIsPrivate = true;
+        }
 
         error.setTextFill(Color.RED);
 
@@ -406,14 +416,12 @@ public class BookRoomController {
             error.setText("Please select an end time and a date.");
         }
 
-        //Gabe - error when start time is blank
-        else if (startTimeValue == null) {
-            error.setText("Please select a start time.");
+        else if (eventName == null) {
+            error.setText("Please enter an event name.");
         }
 
-        //Gabe - error when end time is blank
-        else if (endTimeValue == null) {
-            error.setText("Please select an end time.");
+        else if (eventDescription == null) {
+            error.setText("Please enter an event description.");
         }
 
         //Gabe - error when date is blank
@@ -442,6 +450,7 @@ public class BookRoomController {
             ReservationAccess roomReq = new ReservationAccess();
             RoomAccess ra = new RoomAccess();
             roomReq.makeReservation(ra.getRoomID(roomName), employeeID, date, endDate);
+            //add event name, event description, event type, guestList (String), privacy (boolean)
             fieldsEntered();
         }
     }
