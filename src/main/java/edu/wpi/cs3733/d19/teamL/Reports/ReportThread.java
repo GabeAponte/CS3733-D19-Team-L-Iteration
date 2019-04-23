@@ -145,6 +145,12 @@ public class ReportThread extends Thread {
             System.out.println(cool.toString());
             String cool2 = "2019-04-22T19:33:34.360";
             LocalDateTime cool3 = LocalDateTime.parse(cool2);
+            int count = 0;
+            requestReportAccess ra = new requestReportAccess();
+            while (count < ra.countRecords()) {
+                ArrayList<String> data = ra.getItems(count);
+
+            }
         }
         Thread.currentThread().stop();
     }

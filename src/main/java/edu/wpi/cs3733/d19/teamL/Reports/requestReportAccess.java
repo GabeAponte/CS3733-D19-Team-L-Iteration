@@ -76,6 +76,51 @@ public class requestReportAccess extends DBAccess {
         updateField(time, "assignedToEID", assignedTo);
     }
 
+    public ArrayList<String> getItems(int getNum) {
+        String sql = "SELECT * FROM requestReport";
+        int count = 0;
+        //noinspection Convert2Diamond
+        ArrayList<String> data = new ArrayList<String>();
+        try (Connection conn = this.connect();
+             Statement stmt = conn.createStatement();
+             ResultSet rs = stmt.executeQuery(sql)) {
+            while (rs.next()) {
+                if (count == getNum) {
+                    data.add(rs.getString("timeOfRequest"));
+                    return getFields(data, rs);
+                }
+                count++;
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+
+        return null;
+    }
+
+    public int countRecords() {
+        String sql = "select COUNT(*) from requestReport";
+        try (Connection conn = this.connect();
+             Statement stmt = conn.createStatement();
+             ResultSet rs = stmt.executeQuery(sql)) {
+
+            return rs.getInt(1);
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        return 0;
+
+    }
+
+    private ArrayList<String> getFields(ArrayList<String> data, ResultSet rs) throws SQLException {
+        data.add(rs.getString("assignedToEID"));
+        data.add(rs.getString("completedTime"));
+        data.add(rs.getString("type"));
+        data.add(rs.getString("specificType"));
+        data.add(rs.getString("location"));
+        return data;
+    }
+
 
     public static void main(String[] args) {
         requestReportAccess rra = new requestReportAccess();
