@@ -82,6 +82,9 @@ public class AdminLoggedInHomeController {
     private AnchorPane settingPane;
 
     @FXML
+    private ComboBox<String> RequestType;
+
+    @FXML
     private TextField timeoutTime;
     Timeline timeout;
 
@@ -369,5 +372,20 @@ public class AdminLoggedInHomeController {
     private void GeneratePathFindingReport() {
         ReportThread rt = new ReportThread(1);
         rt.start();
+    }
+
+    @FXML
+    private void GenerateGeneralServiceRequestOverview() {
+        ReportThread rt = new ReportThread(2);
+        rt.start();
+    }
+
+    @FXML
+    private void GenerateSpecificServiceRequest() {
+        if (RequestType!=null) {
+            ReportThread rt = new ReportThread(3);
+            rt.setRequestType(RequestType.getValue());
+            rt.start();
+        }
     }
 }
