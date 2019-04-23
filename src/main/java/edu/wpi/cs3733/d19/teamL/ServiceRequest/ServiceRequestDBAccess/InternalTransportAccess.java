@@ -36,10 +36,10 @@ public class InternalTransportAccess extends DBAccess {
      * @param type
      * @param phoneNumber
      */
-    public void makeRequest(String desc, Location startLocation, Location endLocation, String type, String phoneNumber){
+    public void makeRequest(String desc, Location startLocation, Location endLocation, String type, String phoneNumber, String reportTime){
         String sql = "insert into internalTransportationRequest(" +
-                "creationTime, comment, startLocation, endLocation, type, phoneNumber, creationDate)" +
-                "values (?, ?, ?, ?, ?, ?, ?)";
+                "creationTime, comment, startLocation, endLocation, type, phoneNumber, creationDate, reportTime)" +
+                "values (?, ?, ?, ?, ?, ?, ?, ?)";
         //TODO: creationtime and creationdate
 
         //create the date object
@@ -54,6 +54,7 @@ public class InternalTransportAccess extends DBAccess {
             pstmt.setString(5, type);
             pstmt.setString(6, phoneNumber);
             pstmt.setString(7, sdf.format(date));
+            pstmt.setString(8, reportTime);
 
             pstmt.executeUpdate();
         } catch (SQLException e) {

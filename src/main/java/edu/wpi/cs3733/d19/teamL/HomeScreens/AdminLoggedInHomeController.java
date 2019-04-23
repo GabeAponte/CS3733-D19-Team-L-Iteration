@@ -8,6 +8,7 @@ import edu.wpi.cs3733.d19.teamL.Account.CreateEditAccountController;
 import edu.wpi.cs3733.d19.teamL.Account.EmployeeAccess;
 import edu.wpi.cs3733.d19.teamL.Map.Pathfinding.PathFindingController;
 import edu.wpi.cs3733.d19.teamL.Memento;
+import edu.wpi.cs3733.d19.teamL.Reports.ReportThread;
 import edu.wpi.cs3733.d19.teamL.Singleton;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
@@ -66,6 +67,9 @@ public class AdminLoggedInHomeController {
     private Button settingBtn;
 
     @FXML
+    private Button menuBack;
+
+    @FXML
     private Button editAccount;
 
     @FXML
@@ -76,6 +80,9 @@ public class AdminLoggedInHomeController {
 
     @FXML
     private AnchorPane settingPane;
+
+    @FXML
+    private ComboBox<String> RequestType;
 
     @FXML
     private TextField timeoutTime;
@@ -134,12 +141,24 @@ public class AdminLoggedInHomeController {
                 openSetting.setToX(-325.0D);
                 openSetting.play();
             } else {
-                System.out.println("got here");
+                //System.out.println("got here");
                 closeSetting.setToX(this.settingPane.getWidth());
                 closeSetting.play();
             }
 
         });
+        this.menuBack.setOnAction((evt) -> {
+            //  settingPane.setLayoutX(mapColumn.getMaxWidth()-200);
+            if (this.settingPane.getTranslateX() != -325.0D) {
+                openSetting.setToX(-325.0D);
+                openSetting.play();
+            } else {
+                //System.out.println("got here");
+                closeSetting.setToX(this.settingPane.getWidth());
+                closeSetting.play();
+            }
+        });
+
 
     }
     @FXML
@@ -347,5 +366,26 @@ public class AdminLoggedInHomeController {
             // ... user chose CANCEL or closed the dialog
         }
 
+    }
+
+    @FXML
+    private void GeneratePathFindingReport() {
+        ReportThread rt = new ReportThread(1);
+        rt.start();
+    }
+
+    @FXML
+    private void GenerateGeneralServiceRequestOverview() {
+        ReportThread rt = new ReportThread(2);
+        rt.start();
+    }
+
+    @FXML
+    private void GenerateSpecificServiceRequest() {
+        if (RequestType!=null) {
+            ReportThread rt = new ReportThread(3);
+            rt.setRequestType(RequestType.getValue());
+            rt.start();
+        }
     }
 }
