@@ -35,6 +35,7 @@ import java.io.File;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Random;
 
 import static java.lang.Thread.sleep;
 
@@ -238,8 +239,19 @@ public class CreateEditAccountController {
     public void setType(int check, String user) {
         Singleton single = Singleton.getInstance();
         type = check;
+        employeeID.setDisable(true);
         if (type == 1) {
             title.setText("Create an Account");
+            String id = "";
+            EmployeeAccess ea = new EmployeeAccess();
+            do {
+                id = "";
+                for(int i = 0; i < 9; i++){
+                    Random rand = new Random();
+                    id += "" + rand.nextInt(10);
+                }
+            } while (ea.invalidID(id));
+            employeeID.setText(id);
             delete.setVisible(false);
             delete.setDisable(true);
         } else if (type == 2) {
@@ -274,7 +286,6 @@ public class CreateEditAccountController {
 
         } else if (type == 3) {
             title.setText("Edit an Account");
-            employeeID.setDisable(true);
             EmployeeAccess ea = new EmployeeAccess();
             pusername = ea.getEmployeeUsername(user);
             ArrayList<String> data = ea.getEmployeeInformation(pusername);
