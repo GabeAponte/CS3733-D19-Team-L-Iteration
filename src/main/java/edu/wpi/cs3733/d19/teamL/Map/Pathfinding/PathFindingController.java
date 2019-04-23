@@ -39,6 +39,7 @@ import javafx.scene.Node;
 import javafx.geometry.Dimension2D;
 import javafx.geometry.Insets;
 import javafx.geometry.Point2D;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
@@ -221,7 +222,7 @@ public class PathFindingController {
     //Arraylist for the buttons that generate on path
     private ArrayList<Button> buttons = new ArrayList<Button>();
     //Arraylist of floor buttons
-    private ArrayList<Button> floorButtons = new ArrayList<Button>();
+    private ArrayList<JFXButton> floorButtons = new ArrayList<JFXButton>();
     private Path path;
 
     private GesturePane gesturePane;
@@ -248,6 +249,7 @@ public class PathFindingController {
     private ArrayList<String> mapURLs = new ArrayList<String>();
     private ArrayList<Circle> circles = new ArrayList<Circle>();
     private ArrayList<Line> lines = new ArrayList<Line>();
+    private ArrayList<Label> labels = new ArrayList<Label>();
 
     private ArrayList<Polygon> flexSpaces = new ArrayList<Polygon>();
     private ArrayList<RoomDisplay> DisplayRooms = new ArrayList<RoomDisplay>();
@@ -317,6 +319,7 @@ public class PathFindingController {
         displayKiosk();
         clear();
         hideFlexSpaces();
+        gesturePane.reset();
         direction.clear();
     }
     @FXML
@@ -341,6 +344,7 @@ public class PathFindingController {
         displayKiosk();
         clear();
         hideFlexSpaces();
+        gesturePane.reset();
         direction.clear();
     }
     @FXML
@@ -353,6 +357,7 @@ public class PathFindingController {
         displayKiosk();
         clear();
         hideFlexSpaces();
+        gesturePane.reset();
         direction.clear();
     }
     @FXML
@@ -365,6 +370,7 @@ public class PathFindingController {
         displayKiosk();
         clear();
         hideFlexSpaces();
+        gesturePane.reset();
         direction.clear();
     }
     @FXML
@@ -377,6 +383,7 @@ public class PathFindingController {
         displayKiosk();
         clear();
         hideFlexSpaces();
+        gesturePane.reset();
         direction.clear();
     }
 
@@ -442,11 +449,11 @@ public class PathFindingController {
         mapURLs.add("/SoftEng_UI_Mockup_Pics/02_thesecondfloor.png");
     }
 
-    Label startLabel;
-    Label endLabel;
-    Label hereLabel;
-    Location startNode;
-    Location endNode;
+    private Label startLabel;
+    private Label endLabel;
+    private Label hereLabel;
+    private Location startNode;
+    private Location endNode;
 
     @FXML
     private void strategySelected() {
@@ -590,8 +597,6 @@ public class PathFindingController {
         endLabel = new Label();
         hereLabel = new Label();
         //Adds the text to the screen
-        pathPane.getChildren().add(startLabel);
-        pathPane.getChildren().add(endLabel);
         pathPane.getChildren().add(hereLabel);
         menubtn.setVisible(false);
         if(!single.isLoggedIn()){
@@ -643,7 +648,7 @@ public class PathFindingController {
     }
 
     @FXML
-    private void logOut() throws IOException {
+    private void logOut(ActionEvent event) throws IOException {
         timeout.stop();
         Singleton single = Singleton.getInstance();
         single.setLastTime();
@@ -651,44 +656,33 @@ public class PathFindingController {
         single.setIsAdmin(false);
         single.setLoggedIn(false);
         single.setDoPopup(true);
-        thestage = (Stage) back.getScene().getWindow();
-        AnchorPane root;
         Memento m = single.getOrig();
-        root = FXMLLoader.load(getClass().getClassLoader().getResource(m.getFxml()));
-        Scene scene = new Scene(root);
-        thestage.setScene(scene);
+        Parent newPage = FXMLLoader.load(getClass().getClassLoader().getResource(m.getFxml()));
+        ((Node) event.getSource()).getScene().setRoot(newPage);
     }
 
     @FXML
-    private void goHome() throws IOException {
+    private void goHome(ActionEvent event) throws IOException {
         timeout.stop();
         Singleton single = Singleton.getInstance();
         single.setLastTime();
         single.setDoPopup(true);
         saveState();
-        thestage = (Stage) back.getScene().getWindow();
-        AnchorPane root;
         Memento m = single.getOrig();
-        root = FXMLLoader.load(getClass().getClassLoader().getResource(m.getFxml()));
-        Scene scene = new Scene(root);
-        thestage.setScene(scene);
+        Parent newPage = FXMLLoader.load(getClass().getClassLoader().getResource(m.getFxml()));
+        ((Node) event.getSource()).getScene().setRoot(newPage);
     }
 
     @FXML
-    private void backPressed() throws IOException {
+    private void backPressed(ActionEvent event) throws IOException {
         timeout.stop();
-        single = Singleton.getInstance();
+        Singleton single = Singleton.getInstance();
         single.setLastTime();
+        Memento m = single.restore();
         single.setDoPopup(true);
 
-        Memento m = single.restore();
-        FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource(m.getFxml()));
-        Parent sceneMain = loader.load();
-
-        Stage theStage = (Stage) homebtn.getScene().getWindow();
-
-        Scene scene = new Scene(sceneMain);
-        theStage.setScene(scene);
+        Parent newPage = FXMLLoader.load(getClass().getClassLoader().getResource(m.getFxml()));
+        ((Node) event.getSource()).getScene().setRoot(newPage);
     }
 
     /**
@@ -797,6 +791,7 @@ public class PathFindingController {
         }
         circles.add(kiosk);
         pathPane.getChildren().add(kiosk);
+        labels.add(hereLabel);
     }
 
     @FXML
@@ -931,14 +926,20 @@ public class PathFindingController {
      * @param end
      */
     private void autoZoom(Location start, Location end) {
-        double x = gesturePane.getWidth()/(Math.abs((start.getXcoord() - end.getXcoord())));
-        double y = gesturePane.getHeight()/Math.abs(((start.getYcoord() - end.getYcoord())));
-        double scale = (Math.min(x, y)/2.5) + 1.1;
-        gesturePane.reset();
-        gesturePane.zoomTo(scale, gesturePane.targetPointAtViewportCentre());
-        double xSameVal = (start.getXcoord() + end.getXcoord()) / 2.0*childPane.getWidth()/Map.getImage().getWidth();
-        double ySameVal = (start.getYcoord() + end.getYcoord()) / 2.0*childPane.getHeight()/Map.getImage().getHeight();
-        gesturePane.centreOn(new Point2D(xSameVal, ySameVal));
+        if((Math.abs((start.getXcoord() - end.getXcoord()))) < 3200 &&
+                Math.abs(((start.getYcoord() - end.getYcoord()))) < 1050){
+            double x = gesturePane.getWidth()/(Math.abs((start.getXcoord() - end.getXcoord())));
+            double y = gesturePane.getHeight()/Math.abs(((start.getYcoord() - end.getYcoord())));
+            double scale = (Math.min(x, y)/2) + 1.1;
+            gesturePane.reset();
+            gesturePane.zoomTo(scale, gesturePane.targetPointAtViewportCentre());
+            double xSameVal = (start.getXcoord() + end.getXcoord()) / 2.0*childPane.getWidth()/Map.getImage().getWidth();
+            double ySameVal = (start.getYcoord() + end.getYcoord()) / 2.0*childPane.getHeight()/Map.getImage().getHeight();
+            gesturePane.centreOn(new Point2D(xSameVal, ySameVal));
+        }
+        else {
+            gesturePane.reset();
+        }
     }
 
     //Globals used for makeButtons
@@ -951,26 +952,23 @@ public class PathFindingController {
      * @param floors
      */
     private void makeButtons(ArrayList<String> floors) {
-        int midx = 400;
-        int midy = 425;
+        int shift = 0;
         int numOfBut = countFloors(floors);
         int totalNum = countFloors(floors);
         int center = (numOfBut + 1)/2;
+        if(totalNum % 2 == 0){
+            shift = 150;
+        }
         boolean change = false;
+        boolean stop = false;
         for(int i = 0; i < floors.size()-1; i++) {
-            Button fBut = new Button();
-
+            //Sets up the buttons
+            JFXButton fBut = new JFXButton();
             if(!floors.get(i+1).equals(floors.get(start))) {
                 fBut.setPrefSize(50,50);
                 fBut.setText(floors.get(i));
+                fBut.setStyle("-fx-font-weight: BOLD");
                 fBut.getStyleClass().add("buttonMap");
-//                fBut.setStyle("-fx-background-radius: 10000;" +
-//                        "    -fx-border-color : #012D5A;" +
-//                        "    -fx-border-radius: 100;" +
-//                        "    -fx-border-width: 2;" +
-//                        "    -fx-pref-height: 46;" +
-//                        "-fx-background-color: transparent");
-                final String next = floors.get(i);
                 int startstore1 = start;
                 int counterstore1 = counter;
                 fBut.setOnAction(event -> {
@@ -979,8 +977,12 @@ public class PathFindingController {
                 });
                 floorButtons.add(fBut);
                 gridPane.getChildren().add(fBut);
-                int diff  = numOfBut - center;
-                gridPane.setMargin(fBut,new Insets(0,0,midy,midx - diff*(100)));
+                gridPane.setHalignment(fBut, HPos.CENTER);
+                gridPane.setValignment(fBut, VPos.TOP);
+                //int diff  = numOfBut - center;
+                int diff  = center - numOfBut;
+                gridPane.setMargin(fBut,new Insets(65,0,0,diff*(200)+ shift));
+
                 //Reduce this as we go so we know how many buttons we have left
                 numOfBut--;
                 //Reset
@@ -988,12 +990,11 @@ public class PathFindingController {
                 change = true;
             }
             //This is the final button
-            else if(numOfBut == 1 && change){
+            else if(numOfBut == 1 && change && !stop){
                 fBut.setPrefSize(50,50);
                 fBut.setText(floors.get(i));
+                fBut.setStyle("-fx-font-weight: BOLD");
                 fBut.getStyleClass().add("buttonMap");
-                fBut.setStyle("-fx-fill-color: transparent");
-                final String next = floors.get(i);
                 int startstore1 = start;
                 int counterstore1 =floors.size();
                 fBut.setOnAction(event -> {
@@ -1002,8 +1003,12 @@ public class PathFindingController {
                 });
                 floorButtons.add(fBut);
                 gridPane.getChildren().add(fBut);
-                int diff  = numOfBut - center;
-                gridPane.setMargin(fBut,new Insets(0,0,midy,midx - diff*(100)));
+                gridPane.setHalignment(fBut, HPos.CENTER);
+                gridPane.setValignment(fBut, VPos.TOP);
+                //int diff  = numOfBut - center;
+                int diff  = center - numOfBut;
+                gridPane.setMargin(fBut,new Insets(65,0,0,diff*(200)+ shift));
+                stop = true;
             }
             counter++;
         }
@@ -1030,42 +1035,52 @@ public class PathFindingController {
         for (Button b : buttons) {
             pathPane.getChildren().remove(b);
         }
+        for (Label la : labels) {
+            pathPane.getChildren().remove(la);
+        }
 
         circles.clear();
         lines.clear();
         buttons.clear();
+        labels.clear();
         //Changes the map displayed to the floor of begin and count
         String floor = path.getPath().get(begin).getFloor();
         if(floor.equals("L2")) {
             Map.setImage(new Image("/SoftEng_UI_Mockup_Pics/00_thelowerlevel2.png"));
             currentMap = "L2";
+            changeMapLabel();
         }
         if(floor.equals("L1")) {
             Map.setImage(new Image("/SoftEng_UI_Mockup_Pics/00_thelowerlevel1.png"));
             currentMap = "L1";
+            changeMapLabel();
         }
         if(floor.equals("G")) {
             Map.setImage(new Image("/SoftEng_UI_Mockup_Pics/00_thegroundfloor.png"));
             currentMap = "G";
+            changeMapLabel();
         }
         if(floor.equals("1")) {
             Map.setImage(new Image("/SoftEng_UI_Mockup_Pics/01_thefirstfloor.png"));
             currentMap = "1";
+            changeMapLabel();
         }
         if(floor.equals("2")) {
             Map.setImage(new Image("/SoftEng_UI_Mockup_Pics/02_thesecondfloor.png"));
             currentMap = "2";
+            changeMapLabel();
         }
         if(floor.equals("3")) {
             Map.setImage(new Image("/SoftEng_UI_Mockup_Pics/03_thethirdfloor.png"));
             currentMap = "3";
+            changeMapLabel();
         }
 
         //Create all necessary objects for animating path.
         Circle dude  = new Circle();
         dude.setCenterX(path.getPath().get(begin).getXcoord()*childPane.getWidth()/Map.getImage().getWidth());
         dude.setCenterY(path.getPath().get(begin).getYcoord()*childPane.getHeight()/Map.getImage().getHeight());
-        dude.setRadius(Math.max(6, 6f));
+        dude.setRadius(Math.max(5, 5f));
         dude.setFill(new ImagePattern((new Image("/SoftEng_UI_Mockup_Pics/IconPerson.png"))));
 
         javafx.scene.shape.Path path2 = new  javafx.scene.shape.Path();
@@ -1103,6 +1118,7 @@ public class PathFindingController {
         startLabel.setLayoutY(path.getPath().get(begin).getYcoord()*childPane.getHeight()/Map.getImage().getHeight() - 20);
         endLabel.setLayoutX(path.getPath().get(count).getXcoord()*childPane.getWidth()/Map.getImage().getWidth() - 30);
         endLabel.setLayoutY(path.getPath().get(count).getYcoord()*childPane.getHeight()/Map.getImage().getHeight() - 20);
+        //if(startLabel.getLayoutX() > endLabel.getLayoutX())
         endLabel.setText(path.getPath().get(count).getLongName());
         //Changing the color of the start circle and start label
         if(path.getPath().get(begin).getLocID().equals(kioskTemp.getLocID())) {
@@ -1142,9 +1158,14 @@ public class PathFindingController {
             endCircle.setFill(DODGERBLUE);
             endLabel.setStyle("-fx-text-fill: WHITE;-fx-font-size: 6; -fx-background-color: DODGERBLUE; -fx-border-color: WHITE; -fx-border-width: 2; -fx-min-width: 40;");
         }
+        //Adding everything necessary to display the path
+        labels.add(startLabel);
+        labels.add(endLabel);
         circles.add(endCircle);
         pathPane.getChildren().add(startCircle);
         pathPane.getChildren().add(endCircle);
+        pathPane.getChildren().add(startLabel);
+        pathPane.getChildren().add(endLabel);
         //Displays the node that travels
         pathPane.getChildren().add(dude);
 
@@ -1161,17 +1182,25 @@ public class PathFindingController {
         autoZoom(path.getPath().get(begin), path.getPath().get(count));
 
         direction.clear();
+
         ArrayList<Location> al = new ArrayList<Location>();
         for (int i = begin; i < count + 1; i++){
             al.add(path.getPath().get(i));
         }
+
         String directionS = printPath(al);
+
         if(path.getPath().get(count) != null){
             if(isStairELe(al.get(al.size()-1)) && isStairELe(path.getPath().get(count))){
-            //        System.out.println("Go to floor " + b.getFloor() + " by " + a.getLongName());
+                if(path.getPath().get(count).getLocID().equals(path.getPath().get(path.getPath().size()-1).getLocID())){
+                    directionS += "\u2191 Go straight to " + path.getPath().get(count).getLongName() +
+                            " (" + convertToExact(path.getPath().get(count-1).findDistance(path.getPath().get(count)))
+                            + " ft) \n";
+                }
+                else {
                 directionS += "\u21C5 Go to floor " + path.getPath().get(count).getFloor() + " by "
                         + al.get(al.size()-1).getLongName() +"\n";
-
+                }
             }
         }
         direction.setText(directionS);
@@ -1195,14 +1224,18 @@ public class PathFindingController {
         for (Button b : buttons) {
             pathPane.getChildren().remove(b);
         }
-        for (Button b : floorButtons) {
-            gridPane.getChildren().remove(b);
+        for (JFXButton jb : floorButtons) {
+            gridPane.getChildren().remove(jb);
+        }
+        for (Label la : labels) {
+            pathPane.getChildren().remove(la);
         }
 
         floorButtons.clear();
         circles.clear();
         lines.clear();
         buttons.clear();
+        labels.clear();
     }
 
     /**
@@ -2477,7 +2510,7 @@ public class PathFindingController {
             }
             if(i == A.size() - 3){
                 text += "\u2191 Go straight to " + A.get(A.size()-1).getLongName() +
-                        " (" + convertToExact(b.findDistance(c)) + " ft) \n";
+                        " (" + convertToExact(A.get(A.size()-3).findDistance(A.get(A.size()-1))) + " ft) \n";
                 return text;
             }
 
@@ -2527,8 +2560,8 @@ public class PathFindingController {
                         for (Location l : single.lookup.values()) {
                             if (l.toString().equals(toString)) {
                                 PathFindEndDrop.setValue(l);
+                                typeSelected = "search";
                                 searchField.setText(l.toString());
-
                             }
                         }
                         suggestions.setVisible(false);
@@ -2551,8 +2584,6 @@ public class PathFindingController {
                 suggestions.setLayoutY(searchField.getLayoutY()+50);
                 suggestions.toFront();
                 suggestions.setVisible(true);
-                typeSelected = "search";
-                System.out.println("search");
                 //sp.setContent(gp);
                 //sp.setLayoutX(searchField.getLayoutX() + 2);
                 //sp.setLayoutY(searchField.getLayoutY()+50);
@@ -2581,128 +2612,128 @@ public class PathFindingController {
         double sr = Math.min(gesturePane.getWidth() / Map.getImage().getWidth(), gesturePane.getHeight() / Map.getImage().getHeight());
 
         //large important room
-        flexSpaces.add(new Polygon((860+11310)*sr*.303, ( 1270+5642)*sr*.313, ( 1160+11310)*sr*.303, ( 1270+5642)*sr*.313, ( 1160+11310)*sr*.303, ( 1580+5642)*sr*.313, ( 860+11310)*sr*.303, ( 1580+5642)*sr*.313));
+        flexSpaces.add(new Polygon((860+11310)*sr*.303, ( 1270+5680)*sr*.317, ( 1160+11310)*sr*.303, ( 1270+5680)*sr*.317, ( 1160+11310)*sr*.303, ( 1580+5680)*sr*.317, ( 860+11310)*sr*.303, ( 1580+5680)*sr*.317));
 
-        flexSpaces.add(new Polygon((150+11310)*sr*.303, ( 230+5642)*sr*.313, ( 200+11310)*sr*.303, ( 230+5642)*sr*.313, ( 200+11310)*sr*.303, ( 340+5642)*sr*.313, ( 150+11310)*sr*.303, ( 340+5642)*sr*.313)); //left side desk top
-        flexSpaces.add(new Polygon((150+11310)*sr*.303, ( 420+5642)*sr*.313, ( 200+11310)*sr*.303, ( 420+5642)*sr*.313, ( 200+11310)*sr*.303, ( 530+5642)*sr*.313, ( 150+11310)*sr*.303, ( 530+5642)*sr*.313)); //left side desk middle
-        flexSpaces.add(new Polygon((150+11310)*sr*.303, ( 590+5642)*sr*.313, ( 200+11310)*sr*.303, ( 590+5642)*sr*.313, ( 200+11310)*sr*.303, ( 740+5642)*sr*.313, ( 150+11310)*sr*.303, ( 740+5642)*sr*.313)); //left side desk lower
-        flexSpaces.add(new Polygon((340+11310)*sr*.303, ( 560+5642)*sr*.313, ( 540+11310)*sr*.303, ( 560+5642)*sr*.313, ( 540+11310)*sr*.303, ( 710+5642)*sr*.313, ( 340+11310)*sr*.303, ( 710+5642)*sr*.313)); //left conference room
-        flexSpaces.add(new Polygon((200+11310)*sr*.303, ( 1300+5642)*sr*.313, ( 270+11310)*sr*.303, ( 1300+5642)*sr*.313, ( 270+11310)*sr*.303, ( 1360+5642)*sr*.313, ( 200+11310)*sr*.303, ( 1360+5642)*sr*.313)); //small three chairs
-        flexSpaces.add(new Polygon((570+11310)*sr*.303, ( 1340+5642)*sr*.313, ( 630+11310)*sr*.303, ( 1340+5642)*sr*.313, ( 630+11310)*sr*.303, ( 1430+5642)*sr*.313, ( 570+11310)*sr*.303, ( 1430+5642)*sr*.313)); //standalone square
-        flexSpaces.add(new Polygon((1320+11310)*sr*.303, ( 2070+5642)*sr*.313, ( 1380+11310)*sr*.303, ( 2070+5642)*sr*.313, ( 1380+11310)*sr*.303, ( 2100+5642)*sr*.313, ( 1320+11310)*sr*.303, ( 2100+5642)*sr*.313)); //small two chairs
-        flexSpaces.add(new Polygon((1980+11310)*sr*.303, ( 1690+5642)*sr*.313, ( 2230+11310)*sr*.303, ( 1690+5642)*sr*.313, ( 2230+11310)*sr*.303, ( 1880+5642)*sr*.313, ( 1980+11310)*sr*.303, ( 1880+5642)*sr*.313)); //bottom right room
-        flexSpaces.add(new Polygon((1760+11310)*sr*.303, ( 2230+5642)*sr*.313, ( 1820+11310)*sr*.303, ( 2230+5642)*sr*.313, ( 1820+11310)*sr*.303, ( 2380+5642)*sr*.313, ( 1760+11310)*sr*.303, ( 2380+5642)*sr*.313)); //bottom vertical top
-        flexSpaces.add(new Polygon((1740+11310)*sr*.303, ( 2440+5642)*sr*.313, ( 1800+11310)*sr*.303, ( 2440+5642)*sr*.313, ( 1800+11310)*sr*.303, ( 2600+5642)*sr*.313, ( 1740+11310)*sr*.303, ( 2600+5642)*sr*.313)); //bottom vertical bottom
+        flexSpaces.add(new Polygon((150+11310)*sr*.303, ( 230+5680)*sr*.317, ( 200+11310)*sr*.303, ( 230+5680)*sr*.317, ( 200+11310)*sr*.303, ( 340+5680)*sr*.317, ( 150+11310)*sr*.303, ( 340+5680)*sr*.317)); //left side desk top
+        flexSpaces.add(new Polygon((150+11310)*sr*.303, ( 420+5680)*sr*.317, ( 200+11310)*sr*.303, ( 420+5680)*sr*.317, ( 200+11310)*sr*.303, ( 530+5680)*sr*.317, ( 150+11310)*sr*.303, ( 530+5680)*sr*.317)); //left side desk middle
+        flexSpaces.add(new Polygon((150+11310)*sr*.303, ( 590+5680)*sr*.317, ( 200+11310)*sr*.303, ( 590+5680)*sr*.317, ( 200+11310)*sr*.303, ( 740+5680)*sr*.317, ( 150+11310)*sr*.303, ( 740+5680)*sr*.317)); //left side desk lower
+        flexSpaces.add(new Polygon((340+11310)*sr*.303, ( 560+5680)*sr*.317, ( 540+11310)*sr*.303, ( 560+5680)*sr*.317, ( 540+11310)*sr*.303, ( 710+5680)*sr*.317, ( 340+11310)*sr*.303, ( 710+5680)*sr*.317)); //left conference room
+        flexSpaces.add(new Polygon((200+11310)*sr*.303, ( 1300+5680)*sr*.317, ( 270+11310)*sr*.303, ( 1300+5680)*sr*.317, ( 270+11310)*sr*.303, ( 1360+5680)*sr*.317, ( 200+11310)*sr*.303, ( 1360+5680)*sr*.317)); //small three chairs
+        flexSpaces.add(new Polygon((570+11310)*sr*.303, ( 1340+5680)*sr*.317, ( 630+11310)*sr*.303, ( 1340+5680)*sr*.317, ( 630+11310)*sr*.303, ( 1430+5680)*sr*.317, ( 570+11310)*sr*.303, ( 1430+5680)*sr*.317)); //standalone square
+        flexSpaces.add(new Polygon((1320+11310)*sr*.303, ( 2070+5680)*sr*.317, ( 1380+11310)*sr*.303, ( 2070+5680)*sr*.317, ( 1380+11310)*sr*.303, ( 2100+5680)*sr*.317, ( 1320+11310)*sr*.303, ( 2100+5680)*sr*.317)); //small two chairs
+        flexSpaces.add(new Polygon((1980+11310)*sr*.303, ( 1690+5680)*sr*.317, ( 2230+11310)*sr*.303, ( 1690+5680)*sr*.317, ( 2230+11310)*sr*.303, ( 1880+5680)*sr*.317, ( 1980+11310)*sr*.303, ( 1880+5680)*sr*.317)); //bottom right room
+        flexSpaces.add(new Polygon((1760+11310)*sr*.303, ( 2230+5680)*sr*.317, ( 1820+11310)*sr*.303, ( 2230+5680)*sr*.317, ( 1820+11310)*sr*.303, ( 2380+5680)*sr*.317, ( 1760+11310)*sr*.303, ( 2380+5680)*sr*.317)); //bottom vertical top
+        flexSpaces.add(new Polygon((1740+11310)*sr*.303, ( 2440+5680)*sr*.317, ( 1800+11310)*sr*.303, ( 2440+5680)*sr*.317, ( 1800+11310)*sr*.303, ( 2600+5680)*sr*.317, ( 1740+11310)*sr*.303, ( 2600+5680)*sr*.317)); //bottom vertical bottom
 
         //top left desk bank
-        flexSpaces.add(new Polygon((240+11310)*sr*.303, ( 240+5642)*sr*.313, ( 305+11310)*sr*.303, ( 240+5642)*sr*.313, ( 305+11310)*sr*.303, ( 290+5642)*sr*.313, ( 240+11310)*sr*.303, ( 290+5642)*sr*.313));
-        flexSpaces.add(new Polygon((305+11310)*sr*.303, ( 240+5642)*sr*.313, ( 370+11310)*sr*.303, ( 240+5642)*sr*.313, ( 370+11310)*sr*.303, ( 290+5642)*sr*.313, ( 305+11310)*sr*.303, ( 290+5642)*sr*.313));
-        flexSpaces.add(new Polygon((370+11310)*sr*.303, ( 240+5642)*sr*.313, ( 435+11310)*sr*.303, ( 240+5642)*sr*.313, ( 435+11310)*sr*.303, ( 290+5642)*sr*.313, ( 370+11310)*sr*.303, ( 290+5642)*sr*.313));
-        flexSpaces.add(new Polygon((435+11310)*sr*.303, ( 240+5642)*sr*.313, ( 500+11310)*sr*.303, ( 240+5642)*sr*.313, ( 500+11310)*sr*.303, ( 290+5642)*sr*.313, ( 435+11310)*sr*.303, ( 290+5642)*sr*.313));
-        flexSpaces.add(new Polygon((240+11310)*sr*.303, ( 290+5642)*sr*.313, ( 305+11310)*sr*.303, ( 290+5642)*sr*.313, ( 305+11310)*sr*.303, ( 340+5642)*sr*.313, ( 240+11310)*sr*.303, ( 340+5642)*sr*.313));
-        flexSpaces.add(new Polygon((305+11310)*sr*.303, ( 290+5642)*sr*.313, ( 370+11310)*sr*.303, ( 290+5642)*sr*.313, ( 370+11310)*sr*.303, ( 340+5642)*sr*.313, ( 305+11310)*sr*.303, ( 340+5642)*sr*.313));
-        flexSpaces.add(new Polygon((370+11310)*sr*.303, ( 290+5642)*sr*.313, ( 435+11310)*sr*.303, ( 290+5642)*sr*.313, ( 435+11310)*sr*.303, ( 340+5642)*sr*.313, ( 370+11310)*sr*.303, ( 340+5642)*sr*.313));
-        flexSpaces.add(new Polygon((435+11310)*sr*.303, ( 290+5642)*sr*.313, ( 500+11310)*sr*.303, ( 290+5642)*sr*.313, ( 500+11310)*sr*.303, ( 340+5642)*sr*.313, ( 435+11310)*sr*.303, ( 340+5642)*sr*.313));
+        flexSpaces.add(new Polygon((240+11310)*sr*.303, ( 240+5680)*sr*.317, ( 305+11310)*sr*.303, ( 240+5680)*sr*.317, ( 305+11310)*sr*.303, ( 290+5680)*sr*.317, ( 240+11310)*sr*.303, ( 290+5680)*sr*.317));
+        flexSpaces.add(new Polygon((305+11310)*sr*.303, ( 240+5680)*sr*.317, ( 370+11310)*sr*.303, ( 240+5680)*sr*.317, ( 370+11310)*sr*.303, ( 290+5680)*sr*.317, ( 305+11310)*sr*.303, ( 290+5680)*sr*.317));
+        flexSpaces.add(new Polygon((370+11310)*sr*.303, ( 240+5680)*sr*.317, ( 435+11310)*sr*.303, ( 240+5680)*sr*.317, ( 435+11310)*sr*.303, ( 290+5680)*sr*.317, ( 370+11310)*sr*.303, ( 290+5680)*sr*.317));
+        flexSpaces.add(new Polygon((435+11310)*sr*.303, ( 240+5680)*sr*.317, ( 500+11310)*sr*.303, ( 240+5680)*sr*.317, ( 500+11310)*sr*.303, ( 290+5680)*sr*.317, ( 435+11310)*sr*.303, ( 290+5680)*sr*.317));
+        flexSpaces.add(new Polygon((240+11310)*sr*.303, ( 290+5680)*sr*.317, ( 305+11310)*sr*.303, ( 290+5680)*sr*.317, ( 305+11310)*sr*.303, ( 340+5680)*sr*.317, ( 240+11310)*sr*.303, ( 340+5680)*sr*.317));
+        flexSpaces.add(new Polygon((305+11310)*sr*.303, ( 290+5680)*sr*.317, ( 370+11310)*sr*.303, ( 290+5680)*sr*.317, ( 370+11310)*sr*.303, ( 340+5680)*sr*.317, ( 305+11310)*sr*.303, ( 340+5680)*sr*.317));
+        flexSpaces.add(new Polygon((370+11310)*sr*.303, ( 290+5680)*sr*.317, ( 435+11310)*sr*.303, ( 290+5680)*sr*.317, ( 435+11310)*sr*.303, ( 340+5680)*sr*.317, ( 370+11310)*sr*.303, ( 340+5680)*sr*.317));
+        flexSpaces.add(new Polygon((435+11310)*sr*.303, ( 290+5680)*sr*.317, ( 500+11310)*sr*.303, ( 290+5680)*sr*.317, ( 500+11310)*sr*.303, ( 340+5680)*sr*.317, ( 435+11310)*sr*.303, ( 340+5680)*sr*.317));
 
         //second down top left desk bank
-        flexSpaces.add(new Polygon((250+11310)*sr*.303, ( 390+5642)*sr*.313, ( 313+11310)*sr*.303, ( 390+5642)*sr*.313, ( 313+11310)*sr*.303, ( 440+5642)*sr*.313, ( 250+11310)*sr*.303, ( 440+5642)*sr*.313));
-        flexSpaces.add(new Polygon((313+11310)*sr*.303, ( 390+5642)*sr*.313, ( 375+11310)*sr*.303, ( 390+5642)*sr*.313, ( 375+11310)*sr*.303, ( 440+5642)*sr*.313, ( 313+11310)*sr*.303, ( 440+5642)*sr*.313));
-        flexSpaces.add(new Polygon((375+11310)*sr*.303, ( 390+5642)*sr*.313, ( 438+11310)*sr*.303, ( 390+5642)*sr*.313, ( 438+11310)*sr*.303, ( 440+5642)*sr*.313, ( 375+11310)*sr*.303, ( 440+5642)*sr*.313));
-        flexSpaces.add(new Polygon((438+11310)*sr*.303, ( 390+5642)*sr*.313, ( 500+11310)*sr*.303, ( 390+5642)*sr*.313, ( 500+11310)*sr*.303, ( 440+5642)*sr*.313, ( 438+11310)*sr*.303, ( 440+5642)*sr*.313));
-        flexSpaces.add(new Polygon((250+11310)*sr*.303, ( 440+5642)*sr*.313, ( 313+11310)*sr*.303, ( 440+5642)*sr*.313, ( 313+11310)*sr*.303, ( 490+5642)*sr*.313, ( 250+11310)*sr*.303, ( 490+5642)*sr*.313));
-        flexSpaces.add(new Polygon((313+11310)*sr*.303, ( 440+5642)*sr*.313, ( 375+11310)*sr*.303, ( 440+5642)*sr*.313, ( 375+11310)*sr*.303, ( 490+5642)*sr*.313, ( 313+11310)*sr*.303, ( 490+5642)*sr*.313));
-        flexSpaces.add(new Polygon((375+11310)*sr*.303, ( 440+5642)*sr*.313, ( 438+11310)*sr*.303, ( 440+5642)*sr*.313, ( 438+11310)*sr*.303, ( 490+5642)*sr*.313, ( 375+11310)*sr*.303, ( 490+5642)*sr*.313));
-        flexSpaces.add(new Polygon((438+11310)*sr*.303, ( 440+5642)*sr*.313, ( 500+11310)*sr*.303, ( 440+5642)*sr*.313, ( 500+11310)*sr*.303, ( 490+5642)*sr*.313, ( 438+11310)*sr*.303, ( 490+5642)*sr*.313));
+        flexSpaces.add(new Polygon((250+11310)*sr*.303, ( 390+5680)*sr*.317, ( 313+11310)*sr*.303, ( 390+5680)*sr*.317, ( 313+11310)*sr*.303, ( 440+5680)*sr*.317, ( 250+11310)*sr*.303, ( 440+5680)*sr*.317));
+        flexSpaces.add(new Polygon((313+11310)*sr*.303, ( 390+5680)*sr*.317, ( 375+11310)*sr*.303, ( 390+5680)*sr*.317, ( 375+11310)*sr*.303, ( 440+5680)*sr*.317, ( 313+11310)*sr*.303, ( 440+5680)*sr*.317));
+        flexSpaces.add(new Polygon((375+11310)*sr*.303, ( 390+5680)*sr*.317, ( 438+11310)*sr*.303, ( 390+5680)*sr*.317, ( 438+11310)*sr*.303, ( 440+5680)*sr*.317, ( 375+11310)*sr*.303, ( 440+5680)*sr*.317));
+        flexSpaces.add(new Polygon((438+11310)*sr*.303, ( 390+5680)*sr*.317, ( 500+11310)*sr*.303, ( 390+5680)*sr*.317, ( 500+11310)*sr*.303, ( 440+5680)*sr*.317, ( 438+11310)*sr*.303, ( 440+5680)*sr*.317));
+        flexSpaces.add(new Polygon((250+11310)*sr*.303, ( 440+5680)*sr*.317, ( 313+11310)*sr*.303, ( 440+5680)*sr*.317, ( 313+11310)*sr*.303, ( 490+5680)*sr*.317, ( 250+11310)*sr*.303, ( 490+5680)*sr*.317));
+        flexSpaces.add(new Polygon((313+11310)*sr*.303, ( 440+5680)*sr*.317, ( 375+11310)*sr*.303, ( 440+5680)*sr*.317, ( 375+11310)*sr*.303, ( 490+5680)*sr*.317, ( 313+11310)*sr*.303, ( 490+5680)*sr*.317));
+        flexSpaces.add(new Polygon((375+11310)*sr*.303, ( 440+5680)*sr*.317, ( 438+11310)*sr*.303, ( 440+5680)*sr*.317, ( 438+11310)*sr*.303, ( 490+5680)*sr*.317, ( 375+11310)*sr*.303, ( 490+5680)*sr*.317));
+        flexSpaces.add(new Polygon((438+11310)*sr*.303, ( 440+5680)*sr*.317, ( 500+11310)*sr*.303, ( 440+5680)*sr*.317, ( 500+11310)*sr*.303, ( 490+5680)*sr*.317, ( 438+11310)*sr*.303, ( 490+5680)*sr*.317));
 
         //center column of small rooms
-        flexSpaces.add(new Polygon((660+11310)*sr*.303, ( 660+5642)*sr*.313, ( 730+11310)*sr*.303, ( 660+5642)*sr*.313, ( 730+11310)*sr*.303, ( 748+5642)*sr*.313, ( 660+11310)*sr*.303, ( 748+5642)*sr*.313));
-        flexSpaces.add(new Polygon((660+11310)*sr*.303, ( 748+5642)*sr*.313, ( 730+11310)*sr*.303, ( 748+5642)*sr*.313, ( 730+11310)*sr*.303, ( 836+5642)*sr*.313, ( 660+11310)*sr*.303, ( 836+5642)*sr*.313));
-        flexSpaces.add(new Polygon((660+11310)*sr*.303, ( 836+5642)*sr*.313, ( 730+11310)*sr*.303, ( 836+5642)*sr*.313, ( 730+11310)*sr*.303, ( 924+5642)*sr*.313, ( 660+11310)*sr*.303, ( 924+5642)*sr*.313));
-        flexSpaces.add(new Polygon((660+11310)*sr*.303, ( 924+5642)*sr*.313, ( 730+11310)*sr*.303, ( 924+5642)*sr*.313, ( 730+11310)*sr*.303, ( 1012+5642)*sr*.313, ( 660+11310)*sr*.303, ( 1012+5642)*sr*.313));
-        flexSpaces.add(new Polygon((660+11310)*sr*.303, ( 1012+5642)*sr*.313, ( 730+11310)*sr*.303, ( 1012+5642)*sr*.313, ( 730+11310)*sr*.303, ( 1100+5642)*sr*.313, ( 660+11310)*sr*.303, ( 1100+5642)*sr*.313));
+        flexSpaces.add(new Polygon((660+11310)*sr*.303, ( 660+5680)*sr*.317, ( 730+11310)*sr*.303, ( 660+5680)*sr*.317, ( 730+11310)*sr*.303, ( 748+5680)*sr*.317, ( 660+11310)*sr*.303, ( 748+5680)*sr*.317));
+        flexSpaces.add(new Polygon((660+11310)*sr*.303, ( 748+5680)*sr*.317, ( 730+11310)*sr*.303, ( 748+5680)*sr*.317, ( 730+11310)*sr*.303, ( 836+5680)*sr*.317, ( 660+11310)*sr*.303, ( 836+5680)*sr*.317));
+        flexSpaces.add(new Polygon((660+11310)*sr*.303, ( 836+5680)*sr*.317, ( 730+11310)*sr*.303, ( 836+5680)*sr*.317, ( 730+11310)*sr*.303, ( 924+5680)*sr*.317, ( 660+11310)*sr*.303, ( 924+5680)*sr*.317));
+        flexSpaces.add(new Polygon((660+11310)*sr*.303, ( 924+5680)*sr*.317, ( 730+11310)*sr*.303, ( 924+5680)*sr*.317, ( 730+11310)*sr*.303, ( 1012+5680)*sr*.317, ( 660+11310)*sr*.303, ( 1012+5680)*sr*.317));
+        flexSpaces.add(new Polygon((660+11310)*sr*.303, ( 1012+5680)*sr*.317, ( 730+11310)*sr*.303, ( 1012+5680)*sr*.317, ( 730+11310)*sr*.303, ( 1100+5680)*sr*.317, ( 660+11310)*sr*.303, ( 1100+5680)*sr*.317));
 
         //upper vertical column of desks - right
-        flexSpaces.add(new Polygon((1410+11310)*sr*.303, ( 190+5642)*sr*.313, ( 1460+11310)*sr*.303, ( 190+5642)*sr*.313, ( 1460+11310)*sr*.303, ( 260+5642)*sr*.313, ( 1410+11310)*sr*.303, ( 260+5642)*sr*.313));
-        flexSpaces.add(new Polygon((1410+11310)*sr*.303, ( 260+5642)*sr*.313, ( 1460+11310)*sr*.303, ( 260+5642)*sr*.313, ( 1460+11310)*sr*.303, ( 322+5642)*sr*.313, ( 1410+11310)*sr*.303, ( 322+5642)*sr*.313));
-        flexSpaces.add(new Polygon((1410+11310)*sr*.303, ( 322+5642)*sr*.313, ( 1460+11310)*sr*.303, ( 322+5642)*sr*.313, ( 1460+11310)*sr*.303, ( 388+5642)*sr*.313, ( 1410+11310)*sr*.303, ( 388+5642)*sr*.313));
-        flexSpaces.add(new Polygon((1410+11310)*sr*.303, ( 388+5642)*sr*.313, ( 1460+11310)*sr*.303, ( 388+5642)*sr*.313, ( 1460+11310)*sr*.303, ( 454+5642)*sr*.313, ( 1410+11310)*sr*.303, ( 454+5642)*sr*.313));
-        flexSpaces.add(new Polygon((1410+11310)*sr*.303, ( 454+5642)*sr*.313, ( 1460+11310)*sr*.303, ( 454+5642)*sr*.313, ( 1460+11310)*sr*.303, ( 520+5642)*sr*.313, ( 1410+11310)*sr*.303, ( 520+5642)*sr*.313));
+        flexSpaces.add(new Polygon((1410+11310)*sr*.303, ( 190+5680)*sr*.317, ( 1460+11310)*sr*.303, ( 190+5680)*sr*.317, ( 1460+11310)*sr*.303, ( 260+5680)*sr*.317, ( 1410+11310)*sr*.303, ( 260+5680)*sr*.317));
+        flexSpaces.add(new Polygon((1410+11310)*sr*.303, ( 260+5680)*sr*.317, ( 1460+11310)*sr*.303, ( 260+5680)*sr*.317, ( 1460+11310)*sr*.303, ( 322+5680)*sr*.317, ( 1410+11310)*sr*.303, ( 322+5680)*sr*.317));
+        flexSpaces.add(new Polygon((1410+11310)*sr*.303, ( 322+5680)*sr*.317, ( 1460+11310)*sr*.303, ( 322+5680)*sr*.317, ( 1460+11310)*sr*.303, ( 388+5680)*sr*.317, ( 1410+11310)*sr*.303, ( 388+5680)*sr*.317));
+        flexSpaces.add(new Polygon((1410+11310)*sr*.303, ( 388+5680)*sr*.317, ( 1460+11310)*sr*.303, ( 388+5680)*sr*.317, ( 1460+11310)*sr*.303, ( 454+5680)*sr*.317, ( 1410+11310)*sr*.303, ( 454+5680)*sr*.317));
+        flexSpaces.add(new Polygon((1410+11310)*sr*.303, ( 454+5680)*sr*.317, ( 1460+11310)*sr*.303, ( 454+5680)*sr*.317, ( 1460+11310)*sr*.303, ( 520+5680)*sr*.317, ( 1410+11310)*sr*.303, ( 520+5680)*sr*.317));
 
         //upper vertical column of desks - left
-        flexSpaces.add(new Polygon((1360+11310)*sr*.303, ( 270+5642)*sr*.313, ( 1410+11310)*sr*.303, ( 270+5642)*sr*.313, ( 1410+11310)*sr*.303, ( 333+5642)*sr*.313, ( 1360+11310)*sr*.303, ( 333+5642)*sr*.313));
-        flexSpaces.add(new Polygon((1360+11310)*sr*.303, ( 333+5642)*sr*.313, ( 1410+11310)*sr*.303, ( 333+5642)*sr*.313, ( 1410+11310)*sr*.303, ( 395+5642)*sr*.313, ( 1360+11310)*sr*.303, ( 395+5642)*sr*.313));
-        flexSpaces.add(new Polygon((1360+11310)*sr*.303, ( 395+5642)*sr*.313, ( 1410+11310)*sr*.303, ( 395+5642)*sr*.313, ( 1410+11310)*sr*.303, ( 458+5642)*sr*.313, ( 1360+11310)*sr*.303, ( 458+5642)*sr*.313));
-        flexSpaces.add(new Polygon((1360+11310)*sr*.303, ( 458+5642)*sr*.313, ( 1410+11310)*sr*.303, ( 458+5642)*sr*.313, ( 1410+11310)*sr*.303, ( 520+5642)*sr*.313, ( 1360+11310)*sr*.303, ( 520+5642)*sr*.313));
+        flexSpaces.add(new Polygon((1360+11310)*sr*.303, ( 270+5680)*sr*.317, ( 1410+11310)*sr*.303, ( 270+5680)*sr*.317, ( 1410+11310)*sr*.303, ( 333+5680)*sr*.317, ( 1360+11310)*sr*.303, ( 333+5680)*sr*.317));
+        flexSpaces.add(new Polygon((1360+11310)*sr*.303, ( 333+5680)*sr*.317, ( 1410+11310)*sr*.303, ( 333+5680)*sr*.317, ( 1410+11310)*sr*.303, ( 395+5680)*sr*.317, ( 1360+11310)*sr*.303, ( 395+5680)*sr*.317));
+        flexSpaces.add(new Polygon((1360+11310)*sr*.303, ( 395+5680)*sr*.317, ( 1410+11310)*sr*.303, ( 395+5680)*sr*.317, ( 1410+11310)*sr*.303, ( 458+5680)*sr*.317, ( 1360+11310)*sr*.303, ( 458+5680)*sr*.317));
+        flexSpaces.add(new Polygon((1360+11310)*sr*.303, ( 458+5680)*sr*.317, ( 1410+11310)*sr*.303, ( 458+5680)*sr*.317, ( 1410+11310)*sr*.303, ( 520+5680)*sr*.317, ( 1360+11310)*sr*.303, ( 520+5680)*sr*.317));
 
         //center horizontal desks left
-        flexSpaces.add(new Polygon((1240+11310)*sr*.303, ( 1540+5642)*sr*.313, ( 1303+11310)*sr*.303, ( 1540+5642)*sr*.313, ( 1303+11310)*sr*.303, ( 1590+5642)*sr*.313, ( 1240+11310)*sr*.303, ( 1590+5642)*sr*.313));
-        flexSpaces.add(new Polygon((1303+11310)*sr*.303, ( 1540+5642)*sr*.313, ( 1367+11310)*sr*.303, ( 1540+5642)*sr*.313, ( 1367+11310)*sr*.303, ( 1590+5642)*sr*.313, ( 1303+11310)*sr*.303, ( 1590+5642)*sr*.313));
-        flexSpaces.add(new Polygon((1367+11310)*sr*.303, ( 1540+5642)*sr*.313, ( 1430+11310)*sr*.303, ( 1540+5642)*sr*.313, ( 1430+11310)*sr*.303, ( 1590+5642)*sr*.313, ( 1367+11310)*sr*.303, ( 1590+5642)*sr*.313));
-        flexSpaces.add(new Polygon((1240+11310)*sr*.303, ( 1590+5642)*sr*.313, ( 1303+11310)*sr*.303, ( 1590+5642)*sr*.313, ( 1303+11310)*sr*.303, ( 1640+5642)*sr*.313, ( 1240+11310)*sr*.303, ( 1640+5642)*sr*.313));
-        flexSpaces.add(new Polygon((1303+11310)*sr*.303, ( 1590+5642)*sr*.313, ( 1367+11310)*sr*.303, ( 1590+5642)*sr*.313, ( 1367+11310)*sr*.303, ( 1640+5642)*sr*.313, ( 1303+11310)*sr*.303, ( 1640+5642)*sr*.313));
-        flexSpaces.add(new Polygon((1367+11310)*sr*.303, ( 1590+5642)*sr*.313, ( 1430+11310)*sr*.303, ( 1590+5642)*sr*.313, ( 1430+11310)*sr*.303, ( 1640+5642)*sr*.313, ( 1367+11310)*sr*.303, ( 1640+5642)*sr*.313));
+        flexSpaces.add(new Polygon((1240+11310)*sr*.303, ( 1540+5680)*sr*.317, ( 1303+11310)*sr*.303, ( 1540+5680)*sr*.317, ( 1303+11310)*sr*.303, ( 1590+5680)*sr*.317, ( 1240+11310)*sr*.303, ( 1590+5680)*sr*.317));
+        flexSpaces.add(new Polygon((1303+11310)*sr*.303, ( 1540+5680)*sr*.317, ( 1367+11310)*sr*.303, ( 1540+5680)*sr*.317, ( 1367+11310)*sr*.303, ( 1590+5680)*sr*.317, ( 1303+11310)*sr*.303, ( 1590+5680)*sr*.317));
+        flexSpaces.add(new Polygon((1367+11310)*sr*.303, ( 1540+5680)*sr*.317, ( 1430+11310)*sr*.303, ( 1540+5680)*sr*.317, ( 1430+11310)*sr*.303, ( 1590+5680)*sr*.317, ( 1367+11310)*sr*.303, ( 1590+5680)*sr*.317));
+        flexSpaces.add(new Polygon((1240+11310)*sr*.303, ( 1590+5680)*sr*.317, ( 1303+11310)*sr*.303, ( 1590+5680)*sr*.317, ( 1303+11310)*sr*.303, ( 1640+5680)*sr*.317, ( 1240+11310)*sr*.303, ( 1640+5680)*sr*.317));
+        flexSpaces.add(new Polygon((1303+11310)*sr*.303, ( 1590+5680)*sr*.317, ( 1367+11310)*sr*.303, ( 1590+5680)*sr*.317, ( 1367+11310)*sr*.303, ( 1640+5680)*sr*.317, ( 1303+11310)*sr*.303, ( 1640+5680)*sr*.317));
+        flexSpaces.add(new Polygon((1367+11310)*sr*.303, ( 1590+5680)*sr*.317, ( 1430+11310)*sr*.303, ( 1590+5680)*sr*.317, ( 1430+11310)*sr*.303, ( 1640+5680)*sr*.317, ( 1367+11310)*sr*.303, ( 1640+5680)*sr*.317));
 
         //center horizontal desks right
-        flexSpaces.add(new Polygon((1490+11310)*sr*.303, ( 1540+5642)*sr*.313, ( 1553+11310)*sr*.303, ( 1540+5642)*sr*.313, ( 1553+11310)*sr*.303, ( 1590+5642)*sr*.313, ( 1490+11310)*sr*.303, ( 1590+5642)*sr*.313));
-        flexSpaces.add(new Polygon((1553+11310)*sr*.303, ( 1540+5642)*sr*.313, ( 1617+11310)*sr*.303, ( 1540+5642)*sr*.313, ( 1617+11310)*sr*.303, ( 1590+5642)*sr*.313, ( 1553+11310)*sr*.303, ( 1590+5642)*sr*.313));
-        flexSpaces.add(new Polygon((1617+11310)*sr*.303, ( 1540+5642)*sr*.313, ( 1680+11310)*sr*.303, ( 1540+5642)*sr*.313, ( 1680+11310)*sr*.303, ( 1590+5642)*sr*.313, ( 1617+11310)*sr*.303, ( 1590+5642)*sr*.313));
-        flexSpaces.add(new Polygon((1490+11310)*sr*.303, ( 1590+5642)*sr*.313, ( 1553+11310)*sr*.303, ( 1590+5642)*sr*.313, ( 1553+11310)*sr*.303, ( 1640+5642)*sr*.313, ( 1490+11310)*sr*.303, ( 1640+5642)*sr*.313));
-        flexSpaces.add(new Polygon((1553+11310)*sr*.303, ( 1590+5642)*sr*.313, ( 1617+11310)*sr*.303, ( 1590+5642)*sr*.313, ( 1617+11310)*sr*.303, ( 1640+5642)*sr*.313, ( 1553+11310)*sr*.303, ( 1640+5642)*sr*.313));
-        flexSpaces.add(new Polygon((1617+11310)*sr*.303, ( 1590+5642)*sr*.313, ( 1680+11310)*sr*.303, ( 1590+5642)*sr*.313, ( 1680+11310)*sr*.303, ( 1640+5642)*sr*.313, ( 1617+11310)*sr*.303, ( 1640+5642)*sr*.313));
+        flexSpaces.add(new Polygon((1490+11310)*sr*.303, ( 1540+5680)*sr*.317, ( 1553+11310)*sr*.303, ( 1540+5680)*sr*.317, ( 1553+11310)*sr*.303, ( 1590+5680)*sr*.317, ( 1490+11310)*sr*.303, ( 1590+5680)*sr*.317));
+        flexSpaces.add(new Polygon((1553+11310)*sr*.303, ( 1540+5680)*sr*.317, ( 1617+11310)*sr*.303, ( 1540+5680)*sr*.317, ( 1617+11310)*sr*.303, ( 1590+5680)*sr*.317, ( 1553+11310)*sr*.303, ( 1590+5680)*sr*.317));
+        flexSpaces.add(new Polygon((1617+11310)*sr*.303, ( 1540+5680)*sr*.317, ( 1680+11310)*sr*.303, ( 1540+5680)*sr*.317, ( 1680+11310)*sr*.303, ( 1590+5680)*sr*.317, ( 1617+11310)*sr*.303, ( 1590+5680)*sr*.317));
+        flexSpaces.add(new Polygon((1490+11310)*sr*.303, ( 1590+5680)*sr*.317, ( 1553+11310)*sr*.303, ( 1590+5680)*sr*.317, ( 1553+11310)*sr*.303, ( 1640+5680)*sr*.317, ( 1490+11310)*sr*.303, ( 1640+5680)*sr*.317));
+        flexSpaces.add(new Polygon((1553+11310)*sr*.303, ( 1590+5680)*sr*.317, ( 1617+11310)*sr*.303, ( 1590+5680)*sr*.317, ( 1617+11310)*sr*.303, ( 1640+5680)*sr*.317, ( 1553+11310)*sr*.303, ( 1640+5680)*sr*.317));
+        flexSpaces.add(new Polygon((1617+11310)*sr*.303, ( 1590+5680)*sr*.317, ( 1680+11310)*sr*.303, ( 1590+5680)*sr*.317, ( 1680+11310)*sr*.303, ( 1640+5680)*sr*.317, ( 1617+11310)*sr*.303, ( 1640+5680)*sr*.317));
 
         //center vertical column of desks
-        flexSpaces.add(new Polygon((1520+11310)*sr*.303, ( 1190+5642)*sr*.313, ( 1570+11310)*sr*.303, ( 1190+5642)*sr*.313, ( 1570+11310)*sr*.303, ( 1252+5642)*sr*.313, ( 1520+11310)*sr*.303, ( 1252+5642)*sr*.313));
-        flexSpaces.add(new Polygon((1520+11310)*sr*.303, ( 1252+5642)*sr*.313, ( 1570+11310)*sr*.303, ( 1252+5642)*sr*.313, ( 1570+11310)*sr*.303, ( 1314+5642)*sr*.313, ( 1520+11310)*sr*.303, ( 1314+5642)*sr*.313));
-        flexSpaces.add(new Polygon((1520+11310)*sr*.303, ( 1314+5642)*sr*.313, ( 1570+11310)*sr*.303, ( 1314+5642)*sr*.313, ( 1570+11310)*sr*.303, ( 1376+5642)*sr*.313, ( 1520+11310)*sr*.303, ( 1376+5642)*sr*.313));
-        flexSpaces.add(new Polygon((1520+11310)*sr*.303, ( 1376+5642)*sr*.313, ( 1570+11310)*sr*.303, ( 1376+5642)*sr*.313, ( 1570+11310)*sr*.303, ( 1438+5642)*sr*.313, ( 1520+11310)*sr*.303, ( 1438+5642)*sr*.313));
-        flexSpaces.add(new Polygon((1520+11310)*sr*.303, ( 1438+5642)*sr*.313, ( 1570+11310)*sr*.303, ( 1438+5642)*sr*.313, ( 1570+11310)*sr*.303, ( 1500+5642)*sr*.313, ( 1520+11310)*sr*.303, ( 1500+5642)*sr*.313));
-        flexSpaces.add(new Polygon((1570+11310)*sr*.303, ( 1190+5642)*sr*.313, ( 1620+11310)*sr*.303, ( 1190+5642)*sr*.313, ( 1620+11310)*sr*.303, ( 1252+5642)*sr*.313, ( 1570+11310)*sr*.303, ( 1252+5642)*sr*.313));
-        flexSpaces.add(new Polygon((1570+11310)*sr*.303, ( 1252+5642)*sr*.313, ( 1620+11310)*sr*.303, ( 1252+5642)*sr*.313, ( 1620+11310)*sr*.303, ( 1314+5642)*sr*.313, ( 1570+11310)*sr*.303, ( 1314+5642)*sr*.313));
-        flexSpaces.add(new Polygon((1570+11310)*sr*.303, ( 1314+5642)*sr*.313, ( 1620+11310)*sr*.303, ( 1314+5642)*sr*.313, ( 1620+11310)*sr*.303, ( 1376+5642)*sr*.313, ( 1570+11310)*sr*.303, ( 1376+5642)*sr*.313));
-        flexSpaces.add(new Polygon((1570+11310)*sr*.303, ( 1376+5642)*sr*.313, ( 1620+11310)*sr*.303, ( 1376+5642)*sr*.313, ( 1620+11310)*sr*.303, ( 1438+5642)*sr*.313, ( 1570+11310)*sr*.303, ( 1438+5642)*sr*.313));
-        flexSpaces.add(new Polygon((1570+11310)*sr*.303, ( 1438+5642)*sr*.313, ( 1620+11310)*sr*.303, ( 1438+5642)*sr*.313, ( 1620+11310)*sr*.303, ( 1500+5642)*sr*.313, ( 1570+11310)*sr*.303, ( 1500+5642)*sr*.313));
+        flexSpaces.add(new Polygon((1520+11310)*sr*.303, ( 1190+5680)*sr*.317, ( 1570+11310)*sr*.303, ( 1190+5680)*sr*.317, ( 1570+11310)*sr*.303, ( 1252+5680)*sr*.317, ( 1520+11310)*sr*.303, ( 1252+5680)*sr*.317));
+        flexSpaces.add(new Polygon((1520+11310)*sr*.303, ( 1252+5680)*sr*.317, ( 1570+11310)*sr*.303, ( 1252+5680)*sr*.317, ( 1570+11310)*sr*.303, ( 1314+5680)*sr*.317, ( 1520+11310)*sr*.303, ( 1314+5680)*sr*.317));
+        flexSpaces.add(new Polygon((1520+11310)*sr*.303, ( 1314+5680)*sr*.317, ( 1570+11310)*sr*.303, ( 1314+5680)*sr*.317, ( 1570+11310)*sr*.303, ( 1376+5680)*sr*.317, ( 1520+11310)*sr*.303, ( 1376+5680)*sr*.317));
+        flexSpaces.add(new Polygon((1520+11310)*sr*.303, ( 1376+5680)*sr*.317, ( 1570+11310)*sr*.303, ( 1376+5680)*sr*.317, ( 1570+11310)*sr*.303, ( 1438+5680)*sr*.317, ( 1520+11310)*sr*.303, ( 1438+5680)*sr*.317));
+        flexSpaces.add(new Polygon((1520+11310)*sr*.303, ( 1438+5680)*sr*.317, ( 1570+11310)*sr*.303, ( 1438+5680)*sr*.317, ( 1570+11310)*sr*.303, ( 1500+5680)*sr*.317, ( 1520+11310)*sr*.303, ( 1500+5680)*sr*.317));
+        flexSpaces.add(new Polygon((1570+11310)*sr*.303, ( 1190+5680)*sr*.317, ( 1620+11310)*sr*.303, ( 1190+5680)*sr*.317, ( 1620+11310)*sr*.303, ( 1252+5680)*sr*.317, ( 1570+11310)*sr*.303, ( 1252+5680)*sr*.317));
+        flexSpaces.add(new Polygon((1570+11310)*sr*.303, ( 1252+5680)*sr*.317, ( 1620+11310)*sr*.303, ( 1252+5680)*sr*.317, ( 1620+11310)*sr*.303, ( 1314+5680)*sr*.317, ( 1570+11310)*sr*.303, ( 1314+5680)*sr*.317));
+        flexSpaces.add(new Polygon((1570+11310)*sr*.303, ( 1314+5680)*sr*.317, ( 1620+11310)*sr*.303, ( 1314+5680)*sr*.317, ( 1620+11310)*sr*.303, ( 1376+5680)*sr*.317, ( 1570+11310)*sr*.303, ( 1376+5680)*sr*.317));
+        flexSpaces.add(new Polygon((1570+11310)*sr*.303, ( 1376+5680)*sr*.317, ( 1620+11310)*sr*.303, ( 1376+5680)*sr*.317, ( 1620+11310)*sr*.303, ( 1438+5680)*sr*.317, ( 1570+11310)*sr*.303, ( 1438+5680)*sr*.317));
+        flexSpaces.add(new Polygon((1570+11310)*sr*.303, ( 1438+5680)*sr*.317, ( 1620+11310)*sr*.303, ( 1438+5680)*sr*.317, ( 1620+11310)*sr*.303, ( 1500+5680)*sr*.317, ( 1570+11310)*sr*.303, ( 1500+5680)*sr*.317));
 
         //bottom right vertical column of desks - left
-        flexSpaces.add(new Polygon((1900+11310)*sr*.303, ( 1890+5642)*sr*.313, ( 1950+11310)*sr*.303, ( 1890+5642)*sr*.313, ( 1950+11310)*sr*.303, ( 1955+5642)*sr*.313, ( 1900+11310)*sr*.303, ( 1955+5642)*sr*.313));
-        flexSpaces.add(new Polygon((1900+11310)*sr*.303, ( 1955+5642)*sr*.313, ( 1950+11310)*sr*.303, ( 1955+5642)*sr*.313, ( 1950+11310)*sr*.303, ( 2020+5642)*sr*.313, ( 1900+11310)*sr*.303, ( 2020+5642)*sr*.313));
-        flexSpaces.add(new Polygon((1900+11310)*sr*.303, ( 2020+5642)*sr*.313, ( 1950+11310)*sr*.303, ( 2020+5642)*sr*.313, ( 1950+11310)*sr*.303, ( 2085+5642)*sr*.313, ( 1900+11310)*sr*.303, ( 2085+5642)*sr*.313));
-        flexSpaces.add(new Polygon((1900+11310)*sr*.303, ( 2085+5642)*sr*.313, ( 1950+11310)*sr*.303, ( 2085+5642)*sr*.313, ( 1950+11310)*sr*.303, ( 2150+5642)*sr*.313, ( 1900+11310)*sr*.303, ( 2150+5642)*sr*.313));
-        flexSpaces.add(new Polygon((1950+11310)*sr*.303, ( 1890+5642)*sr*.313, ( 2000+11310)*sr*.303, ( 1890+5642)*sr*.313, ( 2000+11310)*sr*.303, ( 1955+5642)*sr*.313, ( 1950+11310)*sr*.303, ( 1955+5642)*sr*.313));
-        flexSpaces.add(new Polygon((1950+11310)*sr*.303, ( 1955+5642)*sr*.313, ( 2000+11310)*sr*.303, ( 1955+5642)*sr*.313, ( 2000+11310)*sr*.303, ( 2020+5642)*sr*.313, ( 1950+11310)*sr*.303, ( 2020+5642)*sr*.313));
-        flexSpaces.add(new Polygon((1950+11310)*sr*.303, ( 2020+5642)*sr*.313, ( 2000+11310)*sr*.303, ( 2020+5642)*sr*.313, ( 2000+11310)*sr*.303, ( 2085+5642)*sr*.313, ( 1950+11310)*sr*.303, ( 2085+5642)*sr*.313));
-        flexSpaces.add(new Polygon((1950+11310)*sr*.303, ( 2085+5642)*sr*.313, ( 2000+11310)*sr*.303, ( 2085+5642)*sr*.313, ( 2000+11310)*sr*.303, ( 2150+5642)*sr*.313, ( 1950+11310)*sr*.303, ( 2150+5642)*sr*.313));
+        flexSpaces.add(new Polygon((1900+11310)*sr*.303, ( 1890+5680)*sr*.317, ( 1950+11310)*sr*.303, ( 1890+5680)*sr*.317, ( 1950+11310)*sr*.303, ( 1955+5680)*sr*.317, ( 1900+11310)*sr*.303, ( 1955+5680)*sr*.317));
+        flexSpaces.add(new Polygon((1900+11310)*sr*.303, ( 1955+5680)*sr*.317, ( 1950+11310)*sr*.303, ( 1955+5680)*sr*.317, ( 1950+11310)*sr*.303, ( 2020+5680)*sr*.317, ( 1900+11310)*sr*.303, ( 2020+5680)*sr*.317));
+        flexSpaces.add(new Polygon((1900+11310)*sr*.303, ( 2020+5680)*sr*.317, ( 1950+11310)*sr*.303, ( 2020+5680)*sr*.317, ( 1950+11310)*sr*.303, ( 2085+5680)*sr*.317, ( 1900+11310)*sr*.303, ( 2085+5680)*sr*.317));
+        flexSpaces.add(new Polygon((1900+11310)*sr*.303, ( 2085+5680)*sr*.317, ( 1950+11310)*sr*.303, ( 2085+5680)*sr*.317, ( 1950+11310)*sr*.303, ( 2150+5680)*sr*.317, ( 1900+11310)*sr*.303, ( 2150+5680)*sr*.317));
+        flexSpaces.add(new Polygon((1950+11310)*sr*.303, ( 1890+5680)*sr*.317, ( 2000+11310)*sr*.303, ( 1890+5680)*sr*.317, ( 2000+11310)*sr*.303, ( 1955+5680)*sr*.317, ( 1950+11310)*sr*.303, ( 1955+5680)*sr*.317));
+        flexSpaces.add(new Polygon((1950+11310)*sr*.303, ( 1955+5680)*sr*.317, ( 2000+11310)*sr*.303, ( 1955+5680)*sr*.317, ( 2000+11310)*sr*.303, ( 2020+5680)*sr*.317, ( 1950+11310)*sr*.303, ( 2020+5680)*sr*.317));
+        flexSpaces.add(new Polygon((1950+11310)*sr*.303, ( 2020+5680)*sr*.317, ( 2000+11310)*sr*.303, ( 2020+5680)*sr*.317, ( 2000+11310)*sr*.303, ( 2085+5680)*sr*.317, ( 1950+11310)*sr*.303, ( 2085+5680)*sr*.317));
+        flexSpaces.add(new Polygon((1950+11310)*sr*.303, ( 2085+5680)*sr*.317, ( 2000+11310)*sr*.303, ( 2085+5680)*sr*.317, ( 2000+11310)*sr*.303, ( 2150+5680)*sr*.317, ( 1950+11310)*sr*.303, ( 2150+5680)*sr*.317));
 
         //bottom right vertical column of desks - right
-        flexSpaces.add(new Polygon((2040+11310)*sr*.303, ( 1890+5642)*sr*.313, ( 2090+11310)*sr*.303, ( 1890+5642)*sr*.313, ( 2090+11310)*sr*.303, ( 1955+5642)*sr*.313, ( 2040+11310)*sr*.303, ( 1955+5642)*sr*.313));
-        flexSpaces.add(new Polygon((2040+11310)*sr*.303, ( 1955+5642)*sr*.313, ( 2090+11310)*sr*.303, ( 1955+5642)*sr*.313, ( 2090+11310)*sr*.303, ( 2020+5642)*sr*.313, ( 2040+11310)*sr*.303, ( 2020+5642)*sr*.313));
-        flexSpaces.add(new Polygon((2040+11310)*sr*.303, ( 2020+5642)*sr*.313, ( 2090+11310)*sr*.303, ( 2020+5642)*sr*.313, ( 2090+11310)*sr*.303, ( 2085+5642)*sr*.313, ( 2040+11310)*sr*.303, ( 2085+5642)*sr*.313));
-        flexSpaces.add(new Polygon((2040+11310)*sr*.303, ( 2085+5642)*sr*.313, ( 2090+11310)*sr*.303, ( 2085+5642)*sr*.313, ( 2090+11310)*sr*.303, ( 2150+5642)*sr*.313, ( 2040+11310)*sr*.303, ( 2150+5642)*sr*.313));
-        flexSpaces.add(new Polygon((2090+11310)*sr*.303, ( 1890+5642)*sr*.313, ( 2140+11310)*sr*.303, ( 1890+5642)*sr*.313, ( 2140+11310)*sr*.303, ( 1955+5642)*sr*.313, ( 2090+11310)*sr*.303, ( 1955+5642)*sr*.313));
-        flexSpaces.add(new Polygon((2090+11310)*sr*.303, ( 1955+5642)*sr*.313, ( 2140+11310)*sr*.303, ( 1955+5642)*sr*.313, ( 2140+11310)*sr*.303, ( 2020+5642)*sr*.313, ( 2090+11310)*sr*.303, ( 2020+5642)*sr*.313));
-        flexSpaces.add(new Polygon((2090+11310)*sr*.303, ( 2020+5642)*sr*.313, ( 2140+11310)*sr*.303, ( 2020+5642)*sr*.313, ( 2140+11310)*sr*.303, ( 2085+5642)*sr*.313, ( 2090+11310)*sr*.303, ( 2085+5642)*sr*.313));
-        flexSpaces.add(new Polygon((2090+11310)*sr*.303, ( 2085+5642)*sr*.313, ( 2140+11310)*sr*.303, ( 2085+5642)*sr*.313, ( 2140+11310)*sr*.303, ( 2150+5642)*sr*.313, ( 2090+11310)*sr*.303, ( 2150+5642)*sr*.313));
+        flexSpaces.add(new Polygon((2040+11310)*sr*.303, ( 1890+5680)*sr*.317, ( 2090+11310)*sr*.303, ( 1890+5680)*sr*.317, ( 2090+11310)*sr*.303, ( 1955+5680)*sr*.317, ( 2040+11310)*sr*.303, ( 1955+5680)*sr*.317));
+        flexSpaces.add(new Polygon((2040+11310)*sr*.303, ( 1955+5680)*sr*.317, ( 2090+11310)*sr*.303, ( 1955+5680)*sr*.317, ( 2090+11310)*sr*.303, ( 2020+5680)*sr*.317, ( 2040+11310)*sr*.303, ( 2020+5680)*sr*.317));
+        flexSpaces.add(new Polygon((2040+11310)*sr*.303, ( 2020+5680)*sr*.317, ( 2090+11310)*sr*.303, ( 2020+5680)*sr*.317, ( 2090+11310)*sr*.303, ( 2085+5680)*sr*.317, ( 2040+11310)*sr*.303, ( 2085+5680)*sr*.317));
+        flexSpaces.add(new Polygon((2040+11310)*sr*.303, ( 2085+5680)*sr*.317, ( 2090+11310)*sr*.303, ( 2085+5680)*sr*.317, ( 2090+11310)*sr*.303, ( 2150+5680)*sr*.317, ( 2040+11310)*sr*.303, ( 2150+5680)*sr*.317));
+        flexSpaces.add(new Polygon((2090+11310)*sr*.303, ( 1890+5680)*sr*.317, ( 2140+11310)*sr*.303, ( 1890+5680)*sr*.317, ( 2140+11310)*sr*.303, ( 1955+5680)*sr*.317, ( 2090+11310)*sr*.303, ( 1955+5680)*sr*.317));
+        flexSpaces.add(new Polygon((2090+11310)*sr*.303, ( 1955+5680)*sr*.317, ( 2140+11310)*sr*.303, ( 1955+5680)*sr*.317, ( 2140+11310)*sr*.303, ( 2020+5680)*sr*.317, ( 2090+11310)*sr*.303, ( 2020+5680)*sr*.317));
+        flexSpaces.add(new Polygon((2090+11310)*sr*.303, ( 2020+5680)*sr*.317, ( 2140+11310)*sr*.303, ( 2020+5680)*sr*.317, ( 2140+11310)*sr*.303, ( 2085+5680)*sr*.317, ( 2090+11310)*sr*.303, ( 2085+5680)*sr*.317));
+        flexSpaces.add(new Polygon((2090+11310)*sr*.303, ( 2085+5680)*sr*.317, ( 2140+11310)*sr*.303, ( 2085+5680)*sr*.317, ( 2140+11310)*sr*.303, ( 2150+5680)*sr*.317, ( 2090+11310)*sr*.303, ( 2150+5680)*sr*.317));
 
         //bottom right vertical rooms
-        flexSpaces.add(new Polygon((2220+11310)*sr*.303, ( 2220+5642)*sr*.313, ( 2290+11310)*sr*.303, ( 2220+5642)*sr*.313, ( 2290+11310)*sr*.303, ( 2340+5642)*sr*.313, ( 2220+11310)*sr*.303, ( 2340+5642)*sr*.313));
-        flexSpaces.add(new Polygon((2220+11310)*sr*.303, ( 2340+5642)*sr*.313, ( 2290+11310)*sr*.303, ( 2340+5642)*sr*.313, ( 2290+11310)*sr*.303, ( 2430+5642)*sr*.313, ( 2220+11310)*sr*.303, ( 2430+5642)*sr*.313));
-        flexSpaces.add(new Polygon((2220+11310)*sr*.303, ( 2430+5642)*sr*.313, ( 2290+11310)*sr*.303, ( 2430+5642)*sr*.313, ( 2290+11310)*sr*.303, ( 2515+5642)*sr*.313, ( 2220+11310)*sr*.303, ( 2515+5642)*sr*.313));
-        flexSpaces.add(new Polygon((2220+11310)*sr*.303, ( 2515+5642)*sr*.313, ( 2290+11310)*sr*.303, ( 2515+5642)*sr*.313, ( 2290+11310)*sr*.303, ( 2620+5642)*sr*.313, ( 2220+11310)*sr*.303, ( 2620+5642)*sr*.313));
+        flexSpaces.add(new Polygon((2220+11310)*sr*.303, ( 2220+5680)*sr*.317, ( 2290+11310)*sr*.303, ( 2220+5680)*sr*.317, ( 2290+11310)*sr*.303, ( 2340+5680)*sr*.317, ( 2220+11310)*sr*.303, ( 2340+5680)*sr*.317));
+        flexSpaces.add(new Polygon((2220+11310)*sr*.303, ( 2340+5680)*sr*.317, ( 2290+11310)*sr*.303, ( 2340+5680)*sr*.317, ( 2290+11310)*sr*.303, ( 2430+5680)*sr*.317, ( 2220+11310)*sr*.303, ( 2430+5680)*sr*.317));
+        flexSpaces.add(new Polygon((2220+11310)*sr*.303, ( 2430+5680)*sr*.317, ( 2290+11310)*sr*.303, ( 2430+5680)*sr*.317, ( 2290+11310)*sr*.303, ( 2515+5680)*sr*.317, ( 2220+11310)*sr*.303, ( 2515+5680)*sr*.317));
+        flexSpaces.add(new Polygon((2220+11310)*sr*.303, ( 2515+5680)*sr*.317, ( 2290+11310)*sr*.303, ( 2515+5680)*sr*.317, ( 2290+11310)*sr*.303, ( 2620+5680)*sr*.317, ( 2220+11310)*sr*.303, ( 2620+5680)*sr*.317));
 
         //little rooms above center room
-        flexSpaces.add(new Polygon((860+11310)*sr*.303, ( 1190+5642)*sr*.313, ( 960+11310)*sr*.303, ( 1190+5642)*sr*.313, ( 960+11310)*sr*.303, ( 1270+5642)*sr*.313, ( 860+11310)*sr*.303, ( 1270+5642)*sr*.313));
-        flexSpaces.add(new Polygon((960+11310)*sr*.303, ( 1190+5642)*sr*.313, ( 1060+11310)*sr*.303, ( 1190+5642)*sr*.313, ( 1060+11310)*sr*.303, ( 1270+5642)*sr*.313, ( 960+11310)*sr*.303, ( 1270+5642)*sr*.313));
-        flexSpaces.add(new Polygon((1060+11310)*sr*.303, ( 1190+5642)*sr*.313, ( 1160+11310)*sr*.303, ( 1190+5642)*sr*.313, ( 1160+11310)*sr*.303, ( 1270+5642)*sr*.313, ( 1060+11310)*sr*.303, ( 1270+5642)*sr*.313));
+        flexSpaces.add(new Polygon((860+11310)*sr*.303, ( 1190+5680)*sr*.317, ( 960+11310)*sr*.303, ( 1190+5680)*sr*.317, ( 960+11310)*sr*.303, ( 1270+5680)*sr*.317, ( 860+11310)*sr*.303, ( 1270+5680)*sr*.317));
+        flexSpaces.add(new Polygon((960+11310)*sr*.303, ( 1190+5680)*sr*.317, ( 1060+11310)*sr*.303, ( 1190+5680)*sr*.317, ( 1060+11310)*sr*.303, ( 1270+5680)*sr*.317, ( 960+11310)*sr*.303, ( 1270+5680)*sr*.317));
+        flexSpaces.add(new Polygon((1060+11310)*sr*.303, ( 1190+5680)*sr*.317, ( 1160+11310)*sr*.303, ( 1190+5680)*sr*.317, ( 1160+11310)*sr*.303, ( 1270+5680)*sr*.317, ( 1060+11310)*sr*.303, ( 1270+5680)*sr*.317));
 
-        double room1[] = {(2230+11310)*.303, (1630+5642)*.313, (2650+11310)*.303, (1630+5642)*.313, (2650+11310)*.303, (1880+5642)*.313, (2230+11310)*.303, (1880+5642)*.313};
-        double room2[] = {(2860+11310)*.303, (1130+5642)*.313, (3040+11310)*.303, (1070+5642)*.313, (3180+11310)*.303, (1430+5642)*.313, (2990+11310)*.303, (1500+5642)*.313};
-        double room3[] = {(2720+11310)*.303, (750+5642)*.313, (2850+11310)*.303, (1120+5642)*.313, (3040+11310)*.303, (1060+5642)*.313, (2970+11310)*.303, (850+5642)*.313, (3000+11310)*.303, (840+5642)*.313, (2970+11310)*.303, (770+5642)*.313, (2900+11310)*.303, (720+5642)*.313, (2810+11310)*.303, (690+5642)*.313};
-        double room4[] = {(2420+11310)*.303, (180+5642)*.313, (2610+11310)*.303, (180+5642)*.313, (2730+11310)*.303, (540+5642)*.313, (2420+11310)*.303, (540+5642)*.313};
-        double room5[] = {(2240+11310)*.303, (755+5642)*.313, (2540+11310)*.303, (755+5642)*.313, (2540+11310)*.303, (1080+5642)*.313, (2240+11310)*.303, (1080+5642)*.313};
-        double room6[] = {(2090+11310)*.303, (180+5642)*.313, (2410+11310)*.303, (180+5642)*.313, (2410+11310)*.303, (540+5642)*.313, (2090+11310)*.303, (540+5642)*.313};
-        double room7[] = {(2000+11310)*.303, (755+5642)*.313, (2230+11310)*.303, (755+5642)*.313, (2230+11310)*.303, (1080+5642)*.313, (2000+11310)*.303, (1080+5642)*.313};
-        double room8[] = {(1750+11310)*.303, (180+5642)*.313, (2080+11310)*.303, (180+5642)*.313, (2080+11310)*.303, (540+5642)*.313, (1750+11310)*.303, (540+5642)*.313};
-        double room9[] = {(1775+11310)*.303, (710+5642)*.313, (1840+11310)*.303, (710+5642)*.313, (1840+11310)*.303, (750+5642)*.313, (1980+11310)*.303, (750+5642)*.313, (1980+11310)*.303, (930+5642)*.313, (1775+11310)*.303, (930+5642)*.313};
-        double auditorium[] = {(2860+11310)*.303, (1920+5642)*.313, (2860+11310)*.303, (2030+5642)*.313, (3130+11310)*.303, (2030+5642)*.313, (3150+11310)*.303, (2060+5642)*.313, (3240+11310)*.303, (2000+5642)*.313, (3320+11310)*.303, (1870+5642)*.313, (3330+11310)*.303, (1770+5642)*.313, (3310+11310)*.303, (1730+5642)*.313, (3270+11310)*.303, (1720+5642)*.313, (3190+11310)*.303, (1460+5642)*.313, (3040+11310)*.303, (1500+5642)*.313, (3070+11310)*.303, (1590+5642)*.313, (3030+11310)*.303, (1600+5642)*.313};
+        double room1[] = {(2230+11310)*.303, (1630+5680)*.317, (2650+11310)*.303, (1630+5680)*.317, (2650+11310)*.303, (1880+5680)*.317, (2230+11310)*.303, (1880+5680)*.317};
+        double room2[] = {(2860+11310)*.303, (1130+5680)*.317, (3040+11310)*.303, (1070+5680)*.317, (3180+11310)*.303, (1430+5680)*.317, (2990+11310)*.303, (1500+5680)*.317};
+        double room3[] = {(2720+11310)*.303, (750+5680)*.317, (2850+11310)*.303, (1120+5680)*.317, (3040+11310)*.303, (1060+5680)*.317, (2970+11310)*.303, (850+5680)*.317, (3000+11310)*.303, (840+5680)*.317, (2970+11310)*.303, (770+5680)*.317, (2900+11310)*.303, (720+5680)*.317, (2810+11310)*.303, (690+5680)*.317};
+        double room4[] = {(2420+11310)*.303, (180+5680)*.317, (2610+11310)*.303, (180+5680)*.317, (2730+11310)*.303, (540+5680)*.317, (2420+11310)*.303, (540+5680)*.317};
+        double room5[] = {(2240+11310)*.303, (755+5680)*.317, (2540+11310)*.303, (755+5680)*.317, (2540+11310)*.303, (1080+5680)*.317, (2240+11310)*.303, (1080+5680)*.317};
+        double room6[] = {(2090+11310)*.303, (180+5680)*.317, (2410+11310)*.303, (180+5680)*.317, (2410+11310)*.303, (540+5680)*.317, (2090+11310)*.303, (540+5680)*.317};
+        double room7[] = {(2000+11310)*.303, (755+5680)*.317, (2230+11310)*.303, (755+5680)*.317, (2230+11310)*.303, (1080+5680)*.317, (2000+11310)*.303, (1080+5680)*.317};
+        double room8[] = {(1750+11310)*.303, (180+5680)*.317, (2080+11310)*.303, (180+5680)*.317, (2080+11310)*.303, (540+5680)*.317, (1750+11310)*.303, (540+5680)*.317};
+        double room9[] = {(1775+11310)*.303, (710+5680)*.317, (1840+11310)*.303, (710+5680)*.317, (1840+11310)*.303, (750+5680)*.317, (1980+11310)*.303, (750+5680)*.317, (1980+11310)*.303, (930+5680)*.317, (1775+11310)*.303, (930+5680)*.317};
+        double auditorium[] = {(2860+11310)*.303, (1920+5680)*.317, (2860+11310)*.303, (2030+5680)*.317, (3130+11310)*.303, (2030+5680)*.317, (3150+11310)*.303, (2060+5680)*.317, (3240+11310)*.303, (2000+5680)*.317, (3320+11310)*.303, (1870+5680)*.317, (3330+11310)*.303, (1770+5680)*.317, (3310+11310)*.303, (1730+5680)*.317, (3270+11310)*.303, (1720+5680)*.317, (3190+11310)*.303, (1460+5680)*.317, (3040+11310)*.303, (1500+5680)*.317, (3070+11310)*.303, (1590+5680)*.317, (3030+11310)*.303, (1600+5680)*.317};
 
         DisplayRooms.add(new RoomDisplay("Room 1 - Computer", room1, "Room 1 - Computer"));
         DisplayRooms.add(new RoomDisplay("Room 2 - Computer", room2, "Room 2 - Computer"));

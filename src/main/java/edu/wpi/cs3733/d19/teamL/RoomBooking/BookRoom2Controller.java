@@ -157,7 +157,7 @@ public class BookRoom2Controller {
         LocalTime startLT = LocalTime.of(0,0);
         LocalTime endLT = LocalTime.of(0, 30);
         for(int i = 0; i < 48; i++){
-           // System.out.println("Start Time: " + startTime + " End Time: " + endTime);
+            // System.out.println("Start Time: " + startTime + " End Time: " + endTime);
             TreeItem<Room> bookedRooms = new TreeItem<Room>(new Room(startLT, endLT, ra.getAvailRooms(theDate, theDate)));
             Root.getChildren().add(bookedRooms);
             startLT = startLT.plusMinutes(30);

@@ -4,6 +4,7 @@ import com.android.dx.gen.Local;
 import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXDatePicker;
 import edu.wpi.cs3733.d19.teamL.HomeScreens.HomeScreenController;
+import edu.wpi.cs3733.d19.teamL.Memento;
 import edu.wpi.cs3733.d19.teamL.Singleton;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
@@ -12,6 +13,7 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
@@ -375,26 +377,40 @@ public class WeeklyScheduleController
     }
 
     @FXML
-    public void backPressed() throws IOException {
+    private void backPressed(ActionEvent event) throws IOException {
         timeout.stop();
         Singleton single = Singleton.getInstance();
         single.setLastTime();
-        FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("BookRoom.fxml"));
-        Parent sceneMain = loader.load();
-        BookRoomController controller = loader.<BookRoomController>getController();
-        Stage theStage = (Stage) back.getScene().getWindow();
-        Scene scene = new Scene(sceneMain);
-        theStage.setScene(scene);
-    }
-    @FXML
-    private void logOut() throws IOException {
-
+        single.setDoPopup(true);
+        Memento m = single.restore();
+        Parent newPage = FXMLLoader.load(getClass().getClassLoader().getResource(m.getFxml()));
+        ((Node) event.getSource()).getScene().setRoot(newPage);
     }
 
+    @FXML
+    private void logOut(ActionEvent event) throws IOException {
+        timeout.stop();
+        Singleton single = Singleton.getInstance();
+        single.setLastTime();
+        single.setUsername("");
+        single.setIsAdmin(false);
+        single.setLoggedIn(false);
+        single.setDoPopup(true);
+        Memento m = single.getOrig();
+        Parent newPage = FXMLLoader.load(getClass().getClassLoader().getResource(m.getFxml()));
+        ((Node) event.getSource()).getScene().setRoot(newPage);
+    }
 
     @FXML
-    private void goHome() throws IOException {
-
+    private void goHome(ActionEvent event) throws IOException {
+        timeout.stop();
+        Singleton single = Singleton.getInstance();
+        single.setLastTime();
+        single.setDoPopup(true);
+       // saveState();
+        Memento m = single.getOrig();
+        Parent newPage = FXMLLoader.load(getClass().getClassLoader().getResource(m.getFxml()));
+        ((Node) event.getSource()).getScene().setRoot(newPage);
     }
 
 }

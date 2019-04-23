@@ -24,6 +24,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
 import javafx.geometry.Point2D;
 import javafx.geometry.Pos;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
@@ -400,8 +401,8 @@ public class EditLocationController {
         lines.clear();
         pns.clear();
         pathPane.getChildren().removeAll();
-        circles.add(thisCircle);
-        pathPane.getChildren().add(thisCircle);
+        //circles.add(thisCircle);
+        //pathPane.getChildren().add(thisCircle);
     }
 
 
@@ -508,19 +509,14 @@ public class EditLocationController {
 
 
     @FXML
-    private void backPressed() throws IOException{
+    private void backPressed(ActionEvent event) throws IOException {
         timeout.stop();
         Singleton single = Singleton.getInstance();
         single.setLastTime();
+        single.setDoPopup(true);
         Memento m = single.restore();
-        FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource(m.getFxml()));
-
-        Parent sceneMain = loader.load();
-
-        Stage theStage = (Stage) back.getScene().getWindow();
-
-        Scene scene = new Scene(sceneMain);
-        theStage.setScene(scene);
+        Parent newPage = FXMLLoader.load(getClass().getClassLoader().getResource(m.getFxml()));
+        ((Node) event.getSource()).getScene().setRoot(newPage);
     }
     //Larry - Handler for pressing circle
 
@@ -1323,7 +1319,7 @@ public class EditLocationController {
         }
 
     @FXML
-    private void logOut() throws IOException {
+    private void logOut(ActionEvent event) throws IOException {
         timeout.stop();
         Singleton single = Singleton.getInstance();
         single.setLastTime();
@@ -1331,27 +1327,21 @@ public class EditLocationController {
         single.setIsAdmin(false);
         single.setLoggedIn(false);
         single.setDoPopup(true);
-        Stage thestage = (Stage) back.getScene().getWindow();
-        AnchorPane root;
         Memento m = single.getOrig();
-        root = FXMLLoader.load(getClass().getClassLoader().getResource(m.getFxml()));
-        Scene scene = new Scene(root);
-        thestage.setScene(scene);
+        Parent newPage = FXMLLoader.load(getClass().getClassLoader().getResource(m.getFxml()));
+        ((Node) event.getSource()).getScene().setRoot(newPage);
     }
 
     @FXML
-    private void goHome() throws IOException {
+    private void goHome(ActionEvent event) throws IOException {
         timeout.stop();
         Singleton single = Singleton.getInstance();
         single.setLastTime();
         single.setDoPopup(true);
         saveState();
-        Stage thestage = (Stage) back.getScene().getWindow();
-        AnchorPane root;
         Memento m = single.getOrig();
-        root = FXMLLoader.load(getClass().getClassLoader().getResource(m.getFxml()));
-        Scene scene = new Scene(root);
-        thestage.setScene(scene);
+        Parent newPage = FXMLLoader.load(getClass().getClassLoader().getResource(m.getFxml()));
+        ((Node) event.getSource()).getScene().setRoot(newPage);
     }
 
     /**@author Nathan
