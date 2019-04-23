@@ -980,6 +980,10 @@ public class PathFindingController {
                 }
             }
             counter++;
+            //Displays the part of the path you're on by highlighting the button.
+//            if(fBut.getText().equals(currentMap)) {
+//                fBut.setStyle("-fx-background-color: #012d5a; -fx-text-fill: white");
+//            }
         }
 
     }
