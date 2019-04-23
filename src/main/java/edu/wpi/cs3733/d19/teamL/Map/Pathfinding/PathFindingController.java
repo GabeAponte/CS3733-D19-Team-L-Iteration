@@ -875,7 +875,8 @@ public class PathFindingController {
      * @param end
      */
     private void autoZoom(Location start, Location end) {
-        if((Math.abs((start.getXcoord() - end.getXcoord()))) < 3200 && Math.abs(((start.getYcoord() - end.getYcoord()))) < 1050 || (Math.abs((start.getXcoord() - end.getXcoord()))) < 2500 && Math.abs(((start.getYcoord() - end.getYcoord()))) < 3050 ){
+        if((Math.abs((start.getXcoord() - end.getXcoord()))) < 3200 && Math.abs(((start.getYcoord() - end.getYcoord()))) < 1050
+                || (Math.abs((start.getXcoord() - end.getXcoord()))) < 2500 && Math.abs(((start.getYcoord() - end.getYcoord()))) < 3050 ){
             double x = gesturePane.getWidth()/(Math.abs((start.getXcoord() - end.getXcoord())));
             double y = gesturePane.getHeight()/Math.abs(((start.getYcoord() - end.getYcoord())));
             double scale = (Math.min(x, y)/2) + 1.1;
@@ -1133,8 +1134,12 @@ public class PathFindingController {
             endLabel.setStyle("-fx-text-fill: WHITE;-fx-font-size: 6; -fx-background-color: rgba(51, 100, 255, 0.75); -fx-border-color: WHITE; -fx-border-width: 1; -fx-min-width: 40;");
         }
         //Handles cases when you only display one location
-        if(path.getPath().get(begin).getLocID().equals(path.getPath().get(count).getLocID())) {
+        if(path.getPath().get(begin).getLocID().equals(path.getPath().get(count).getLocID()) && path.getPath().get(begin).getLocID().equals(startNode.getLocID())) {
+            endLabel.setVisible(false);
+        }
+        else if(path.getPath().get(begin).getLocID().equals(path.getPath().get(count).getLocID())) {
             startLabel.setVisible(false);
+            endLabel.setVisible(true);
         }
         else {
             startLabel.setVisible(true);
