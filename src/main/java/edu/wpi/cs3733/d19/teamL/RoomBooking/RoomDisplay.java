@@ -34,6 +34,18 @@ public class RoomDisplay {
         p.setOnMouseExited(setOnMouseExited);
     }
 
+    public void makePolygon(double scaleRatioWidth, double scaleRatioHeight){
+        for (int j = 0; j < this.coordinates.length; j+=2) {
+            coordinates[j] = coordinates[j] * scaleRatioWidth;
+        }
+        for (int j = 1; j < this.coordinates.length; j+=2) {
+            coordinates[j] = coordinates[j] * scaleRatioHeight;
+        }
+        p = new Polygon(coordinates);
+        p.setOnMouseEntered(setOnMouseEntered);
+        p.setOnMouseExited(setOnMouseExited);
+    }
+
     public void changePolygonColor(String color){
         p.setStroke(Color.web(color));
         p.setFill(Color.web(color));
