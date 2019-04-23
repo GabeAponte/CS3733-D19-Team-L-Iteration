@@ -274,6 +274,8 @@ public class BookRoomController {
         startTime.setValue(LocalTime.now().plusMinutes(1));
         endTime.setValue(LocalTime.now().plusHours(1).plusMinutes(1));
         datePicker.setValue(LocalDate.now());
+        dailyDatePicker.setValue(LocalDate.now());
+        weeklyDatePicker.setValue(LocalDate.now());
         Singleton single = Singleton.getInstance();
         single.setLastTime();
         timeout = new Timeline(new KeyFrame(Duration.millis(1500), new EventHandler<ActionEvent>() {
