@@ -353,7 +353,6 @@
                 </JFXTabPane>
             </children>
         </VBox>
-
         <AnchorPane fx:id="reservationPane" layoutX="1287.0" layoutY="330.0" prefHeight="328.0" prefWidth="550.0" style="-fx-border-color: #f5d96b; -fx-background-radius: 10; -fx-border-radius: 10;" styleClass="AnchorPainMain" stylesheets="@Default.css" AnchorPane.bottomAnchor="20.0" AnchorPane.rightAnchor="-550.0">
             <children>
                 <GridPane layoutX="1.0" layoutY="12.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
@@ -375,17 +374,17 @@
                                 <Font size="20.0" />
                             </font>
                         </Label>
-                        <JFXRadioButton styleClass="radio-buttonDJ" stylesheets="@Default.css" text="Private Event" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="3">
+                        <JFXRadioButton fx:id="privateEvent" styleClass="radio-buttonDJ" stylesheets="@Default.css" text="Private Event" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="3">
                             <font>
                                 <Font size="16.0" />
                             </font>
                         </JFXRadioButton>
-                        <JFXTextField promptText="Event Name" styleClass="jfx-text-areaServiceRequest" stylesheets="@Default.css" GridPane.columnSpan="2" GridPane.rowIndex="1">
+                        <JFXTextField promptText="Event Name" fx:id="eventName" styleClass="jfx-text-areaServiceRequest" stylesheets="@Default.css" GridPane.columnSpan="2" GridPane.rowIndex="1">
                             <font>
                                 <Font size="18.0" />
                             </font>
                         </JFXTextField>
-                        <JFXTextArea promptText="Event Description" styleClass="jfx-text-areaServiceRequest" stylesheets="@Default.css" GridPane.columnSpan="2" GridPane.rowIndex="2">
+                        <JFXTextArea promptText="Event Description" fx:id="eventDescription" styleClass="jfx-text-areaServiceRequest" stylesheets="@Default.css" GridPane.columnSpan="2" GridPane.rowIndex="2">
                             <font>
                                 <Font size="18.0" />
                             </font></JFXTextArea>

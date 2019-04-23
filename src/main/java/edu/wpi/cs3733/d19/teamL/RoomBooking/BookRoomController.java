@@ -42,6 +42,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 import javafx.util.Duration;
+import org.w3c.dom.Text;
 
 public class BookRoomController {
 
@@ -143,9 +144,6 @@ public class BookRoomController {
     private JFXComboBox<String> availableRooms;
 
     @FXML
-    private JFXComboBox<String> eventType;
-
-    @FXML
     private Label error;
 
     @FXML
@@ -191,7 +189,17 @@ public class BookRoomController {
     private AnchorPane anchorPane;
 
     //Reservation Pop-up
-    
+    @FXML
+    private TextField eventName;
+
+    @FXML
+    private TextArea eventDescription;
+
+    @FXML
+    private RadioButton privateEvent;
+
+    @FXML
+    private JFXComboBox<String> eventType;
 
     @FXML
     private ListView<EmployeeAccess> myListView;
