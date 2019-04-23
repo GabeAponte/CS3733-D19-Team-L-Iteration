@@ -10,6 +10,17 @@
 
 }
 
+.buttonMainNoB{
+    -fx-background-color: white;
+    -fx-border-color: #F5D96B;
+    -fx-border-radius: 10;
+    -fx-border-width: 4;
+    -fx-text-fill: #012d5a;
+    -fx-background-radius: 15;
+    -jfx-button-type: RAISED;
+
+}
+
 .buttonMain .glyph-icon {
     -fx-fill: #012d5a;
 }
@@ -291,10 +302,10 @@
     -fx-text-fill: black;
     -jfx-focus-color: #012d5a;
     -jfx-unfocus-color: transparent;
-    -fx-background-radius: 25;
-    -fx-border-color: #012d5a;
-    -fx-border-width: 3;
-    -fx-border-radius: 20;
+    -fx-background-radius: 15;
+    -fx-border-color: #f5d96b;
+    -fx-border-width: 4;
+    -fx-border-radius: 10;
 
 }
 
