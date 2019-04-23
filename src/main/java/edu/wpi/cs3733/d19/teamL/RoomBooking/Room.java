@@ -2,6 +2,7 @@ package edu.wpi.cs3733.d19.teamL.RoomBooking;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -19,29 +20,35 @@ public class Room{
     boolean class9;
     boolean auditorium;
 
-    public Room(String startTime, String endTime, ArrayList<String> theRooms){
-        int milTime = Integer.parseInt(startTime);
-        int endMilTime = Integer.parseInt(endTime);
+    public Room(LocalTime startTime, LocalTime endTime, ArrayList<String> theRooms){
 
-        Date startDate = null;
-        try {
-            startDate = new SimpleDateFormat("hhmm").parse(String.format("%04d", milTime));
-        } catch (ParseException e) {
-            e.printStackTrace();
+        String startDate = "";
+        String endDate = "";
+
+        if(startTime.getHour() == 0){
+            LocalTime sTime = startTime.plusHours(12);
+            startDate = sTime.toString() + " AM";
+        }else if(startTime.getHour() == 12){
+            startDate = startTime.toString() + " PM";
+        }else if(startTime.getHour() >= 13){
+            LocalTime sTime = startTime.minusHours(12);
+            startDate = sTime.toString() + " PM";
+        }else{
+            startDate = startTime.toString() + " AM";
         }
-        SimpleDateFormat startSimpleDate = new SimpleDateFormat("hh:mm a");
-      //  System.out.println(startSimpleDate.format(startDate));
-
-        Date endDate = null;
-        try {
-            endDate = new SimpleDateFormat("hhmm").parse(String.format("%04d", endMilTime));
-        } catch (ParseException e) {
-            e.printStackTrace();
+        if(endTime.getHour() == 0){
+            LocalTime sTime = endTime.plusHours(12);
+            endDate = sTime.toString() + " AM";
+        }else if(endTime.getHour() == 12){
+            endDate = endTime.toString() + " PM";
+        }else if(endTime.getHour() >= 13){
+            LocalTime sTime = endTime.minusHours(12);
+            endDate = sTime.toString() + " PM";
+        }else {
+            endDate = endTime.toString() + " AM";
         }
-        SimpleDateFormat endSimpleDate = new SimpleDateFormat("hh:mm a");
-      //  System.out.println(startSimpleDate.format(endDate));
 
-        time = startSimpleDate.format(startDate) + " - " + endSimpleDate.format(endDate);
+        time = startDate + " - " + endDate;
 
 
         if(theRooms.contains("Room 1 - Computer"))
