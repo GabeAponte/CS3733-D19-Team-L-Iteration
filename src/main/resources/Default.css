@@ -18,6 +18,11 @@
     -fx-text-fill: #012d5a;
     -fx-background-radius: 15;
     -jfx-button-type: RAISED;
+}
+
+.buttonMainNoB:hover{
+    -fx-background-color: #012d5a;
+    -fx-text-fill: white;
 
 }
 
@@ -39,9 +44,9 @@
     -fx-background-color: transparent;
     -fx-border-color: #F5D96B;
     -fx-border-radius: 10;
-    -fx-border-width: 3;
+    -fx-border-width: 4;
     -fx-text-fill: white;
-    -fx-background-radius: 10;
+    -fx-background-radius: 15;
 
 }
 
