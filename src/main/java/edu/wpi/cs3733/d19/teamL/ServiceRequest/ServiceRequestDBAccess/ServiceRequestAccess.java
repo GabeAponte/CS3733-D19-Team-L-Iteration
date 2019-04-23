@@ -3,6 +3,7 @@ package edu.wpi.cs3733.d19.teamL.ServiceRequest.ServiceRequestDBAccess;
 import java.sql.*;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import edu.wpi.cs3733.d19.teamL.DBAccess;
 import edu.wpi.cs3733.d19.teamL.Map.MapLocations.Location;
@@ -29,8 +30,8 @@ public class ServiceRequestAccess extends DBAccess {
         sa.deleteRecords();
     }
 
-    public void makeSanitationRequest(String desc, String location, String type, String urgency) {
-        sa.makeRequest(desc, location, type, urgency);
+    public void makeSanitationRequest(String desc, String location, String type, String urgency, String reportTime) {
+        sa.makeRequest(desc, location, type, urgency, reportTime);
     }
 
     public TreeItem<ServiceRequestTable> getSanitationRequests(int getNum) {
@@ -45,8 +46,8 @@ public class ServiceRequestAccess extends DBAccess {
         ita.deleteRecords();
     }
 
-    public void makeInternalRequest(String desc, Location startLocation, Location endLocation, String type, String phoneNumber) {
-        ita.makeRequest(desc, startLocation, endLocation, type, phoneNumber);
+    public void makeInternalRequest(String desc, Location startLocation, Location endLocation, String type, String phoneNumber, String reportTime) {
+        ita.makeRequest(desc, startLocation, endLocation, type, phoneNumber, reportTime);
     }
 
     public TreeItem<ServiceRequestTable> getInternalRequests(int getNum) {
@@ -61,8 +62,8 @@ public class ServiceRequestAccess extends DBAccess {
         rra.deleteRecords();
     }
 
-    public void makeReligiousRequest(String desc, String denom, String location, String name, String type) {
-        rra.makeRequest(desc, denom, location, name, type);
+    public void makeReligiousRequest(String desc, String denom, String location, String name, String type, String reportTime) {
+        rra.makeRequest(desc, denom, location, name, type, reportTime);
     }
 
     public TreeItem<ServiceRequestTable> getReligiousRequests(int getNum) {
@@ -77,8 +78,8 @@ public class ServiceRequestAccess extends DBAccess {
         ava.deleteRecords();
     }
 
-    public void makeAudioRequest(String desc, String destination, String location, String type) {
-        ava.makeRequest(desc, destination, location, type);
+    public void makeAudioRequest(String desc, String destination, String location, String type, String reportTime) {
+        ava.makeRequest(desc, destination, location, type, reportTime);
     }
 
     public TreeItem<ServiceRequestTable> getAudioVisualRequests(int getNum) {
@@ -93,8 +94,8 @@ public class ServiceRequestAccess extends DBAccess {
         eta.deleteRecords();
     }
 
-    public void makeExternalRequest(String desc, String location, String destination, String type, String phone) {
-        eta.makeRequest(desc, location, destination, type, phone);
+    public void makeExternalRequest(String desc, String location, String destination, String type, String phone, String reportTime) {
+        eta.makeRequest(desc, location, destination, type, phone, reportTime);
     }
 
     public TreeItem<ServiceRequestTable> getExternalRequests(int getNum) {
@@ -109,8 +110,8 @@ public class ServiceRequestAccess extends DBAccess {
         fda.deleteRecords();
     }
 
-    public void makeFloristRequest(String desc, String recieverName, String location, String flowerName) {
-        fda.makeRequest(desc, recieverName, location, flowerName);
+    public void makeFloristRequest(String desc, String recieverName, String location, String flowerName, String reportTime) {
+        fda.makeRequest(desc, recieverName, location, flowerName, reportTime);
     }
 
     public TreeItem<ServiceRequestTable> getFloristRequests(int getNum) {
@@ -125,8 +126,8 @@ public class ServiceRequestAccess extends DBAccess {
         ia.deleteRecords();
     }
 
-    public void makeITRequest(String desc, String location, String device, String problem) {
-        ia.makeRequest(desc, location, device, problem);
+    public void makeITRequest(String desc, String location, String device, String problem, String reportTime) {
+        ia.makeRequest(desc, location, device, problem, reportTime);
     }
 
     public TreeItem<ServiceRequestTable> getITRequests(int getNum) {
@@ -141,8 +142,8 @@ public class ServiceRequestAccess extends DBAccess {
         la.deleteRecords();
     }
 
-    public void makeLanguageRequest(String desc, String location, String language, String level, String interpreters) {
-        la.makeRequest(desc, location, language, level, interpreters);
+    public void makeLanguageRequest(String desc, String location, String language, String level, String interpreters, String reportTime) {
+        la.makeRequest(desc, location, language, level, interpreters, reportTime);
     }
 
     public TreeItem<ServiceRequestTable> getLanguageRequests(int getNum) {
@@ -157,8 +158,8 @@ public class ServiceRequestAccess extends DBAccess {
         ma.deleteRecords();
     }
 
-    public void makeMaintenanceRequest(String desc, String location, String type, String isHazard) {
-        ma.makeRequest(desc, location, type, isHazard);
+    public void makeMaintenanceRequest(String desc, String location, String type, String isHazard, String reportTime) {
+        ma.makeRequest(desc, location, type, isHazard, reportTime);
     }
 
     public TreeItem<ServiceRequestTable> getMaintenanceRequests(int getNum) {
@@ -173,8 +174,8 @@ public class ServiceRequestAccess extends DBAccess {
         pa.deleteRecords();
     }
 
-    public void makePrescriptionRequest(String desc, String location, String medicineType, String destination, String deliveryTime, String amount) {
-        pa.makeRequest(desc, location, medicineType, destination, deliveryTime, amount);
+    public void makePrescriptionRequest(String desc, String location, String medicineType, String destination, String deliveryTime, String amount, String reportTime) {
+        pa.makeRequest(desc, location, medicineType, destination, deliveryTime, amount, reportTime);
     }
 
     public TreeItem<ServiceRequestTable> getPrescriptionRequests(int getNum) {
@@ -189,8 +190,8 @@ public class ServiceRequestAccess extends DBAccess {
         sca.deleteRecords();
     }
 
-    public void makeSecurityRequest(String desc, String location, String name, String type, String threatLevel) {
-        sca.makeRequest(desc, location, name, type, threatLevel);
+    public void makeSecurityRequest(String desc, String location, String name, String type, String threatLevel, String reportTime) {
+        sca.makeRequest(desc, location, name, type, threatLevel, reportTime);
     }
 
     public TreeItem<ServiceRequestTable> getSecurityRequests(int getNum) {
@@ -216,6 +217,29 @@ public class ServiceRequestAccess extends DBAccess {
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
+    }
+
+    public String getReportTime(String table, int rid) {
+        String sql = "SELECT * FROM " + table +  " where  requestID= ?";
+        //noinspection Convert2Diamond
+        try (Connection conn = this.connect();
+             PreparedStatement pstmt = conn.prepareStatement(sql)){
+            pstmt.setInt(1, rid);
+            ResultSet rs = pstmt.executeQuery();
+            while (rs.next()) {
+                return getFields(rs);
+            }
+
+
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+
+        return null;
+    }
+
+    private String getFields(ResultSet rs) throws SQLException {
+        return rs.getString("reportTime");
     }
 
     /**ANDREW MADE THIS

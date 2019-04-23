@@ -32,10 +32,10 @@ public class PrescriptionAccess extends DBAccess {
      * adds a new religious request to the database
      *
      */
-    public void makeRequest(String desc, String location, String medicineType, String destination, String deliveryTime, String amount){
+    public void makeRequest(String desc, String location, String medicineType, String destination, String deliveryTime, String amount, String reportTime){
         String sql = "insert into prescriptionRequest(" +
-                "comment, medicineType, location, creationTime, creationDate, destination, deliveryTime, amount)" +
-                "values (?, ?, ?, ?, ?, ?, ?, ?)";
+                "comment, medicineType, location, creationTime, creationDate, destination, deliveryTime, amount, reportTime)" +
+                "values (?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
         try (Connection conn = this.connect();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
@@ -48,6 +48,7 @@ public class PrescriptionAccess extends DBAccess {
             pstmt.setString(6, destination);
             pstmt.setString(2,deliveryTime);
             pstmt.setString(8, amount);
+            pstmt.setString(9, reportTime);
             pstmt.executeUpdate();
         } catch (SQLException e) {
             System.out.println(e.getMessage());
