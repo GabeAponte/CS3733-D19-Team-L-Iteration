@@ -110,8 +110,8 @@ public class EmployeeAccess extends DBAccess {
         return null;
     }
 
-    /**ANDREW MADE THIS
-     *  returns the fields of a particular employee in an arraylist
+    /**NATHAN MADE THIS
+     *  returns employee email
      * @param username
      * @return
      */
@@ -132,6 +132,30 @@ public class EmployeeAccess extends DBAccess {
         }
 
         return "";
+    }
+
+    /**NATHAN MADE THIS
+     *  returns employee email
+     * @param ID
+     * @return true if unique ID
+     */
+    public boolean invalidID(String ID){
+        String sql = "SELECT * FROM employee WHERE employeeID = ?";
+        //noinspection Convert2Diamond
+        ArrayList<String> data = new ArrayList<String>();
+        try (Connection conn = this.connect();
+             PreparedStatement pstmt = conn.prepareStatement(sql)){
+            pstmt.setString(1, ID);
+            ResultSet rs = pstmt.executeQuery();
+            if(rs.next()){
+                return true;
+            }
+
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+
+        return false;
     }
 
     /**ANDREW MADE THIS

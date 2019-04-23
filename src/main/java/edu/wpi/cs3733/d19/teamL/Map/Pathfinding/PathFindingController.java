@@ -371,202 +371,199 @@ public class PathFindingController {
     }
 
     @FXML
-    private void clicked4(){
+    private void clicked4() {
         single.setLastTime();
         Map.setImage(new Image("/SoftEng_UI_Mockup_Pics/04_thefourthfloor.png"));
         currentMap = "4";
 
         changeMapLabel();
         displayKiosk();
-        if(single.isLoggedIn()) {
+        if (single.isLoggedIn()) {
             displayFlexSpaces(single.getSimulation());
         }
+        gesturePane.reset();
         clear();
         direction.clear();
-
-        gesturePane.reset();
-        gesturePane.zoomTo(4.0, new Point2D(4375*childPane.getWidth()/Map.getImage().getWidth(), 2260*childPane.getHeight()/Map.getImage().getHeight()));
-//        gesturePane.centreOn(new Point2D(3950, 2090));
     }
 
+        @FXML
+        private void changeMapLabel () {
+            if (currentMap.equals("L2")) {
+                thisMap.setText("Lower Level 2");
+            }
 
-    @FXML
-    private void changeMapLabel() {
-        if (currentMap.equals("L2")){
-            thisMap.setText("Lower Level 2");
+            if (currentMap.equals("L1")) {
+                thisMap.setText("Lower Level 1");
+            }
+
+            if (currentMap.equals("G")) {
+                thisMap.setText("Ground Floor");
+            }
+
+            if (currentMap.equals("1")) {
+                thisMap.setText("Floor 1");
+            }
+
+            if (currentMap.equals("2")) {
+                thisMap.setText("Floor 2");
+            }
+
+            if (currentMap.equals("3")) {
+                thisMap.setText("Floor 3");
+            }
+
+            if (currentMap.equals("4")) {
+                thisMap.setText("Flexible Workspace");
+            }
+        }
+        @FXML
+        /**
+         * @author Gabe
+         * adds all the URLs to the list, starts with 3rd floor since that is the next floor to come
+         */
+        public void map () {
+            mapURLs.add("/SoftEng_UI_Mockup_Pics/03_thethirdfloor.png");
+            mapURLs.add("/SoftEng_UI_Mockup_Pics/00_thegroundfloor.png");
+            mapURLs.add("/SoftEng_UI_Mockup_Pics/00_thelowerlevel1.png");
+            mapURLs.add("/SoftEng_UI_Mockup_Pics/00_thelowerlevel2.png");
+            mapURLs.add("/SoftEng_UI_Mockup_Pics/01_thefirstfloor.png");
+            mapURLs.add("/SoftEng_UI_Mockup_Pics/02_thesecondfloor.png");
+        mapURLs.add("/SoftEng_UI_Mockup_Pics/04_thefourthfloor.png");
         }
 
-        if (currentMap.equals("L1")){
-            thisMap.setText("Lower Level 1");
+        private Label startLabel;
+        private Label endLabel;
+        private Label hereLabel;
+        private Location startNode;
+        private Location endNode;
+
+        @FXML
+        private void strategySelected () {
+            strategyAlgorithm = strategySelector.getValue();
+            single.setTypePathfind(strategyAlgorithm);
         }
 
-        if (currentMap.equals("G")){
-            thisMap.setText("Ground Floor");
-        }
+        public void initialize () {
+            Singleton single = Singleton.getInstance();
+            single.setLastTime();
+            settingPressed();
 
-        if (currentMap.equals("1")){
-            thisMap.setText("Floor 1");
-        }
+            na = new NodesAccess();
+            ea = new EdgesAccess();
 
-        if (currentMap.equals("2")){
-            thisMap.setText("Floor 2");
-        }
-
-        if (currentMap.equals("3")){
-            thisMap.setText("Floor 3");
-        }
-
-        if (currentMap.equals("4")){
-            thisMap.setText("Flexible Workspace");
-        }
-    }
-    @FXML
-    /**
-     * @author Gabe
-     * adds all the URLs to the list, starts with 3rd floor since that is the next floor to come
-     */
-    public void map(){
-        mapURLs.add("/SoftEng_UI_Mockup_Pics/03_thethirdfloor.png");
-        mapURLs.add("/SoftEng_UI_Mockup_Pics/00_thegroundfloor.png");
-        mapURLs.add("/SoftEng_UI_Mockup_Pics/00_thelowerlevel1.png");
-        mapURLs.add("/SoftEng_UI_Mockup_Pics/00_thelowerlevel2.png");
-        mapURLs.add("/SoftEng_UI_Mockup_Pics/01_thefirstfloor.png");
-        mapURLs.add("/SoftEng_UI_Mockup_Pics/02_thesecondfloor.png");
-    }
-
-    private Label startLabel;
-    private Label endLabel;
-    private Label hereLabel;
-    private Location startNode;
-    private Location endNode;
-
-    @FXML
-    private void strategySelected() {
-        strategyAlgorithm = strategySelector.getValue();
-        single.setTypePathfind(strategyAlgorithm);
-    }
-
-    public void initialize() {
-        Singleton single = Singleton.getInstance();
-        single.setLastTime();
-        settingPressed();
-
-        na = new NodesAccess();
-        ea = new EdgesAccess();
-
-        ObservableList<PathfindingStrategy> strategies = FXCollections.observableArrayList();
-        ObservableList<String> preference = FXCollections.observableArrayList();
-        aStarStrategy = new AStarStrategy(single.lookup);
-        dijkstraStrategy = new DijkstraStrategy(single.lookup);
-        strategies.add(dijkstraStrategy);
-        strategies.add(aStarStrategy);
-        depth = new DepthFirstStrategy(single.lookup);
-        breadth = new BreadthFirstStrategy(single.lookup);
-        strategies.add(depth);
-        strategies.add(breadth);
-        preference.addAll("Stairs Only", "Elevators Only", "Both");
-        restrictChoice.setItems(preference);
-        //Nikhil modified this code, it should work, but if it doesn't you can yell at me PJ
-        ObservableList strategiesDropDown = FXCollections.observableArrayList();
-        strategiesDropDown.add(aStarStrategy);
-        strategiesDropDown.add(dijkstraStrategy);
-        strategiesDropDown.add(depth);
-        strategiesDropDown.add(breadth);
-        strategySelector.setItems(strategiesDropDown);
-        strategySelector.setValue(single.getTypePathfind());
+            ObservableList<PathfindingStrategy> strategies = FXCollections.observableArrayList();
+            ObservableList<String> preference = FXCollections.observableArrayList();
+            aStarStrategy = new AStarStrategy(single.lookup);
+            dijkstraStrategy = new DijkstraStrategy(single.lookup);
+            strategies.add(dijkstraStrategy);
+            strategies.add(aStarStrategy);
+            depth = new DepthFirstStrategy(single.lookup);
+            breadth = new BreadthFirstStrategy(single.lookup);
+            strategies.add(depth);
+            strategies.add(breadth);
+            preference.addAll("Stairs Only", "Elevators Only", "Both");
+            restrictChoice.setItems(preference);
+            //Nikhil modified this code, it should work, but if it doesn't you can yell at me PJ
+            ObservableList strategiesDropDown = FXCollections.observableArrayList();
+            strategiesDropDown.add(aStarStrategy);
+            strategiesDropDown.add(dijkstraStrategy);
+            strategiesDropDown.add(depth);
+            strategiesDropDown.add(breadth);
+            strategySelector.setItems(strategiesDropDown);
+            strategySelector.setValue(single.getTypePathfind());
 //        strategyAlgorithm = strategySelector.getValue();
-        direction.setEditable(false);
-        PathFindSubmit.setDisable(true);
+            direction.setEditable(false);
+            PathFindSubmit.setDisable(true);
 
-        kioskConnectedTo.setItems(single.getData());
+            kioskConnectedTo.setItems(single.getData());
 
-        changeMapLabel();
-        showingSettings = false;
-        timeout = new Timeline(new KeyFrame(Duration.seconds(2), new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent event) {
-                updateFlexSpaces(single.getSimulation());
-                if((System.currentTimeMillis() - single.getLastTime()) > single.getTimeoutSec()){
-                    try{
-                        single.setLastTime();
-                        single.setLoggedIn(false);
-                        single.setUsername("");
-                        single.setIsAdmin(false);
-                        single.setDoPopup(true);
-                        Memento m = single.getOrig();
-                        FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource(m.getFxml()));
-                        Parent sceneMain = loader.load();
-                        if(single.isLoggedIn()){
-                            HomeScreenController controller = loader.<HomeScreenController>getController();
-                            controller.displayPopup();
+            changeMapLabel();
+            showingSettings = false;
+            timeout = new Timeline(new KeyFrame(Duration.seconds(2), new EventHandler<ActionEvent>() {
+                @Override
+                public void handle(ActionEvent event) {
+                    updateFlexSpaces(single.getSimulation());
+                    if ((System.currentTimeMillis() - single.getLastTime()) > single.getTimeoutSec()) {
+                        try {
+                            single.setLastTime();
+                            single.setLoggedIn(false);
+                            single.setUsername("");
+                            single.setIsAdmin(false);
+                            single.setDoPopup(true);
+                            Memento m = single.getOrig();
+                            FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource(m.getFxml()));
+                            Parent sceneMain = loader.load();
+                            if (single.isLoggedIn()) {
+                                HomeScreenController controller = loader.<HomeScreenController>getController();
+                                controller.displayPopup();
+                            }
+                            Stage thisStage = (Stage) homebtn.getScene().getWindow();
+
+                            Scene newScene = new Scene(sceneMain);
+                            thisStage.setScene(newScene);
+                            timeout.stop();
+                        } catch (IOException io) {
+                            System.out.println(io.getMessage());
                         }
-                        Stage thisStage = (Stage) homebtn.getScene().getWindow();
-
-                        Scene newScene = new Scene(sceneMain);
-                        thisStage.setScene(newScene);
-                        timeout.stop();
-                    } catch (IOException io){
-                        System.out.println(io.getMessage());
                     }
                 }
-            }
-        }));
-        timeout.setCycleCount(Timeline.INDEFINITE);
-        timeout.play();
+            }));
+            timeout.setCycleCount(Timeline.INDEFINITE);
+            timeout.play();
 
-        filter();
-        floor();
-        noHall();
-        Filter.setItems(filterList);
-        Floor.setItems(floorList);
-        //initializeTable(na, ea);
+            filter();
+            floor();
+            noHall();
+            Filter.setItems(filterList);
+            Floor.setItems(floorList);
+            //initializeTable(na, ea);
 
-        pathPane = new AnchorPane();
-        childPane = new StackPane();
-        childPane.getChildren().add(Map);
-        childPane.getChildren().add(pathPane);
-        gesturePane = new GesturePane(childPane);
-        gesturePane.setHBarEnabled(false);
-        gesturePane.setVBarEnabled(false);
+            pathPane = new AnchorPane();
+            childPane = new StackPane();
+            childPane.getChildren().add(Map);
+            childPane.getChildren().add(pathPane);
+            gesturePane = new GesturePane(childPane);
+            gesturePane.setHBarEnabled(false);
+            gesturePane.setVBarEnabled(false);
 
-        gridPane.add(gesturePane,0,0, 1, GridPane.REMAINING);
-        Map.sceneProperty().addListener((observableScene, oldScene, newScene) -> {
-            if (oldScene == null && newScene != null) {
-                // scene is set for the first time. Now its the time to listen stage changes.
-                newScene.windowProperty().addListener((observableWindow, oldWindow, newWindow) -> {
-                    if (oldWindow == null && newWindow != null) {
-                        // stage is set. now is the right time to do whatever we need to the stage in the controller.
-                        ChangeListener<Number> stageSizeListener = (observable, oldValue, newValue) -> {
-                            displayingPath = false;
+            gridPane.add(gesturePane, 0, 0, 1, GridPane.REMAINING);
+            Map.sceneProperty().addListener((observableScene, oldScene, newScene) -> {
+                if (oldScene == null && newScene != null) {
+                    // scene is set for the first time. Now its the time to listen stage changes.
+                    newScene.windowProperty().addListener((observableWindow, oldWindow, newWindow) -> {
+                        if (oldWindow == null && newWindow != null) {
+                            // stage is set. now is the right time to do whatever we need to the stage in the controller.
+                            ChangeListener<Number> stageSizeListener = (observable, oldValue, newValue) -> {
+                                displayingPath = false;
 
-                            for (Circle c : circles) {
-                                pathPane.getChildren().remove(c);
-                            }
-                            for (Line l : lines) {
-                                pathPane.getChildren().remove(l);
-                            }
-                            for (Button b : buttons) {
-                                pathPane.getChildren().remove(b);
-                            }
+                                for (Circle c : circles) {
+                                    pathPane.getChildren().remove(c);
+                                }
+                                for (Line l : lines) {
+                                    pathPane.getChildren().remove(l);
+                                }
+                                for (Button b : buttons) {
+                                    pathPane.getChildren().remove(b);
+                                }
 
-                            circles.clear();
-                            lines.clear();
-                            buttons.clear();
+                                circles.clear();
+                                lines.clear();
+                                buttons.clear();
 
-                            resetRadButts();
+                                resetRadButts();
 
-                            direction.setText("");
-                        };
+                                direction.setText("");
+                            };
 
-                        ((Stage) newWindow).widthProperty().addListener(stageSizeListener);
-                        ((Stage) newWindow).heightProperty().addListener(stageSizeListener);
-                    }
-                });
-            }
-        });
+                            ((Stage) newWindow).widthProperty().addListener(stageSizeListener);
+                            ((Stage) newWindow).heightProperty().addListener(stageSizeListener);
+                        }
+                    });
+                }
+            });
 
-        Map.fitHeightProperty().bind(gesturePane.heightProperty());
-        Map.fitWidthProperty().bind(gesturePane.widthProperty());
+            Map.fitHeightProperty().bind(gesturePane.heightProperty());
+            Map.fitWidthProperty().bind(gesturePane.widthProperty());
 
         childPane.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
@@ -600,1214 +597,1217 @@ public class PathFindingController {
             }
         });
 
-        menu.toFront();
-        thisMap.toFront();
-        L1.toFront();
-        L2.toFront();
-        G.toFront();
-        F1.toFront();
-        F2.toFront();
-        F3.toFront();
-        F4.toFront();
-        vBottom.toFront();
-        vLeft.toFront();
-        sliderBar.toFront();
-        startLabel = new Label();
-        endLabel = new Label();
-        hereLabel = new Label();
-        //Adds the text to the screen
-        pathPane.getChildren().add(hereLabel);
-        menubtn.setVisible(false);
-        if(!single.isLoggedIn()){
-            logOut.setVisible(false);
-        }
-        if(single.isIsAdmin()){
-            menubtn.setDisable(false);
-            menubtn.setVisible(true);
-        }
-
-        nameToLoc.clear();
-        for (Location l: PathFindStartDrop.getItems()) {
-            nameToLoc.put(l.toString(), l);
-        }
-        //TextFields.bindAutoCompletion(searchField,nameToLoc.keySet());
-        searchField.setOnKeyReleased(searchFieldKeyPress);
-        //sp = new ScrollPane();
-        //navList.getChildren().add(sp);
-        //sp.setVisible(false);
-        //sp.setPrefWidth(searchField.getPrefWidth());
-        suggestions = new Pane();
-        navList.getChildren().add(suggestions);
-        suggestions.setVisible(false);
-        suggestions.setPrefWidth(searchField.getPrefWidth());
-        suggestions.setStyle("-fx-background-color:  #012d5a;");
-
-        //Code to immediately set kiosk
-        Platform.runLater(new Runnable() {
-            @Override
-            public void run() {
-                displayKiosk();
-                startNode = kioskTemp;
+            menu.toFront();
+            thisMap.toFront();
+            L1.toFront();
+            L2.toFront();
+            G.toFront();
+            F1.toFront();
+            F2.toFront();
+            F3.toFront();
+            F4.toFront();
+            vBottom.toFront();
+            vLeft.toFront();
+            sliderBar.toFront();
+            startLabel = new Label();
+            endLabel = new Label();
+            hereLabel = new Label();
+            //Adds the text to the screen
+            pathPane.getChildren().add(hereLabel);
+            menubtn.setVisible(false);
+            if (!single.isLoggedIn()) {
+                logOut.setVisible(false);
             }
-        });
+            if (single.isIsAdmin()) {
+                menubtn.setDisable(false);
+                menubtn.setVisible(true);
+            }
 
-        sliderBar.valueProperty().addListener(new ChangeListener<Number>() {
-            @Override
-            public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
+            nameToLoc.clear();
+            for (Location l : PathFindStartDrop.getItems()) {
+                nameToLoc.put(l.toString(), l);
+            }
+            //TextFields.bindAutoCompletion(searchField,nameToLoc.keySet());
+            searchField.setOnKeyReleased(searchFieldKeyPress);
+            //sp = new ScrollPane();
+            //navList.getChildren().add(sp);
+            //sp.setVisible(false);
+            //sp.setPrefWidth(searchField.getPrefWidth());
+            suggestions = new Pane();
+            navList.getChildren().add(suggestions);
+            suggestions.setVisible(false);
+            suggestions.setPrefWidth(searchField.getPrefWidth());
+            suggestions.setStyle("-fx-background-color:  #012d5a;");
+
+            //Code to immediately set kiosk
+            Platform.runLater(new Runnable() {
+                @Override
+                public void run() {
+                    displayKiosk();
+                    startNode = kioskTemp;
+                }
+            });
+
+            sliderBar.valueProperty().addListener(new ChangeListener<Number>() {
+                @Override
+                public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
                 gesturePane.zoomTo(sliderBar.getValue(), gesturePane.targetPointAtViewportCentre());
-            }
-        });
+                }
+            });
 
-        gesturePane.currentScaleProperty().addListener(new ChangeListener<Number>() {
-            @Override
-            public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
-                sliderBar.setValue(gesturePane.getCurrentScale());
-            }
-        });
-    }
-
-    @FXML
-    private void logOut(ActionEvent event) throws IOException {
-        timeout.stop();
-        Singleton single = Singleton.getInstance();
-        single.setLastTime();
-        single.setUsername("");
-        single.setIsAdmin(false);
-        single.setLoggedIn(false);
-        single.setDoPopup(true);
-        Memento m = single.getOrig();
-        Parent newPage = FXMLLoader.load(getClass().getClassLoader().getResource(m.getFxml()));
-        ((Node) event.getSource()).getScene().setRoot(newPage);
-    }
-
-    @FXML
-    private void goHome(ActionEvent event) throws IOException {
-        timeout.stop();
-        Singleton single = Singleton.getInstance();
-        single.setLastTime();
-        single.setDoPopup(true);
-        saveState();
-        Memento m = single.getOrig();
-        Parent newPage = FXMLLoader.load(getClass().getClassLoader().getResource(m.getFxml()));
-        ((Node) event.getSource()).getScene().setRoot(newPage);
-    }
-
-    @FXML
-    private void backPressed(ActionEvent event) throws IOException {
-        timeout.stop();
-        Singleton single = Singleton.getInstance();
-        single.setLastTime();
-        Memento m = single.restore();
-        single.setDoPopup(true);
-
-        Parent newPage = FXMLLoader.load(getClass().getClassLoader().getResource(m.getFxml()));
-        ((Node) event.getSource()).getScene().setRoot(newPage);
-    }
-
-    /**
-     * Modified by Nikhil: Now defaults the start location to kiosk node.
-     */
-    @FXML
-    private void locationsSelected(){
-        single.setLastTime();
-        if((PathFindStartDrop.getValue() != null || startNode != null) && PathFindEndDrop.getValue() != null){
-            PathFindSubmit.setDisable(false);
+            gesturePane.currentScaleProperty().addListener(new ChangeListener<Number>() {
+                @Override
+                public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
+                    sliderBar.setValue(gesturePane.getCurrentScale());
+                }
+            });
         }
-        else{
-            PathFindSubmit.setDisable(true);
-            direction.setDisable(true);
+
+        @FXML
+        private void logOut (ActionEvent event) throws IOException {
+            timeout.stop();
+            Singleton single = Singleton.getInstance();
+            single.setLastTime();
+            single.setUsername("");
+            single.setIsAdmin(false);
+            single.setLoggedIn(false);
+            single.setDoPopup(true);
+            Memento m = single.getOrig();
+            Parent newPage = FXMLLoader.load(getClass().getClassLoader().getResource(m.getFxml()));
+            ((Node) event.getSource()).getScene().setRoot(newPage);
+        }
+
+        @FXML
+        private void goHome (ActionEvent event) throws IOException {
+            timeout.stop();
+            Singleton single = Singleton.getInstance();
+            single.setLastTime();
+            single.setDoPopup(true);
+            saveState();
+            Memento m = single.getOrig();
+            Parent newPage = FXMLLoader.load(getClass().getClassLoader().getResource(m.getFxml()));
+            ((Node) event.getSource()).getScene().setRoot(newPage);
+        }
+
+        @FXML
+        private void backPressed (ActionEvent event) throws IOException {
+            timeout.stop();
+            Singleton single = Singleton.getInstance();
+            single.setLastTime();
+            Memento m = single.restore();
+            single.setDoPopup(true);
+
+            Parent newPage = FXMLLoader.load(getClass().getClassLoader().getResource(m.getFxml()));
+            ((Node) event.getSource()).getScene().setRoot(newPage);
+        }
+
+        /**
+         * Modified by Nikhil: Now defaults the start location to kiosk node.
+         */
+        @FXML
+        private void locationsSelected () {
+            single.setLastTime();
+            if ((PathFindStartDrop.getValue() != null || startNode != null) && PathFindEndDrop.getValue() != null) {
+                PathFindSubmit.setDisable(false);
+            } else {
+                PathFindSubmit.setDisable(true);
+                direction.setDisable(true);
+                direction.setEditable(false);
+            }
+            typeSelected = "selected";
+            System.out.println("selected");
+        }
+
+        /**Nathan modified this to include a path preference choice (restriction)
+         * Nikhil modified this so it automatically switches the map to the starting floor.
+         */
+        @FXML
+        private void submitPressed () {
+            single.setLastTime();
+            //This handles if the user wants to set their own start location.
+            if (PathFindStartDrop.getValue() != null) {
+                startNode = single.lookup.get(PathFindStartDrop.getValue().getLocID());
+            }
+            endNode = single.lookup.get(PathFindEndDrop.getValue().getLocID());
+            String restriction = restrictChoice.getValue();
+            if (restriction == null || restriction.trim().equals("") || restriction.equals("Both")) {
+                restriction = "    ";
+            } else if (restriction.equals("Stairs Only")) {
+                restriction = "ELEV";
+            } else if (restriction.equals("Elevators Only")) {
+                restriction = "STAI";
+            } else {
+                restriction = "    ";
+            }
+
+            strategyAlgorithm = single.getTypePathfind();
+            //System.out.println(strategyAlgorithm.toString());
+
+            displayingPath = true;
+
+            path = findAbstractPath(strategyAlgorithm, startNode, endNode, restriction);
+
+            //To switch the map displayed to the startNode map automatically
+            if (startNode.getFloor().equals("L2") && !currentMap.equals("L2")) {
+                clickedL2();
+            }
+            if (startNode.getFloor().equals("L1") && !currentMap.equals("L1")) {
+                clickedL1();
+            }
+            if (startNode.getFloor().equals("G") && !currentMap.equals("G")) {
+                clickedG();
+            }
+            if (startNode.getFloor().equals("1") && !currentMap.equals("1")) {
+                clicked1();
+            }
+            if (startNode.getFloor().equals("2") && !currentMap.equals("2")) {
+                clicked2();
+            }
+            if (startNode.getFloor().equals("3") && !currentMap.equals("3")) {
+                clicked3();
+            }
+        if (startNode.getFloor().equals("4") && !currentMap.equals("4")) {
+            clicked4();
+        }
+
+            displayPath();
+
+
+            direction.setDisable(false);
             direction.setEditable(false);
-        }
-        typeSelected = "selected";
-        System.out.println("selected");
-    }
-
-    /**Nathan modified this to include a path preference choice (restriction)
-     * Nikhil modified this so it automatically switches the map to the starting floor.
-     */
-    @FXML
-    private void submitPressed(){
-        single.setLastTime();
-        //This handles if the user wants to set their own start location.
-        if(PathFindStartDrop.getValue() != null) {
-            startNode = single.lookup.get(PathFindStartDrop.getValue().getLocID());
-        }
-        endNode = single.lookup.get(PathFindEndDrop.getValue().getLocID());
-        String restriction = restrictChoice.getValue();
-        if(restriction == null || restriction.trim().equals("") || restriction.equals("Both")){
-            restriction = "    ";
-        } else if(restriction.equals("Stairs Only")){
-            restriction = "ELEV";
-        } else if (restriction.equals("Elevators Only")){
-            restriction = "STAI";
-        } else {
-            restriction = "    ";
-        }
-
-        strategyAlgorithm = single.getTypePathfind();
-        //System.out.println(strategyAlgorithm.toString());
-
-        displayingPath = true;
-
-        path = findAbstractPath(strategyAlgorithm, startNode, endNode, restriction);
-
-        //To switch the map displayed to the startNode map automatically
-        if (startNode.getFloor().equals("L2") && !currentMap.equals("L2")) {
-            clickedL2();
-        }
-        if (startNode.getFloor().equals("L1") && !currentMap.equals("L1")) {
-            clickedL1();
-        }
-        if (startNode.getFloor().equals("G") && !currentMap.equals("G")) {
-            clickedG();
-        }
-        if (startNode.getFloor().equals("1") && !currentMap.equals("1")) {
-            clicked1();
-        }
-        if (startNode.getFloor().equals("2") && !currentMap.equals("2")) {
-            clicked2();
-        }
-        if (startNode.getFloor().equals("3") && !currentMap.equals("3")) {
-            clicked3();
-        }
-
-        displayPath();
-
-
-        direction.setDisable(false);
-        direction.setEditable(false);
-        pathReportAccess p = new pathReportAccess();
-        p.addReport(Long.toString(System.currentTimeMillis()), startNode.getLongName(), endNode.getLongName(), typeSelected);
-        if (typeSelected.equals("search")) {
-            typeSelected = "selected"; //only way to reset properly
-            System.out.println("sick");
-        }
-    }
-
-    /**
-     * @author: Nikhil: Displays the kiosk location automatically on the path navigation screen.
-     */
-    public void displayKiosk() {
-        checkAndSetKiosk();
-        Circle kiosk = new Circle();
-        kiosk.setCenterX(kioskTemp.getXcoord()*childPane.getWidth()/Map.getImage().getWidth());
-        kiosk.setCenterY(kioskTemp.getYcoord()*childPane.getHeight()/Map.getImage().getHeight());
-        kiosk.setRadius(Math.max(1.5, 1.5f * (gesturePane.getCurrentScale() / 4)));
-        kiosk.setStroke(Color.BLUE);
-        kiosk.setFill(Color.BLUE);
-        hereLabel.setLayoutX(kioskTemp.getXcoord()*childPane.getWidth()/Map.getImage().getWidth() -20);
-        hereLabel.setLayoutY(kioskTemp.getYcoord()*childPane.getHeight()/Map.getImage().getHeight() - 20);
-        hereLabel.setText(" You are here ");
-        hereLabel.setStyle("-fx-text-fill: WHITE;-fx-font-size: 6; -fx-background-color: BLUE; -fx-border-color: WHITE; -fx-border-width: 2; -fx-min-width: 40;");
-        if(currentMap.equals(kioskTemp.getFloor())) {
-            kiosk.setVisible(true);
-            gesturePane.zoomTo(2, new Point2D(kioskTemp.getXcoord() - 1350, kioskTemp.getYcoord() - 2000));
-            hereLabel.setVisible(true);
-        }
-        else {
-            hereLabel.setVisible(false);
-            kiosk.setVisible(false);
-        }
-        circles.add(kiosk);
-        pathPane.getChildren().add(kiosk);
-        labels.add(hereLabel);
-    }
-
-    @FXML
-    private void settingPressed(){
-        TranslateTransition openSetting = new TranslateTransition(new Duration(300.0D), this.settingPane);
-        openSetting.setToY(0.0D);
-        TranslateTransition closeSetting = new TranslateTransition(new Duration(300.0D), this.settingPane);
-        this.menubtn.setOnAction((evt) -> {
-            //  settingPane.setLayoutX(mapColumn.getMaxWidth()-200);
-            if (this.settingPane.getTranslateY() != 450.0D) {
-                openSetting.setToY(450.0D);
-                openSetting.play();
-            } else {
-                closeSetting.setToY(-this.settingPane.getHeight());
-                closeSetting.play();
+            pathReportAccess p = new pathReportAccess();
+            p.addReport(Long.toString(System.currentTimeMillis()), startNode.getLongName(), endNode.getLongName(), typeSelected);
+            if (typeSelected.equals("search")) {
+                typeSelected = "selected"; //only way to reset properly
+                System.out.println("sick");
             }
-
-        });
-
-    }
-
-    @FXML
-    private void updateKiosk(){
-        if(!kioskName.getText().equals("")) {
-            kioskTemp.setLongName(kioskName.getText());
         }
-        if(kioskConnectedTo.getValue() != null) {
-            kioskTemp = kioskConnectedTo.getValue();
-            single.setKiosk(kioskConnectedTo.getValue());
+
+        /**
+         * @author: Nikhil: Displays the kiosk location automatically on the path navigation screen.
+         */
+        public void displayKiosk () {
+            checkAndSetKiosk();
+            Circle kiosk = new Circle();
+            kiosk.setCenterX(kioskTemp.getXcoord() * childPane.getWidth() / Map.getImage().getWidth());
+            kiosk.setCenterY(kioskTemp.getYcoord() * childPane.getHeight() / Map.getImage().getHeight());
+            kiosk.setRadius(Math.max(1.5, 1.5f * (gesturePane.getCurrentScale() / 4)));
+            kiosk.setStroke(Color.BLUE);
+            kiosk.setFill(Color.BLUE);
+            hereLabel.setLayoutX(kioskTemp.getXcoord() * childPane.getWidth() / Map.getImage().getWidth() - 20);
+            hereLabel.setLayoutY(kioskTemp.getYcoord() * childPane.getHeight() / Map.getImage().getHeight() - 20);
+            hereLabel.setText(" You are here ");
+            hereLabel.setStyle("-fx-text-fill: WHITE;-fx-font-size: 6; -fx-background-color: BLUE; -fx-border-color: WHITE; -fx-border-width: 2; -fx-min-width: 40;");
+            if (currentMap.equals(kioskTemp.getFloor())) {
+                kiosk.setVisible(true);
+                gesturePane.zoomTo(2, new Point2D(kioskTemp.getXcoord() - 1350, kioskTemp.getYcoord() - 2000));
+                hereLabel.setVisible(true);
+            } else {
+                hereLabel.setVisible(false);
+                kiosk.setVisible(false);
+            }
+            circles.add(kiosk);
+            pathPane.getChildren().add(kiosk);
+            labels.add(hereLabel);
         }
-        clearStart();
-        //        displayKiosk();
-    }
 
-    @FXML
-    private void prepareSlideMenuAnimation() {
-        TranslateTransition openNav = new TranslateTransition(new Duration(300.0D), this.navList);
-        openNav.setToX(0.0D);
-        TranslateTransition closeNav = new TranslateTransition(new Duration(300.0D), this.navList);
-        this.menu.setOnAction((evt) -> {
-            if (this.navList.getTranslateX() != 130.0D) {
-                openNav.setToX(130);
-                openNav.play();
-            } else {
-                closeNav.setToX(-this.navList.getWidth());
-                closeNav.play();
-            }
-
-        });
-
-        this.menuBack.setOnAction((evt) -> {
-            if (this.navList.getTranslateX() != 130.0D) {
-                openNav.setToX(130);
-                openNav.play();
-            } else {
-                closeNav.setToX(-this.navList.getWidth());
-                closeNav.play();
-            }
-
-        });
-            if (this.navList.getTranslateX() != 130.0D) {
-                openNav.setToX(130);
-                openNav.play();
-            } else {
-                closeNav.setToX(-this.navList.getWidth());
-                closeNav.play();
-            }
-
-
-    }
-
-    /**
-     * @author: Nikhil: General method to set up displaying the path
-     */
-    public void displayPath(){
-        single.setLastTime();
-
-        //Add an arraylist to keep track of what floors you are visiting
-        ArrayList<String> floorsVisited = new ArrayList<>();
-
-        if(displayingPath) {
-            path.getPath().add(0,startNode);
-            start = 0;
-            counter = 0;
-
-            //Clears the lines and circles to avoid any duplicates or reproducing data
-            clear();
-
-            //Used to check for first switch
-            boolean found = false;
-            //End node on floor
-            int floorSwitch = path.getPath().size()-1;
-            //Creates the path for the user to follow, and displays based on the current floor.
-            for (int i = 0; i < path.getPath().size() - 1; i++) {
-                floorsVisited.add(path.getPath().get(i).getFloor());
-                if((!(path.getPath().get(i + 1).getFloor().equals(currentMap))) && !found) {
-                    floorSwitch = i;
-                    found = true;
+        @FXML
+        private void settingPressed () {
+            TranslateTransition openSetting = new TranslateTransition(new Duration(300.0D), this.settingPane);
+            openSetting.setToY(0.0D);
+            TranslateTransition closeSetting = new TranslateTransition(new Duration(300.0D), this.settingPane);
+            this.menubtn.setOnAction((evt) -> {
+                //  settingPane.setLayoutX(mapColumn.getMaxWidth()-200);
+                if (this.settingPane.getTranslateY() != 450.0D) {
+                    openSetting.setToY(450.0D);
+                    openSetting.play();
+                } else {
+                    closeSetting.setToY(-this.settingPane.getHeight());
+                    closeSetting.play();
                 }
-            }
-            floorsVisited.add(path.getPath().get(path.getPath().size()-1).getFloor());
-            if(floorsVisited.contains(currentMap)) {
-                displaySelected(0, floorSwitch);
-            }
-            makeButtons(floorsVisited);
-            changeMapLabel();
-        }
-    }
 
-    /**
-     * @Author: Nikhil
-     * This function automatically zooms on our map when we display paths.
-     * @param start
-     * @param end
-     */
-    private void autoZoom(Location start, Location end) {
-        if((Math.abs((start.getXcoord() - end.getXcoord()))) < 3200 && Math.abs(((start.getYcoord() - end.getYcoord()))) < 1050
-                || (Math.abs((start.getXcoord() - end.getXcoord()))) < 2500 && Math.abs(((start.getYcoord() - end.getYcoord()))) < 3050 ){
-            double x = gesturePane.getWidth()/(Math.abs((start.getXcoord() - end.getXcoord())));
-            double y = gesturePane.getHeight()/Math.abs(((start.getYcoord() - end.getYcoord())));
-            double scale = (Math.min(x, y)/2) + 1.1;
-            gesturePane.reset();
-            gesturePane.zoomTo(scale, gesturePane.targetPointAtViewportCentre());
-            double xSameVal = (start.getXcoord() + end.getXcoord()) / 2.0*childPane.getWidth()/Map.getImage().getWidth();
-            double ySameVal = (start.getYcoord() + end.getYcoord()) / 2.0*childPane.getHeight()/Map.getImage().getHeight();
-            gesturePane.centreOn(new Point2D(xSameVal, ySameVal));
-        }
-        else {
-            gesturePane.reset();
-        }
-    }
+            });
 
-    //Globals used for makeButtons
-    int start  = 0;
-    int counter = 0;
-
-    /**
-     * @Author Nikhil
-     * This function will be used to make the buttons that display on the screen that transition from floor to floor.
-     * @param floors
-     */
-    private void makeButtons(ArrayList<String> floors) {
-        int shift = 0;
-        int numOfBut = countFloors(floors);
-        int totalNum = countFloors(floors);
-        int center = (numOfBut + 1)/2;
-        if(totalNum % 2 == 0){
-            shift = 135;
         }
-        boolean change = false;
-        for(int i = 0; i < floors.size()-1; i++) {
-            //Sets up the buttons
-            JFXButton fBut = new JFXButton();
-            if(!floors.get(i+1).equals(floors.get(start))) {
-                fBut.setPrefSize(50,50);
-                fBut.setText(floors.get(i));
-                fBut.setStyle("-fx-font-weight: BOLD");
-                fBut.getStyleClass().add("buttonMap");
-                int startstore1 = start;
-                int counterstore1 = counter;
-                fBut.setOnAction(event -> {
-                    displaySelected(startstore1, counterstore1);
-                    event.consume();
-                });
-                floorButtons.add(fBut);
-                gridPane.getChildren().add(fBut);
-                gridPane.setHalignment(fBut, HPos.CENTER);
-                gridPane.setValignment(fBut, VPos.TOP);
-                //int diff  = numOfBut - center;
-                int diff  = center - numOfBut;
-                gridPane.setMargin(fBut,new Insets(65,0,0,diff*(200)+ shift));
 
-                //Reduce this as we go so we know how many buttons we have left
-                numOfBut--;
-                //Reset
-                start = i+1;
-                change = true;
+        @FXML
+        private void updateKiosk () {
+            if (!kioskName.getText().equals("")) {
+                kioskTemp.setLongName(kioskName.getText());
             }
-            //This is the final button
-            else if(numOfBut == 1 && change){
-                fBut.setPrefSize(50,50);
-                fBut.setText(floors.get(i));
-                fBut.setStyle("-fx-font-weight: BOLD");
-                fBut.getStyleClass().add("buttonMap");
-                int startstore1 = start;
-                int counterstore1 =floors.size() - 1 ;
-                fBut.setOnAction(event -> {
-                    displaySelected(startstore1, counterstore1);
-                    event.consume();
-                });
-                floorButtons.add(fBut);
-                gridPane.getChildren().add(fBut);
-                gridPane.setHalignment(fBut, HPos.CENTER);
-                gridPane.setValignment(fBut, VPos.TOP);
-                //int diff  = numOfBut - center;
-                int diff  = center - numOfBut;
-                numOfBut--;
-                gridPane.setMargin(fBut,new Insets(65,0,0,diff*(200)+ shift));
+            if (kioskConnectedTo.getValue() != null) {
+                kioskTemp = kioskConnectedTo.getValue();
+                single.setKiosk(kioskConnectedTo.getValue());
             }
-            if(totalNum > 1){
-                if(i == floors.size()-2 && !floors.get(i+1).equals(floors.get(start-1)) && numOfBut ==1)
-                {
-                    JFXButton fBut1 = new JFXButton();
-                    fBut1.setPrefSize(50,50);
-                    fBut1.setText(floors.get(i+1));
-                    fBut1.setStyle("-fx-font-weight: BOLD");
-                    fBut1.getStyleClass().add("buttonMap");
+            clearStart();
+            //        displayKiosk();
+        }
+
+        @FXML
+        private void prepareSlideMenuAnimation () {
+            TranslateTransition openNav = new TranslateTransition(new Duration(300.0D), this.navList);
+            openNav.setToX(0.0D);
+            TranslateTransition closeNav = new TranslateTransition(new Duration(300.0D), this.navList);
+            this.menu.setOnAction((evt) -> {
+                if (this.navList.getTranslateX() != 130.0D) {
+                    openNav.setToX(130);
+                    openNav.play();
+                } else {
+                    closeNav.setToX(-this.navList.getWidth());
+                    closeNav.play();
+                }
+
+            });
+
+            this.menuBack.setOnAction((evt) -> {
+                if (this.navList.getTranslateX() != 130.0D) {
+                    openNav.setToX(130);
+                    openNav.play();
+                } else {
+                    closeNav.setToX(-this.navList.getWidth());
+                    closeNav.play();
+                }
+
+            });
+            if (this.navList.getTranslateX() != 130.0D) {
+                openNav.setToX(130);
+                openNav.play();
+            } else {
+                closeNav.setToX(-this.navList.getWidth());
+                closeNav.play();
+            }
+
+
+        }
+
+        /**
+         * @author: Nikhil: General method to set up displaying the path
+         */
+        public void displayPath () {
+            single.setLastTime();
+
+            //Add an arraylist to keep track of what floors you are visiting
+            ArrayList<String> floorsVisited = new ArrayList<>();
+
+            if (displayingPath) {
+                path.getPath().add(0, startNode);
+                start = 0;
+                counter = 0;
+
+                //Clears the lines and circles to avoid any duplicates or reproducing data
+                clear();
+
+                //Used to check for first switch
+                boolean found = false;
+                //End node on floor
+                int floorSwitch = path.getPath().size() - 1;
+                //Creates the path for the user to follow, and displays based on the current floor.
+                for (int i = 0; i < path.getPath().size() - 1; i++) {
+                    floorsVisited.add(path.getPath().get(i).getFloor());
+                    if ((!(path.getPath().get(i + 1).getFloor().equals(currentMap))) && !found) {
+                        floorSwitch = i;
+                        found = true;
+                    }
+                }
+                floorsVisited.add(path.getPath().get(path.getPath().size() - 1).getFloor());
+                if (floorsVisited.contains(currentMap)) {
+                    displaySelected(0, floorSwitch);
+                }
+                makeButtons(floorsVisited);
+                changeMapLabel();
+            }
+        }
+
+        /**
+         * @Author: Nikhil
+         * This function automatically zooms on our map when we display paths.
+         * @param start
+         * @param end
+         */
+        private void autoZoom (Location start, Location end){
+            if ((Math.abs((start.getXcoord() - end.getXcoord()))) < 3200 && Math.abs(((start.getYcoord() - end.getYcoord()))) < 1050
+                    || (Math.abs((start.getXcoord() - end.getXcoord()))) < 2500 && Math.abs(((start.getYcoord() - end.getYcoord()))) < 3050) {
+                double x = gesturePane.getWidth() / (Math.abs((start.getXcoord() - end.getXcoord())));
+                double y = gesturePane.getHeight() / Math.abs(((start.getYcoord() - end.getYcoord())));
+                double scale = (Math.min(x, y) / 2) + 1.1;
+                gesturePane.reset();
+                gesturePane.zoomTo(scale, gesturePane.targetPointAtViewportCentre());
+                double xSameVal = (start.getXcoord() + end.getXcoord()) / 2.0 * childPane.getWidth() / Map.getImage().getWidth();
+                double ySameVal = (start.getYcoord() + end.getYcoord()) / 2.0 * childPane.getHeight() / Map.getImage().getHeight();
+                gesturePane.centreOn(new Point2D(xSameVal, ySameVal));
+            } else {
+                gesturePane.reset();
+            }
+        }
+
+        //Globals used for makeButtons
+        int start = 0;
+        int counter = 0;
+
+        /**
+         * @Author Nikhil
+         * This function will be used to make the buttons that display on the screen that transition from floor to floor.
+         * @param floors
+         */
+        private void makeButtons (ArrayList < String > floors) {
+            int shift = 0;
+            int numOfBut = countFloors(floors);
+            int totalNum = countFloors(floors);
+            int center = (numOfBut + 1) / 2;
+            if (totalNum % 2 == 0) {
+                shift = 135;
+            }
+            boolean change = false;
+            for (int i = 0; i < floors.size() - 1; i++) {
+                //Sets up the buttons
+                JFXButton fBut = new JFXButton();
+                if (!floors.get(i + 1).equals(floors.get(start))) {
+                    fBut.setPrefSize(50, 50);
+                    fBut.setText(floors.get(i));
+                    fBut.setStyle("-fx-font-weight: BOLD");
+                    fBut.getStyleClass().add("buttonMap");
                     int startstore1 = start;
-                    int counterstore1 =floors.size() - 1 ;
-                    fBut1.setOnAction(event -> {
+                    int counterstore1 = counter;
+                    fBut.setOnAction(event -> {
                         displaySelected(startstore1, counterstore1);
+                    event.consume();
                     });
-                    floorButtons.add(fBut1);
-                    gridPane.getChildren().add(fBut1);
-                    gridPane.setHalignment(fBut1, HPos.CENTER);
-                    gridPane.setValignment(fBut1, VPos.TOP);
+                    floorButtons.add(fBut);
+                    gridPane.getChildren().add(fBut);
+                    gridPane.setHalignment(fBut, HPos.CENTER);
+                    gridPane.setValignment(fBut, VPos.TOP);
                     //int diff  = numOfBut - center;
-                    int diff  = center - numOfBut;
+                    int diff = center - numOfBut;
+                    gridPane.setMargin(fBut, new Insets(65, 0, 0, diff * (200) + shift));
+
+                    //Reduce this as we go so we know how many buttons we have left
                     numOfBut--;
-                    gridPane.setMargin(fBut1,new Insets(65,0,0,diff*(200)+ shift));
+                    //Reset
+                    start = i + 1;
+                    change = true;
                 }
-            }
-            counter++;
-            //Displays the part of the path you're on by highlighting the button.
+                //This is the final button
+                else if (numOfBut == 1 && change) {
+                    fBut.setPrefSize(50, 50);
+                    fBut.setText(floors.get(i));
+                    fBut.setStyle("-fx-font-weight: BOLD");
+                    fBut.getStyleClass().add("buttonMap");
+                    int startstore1 = start;
+                    int counterstore1 = floors.size() - 1;
+                    fBut.setOnAction(event -> {
+                        displaySelected(startstore1, counterstore1);
+                    event.consume();
+                    });
+                    floorButtons.add(fBut);
+                    gridPane.getChildren().add(fBut);
+                    gridPane.setHalignment(fBut, HPos.CENTER);
+                    gridPane.setValignment(fBut, VPos.TOP);
+                    //int diff  = numOfBut - center;
+                    int diff = center - numOfBut;
+                    numOfBut--;
+                    gridPane.setMargin(fBut, new Insets(65, 0, 0, diff * (200) + shift));
+                }
+                if (totalNum > 1) {
+                    if (i == floors.size() - 2 && !floors.get(i + 1).equals(floors.get(start - 1)) && numOfBut == 1) {
+                        JFXButton fBut1 = new JFXButton();
+                        fBut1.setPrefSize(50, 50);
+                        fBut1.setText(floors.get(i + 1));
+                        fBut1.setStyle("-fx-font-weight: BOLD");
+                        fBut1.getStyleClass().add("buttonMap");
+                        int startstore1 = start;
+                        int counterstore1 = floors.size() - 1;
+                        fBut1.setOnAction(event -> {
+                            displaySelected(startstore1, counterstore1);
+                        });
+                        floorButtons.add(fBut1);
+                        gridPane.getChildren().add(fBut1);
+                        gridPane.setHalignment(fBut1, HPos.CENTER);
+                        gridPane.setValignment(fBut1, VPos.TOP);
+                        //int diff  = numOfBut - center;
+                        int diff = center - numOfBut;
+                        numOfBut--;
+                        gridPane.setMargin(fBut1, new Insets(65, 0, 0, diff * (200) + shift));
+                    }
+                }
+                counter++;
+                //Displays the part of the path you're on by highlighting the button.
 //            if(fBut.getText().equals(currentMap)) {
 //                fBut.setStyle("-fx-background-color: #012d5a; -fx-text-fill: white");
 //            }
+            }
+
         }
 
-    }
+        /**
+         * @Author Nikhil
+         * This method displays the path only for the segment the user has selected.
+         * Handles the path animation.
+         * Handles the label displays.
+         * Handles auto-zooming.
+         * @param begin
+         * @param count
+         */
+        private void displaySelected ( int begin, int count){
 
-    /**
-     * @Author Nikhil
-     * This method displays the path only for the segment the user has selected.
-     * Handles the path animation.
-     * Handles the label displays.
-     * Handles auto-zooming.
-     * @param begin
-     * @param count
-     */
-    private void displaySelected(int begin, int count) {
+            //Clears everything before displaying, needs to be different from clear() because we need the buttons
+            for (Circle c : circles) {
+                pathPane.getChildren().remove(c);
+            }
+            for (Line l : lines) {
+                pathPane.getChildren().remove(l);
+            }
+            for (Button b : buttons) {
+                pathPane.getChildren().remove(b);
+            }
+            for (Label la : labels) {
+                pathPane.getChildren().remove(la);
+            }
 
-        //Clears everything before displaying, needs to be different from clear() because we need the buttons
-        for (Circle c : circles) {
-            pathPane.getChildren().remove(c);
-        }
-        for (Line l : lines) {
-            pathPane.getChildren().remove(l);
-        }
-        for (Button b : buttons) {
-            pathPane.getChildren().remove(b);
-        }
-        for (Label la : labels) {
-            pathPane.getChildren().remove(la);
-        }
-
-        circles.clear();
-        lines.clear();
-        buttons.clear();
-        labels.clear();
-        //Changes the map displayed to the floor of begin and count
-        String floor = path.getPath().get(begin).getFloor();
-        if(floor.equals("L2")) {
-            Map.setImage(new Image("/SoftEng_UI_Mockup_Pics/00_thelowerlevel2.png"));
-            currentMap = "L2";
+            circles.clear();
+            lines.clear();
+            buttons.clear();
+            labels.clear();
+            //Changes the map displayed to the floor of begin and count
+            String floor = path.getPath().get(begin).getFloor();
+            if (floor.equals("L2")) {
+                Map.setImage(new Image("/SoftEng_UI_Mockup_Pics/00_thelowerlevel2.png"));
+                currentMap = "L2";
+                changeMapLabel();
+            }
+            if (floor.equals("L1")) {
+                Map.setImage(new Image("/SoftEng_UI_Mockup_Pics/00_thelowerlevel1.png"));
+                currentMap = "L1";
+                changeMapLabel();
+            }
+            if (floor.equals("G")) {
+                Map.setImage(new Image("/SoftEng_UI_Mockup_Pics/00_thegroundfloor.png"));
+                currentMap = "G";
+                changeMapLabel();
+            }
+            if (floor.equals("1")) {
+                Map.setImage(new Image("/SoftEng_UI_Mockup_Pics/01_thefirstfloor.png"));
+                currentMap = "1";
+                changeMapLabel();
+            }
+            if (floor.equals("2")) {
+                Map.setImage(new Image("/SoftEng_UI_Mockup_Pics/02_thesecondfloor.png"));
+                currentMap = "2";
+                changeMapLabel();
+            }
+            if (floor.equals("3")) {
+                Map.setImage(new Image("/SoftEng_UI_Mockup_Pics/03_thethirdfloor.png"));
+                currentMap = "3";
+                changeMapLabel();
+            }
+        if(floor.equals("4")) {
+            Map.setImage(new Image("/SoftEng_UI_Mockup_Pics/04_thefourthfloor.png"));
+            currentMap = "4";
             changeMapLabel();
         }
-        if(floor.equals("L1")) {
-            Map.setImage(new Image("/SoftEng_UI_Mockup_Pics/00_thelowerlevel1.png"));
-            currentMap = "L1";
-            changeMapLabel();
-        }
-        if(floor.equals("G")) {
-            Map.setImage(new Image("/SoftEng_UI_Mockup_Pics/00_thegroundfloor.png"));
-            currentMap = "G";
-            changeMapLabel();
-        }
-        if(floor.equals("1")) {
-            Map.setImage(new Image("/SoftEng_UI_Mockup_Pics/01_thefirstfloor.png"));
-            currentMap = "1";
-            changeMapLabel();
-        }
-        if(floor.equals("2")) {
-            Map.setImage(new Image("/SoftEng_UI_Mockup_Pics/02_thesecondfloor.png"));
-            currentMap = "2";
-            changeMapLabel();
-        }
-        if(floor.equals("3")) {
-            Map.setImage(new Image("/SoftEng_UI_Mockup_Pics/03_thethirdfloor.png"));
-            currentMap = "3";
-            changeMapLabel();
-        }
 
-        //Create all necessary objects for animating path.
-        Circle dude  = new Circle();
-        dude.setCenterX(path.getPath().get(begin).getXcoord()*childPane.getWidth()/Map.getImage().getWidth());
-        dude.setCenterY(path.getPath().get(begin).getYcoord()*childPane.getHeight()/Map.getImage().getHeight());
-        dude.setRadius(Math.max(5, 5f));
-        dude.setFill(new ImagePattern((new Image("/SoftEng_UI_Mockup_Pics/IconPerson.png"))));
 
-        javafx.scene.shape.Path path2 = new  javafx.scene.shape.Path();
+            //Create all necessary objects for animating path.
+            Circle dude = new Circle();
+            dude.setCenterX(path.getPath().get(begin).getXcoord() * childPane.getWidth() / Map.getImage().getWidth());
+            dude.setCenterY(path.getPath().get(begin).getYcoord() * childPane.getHeight() / Map.getImage().getHeight());
+            dude.setRadius(Math.max(5, 5f));
+            dude.setFill(new ImagePattern((new Image("/SoftEng_UI_Mockup_Pics/IconPerson.png"))));
 
-        //Sets up transition
-        PathTransition travel = new PathTransition();
+            javafx.scene.shape.Path path2 = new javafx.scene.shape.Path();
 
-        circles.add(dude);
-        //Setting the line display
-        for(int i = begin; i < count; i++) {
-            Line line = new Line();
-            line.setStartX(path.getPath().get(i).getXcoord()*childPane.getWidth()/Map.getImage().getWidth());
-            line.setStartY(path.getPath().get(i).getYcoord()*childPane.getHeight()/Map.getImage().getHeight());
-            line.setEndX(path.getPath().get(i+1).getXcoord()*childPane.getWidth()/Map.getImage().getWidth());
-            line.setEndY(path.getPath().get(i+1).getYcoord()*childPane.getHeight()/Map.getImage().getHeight());
-            line.setStrokeWidth(2.5);
-            line.setStroke(DODGERBLUE);
-            lines.add(line);
-            pathPane.getChildren().add(line);
+            //Sets up transition
+            PathTransition travel = new PathTransition();
 
-            MoveTo next = new MoveTo(line.getStartX(), line.getStartY());
-            CubicCurveTo end = new CubicCurveTo(line.getStartX(), line.getStartY(), line.getStartX(), line.getStartY(), line.getEndX(), line.getEndY());
-            path2.getElements().add(next);
-            path2.getElements().add(end);
-        }
-        Circle startCircle = new Circle();
+            circles.add(dude);
+            //Setting the line display
+            for (int i = begin; i < count; i++) {
+                Line line = new Line();
+                line.setStartX(path.getPath().get(i).getXcoord() * childPane.getWidth() / Map.getImage().getWidth());
+                line.setStartY(path.getPath().get(i).getYcoord() * childPane.getHeight() / Map.getImage().getHeight());
+                line.setEndX(path.getPath().get(i + 1).getXcoord() * childPane.getWidth() / Map.getImage().getWidth());
+                line.setEndY(path.getPath().get(i + 1).getYcoord() * childPane.getHeight() / Map.getImage().getHeight());
+                line.setStrokeWidth(2.5);
+                line.setStroke(DODGERBLUE);
+                lines.add(line);
+                pathPane.getChildren().add(line);
 
-        //Setting the properties of the circle
-        startCircle.setCenterX(path.getPath().get(begin).getXcoord()*childPane.getWidth()/Map.getImage().getWidth());
-        startCircle.setCenterY(path.getPath().get(begin).getYcoord()*childPane.getHeight()/Map.getImage().getHeight());
-        startCircle.setRadius(Math.max(1.5, 1.5f));
-
-        //Fills in information for labels
-        startLabel.setLayoutX(path.getPath().get(begin).getXcoord()*childPane.getWidth()/Map.getImage().getWidth() -20);
-        startLabel.setLayoutY(path.getPath().get(begin).getYcoord()*childPane.getHeight()/Map.getImage().getHeight() - 20);
-        endLabel.setLayoutX(path.getPath().get(count).getXcoord()*childPane.getWidth()/Map.getImage().getWidth() - 30);
-        endLabel.setLayoutY(path.getPath().get(count).getYcoord()*childPane.getHeight()/Map.getImage().getHeight() - 20);
-        //if(startLabel.getLayoutX() > endLabel.getLayoutX())
-        endLabel.setText(path.getPath().get(count).getLongName());
-        //Changing the color of the start circle and start label
-        if(path.getPath().get(begin).getLocID().equals(kioskTemp.getLocID())) {
-            startCircle.setStroke(Color.BLUE);
-            startCircle.setFill(Color.BLUE);
-            startLabel.setText(" You are here ");
-            startLabel.setStyle("-fx-text-fill: WHITE;-fx-font-size: 6; -fx-background-color: rgba(0, 0, 255, 0.75); -fx-border-color: WHITE; -fx-border-width: 1; -fx-min-width: 40;");
-        }
-        else if(path.getPath().get(begin).getLocID().equals(startNode.getLocID())) {
-            startCircle.setStroke(Color.GREEN);
-            startCircle.setFill(Color.GREEN);
-            startLabel.setText(startNode.getLongName());
-            startLabel.setStyle("-fx-text-fill: WHITE;-fx-font-size: 6; -fx-background-color: rgba(34, 137, 51, 0.75); -fx-border-color: WHITE; -fx-border-width: 1; -fx-min-width: 40;");
-        }
-        else {
-            startCircle.setStroke(DODGERBLUE);
-            startCircle.setFill(DODGERBLUE);
-            startLabel.setText(path.getPath().get(begin).getLongName());
-            startLabel.setStyle("-fx-text-fill: WHITE;-fx-font-size: 6; -fx-background-color: rgba(51, 100, 255, 0.75); -fx-border-color: WHITE; -fx-border-width: 1; -fx-min-width: 40;");
-        }
-
-        circles.add(startCircle);
-        Circle endCircle = new Circle();
-
-        //Setting the properties of the circle
-        endCircle.setCenterX(path.getPath().get(count).getXcoord()*childPane.getWidth()/Map.getImage().getWidth());
-        endCircle.setCenterY(path.getPath().get(count).getYcoord()*childPane.getHeight()/Map.getImage().getHeight());
-        endCircle.setRadius(Math.max(1.5, 1.5f));
-
-        if(path.getPath().get(count).getLocID().equals(endNode.getLocID())) {
-            endCircle.setStroke(RED);
-            endCircle.setFill(RED);
-            endLabel.setStyle("-fx-text-fill: WHITE;-fx-font-size: 6; -fx-background-color: rgba(255, 0, 0, 0.75); -fx-border-color: WHITE; -fx-border-width: 1; -fx-min-width: 40;");
-        }
-        else {
-            endCircle.setStroke(DODGERBLUE);
-            endCircle.setFill(DODGERBLUE);
-            endLabel.setStyle("-fx-text-fill: WHITE;-fx-font-size: 6; -fx-background-color: rgba(51, 100, 255, 0.75); -fx-border-color: WHITE; -fx-border-width: 1; -fx-min-width: 40;");
-        }
-        //Handles cases when you only display one location
-        if(path.getPath().get(begin).getLocID().equals(path.getPath().get(count).getLocID()) && path.getPath().get(begin).getLocID().equals(startNode.getLocID())) {
-            endLabel.setVisible(false);
-        }
-        else if(path.getPath().get(begin).getLocID().equals(path.getPath().get(count).getLocID())) {
-            startLabel.setVisible(false);
-            endLabel.setVisible(true);
-        }
-        else {
-            startLabel.setVisible(true);
-            endLabel.setVisible(true);
-        }
-        //Adding everything necessary to display the path
-        labels.add(startLabel);
-        labels.add(endLabel);
-        circles.add(endCircle);
-        pathPane.getChildren().add(startCircle);
-        pathPane.getChildren().add(endCircle);
-        pathPane.getChildren().add(startLabel);
-        pathPane.getChildren().add(endLabel);
-        //Displays the node that travels
-        pathPane.getChildren().add(dude);
-
-        //Sets everything for the animation
-        travel.setDuration(Duration.millis(20000));
-        travel.setNode(dude);
-        travel.setPath(path2);
-        travel.setOrientation(PathTransition.OrientationType.NONE);
-        travel.setCycleCount(Animation.INDEFINITE);
-        travel.setAutoReverse(false);
-        travel.play();
-
-        //Auto-zooms the screen
-        autoZoom(path.getPath().get(begin), path.getPath().get(count));
-
-        direction.clear();
-
-        ArrayList<Location> al = new ArrayList<Location>();
-        for (int i = begin; i < count + 1; i++){
-            al.add(path.getPath().get(i));
-        }
-
-        String directionS = printPath(al);
-        if(al.size() > 1){
-            if(count + 1 < path.getPath().size()){
-                if(isStairELe(al.get(al.size()-1)) && isStairELe(path.getPath().get(count+1)) &&
-                        !al.get(al.size()-1).getFloor().equals(path.getPath().get(count+1).getFloor())){
-                    directionS += "\u21C5 Go to floor " + path.getPath().get(count+1).getFloor() + " by "
-                            + al.get(al.size()-1).getLongName() +"\n";
-                }
+                MoveTo next = new MoveTo(line.getStartX(), line.getStartY());
+                CubicCurveTo end = new CubicCurveTo(line.getStartX(), line.getStartY(), line.getStartX(), line.getStartY(), line.getEndX(), line.getEndY());
+                path2.getElements().add(next);
+                path2.getElements().add(end);
             }
-        }
+            Circle startCircle = new Circle();
 
-        direction.setText(directionS);
-        direction.setWrapText(true);
-        direction.setDisable(false);
-        direction.setEditable(false);
+            //Setting the properties of the circle
+            startCircle.setCenterX(path.getPath().get(begin).getXcoord() * childPane.getWidth() / Map.getImage().getWidth());
+            startCircle.setCenterY(path.getPath().get(begin).getYcoord() * childPane.getHeight() / Map.getImage().getHeight());
+            startCircle.setRadius(Math.max(1.5, 1.5f));
 
-    }
-
-    /**
-     * @Author Nikhil
-     * Method to clear all path display on map
-     */
-    private void clear() {
-        for (Circle c : circles) {
-            pathPane.getChildren().remove(c);
-        }
-        for (Line l : lines) {
-            pathPane.getChildren().remove(l);
-        }
-        for (Button b : buttons) {
-            pathPane.getChildren().remove(b);
-        }
-        for (JFXButton jb : floorButtons) {
-            gridPane.getChildren().remove(jb);
-        }
-        for (Label la : labels) {
-            pathPane.getChildren().remove(la);
-        }
-
-        floorButtons.clear();
-        circles.clear();
-        lines.clear();
-        buttons.clear();
-        labels.clear();
-    }
-
-    /**
-     * @Author Nikhil
-     * Helper for makeButtons
-     * @param floors
-     * @return
-     */
-    private int countFloors(ArrayList<String> floors) {
-        int floorCounter = 1;
-        for(int i = 0; i < floors.size()-1; i++) {
-            if(!floors.get(i).equals(floors.get(i+1))) {
-                floorCounter++;
+            //Fills in information for labels
+            startLabel.setLayoutX(path.getPath().get(begin).getXcoord() * childPane.getWidth() / Map.getImage().getWidth() - 20);
+            startLabel.setLayoutY(path.getPath().get(begin).getYcoord() * childPane.getHeight() / Map.getImage().getHeight() - 20);
+            endLabel.setLayoutX(path.getPath().get(count).getXcoord() * childPane.getWidth() / Map.getImage().getWidth() - 30);
+            endLabel.setLayoutY(path.getPath().get(count).getYcoord() * childPane.getHeight() / Map.getImage().getHeight() - 20);
+            //if(startLabel.getLayoutX() > endLabel.getLayoutX())
+            endLabel.setText(path.getPath().get(count).getLongName());
+            //Changing the color of the start circle and start label
+            if (path.getPath().get(begin).getLocID().equals(kioskTemp.getLocID())) {
+                startCircle.setStroke(Color.BLUE);
+                startCircle.setFill(Color.BLUE);
+                startLabel.setText(" You are here ");
+                startLabel.setStyle("-fx-text-fill: WHITE;-fx-font-size: 6; -fx-background-color: rgba(0, 0, 255, 0.75); -fx-border-color: WHITE; -fx-border-width: 1; -fx-min-width: 40;");
+            } else if (path.getPath().get(begin).getLocID().equals(startNode.getLocID())) {
+                startCircle.setStroke(Color.GREEN);
+                startCircle.setFill(Color.GREEN);
+                startLabel.setText(startNode.getLongName());
+                startLabel.setStyle("-fx-text-fill: WHITE;-fx-font-size: 6; -fx-background-color: rgba(34, 137, 51, 0.75); -fx-border-color: WHITE; -fx-border-width: 1; -fx-min-width: 40;");
+            } else {
+                startCircle.setStroke(DODGERBLUE);
+                startCircle.setFill(DODGERBLUE);
+                startLabel.setText(path.getPath().get(begin).getLongName());
+                startLabel.setStyle("-fx-text-fill: WHITE;-fx-font-size: 6; -fx-background-color: rgba(51, 100, 255, 0.75); -fx-border-color: WHITE; -fx-border-width: 1; -fx-min-width: 40;");
             }
-        }
-        return floorCounter;
-    }
 
-    @FXML
-    /**
-     * @author Gabe
-     * reads the input for the floor combo box
-     */
-    private void filterFloor() {
-        single.setLastTime();
-        if (Floor.getValue() == "G") {
-            pickedFloor = "G";
-        }
-        if (Floor.getValue() == "L1") {
-            pickedFloor = "L1";
-        }
-        if (Floor.getValue() == "L2") {
-            pickedFloor = "L2";
-        }
-        if (Floor.getValue() == "1") {
-            pickedFloor = "1";
-        }
-        if (Floor.getValue() == "2") {
-            pickedFloor = "2";
-        }
-        if (Floor.getValue() == "3") {
-            pickedFloor = "3";
-        }
-    }
+            circles.add(startCircle);
+            Circle endCircle = new Circle();
 
-    /**
-     * Modified by Nikhil: When start is cleared the start node resets to the kiosk location, to display kiosk location properly.
-     */
-    @FXML
-    private void clearStart(){
-        single.setLastTime();
-        PathFindStartDrop.getSelectionModel().clearSelection();
-        PathFindStartDrop.setValue(null);
-        startNode = kioskTemp;
-        PathFindSubmit.setDisable(true);
-        noHall();
-    }
+            //Setting the properties of the circle
+            endCircle.setCenterX(path.getPath().get(count).getXcoord() * childPane.getWidth() / Map.getImage().getWidth());
+            endCircle.setCenterY(path.getPath().get(count).getYcoord() * childPane.getHeight() / Map.getImage().getHeight());
+            endCircle.setRadius(Math.max(1.5, 1.5f));
 
-    @FXML
-    private void clearEnd(){
-        single.setLastTime();
-        PathFindEndDrop.getSelectionModel().clearSelection();
-        PathFindEndDrop.setValue(null);
-        PathFindSubmit.setDisable(true);
-        noHall();
-    }
-    @FXML
-    /**
-     * @author Gabe
-     * reads the input for the room type combo box
-     */
-    private void filterType() {
-        single.setLastTime();
-        if (Filter.getValue() == ("Conference Rooms")) {
-            type = "CONF";
-        }
-        if (Filter.getValue() == ("Exits")) {
-            type = "EXIT";
-        }
-        if (Filter.getValue() == ("Departments")) {
-            type = "DEPT";
-        }
-        if (Filter.getValue() == ("Stairs")) {
-            type = "STAI";
-        }
-        if (Filter.getValue() == ("Elevators")) {
-            type = "ELEV";
-        }
-        if (Filter.getValue() == ("Labs")) {
-            type = "LABS";
-        }
-        if (Filter.getValue() == ("Information")) {
-            type = "INFO";
-        }
-        if (Filter.getValue() == ("Services")) {
-            type = "SERV";
-        }
-        if (Filter.getValue() == ("Food")) {
-            type = "CAFE FOOD VEND";
-        }
-        if (Filter.getValue() == ("Shops")) {
-            type = "GIFT";
-        }
-        if (Filter.getValue() == ("Restrooms")) {
-            type = "REST";
-            type2 = "BATH";
-        }
-
-    }
-
-    @FXML
-    /**
-     * @author Gabe
-     * populates the start and end drop downs with filtered locations based on type and floor number.
-     * No hallways are ever showed.
-     */
-    private void noHall() {
-        single.setLastTime();
-        filterFloor();
-        filterType();
-
-        if (Filter.getValue() == null && Floor.getValue() == null) {
-            if (PathFindStartDrop.getValue() == null) {
-                noHallStart.clear();
-                for (int j = 0; j < single.getData().size(); j++) {
-                    if (!(single.getData().get(j).getNodeType().contains("HALL"))) {
-                        noHallStart.add(single.getData().get(j));
-                    }
-                }
+            if (path.getPath().get(count).getLocID().equals(endNode.getLocID())) {
+                endCircle.setStroke(RED);
+                endCircle.setFill(RED);
+                endLabel.setStyle("-fx-text-fill: WHITE;-fx-font-size: 6; -fx-background-color: rgba(255, 0, 0, 0.75); -fx-border-color: WHITE; -fx-border-width: 1; -fx-min-width: 40;");
+            } else {
+                endCircle.setStroke(DODGERBLUE);
+                endCircle.setFill(DODGERBLUE);
+                endLabel.setStyle("-fx-text-fill: WHITE;-fx-font-size: 6; -fx-background-color: rgba(51, 100, 255, 0.75); -fx-border-color: WHITE; -fx-border-width: 1; -fx-min-width: 40;");
             }
-            if (PathFindEndDrop.getValue() == null) {
-                PathFindEndDrop.setItems(noHallEnd);
-                noHallEnd.clear();
-                for (int j = 0; j < single.getData().size(); j++) {
-                    if (!(single.getData().get(j).getNodeType().contains("HALL"))) {
-                        noHallEnd.add(single.getData().get(j));
+            //Handles cases when you only display one location
+            if (path.getPath().get(begin).getLocID().equals(path.getPath().get(count).getLocID()) && path.getPath().get(begin).getLocID().equals(startNode.getLocID())) {
+                endLabel.setVisible(false);
+            } else if (path.getPath().get(begin).getLocID().equals(path.getPath().get(count).getLocID())) {
+                startLabel.setVisible(false);
+                endLabel.setVisible(true);
+            } else {
+                startLabel.setVisible(true);
+                endLabel.setVisible(true);
+            }
+            //Adding everything necessary to display the path
+            labels.add(startLabel);
+            labels.add(endLabel);
+            circles.add(endCircle);
+            pathPane.getChildren().add(startCircle);
+            pathPane.getChildren().add(endCircle);
+            pathPane.getChildren().add(startLabel);
+            pathPane.getChildren().add(endLabel);
+            //Displays the node that travels
+            pathPane.getChildren().add(dude);
+
+            //Sets everything for the animation
+            travel.setDuration(Duration.millis(20000));
+            travel.setNode(dude);
+            travel.setPath(path2);
+            travel.setOrientation(PathTransition.OrientationType.NONE);
+            travel.setCycleCount(Animation.INDEFINITE);
+            travel.setAutoReverse(false);
+            travel.play();
+
+            //Auto-zooms the screen
+            autoZoom(path.getPath().get(begin), path.getPath().get(count));
+
+            direction.clear();
+
+            ArrayList<Location> al = new ArrayList<Location>();
+            for (int i = begin; i < count + 1; i++) {
+                al.add(path.getPath().get(i));
+            }
+
+            String directionS = printPath(al);
+            if (al.size() > 1) {
+                if (count + 1 < path.getPath().size()) {
+                    if (isStairELe(al.get(al.size() - 1)) && isStairELe(path.getPath().get(count + 1)) &&
+                            !al.get(al.size() - 1).getFloor().equals(path.getPath().get(count + 1).getFloor())) {
+                        directionS += "\u21C5 Go to floor " + path.getPath().get(count + 1).getFloor() + " by "
+                                + al.get(al.size() - 1).getLongName() + "\n";
                     }
                 }
             }
 
-            if (PathFindStartDrop.getValue() == null) {
-                PathFindStartDrop.setItems(noHallStart);
-            }
-            if (PathFindEndDrop.getValue() == null) {
-                PathFindEndDrop.setItems(noHallEnd);
-            }
+            direction.setText(directionS);
+            direction.setWrapText(true);
+            direction.setDisable(false);
+            direction.setEditable(false);
 
-        } else if (Filter.getValue() == (null) && Floor.getValue() == "All") {
-            if (PathFindStartDrop.getValue() == null) {
-                noHallStart.clear();
-                for (int j = 0; j < single.getData().size(); j++) {
-                    if (!(single.getData().get(j).getNodeType().contains("HALL"))) {
-                        noHallStart.add(single.getData().get(j));
-                    }
-                }
-            }
-            if (PathFindEndDrop.getValue() == null) {
-                PathFindEndDrop.setItems(noHallEnd);
-                noHallEnd.clear();
-                for (int j = 0; j < single.getData().size(); j++) {
-                    if (!(single.getData().get(j).getNodeType().contains("HALL"))) {
-                        noHallEnd.add(single.getData().get(j));
-                    }
-                }
-            }
-
-        } else if (Filter.getValue() == (null) && Floor.getValue() != null) {
-            if (PathFindStartDrop.getValue() == null) {
-                noHallStart.clear();
-                for (int j = 0; j < single.getData().size(); j++) {
-                    if (!(single.getData().get(j).getNodeType().contains("HALL")) && (single.getData().get(j).getFloor().equals(pickedFloor))) {
-                        noHallStart.add(single.getData().get(j));
-                    }
-                }
-            }
-            if (PathFindEndDrop.getValue() == null) {
-                PathFindEndDrop.setItems(noHallEnd);
-                noHallEnd.clear();
-                for (int j = 0; j < single.getData().size(); j++) {
-                    if (!(single.getData().get(j).getNodeType().contains("HALL")) && (single.getData().get(j).getFloor().equals(pickedFloor))) {
-                        noHallEnd.add(single.getData().get(j));
-                    }
-                }
-            }
-
-            if (PathFindStartDrop.getValue() == null) {
-                PathFindStartDrop.setItems(noHallStart);
-            }
-            if (PathFindEndDrop.getValue() == null) {
-                PathFindEndDrop.setItems(noHallEnd);
-            }
-
-        } else if (Filter.getValue() == "Food" && Floor.getValue() == null) {
-            if (PathFindStartDrop.getValue() == null) {
-                noHallStart.clear();
-                for (int j = 0; j < single.getData().size(); j++) {
-                    if (type.contains((single.getData().get(j).getNodeType()))) {
-                        noHallStart.add(single.getData().get(j));
-                    }
-                }
-            }
-            if (PathFindEndDrop.getValue() == null) {
-                PathFindEndDrop.setItems(noHallEnd);
-                noHallEnd.clear();
-                for (int j = 0; j < single.getData().size(); j++) {
-                    if (type.contains((single.getData().get(j).getNodeType()))) {
-                        noHallEnd.add(single.getData().get(j));
-                    }
-                }
-            }
-
-            if (PathFindStartDrop.getValue() == null) {
-                PathFindStartDrop.setItems(noHallStart);
-            }
-            if (PathFindEndDrop.getValue() == null) {
-                PathFindEndDrop.setItems(noHallEnd);
-            }
-
-        } else if (Filter.getValue() == "Food" && Floor.getValue() == "All") {
-            if (PathFindStartDrop.getValue() == null) {
-                noHallStart.clear();
-                for (int j = 0; j < single.getData().size(); j++) {
-                    if (type.contains((single.getData().get(j).getNodeType()))) {
-                        noHallStart.add(single.getData().get(j));
-                    }
-                }
-            }
-            if (PathFindEndDrop.getValue() == null) {
-                PathFindEndDrop.setItems(noHallEnd);
-                noHallEnd.clear();
-                for (int j = 0; j < single.getData().size(); j++) {
-                    if (type.contains((single.getData().get(j).getNodeType()))) {
-                        noHallEnd.add(single.getData().get(j));
-                    }
-                }
-            }
-
-            if (PathFindStartDrop.getValue() == null) {
-                PathFindStartDrop.setItems(noHallStart);
-            }
-            if (PathFindEndDrop.getValue() == null) {
-                PathFindEndDrop.setItems(noHallEnd);
-            }
-
-        } else if (Filter.getValue() == "Food" && Floor.getValue() != null) {
-            if (PathFindStartDrop.getValue() == null) {
-                noHallStart.clear();
-                for (int j = 0; j < single.getData().size(); j++) {
-                    if (type.contains((single.getData().get(j).getNodeType()))&& (single.getData().get(j).getFloor().equals(pickedFloor))) {
-                        noHallStart.add(single.getData().get(j));
-                    }
-                }
-            }
-            if (PathFindEndDrop.getValue() == null) {
-                PathFindEndDrop.setItems(noHallEnd);
-                noHallEnd.clear();
-                for (int j = 0; j < single.getData().size(); j++) {
-                    if (type.contains((single.getData().get(j).getNodeType()))&& (single.getData().get(j).getFloor().equals(pickedFloor))) {
-                        noHallEnd.add(single.getData().get(j));
-                    }
-                }
-            }
-
-            if (PathFindStartDrop.getValue() == null) {
-                PathFindStartDrop.setItems(noHallStart);
-            }
-            if (PathFindEndDrop.getValue() == null) {
-                PathFindEndDrop.setItems(noHallEnd);
-            }
-
-        } else if (Filter.getValue() == ("All") && Floor.getValue() == null) {
-            if (PathFindStartDrop.getValue() == null) {
-                noHallStart.clear();
-                for (int j = 0; j < single.getData().size(); j++) {
-                    if (!(single.getData().get(j).getNodeType().contains("HALL"))) {
-                        noHallStart.add(single.getData().get(j));
-                    }
-                }
-            }
-            if (PathFindEndDrop.getValue() == null) {
-                PathFindEndDrop.setItems(noHallEnd);
-                noHallEnd.clear();
-                for (int j = 0; j < single.getData().size(); j++) {
-                    if (!(single.getData().get(j).getNodeType().contains("HALL"))) {
-                        noHallEnd.add(single.getData().get(j));
-                    }
-                }
-            }
-
-            if (PathFindStartDrop.getValue() == null) {
-                PathFindStartDrop.setItems(noHallStart);
-            }
-            if (PathFindEndDrop.getValue() == null) {
-                PathFindEndDrop.setItems(noHallEnd);
-            }
-        } else if (Filter.getValue() == ("All") && Floor.getValue() == "All") {
-            if (PathFindStartDrop.getValue() == null) {
-                noHallStart.clear();
-                for (int j = 0; j < single.getData().size(); j++) {
-                    if (!(single.getData().get(j).getNodeType().contains("HALL"))) {
-                        noHallStart.add(single.getData().get(j));
-                    }
-                }
-            }
-            if (PathFindEndDrop.getValue() == null) {
-                PathFindEndDrop.setItems(noHallEnd);
-                noHallEnd.clear();
-                for (int j = 0; j < single.getData().size(); j++) {
-                    if (!(single.getData().get(j).getNodeType().contains("HALL"))) {
-                        noHallEnd.add(single.getData().get(j));
-                    }
-                }
-            }
-
-            if (PathFindStartDrop.getValue() == null) {
-                PathFindStartDrop.setItems(noHallStart);
-            }
-            if (PathFindEndDrop.getValue() == null) {
-                PathFindEndDrop.setItems(noHallEnd);
-            }
-
-        } else if (Filter.getValue() == ("All") && Floor.getValue() != null) {
-            if (PathFindStartDrop.getValue() == null) {
-                noHallStart.clear();
-                for (int j = 0; j < single.getData().size(); j++) {
-                    if (!(single.getData().get(j).getNodeType().contains("HALL")) && (single.getData().get(j).getFloor().equals(pickedFloor))) {
-                        noHallStart.add(single.getData().get(j));
-                    }
-                }
-            }
-            if (PathFindEndDrop.getValue() == null) {
-                PathFindEndDrop.setItems(noHallEnd);
-                noHallEnd.clear();
-                for (int j = 0; j < single.getData().size(); j++) {
-                    if (!(single.getData().get(j).getNodeType().contains("HALL")) && (single.getData().get(j).getFloor().equals(pickedFloor))) {
-                        noHallEnd.add(single.getData().get(j));
-                    }
-                }
-            }
-
-            if (PathFindStartDrop.getValue() == null) {
-                PathFindStartDrop.setItems(noHallStart);
-            }
-            if (PathFindEndDrop.getValue() == null) {
-                PathFindEndDrop.setItems(noHallEnd);
-            }
-
-        } else if (Filter.getValue() != (null) && Floor.getValue() == "All") {
-            if (PathFindStartDrop.getValue() == null) {
-                noHallStart.clear();
-                for (int j = 0; j < single.getData().size(); j++) {
-                    if ((single.getData().get(j).getNodeType().contains(type))) {
-                        noHallStart.add(single.getData().get(j));
-                    }
-                }
-            }
-            if (PathFindEndDrop.getValue() == null) {
-                PathFindEndDrop.setItems(noHallEnd);
-                noHallEnd.clear();
-                for (int j = 0; j < single.getData().size(); j++) {
-                    if ((single.getData().get(j).getNodeType().contains(type))) {
-                        noHallEnd.add(single.getData().get(j));
-                    }
-                }
-            }
-
-            if (PathFindStartDrop.getValue() == null) {
-                PathFindStartDrop.setItems(noHallStart);
-            }
-            if (PathFindEndDrop.getValue() == null) {
-                PathFindEndDrop.setItems(noHallEnd);
-            }
-
-
-        } else if (Filter.getValue() == null && Floor.getValue() == "All") {
-            if (PathFindStartDrop.getValue() == null) {
-                noHallStart.clear();
-                for (int j = 0; j < single.getData().size(); j++) {
-                    if (!(single.getData().get(j).getNodeType().contains("HALL"))) {
-                        noHallStart.add(single.getData().get(j));
-                    }
-                }
-            }
-            if (PathFindEndDrop.getValue() == null) {
-                PathFindEndDrop.setItems(noHallEnd);
-                noHallEnd.clear();
-                for (int j = 0; j < single.getData().size(); j++) {
-                    if (!(single.getData().get(j).getNodeType().contains("HALL"))) {
-                        noHallEnd.add(single.getData().get(j));
-                    }
-                }
-            }
-
-            if (PathFindStartDrop.getValue() == null) {
-                PathFindStartDrop.setItems(noHallStart);
-            }
-            if (PathFindEndDrop.getValue() == null) {
-                PathFindEndDrop.setItems(noHallEnd);
-            }
-
-
-        } else if (Filter.getValue() == "Restrooms" && Floor.getValue() == null) {
-            if (PathFindStartDrop.getValue() == null) {
-                noHallStart.clear();
-                for (int j = 0; j < single.getData().size(); j++) {
-                    if ((single.getData().get(j).getNodeType().contains(type)) || (single.getData().get(j).getNodeType().contains(type2))) {
-                        noHallStart.add(single.getData().get(j));
-                    }
-                }
-            }
-            if (PathFindEndDrop.getValue() == null) {
-                PathFindEndDrop.setItems(noHallEnd);
-                noHallEnd.clear();
-                for (int j = 0; j < single.getData().size(); j++) {
-                    if ((single.getData().get(j).getNodeType().contains(type)) || (single.getData().get(j).getNodeType().contains(type2))) {
-                        noHallEnd.add(single.getData().get(j));
-                    }
-                }
-            }
-
-            if (PathFindStartDrop.getValue() == null) {
-                PathFindStartDrop.setItems(noHallStart);
-            }
-            if (PathFindEndDrop.getValue() == null) {
-                PathFindEndDrop.setItems(noHallEnd);
-            }
-
-
-        } else if (Filter.getValue() == "Restrooms" && Floor.getValue() == "All") {
-            if (PathFindStartDrop.getValue() == null) {
-                noHallStart.clear();
-                for (int j = 0; j < single.getData().size(); j++) {
-                    if ((single.getData().get(j).getNodeType().contains(type)) || (single.getData().get(j).getNodeType().contains(type2))) {
-                        noHallStart.add(single.getData().get(j));
-                    }
-                }
-            }
-            if (PathFindEndDrop.getValue() == null) {
-                PathFindEndDrop.setItems(noHallEnd);
-                noHallEnd.clear();
-                for (int j = 0; j < single.getData().size(); j++) {
-                    if ((single.getData().get(j).getNodeType().contains(type)) || (single.getData().get(j).getNodeType().contains(type2))) {
-                        noHallEnd.add(single.getData().get(j));
-                    }
-                }
-            }
-
-            if (PathFindStartDrop.getValue() == null) {
-                PathFindStartDrop.setItems(noHallStart);
-            }
-            if (PathFindEndDrop.getValue() == null) {
-                PathFindEndDrop.setItems(noHallEnd);
-            }
-
-
-        } else if (Filter.getValue() != null && Filter.getValue() == "Restrooms" && Floor.getValue() != null) {
-            if (PathFindStartDrop.getValue() == null) {
-                noHallStart.clear();
-                for (int j = 0; j < single.getData().size(); j++) {
-                    if ((single.getData().get(j).getNodeType().contains(type)) && (single.getData().get(j).getFloor().equals(pickedFloor)) || ((single.getData().get(j).getNodeType().contains(type2)) && (single.getData().get(j).getFloor().equals(pickedFloor)))) {
-                        noHallStart.add(single.getData().get(j));
-                    }
-                }
-            }
-            if (PathFindEndDrop.getValue() == null) {
-                PathFindEndDrop.setItems(noHallEnd);
-                noHallEnd.clear();
-                for (int j = 0; j < single.getData().size(); j++) {
-                    if ((single.getData().get(j).getNodeType().contains(type)) && (single.getData().get(j).getFloor().equals(pickedFloor)) || ((single.getData().get(j).getNodeType().contains(type2)) && (single.getData().get(j).getFloor().equals(pickedFloor)))) {
-                        noHallEnd.add(single.getData().get(j));
-                    }
-                }
-            }
-
-            if (PathFindStartDrop.getValue() == null) {
-                PathFindStartDrop.setItems(noHallStart);
-            }
-            if (PathFindEndDrop.getValue() == null) {
-                PathFindEndDrop.setItems(noHallEnd);
-            }
-
-        } else if (Filter.getValue() != null && Filter.getValue() != "All" && Floor.getValue() == null) {
-            if (PathFindStartDrop.getValue() == null) {
-                noHallStart.clear();
-                for (int j = 0; j < single.getData().size(); j++) {
-                    if ((single.getData().get(j).getNodeType().contains(type))) {
-                        noHallStart.add(single.getData().get(j));
-                    }
-                }
-            }
-            if (PathFindEndDrop.getValue() == null) {
-                PathFindEndDrop.setItems(noHallEnd);
-                noHallEnd.clear();
-                for (int j = 0; j < single.getData().size(); j++) {
-                    if ((single.getData().get(j).getNodeType().contains(type))) {
-                        noHallEnd.add(single.getData().get(j));
-                    }
-                }
-            }
-
-            if (PathFindStartDrop.getValue() == null) {
-                PathFindStartDrop.setItems(noHallStart);
-            }
-            if (PathFindEndDrop.getValue() == null) {
-                PathFindEndDrop.setItems(noHallEnd);
-            }
-
-        } else if (Filter.getValue() != null && Filter.getValue() != "All" && Floor.getValue() != null) {
-            if (PathFindStartDrop.getValue() == null) {
-                noHallStart.clear();
-                for (int j = 0; j < single.getData().size(); j++) {
-                    if ((single.getData().get(j).getNodeType().contains(type)) && (single.getData().get(j).getFloor().equals(pickedFloor))) {
-                        noHallStart.add(single.getData().get(j));
-                    }
-                }
-            }
-            if (PathFindEndDrop.getValue() == null) {
-                PathFindEndDrop.setItems(noHallEnd);
-                noHallEnd.clear();
-                for (int j = 0; j < single.getData().size(); j++) {
-                    if ((single.getData().get(j).getNodeType().contains(type)) && (single.getData().get(j).getFloor().equals(pickedFloor))) {
-                        noHallEnd.add(single.getData().get(j));
-                    }
-                }
-            }
-
-            if (PathFindStartDrop.getValue() == null) {
-                PathFindStartDrop.setItems(noHallStart);
-            }
-            if (PathFindEndDrop.getValue() == null) {
-                PathFindEndDrop.setItems(noHallEnd);
-            }
         }
-        // Don't worry about this line, but don't delete it, could be used for kiosk implementation later.
-        // PathFindStartDrop.getItems().add(0,kioskTemp);
-    }
+
+        /**
+         * @Author Nikhil
+         * Method to clear all path display on map
+         */
+        private void clear () {
+            for (Circle c : circles) {
+                pathPane.getChildren().remove(c);
+            }
+            for (Line l : lines) {
+                pathPane.getChildren().remove(l);
+            }
+            for (Button b : buttons) {
+                pathPane.getChildren().remove(b);
+            }
+            for (JFXButton jb : floorButtons) {
+                gridPane.getChildren().remove(jb);
+            }
+            for (Label la : labels) {
+                pathPane.getChildren().remove(la);
+            }
+
+            floorButtons.clear();
+            circles.clear();
+            lines.clear();
+            buttons.clear();
+            labels.clear();
+        }
+
+        /**
+         * @Author Nikhil
+         * Helper for makeButtons
+         * @param floors
+         * @return
+         */
+        private int countFloors (ArrayList < String > floors) {
+            int floorCounter = 1;
+            for (int i = 0; i < floors.size() - 1; i++) {
+                if (!floors.get(i).equals(floors.get(i + 1))) {
+                    floorCounter++;
+                }
+            }
+            return floorCounter;
+        }
+
+        @FXML
+        /**
+         * @author Gabe
+         * reads the input for the floor combo box
+         */
+        private void filterFloor () {
+            single.setLastTime();
+            if (Floor.getValue() == "G") {
+                pickedFloor = "G";
+            }
+            if (Floor.getValue() == "L1") {
+                pickedFloor = "L1";
+            }
+            if (Floor.getValue() == "L2") {
+                pickedFloor = "L2";
+            }
+            if (Floor.getValue() == "1") {
+                pickedFloor = "1";
+            }
+            if (Floor.getValue() == "2") {
+                pickedFloor = "2";
+            }
+            if (Floor.getValue() == "3") {
+                pickedFloor = "3";
+            }
+        if (Floor.getValue() == "4") {
+            pickedFloor = "4";
+        }
+        }
+
+        /**
+         * Modified by Nikhil: When start is cleared the start node resets to the kiosk location, to display kiosk location properly.
+         */
+        @FXML
+        private void clearStart () {
+            single.setLastTime();
+            PathFindStartDrop.getSelectionModel().clearSelection();
+            PathFindStartDrop.setValue(null);
+            startNode = kioskTemp;
+            PathFindSubmit.setDisable(true);
+            noHall();
+        }
+
+        @FXML
+        private void clearEnd () {
+            single.setLastTime();
+            PathFindEndDrop.getSelectionModel().clearSelection();
+            PathFindEndDrop.setValue(null);
+            PathFindSubmit.setDisable(true);
+            noHall();
+        }
+        @FXML
+        /**
+         * @author Gabe
+         * reads the input for the room type combo box
+         */
+        private void filterType () {
+            single.setLastTime();
+            if (Filter.getValue() == ("Conference Rooms")) {
+                type = "CONF";
+            }
+            if (Filter.getValue() == ("Exits")) {
+                type = "EXIT";
+            }
+            if (Filter.getValue() == ("Departments")) {
+                type = "DEPT";
+            }
+            if (Filter.getValue() == ("Stairs")) {
+                type = "STAI";
+            }
+            if (Filter.getValue() == ("Elevators")) {
+                type = "ELEV";
+            }
+            if (Filter.getValue() == ("Labs")) {
+                type = "LABS";
+            }
+            if (Filter.getValue() == ("Information")) {
+                type = "INFO";
+            }
+            if (Filter.getValue() == ("Services")) {
+                type = "SERV";
+            }
+            if (Filter.getValue() == ("Food")) {
+                type = "CAFE FOOD VEND";
+            }
+            if (Filter.getValue() == ("Shops")) {
+                type = "GIFT";
+            }
+            if (Filter.getValue() == ("Restrooms")) {
+                type = "REST";
+                type2 = "BATH";
+            }
+
+        }
+
+        @FXML
+        /**
+         * @author Gabe
+         * populates the start and end drop downs with filtered locations based on type and floor number.
+         * No hallways are ever showed.
+         */
+        private void noHall () {
+            single.setLastTime();
+            filterFloor();
+            filterType();
+
+            if (Filter.getValue() == null && Floor.getValue() == null) {
+                if (PathFindStartDrop.getValue() == null) {
+                    noHallStart.clear();
+                    for (int j = 0; j < single.getData().size(); j++) {
+                        if (!(single.getData().get(j).getNodeType().contains("HALL"))) {
+                            noHallStart.add(single.getData().get(j));
+                        }
+                    }
+                }
+                if (PathFindEndDrop.getValue() == null) {
+                    PathFindEndDrop.setItems(noHallEnd);
+                    noHallEnd.clear();
+                    for (int j = 0; j < single.getData().size(); j++) {
+                        if (!(single.getData().get(j).getNodeType().contains("HALL"))) {
+                            noHallEnd.add(single.getData().get(j));
+                        }
+                    }
+                }
+
+                if (PathFindStartDrop.getValue() == null) {
+                    PathFindStartDrop.setItems(noHallStart);
+                }
+                if (PathFindEndDrop.getValue() == null) {
+                    PathFindEndDrop.setItems(noHallEnd);
+                }
+
+            } else if (Filter.getValue() == (null) && Floor.getValue() == "All") {
+                if (PathFindStartDrop.getValue() == null) {
+                    noHallStart.clear();
+                    for (int j = 0; j < single.getData().size(); j++) {
+                        if (!(single.getData().get(j).getNodeType().contains("HALL"))) {
+                            noHallStart.add(single.getData().get(j));
+                        }
+                    }
+                }
+                if (PathFindEndDrop.getValue() == null) {
+                    PathFindEndDrop.setItems(noHallEnd);
+                    noHallEnd.clear();
+                    for (int j = 0; j < single.getData().size(); j++) {
+                        if (!(single.getData().get(j).getNodeType().contains("HALL"))) {
+                            noHallEnd.add(single.getData().get(j));
+                        }
+                    }
+                }
+
+            } else if (Filter.getValue() == (null) && Floor.getValue() != null) {
+                if (PathFindStartDrop.getValue() == null) {
+                    noHallStart.clear();
+                    for (int j = 0; j < single.getData().size(); j++) {
+                        if (!(single.getData().get(j).getNodeType().contains("HALL")) && (single.getData().get(j).getFloor().equals(pickedFloor))) {
+                            noHallStart.add(single.getData().get(j));
+                        }
+                    }
+                }
+                if (PathFindEndDrop.getValue() == null) {
+                    PathFindEndDrop.setItems(noHallEnd);
+                    noHallEnd.clear();
+                    for (int j = 0; j < single.getData().size(); j++) {
+                        if (!(single.getData().get(j).getNodeType().contains("HALL")) && (single.getData().get(j).getFloor().equals(pickedFloor))) {
+                            noHallEnd.add(single.getData().get(j));
+                        }
+                    }
+                }
+
+                if (PathFindStartDrop.getValue() == null) {
+                    PathFindStartDrop.setItems(noHallStart);
+                }
+                if (PathFindEndDrop.getValue() == null) {
+                    PathFindEndDrop.setItems(noHallEnd);
+                }
+
+            } else if (Filter.getValue() == "Food" && Floor.getValue() == null) {
+                if (PathFindStartDrop.getValue() == null) {
+                    noHallStart.clear();
+                    for (int j = 0; j < single.getData().size(); j++) {
+                        if (type.contains((single.getData().get(j).getNodeType()))) {
+                            noHallStart.add(single.getData().get(j));
+                        }
+                    }
+                }
+                if (PathFindEndDrop.getValue() == null) {
+                    PathFindEndDrop.setItems(noHallEnd);
+                    noHallEnd.clear();
+                    for (int j = 0; j < single.getData().size(); j++) {
+                        if (type.contains((single.getData().get(j).getNodeType()))) {
+                            noHallEnd.add(single.getData().get(j));
+                        }
+                    }
+                }
+
+                if (PathFindStartDrop.getValue() == null) {
+                    PathFindStartDrop.setItems(noHallStart);
+                }
+                if (PathFindEndDrop.getValue() == null) {
+                    PathFindEndDrop.setItems(noHallEnd);
+                }
+
+            } else if (Filter.getValue() == "Food" && Floor.getValue() == "All") {
+                if (PathFindStartDrop.getValue() == null) {
+                    noHallStart.clear();
+                    for (int j = 0; j < single.getData().size(); j++) {
+                        if (type.contains((single.getData().get(j).getNodeType()))) {
+                            noHallStart.add(single.getData().get(j));
+                        }
+                    }
+                }
+                if (PathFindEndDrop.getValue() == null) {
+                    PathFindEndDrop.setItems(noHallEnd);
+                    noHallEnd.clear();
+                    for (int j = 0; j < single.getData().size(); j++) {
+                        if (type.contains((single.getData().get(j).getNodeType()))) {
+                            noHallEnd.add(single.getData().get(j));
+                        }
+                    }
+                }
+
+                if (PathFindStartDrop.getValue() == null) {
+                    PathFindStartDrop.setItems(noHallStart);
+                }
+                if (PathFindEndDrop.getValue() == null) {
+                    PathFindEndDrop.setItems(noHallEnd);
+                }
+
+            } else if (Filter.getValue() == "Food" && Floor.getValue() != null) {
+                if (PathFindStartDrop.getValue() == null) {
+                    noHallStart.clear();
+                    for (int j = 0; j < single.getData().size(); j++) {
+                        if (type.contains((single.getData().get(j).getNodeType())) && (single.getData().get(j).getFloor().equals(pickedFloor))) {
+                            noHallStart.add(single.getData().get(j));
+                        }
+                    }
+                }
+                if (PathFindEndDrop.getValue() == null) {
+                    PathFindEndDrop.setItems(noHallEnd);
+                    noHallEnd.clear();
+                    for (int j = 0; j < single.getData().size(); j++) {
+                        if (type.contains((single.getData().get(j).getNodeType())) && (single.getData().get(j).getFloor().equals(pickedFloor))) {
+                            noHallEnd.add(single.getData().get(j));
+                        }
+                    }
+                }
+
+                if (PathFindStartDrop.getValue() == null) {
+                    PathFindStartDrop.setItems(noHallStart);
+                }
+                if (PathFindEndDrop.getValue() == null) {
+                    PathFindEndDrop.setItems(noHallEnd);
+                }
+
+            } else if (Filter.getValue() == ("All") && Floor.getValue() == null) {
+                if (PathFindStartDrop.getValue() == null) {
+                    noHallStart.clear();
+                    for (int j = 0; j < single.getData().size(); j++) {
+                        if (!(single.getData().get(j).getNodeType().contains("HALL"))) {
+                            noHallStart.add(single.getData().get(j));
+                        }
+                    }
+                }
+                if (PathFindEndDrop.getValue() == null) {
+                    PathFindEndDrop.setItems(noHallEnd);
+                    noHallEnd.clear();
+                    for (int j = 0; j < single.getData().size(); j++) {
+                        if (!(single.getData().get(j).getNodeType().contains("HALL"))) {
+                            noHallEnd.add(single.getData().get(j));
+                        }
+                    }
+                }
+
+                if (PathFindStartDrop.getValue() == null) {
+                    PathFindStartDrop.setItems(noHallStart);
+                }
+                if (PathFindEndDrop.getValue() == null) {
+                    PathFindEndDrop.setItems(noHallEnd);
+                }
+            } else if (Filter.getValue() == ("All") && Floor.getValue() == "All") {
+                if (PathFindStartDrop.getValue() == null) {
+                    noHallStart.clear();
+                    for (int j = 0; j < single.getData().size(); j++) {
+                        if (!(single.getData().get(j).getNodeType().contains("HALL"))) {
+                            noHallStart.add(single.getData().get(j));
+                        }
+                    }
+                }
+                if (PathFindEndDrop.getValue() == null) {
+                    PathFindEndDrop.setItems(noHallEnd);
+                    noHallEnd.clear();
+                    for (int j = 0; j < single.getData().size(); j++) {
+                        if (!(single.getData().get(j).getNodeType().contains("HALL"))) {
+                            noHallEnd.add(single.getData().get(j));
+                        }
+                    }
+                }
+
+                if (PathFindStartDrop.getValue() == null) {
+                    PathFindStartDrop.setItems(noHallStart);
+                }
+                if (PathFindEndDrop.getValue() == null) {
+                    PathFindEndDrop.setItems(noHallEnd);
+                }
+
+            } else if (Filter.getValue() == ("All") && Floor.getValue() != null) {
+                if (PathFindStartDrop.getValue() == null) {
+                    noHallStart.clear();
+                    for (int j = 0; j < single.getData().size(); j++) {
+                        if (!(single.getData().get(j).getNodeType().contains("HALL")) && (single.getData().get(j).getFloor().equals(pickedFloor))) {
+                            noHallStart.add(single.getData().get(j));
+                        }
+                    }
+                }
+                if (PathFindEndDrop.getValue() == null) {
+                    PathFindEndDrop.setItems(noHallEnd);
+                    noHallEnd.clear();
+                    for (int j = 0; j < single.getData().size(); j++) {
+                        if (!(single.getData().get(j).getNodeType().contains("HALL")) && (single.getData().get(j).getFloor().equals(pickedFloor))) {
+                            noHallEnd.add(single.getData().get(j));
+                        }
+                    }
+                }
+
+                if (PathFindStartDrop.getValue() == null) {
+                    PathFindStartDrop.setItems(noHallStart);
+                }
+                if (PathFindEndDrop.getValue() == null) {
+                    PathFindEndDrop.setItems(noHallEnd);
+                }
+
+            } else if (Filter.getValue() != (null) && Floor.getValue() == "All") {
+                if (PathFindStartDrop.getValue() == null) {
+                    noHallStart.clear();
+                    for (int j = 0; j < single.getData().size(); j++) {
+                        if ((single.getData().get(j).getNodeType().contains(type))) {
+                            noHallStart.add(single.getData().get(j));
+                        }
+                    }
+                }
+                if (PathFindEndDrop.getValue() == null) {
+                    PathFindEndDrop.setItems(noHallEnd);
+                    noHallEnd.clear();
+                    for (int j = 0; j < single.getData().size(); j++) {
+                        if ((single.getData().get(j).getNodeType().contains(type))) {
+                            noHallEnd.add(single.getData().get(j));
+                        }
+                    }
+                }
+
+                if (PathFindStartDrop.getValue() == null) {
+                    PathFindStartDrop.setItems(noHallStart);
+                }
+                if (PathFindEndDrop.getValue() == null) {
+                    PathFindEndDrop.setItems(noHallEnd);
+                }
+
+
+            } else if (Filter.getValue() == null && Floor.getValue() == "All") {
+                if (PathFindStartDrop.getValue() == null) {
+                    noHallStart.clear();
+                    for (int j = 0; j < single.getData().size(); j++) {
+                        if (!(single.getData().get(j).getNodeType().contains("HALL"))) {
+                            noHallStart.add(single.getData().get(j));
+                        }
+                    }
+                }
+                if (PathFindEndDrop.getValue() == null) {
+                    PathFindEndDrop.setItems(noHallEnd);
+                    noHallEnd.clear();
+                    for (int j = 0; j < single.getData().size(); j++) {
+                        if (!(single.getData().get(j).getNodeType().contains("HALL"))) {
+                            noHallEnd.add(single.getData().get(j));
+                        }
+                    }
+                }
+
+                if (PathFindStartDrop.getValue() == null) {
+                    PathFindStartDrop.setItems(noHallStart);
+                }
+                if (PathFindEndDrop.getValue() == null) {
+                    PathFindEndDrop.setItems(noHallEnd);
+                }
+
+
+            } else if (Filter.getValue() == "Restrooms" && Floor.getValue() == null) {
+                if (PathFindStartDrop.getValue() == null) {
+                    noHallStart.clear();
+                    for (int j = 0; j < single.getData().size(); j++) {
+                        if ((single.getData().get(j).getNodeType().contains(type)) || (single.getData().get(j).getNodeType().contains(type2))) {
+                            noHallStart.add(single.getData().get(j));
+                        }
+                    }
+                }
+                if (PathFindEndDrop.getValue() == null) {
+                    PathFindEndDrop.setItems(noHallEnd);
+                    noHallEnd.clear();
+                    for (int j = 0; j < single.getData().size(); j++) {
+                        if ((single.getData().get(j).getNodeType().contains(type)) || (single.getData().get(j).getNodeType().contains(type2))) {
+                            noHallEnd.add(single.getData().get(j));
+                        }
+                    }
+                }
+
+                if (PathFindStartDrop.getValue() == null) {
+                    PathFindStartDrop.setItems(noHallStart);
+                }
+                if (PathFindEndDrop.getValue() == null) {
+                    PathFindEndDrop.setItems(noHallEnd);
+                }
+
+
+            } else if (Filter.getValue() == "Restrooms" && Floor.getValue() == "All") {
+                if (PathFindStartDrop.getValue() == null) {
+                    noHallStart.clear();
+                    for (int j = 0; j < single.getData().size(); j++) {
+                        if ((single.getData().get(j).getNodeType().contains(type)) || (single.getData().get(j).getNodeType().contains(type2))) {
+                            noHallStart.add(single.getData().get(j));
+                        }
+                    }
+                }
+                if (PathFindEndDrop.getValue() == null) {
+                    PathFindEndDrop.setItems(noHallEnd);
+                    noHallEnd.clear();
+                    for (int j = 0; j < single.getData().size(); j++) {
+                        if ((single.getData().get(j).getNodeType().contains(type)) || (single.getData().get(j).getNodeType().contains(type2))) {
+                            noHallEnd.add(single.getData().get(j));
+                        }
+                    }
+                }
+
+                if (PathFindStartDrop.getValue() == null) {
+                    PathFindStartDrop.setItems(noHallStart);
+                }
+                if (PathFindEndDrop.getValue() == null) {
+                    PathFindEndDrop.setItems(noHallEnd);
+                }
+
+
+            } else if (Filter.getValue() != null && Filter.getValue() == "Restrooms" && Floor.getValue() != null) {
+                if (PathFindStartDrop.getValue() == null) {
+                    noHallStart.clear();
+                    for (int j = 0; j < single.getData().size(); j++) {
+                        if ((single.getData().get(j).getNodeType().contains(type)) && (single.getData().get(j).getFloor().equals(pickedFloor)) || ((single.getData().get(j).getNodeType().contains(type2)) && (single.getData().get(j).getFloor().equals(pickedFloor)))) {
+                            noHallStart.add(single.getData().get(j));
+                        }
+                    }
+                }
+                if (PathFindEndDrop.getValue() == null) {
+                    PathFindEndDrop.setItems(noHallEnd);
+                    noHallEnd.clear();
+                    for (int j = 0; j < single.getData().size(); j++) {
+                        if ((single.getData().get(j).getNodeType().contains(type)) && (single.getData().get(j).getFloor().equals(pickedFloor)) || ((single.getData().get(j).getNodeType().contains(type2)) && (single.getData().get(j).getFloor().equals(pickedFloor)))) {
+                            noHallEnd.add(single.getData().get(j));
+                        }
+                    }
+                }
+
+                if (PathFindStartDrop.getValue() == null) {
+                    PathFindStartDrop.setItems(noHallStart);
+                }
+                if (PathFindEndDrop.getValue() == null) {
+                    PathFindEndDrop.setItems(noHallEnd);
+                }
+
+            } else if (Filter.getValue() != null && Filter.getValue() != "All" && Floor.getValue() == null) {
+                if (PathFindStartDrop.getValue() == null) {
+                    noHallStart.clear();
+                    for (int j = 0; j < single.getData().size(); j++) {
+                        if ((single.getData().get(j).getNodeType().contains(type))) {
+                            noHallStart.add(single.getData().get(j));
+                        }
+                    }
+                }
+                if (PathFindEndDrop.getValue() == null) {
+                    PathFindEndDrop.setItems(noHallEnd);
+                    noHallEnd.clear();
+                    for (int j = 0; j < single.getData().size(); j++) {
+                        if ((single.getData().get(j).getNodeType().contains(type))) {
+                            noHallEnd.add(single.getData().get(j));
+                        }
+                    }
+                }
+
+                if (PathFindStartDrop.getValue() == null) {
+                    PathFindStartDrop.setItems(noHallStart);
+                }
+                if (PathFindEndDrop.getValue() == null) {
+                    PathFindEndDrop.setItems(noHallEnd);
+                }
+
+            } else if (Filter.getValue() != null && Filter.getValue() != "All" && Floor.getValue() != null) {
+                if (PathFindStartDrop.getValue() == null) {
+                    noHallStart.clear();
+                    for (int j = 0; j < single.getData().size(); j++) {
+                        if ((single.getData().get(j).getNodeType().contains(type)) && (single.getData().get(j).getFloor().equals(pickedFloor))) {
+                            noHallStart.add(single.getData().get(j));
+                        }
+                    }
+                }
+                if (PathFindEndDrop.getValue() == null) {
+                    PathFindEndDrop.setItems(noHallEnd);
+                    noHallEnd.clear();
+                    for (int j = 0; j < single.getData().size(); j++) {
+                        if ((single.getData().get(j).getNodeType().contains(type)) && (single.getData().get(j).getFloor().equals(pickedFloor))) {
+                            noHallEnd.add(single.getData().get(j));
+                        }
+                    }
+                }
+
+                if (PathFindStartDrop.getValue() == null) {
+                    PathFindStartDrop.setItems(noHallStart);
+                }
+                if (PathFindEndDrop.getValue() == null) {
+                    PathFindEndDrop.setItems(noHallEnd);
+                }
+            }
+            // Don't worry about this line, but don't delete it, could be used for kiosk implementation later.
+            // PathFindStartDrop.getItems().add(0,kioskTemp);
+        }
 
     /**Nathan modified this to include path preference (restriction)
      *
@@ -1838,6 +1838,7 @@ public class PathFindingController {
         floorList.add("1");
         floorList.add("2");
         floorList.add("3");
+        floorList.add("4");
     }
 
     @FXML
@@ -2301,6 +2302,9 @@ public class PathFindingController {
         if (currentMap.equals("3")) {
             clicked3();
         }
+        if (currentMap.equals("4")) {
+            clicked4();
+        }
     }
 
 
@@ -2615,7 +2619,7 @@ public class PathFindingController {
                     });
                     vBox.getChildren().add(b);
 
-//                    Text newText = new Text(autoList.get(i).toString());
+                    Text newText = new Text(autoList.get(i).toString());
 
                 }
                 suggestions.getChildren().add(vBox);
