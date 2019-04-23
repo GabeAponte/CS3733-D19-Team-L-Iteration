@@ -80,7 +80,7 @@
                </columnConstraints>
                <rowConstraints>
                   <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                  <RowConstraints maxHeight="373.66668701171875" minHeight="10.0" prefHeight="367.66668701171875" vgrow="ALWAYS" />
+                  <RowConstraints maxHeight="1.7976931348623157E308" minHeight="10.0" valignment="CENTER" vgrow="ALWAYS" />
                   <RowConstraints minHeight="10.0" valignment="BOTTOM" vgrow="ALWAYS" />
                </rowConstraints>
                <children>
@@ -263,7 +263,7 @@
                         <Insets top="25.0" />
                      </GridPane.margin>
                   </HBox>
-                  <VBox alignment="CENTER" maxHeight="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="150.0" prefWidth="100.0" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="2" GridPane.vgrow="ALWAYS">
+                  <VBox alignment="CENTER" maxHeight="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="150.0" prefWidth="100.0" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="2" GridPane.valignment="BOTTOM" GridPane.vgrow="ALWAYS">
                      <children>
                         <HBox alignment="BOTTOM_CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" VBox.vgrow="ALWAYS">
                            <children>

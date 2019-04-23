@@ -278,8 +278,17 @@ public class HomeScreenController {
     }
 
     @FXML
-    private void AboutPress() throws IOException, JRException, SQLException, DocumentException, InterruptedException {
-        
+    private void AboutPress(ActionEvent event){
+        stop();
+        saveState();
+        Singleton single = Singleton.getInstance();
+        single.setLastTime();
+        try {
+            Parent newPage = FXMLLoader.load(getClass().getClassLoader().getResource("AboutPage_fancy.fxml"));
+            ((Node) event.getSource()).getScene().setRoot(newPage);
+
+        } catch (Exception e){
+        }
     }
 
     @FXML
