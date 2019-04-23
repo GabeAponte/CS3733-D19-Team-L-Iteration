@@ -267,9 +267,35 @@ public class ReportThread extends Thread {
             HashMap<String, Integer> employeeHash = new HashMap<String, Integer>();
             HashMap<String, Integer> specificType = new HashMap<String, Integer>();
             int countMeter = completeList.size();
+            for (serviceRequestReportData s : completeList) {
+                if (!specificType.containsKey(s.getSpecificType())) {
+                    specificType.put(s.getSpecificType(), 1);
+                }
+                else {
+                    int old = specificType.get(s.getSpecificType());
+                    specificType.replace(s.getSpecificType(), old, old+1);
+                }
+                if (!employeeHash.containsKey(s.getAssignedToEID())) {
+                    employeeHash.put(s.getAssignedToEID(), 1);
+                }
+                else {
+                    int old = employeeHash.get(s.getAssignedToEID());
+                    employeeHash.replace(s.getAssignedToEID(), old, old+1);
+                }
+            }
+            List<PieChartData> specificTypeData = new ArrayList<PieChartData>();
+            for (String p: specificType.keySet()) {
+                specificTypeData.add(new PieChartData(p, specificType.get(p)));
+            }
+            List<PieChartData> employeeData = new ArrayList<PieChartData>();
+            for (String p: employeeHash.keySet()) {
+                employeeData.add(new PieChartData(p, employeeHash.get(p)));
+            }
             
 
         }
+
+
         Thread.currentThread().stop();
     }
 
