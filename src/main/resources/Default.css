@@ -150,7 +150,7 @@
     -jfx-selected-color:  #f5d96b;
 
     -jfx-unselected-color: #012d5a;
-    -fx-text-fill: white;
+    -fx-text-fill: #012d5a;
 }
 
 .labelTitle {
@@ -332,8 +332,9 @@
 
 .jfx-combo-box {
     -fx-font-size : 20 pt;
+    -fx-font-family: "Trebuchet MS";
     -fx-text-fill : #012d5a;
-    -jfx-focus-color: #f5d96b;
+    -jfx-focus-color: #012d5a;
     -jfx-unfocus-color: #012d5a;
     -fx-prompt-text-fill: #012d5a;
 
@@ -341,13 +342,13 @@
 }
 
 .jfx-combo-box .text-field {
-    -fx-text-fill : white;
+    -fx-text-fill : #012d5a;
 
 
 }
 
 .jfx-combo-box .text-area {
-    -fx-text-fill : white;
+    -fx-text-fill : #012d5a;
 
 
 }
@@ -358,12 +359,12 @@
 }
 
 .jfx-combo-box .list-cell {
-    -fx-text-fill : white;
+    -fx-text-fill : #012d5a;
 
 }
 
 .jfx-combo-box .arrow {
-    -fx-background-color: #f5d96b;
+    -fx-background-color: #012d5a;
 }
 
 .jfx-combo-box-Popup {
