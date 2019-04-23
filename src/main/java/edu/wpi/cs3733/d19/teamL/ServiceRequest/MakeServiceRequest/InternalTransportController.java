@@ -2,6 +2,7 @@ package edu.wpi.cs3733.d19.teamL.ServiceRequest.MakeServiceRequest;
 
 import edu.wpi.cs3733.d19.teamL.HomeScreens.HomeScreenController;
 import edu.wpi.cs3733.d19.teamL.Memento;
+import edu.wpi.cs3733.d19.teamL.Reports.requestReportAccess;
 import edu.wpi.cs3733.d19.teamL.ServiceRequest.ServiceRequestDBAccess.InternalTransportAccess;
 import edu.wpi.cs3733.d19.teamL.Map.Pathfinding.NodesAccess;
 import com.jfoenix.controls.JFXButton;
@@ -9,6 +10,7 @@ import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXTextArea;
 import com.jfoenix.controls.JFXTextField;
 import edu.wpi.cs3733.d19.teamL.Map.MapLocations.Location;
+import edu.wpi.cs3733.d19.teamL.ServiceRequest.ServiceRequestDBAccess.ServiceRequestAccess;
 import edu.wpi.cs3733.d19.teamL.Singleton;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
@@ -26,6 +28,7 @@ import javafx.stage.Stage;
 import javafx.util.Duration;
 
 import java.io.IOException;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -102,21 +105,6 @@ public class InternalTransportController {
         );
     }
 
-    private void initializeTable(NodesAccess na) {
-        int count;
-        count = 0;
-        while (count < na.countRecords()) {
-            ArrayList<String> arr = na.getNodes(count);
-            Location testx = new Location(arr.get(0), Integer.parseInt(arr.get(1)), Integer.parseInt(arr.get(2)), arr.get(3), arr.get(4), arr.get(5), arr.get(6), arr.get(7));
-            //only add the node if it hasn't been done yet
-            if (!(lookup.containsKey(arr.get(0))) && arr.get(3).equals(2)) {
-                lookup.put((arr.get(0)), testx);
-                data.add(testx);
-            }
-            count++;
-        }
-    }
-
     private boolean isDigit(char c){
         if(c == '0' || c == '1' || c == '2' || c == '3' || c == '4' || c == '5' || c == '6' || c == '7' || c == '8' || c == '9'){
             return true;
@@ -159,11 +147,15 @@ public class InternalTransportController {
         String comment = commentBox.getText();
         String type = typeField.getValue();
         String phone = phoneField.getText();
-        InternalTransportAccess ita = new InternalTransportAccess();
-        ita.makeRequest(comment, startNode, endNode, type, phone);
+        ServiceRequestAccess sra = new ServiceRequestAccess();
+        String time = LocalDateTime.now().toString();
+        sra.makeInternalRequest(comment, startNode, endNode, type, phone, time);
         Memento m = single.getOrig();
         Parent newPage = FXMLLoader.load(getClass().getClassLoader().getResource(m.getFxml()));
         ((Node) event.getSource()).getScene().setRoot(newPage);
+        requestReportAccess ra = new requestReportAccess();
+        ra.addReport(time, "none", "inprogress", "InternalTransport", typeField.getValue(), startNode.getLongName());
+
 
     }
 

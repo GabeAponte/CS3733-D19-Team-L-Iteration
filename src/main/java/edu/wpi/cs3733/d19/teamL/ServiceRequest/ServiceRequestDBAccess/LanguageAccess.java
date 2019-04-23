@@ -32,10 +32,10 @@ public class LanguageAccess extends DBAccess {
      * adds a new religious request to the database
      *
      */
-    public void makeRequest(String desc, String location, String language, String level, String interpreters){
+    public void makeRequest(String desc, String location, String language, String level, String interpreters, String reportTime){
         String sql = "insert into languageRequest(" +
-                "comment, language, location, creationTime, creationDate, level, interpreters)" +
-                "values (?, ?, ?, ?, ?, ?, ?)";
+                "comment, language, location, creationTime, creationDate, level, interpreters, reportTime)" +
+                "values (?, ?, ?, ?, ?, ?, ?, ?)";
 
         try (Connection conn = this.connect();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
@@ -47,6 +47,7 @@ public class LanguageAccess extends DBAccess {
             pstmt.setString(5, sdf.format(date));
             pstmt.setString(6, level);
             pstmt.setInt(7, Integer.parseInt(interpreters));
+            pstmt.setString(8, reportTime);
             pstmt.executeUpdate();
         } catch (SQLException e) {
             System.out.println(e.getMessage());

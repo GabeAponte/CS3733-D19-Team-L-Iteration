@@ -32,10 +32,10 @@ public class MaintenanceAccess extends DBAccess {
      * adds a new religious request to the database
      *
      */
-    public void makeRequest(String desc, String location, String type, String isHazard){
+    public void makeRequest(String desc, String location, String type, String isHazard, String reportTime){
         String sql = "insert into maintenanceRequest(" +
-                "comment, type, location, creationTime, creationDate, isHazard)" +
-                "values (?, ?, ?, ?, ?, ?)";
+                "comment, type, location, creationTime, creationDate, isHazard, reportTime)" +
+                "values (?, ?, ?, ?, ?, ?, ?)";
 
         try (Connection conn = this.connect();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
@@ -45,6 +45,7 @@ public class MaintenanceAccess extends DBAccess {
             pstmt.setString(3, location);
             pstmt.setInt(4, Integer.parseInt(tdf.format(date.getTime())));
             pstmt.setString(5, sdf.format(date));
+            pstmt.setString(6, reportTime);
             if(isHazard.equals("true")) {
                 pstmt.setBoolean(6, true);
             }else {
