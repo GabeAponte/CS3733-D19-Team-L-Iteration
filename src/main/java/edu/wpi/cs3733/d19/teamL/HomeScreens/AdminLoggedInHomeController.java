@@ -8,6 +8,7 @@ import edu.wpi.cs3733.d19.teamL.Account.CreateEditAccountController;
 import edu.wpi.cs3733.d19.teamL.Account.EmployeeAccess;
 import edu.wpi.cs3733.d19.teamL.Map.Pathfinding.PathFindingController;
 import edu.wpi.cs3733.d19.teamL.Memento;
+import edu.wpi.cs3733.d19.teamL.Reports.ReportThread;
 import edu.wpi.cs3733.d19.teamL.Singleton;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
@@ -362,5 +363,11 @@ public class AdminLoggedInHomeController {
             // ... user chose CANCEL or closed the dialog
         }
 
+    }
+
+    @FXML
+    private void GeneratePathFindingReport() {
+        ReportThread rt = new ReportThread(1);
+        rt.start();
     }
 }

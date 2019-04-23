@@ -304,7 +304,7 @@
                         <Insets left="50.0" right="50.0" />
                      </GridPane.margin>
                   </JFXTextField>
-                  <JFXButton fx:id="PathFindReport" buttonType="RAISED" prefHeight="35.0" prefWidth="128.0" style="-fx-border-width: 2; -fx-border-radius: 50; -fx-background-radius: 50;" styleClass="buttonMain" stylesheets="@Default.css" text="Pathfinding" textFill="WHITE" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="4">
+                  <JFXButton fx:id="PathFindReport" onMouseClicked="#GeneratePathFindingReport" buttonType="RAISED" prefHeight="35.0" prefWidth="128.0" style="-fx-border-width: 2; -fx-border-radius: 50; -fx-background-radius: 50;" styleClass="buttonMain" stylesheets="@Default.css" text="Pathfinding" textFill="WHITE" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="4">
                      <font>
                         <Font size="15.0" />
                      </font>
