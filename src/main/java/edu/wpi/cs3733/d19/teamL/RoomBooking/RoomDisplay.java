@@ -13,6 +13,7 @@ public class RoomDisplay {
     String roomName;
     String niceName;
     double coordinates[] = {0};
+
     Polygon p;
 
     public RoomDisplay(String name, double[] coords, String niceName){
@@ -26,10 +27,12 @@ public class RoomDisplay {
     }
 
     public void makePolygon(double scaleRatio){
+        int size = this.coordinates.length;
+        double newCoordinates[] = new double[size];
         for (int j = 0; j < this.coordinates.length; j++) {
-            coordinates[j] = coordinates[j] * scaleRatio;
+            newCoordinates[j] = coordinates[j] * scaleRatio;
         }
-        p = new Polygon(coordinates);
+        p = new Polygon(newCoordinates);
         p.setOnMouseEntered(setOnMouseEntered);
         p.setOnMouseExited(setOnMouseExited);
     }

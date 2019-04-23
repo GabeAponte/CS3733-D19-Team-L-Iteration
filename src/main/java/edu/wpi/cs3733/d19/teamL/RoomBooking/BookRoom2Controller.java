@@ -25,37 +25,19 @@ import javafx.util.Duration;
 
 public class BookRoom2Controller {
     @FXML
-    private JFXDatePicker datePicker;
-
-    @FXML
-    private JFXComboBox<String> avaliableRooms;
-
-    @FXML
-    private Label error;
-
-    @FXML
-    private JFXButton goToBookRoom;
-
-    @FXML
-    private JFXButton requestRoom;
-
-    @FXML
-    private Stage thestage;
+    private JFXDatePicker dailyDatePicker;
 
     @FXML
     private GridPane gridPane;
 
     @FXML
-    private JFXScrollPane ScrollPane;
-
-    @FXML
     private Button back;
 
     @FXML
-    private TreeTableView<Room> bookedTime;
+    private TreeTableView<Room> dailySchedule;
 
     @FXML
-    private TreeTableColumn<Room, String> timeCol;
+    private TreeTableColumn<Room, String> dailyTimeCol;
 
     @FXML
     private TreeTableColumn<Room, Boolean> class1Col;
@@ -129,7 +111,7 @@ public class BookRoom2Controller {
 
         timeout.setCycleCount(Timeline.INDEFINITE);
         timeout.play();
-        datePicker.setValue(LocalDate.now());
+        dailyDatePicker.setValue(LocalDate.now());
         findRooms();
     }
 
@@ -150,22 +132,22 @@ public class BookRoom2Controller {
     private void findRooms() {
         Singleton single = Singleton.getInstance();
         single.setLastTime();
-        bookedTime.setRoot(null);
+        dailySchedule.setRoot(null);
         Root.getChildren().clear();
         RoomAccess ra = new RoomAccess();
-        String theDate = datePicker.getValue().toString();
+        String theDate = dailyDatePicker.getValue().toString();
         LocalTime startLT = LocalTime.of(0,0);
         LocalTime endLT = LocalTime.of(0, 30);
         for(int i = 0; i < 48; i++){
-            // System.out.println("Start Time: " + startTime + " End Time: " + endTime);
+           // System.out.println("Start Time: " + startTime + " End Time: " + endTime);
             TreeItem<Room> bookedRooms = new TreeItem<Room>(new Room(startLT, endLT, ra.getAvailRooms(theDate, theDate)));
             Root.getChildren().add(bookedRooms);
             startLT = startLT.plusMinutes(30);
             endLT = endLT.plusMinutes(30);
         }
 
-        //timeCol = new TreeTableColumn<Room, String>("Time");
-        timeCol.setCellValueFactory(cellData -> {
+        //dailyTimeCol = new TreeTableColumn<Room, String>("Time");
+        dailyTimeCol.setCellValueFactory(cellData -> {
             if(cellData.getValue().getValue()instanceof Room) {
                 return new ReadOnlyObjectWrapper(cellData.getValue().getValue().getTime());
             }
@@ -464,11 +446,11 @@ public class BookRoom2Controller {
             return cell;
         });
 
-        bookedTime.getColumns().clear();
-        bookedTime.getColumns().addAll(timeCol, class1Col, class2Col, class3Col, class4Col, class5Col, class6Col, class7Col, class8Col, class9Col, auditorium);
-        bookedTime.setTreeColumn(timeCol);
-        bookedTime.setRoot(Root);
-        bookedTime.setShowRoot(false);
+        dailySchedule.getColumns().clear();
+        dailySchedule.getColumns().addAll(dailyTimeCol, class1Col, class2Col, class3Col, class4Col, class5Col, class6Col, class7Col, class8Col, class9Col, auditorium);
+        dailySchedule.setTreeColumn(dailyTimeCol);
+        dailySchedule.setRoot(Root);
+        dailySchedule.setShowRoot(false);
         single.setLastTime();
     }
 

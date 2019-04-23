@@ -448,6 +448,7 @@ public class PathFindingController {
     public void initialize() {
         Singleton single = Singleton.getInstance();
         single.setLastTime();
+        settingPressed();
 
         na = new NodesAccess();
         ea = new EdgesAccess();
@@ -812,7 +813,7 @@ public class PathFindingController {
     @FXML
     private void settingPressed(){
         TranslateTransition openSetting = new TranslateTransition(new Duration(300.0D), this.settingPane);
-        openSetting.setToX(Map.getFitWidth()-850);
+        openSetting.setToY(0.0D);
         TranslateTransition closeSetting = new TranslateTransition(new Duration(300.0D), this.settingPane);
         this.menubtn.setOnAction((evt) -> {
             //  settingPane.setLayoutX(mapColumn.getMaxWidth()-200);
@@ -825,25 +826,6 @@ public class PathFindingController {
             }
 
         });
-
-        this.menuBack.setOnAction((evt) -> {
-            if (this.navList.getTranslateY() != 450.0D) {
-                openSetting.setToY(450);
-                openSetting.play();
-            } else {
-                closeSetting.setToY(-this.settingPane.getHeight());
-                closeSetting.play();
-            }
-
-        });
-        if (this.navList.getTranslateY() != 450.0D) {
-            openSetting.setToY(450);
-            openSetting.play();
-        } else {
-            closeSetting.setToX(-this.navList.getHeight());
-            closeSetting.play();
-        }
-
 
     }
 
@@ -926,6 +908,7 @@ public class PathFindingController {
                     found = true;
                 }
             }
+            floorsVisited.add(path.getPath().get(path.getPath().size()-1).getFloor());
             if(floorsVisited.contains(currentMap)) {
                 displaySelected(0, floorSwitch);
             }
@@ -941,8 +924,8 @@ public class PathFindingController {
      * @param end
      */
     private void autoZoom(Location start, Location end) {
-        if((Math.abs((start.getXcoord() - end.getXcoord()))) < 3200 &&
-                Math.abs(((start.getYcoord() - end.getYcoord()))) < 1050){
+        if((Math.abs((start.getXcoord() - end.getXcoord()))) < 3200 && Math.abs(((start.getYcoord() - end.getYcoord()))) < 1050
+                || (Math.abs((start.getXcoord() - end.getXcoord()))) < 2500 && Math.abs(((start.getYcoord() - end.getYcoord()))) < 3050 ){
             double x = gesturePane.getWidth()/(Math.abs((start.getXcoord() - end.getXcoord())));
             double y = gesturePane.getHeight()/Math.abs(((start.getYcoord() - end.getYcoord())));
             double scale = (Math.min(x, y)/2) + 1.1;
@@ -972,10 +955,9 @@ public class PathFindingController {
         int totalNum = countFloors(floors);
         int center = (numOfBut + 1)/2;
         if(totalNum % 2 == 0){
-            shift = 150;
+            shift = 135;
         }
         boolean change = false;
-        boolean stop = false;
         for(int i = 0; i < floors.size()-1; i++) {
             //Sets up the buttons
             JFXButton fBut = new JFXButton();
@@ -1005,13 +987,13 @@ public class PathFindingController {
                 change = true;
             }
             //This is the final button
-            else if(numOfBut == 1 && change && !stop){
+            else if(numOfBut == 1 && change){
                 fBut.setPrefSize(50,50);
                 fBut.setText(floors.get(i));
                 fBut.setStyle("-fx-font-weight: BOLD");
                 fBut.getStyleClass().add("buttonMap");
                 int startstore1 = start;
-                int counterstore1 =floors.size();
+                int counterstore1 =floors.size() - 1 ;
                 fBut.setOnAction(event -> {
                     displaySelected(startstore1, counterstore1);
                     event.consume();
@@ -1022,11 +1004,39 @@ public class PathFindingController {
                 gridPane.setValignment(fBut, VPos.TOP);
                 //int diff  = numOfBut - center;
                 int diff  = center - numOfBut;
+                numOfBut--;
                 gridPane.setMargin(fBut,new Insets(65,0,0,diff*(200)+ shift));
-                stop = true;
+            }
+            if(totalNum > 1){
+                if(i == floors.size()-2 && !floors.get(i+1).equals(floors.get(start-1)) && numOfBut ==1)
+                {
+                    JFXButton fBut1 = new JFXButton();
+                    fBut1.setPrefSize(50,50);
+                    fBut1.setText(floors.get(i+1));
+                    fBut1.setStyle("-fx-font-weight: BOLD");
+                    fBut1.getStyleClass().add("buttonMap");
+                    int startstore1 = start;
+                    int counterstore1 =floors.size() - 1 ;
+                    fBut1.setOnAction(event -> {
+                        displaySelected(startstore1, counterstore1);
+                    });
+                    floorButtons.add(fBut1);
+                    gridPane.getChildren().add(fBut1);
+                    gridPane.setHalignment(fBut1, HPos.CENTER);
+                    gridPane.setValignment(fBut1, VPos.TOP);
+                    //int diff  = numOfBut - center;
+                    int diff  = center - numOfBut;
+                    numOfBut--;
+                    gridPane.setMargin(fBut1,new Insets(65,0,0,diff*(200)+ shift));
+                }
             }
             counter++;
+            //Displays the part of the path you're on by highlighting the button.
+//            if(fBut.getText().equals(currentMap)) {
+//                fBut.setStyle("-fx-background-color: #012d5a; -fx-text-fill: white");
+//            }
         }
+
     }
 
     /**
@@ -1140,19 +1150,19 @@ public class PathFindingController {
             startCircle.setStroke(Color.BLUE);
             startCircle.setFill(Color.BLUE);
             startLabel.setText(" You are here ");
-            startLabel.setStyle("-fx-text-fill: WHITE;-fx-font-size: 6; -fx-background-color: BLUE; -fx-border-color: WHITE; -fx-border-width: 2; -fx-min-width: 40;");
+            startLabel.setStyle("-fx-text-fill: WHITE;-fx-font-size: 6; -fx-background-color: rgba(0, 0, 255, 0.75); -fx-border-color: WHITE; -fx-border-width: 1; -fx-min-width: 40;");
         }
         else if(path.getPath().get(begin).getLocID().equals(startNode.getLocID())) {
             startCircle.setStroke(Color.GREEN);
             startCircle.setFill(Color.GREEN);
             startLabel.setText(startNode.getLongName());
-            startLabel.setStyle("-fx-text-fill: WHITE;-fx-font-size: 6; -fx-background-color: GREEN; -fx-border-color: WHITE; -fx-border-width: 2; -fx-min-width: 40;");
+            startLabel.setStyle("-fx-text-fill: WHITE;-fx-font-size: 6; -fx-background-color: rgba(34, 137, 51, 0.75); -fx-border-color: WHITE; -fx-border-width: 1; -fx-min-width: 40;");
         }
         else {
             startCircle.setStroke(DODGERBLUE);
             startCircle.setFill(DODGERBLUE);
             startLabel.setText(path.getPath().get(begin).getLongName());
-            startLabel.setStyle("-fx-text-fill: WHITE;-fx-font-size: 6; -fx-background-color: DODGERBLUE; -fx-border-color: WHITE; -fx-border-width: 2; -fx-min-width: 40;");
+            startLabel.setStyle("-fx-text-fill: WHITE;-fx-font-size: 6; -fx-background-color: rgba(51, 100, 255, 0.75); -fx-border-color: WHITE; -fx-border-width: 1; -fx-min-width: 40;");
         }
 
         circles.add(startCircle);
@@ -1166,12 +1176,24 @@ public class PathFindingController {
         if(path.getPath().get(count).getLocID().equals(endNode.getLocID())) {
             endCircle.setStroke(RED);
             endCircle.setFill(RED);
-            endLabel.setStyle("-fx-text-fill: WHITE;-fx-font-size: 6; -fx-background-color: RED; -fx-border-color: WHITE; -fx-border-width: 2; -fx-min-width: 40;");
+            endLabel.setStyle("-fx-text-fill: WHITE;-fx-font-size: 6; -fx-background-color: rgba(255, 0, 0, 0.75); -fx-border-color: WHITE; -fx-border-width: 1; -fx-min-width: 40;");
         }
         else {
             endCircle.setStroke(DODGERBLUE);
             endCircle.setFill(DODGERBLUE);
-            endLabel.setStyle("-fx-text-fill: WHITE;-fx-font-size: 6; -fx-background-color: DODGERBLUE; -fx-border-color: WHITE; -fx-border-width: 2; -fx-min-width: 40;");
+            endLabel.setStyle("-fx-text-fill: WHITE;-fx-font-size: 6; -fx-background-color: rgba(51, 100, 255, 0.75); -fx-border-color: WHITE; -fx-border-width: 1; -fx-min-width: 40;");
+        }
+        //Handles cases when you only display one location
+        if(path.getPath().get(begin).getLocID().equals(path.getPath().get(count).getLocID()) && path.getPath().get(begin).getLocID().equals(startNode.getLocID())) {
+            endLabel.setVisible(false);
+        }
+        else if(path.getPath().get(begin).getLocID().equals(path.getPath().get(count).getLocID())) {
+            startLabel.setVisible(false);
+            endLabel.setVisible(true);
+        }
+        else {
+            startLabel.setVisible(true);
+            endLabel.setVisible(true);
         }
         //Adding everything necessary to display the path
         labels.add(startLabel);
@@ -1204,20 +1226,16 @@ public class PathFindingController {
         }
 
         String directionS = printPath(al);
-
-        if(path.getPath().get(count) != null){
-            if(isStairELe(al.get(al.size()-1)) && isStairELe(path.getPath().get(count))){
-                if(path.getPath().get(count).getLocID().equals(path.getPath().get(path.getPath().size()-1).getLocID())){
-                    directionS += "\u2191 Go straight to " + path.getPath().get(count).getLongName() +
-                            " (" + convertToExact(path.getPath().get(count-1).findDistance(path.getPath().get(count)))
-                            + " ft) \n";
-                }
-                else {
-                directionS += "\u21C5 Go to floor " + path.getPath().get(count).getFloor() + " by "
-                        + al.get(al.size()-1).getLongName() +"\n";
+        if(al.size() > 1){
+            if(count + 1 < path.getPath().size()){
+                if(isStairELe(al.get(al.size()-1)) && isStairELe(path.getPath().get(count+1)) &&
+                        !al.get(al.size()-1).getFloor().equals(path.getPath().get(count+1).getFloor())){
+                    directionS += "\u21C5 Go to floor " + path.getPath().get(count+1).getFloor() + " by "
+                            + al.get(al.size()-1).getLongName() +"\n";
                 }
             }
         }
+
         direction.setText(directionS);
         direction.setWrapText(true);
         direction.setDisable(false);
@@ -2382,6 +2400,10 @@ public class PathFindingController {
 
         int d = 0; // count for the start location for exact location
         //same start and end location
+        if(A.size() == 1){
+            text += "You are already at your destination :)\n";
+            return text;
+        }
         if(A.size() == 2 && A.get(0) == A.get(1)){
             text += "You are already at your destination :)\n";
             return text;

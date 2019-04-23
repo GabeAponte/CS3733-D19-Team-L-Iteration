@@ -19,7 +19,7 @@ public class Main extends Application {
         primaryStage.setTitle("Team L Iteration 3");
         primaryStage.setScene(new Scene(root));
         primaryStage.setMaximized(true);
-        primaryStage.setResizable(false);
+        //primaryStage.setResizable(false);
         primaryStage.show();
     }
 
@@ -29,9 +29,9 @@ public class Main extends Application {
         NodesAccess na = new NodesAccess();
         EdgesAccess ea = new EdgesAccess();
         pathReportAccess p = new pathReportAccess();
-        //ea.deleteRecords();
-        //na.readCSVintoTable();
-        //ea.readCSVintoTable();
+//        ea.deleteRecords();
+//        na.readCSVintoTable();
+//        ea.readCSVintoTable();
 
         single.setData();
         single.populateTweets();
