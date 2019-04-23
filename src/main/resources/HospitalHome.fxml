@@ -219,17 +219,17 @@
       </VBox>
       <JFXTextField editable="false" layoutY="667.0" prefHeight="31.0" prefWidth="1921.0" styleClass="jfx-text-field-twitter" stylesheets="@Default.css" AnchorPane.bottomAnchor="30.0">
          <font>
-            <Font size="15.0" />
+            <Font name="Trebuchet MS" size="15.0" />
          </font>
       </JFXTextField>
       <JFXTextField fx:id="tweetBox" editable="false" layoutX="-7.0" layoutY="667.0" prefColumnCount="1" prefHeight="28.0" prefWidth="5000.0" styleClass="jfx-text-field-twitter" stylesheets="@Default.css" unFocusColor="BLACK" AnchorPane.bottomAnchor="30.0">
          <font>
-            <Font size="15.0" />
+            <Font name="Trebuchet MS" size="15.0" />
          </font>
       </JFXTextField>
-      <Label layoutX="40.0" layoutY="839.0" prefHeight="30.0" prefWidth="185.0" text="\@BrighamWomens" textFill="WHITE" AnchorPane.bottomAnchor="61.0" AnchorPane.leftAnchor="43.0">
+      <Label layoutX="40.0" layoutY="839.0" prefHeight="30.0" prefWidth="185.0" text="\@BrighamWomens" textFill="WHITE" AnchorPane.bottomAnchor="63.0" AnchorPane.leftAnchor="42.0">
          <font>
-            <Font size="20.0" />
+            <Font name="Trebuchet MS" size="20.0" />
          </font>
       </Label>
       <FontAwesomeIconView fill="#38a1f3" glyphName="TWITTER" layoutX="3.0" layoutY="750.0" size="30" wrappingWidth="13.168289184570312" AnchorPane.bottomAnchor="61.0" AnchorPane.leftAnchor="10.0" />
