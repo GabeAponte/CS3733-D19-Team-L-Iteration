@@ -604,3 +604,11 @@ WHALL00702,1740,1500,2,Tower,HALL,Hallway Connector 7 Floor 2,Hallway W0702
 WHALL00802,1720,1745,2,Shapiro,HALL,Hallway Connector 8 Floor 2,Hallway W0802
 WHALL00902,1690,2240,2,Shapiro,HALL,Hallway Connector 9 Floor 2,Hallway W0902
 WHALL01002,1690,2455,2,BTM,HALL,Hallway Connector 10 Floor 2,Hallway W1002
+LHALL00102,4241,849,2,Outside,HALL,Hallway Node 1 Level 2,Hallway L0102
+LHALL00202,4269,979,2,Outside,HALL,Hallway Node 2 Level 2,Hallway L0202
+LHALL00302,4397,1520,2,Outside,HALL,Hallway Node 3 Level 2,Hallway L0302
+LHALL00402,4317,1679,2,FlexibleWorkspace,HALL,Hallway Node 4 Level 2,Hallway L0402
+LHALL00502,4317,1938,2,FlexibleWorkspace,HALL,Hallway Node 5 Level 2,Hallway L0502
+LHALL00602,4280,2049,2,FlexibleWorkspace,HALL,Hallway Node 6 Level 2,Hallway L0602
+LHALL00702,4303,2166,2,FlexibleWorkspace,HALL,Hallway Node 7 Level 2,Hallway L0702
+LELEV00102,4234,2174,2,FlexibleWorkspace,ELEV,Elevator FW Level 2,Elevator L0102
