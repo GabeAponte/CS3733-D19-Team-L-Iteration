@@ -11,7 +11,10 @@ import edu.wpi.cs3733.d19.teamL.Memento;
 import edu.wpi.cs3733.d19.teamL.Singleton;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
+import javafx.animation.TranslateTransition;
 import javafx.application.Platform;
+import javafx.beans.property.ReadOnlyObjectWrapper;
+import javafx.beans.value.ChangeListener;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -22,8 +25,7 @@ import javafx.geometry.Point2D;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
+import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
@@ -37,17 +39,111 @@ import java.io.IOException;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
+import java.util.Arrays;
+
 import javafx.util.Duration;
 
 public class BookRoomController {
+
+    //Weekly Schedule Stuff
+
+    @FXML
+    private Label classroomLabel;
+
+    @FXML
+    private JFXDatePicker weeklyDatePicker;
+
+    @FXML
+    private JFXComboBox roomPicker;
+
+    @FXML
+    private TreeTableView<WeeklyRoom> weeklySchedule;
+
+    @FXML
+    private TreeTableColumn<WeeklyRoom, String> weeklyTimeCol;
+
+    @FXML
+    private TreeTableColumn<WeeklyRoom, Boolean> sunCol;
+
+    @FXML
+    private TreeTableColumn<WeeklyRoom, Boolean> monCol;
+
+    @FXML
+    private TreeTableColumn<WeeklyRoom, Boolean> tueCol;
+
+    @FXML
+    private TreeTableColumn<WeeklyRoom, Boolean> wedCol;
+
+    @FXML
+    private TreeTableColumn<WeeklyRoom, Boolean> thuCol;
+
+    @FXML
+    private TreeTableColumn<WeeklyRoom, Boolean> friCol;
+
+    @FXML
+    private TreeTableColumn<WeeklyRoom, Boolean> satCol;
+
+    private TreeItem Root = new TreeItem<>("rootxxx");
+
+    private TreeItem WeeklyRoot = new TreeItem("rootxxx");
+
+    String chosenRoom;
+    LocalDate chosenDate;
+
+    //Daily Schedule Stuff
+
+    @FXML
+    private JFXDatePicker dailyDatePicker;
+
+    @FXML
+    private TreeTableView<Room> dailySchedule;
+
+    @FXML
+    private TreeTableColumn<Room, String> dailyTimeCol;
+
+    @FXML
+    private TreeTableColumn<Room, Boolean> class1Col;
+
+    @FXML
+    private TreeTableColumn<Room, Boolean> class2Col;
+
+    @FXML
+    private TreeTableColumn<Room, Boolean> class3Col;
+
+    @FXML
+    private TreeTableColumn<Room, Boolean> class4Col;
+
+    @FXML
+    private TreeTableColumn<Room, Boolean> class5Col;
+
+    @FXML
+    private TreeTableColumn<Room, Boolean> class6Col;
+
+    @FXML
+    private TreeTableColumn<Room, Boolean> class7Col;
+
+    @FXML
+    private TreeTableColumn<Room, Boolean> class8Col;
+
+    @FXML
+    private TreeTableColumn<Room, Boolean> class9Col;
+
+    @FXML
+    private TreeTableColumn<Room, Boolean> auditorium;
+
+    //Visual Display Stuff
+
     @FXML
     private JFXDatePicker datePicker;
 
     @FXML
-    private Button back;
+    private JFXDatePicker endDatePicker;
 
     @FXML
     private JFXComboBox<String> availableRooms;
+
+    @FXML
+    private JFXComboBox<String> eventType;
 
     @FXML
     private Label error;
@@ -56,7 +152,7 @@ public class BookRoomController {
     private Label roomName;
 
     @FXML
-    private JFXButton viewSchedule;
+    private Label popupName;
 
     @FXML
     private JFXButton requestRoom;
@@ -80,11 +176,30 @@ public class BookRoomController {
     private ImageView roomImage;
 
     @FXML
-    private Button viewWeekly;
+    private Button back;
+
+    @FXML
+    private Button homebtn;
+
+    @FXML
+    private AnchorPane reservationPane;
+
+    @FXML
+    private AnchorPane bookedEventPane;
+
+    @FXML
+    private AnchorPane anchorPane;
+
+    @FXML
+    private ListView<EmployeeAccess> myListView;
+    private ObservableList<EmployeeAccess> listViewData = FXCollections.observableArrayList();
 
     Timeline timeout;
     VisualSimulationThread sim;
     private boolean firstTimeRan = true;
+    private boolean resShowing = false;
+    private boolean bookedEventShowing = false;
+    private boolean calledFromVisualClick = false;
 
     final ObservableList<String> listOfRooms = FXCollections.observableArrayList();
     ArrayList<String> rooms = new ArrayList<>();
@@ -97,16 +212,16 @@ public class BookRoomController {
         sim = new VisualSimulationThread(86);
         sim.start();
 
-        double room1[] = {2230, 1630, 2650, 1630, 2650, 1880, 2230, 1880};
-        double room2[] = {2860, 1130, 3040, 1070, 3180, 1430, 2990, 1500};
-        double room3[] = {2720, 750, 2850, 1120, 3040, 1060, 2970, 850, 3000, 840, 2970, 770, 2900, 720, 2810, 690};
+        double room1[] = {2240, 1640, 2590, 1640, 2590, 1790, 2670, 1790, 2670, 1890, 2240, 1890};
+        double room2[] = {2860, 1140, 3060, 1065, 3195, 1440, 2995, 1510};
+        double room3[] = {2720, 750, 2855, 1130, 3060, 1065, 2995, 875, 3015, 860, 2970, 770, 2900, 720, 2810, 690};
         double room4[] = {2420, 180, 2610, 180, 2730, 540, 2420, 540};
-        double room5[] = {2240, 755, 2540, 755, 2540, 1080, 2240, 1080};
+        double room5[] = {2240, 755, 2550, 755, 2550, 1100, 2240, 1100};
         double room6[] = {2090, 180, 2410, 180, 2410, 540, 2090, 540};
-        double room7[] = {2000, 755, 2230, 755, 2230, 1080, 2000, 1080};
+        double room7[] = {2000, 755, 2230, 755, 2230, 1100, 2000, 1100};
         double room8[] = {1750, 180, 2080, 180, 2080, 540, 1750, 540};
-        double room9[] = {1775, 710, 1840, 710, 1840, 750, 1980, 750, 1980, 930, 1775, 930};
-        double auditorium[] = {2860, 1920, 2860, 2030, 3130, 2030, 3150, 2060, 3240, 2000, 3320, 1870, 3330, 1770, 3310, 1730, 3270, 1720, 3190, 1460, 3040, 1500, 3070, 1590, 3030, 1600};
+        double room9[] = {1780, 720, 1860, 720, 1860, 755, 2000, 755, 2000, 940, 1780, 940};
+        double auditorium[] = {2860, 1920, 2860, 2030, 3130, 2030, 3150, 2060, 3250, 2000, 3300, 1945, 3330, 1870, 3330, 1770, 3325, 1720, 3300, 1725, 3200, 1450, 3040, 1500, 3070, 1590, 3030, 1600};
 
         DisplayRooms.add(new RoomDisplay("Room 1 - Computer", room1, "Room 1 - Computer"));
         DisplayRooms.add(new RoomDisplay("Room 2 - Computer", room2, "Room 2 - Computer"));
@@ -122,14 +237,54 @@ public class BookRoomController {
         roomImage.fitWidthProperty().bind(imagePane.widthProperty());
         roomImage.fitHeightProperty().bind(imagePane.heightProperty());
 
+        anchorPane.sceneProperty().addListener((observableScene, oldScene, newScene) -> {
+            if (oldScene == null && newScene != null) {
+                // scene is set for the first time. Now its the time to listen stage changes.
+                newScene.windowProperty().addListener((observableWindow, oldWindow, newWindow) -> {
+                    if (oldWindow == null && newWindow != null) {
+                        // stage is set. now is the right time to do whatever we need to the stage in the controller.
+                        ChangeListener<Number> stageSizeListener = (observable, oldValue, newValue) -> {
+                        System.out.println("Screen resized");
+                            for(int i = 0; i < DisplayRooms.size(); i++){
+                                imagePane.getChildren().remove(DisplayRooms.get(i).getPolygon());
+                            }
+
+                            firstTimeRan = true;
+                            timeout.setCycleCount(Timeline.INDEFINITE);
+                            timeout.play();
+                            Platform.runLater(new Runnable(){
+                                @Override
+                                public void run(){
+                                    //displayFlexSpaces();
+                                    fieldsEntered();
+                                }
+                            });
+
+                        };
+
+                        ((Stage) newWindow).widthProperty().addListener(stageSizeListener);
+                        ((Stage) newWindow).heightProperty().addListener(stageSizeListener);
+                    }
+                });
+            }
+        });
+
         displayFlexSpaces(sim.getSimulation());
+
+        ArrayList<String> events = new ArrayList<String> (Arrays.asList("Meeting", "Party", "Conference", "Reception"));
+        ObservableList obList = FXCollections.observableList(events);
+        eventType.setItems(obList);
 
         startTime.setValue(LocalTime.now().plusMinutes(1));
         endTime.setValue(LocalTime.now().plusHours(1).plusMinutes(1));
         datePicker.setValue(LocalDate.now());
+        endDatePicker.setValue(LocalDate.now());
+        dailyDatePicker.setValue(LocalDate.now());
+        weeklyDatePicker.setValue(LocalDate.now());
         Singleton single = Singleton.getInstance();
         single.setLastTime();
         timeout = new Timeline(new KeyFrame(Duration.millis(1500), new EventHandler<ActionEvent>() {
+
 
             @Override
             public void handle(ActionEvent event) {
@@ -178,24 +333,17 @@ public class BookRoomController {
             }
         });
 
+        dailyDatePicker.setValue(LocalDate.now());
+        findRooms();
+        roomPicker.getItems().addAll("Room 1 - Computer", "Room 2 - Computer", "Room 3 - Computer", "Room 4 - Classroom", "Room 5 - Computer", "Room 6 - Classroom", "Room 7 - Computer", "Room 8 - Classroom", "Room 9 - Computer", "Mission Hall Auditorium");
+        roomPicker.getSelectionModel().select(0);
+        viewSched();
+
     }
 
-    @FXML
-    private void switchToTable(ActionEvent event) throws IOException {
-        timeout.stop();
-        try{
-            sim.join();
-        } catch (Exception e){
-            e.printStackTrace();
-            sim.stop();
-        }
-        Singleton single = Singleton.getInstance();
-        single.setLastTime();
-        Parent newPage = FXMLLoader.load(getClass().getClassLoader().getResource("BookRoom2.fxml"));
-        ((Node) event.getSource()).getScene().setRoot(newPage);
-    }
+    public void loadFromPathfind(String roomName){
 
-    //LocalTime startTimeValue = null;
+    }
 
     @FXML
     /** @author Gabe, Nikhil
@@ -209,14 +357,15 @@ public class BookRoomController {
         LocalTime startTimeValue = startTime.getValue();
         LocalTime endTimeValue = endTime.getValue();
         LocalDate roomDate = datePicker.getValue();
+        LocalDate endRoomDate = endDatePicker.getValue();
         LocalDate curDate = LocalDate.now();
         LocalTime curTime = LocalTime.now();
 
         error.setTextFill(Color.RED);
 
-        //Gabe - error when start time, end time, and date are blank
-        if (startTimeValue == null && endTimeValue == null && roomDate == null) {
-            error.setText("Please select start and end times and a date.");
+        //Gabe - error when start time, end time, and dates are blank
+        if (startTimeValue == null && endTimeValue == null && roomDate == null && endRoomDate == null) {
+            error.setText("Please select start and end times and dates.");
         }
 
         //Gabe - error when start time and end time are blank
@@ -260,16 +409,16 @@ public class BookRoomController {
         } else {
             error.setTextFill(Color.WHITE);
             error.setText("Room booked.");
-            int startTimeMil = startTime.getValue().getHour() * 100 + startTime.getValue().getMinute();
-            int endTimeMil = endTime.getValue().getHour() * 100 + endTime.getValue().getMinute();
             String date = datePicker.getValue().toString();
-            String endDate;
+            String endDate = endDatePicker.getValue().toString();
+            date += "T" + startTime.getValue().getHour() + ":" + startTime.getValue().getMinute() + ":00";
+            endDate += "T" + endTime.getValue().getHour()  + ":" + endTime.getValue().getMinute() + ":00";
             String roomName = availableRooms.getValue().toString();
             EmployeeAccess ea = new EmployeeAccess();
             String employeeID = ea.getEmployeeInformation(single.getUsername()).get(0);
             ReservationAccess roomReq = new ReservationAccess();
             RoomAccess ra = new RoomAccess();
-            roomReq.makeReservation(ra.getRoomID(roomName), employeeID, date, date, startTimeMil, endTimeMil);
+            roomReq.makeReservation(ra.getRoomID(roomName), employeeID, date, endDate);
             fieldsEntered();
         }
     }
@@ -287,12 +436,13 @@ public class BookRoomController {
         String endDate = "";
 
         if (startTime.getValue() != null && endTime.getValue() != null && datePicker.getValue() != null) {
-            startTimeMil = startTime.getValue().getHour() * 100 + startTime.getValue().getMinute();
-            endTimeMil = endTime.getValue().getHour() * 100 + endTime.getValue().getMinute();
             date = datePicker.getValue().toString();
+            endDate = endDatePicker.getValue().toString();
+            date += "T" + startTime.getValue().getHour() * 100 + ":" + startTime.getValue().getMinute() + ":00";
+            endDate += "T" + endTime.getValue().getHour() * 100 + ":" + endTime.getValue().getMinute() + ":00";
             availableRooms.getSelectionModel().clearSelection();
 
-            rooms = ra.getAvailRooms(date, date, startTimeMil, endTimeMil);
+            rooms = ra.getAvailRooms(date, endDate);
             /*for (int i = 0; i < rooms.size(); i++) {
                 System.out.println("Available Rooms: " + rooms.get(i));
             }*/
@@ -304,7 +454,7 @@ public class BookRoomController {
             }
 
                 //System.out.println("startTimeMil: " + startTimeMil + "\n endTimeMil:" + endTimeMil);
-            rooms = ra.getAvailRooms(date, date, startTimeMil, endTimeMil);
+            rooms = ra.getAvailRooms(date, endDate);
 
             for(int j = 0; j < rooms.size(); j ++) {
                 listOfRooms.add(rooms.get(j));
@@ -323,13 +473,16 @@ public class BookRoomController {
         }
     }
 
-    //Isabella did this
-
+    /** @author Isabella
+     * When the dropdown of availible rooms is generated, the map changes to reflect availiblity.
+     * Clicking on either the map or the dropdown will highlight the corresponding room.
+     */
     @FXML
     public void displayAllRooms() {
 
         if(firstTimeRan) {
-            double scaleRatio = Math.min(roomImage.getFitWidth() / roomImage.getImage().getWidth(), roomImage.getFitHeight() / roomImage.getImage().getHeight());
+            double scaleRatio = 0;
+            scaleRatio = Math.min(roomImage.getFitWidth() / roomImage.getImage().getWidth(), roomImage.getFitHeight() / roomImage.getImage().getHeight());
             for (int i = 0; i < DisplayRooms.size(); i++) {
                 DisplayRooms.get(i).makePolygon(scaleRatio);
                 DisplayRooms.get(i).getPolygon().setOnMouseClicked(onMouseClickedEventHandler);
@@ -354,6 +507,8 @@ public class BookRoomController {
 
         @Override
         public void handle(MouseEvent event) {
+            boolean resPaneCalled = false;
+            calledFromVisualClick = true;
             displayAllRooms();
             for (int k = 0; k < DisplayRooms.size(); k++) {
                 Point2D mousePress = new Point2D(event.getX(), event.getY());
@@ -365,11 +520,33 @@ public class BookRoomController {
                         if(DisplayRooms.get(k).getRoomName().equals(listOfRooms.get(z))){
                             if(DisplayRooms.get(k).isAvailable()) {
                                 availableRooms.getSelectionModel().select(listOfRooms.get(z));
+                                if(popupName.getText().contains(DisplayRooms.get(k).niceName)){
+                                    resPaneCalled = true;
+                                    //System.out.println("Same");
+                                    if(resShowing) {
+                                        openReservation(false);
+                                    }else{
+                                        openReservation(true);
+                                    }
+                                }else {
+                                    resPaneCalled = true;
+                                    popupName.setText("Reserve " + DisplayRooms.get(k).niceName);
+                                    //System.out.println("New");
+                                    openReservation(true);
+                                }
                             }
+                        }
+                    }
+                    if(resPaneCalled == false){
+                        if(bookedEventShowing) {
+                            openEventInfo(false);
+                        }else{
+                            openEventInfo(true);
                         }
                     }
                     DisplayRooms.get(k).changePolygonColor("BLUE");
                     imagePane.getChildren().add(DisplayRooms.get(k).getPolygon());
+                    calledFromVisualClick = false;
                 }
             }
 
@@ -378,11 +555,16 @@ public class BookRoomController {
     };
 
     public void highlightFromDropdown(){
-
+        //System.out.println("VisClick:"+calledFromVisualClick);
         for(int j = 0; j<DisplayRooms.size(); j++){
             if(DisplayRooms.get(j).getRoomName().equals(availableRooms.getValue())){
                 for (int i = 0; i < DisplayRooms.size(); i++) {
                     if(DisplayRooms.get(i).isAvailable()){
+                        if(calledFromVisualClick == false){
+                                popupName.setText("Reserve " + DisplayRooms.get(j).niceName);
+                                System.out.println("hd");
+                                openReservation(true);
+                        }
                         DisplayRooms.get(i).changePolygonColor("GREEN");
                     } else {
                         DisplayRooms.get(i).changePolygonColor("RED");
@@ -395,7 +577,9 @@ public class BookRoomController {
 
     }
 
-
+    /** @author Isabella
+     * Displays individual flex spaces that update randomly
+     */
     public void displayFlexSpaces(ArrayList<Boolean> flexSpaceAvailable){
         int i = 0;
         for(i = 0; i < flexSpaces.size(); i++){
@@ -524,9 +708,9 @@ public class BookRoomController {
                 flexSpaces.get(i).setFill(Color.web("TURQUOISE"));
                 flexSpaces.get(i).setOpacity(0.5);
             }else{
-               flexSpaces.get(i).setStroke(Color.web("RED"));
-               flexSpaces.get(i).setFill(Color.web("RED"));
-               flexSpaces.get(i).setOpacity(0.3);
+                flexSpaces.get(i).setStroke(Color.web("RED"));
+                flexSpaces.get(i).setFill(Color.web("RED"));
+                flexSpaces.get(i).setOpacity(0.3);
             }
             imagePane.getChildren().add(flexSpaces.get(i));
         }
@@ -632,4 +816,654 @@ public class BookRoomController {
         Parent newPage = FXMLLoader.load(getClass().getClassLoader().getResource(m.getFxml()));
         ((Node) event.getSource()).getScene().setRoot(newPage);
     }
+
+    /** @author Isabella
+     * Slides in the reservation menu from the right side
+     */
+    private void openReservation(boolean open) {
+        TranslateTransition openNav = new TranslateTransition(new Duration(400.0D), this.reservationPane);
+        openNav.setToX(0.0D);
+        TranslateTransition closeNav = new TranslateTransition(new Duration(400.0D), this.reservationPane);
+        if (open == true){
+            openNav.setToX(-20.0D-this.reservationPane.getWidth());
+            openNav.play();
+            resShowing = true;
+            openEventInfo(false);
+            //System.out.println("ResShowing = true");
+        } else {
+            closeNav.setToX(20+this.anchorPane.getWidth()+this.reservationPane.getWidth());
+            closeNav.play();
+            resShowing = false;
+            //System.out.println("ResShowing = false");
+        }
+    }
+
+    /** @author Isabella
+     * Slides in the event information menu from the right side
+     */
+    private void openEventInfo(boolean open) {
+        //System.out.println("Open Event Info called");
+        TranslateTransition openNav = new TranslateTransition(new Duration(400.0D), this.bookedEventPane);
+        openNav.setToX(0.0D);
+        TranslateTransition closeNav = new TranslateTransition(new Duration(400.0D), this.bookedEventPane);
+        if (open == true){
+            openNav.setToX(-570.0D-this.bookedEventPane.getWidth());
+            openNav.play();
+            openReservation(false);
+            bookedEventShowing = true;
+        } else {
+            closeNav.setToX(570+this.anchorPane.getWidth()+this.reservationPane.getWidth());
+            closeNav.play();
+            bookedEventShowing = false;
+        }
+    }
+
+//----------------------------------------------------------------------------------------------------------------------
+//                                          BOOK ROOM 2 CONTROLLER
+//----------------------------------------------------------------------------------------------------------------------
+//todo edit this portion of the vode to allow for the booking across days
+    @FXML
+    private void dailyTab() {
+        openReservation(false);
+        openEventInfo(false);
+    }
+
+    @FXML
+    private void findRooms() {
+        Singleton single = Singleton.getInstance();
+        single.setLastTime();
+        dailySchedule.setRoot(null);
+        Root.getChildren().clear();
+        RoomAccess ra = new RoomAccess();
+        String theDate = dailyDatePicker.getValue().toString();
+        LocalTime startLT = LocalTime.of(0,0);
+        LocalTime endLT = LocalTime.of(0, 30);
+        for(int i = 0; i < 48; i++){
+            // System.out.println("Start Time: " + startTime + " End Time: " + endTime);
+            TreeItem<Room> bookedRooms = new TreeItem<Room>(new Room(startLT, endLT, ra.getAvailRooms(theDate, theDate)));
+            Root.getChildren().add(bookedRooms);
+            startLT = startLT.plusMinutes(30);
+            endLT = endLT.plusMinutes(30);
+        }
+
+        //dailyTimeCol = new TreeTableColumn<Room, String>("Time");
+        dailyTimeCol.setCellValueFactory(cellData -> {
+            if(cellData.getValue().getValue()instanceof Room) {
+                return new ReadOnlyObjectWrapper(cellData.getValue().getValue().getTime());
+            }
+            return new ReadOnlyObjectWrapper(cellData.getValue().getValue());
+        });
+
+        class1Col.setCellValueFactory(cellData -> {
+            if(cellData.getValue().getValue()instanceof Room) {
+                if(cellData.getValue().getValue().isClass1()){
+                    //cellData.getValue().
+                    return new ReadOnlyObjectWrapper(true);
+                }else {
+                    return new ReadOnlyObjectWrapper(false);
+                }
+            }
+            return new ReadOnlyObjectWrapper(cellData.getValue().getValue());
+        });
+
+        class1Col.setCellFactory(column -> {
+            TreeTableCell cell = new TreeTableCell<Room, Boolean>() {
+                //@Override
+                protected void updateItem(Boolean item, boolean empty) {
+                    super.updateItem(item, empty);
+                    if (item == null || !item){
+                        setText("Occupied");
+                        setStyle("-fx-background-color: red");
+                    } else {
+                        setText("Available");
+                        setStyle("-fx-background-color: green");
+                    }
+                }
+            };
+            return cell;
+        });
+
+        class2Col.setCellValueFactory(cellData -> {
+            if(cellData.getValue().getValue()instanceof Room) {
+                if(cellData.getValue().getValue().isClass2()){
+                    //cellData.getValue().
+                    return new ReadOnlyObjectWrapper(true);
+                }else {
+                    return new ReadOnlyObjectWrapper(false);
+                }
+            }
+            return new ReadOnlyObjectWrapper(cellData.getValue().getValue());
+        });
+
+        class2Col.setCellFactory(column -> {
+            TreeTableCell cell = new TreeTableCell<Room, Boolean>() {
+                //@Override
+                protected void updateItem(Boolean item, boolean empty) {
+                    super.updateItem(item, empty);
+                    if (item == null || !item){
+                        setText("Occupied");
+                        setStyle("-fx-background-color: red");
+
+                    } else {
+                        setText("Available");
+                        setStyle("-fx-background-color: green");
+
+                    }
+                }
+            };
+            return cell;
+        });
+
+        class3Col.setCellValueFactory(cellData -> {
+            if(cellData.getValue().getValue()instanceof Room) {
+                if(cellData.getValue().getValue().isClass3()){
+                    //cellData.getValue().
+                    return new ReadOnlyObjectWrapper(true);
+                }else {
+                    return new ReadOnlyObjectWrapper(false);
+                }
+            }
+            return new ReadOnlyObjectWrapper(cellData.getValue().getValue());
+        });
+
+        class3Col.setCellFactory(column -> {
+            TreeTableCell cell = new TreeTableCell<Room, Boolean>() {
+                //@Override
+                protected void updateItem(Boolean item, boolean empty) {
+                    super.updateItem(item, empty);
+                    if (item == null || !item){
+                        setText("Occupied");
+                        setStyle("-fx-background-color: red");
+                    } else {
+                        setText("Available");
+                        setStyle("-fx-background-color: green");
+                    }
+                }
+            };
+            return cell;
+        });
+
+        class4Col.setCellValueFactory(cellData -> {
+            if(cellData.getValue().getValue()instanceof Room) {
+                if(cellData.getValue().getValue().isClass4()){
+                    //cellData.getValue().
+                    return new ReadOnlyObjectWrapper(true);
+                }else {
+                    return new ReadOnlyObjectWrapper(false);
+                }
+            }
+            return new ReadOnlyObjectWrapper(cellData.getValue().getValue());
+        });
+
+        class4Col.setCellFactory(column -> {
+            TreeTableCell cell = new TreeTableCell<Room, Boolean>() {
+                //@Override
+                protected void updateItem(Boolean item, boolean empty) {
+                    super.updateItem(item, empty);
+                    if (item == null || !item){
+                        setText("Occupied");
+                        setStyle("-fx-background-color: red");
+                    } else {
+                        setText("Available");
+                        setStyle("-fx-background-color: green");
+                    }
+                }
+            };
+            return cell;
+        });
+
+        class5Col.setCellValueFactory(cellData -> {
+            if(cellData.getValue().getValue()instanceof Room) {
+                if(cellData.getValue().getValue().isClass5()){
+                    //cellData.getValue().
+                    return new ReadOnlyObjectWrapper(true);
+                }else {
+                    return new ReadOnlyObjectWrapper(false);
+                }
+            }
+            return new ReadOnlyObjectWrapper(cellData.getValue().getValue());
+        });
+
+        class5Col.setCellFactory(column -> {
+            TreeTableCell cell = new TreeTableCell<Room, Boolean>() {
+                //@Override
+                protected void updateItem(Boolean item, boolean empty) {
+                    super.updateItem(item, empty);
+                    if (item == null || !item){
+                        setText("Occupied");
+                        setStyle("-fx-background-color: red");
+                    } else {
+                        setText("Available");
+                        setStyle("-fx-background-color: green");
+                    }
+                }
+            };
+            return cell;
+        });
+
+        class6Col.setCellValueFactory(cellData -> {
+            if(cellData.getValue().getValue()instanceof Room) {
+                if(cellData.getValue().getValue().isClass6()){
+                    //cellData.getValue().
+                    return new ReadOnlyObjectWrapper(true);
+                }else {
+                    return new ReadOnlyObjectWrapper(false);
+                }
+            }
+            return new ReadOnlyObjectWrapper(cellData.getValue().getValue());
+        });
+
+        class6Col.setCellFactory(column -> {
+            TreeTableCell cell = new TreeTableCell<Room, Boolean>() {
+                //@Override
+                protected void updateItem(Boolean item, boolean empty) {
+                    super.updateItem(item, empty);
+                    if (item == null || !item){
+                        setText("Occupied");
+                        setStyle("-fx-background-color: red");
+                    } else {
+                        setText("Available");
+                        setStyle("-fx-background-color: green");
+                    }
+                }
+            };
+            return cell;
+        });
+
+        class7Col.setCellValueFactory(cellData -> {
+            if(cellData.getValue().getValue()instanceof Room) {
+                if(cellData.getValue().getValue().isClass7()){
+                    //cellData.getValue().
+                    return new ReadOnlyObjectWrapper(true);
+                }else {
+                    return new ReadOnlyObjectWrapper(false);
+                }
+            }
+            return new ReadOnlyObjectWrapper(cellData.getValue().getValue());
+        });
+
+        class7Col.setCellFactory(column -> {
+            TreeTableCell cell = new TreeTableCell<Room, Boolean>() {
+                //@Override
+                protected void updateItem(Boolean item, boolean empty) {
+                    super.updateItem(item, empty);
+                    if (item == null || !item){
+                        setText("Occupied");
+                        setStyle("-fx-background-color: red");
+                    } else {
+                        setText("Available");
+                        setStyle("-fx-background-color: green");
+                    }
+                }
+            };
+            return cell;
+        });
+
+        class8Col.setCellValueFactory(cellData -> {
+            if(cellData.getValue().getValue()instanceof Room) {
+                if(cellData.getValue().getValue().isClass8()){
+                    //cellData.getValue().
+                    return new ReadOnlyObjectWrapper(true);
+                }else {
+                    return new ReadOnlyObjectWrapper(false);
+                }
+            }
+            return new ReadOnlyObjectWrapper(cellData.getValue().getValue());
+        });
+
+        class8Col.setCellFactory(column -> {
+            TreeTableCell cell = new TreeTableCell<Room, Boolean>() {
+                //@Override
+                protected void updateItem(Boolean item, boolean empty) {
+                    super.updateItem(item, empty);
+                    if (item == null || !item){
+                        setText("Occupied");
+                        setStyle("-fx-background-color: red");
+                    } else {
+                        setText("Available");
+                        setStyle("-fx-background-color: green");
+                    }
+                }
+            };
+            return cell;
+        });
+
+        class9Col.setCellValueFactory(cellData -> {
+            if(cellData.getValue().getValue()instanceof Room) {
+                if(cellData.getValue().getValue().isClass9()){
+                    //cellData.getValue().
+                    return new ReadOnlyObjectWrapper(true);
+                }else {
+                    return new ReadOnlyObjectWrapper(false);
+                }
+            }
+            return new ReadOnlyObjectWrapper(cellData.getValue().getValue());
+        });
+
+        class9Col.setCellFactory(column -> {
+            TreeTableCell cell = new TreeTableCell<Room, Boolean>() {
+                //@Override
+                protected void updateItem(Boolean item, boolean empty) {
+                    super.updateItem(item, empty);
+                    if (item == null || !item){
+                        setText("Occupied");
+                        setStyle("-fx-background-color: red");
+                    } else {
+                        setText("Available");
+                        setStyle("-fx-background-color: green");
+                    }
+                }
+            };
+            return cell;
+        });
+
+        auditorium.setCellValueFactory(cellData -> {
+            if(cellData.getValue().getValue()instanceof Room) {
+                if(cellData.getValue().getValue().isAuditorium()){
+                    //cellData.getValue().
+                    return new ReadOnlyObjectWrapper(true);
+                }else {
+                    return new ReadOnlyObjectWrapper(false);
+                }
+            }
+            return new ReadOnlyObjectWrapper(cellData.getValue().getValue());
+        });
+
+        auditorium.setCellFactory(column -> {
+            TreeTableCell cell = new TreeTableCell<Room, Boolean>() {
+                //@Override
+                protected void updateItem(Boolean item, boolean empty) {
+                    super.updateItem(item, empty);
+                    if (item == null || !item){
+                        setText("Occupied");
+                        setStyle("-fx-background-color: red");
+                    } else {
+                        setText("Available");
+                        setStyle("-fx-background-color: green");
+                    }
+                }
+            };
+            return cell;
+        });
+
+        dailySchedule.getColumns().clear();
+        dailySchedule.getColumns().addAll(dailyTimeCol, class1Col, class2Col, class3Col, class4Col, class5Col, class6Col, class7Col, class8Col, class9Col, auditorium);
+        dailySchedule.setTreeColumn(dailyTimeCol);
+        dailySchedule.setRoot(Root);
+        dailySchedule.setShowRoot(false);
+        single.setLastTime();
+    }
+
+
+// ---------------------------------------------------------------------------------------------------------------------
+//                                          WEEKLY SCHEDULE CONTROLLER
+//----------------------------------------------------------------------------------------------------------------------
+//todo edit this portion of the vode to allow for the booking across days
+    @FXML
+    private void weeklyTab(){
+        openReservation(false);
+        openEventInfo(false);
+    }
+
+    @FXML
+    private void viewSched(){
+        changeRooms();
+    }
+
+    @FXML
+    private void changeRooms(){
+        loadWeekly(roomPicker.getValue().toString(), weeklyDatePicker.getValue());
+    }
+
+    public void loadWeekly(String theRoom, LocalDate theDate){
+        roomPicker.setValue(theRoom);
+        classroomLabel.setText(theRoom + " Weekly Schedule");
+        weeklyDatePicker.setValue(theDate);
+
+        checkAvailability(theRoom, theDate);
+    }
+
+    public void checkAvailability(String roomName, LocalDate theDate){
+        Singleton single = Singleton.getInstance();
+        single.setLastTime();
+        weeklySchedule.setRoot(null);
+        WeeklyRoot.getChildren().clear();
+        RoomAccess ra = new RoomAccess();
+        LocalDate givenDate = weeklyDatePicker.getValue();
+        LocalTime startLT = LocalTime.of(0,0);
+        LocalTime endLT = LocalTime.of(0, 30);
+        for(int i = 0; i < 48; i++) {
+            //System.out.println("Start Time: " + startLT + " End Time: " + endLT);
+            TreeItem<WeeklyRoom> bookedRooms = new TreeItem<WeeklyRoom>(new WeeklyRoom(startLT, endLT, theDate, roomName));
+            WeeklyRoot.getChildren().add(bookedRooms);
+
+            if(i == 46){
+                startLT = startLT.plusMinutes(30);
+                endLT = endLT.plusMinutes(29);
+            }
+            else{
+                startLT = startLT.plusMinutes(30);
+                endLT = endLT.plusMinutes(30);
+
+            }
+        }
+        //weeklyTimeCol = new TreeTableColumn<Room, String>("Time");
+        weeklyTimeCol.setCellValueFactory(cellData -> {
+            if(cellData.getValue().getValue()instanceof WeeklyRoom) {
+                return new ReadOnlyObjectWrapper(cellData.getValue().getValue().getTime());
+            }
+            return new ReadOnlyObjectWrapper(cellData.getValue().getValue());
+        });
+
+        sunCol.setCellValueFactory(cellData -> {
+            if(cellData.getValue().getValue()instanceof WeeklyRoom) {
+                if(cellData.getValue().getValue().isSunday()){
+                    //cellData.getValue().
+                    return new ReadOnlyObjectWrapper(true);
+                }else {
+                    return new ReadOnlyObjectWrapper(false);
+                }
+            }
+            return new ReadOnlyObjectWrapper(cellData.getValue().getValue());
+        });
+
+        sunCol.setCellFactory(column -> {
+            TreeTableCell cell = new TreeTableCell<Room, Boolean>() {
+                //@Override
+                protected void updateItem(Boolean item, boolean empty) {
+                    super.updateItem(item, empty);
+                    if (item == null || !item){
+                        setText("Occupied");
+                        setStyle("-fx-background-color: red");
+                    } else {
+                        setText("Available");
+                        setStyle("-fx-background-color: green");
+                    }
+                }
+            };
+            return cell;
+        });
+
+        monCol.setCellValueFactory(cellData -> {
+            if(cellData.getValue().getValue()instanceof WeeklyRoom) {
+                if(cellData.getValue().getValue().isMonday()){
+                    //cellData.getValue().
+                    return new ReadOnlyObjectWrapper(true);
+                }else {
+                    return new ReadOnlyObjectWrapper(false);
+                }
+            }
+            return new ReadOnlyObjectWrapper(cellData.getValue().getValue());
+        });
+
+        monCol.setCellFactory(column -> {
+            TreeTableCell cell = new TreeTableCell<Room, Boolean>() {
+                //@Override
+                protected void updateItem(Boolean item, boolean empty) {
+                    super.updateItem(item, empty);
+                    if (item == null || !item){
+                        setText("Occupied");
+                        setStyle("-fx-background-color: red");
+                    } else {
+                        setText("Available");
+                        setStyle("-fx-background-color: green");
+                    }
+                }
+            };
+            return cell;
+        });
+
+        tueCol.setCellValueFactory(cellData -> {
+            if(cellData.getValue().getValue()instanceof WeeklyRoom) {
+                if(cellData.getValue().getValue().isTuesday()){
+                    //cellData.getValue().
+                    return new ReadOnlyObjectWrapper(true);
+                }else {
+                    return new ReadOnlyObjectWrapper(false);
+                }
+            }
+            return new ReadOnlyObjectWrapper(cellData.getValue().getValue());
+        });
+
+        tueCol.setCellFactory(column -> {
+            TreeTableCell cell = new TreeTableCell<Room, Boolean>() {
+                //@Override
+                protected void updateItem(Boolean item, boolean empty) {
+                    super.updateItem(item, empty);
+                    if (item == null || !item){
+                        setText("Occupied");
+                        setStyle("-fx-background-color: red");
+                    } else {
+                        setText("Available");
+                        setStyle("-fx-background-color: green");
+                    }
+                }
+            };
+            return cell;
+        });
+
+        wedCol.setCellValueFactory(cellData -> {
+            if(cellData.getValue().getValue()instanceof WeeklyRoom) {
+                if(cellData.getValue().getValue().isWednesday()){
+                    //cellData.getValue().
+                    return new ReadOnlyObjectWrapper(true);
+                }else {
+                    return new ReadOnlyObjectWrapper(false);
+                }
+            }
+            return new ReadOnlyObjectWrapper(cellData.getValue().getValue());
+        });
+
+        wedCol.setCellFactory(column -> {
+            TreeTableCell cell = new TreeTableCell<Room, Boolean>() {
+                //@Override
+                protected void updateItem(Boolean item, boolean empty) {
+                    super.updateItem(item, empty);
+                    if (item == null || !item){
+                        setText("Occupied");
+                        setStyle("-fx-background-color: red");
+                    } else {
+                        setText("Available");
+                        setStyle("-fx-background-color: green");
+                    }
+                }
+            };
+            return cell;
+        });
+
+        thuCol.setCellValueFactory(cellData -> {
+            if(cellData.getValue().getValue()instanceof WeeklyRoom) {
+                if(cellData.getValue().getValue().isThursday()){
+                    //cellData.getValue().
+                    return new ReadOnlyObjectWrapper(true);
+                }else {
+                    return new ReadOnlyObjectWrapper(false);
+                }
+            }
+            return new ReadOnlyObjectWrapper(cellData.getValue().getValue());
+        });
+
+        thuCol.setCellFactory(column -> {
+            TreeTableCell cell = new TreeTableCell<Room, Boolean>() {
+                //@Override
+                protected void updateItem(Boolean item, boolean empty) {
+                    super.updateItem(item, empty);
+                    if (item == null || !item){
+                        setText("Occupied");
+                        setStyle("-fx-background-color: red");
+                    } else {
+                        setText("Available");
+                        setStyle("-fx-background-color: green");
+                    }
+                }
+            };
+            return cell;
+        });
+
+        friCol.setCellValueFactory(cellData -> {
+            if(cellData.getValue().getValue()instanceof WeeklyRoom) {
+                if(cellData.getValue().getValue().isFriday()){
+                    //cellData.getValue().
+                    return new ReadOnlyObjectWrapper(true);
+                }else {
+                    return new ReadOnlyObjectWrapper(false);
+                }
+            }
+            return new ReadOnlyObjectWrapper(cellData.getValue().getValue());
+        });
+
+        friCol.setCellFactory(column -> {
+            TreeTableCell cell = new TreeTableCell<Room, Boolean>() {
+                //@Override
+                protected void updateItem(Boolean item, boolean empty) {
+                    super.updateItem(item, empty);
+                    if (item == null || !item){
+                        setText("Occupied");
+                        setStyle("-fx-background-color: red");
+                    } else {
+                        setText("Available");
+                        setStyle("-fx-background-color: green");
+                    }
+                }
+            };
+            return cell;
+        });
+
+        satCol.setCellValueFactory(cellData -> {
+            if(cellData.getValue().getValue()instanceof WeeklyRoom) {
+                if(cellData.getValue().getValue().isSaturday()){
+                    //cellData.getValue().
+                    return new ReadOnlyObjectWrapper(true);
+                }else {
+                    return new ReadOnlyObjectWrapper(false);
+                }
+            }
+            return new ReadOnlyObjectWrapper(cellData.getValue().getValue());
+        });
+
+        satCol.setCellFactory(column -> {
+            TreeTableCell cell = new TreeTableCell<Room, Boolean>() {
+                //@Override
+                protected void updateItem(Boolean item, boolean empty) {
+                    super.updateItem(item, empty);
+                    if (item == null || !item){
+                        setText("Occupied");
+                        setStyle("-fx-background-color: red");
+                    } else {
+                        setText("Available");
+                        setStyle("-fx-background-color: green");
+                    }
+                }
+            };
+            return cell;
+        });
+
+        weeklySchedule.getColumns().clear();
+        weeklySchedule.getColumns().addAll(weeklyTimeCol, sunCol, monCol, tueCol, wedCol, thuCol, friCol, satCol);
+        weeklySchedule.setTreeColumn(weeklyTimeCol);
+        weeklySchedule.setRoot(WeeklyRoot);
+        weeklySchedule.setShowRoot(false);
+        single.setLastTime();
+    }
+
 }

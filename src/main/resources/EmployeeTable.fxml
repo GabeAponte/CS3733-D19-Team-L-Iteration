@@ -14,14 +14,19 @@
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<?import javafx.scene.layout.HBox?>
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720" prefWidth="1280" styleClass="AnchorPainMain" stylesheets="@Default.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.d19.teamL.Account.EmployeeTableController">
 
     <children>
+        <ImageView fitHeight="1122.0" fitWidth="1486.0" opacity="0.20" pickOnBounds="true" preserveRatio="true">
+            <image>
+                <Image url="@SoftEng_UI_Mockup_Pics/otherBackground.jpg" />
+            </image>
+        </ImageView>
         <VBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
             <children>
                 <JFXToolbar prefHeight="100.0" prefWidth="1280.0" styleClass="tool-barMain" stylesheets="@Default.css">
@@ -72,7 +77,7 @@
                                             <children>
                                                 <JFXButton fx:id="logOut" alignment="CENTER" buttonType="RAISED" contentDisplay="TOP" focusTraversable="false" graphicTextGap="0.0" minHeight="-Infinity" onAction="#logOut" prefHeight="75.0" prefWidth="100.0" ripplerFill="#b0b0b0" styleClass="buttonToolbar" stylesheets="@Default.css" text="Log Out" textAlignment="CENTER" textFill="#012d5a">
                                                     <font>
-                                                        <Font name="System Bold" size="17.0" />
+                                                        <Font name="Trebuchet MS Bold" size="17.0" />
                                                     </font>
                                                     <graphic>
                                                         <FontAwesomeIconView fill="#012d5a" glyphName="USER" size="35" strokeMiterLimit="0.0" textAlignment="CENTER" wrappingWidth="27.27392578125" />
@@ -81,13 +86,16 @@
                                                         <Insets right="20.0" />
                                                     </HBox.margin>
                                                 </JFXButton>
-                                                <JFXButton fx:id="homebtn" buttonType="RAISED" contentDisplay="GRAPHIC_ONLY" maxHeight="-Infinity" minHeight="-Infinity" onAction="#goHome" prefHeight="75.0" prefWidth="100.0" styleClass="buttonToolbar" stylesheets="@Default.css" textFill="#012d5a">
+                                                <JFXButton fx:id="homebtn" buttonType="RAISED" contentDisplay="TOP" graphicTextGap="0.0" maxHeight="-Infinity" minHeight="-Infinity" onAction="#goHome" prefHeight="75.0" prefWidth="100.0" styleClass="buttonToolbar" stylesheets="@Default.css" textFill="#012d5a">
                                                     <graphic>
-                                                        <FontAwesomeIconView fx:id="home" fill="#012d5a" glyphName="HOME" size="50" />
+                                                        <FontAwesomeIconView fx:id="home" fill="#012d5a" glyphName="HOME" size="40" />
                                                     </graphic>
                                                     <HBox.margin>
                                                         <Insets right="10.0" />
                                                     </HBox.margin>
+                                       <font>
+                                          <Font name="Trebuchet MS Bold" size="17.0" />
+                                       </font>
                                                 </JFXButton>
                                             </children>
                                         </HBox>
@@ -110,7 +118,7 @@
                <children>
                   <Label styleClass="labelTitle" stylesheets="@Default.css" text="Employee Accounts" textFill="#f5d96b" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
                      <font>
-                        <Font size="30.0" />
+                        <Font name="Trebuchet MS" size="30.0" />
                      </font>
                      <effect>
                         <Blend />

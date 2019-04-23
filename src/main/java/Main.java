@@ -19,7 +19,7 @@ public class Main extends Application {
         primaryStage.setTitle("Team L Iteration 3");
         primaryStage.setScene(new Scene(root));
         primaryStage.setMaximized(true);
-        primaryStage.setResizable(false);
+        //primaryStage.setResizable(false);
         primaryStage.show();
     }
 
