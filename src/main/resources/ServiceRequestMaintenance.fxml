@@ -132,7 +132,7 @@
                         <Insets bottom="10.0" left="225.0" right="125.0" />
                      </GridPane.margin>
                   </JFXTextField>
-                  <JFXTextField fx:id="field" focusColor="#f6bd38" onKeyReleased="#reenableSubmit" prefHeight="0.0" prefWidth="240.0" promptText="Type" styleClass="jfx-text-field-normal" stylesheets="@Default.css" unFocusColor="WHITE" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
+                  <JFXTextField fx:id="field1" focusColor="#f6bd38" onKeyReleased="#reenableSubmit" prefHeight="0.0" prefWidth="240.0" promptText="Type" styleClass="jfx-text-field-normal" stylesheets="@Default.css" unFocusColor="WHITE" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
                      <font>
                         <Font name="Trebuchet MS" size="20.0" />
                      </font>
