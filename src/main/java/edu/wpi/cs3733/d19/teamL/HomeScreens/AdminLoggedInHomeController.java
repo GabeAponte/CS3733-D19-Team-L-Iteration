@@ -13,6 +13,8 @@ import edu.wpi.cs3733.d19.teamL.Singleton;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.animation.TranslateTransition;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -127,6 +129,18 @@ public class AdminLoggedInHomeController {
 
         EmployeeAccess ea = new EmployeeAccess();
         welcome.setText("Welcome, " + ea.getEmployeeInformation(single.getUsername()).get(3));
+
+        ObservableList<String> requestTypes = FXCollections.observableArrayList();
+        requestTypes.add("AudioVisual");
+        requestTypes.add("InternalTransport");
+        requestTypes.add("IT");
+        requestTypes.add("Maintenance");
+        requestTypes.add("Prescription");
+        requestTypes.add("Religious");
+        requestTypes.add("Sanitation");
+        requestTypes.add("Security");
+        requestTypes.add("Language");
+        RequestType.setItems(requestTypes);
 
     }
 
