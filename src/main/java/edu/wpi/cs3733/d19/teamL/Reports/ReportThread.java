@@ -5,6 +5,7 @@ import com.lowagie.text.pdf.PdfReader;
 import com.lowagie.text.pdf.PdfStamper;
 import edu.wpi.cs3733.d19.teamL.Map.MapLocations.Location;
 import edu.wpi.cs3733.d19.teamL.Singleton;
+import javafx.scene.Parent;
 import net.sf.jasperreports.engine.*;
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 
@@ -13,10 +14,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class ReportThread extends Thread {
     int type;
@@ -140,18 +138,143 @@ public class ReportThread extends Thread {
                 e.printStackTrace();
             }
         }
-        else if (type == 2) {
-            LocalDateTime cool = LocalDateTime.now();
-            System.out.println(cool.toString());
-            String cool2 = "2019-04-22T19:33:34.360";
-            LocalDateTime cool3 = LocalDateTime.parse(cool2);
-            int count = 0;
-            requestReportAccess ra = new requestReportAccess();
-            while (count < ra.countRecords()) {
-                ArrayList<String> data = ra.getItems(count);
+        else if (type == 2) { //general service request report
+            try {
+                int count = 0;
+                requestReportAccess ra = new requestReportAccess();
+                ArrayList<serviceRequestReportData> completeList = new ArrayList<serviceRequestReportData>();
+                while (count < ra.countRecords()) { //get all the report data for service requests
+                    ArrayList<String> data = ra.getItems(count);
+                    serviceRequestReportData d = new serviceRequestReportData(data.get(0),
+                            data.get(1), data.get(2), data.get(3), data.get(4), data.get(5));
+                    completeList.add(d);
+                    count++;
+                }
+                //data acquired. Execute report generation
+                HashMap<String, Integer> typeCountHash = new HashMap<String, Integer>(); //count for each type
+                HashMap<String, Integer> locationCountHash = new HashMap<String, Integer>();
+                HashMap<String, String> monthHash = new HashMap<String, String>();
+                HashMap<String, Integer> specificMonthHash = new HashMap<String, Integer>();
+                ArrayList<String> type = new ArrayList<String>();
+                //fill the hash tables
+                for (serviceRequestReportData s : completeList) {
+                    //by type section
+                    if (!typeCountHash.containsKey(s.getType())) {
+                        typeCountHash.put(s.getType(), 1);
+                        type.add(s.getType());
+                    } else {
+                        int old = typeCountHash.get(s.getType());
+                        typeCountHash.replace(s.getType(), old, old + 1);
+                    }
+                    //by month section
+                    LocalDateTime t = LocalDateTime.parse(s.getTimeOfRequest());
+                    String monthName = t.getMonth().toString();
+                    String x = monthName + "_" + s.getType();
+                    if (!specificMonthHash.containsKey(x)) {
+                        specificMonthHash.put(x, 1);
+                        if (monthName.equals("APRIL")) {
+                            monthHash.put(x, "April");
+                        } else if (monthHash.equals("MARCH")) {
+                            monthHash.put(x, "March");
+                        } else if (monthHash.equals("FEBRUARY")) {
+                            monthHash.put(x, "February");
+                        }
+                    } else {
+                        int old = specificMonthHash.get(x);
+                        specificMonthHash.replace(x, old, old + 1);
+                    }
+                    //overall month counters
+                    if (!locationCountHash.containsKey(s.getLocation())) {
+                        locationCountHash.put(s.getLocation(), 1);
+                    } else {
+                        int oldloc = locationCountHash.get(s.getLocation());
+                        locationCountHash.replace(s.getLocation(), oldloc, oldloc + 1);
+                    }
+                }
 
+                //sort the data (location)
+                HashMap<String, Integer> sortedLocations = sortByValue(locationCountHash);
+                int numLocations = 0;
+                List<BarGraphChartData> locationData = new ArrayList<BarGraphChartData>();
+                for (Map.Entry<String, Integer> lEntry : sortedLocations.entrySet()) {
+                    if (numLocations < 5) {
+                        locationData.add(new BarGraphChartData("Location", lEntry.getKey(), lEntry.getValue()));
+                        numLocations++;
+                    }
+
+                }
+                List<BarGraphChartData> monthTypeData = new ArrayList<BarGraphChartData>();
+                for (Map.Entry<String, String> monthHashData : monthHash.entrySet()) {
+                    String key = monthHashData.getKey();
+                    String justType = key.substring(key.indexOf("_")+1);
+
+                    monthTypeData.add(new BarGraphChartData(monthHash.get(key), justType, specificMonthHash.get(key)));
+                }
+                List<PieChartData> typeData = new ArrayList<PieChartData>();
+                for (String p : typeCountHash.keySet()) {
+                    typeData.add(new PieChartData(p, typeCountHash.get(p)));
+                }
+
+                //build chart- series = month, category = type, value = value
+                System.out.println("LOOPS COMPLETE");
+                File f = new File("ServiceRequestOverview.jrxml");
+                JasperReport jasperReport = null;
+                String filePath = f.getAbsolutePath().replace('\\', '/');
+                jasperReport = JasperCompileManager.compileReport(filePath);
+                Map<String, Object> paramMap = new HashMap<String, Object>();
+                paramMap.put("REPORTS_PER_WEEK", new JRBeanCollectionDataSource(monthTypeData));
+                paramMap.put("PIE_CHART_TYPE", new JRBeanCollectionDataSource(typeData));
+                paramMap.put("TOP_10_LOCATIONS", new JRBeanCollectionDataSource(locationData));
+
+                List<Object> data = new ArrayList<Object>();
+                data.add(monthTypeData);
+                data.add(typeData);
+                data.add(locationData);
+                JRBeanCollectionDataSource dataSource = new JRBeanCollectionDataSource(data);
+                JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, paramMap, dataSource);
+                String outputPath = "outputPDF2.pdf";
+                JasperExportManager.exportReportToPdfFile(jasperPrint, outputPath);
+                JasperExportManager.exportReportToPdfFile(jasperPrint, outputPath);
+                PdfReader reader = new PdfReader("outputPDF2.pdf");
+                reader.close();
+                String path;
+                PdfStamper stamper;
+                reader.selectPages("1");
+                stamper = new PdfStamper(reader, new FileOutputStream("ServiceRequestOverview.pdf"));
+                stamper.close();
+                reader.close();
+                System.out.println("SUCCESS");
+
+
+            } catch (Exception e) {
+                e.printStackTrace();
             }
         }
         Thread.currentThread().stop();
+    }
+
+
+    //found online- geeks4geeks- sorts hashmap
+    public static HashMap<String, Integer> sortByValue(HashMap<String, Integer> hm)
+    {
+        // Create a list from elements of HashMap
+        List<Map.Entry<String, Integer> > list =
+                new LinkedList<Map.Entry<String, Integer> >(hm.entrySet());
+
+        // Sort the list
+        Collections.sort(list, new Comparator<Map.Entry<String, Integer> >() {
+            public int compare(Map.Entry<String, Integer> o1,
+                               Map.Entry<String, Integer> o2)
+            {
+                return (o2.getValue()).compareTo(o1.getValue());
+            }
+        });
+
+        // put data from sorted list to hashmap
+        HashMap<String, Integer> temp = new LinkedHashMap<String, Integer>();
+        for (Map.Entry<String, Integer> aa : list) {
+            temp.put(aa.getKey(), aa.getValue());
+        }
+        return temp;
     }
 }
