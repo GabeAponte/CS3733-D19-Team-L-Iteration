@@ -15,11 +15,11 @@
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<?import javafx.scene.layout.HBox?>
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720" prefWidth="1280" styleClass="AnchorPainMain" stylesheets="@Default.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.d19.teamL.ServiceRequest.MakeServiceRequest.InternalTransportController">
     <children>
       <VBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
@@ -98,67 +98,69 @@
                  </center>
              </JFXToolbar>
             <JFXToolbar prefHeight="10.0" prefWidth="1280.0" styleClass="tool-barSecondary" stylesheets="@Default.css" />
-            <GridPane alignment="CENTER" hgap="25.0" onMouseMoved="#reenableSubmit" prefHeight="264.0" prefWidth="1280.0" vgap="50.0" VBox.vgrow="ALWAYS">
+            <GridPane prefHeight="610.0" prefWidth="1280.0">
               <columnConstraints>
-                <ColumnConstraints halignment="CENTER" hgrow="ALWAYS" maxWidth="1.7976931348623157E308" minWidth="-Infinity" prefWidth="625.0" />
-                <ColumnConstraints halignment="CENTER" hgrow="ALWAYS" maxWidth="1.7976931348623157E308" minWidth="-Infinity" prefWidth="625.0" />
+                <ColumnConstraints hgrow="SOMETIMES" maxWidth="640.0" minWidth="10.0" prefWidth="640.0" />
+                <ColumnConstraints hgrow="SOMETIMES" maxWidth="640.0" minWidth="10.0" prefWidth="640.0" />
               </columnConstraints>
               <rowConstraints>
-                  <RowConstraints valignment="CENTER" vgrow="ALWAYS" />
-                <RowConstraints maxHeight="1.7976931348623157E308" valignment="CENTER" vgrow="ALWAYS" />
-                <RowConstraints maxHeight="1.7976931348623157E308" valignment="CENTER" vgrow="ALWAYS" />
-                <RowConstraints maxHeight="94.0" minHeight="0.0" prefHeight="0.0" valignment="CENTER" vgrow="ALWAYS" />
-                  <RowConstraints maxHeight="94.0" minHeight="0.0" prefHeight="94.0" valignment="CENTER" vgrow="ALWAYS" />
-                  <RowConstraints maxHeight="59.111358642578125" minHeight="0.0" prefHeight="0.0" valignment="CENTER" vgrow="ALWAYS" />
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
               </rowConstraints>
                <children>
-                  <JFXTextField fx:id="phoneField" focusColor="#f6bd38" onInputMethodTextChanged="#reenableSubmit" onKeyPressed="#reenableSubmit" onKeyReleased="#reenableSubmit" onKeyTyped="#reenableSubmit" promptText="Enter Phone Number (555-555-5555)" styleClass="jfx-text-field-normal" stylesheets="@Default.css" unFocusColor="WHITE" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="2" GridPane.vgrow="ALWAYS">
+                  <VBox prefHeight="200.0" prefWidth="100.0" style="-fx-background-color: white;" GridPane.rowIndex="1" GridPane.rowSpan="4">
                      <GridPane.margin>
-                        <Insets left="100.0" right="100.0" />
+                        <Insets left="150.0" right="50.0" />
                      </GridPane.margin>
+                  </VBox>
+                  <JFXComboBox fx:id="startBox" focusColor="#f6bd38" onAction="#reenableSubmit" prefHeight="32.0" prefWidth="428.0" promptText="Start Location" stylesheets="@Default.css" unFocusColor="WHITE" GridPane.rowIndex="1">
+                     <GridPane.margin>
+                        <Insets left="250.0" right="150.0" />
+                     </GridPane.margin>
+                  </JFXComboBox>
+                  <JFXComboBox fx:id="endBox" focusColor="#f6bd38" onAction="#reenableSubmit" prefHeight="44.0" prefWidth="428.0" promptText="End Location" stylesheets="@Default.css" unFocusColor="WHITE" GridPane.rowIndex="2">
+                     <GridPane.margin>
+                        <Insets left="250.0" right="150.0" />
+                     </GridPane.margin>
+                  </JFXComboBox>
+                  <JFXComboBox fx:id="typeField" focusColor="#f6bd38" onAction="#reenableSubmit" prefHeight="44.0" prefWidth="428.0" promptText="Type" style="-jfx-focus-color: white;" stylesheets="@Default.css" unFocusColor="WHITE" GridPane.rowIndex="3">
+                     <GridPane.margin>
+                        <Insets left="250.0" right="150.0" />
+                     </GridPane.margin>
+                  </JFXComboBox>
+                  <JFXTextField fx:id="phoneField" focusColor="#f6bd38" onInputMethodTextChanged="#reenableSubmit" onKeyPressed="#reenableSubmit" onKeyReleased="#reenableSubmit" onKeyTyped="#reenableSubmit" prefHeight="40.0" prefWidth="526.0" promptText="Enter Phone Number (555-555-5555)" styleClass="jfx-text-field-normal" stylesheets="@Default.css" unFocusColor="WHITE" GridPane.rowIndex="4">
                      <font>
                         <Font size="20.0" />
                      </font>
+                     <GridPane.margin>
+                        <Insets left="250.0" right="150.0" />
+                     </GridPane.margin>
                   </JFXTextField>
-                  <Label styleClass="labelTitle" stylesheets="@Default.css" text="Internal Transportation Request" textFill="#f5d96b" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
+                  <JFXButton fx:id="submitbtn" buttonType="RAISED" onAction="#submitPressed" prefHeight="61.0" prefWidth="146.0" style="-fx-border-width: 2; -fx-border-radius: 50; -fx-background-radius: 50;" styleClass="buttonMain" stylesheets="@Default.css" text="Submit" textFill="WHITE" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="5" GridPane.valignment="CENTER">
                      <font>
                         <Font size="30.0" />
+                     </font>
+                  </JFXButton>
+                  <Label alignment="CENTER" styleClass="labelTitle" stylesheets="@Default.css" text="Internal Transportation Request" textFill="#f5d96b" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+                     <font>
+                        <Font name="Trebuchet MS" size="35.0" />
                      </font>
                      <effect>
                         <Blend />
                      </effect>
                   </Label>
-                  <JFXTextArea fx:id="commentBox" focusColor="#f6bd38" onInputMethodTextChanged="#reenableSubmit" onKeyPressed="#reenableSubmit" onKeyReleased="#reenableSubmit" onKeyTyped="#reenableSubmit" promptText="Type a description here" styleClass="jfx-text-areaServiceRequest" stylesheets="@Default.css" unFocusColor="WHITE" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.hgrow="SOMETIMES" GridPane.rowIndex="3" GridPane.rowSpan="2" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
-                     <font>
-                        <Font size="20.0" />
-                     </font>
-                     <GridPane.margin>
-                        <Insets left="200.0" right="200.0" />
-                     </GridPane.margin>
-                  </JFXTextArea>
-                  <JFXButton fx:id="submitbtn" buttonType="RAISED" onAction="#submitPressed" prefHeight="61.0" prefWidth="146.0" style="-fx-border-width: 2; -fx-border-radius: 50; -fx-background-radius: 50;" styleClass="buttonMain" stylesheets="@Default.css" text="Submit" textFill="WHITE" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="5" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
-                     <font>
-                        <Font size="30.0" />
-                     </font>
-                     <GridPane.margin>
-                        <Insets top="25.0" />
-                     </GridPane.margin>
-                  </JFXButton>
-                  <JFXComboBox fx:id="startBox" focusColor="#f6bd38" onAction="#reenableSubmit" prefHeight="32.0" prefWidth="428.0" promptText="Start Location" stylesheets="@Default.css" unFocusColor="WHITE" GridPane.rowIndex="1" />
-                  <JFXComboBox fx:id="endBox" focusColor="#f6bd38" onAction="#reenableSubmit" prefHeight="44.0" prefWidth="428.0" promptText="End Location" stylesheets="@Default.css" unFocusColor="WHITE" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                  <JFXComboBox fx:id="typeField" focusColor="#f6bd38" onAction="#reenableSubmit" prefHeight="44.0" prefWidth="428.0" promptText="Type" style="-jfx-focus-color: white;" stylesheets="@Default.css" unFocusColor="WHITE" GridPane.rowIndex="2" />
                </children>
-               <opaqueInsets>
-                  <Insets />
-               </opaqueInsets>
-               <padding>
-                  <Insets bottom="100.0" top="50.0" />
-               </padding>
-               <VBox.margin>
-                  <Insets />
-               </VBox.margin>
             </GridPane>
          </children>
       </VBox>
+      <JFXTextArea fx:id="commentBox" focusColor="#f6bd38" layoutX="-60.0" layoutY="-354.0" onInputMethodTextChanged="#reenableSubmit" onKeyPressed="#reenableSubmit" onKeyReleased="#reenableSubmit" onKeyTyped="#reenableSubmit" promptText="Type a description here" styleClass="jfx-text-areaServiceRequest" stylesheets="@Default.css" unFocusColor="WHITE">
+         <font>
+            <Font size="20.0" />
+         </font>
+      </JFXTextArea>
    </children>
 </AnchorPane>
