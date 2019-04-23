@@ -372,7 +372,7 @@
                                 <Font size="20.0" />
                             </font>
                         </Label>
-                        <JFXRadioButton text="Private Event" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="3">
+                        <JFXRadioButton styleClass="radio-buttonDJ" stylesheets="@Default.css" text="Private Event" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="3">
                             <font>
                                 <Font size="16.0" />
                             </font>
@@ -388,7 +388,7 @@
                             </font></JFXTextArea>
                         <JFXComboBox fx:id="eventType" maxWidth="1.7976931348623157E308" promptText="Event Type" styleClass="jfx-combo-box-PathMenu" GridPane.rowIndex="3" />
                         <JFXListView GridPane.columnSpan="2" GridPane.rowIndex="4" />
-                        <JFXButton fx:id="requestRoom" onAction="#findRoom" style="-fx-border-radius: 100; -fx-background-radius: 100;" styleClass="buttonMain" stylesheets="@Default.css" text="Make Reservation" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="5" />
+                        <JFXButton fx:id="requestRoom" onAction="#findRoom" style="-fx-border-radius: 100; -fx-background-radius: 100;" styleClass="buttonDJ" stylesheets="@Default.css" text="Make Reservation" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="5" />
                     </children>
                     <padding>
                         <Insets left="10.0" right="10.0" />
@@ -419,7 +419,7 @@
                                 <Font size="20.0" />
                             </font>
                         </Label>
-                        <JFXButton onAction="#findRoom" style="-fx-border-radius: 100; -fx-background-radius: 100;" styleClass="buttonMain" stylesheets="@Default.css" text="Request Event Access" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="7" />
+                        <JFXButton onAction="#findRoom" style="-fx-border-radius: 100; -fx-background-radius: 100;" styleClass="buttonDJ" stylesheets="@Default.css" text="Request Event Access" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="7" />
                         <Label styleClass="labelPopupDesc" stylesheets="@Default.css" text="Creator:" GridPane.rowIndex="4" GridPane.valignment="TOP">
                             <font>
                                 <Font size="14.0" />
