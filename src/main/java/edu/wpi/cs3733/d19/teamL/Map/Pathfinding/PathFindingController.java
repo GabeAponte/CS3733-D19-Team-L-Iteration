@@ -371,6 +371,19 @@ public class PathFindingController {
         direction.clear();
     }
 
+    @FXML
+    private void clicked4(){
+        single.setLastTime();
+        Map.setImage(new Image("/SoftEng_UI_Mockup_Pics/04_thefourthfloor.png"));
+        currentMap = "4";
+
+        changeMapLabel();
+        displayKiosk();
+        clear();
+        gesturePane.reset();
+        direction.clear();
+    }
+
 
 
     @FXML
@@ -415,6 +428,7 @@ public class PathFindingController {
         mapURLs.add("/SoftEng_UI_Mockup_Pics/00_thelowerlevel2.png");
         mapURLs.add("/SoftEng_UI_Mockup_Pics/01_thefirstfloor.png");
         mapURLs.add("/SoftEng_UI_Mockup_Pics/02_thesecondfloor.png");
+        mapURLs.add("/SoftEng_UI_Mockup_Pics/04_thefourthfloor.png");
     }
 
     private Label startLabel;
@@ -717,6 +731,9 @@ public class PathFindingController {
         }
         if (startNode.getFloor().equals("3") && !currentMap.equals("3")) {
             clicked3();
+        }
+        if (startNode.getFloor().equals("4") && !currentMap.equals("4")) {
+            clicked4();
         }
 
         displayPath();
@@ -1050,6 +1067,12 @@ public class PathFindingController {
             currentMap = "3";
             changeMapLabel();
         }
+        if(floor.equals("4")) {
+            Map.setImage(new Image("/SoftEng_UI_Mockup_Pics/04_thefourthfloor.png"));
+            currentMap = "4";
+            changeMapLabel();
+        }
+
 
         //Create all necessary objects for animating path.
         Circle dude  = new Circle();
@@ -1261,6 +1284,9 @@ public class PathFindingController {
         }
         if (Floor.getValue() == "3") {
             pickedFloor = "3";
+        }
+        if (Floor.getValue() == "4") {
+            pickedFloor = "4";
         }
     }
 
@@ -1785,6 +1811,7 @@ public class PathFindingController {
         floorList.add("1");
         floorList.add("2");
         floorList.add("3");
+        floorList.add("4");
     }
 
     @FXML
@@ -2248,6 +2275,9 @@ public class PathFindingController {
         }
         if (currentMap.equals("3")) {
             clicked3();
+        }
+        if (currentMap.equals("4")) {
+            clicked4();
         }
     }
 
