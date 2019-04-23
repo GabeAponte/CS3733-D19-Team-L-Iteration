@@ -923,10 +923,9 @@ public class PathFindingController {
         int totalNum = countFloors(floors);
         int center = (numOfBut + 1)/2;
         if(totalNum % 2 == 0){
-            shift = 150;
+            shift = 130;
         }
         boolean change = false;
-        boolean stop = false;
         for(int i = 0; i < floors.size()-1; i++) {
             //Sets up the buttons
             JFXButton fBut = new JFXButton();
@@ -956,7 +955,7 @@ public class PathFindingController {
                 change = true;
             }
             //This is the final button
-            else if(numOfBut == 1 && change && !stop){
+            else if(numOfBut == 1 && change){
                 fBut.setPrefSize(50,50);
                 fBut.setText(floors.get(i));
                 fBut.setStyle("-fx-font-weight: BOLD");
@@ -972,8 +971,8 @@ public class PathFindingController {
                 gridPane.setValignment(fBut, VPos.TOP);
                 //int diff  = numOfBut - center;
                 int diff  = center - numOfBut;
+                numOfBut--;
                 gridPane.setMargin(fBut,new Insets(65,0,0,diff*(200)+ shift));
-                stop = true;
             }
             counter++;
         }
