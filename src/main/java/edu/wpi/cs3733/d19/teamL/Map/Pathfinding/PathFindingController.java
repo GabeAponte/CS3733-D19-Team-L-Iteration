@@ -1269,6 +1269,9 @@ public class PathFindingController {
         if (Floor.getValue() == "3") {
             pickedFloor = "3";
         }
+        if (Floor.getValue() == "4") {
+            pickedFloor = "4";
+        }
     }
 
     /**
