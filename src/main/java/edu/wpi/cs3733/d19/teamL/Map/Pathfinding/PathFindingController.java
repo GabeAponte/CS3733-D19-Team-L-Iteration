@@ -395,7 +395,9 @@ public class PathFindingController {
 
         changeMapLabel();
         displayKiosk();
-        displayFlexSpaces(single.getSimulation());
+        if(single.isLoggedIn()) {
+            displayFlexSpaces(single.getSimulation());
+        }
         clear();
         direction.clear();
 
