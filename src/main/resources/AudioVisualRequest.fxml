@@ -106,7 +106,7 @@
                </center>
             </JFXToolbar>
             <JFXToolbar maxHeight="-Infinity" minHeight="-Infinity" prefHeight="10.0" prefWidth="1280.0" styleClass="tool-barSecondary" stylesheets="@Default.css" />
-            <GridPane prefHeight="492.0" prefWidth="1280.0">
+            <GridPane prefHeight="492.0" prefWidth="1280.0" VBox.vgrow="ALWAYS">
                <columnConstraints>
                   <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="50.0" prefWidth="100.0" />
                   <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="50.0" prefWidth="100.0" />
