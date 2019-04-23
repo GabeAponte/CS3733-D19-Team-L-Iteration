@@ -515,7 +515,6 @@ public class PathFindingController {
         noHall();
         Filter.setItems(filterList);
         Floor.setItems(floorList);
-        //initializeTable(na, ea);
 
         pathPane = new AnchorPane();
         childPane = new StackPane();
@@ -610,7 +609,7 @@ public class PathFindingController {
             @Override
             public void run() {
                 displayKiosk();
-                startNode = kioskTemp;
+                PathFindStartDrop.setValue(kioskTemp);
             }
         });
 
@@ -672,7 +671,7 @@ public class PathFindingController {
     @FXML
     private void locationsSelected(){
         single.setLastTime();
-        if((PathFindStartDrop.getValue() != null || startNode != null) && PathFindEndDrop.getValue() != null){
+        if((PathFindStartDrop.getValue() != null) && PathFindEndDrop.getValue() != null){
             PathFindSubmit.setDisable(false);
         }
         else{
@@ -1298,7 +1297,6 @@ public class PathFindingController {
         single.setLastTime();
         PathFindStartDrop.getSelectionModel().clearSelection();
         PathFindStartDrop.setValue(null);
-        startNode = kioskTemp;
         PathFindSubmit.setDisable(true);
         noHall();
     }
@@ -2010,9 +2008,16 @@ public class PathFindingController {
         //if not set kiosk to random (first location stuff) thing
         if(single.getKiosk() == null){
             //Location kioskTemp = single.getData().get(0); //initially at floor 2
-            single.setKiosk(single.getData().get(0));
+            for(int i = 0; i < single.lookup.size() - 1; i++) {
+                if(single.getData().get(i).getLocID().contains("KIOS")) {
+                    single.setKiosk(single.getData().get(i));
+                }
+            }
+            if(single.getKiosk() == null) {
+                single.setKiosk(single.getData().get(0));
+            }
         }
-        //find actual "location" of kiosk
+        //Sets kiosk temp
         for(int i=0; i<single.getData().size(); i++){
             if(single.getData().get(i).equals(single.getKiosk())){
                 kioskTemp = single.getData().get(i);
