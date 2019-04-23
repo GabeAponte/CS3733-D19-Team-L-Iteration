@@ -42,10 +42,10 @@ public class WeeklyScheduleController
     private Button goToBookRoom;
 
     @FXML
-    private TreeTableView<WeeklyRoom> bookedTime;
+    private TreeTableView<WeeklyRoom> weeklySchedule;
 
     @FXML
-    private TreeTableColumn<WeeklyRoom, String> timeCol;
+    private TreeTableColumn<WeeklyRoom, String> weeklyTimeCol;
 
     @FXML
     private TreeTableColumn<WeeklyRoom, Boolean> sunCol;
@@ -136,7 +136,7 @@ public class WeeklyScheduleController
     public void checkAvailability(String roomName, LocalDate theDate){
         Singleton single = Singleton.getInstance();
         single.setLastTime();
-        bookedTime.setRoot(null);
+        weeklySchedule.setRoot(null);
         Root.getChildren().clear();
         RoomAccess ra = new RoomAccess();
         LocalDate givenDate = datePicker.getValue();
@@ -157,8 +157,8 @@ public class WeeklyScheduleController
 
             }
         }
-        //timeCol = new TreeTableColumn<Room, String>("Time");
-        timeCol.setCellValueFactory(cellData -> {
+        //weeklyTimeCol = new TreeTableColumn<Room, String>("Time");
+        weeklyTimeCol.setCellValueFactory(cellData -> {
             if(cellData.getValue().getValue()instanceof WeeklyRoom) {
                 return new ReadOnlyObjectWrapper(cellData.getValue().getValue().getTime());
             }
@@ -368,11 +368,11 @@ public class WeeklyScheduleController
             return cell;
         });
 
-        bookedTime.getColumns().clear();
-        bookedTime.getColumns().addAll(timeCol, sunCol, monCol, tueCol, wedCol, thuCol, friCol, satCol);
-        bookedTime.setTreeColumn(timeCol);
-        bookedTime.setRoot(Root);
-        bookedTime.setShowRoot(false);
+        weeklySchedule.getColumns().clear();
+        weeklySchedule.getColumns().addAll(weeklyTimeCol, sunCol, monCol, tueCol, wedCol, thuCol, friCol, satCol);
+        weeklySchedule.setTreeColumn(weeklyTimeCol);
+        weeklySchedule.setRoot(Root);
+        weeklySchedule.setShowRoot(false);
         single.setLastTime();
     }
 
