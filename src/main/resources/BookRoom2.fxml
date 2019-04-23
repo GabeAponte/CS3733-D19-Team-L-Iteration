@@ -123,7 +123,7 @@
                 </Label>
                 <VBox alignment="CENTER" layoutX="874.0" layoutY="200.0" prefHeight="200.0" prefWidth="100.0" spacing="30.0" GridPane.columnIndex="3" GridPane.rowIndex="2">
                     <children>
-                        <JFXDatePicker fx:id="datePicker" defaultColor="#f5d96b" prefHeight="51.0" prefWidth="200.0" promptText="Select Date" styleClass="jfx-date-picker" stylesheets="@Default.css" />
+                        <JFXDatePicker fx:id="dailyDatePicker" defaultColor="#f5d96b" prefHeight="51.0" prefWidth="200.0" promptText="Select Date" styleClass="jfx-date-picker" stylesheets="@Default.css" />
                         <JFXButton fx:id="selectSchedule" onAction="#findRooms" prefHeight="57.0" prefWidth="187.0" style="-fx-border-radius: 50; -fx-background-radius: 50; -fx-border-width: 2;" styleClass="buttonMain" stylesheets="@Default.css" text="View Schedule" textFill="white">
                             <font>
                                 <Font name="Avenir Book" size="18.0" />
@@ -131,9 +131,9 @@
                         </JFXButton>
                     </children>
                 </VBox>
-                <JFXTreeTableView fx:id="bookedTime" styleClass="jfx-tree-table-view" stylesheets="@Default.css" GridPane.columnSpan="3" GridPane.rowIndex="2" GridPane.rowSpan="4">
+                <JFXTreeTableView fx:id="dailySchedule" styleClass="jfx-tree-table-view" stylesheets="@Default.css" GridPane.columnSpan="3" GridPane.rowIndex="2" GridPane.rowSpan="4">
                     <columns>
-                        <TreeTableColumn fx:id="timeCol" prefWidth="125.0" text="Time" />
+                        <TreeTableColumn fx:id="dailyTimeCol" prefWidth="125.0" text="Time" />
                         <TreeTableColumn fx:id="class1Col" editable="false" minWidth="116.0" prefWidth="150.0" sortable="false" text="Classroom 1" />
                         <TreeTableColumn fx:id="class2Col" editable="false" minWidth="150.0" prefWidth="150.0" sortable="false" text="Classroom 2" />
                         <TreeTableColumn fx:id="class3Col" editable="false" minWidth="150.0" prefWidth="150.0" sortable="false" text="Classroom 3" />

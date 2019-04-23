@@ -125,7 +125,7 @@
                 <VBox alignment="CENTER" layoutX="874.0" layoutY="200.0" prefHeight="200.0" prefWidth="256.0" spacing="30.0" GridPane.columnIndex="3" GridPane.rowIndex="2" GridPane.rowSpan="2">
                     <children>
                         <JFXComboBox fx:id="roomPicker" onAction="#changeRooms" prefHeight="51.0" prefWidth="200.0" promptText="Choose Room" styleClass="jfx-combo-box" stylesheets="@Default.css" />
-                        <JFXDatePicker fx:id="datePicker" defaultColor="#f5d96b" onAction="#changeRooms" prefHeight="51.0" prefWidth="200.0" promptText="Select Date" styleClass="jfx-date-picker" stylesheets="@Default.css" />
+                        <JFXDatePicker fx:id="weeklyDatePicker" defaultColor="#f5d96b" onAction="#changeRooms" prefHeight="51.0" prefWidth="200.0" promptText="Select Date" styleClass="jfx-date-picker" stylesheets="@Default.css" />
                         <JFXButton fx:id="selectSchedule" onAction="#viewSched" prefHeight="57.0" prefWidth="187.0" style="-fx-border-radius: 50; -fx-background-radius: 50; -fx-border-width: 2;" styleClass="buttonMain" stylesheets="@Default.css" text="View Schedule" textFill="white">
                             <font>
                                 <Font name="Avenir Book" size="18.0" />

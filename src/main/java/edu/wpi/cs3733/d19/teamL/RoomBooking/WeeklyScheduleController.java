@@ -30,7 +30,7 @@ public class WeeklyScheduleController
     private Label classroomLabel;
 
     @FXML
-    private JFXDatePicker datePicker;
+    private JFXDatePicker weeklyDatePicker;
 
     @FXML
     private JFXComboBox roomPicker;
@@ -122,13 +122,13 @@ public class WeeklyScheduleController
 
     @FXML
     private void changeRooms(){
-        loadWeekly(roomPicker.getValue().toString(), datePicker.getValue());
+        loadWeekly(roomPicker.getValue().toString(), weeklyDatePicker.getValue());
     }
 
     public void loadWeekly(String theRoom, LocalDate theDate){
         roomPicker.setValue(theRoom);
         classroomLabel.setText(theRoom + " Weekly Schedule");
-        datePicker.setValue(theDate);
+        weeklyDatePicker.setValue(theDate);
 
         checkAvailability(theRoom, theDate);
     }
@@ -139,7 +139,7 @@ public class WeeklyScheduleController
         weeklySchedule.setRoot(null);
         Root.getChildren().clear();
         RoomAccess ra = new RoomAccess();
-        LocalDate givenDate = datePicker.getValue();
+        LocalDate givenDate = weeklyDatePicker.getValue();
         LocalTime startLT = LocalTime.of(0,0);
         LocalTime endLT = LocalTime.of(0, 30);
         for(int i = 0; i < 48; i++) {
