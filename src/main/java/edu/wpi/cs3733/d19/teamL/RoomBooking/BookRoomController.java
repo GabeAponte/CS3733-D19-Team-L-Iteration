@@ -363,9 +363,9 @@ public class BookRoomController {
 
         error.setTextFill(Color.RED);
 
-        //Gabe - error when start time, end time, and date are blank
-        if (startTimeValue == null && endTimeValue == null && roomDate == null) {
-            error.setText("Please select start and end times and a date.");
+        //Gabe - error when start time, end time, and dates are blank
+        if (startTimeValue == null && endTimeValue == null && roomDate == null && endRoomDate == null) {
+            error.setText("Please select start and end times and dates.");
         }
 
         //Gabe - error when start time and end time are blank
