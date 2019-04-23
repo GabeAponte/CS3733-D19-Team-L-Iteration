@@ -1096,7 +1096,7 @@ public class PathFindingController {
             startCircle.setStroke(Color.GREEN);
             startCircle.setFill(Color.GREEN);
             startLabel.setText(startNode.getLongName());
-            startLabel.setStyle("-fx-text-fill: WHITE;-fx-font-size: 6; -fx-background-color: rgba(0, 255, 0, 0.75); -fx-border-color: WHITE; -fx-border-width: 1; -fx-min-width: 40;");
+            startLabel.setStyle("-fx-text-fill: WHITE;-fx-font-size: 6; -fx-background-color: rgba(34, 137, 51, 0.75); -fx-border-color: WHITE; -fx-border-width: 1; -fx-min-width: 40;");
         }
         else {
             startCircle.setStroke(DODGERBLUE);
