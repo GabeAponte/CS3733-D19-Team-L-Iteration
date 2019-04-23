@@ -965,7 +965,6 @@ public class PathFindingController {
                 int counterstore1 =floors.size();
                 fBut.setOnAction(event -> {
                     displaySelected(startstore1, counterstore1);
-
                 });
                 floorButtons.add(fBut);
                 gridPane.getChildren().add(fBut);
@@ -1091,19 +1090,19 @@ public class PathFindingController {
             startCircle.setStroke(Color.BLUE);
             startCircle.setFill(Color.BLUE);
             startLabel.setText(" You are here ");
-            startLabel.setStyle("-fx-text-fill: WHITE;-fx-font-size: 6; -fx-background-color: BLUE; -fx-border-color: WHITE; -fx-border-width: 2; -fx-min-width: 40;");
+            startLabel.setStyle("-fx-text-fill: WHITE;-fx-font-size: 6; -fx-background-color: rgba(0, 0, 255, 0.75); -fx-border-color: WHITE; -fx-border-width: 1; -fx-min-width: 40;");
         }
         else if(path.getPath().get(begin).getLocID().equals(startNode.getLocID())) {
             startCircle.setStroke(Color.GREEN);
             startCircle.setFill(Color.GREEN);
             startLabel.setText(startNode.getLongName());
-            startLabel.setStyle("-fx-text-fill: WHITE;-fx-font-size: 6; -fx-background-color: GREEN; -fx-border-color: WHITE; -fx-border-width: 2; -fx-min-width: 40;");
+            startLabel.setStyle("-fx-text-fill: WHITE;-fx-font-size: 6; -fx-background-color: rgba(0, 255, 0, 0.75); -fx-border-color: WHITE; -fx-border-width: 1; -fx-min-width: 40;");
         }
         else {
             startCircle.setStroke(DODGERBLUE);
             startCircle.setFill(DODGERBLUE);
             startLabel.setText(path.getPath().get(begin).getLongName());
-            startLabel.setStyle("-fx-text-fill: WHITE;-fx-font-size: 6; -fx-background-color: DODGERBLUE; -fx-border-color: WHITE; -fx-border-width: 2; -fx-min-width: 40;");
+            startLabel.setStyle("-fx-text-fill: WHITE;-fx-font-size: 6; -fx-background-color: rgba(51, 100, 255, 0.75); -fx-border-color: WHITE; -fx-border-width: 1; -fx-min-width: 40;");
         }
 
         circles.add(startCircle);
@@ -1117,12 +1116,12 @@ public class PathFindingController {
         if(path.getPath().get(count).getLocID().equals(endNode.getLocID())) {
             endCircle.setStroke(RED);
             endCircle.setFill(RED);
-            endLabel.setStyle("-fx-text-fill: WHITE;-fx-font-size: 6; -fx-background-color: RED; -fx-border-color: WHITE; -fx-border-width: 2; -fx-min-width: 40;");
+            endLabel.setStyle("-fx-text-fill: WHITE;-fx-font-size: 6; -fx-background-color: rgba(255, 0, 0, 0.75); -fx-border-color: WHITE; -fx-border-width: 1; -fx-min-width: 40;");
         }
         else {
             endCircle.setStroke(DODGERBLUE);
             endCircle.setFill(DODGERBLUE);
-            endLabel.setStyle("-fx-text-fill: WHITE;-fx-font-size: 6; -fx-background-color: DODGERBLUE; -fx-border-color: WHITE; -fx-border-width: 2; -fx-min-width: 40;");
+            endLabel.setStyle("-fx-text-fill: WHITE;-fx-font-size: 6; -fx-background-color: rgba(51, 100, 255, 0.75); -fx-border-color: WHITE; -fx-border-width: 1; -fx-min-width: 40;");
         }
         //Adding everything necessary to display the path
         labels.add(startLabel);
