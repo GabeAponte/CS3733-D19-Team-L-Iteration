@@ -47,7 +47,7 @@
                 <RowConstraints maxHeight="107.0" minHeight="10.0" prefHeight="94.5" vgrow="SOMETIMES" />
               </rowConstraints>
                <children>
-                  <JFXButton fx:id="no" onAction="#noPressed" ripplerFill="WHITE" styleClass="buttonMainNoB" stylesheets="@Default.css" text="No, Keep" textFill="WHITE" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1">
+                  <JFXButton fx:id="no" onAction="#noPressed" ripplerFill="WHITE" style="-fx-border-width: 2.5;" styleClass="buttonMainNoB" stylesheets="@Default.css" text="No, Keep" textFill="WHITE" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1">
                      <font>
                         <Font size="20.0" />
                      </font>
@@ -63,7 +63,7 @@
                         <Insets top="10.0" />
                      </GridPane.margin>
                   </Label>
-                  <JFXButton fx:id="yes" onAction="#yesPressed" ripplerFill="WHITE" styleClass="buttonMainNoB" stylesheets="@Default.css" text="Yes, Delete" textFill="WHITE" GridPane.halignment="CENTER" GridPane.rowIndex="1">
+                  <JFXButton fx:id="yes" onAction="#yesPressed" ripplerFill="WHITE" style="-fx-border-width: 2.5;" styleClass="buttonMainNoB" stylesheets="@Default.css" text="Yes, Delete" textFill="WHITE" GridPane.halignment="CENTER" GridPane.rowIndex="1">
                      <font>
                         <Font size="20.0" />
                      </font>

@@ -18,6 +18,11 @@
     -fx-text-fill: #012d5a;
     -fx-background-radius: 15;
     -jfx-button-type: RAISED;
+}
+
+.buttonMainNoB:hover{
+    -fx-background-color: #012d5a;
+    -fx-text-fill: white;
 
 }
 
