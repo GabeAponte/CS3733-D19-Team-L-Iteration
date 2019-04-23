@@ -181,6 +181,13 @@
     -fx-text-fill: #012d5a;
 }
 
+.radio-buttonDJ{
+    -jfx-selected-color:  #f5d96b;
+
+    -jfx-unselected-color: white;
+    -fx-text-fill: white;
+}
+
 .labelTitle {
     -fx-text-fill: #f5d96b;
 
@@ -262,24 +269,24 @@
     -fx-text-fill: #F5D96B;
 }
 
-/*.buttonMain{
+.buttonDJ{
     -fx-border-color: #F5D96B;
     -fx-background-color: #012d5a;
     -fx-text-fill: white;
 }
 
-.buttonMain .glyph-icon {
+.buttonDJ .glyph-icon {
     -fx-fill: white;
 }
 
-.buttonMain:hover {
+.buttonDJ:hover {
     -fx-background-color: white;
     -fx-text-fill: #012d5a;
 }
 
-.buttonMain:hover .glyph-icon{
+.buttonDJ:hover .glyph-icon{
     -fx-fill: #012d5a;
-}*/
+}
 
 .jfx-text-field-twitter {
     -fx-background-color: white;

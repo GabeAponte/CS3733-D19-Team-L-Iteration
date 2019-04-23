@@ -299,7 +299,7 @@
                         <Insets left="50.0" right="50.0" />
                      </GridPane.margin>
                   </JFXComboBox>
-                  <JFXTextField fx:id="" focusColor="#f5d96b" promptText="Timeout (Seconds)" stylesheets="@Default.css" unFocusColor="WHITE" GridPane.columnSpan="2147483647" GridPane.halignment="CENTER" GridPane.rowIndex="1">
+                  <JFXTextField fx:id="timeoutTime" focusColor="#f5d96b" promptText="Timeout (Seconds)" stylesheets="@Default.css" unFocusColor="WHITE" GridPane.columnSpan="2147483647" GridPane.halignment="CENTER" GridPane.rowIndex="1">
                      <GridPane.margin>
                         <Insets left="50.0" right="50.0" />
                      </GridPane.margin>
@@ -312,7 +312,7 @@
                   <JFXButton fx:id="GeneralReport" buttonType="RAISED" prefHeight="35.0" prefWidth="131.0" style="-fx-border-width: 2; -fx-border-radius: 50; -fx-background-radius: 50;" styleClass="buttonMain" stylesheets="@Default.css" text="General Service" textFill="WHITE" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="5">
                      <font>
                         <Font size="15.0" />
-                     </font>zz
+                     </font>
                   </JFXButton>
                   <JFXComboBox fx:id="RequestType" promptText="Specific Requests" GridPane.rowIndex="6" />
                   <Label contentDisplay="CENTER" styleClass="labelTitle" stylesheets="@Default.css" text="Reports" textFill="#f5d96b" GridPane.columnSpan="2147483647" GridPane.halignment="CENTER" GridPane.rowIndex="3">
