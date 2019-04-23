@@ -1158,14 +1158,17 @@ public class PathFindingController {
         //Handles cases when you only display one location
         if(path.getPath().get(begin).getLocID().equals(path.getPath().get(count).getLocID()) && path.getPath().get(begin).getLocID().equals(startNode.getLocID())) {
             endLabel.setVisible(false);
+            endCircle.setVisible(false);
         }
         else if(path.getPath().get(begin).getLocID().equals(path.getPath().get(count).getLocID())) {
             startLabel.setVisible(false);
             endLabel.setVisible(true);
+            endCircle.setVisible(true);
         }
         else {
             startLabel.setVisible(true);
             endLabel.setVisible(true);
+            endCircle.setVisible(true);
         }
         //Adding everything necessary to display the path
         labels.add(startLabel);
