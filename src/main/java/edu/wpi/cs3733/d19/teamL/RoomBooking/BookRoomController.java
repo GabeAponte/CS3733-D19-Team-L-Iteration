@@ -137,6 +137,9 @@ public class BookRoomController {
     private JFXDatePicker datePicker;
 
     @FXML
+    private JFXDatePicker endDatePicker;
+
+    @FXML
     private JFXComboBox<String> availableRooms;
 
     @FXML
@@ -150,7 +153,6 @@ public class BookRoomController {
 
     @FXML
     private Label popupName;
-
 
     @FXML
     private JFXButton requestRoom;
@@ -276,6 +278,7 @@ public class BookRoomController {
         startTime.setValue(LocalTime.now().plusMinutes(1));
         endTime.setValue(LocalTime.now().plusHours(1).plusMinutes(1));
         datePicker.setValue(LocalDate.now());
+        endDatePicker.setValue(LocalDate.now());
         dailyDatePicker.setValue(LocalDate.now());
         weeklyDatePicker.setValue(LocalDate.now());
         Singleton single = Singleton.getInstance();
@@ -334,6 +337,7 @@ public class BookRoomController {
         findRooms();
         roomPicker.getItems().addAll("Room 1 - Computer", "Room 2 - Computer", "Room 3 - Computer", "Room 4 - Classroom", "Room 5 - Computer", "Room 6 - Classroom", "Room 7 - Computer", "Room 8 - Classroom", "Room 9 - Computer", "Mission Hall Auditorium");
         roomPicker.getSelectionModel().select(0);
+        viewSched();
 
     }
 
@@ -353,6 +357,7 @@ public class BookRoomController {
         LocalTime startTimeValue = startTime.getValue();
         LocalTime endTimeValue = endTime.getValue();
         LocalDate roomDate = datePicker.getValue();
+        LocalDate endRoomDate = endDatePicker.getValue();
         LocalDate curDate = LocalDate.now();
         LocalTime curTime = LocalTime.now();
 
@@ -405,7 +410,7 @@ public class BookRoomController {
             error.setTextFill(Color.WHITE);
             error.setText("Room booked.");
             String date = datePicker.getValue().toString();
-            String endDate = datePicker.getValue().plusDays(1).toString();
+            String endDate = endDatePicker.getValue().toString();
             date += "T" + startTime.getValue().getHour() + ":" + startTime.getValue().getMinute() + ":00";
             endDate += "T" + endTime.getValue().getHour()  + ":" + endTime.getValue().getMinute() + ":00";
             String roomName = availableRooms.getValue().toString();
@@ -432,7 +437,7 @@ public class BookRoomController {
 
         if (startTime.getValue() != null && endTime.getValue() != null && datePicker.getValue() != null) {
             date = datePicker.getValue().toString();
-            endDate = datePicker.getValue().toString();
+            endDate = endDatePicker.getValue().toString();
             date += "T" + startTime.getValue().getHour() * 100 + ":" + startTime.getValue().getMinute() + ":00";
             endDate += "T" + endTime.getValue().getHour() * 100 + ":" + endTime.getValue().getMinute() + ":00";
             availableRooms.getSelectionModel().clearSelection();

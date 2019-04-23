@@ -211,7 +211,7 @@
                                                         <Font size="18.0" />
                                                     </font>
                                                 </Label>
-                                                <JFXDatePicker defaultColor="#f5d96b" onAction="#fieldsEntered" prefHeight="50.0" prefWidth="225.0" promptText="End Date" styleClass="date-picker" stylesheets="@Default.css" />
+                                                <JFXDatePicker fx:id="endDatePicker" defaultColor="#f5d96b" onAction="#fieldsEntered" prefHeight="50.0" prefWidth="225.0" promptText="End Date" styleClass="date-picker" stylesheets="@Default.css" />
                                             </children>
                                  <GridPane.margin>
                                     <Insets top="10.0" />
