@@ -28,10 +28,10 @@ public class ReservationAccess extends DBAccess {
      * @param eID
      * @param startDate
      */
-    public void makeReservation(String rID, String eID, String startDate, String endDate){
+    public void makeReservation(String rID, String eID, String startDate, String endDate, String title, String description, String guestList, String type, boolean privacy){
         String sql = "insert into reservation(" +
-                "rID, eID, startDate, endDate)" +
-                "values (?, ?, ?, ?)";
+                "rID, eID, startDate, endDate, title, description, type, guestList, privacy)" +
+                "values (?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
 
         try (Connection conn = this.connect();
@@ -40,6 +40,11 @@ public class ReservationAccess extends DBAccess {
             pstmt.setString(2, eID);
             pstmt.setString(3, startDate);
             pstmt.setString(4, endDate);
+            pstmt.setString(5, title);
+            pstmt.setString(6, description);
+            pstmt.setString(7, type);
+            pstmt.setString(8, guestList);
+            pstmt.setBoolean(9, privacy);
             pstmt.executeUpdate();
         } catch (SQLException e) {
             System.out.println(e.getMessage());
@@ -48,7 +53,7 @@ public class ReservationAccess extends DBAccess {
 
     public static void main(String[] args) {
         ReservationAccess ra = new ReservationAccess();
-        ra.makeReservation("1", "1", "2018-05-05T11:50:55", "2018-05-05T11:55:55");
+        ra.makeReservation("1", "1", "2018-05-05T11:50:55", "2018-05-05T11:55:55", "Birthday Bash", "DJ's birthday party", "Birthday", "Bob,Tim,Brian", true);
     }
 
 }
