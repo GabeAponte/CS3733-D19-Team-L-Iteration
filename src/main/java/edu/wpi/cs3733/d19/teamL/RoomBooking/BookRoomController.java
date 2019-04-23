@@ -45,86 +45,6 @@ import javafx.util.Duration;
 
 public class BookRoomController {
 
-    @FXML
-    private JFXDatePicker weeklyDatePicker;
-
-    @FXML
-    private Label classroomLabel;
-
-    @FXML
-    private JFXComboBox roomPicker;
-
-    @FXML
-    private TreeTableView<WeeklyRoom> weeklyBookedTime;
-
-    @FXML
-    private TreeTableColumn<WeeklyRoom, String> weeklyTimeCol;
-
-    @FXML
-    private TreeTableColumn<WeeklyRoom, Boolean> sunCol;
-
-    @FXML
-    private TreeTableColumn<WeeklyRoom, Boolean> monCol;
-
-    @FXML
-    private TreeTableColumn<WeeklyRoom, Boolean> tueCol;
-
-    @FXML
-    private TreeTableColumn<WeeklyRoom, Boolean> wedCol;
-
-    @FXML
-    private TreeTableColumn<WeeklyRoom, Boolean> thuCol;
-
-    @FXML
-    private TreeTableColumn<WeeklyRoom, Boolean> friCol;
-
-    @FXML
-    private TreeTableColumn<WeeklyRoom, Boolean> satCol;
-
-    private TreeItem Root = new TreeItem<>("rootxxx");
-
-    String chosenRoom;
-    LocalDate chosenDate;
-
-
-    @FXML
-    private JFXDatePicker dailyDatePicker;
-
-    @FXML
-    private TreeTableView<Room> dailyBookedTime;
-
-    @FXML
-    private TreeTableColumn<Room, String> dailyTimeCol;
-
-    @FXML
-    private TreeTableColumn<Room, Boolean> class1Col;
-
-    @FXML
-    private TreeTableColumn<Room, Boolean> class2Col;
-
-    @FXML
-    private TreeTableColumn<Room, Boolean> class3Col;
-
-    @FXML
-    private TreeTableColumn<Room, Boolean> class4Col;
-
-    @FXML
-    private TreeTableColumn<Room, Boolean> class5Col;
-
-    @FXML
-    private TreeTableColumn<Room, Boolean> class6Col;
-
-    @FXML
-    private TreeTableColumn<Room, Boolean> class7Col;
-
-    @FXML
-    private TreeTableColumn<Room, Boolean> class8Col;
-
-    @FXML
-    private TreeTableColumn<Room, Boolean> class9Col;
-
-    @FXML
-    private TreeTableColumn<Room, Boolean> auditorium;
 
     //private TreeItem Root = new TreeItem<>("rootxxx");
 
@@ -173,9 +93,6 @@ public class BookRoomController {
 
     @FXML
     private Button homebtn;
-
-    @FXML
-    private Button viewWeekly;
 
     @FXML
     private AnchorPane reservationPane;
@@ -326,9 +243,9 @@ public class BookRoomController {
             }
         });
 
-        dailyDatePicker.setValue(LocalDate.now());
+        //dailyDatePicker.setValue(LocalDate.now());
         //findRooms();
-        roomPicker.getItems().addAll("Room 1 - Computer", "Room 2 - Computer", "Room 3 - Computer", "Room 4 - Classroom", "Room 5 - Computer", "Room 6 - Classroom", "Room 7 - Computer", "Room 8 - Classroom", "Room 9 - Computer", "Mission Hall Auditorium");
+        //roomPicker.getItems().addAll("Room 1 - Computer", "Room 2 - Computer", "Room 3 - Computer", "Room 4 - Classroom", "Room 5 - Computer", "Room 6 - Classroom", "Room 7 - Computer", "Room 8 - Classroom", "Room 9 - Computer", "Mission Hall Auditorium");
 
 
     }
