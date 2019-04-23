@@ -279,7 +279,8 @@ public class HomeScreenController {
 
     @FXML
     private void AboutPress() throws IOException, JRException, SQLException, DocumentException, InterruptedException {
-        ReportThread rt = new ReportThread(2);
+        ReportThread rt = new ReportThread(3);
+        rt.setRequestType("Security");
         rt.start();
     }
 

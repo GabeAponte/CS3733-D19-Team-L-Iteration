@@ -26,6 +26,7 @@ public class ReportThread extends Thread {
 
 
     public void run(){
+        //pathfind one
         if(type == 1) {
             try {
                 pathReportAccess p = new pathReportAccess();
@@ -139,6 +140,7 @@ public class ReportThread extends Thread {
                 e.printStackTrace();
             }
         }
+        //general one
         else if (type == 2) { //general service request report
             try {
                 int count = 0;
@@ -251,47 +253,83 @@ public class ReportThread extends Thread {
                 e.printStackTrace();
             }
         }
+        //specific one
         else if (type == 3) {
-            int count = 0;
-            requestReportAccess ra = new requestReportAccess();
-            ArrayList<serviceRequestReportData> completeList = new ArrayList<serviceRequestReportData>();
-            while (count < ra.countRecords()) { //get all the report data for service requests
-                ArrayList<String> data = ra.getItems(count);
-                if (data.get(3).equals(requestType)) {
-                    serviceRequestReportData d = new serviceRequestReportData(data.get(0),
-                            data.get(1), data.get(2), data.get(3), data.get(4), data.get(5));
-                    completeList.add(d);
+            try {
+                int count = 0;
+                requestReportAccess ra = new requestReportAccess();
+                ArrayList<serviceRequestReportData> completeList = new ArrayList<serviceRequestReportData>();
+                while (count < ra.countRecords()) { //get all the report data for service requests
+                    ArrayList<String> data = ra.getItems(count);
+                    if (data.get(3).equals(requestType)) {
+                        serviceRequestReportData d = new serviceRequestReportData(data.get(0),
+                                data.get(1), data.get(2), data.get(3), data.get(4), data.get(5));
+                        completeList.add(d);
+                    }
+                    count++;
                 }
-                count++;
-            }
-            HashMap<String, Integer> employeeHash = new HashMap<String, Integer>();
-            HashMap<String, Integer> specificType = new HashMap<String, Integer>();
-            int countMeter = completeList.size();
-            for (serviceRequestReportData s : completeList) {
-                if (!specificType.containsKey(s.getSpecificType())) {
-                    specificType.put(s.getSpecificType(), 1);
+                HashMap<String, Integer> employeeHash = new HashMap<String, Integer>();
+                HashMap<String, Integer> specificType = new HashMap<String, Integer>();
+                int countMeter = completeList.size();
+                for (serviceRequestReportData s : completeList) {
+                    if (!specificType.containsKey(s.getSpecificType())) {
+                        specificType.put(s.getSpecificType(), 1);
+                    }
+                    else {
+                        int old = specificType.get(s.getSpecificType());
+                        specificType.replace(s.getSpecificType(), old, old+1);
+                    }
+                    if (!employeeHash.containsKey(s.getAssignedToEID())) {
+                        employeeHash.put(s.getAssignedToEID(), 1);
+                    }
+                    else {
+                        int old = employeeHash.get(s.getAssignedToEID());
+                        employeeHash.replace(s.getAssignedToEID(), old, old+1);
+                    }
                 }
-                else {
-                    int old = specificType.get(s.getSpecificType());
-                    specificType.replace(s.getSpecificType(), old, old+1);
+                List<PieChartData> specificTypeData = new ArrayList<PieChartData>();
+                for (String p: specificType.keySet()) {
+                    specificTypeData.add(new PieChartData(p, specificType.get(p)));
                 }
-                if (!employeeHash.containsKey(s.getAssignedToEID())) {
-                    employeeHash.put(s.getAssignedToEID(), 1);
+                List<PieChartData> employeeData = new ArrayList<PieChartData>();
+                for (String p: employeeHash.keySet()) {
+                    employeeData.add(new PieChartData(p, employeeHash.get(p)));
                 }
-                else {
-                    int old = employeeHash.get(s.getAssignedToEID());
-                    employeeHash.replace(s.getAssignedToEID(), old, old+1);
-                }
-            }
-            List<PieChartData> specificTypeData = new ArrayList<PieChartData>();
-            for (String p: specificType.keySet()) {
-                specificTypeData.add(new PieChartData(p, specificType.get(p)));
-            }
-            List<PieChartData> employeeData = new ArrayList<PieChartData>();
-            for (String p: employeeHash.keySet()) {
-                employeeData.add(new PieChartData(p, employeeHash.get(p)));
-            }
+                List<MeterChartData> meterNum = new ArrayList<MeterChartData>();
+                meterNum.add(new MeterChartData(countMeter));
+                System.out.println("LOOPS COMPLETE");
+                File f = new File("ServiceRequestDetail.jrxml");
+                JasperReport jasperReport = null;
+                String filePath = f.getAbsolutePath().replace('\\', '/');
+                jasperReport = JasperCompileManager.compileReport(filePath);
+                Map<String, Object> paramMap = new HashMap<String, Object>();
+                paramMap.put("TYPE", this.requestType);
+                paramMap.put("PIE_CHART_TYPE", new JRBeanCollectionDataSource(specificTypeData));
+                paramMap.put("PIE_CHART_EMPLOYEE", new JRBeanCollectionDataSource(employeeData));
+                paramMap.put("METER_NUM", new JRBeanCollectionDataSource(meterNum));
 
+                List<Object> data = new ArrayList<Object>();
+                data.add(specificTypeData);
+                data.add(employeeData);
+                data.add(meterNum);
+                data.add(this.requestType);
+                JRBeanCollectionDataSource dataSource = new JRBeanCollectionDataSource(data);
+                JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, paramMap, dataSource);
+                String outputPath = "outputPDF3.pdf";
+                JasperExportManager.exportReportToPdfFile(jasperPrint, outputPath);
+                JasperExportManager.exportReportToPdfFile(jasperPrint, outputPath);
+                PdfReader reader = new PdfReader("outputPDF3.pdf");
+                reader.close();
+                String path;
+                PdfStamper stamper;
+                reader.selectPages("1");
+                stamper = new PdfStamper(reader, new FileOutputStream("ServiceRequestDetail"+this.requestType+".pdf"));
+                stamper.close();
+                reader.close();
+                System.out.println("SUCCESS");
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
 
         }
 
