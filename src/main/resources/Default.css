@@ -243,7 +243,7 @@
     -fx-background-radius: 20;
     -fx-border-width: 5;
     -fx-border-radius: 20;
-    -fx-font-size: 20;
+    -fx-font-size: 15;
     -fx-font-family: "Trebuchet MS";
 
 }
@@ -259,6 +259,7 @@
 .tab .tab-label {
     -fx-alignment: CENTER;
     -fx-text-fill: BLACK;
+    -fx-font-family: "Trebuchet MS";
 
 }
 
@@ -282,6 +283,7 @@
 .tab:hover .tab-label {
     -fx-alignment: CENTER;
     -fx-text-fill: BLACK;
+    -fx-font-family: "Trebuchet MS";
 }
 
 .jfx-tab-pane .tab-selected-line {

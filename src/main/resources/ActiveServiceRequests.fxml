@@ -130,8 +130,8 @@
                                                                 <TreeTableColumn fx:id="type" prefWidth="161.36790466308594" text="Type" />
                                                                 <TreeTableColumn fx:id="name" prefWidth="231.40463256835938" text="Name" />
                                                                 <TreeTableColumn fx:id="dateRequested" minWidth="0.0" prefWidth="145.7279052734375" text="Date Requested" />
-                                                                <TreeTableColumn fx:id="timeRequested" minWidth="0.0" prefWidth="111.72808837890625" text="Time Requested" />
-                                                                <TreeTableColumn fx:id="comment" minWidth="8.5" prefWidth="319.37847900390625" text="Comments" />
+                                                                <TreeTableColumn fx:id="timeRequested" minWidth="0.0" prefWidth="130.0" text="Time Requested" />
+                                                                <TreeTableColumn fx:id="comment" minWidth="8.5" prefWidth="302.0" text="Comments" />
                                                                 <TreeTableColumn fx:id="assignedEmployee" prefWidth="265.7955322265625" text="Assigned To" />
                                                                 <TreeTableColumn fx:id="field1" prefWidth="194.0521240234375" text="field1" />
                                                                 <TreeTableColumn fx:id="field2" prefWidth="236.9478759765625" text="field2" />
