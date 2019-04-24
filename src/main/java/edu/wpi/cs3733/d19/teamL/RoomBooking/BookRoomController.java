@@ -91,8 +91,24 @@ public class BookRoomController {
 
     private TreeItem WeeklyRoot = new TreeItem("rootxxx");
 
-    String chosenRoom;
-    LocalDate chosenDate;
+    @FXML
+    private Label roomNameLabel;
+    @FXML
+    private Label startTimeLabel;
+    @FXML
+    private Label endTimeLabel;
+    @FXML
+    private Label startDateLabel;
+    @FXML
+    private Label endDateLabel;
+    @FXML
+    private Label creatorLabel;
+    @FXML
+    private Label eventTypeLabel;
+    @FXML
+    private Label descriptionLabel;
+    @FXML
+    private Label invitedEmployeesLabel;
 
     //Daily Schedule Stuff --------------------------------------------------------------------------------------------
 
@@ -871,10 +887,28 @@ public class BookRoomController {
         bookedEventPane.setMinSize(width, height);
         bookedEventPane.setPrefSize(width, height);
 
+        String date = datePicker.getValue().toString();
+        String endDate = endDatePicker.getValue().toString();
+        date += "T" + startTime.getValue().getHour() + ":" + startTime.getValue().getMinute() + ":00";
+        endDate += "T" + endTime.getValue().getHour()  + ":" + endTime.getValue().getMinute() + ":00";
+        RoomAccess ra = new RoomAccess();
+
+        ArrayList<String[]> data = ra.getReservations(date, endDate);
+
         TranslateTransition openNav = new TranslateTransition(new Duration(400.0D), this.bookedEventPane);
         openNav.setToX(0.0D);
         TranslateTransition closeNav = new TranslateTransition(new Duration(400.0D), this.bookedEventPane);
         if (open == true){
+            roomNameLabel.setText("Room name: " + data.get(0)[0]);
+            startTimeLabel.setText("Start time: " + startTime.getValue().getHour() + ":" + startTime.getValue().getMinute() + ":00");
+            endTimeLabel.setText("End time: " + endTime.getValue().getHour()  + ":" + endTime.getValue().getMinute() + ":00");
+            startDateLabel.setText("Start date: " + datePicker.getValue().toString());
+            endDateLabel.setText("End date: " + endDatePicker.getValue().toString());
+            creatorLabel.setText("Creator: " + data.get(0)[1]);
+            eventTypeLabel.setText("Event type: " + data.get(0)[5]);
+            descriptionLabel.setText("Description: " + data.get(0)[4]);
+            invitedEmployeesLabel.setText("Invited Employees: " + data.get(0)[6]);
+
             openNav.setToX(-570.0D-this.bookedEventPane.getWidth());
             openNav.play();
             openReservation(false);

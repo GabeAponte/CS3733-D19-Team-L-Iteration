@@ -182,15 +182,16 @@ public class RoomAccess extends DBAccess {
      * @return
      */
     public ArrayList<String[]> getReservations(String startDate, String endDate) {
-        String sql = "select * from room as ro where ro.roomID in\n" +
-                "            (\n" +
-                "              select re.rID, re.eID, re.title, re.description, re.type, re.guestList, re.privacy\n" +
-                "              from reservation as re\n" +
-                "              where (startDate <= ? and endDate > ?)\n" +
-                "                or (startDate < ? and endDate >= ?)\n" +
-
-                "\n" +
-                "             )";
+        String sql = "select re.rID, re.eID, re.title, re.description, re.type, re.guestList, re.privacy from room as ro, reservation as re" +
+                " where ro.roomID = re.rID and ((startDate <= ? and endDate > ?) or (startDate < ? and endDate >= ?))\n";
+//                "            (\n" +
+//                "              select re.rID, re.eID, re.title, re.description, re.type, re.guestList, re.privacy\n" +
+//                "              from reservation as re\n" +
+//                "              where (startDate <= ? and endDate > ?)\n" +
+//                "                or (startDate < ? and endDate >= ?)\n" +
+//
+//                "\n" +
+//                "             )";
         ArrayList<String[]> data = new ArrayList<String[]>();
         try (Connection conn = this.connect();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
