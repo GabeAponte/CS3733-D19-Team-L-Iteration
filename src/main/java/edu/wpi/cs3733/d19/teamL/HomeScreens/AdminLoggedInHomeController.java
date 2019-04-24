@@ -116,6 +116,7 @@ public class AdminLoggedInHomeController {
         strategiesDropDown.add(breadth);
         strategySelector.setItems(strategiesDropDown);
         strategySelector.setValue(single.getTypePathfind());
+        strategySelector.setPromptText(single.getTypePathfind().toString() + " Select");
         timeoutTime.setText(Integer.toString(single.getTimeoutSec()));
         timeout = new Timeline(new KeyFrame(Duration.seconds(2), new EventHandler<ActionEvent>() {
 
@@ -396,12 +397,6 @@ public class AdminLoggedInHomeController {
     }
 
     @FXML
-    private void timeOutSubmitted() {
-        Singleton single = Singleton.getInstance();
-        single.setTimeoutSec(Integer.parseInt(timeoutTime.getText()));
-    }
-
-    @FXML
     private void GenerateGeneralServiceRequestOverview() {
         ReportThread rt = new ReportThread(2);
         rt.start();
@@ -413,6 +408,14 @@ public class AdminLoggedInHomeController {
             ReportThread rt = new ReportThread(3);
             rt.setRequestType(RequestType.getValue());
             rt.start();
+        }
+    }
+
+    @FXML
+    private void keyPressedTimeout() {
+        if (Integer.parseInt(timeoutTime.getText()) > 1000) {
+            Singleton single = Singleton.getInstance();
+            single.setTimeoutSec(Integer.parseInt(timeoutTime.getText()));
         }
     }
 }
