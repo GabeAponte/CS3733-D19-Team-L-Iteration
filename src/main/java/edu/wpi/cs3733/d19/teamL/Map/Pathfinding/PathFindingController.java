@@ -638,7 +638,6 @@ public class PathFindingController {
                 menubtn.setDisable(false);
                 menubtn.setVisible(true);
             }
-
             nameToLoc.clear();
             for (Location l : PathFindStartDrop.getItems()) {
                 nameToLoc.put(l.toString(), l);
@@ -1133,7 +1132,13 @@ public class PathFindingController {
             dude.setCenterX(path.getPath().get(begin).getXcoord() * childPane.getWidth() / Map.getImage().getWidth());
             dude.setCenterY(path.getPath().get(begin).getYcoord() * childPane.getHeight() / Map.getImage().getHeight());
             dude.setRadius(Math.max(5, 5f));
-            dude.setFill(new ImagePattern((new Image("/SoftEng_UI_Mockup_Pics/IconPerson.png"))));
+            //Delightful extra feature
+            if(single.getUsername().equals("Wong")) {
+                dude.setFill(new ImagePattern((new Image("/SoftEng_UI_Mockup_Pics/WoongHead.jpg"))));
+            }
+            else {
+                dude.setFill(new ImagePattern((new Image("/SoftEng_UI_Mockup_Pics/IconPerson.png"))));
+            }
 
             javafx.scene.shape.Path path2 = new javafx.scene.shape.Path();
 
