@@ -16,8 +16,10 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.HPos;
 import javafx.geometry.Insets;
 import javafx.geometry.Point2D;
+import javafx.geometry.VPos;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -118,7 +120,7 @@ public class EmergencyController {
     //Arraylist for the buttons that generate on path
     private ArrayList<Button> buttons = new ArrayList<Button>();
     //Arraylist of floor buttons
-    private ArrayList<Button> floorButtons = new ArrayList<Button>();
+    private ArrayList<JFXButton> floorButtons = new ArrayList<JFXButton>();
     private int count;
 
     private Path path = null;
@@ -138,6 +140,8 @@ public class EmergencyController {
     private ArrayList<String> mapURLs = new ArrayList<String>();
     private ArrayList<Circle> circles = new ArrayList<Circle>();
     private ArrayList<Line> lines = new ArrayList<Line>();
+    private ArrayList<Label> labels = new ArrayList<Label>();
+
 
     private String currentMap = "G"; //defaults to floor G
 
@@ -321,7 +325,6 @@ public class EmergencyController {
             //set the closest location label here!
             LongNameOfExit.setText(closestLOC.getLongName());
 
-            //TODO: dispaly path doesnt wanna work
             displayPath();
             //printPath(path.getPath());
             direction.setText(printPath(path.getPath()));
@@ -405,7 +408,8 @@ public class EmergencyController {
             displayPath();
         }
         displayExits();
-
+        gesturePane.reset();
+        //direction.clear();
     }
     @FXML
     private void clickedL1() {
@@ -421,6 +425,8 @@ public class EmergencyController {
             displayPath();
         }
         displayExits();
+        gesturePane.reset();
+        //direction.clear();
     }
     @FXML
     public void clickedL2(){
@@ -436,6 +442,8 @@ public class EmergencyController {
             displayPath();
         }
         displayExits();
+        gesturePane.reset();
+        //direction.clear();
     }
     @FXML
     private void clicked1(){
@@ -451,6 +459,8 @@ public class EmergencyController {
             displayPath();
         }
         displayExits();
+        gesturePane.reset();
+        //direction.clear();
     }
     @FXML
     private void clicked2(){
@@ -466,6 +476,8 @@ public class EmergencyController {
             displayPath();
         }
         displayExits();
+        gesturePane.reset();
+        //direction.clear();
     }
     @FXML
     private void clicked3(){
@@ -481,6 +493,8 @@ public class EmergencyController {
             displayPath();
         }
         displayExits();
+        gesturePane.reset();
+        //direction.clear();
     }
 
 
@@ -634,7 +648,8 @@ public class EmergencyController {
                 startNode = kioskTemp;
 
                 activateEmergencyMode();
-                displayPath();
+                //displayPath();
+                //activateEmergencyMode();
             }
         });
     }
@@ -655,7 +670,7 @@ public class EmergencyController {
         Circle kiosk = new Circle();
         kiosk.setCenterX(kioskTemp.getXcoord()*childPane.getWidth()/Map.getImage().getWidth());
         kiosk.setCenterY(kioskTemp.getYcoord()*childPane.getHeight()/Map.getImage().getHeight());
-        kiosk.setRadius(Math.max(3.5, 3.5f * (gesturePane.getCurrentScale() / 4)));
+        kiosk.setRadius(Math.max(1.5, 1.5f * (gesturePane.getCurrentScale() / 4)));
         kiosk.setStroke(Color.BLUE);
         kiosk.setFill(Color.BLUE);
         hereLabel.setLayoutX(kioskTemp.getXcoord()*childPane.getWidth()/Map.getImage().getWidth() -20);
@@ -673,6 +688,7 @@ public class EmergencyController {
         }
         circles.add(kiosk);
         pathPane.getChildren().add(kiosk);
+        labels.add(hereLabel);
     }
 
 
@@ -750,6 +766,7 @@ public class EmergencyController {
                     found = true;
                 }
             }
+            floorsVisited.add(path.getPath().get(path.getPath().size()-1).getFloor());
             if(floorsVisited.contains(currentMap)) {
                 displaySelected(0, floorSwitch);
             }
@@ -768,14 +785,20 @@ public class EmergencyController {
      * @param end
      */
     private void autoZoom(Location start, Location end) {
-        double x = gesturePane.getWidth()/(Math.abs((start.getXcoord() - end.getXcoord())));
-        double y = gesturePane.getHeight()/Math.abs(((start.getYcoord() - end.getYcoord())));
-        double scale = (Math.min(x, y)/2.5) + 1.1;
-        gesturePane.reset();
-        gesturePane.zoomTo(scale, gesturePane.targetPointAtViewportCentre());
-        double xSameVal = (start.getXcoord() + end.getXcoord()) / 2.0*childPane.getWidth()/Map.getImage().getWidth();
-        double ySameVal = (start.getYcoord() + end.getYcoord()) / 2.0*childPane.getHeight()/Map.getImage().getHeight();
-        gesturePane.centreOn(new Point2D(xSameVal, ySameVal));
+        if((Math.abs((start.getXcoord() - end.getXcoord()))) < 3200 && Math.abs(((start.getYcoord() - end.getYcoord()))) < 1050
+                || (Math.abs((start.getXcoord() - end.getXcoord()))) < 2500 && Math.abs(((start.getYcoord() - end.getYcoord()))) < 3050 ){
+            double x = gesturePane.getWidth()/(Math.abs((start.getXcoord() - end.getXcoord())));
+            double y = gesturePane.getHeight()/Math.abs(((start.getYcoord() - end.getYcoord())));
+            double scale = (Math.min(x, y)/2) + 1.1;
+            gesturePane.reset();
+            gesturePane.zoomTo(scale, gesturePane.targetPointAtViewportCentre());
+            double xSameVal = (start.getXcoord() + end.getXcoord()) / 2.0*childPane.getWidth()/Map.getImage().getWidth();
+            double ySameVal = (start.getYcoord() + end.getYcoord()) / 2.0*childPane.getHeight()/Map.getImage().getHeight();
+            gesturePane.centreOn(new Point2D(xSameVal, ySameVal));
+        }
+        else {
+            gesturePane.reset();
+        }
     }
 
 
@@ -789,26 +812,22 @@ public class EmergencyController {
      * @param floors
      */
     private void makeButtons(ArrayList<String> floors) {
-        int midx = 400;
-        int midy = 425;
+        int shift = 0;
         int numOfBut = countFloors(floors);
         int totalNum = countFloors(floors);
         int center = (numOfBut + 1)/2;
+        if(totalNum % 2 == 0){
+            shift = 135;
+        }
         boolean change = false;
         for(int i = 0; i < floors.size()-1; i++) {
-            Button fBut = new Button();
-
+            //Sets up the buttons
+            JFXButton fBut = new JFXButton();
             if(!floors.get(i+1).equals(floors.get(start))) {
                 fBut.setPrefSize(50,50);
                 fBut.setText(floors.get(i));
+                fBut.setStyle("-fx-font-weight: BOLD");
                 fBut.getStyleClass().add("buttonMap");
-//                fBut.setStyle("-fx-background-radius: 10000;" +
-//                        "    -fx-border-color : #012D5A;" +
-//                        "    -fx-border-radius: 100;" +
-//                        "    -fx-border-width: 2;" +
-//                        "    -fx-pref-height: 46;" +
-//                        "-fx-background-color: transparent");
-                final String next = floors.get(i);
                 int startstore1 = start;
                 int counterstore1 = counter;
                 fBut.setOnAction(event -> {
@@ -817,8 +836,12 @@ public class EmergencyController {
                 });
                 floorButtons.add(fBut);
                 gridPane.getChildren().add(fBut);
-                int diff  = numOfBut - center;
-                gridPane.setMargin(fBut,new Insets(0,0,midy,midx - diff*(100)));
+                gridPane.setHalignment(fBut, HPos.CENTER);
+                gridPane.setValignment(fBut, VPos.TOP);
+                //int diff  = numOfBut - center;
+                int diff  = center - numOfBut;
+                gridPane.setMargin(fBut,new Insets(65,0,0,diff*(200)+ shift));
+
                 //Reduce this as we go so we know how many buttons we have left
                 numOfBut--;
                 //Reset
@@ -829,22 +852,52 @@ public class EmergencyController {
             else if(numOfBut == 1 && change){
                 fBut.setPrefSize(50,50);
                 fBut.setText(floors.get(i));
+                fBut.setStyle("-fx-font-weight: BOLD");
                 fBut.getStyleClass().add("buttonMap");
-                fBut.setStyle("-fx-fill-color: transparent");
-                final String next = floors.get(i);
                 int startstore1 = start;
-                int counterstore1 =floors.size();
+                int counterstore1 =floors.size() - 1 ;
                 fBut.setOnAction(event -> {
                     displaySelected(startstore1, counterstore1);
-
                 });
                 floorButtons.add(fBut);
                 gridPane.getChildren().add(fBut);
-                int diff  = numOfBut - center;
-                gridPane.setMargin(fBut,new Insets(0,0,midy,midx - diff*(100)));
+                gridPane.setHalignment(fBut, HPos.CENTER);
+                gridPane.setValignment(fBut, VPos.TOP);
+                //int diff  = numOfBut - center;
+                int diff  = center - numOfBut;
+                numOfBut--;
+                gridPane.setMargin(fBut,new Insets(65,0,0,diff*(200)+ shift));
+            }
+            if(totalNum > 1){
+                if(i == floors.size()-2 && !floors.get(i+1).equals(floors.get(start-1)) && numOfBut ==1)
+                {
+                    JFXButton fBut1 = new JFXButton();
+                    fBut1.setPrefSize(50,50);
+                    fBut1.setText(floors.get(i+1));
+                    fBut1.setStyle("-fx-font-weight: BOLD");
+                    fBut1.getStyleClass().add("buttonMap");
+                    int startstore1 = start;
+                    int counterstore1 =floors.size() - 1 ;
+                    fBut1.setOnAction(event -> {
+                        displaySelected(startstore1, counterstore1);
+                    });
+                    floorButtons.add(fBut1);
+                    gridPane.getChildren().add(fBut1);
+                    gridPane.setHalignment(fBut1, HPos.CENTER);
+                    gridPane.setValignment(fBut1, VPos.TOP);
+                    //int diff  = numOfBut - center;
+                    int diff  = center - numOfBut;
+                    numOfBut--;
+                    gridPane.setMargin(fBut1,new Insets(65,0,0,diff*(200)+ shift));
+                }
             }
             counter++;
+            //Displays the part of the path you're on by highlighting the button.
+//            if(fBut.getText().equals(currentMap)) {
+//                fBut.setStyle("-fx-background-color: #012d5a; -fx-text-fill: white");
+//            }
         }
+
     }
 
     /**
@@ -868,42 +921,58 @@ public class EmergencyController {
         for (Button b : buttons) {
             pathPane.getChildren().remove(b);
         }
+        for (Label la : labels) {
+            pathPane.getChildren().remove(la);
+        }
 
         circles.clear();
         lines.clear();
         buttons.clear();
+        labels.clear();
         //Changes the map displayed to the floor of begin and count
         String floor = path.getPath().get(begin).getFloor();
         if(floor.equals("L2")) {
             Map.setImage(new Image("/SoftEng_UI_Mockup_Pics/00_thelowerlevel2.png"));
             currentMap = "L2";
+            changeMapLabel();
         }
         if(floor.equals("L1")) {
             Map.setImage(new Image("/SoftEng_UI_Mockup_Pics/00_thelowerlevel1.png"));
             currentMap = "L1";
+            changeMapLabel();
         }
         if(floor.equals("G")) {
             Map.setImage(new Image("/SoftEng_UI_Mockup_Pics/00_thegroundfloor.png"));
             currentMap = "G";
+            changeMapLabel();
         }
         if(floor.equals("1")) {
             Map.setImage(new Image("/SoftEng_UI_Mockup_Pics/01_thefirstfloor.png"));
             currentMap = "1";
+            changeMapLabel();
         }
         if(floor.equals("2")) {
             Map.setImage(new Image("/SoftEng_UI_Mockup_Pics/02_thesecondfloor.png"));
             currentMap = "2";
+            changeMapLabel();
         }
         if(floor.equals("3")) {
             Map.setImage(new Image("/SoftEng_UI_Mockup_Pics/03_thethirdfloor.png"));
             currentMap = "3";
+            changeMapLabel();
         }
+        if(floor.equals("4")) {
+            Map.setImage(new Image("/SoftEng_UI_Mockup_Pics/04_thefourthfloor.png"));
+            currentMap = "4";
+            changeMapLabel();
+        }
+
 
         //Create all necessary objects for animating path.
         Circle dude  = new Circle();
         dude.setCenterX(path.getPath().get(begin).getXcoord()*childPane.getWidth()/Map.getImage().getWidth());
         dude.setCenterY(path.getPath().get(begin).getYcoord()*childPane.getHeight()/Map.getImage().getHeight());
-        dude.setRadius(Math.max(6, 6f));
+        dude.setRadius(Math.max(5, 5f));
         dude.setFill(new ImagePattern((new Image("/SoftEng_UI_Mockup_Pics/IconPerson.png"))));
 
         javafx.scene.shape.Path path2 = new  javafx.scene.shape.Path();
@@ -920,7 +989,7 @@ public class EmergencyController {
             line.setEndX(path.getPath().get(i+1).getXcoord()*childPane.getWidth()/Map.getImage().getWidth());
             line.setEndY(path.getPath().get(i+1).getYcoord()*childPane.getHeight()/Map.getImage().getHeight());
             line.setStrokeWidth(2.5);
-            line.setStroke(RED);
+            line.setStroke(DODGERBLUE);
             lines.add(line);
             pathPane.getChildren().add(line);
 
@@ -941,25 +1010,26 @@ public class EmergencyController {
         startLabel.setLayoutY(path.getPath().get(begin).getYcoord()*childPane.getHeight()/Map.getImage().getHeight() - 20);
         endLabel.setLayoutX(path.getPath().get(count).getXcoord()*childPane.getWidth()/Map.getImage().getWidth() - 30);
         endLabel.setLayoutY(path.getPath().get(count).getYcoord()*childPane.getHeight()/Map.getImage().getHeight() - 20);
+        //if(startLabel.getLayoutX() > endLabel.getLayoutX())
         endLabel.setText(path.getPath().get(count).getLongName());
         //Changing the color of the start circle and start label
         if(path.getPath().get(begin).getLocID().equals(kioskTemp.getLocID())) {
             startCircle.setStroke(Color.BLUE);
             startCircle.setFill(Color.BLUE);
             startLabel.setText(" You are here ");
-            startLabel.setStyle("-fx-text-fill: WHITE;-fx-font-size: 6; -fx-background-color: BLUE; -fx-border-color: WHITE; -fx-border-width: 2; -fx-min-width: 40;");
+            startLabel.setStyle("-fx-text-fill: WHITE;-fx-font-size: 6; -fx-background-color: rgba(0, 0, 255, 0.75); -fx-border-color: WHITE; -fx-border-width: 1; -fx-min-width: 40;");
         }
         else if(path.getPath().get(begin).getLocID().equals(startNode.getLocID())) {
             startCircle.setStroke(Color.GREEN);
             startCircle.setFill(Color.GREEN);
             startLabel.setText(startNode.getLongName());
-            startLabel.setStyle("-fx-text-fill: WHITE;-fx-font-size: 6; -fx-background-color: GREEN; -fx-border-color: WHITE; -fx-border-width: 2; -fx-min-width: 40;");
+            startLabel.setStyle("-fx-text-fill: WHITE;-fx-font-size: 6; -fx-background-color: rgba(34, 137, 51, 0.75); -fx-border-color: WHITE; -fx-border-width: 1; -fx-min-width: 40;");
         }
         else {
             startCircle.setStroke(DODGERBLUE);
             startCircle.setFill(DODGERBLUE);
             startLabel.setText(path.getPath().get(begin).getLongName());
-            startLabel.setStyle("-fx-text-fill: WHITE;-fx-font-size: 6; -fx-background-color: DODGERBLUE; -fx-border-color: WHITE; -fx-border-width: 2; -fx-min-width: 40;");
+            startLabel.setStyle("-fx-text-fill: WHITE;-fx-font-size: 6; -fx-background-color: rgba(51, 100, 255, 0.75); -fx-border-color: WHITE; -fx-border-width: 1; -fx-min-width: 40;");
         }
 
         circles.add(startCircle);
@@ -973,16 +1043,33 @@ public class EmergencyController {
         if(path.getPath().get(count).getLocID().equals(endNode.getLocID())) {
             endCircle.setStroke(RED);
             endCircle.setFill(RED);
-            endLabel.setStyle("-fx-text-fill: WHITE;-fx-font-size: 6; -fx-background-color: RED; -fx-border-color: WHITE; -fx-border-width: 2; -fx-min-width: 40;");
+            endLabel.setStyle("-fx-text-fill: WHITE;-fx-font-size: 6; -fx-background-color: rgba(255, 0, 0, 0.75); -fx-border-color: WHITE; -fx-border-width: 1; -fx-min-width: 40;");
         }
         else {
             endCircle.setStroke(DODGERBLUE);
             endCircle.setFill(DODGERBLUE);
-            endLabel.setStyle("-fx-text-fill: WHITE;-fx-font-size: 6; -fx-background-color: DODGERBLUE; -fx-border-color: WHITE; -fx-border-width: 2; -fx-min-width: 40;");
+            endLabel.setStyle("-fx-text-fill: WHITE;-fx-font-size: 6; -fx-background-color: rgba(51, 100, 255, 0.75); -fx-border-color: WHITE; -fx-border-width: 1; -fx-min-width: 40;");
         }
+        //Handles cases when you only display one location
+        if(path.getPath().get(begin).getLocID().equals(path.getPath().get(count).getLocID()) && path.getPath().get(begin).getLocID().equals(startNode.getLocID())) {
+            endLabel.setVisible(false);
+        }
+        else if(path.getPath().get(begin).getLocID().equals(path.getPath().get(count).getLocID())) {
+            startLabel.setVisible(false);
+            endLabel.setVisible(true);
+        }
+        else {
+            startLabel.setVisible(true);
+            endLabel.setVisible(true);
+        }
+        //Adding everything necessary to display the path
+        labels.add(startLabel);
+        labels.add(endLabel);
         circles.add(endCircle);
         pathPane.getChildren().add(startCircle);
         pathPane.getChildren().add(endCircle);
+        pathPane.getChildren().add(startLabel);
+        pathPane.getChildren().add(endLabel);
         //Displays the node that travels
         pathPane.getChildren().add(dude);
 
@@ -999,29 +1086,28 @@ public class EmergencyController {
         autoZoom(path.getPath().get(begin), path.getPath().get(count));
 
         direction.clear();
+
         ArrayList<Location> al = new ArrayList<Location>();
         for (int i = begin; i < count + 1; i++){
             al.add(path.getPath().get(i));
         }
-        String directionS = printPath(al);
-        if(path.getPath().get(count) != null){
-            if(isStairELe(al.get(al.size()-1)) && isStairELe(path.getPath().get(count))){
-                //        System.out.println("Go to floor " + b.getFloor() + " by " + a.getLongName());
-                directionS += "\u21C5 Go to floor " + path.getPath().get(count).getFloor() + " by "
-                        + al.get(al.size()-1).getLongName() +"\n";
 
+        String directionS = printPath(al);
+        if(al.size() > 1){
+            if(count + 1 < path.getPath().size()){
+                if(isStairELe(al.get(al.size()-1)) && isStairELe(path.getPath().get(count+1)) &&
+                        !al.get(al.size()-1).getFloor().equals(path.getPath().get(count+1).getFloor())){
+                    directionS += "\u21C5 Go to floor " + path.getPath().get(count+1).getFloor() + " by "
+                            + al.get(al.size()-1).getLongName() +"\n";
+                }
             }
         }
-
-        startLabel.setVisible(true);
-        endLabel.setVisible(true);
 
         direction.setText(directionS);
         direction.setWrapText(true);
         direction.setDisable(false);
         direction.setEditable(false);
 
-        displayExits();
     }
 
     /**
@@ -1038,14 +1124,18 @@ public class EmergencyController {
         for (Button b : buttons) {
             pathPane.getChildren().remove(b);
         }
-        for (Button b : floorButtons) {
-            gridPane.getChildren().remove(b);
+        for (JFXButton jb : floorButtons) {
+            gridPane.getChildren().remove(jb);
+        }
+        for (Label la : labels) {
+            pathPane.getChildren().remove(la);
         }
 
         floorButtons.clear();
         circles.clear();
         lines.clear();
         buttons.clear();
+        labels.clear();
     }
 
     /**
@@ -1117,7 +1207,6 @@ public class EmergencyController {
             }
         }
     }
-
 
 
     //Larry - To calculate the angele of turning
@@ -1217,6 +1306,10 @@ public class EmergencyController {
 
         int d = 0; // count for the start location for exact location
         //same start and end location
+        if(A.size() == 1){
+            text += "You are already at your destination :)\n";
+            return text;
+        }
         if(A.size() == 2 && A.get(0) == A.get(1)){
             text += "You are already at your destination :)\n";
             return text;
@@ -1229,7 +1322,7 @@ public class EmergencyController {
         else {
             text += " minute \n";
         }
-        text += " Begin from " + A.get(0).getLongName() + "\n";
+        text +="\u235FBegin from " + A.get(0).getLongName() + "\n";
         //when size is two, but two location are different
         if(A.size() == 2){
             aType = A.get(0).getNodeType();
@@ -1239,12 +1332,12 @@ public class EmergencyController {
             if((aType=="STAI" || aType == "ELEV") && (bType == "STAI" || bType =="ELEV") && !aFloor.equals(bFloor) ){
                 if(A.get(1).getNodeType() == "STAI" ||A.get(1).getNodeType() == "ELEV" ){
                     //  System.out.println("Go to floor " + bFloor + " by " + bType);
-                    text += "Go to floor " + bFloor + " by " + bType + "\n";
+                    text += "\u21C5 Go to floor " + bFloor + " by " + bType + "\n";
 
                     return text;
                 }
                 else{
-                    text += "\u21E7 Go straight to " + A.get(1).getLongName() + " (" +
+                    text += "\u2191 Go straight to " + A.get(1).getLongName() + " (" +
                             convertToExact(A.get(0).findDistance(A.get(1))) + " ft) \n";
                     return text;
                 }
@@ -1264,7 +1357,7 @@ public class EmergencyController {
                 nextDirection = directionPath(b,c);
 
 
-                text += "\u21E7 Go straight to " + b.getLongName()
+                text += "\u2191 Go straight to " + b.getLongName()
                         + " (" + convertToExact(start.findDistance(b)) + " ft) \n";
 
                 //- -> + , x+ : left
@@ -1274,18 +1367,18 @@ public class EmergencyController {
                 if(curDirection == nextDirection){
                     if(curDirection == 2 || curDirection == 6){
                         if(Math.abs(slopeBC)> Math.abs(slopeAB)){
-                            text += "\u21E6 Turn left \n";
+                            text += "\u21B0 Turn left \n";
                         }
                         else{
-                            text += "\u21E8 Turn right\n";
+                            text += "\u21B1 Turn right\n";
                         }
                     }
                     else if(curDirection == 4 || curDirection ==8){
                         if(Math.abs(slopeBC)> Math.abs(slopeAB)){
-                            text += "\u21E8 Turn right\n";
+                            text += "\u21B1 Turn right\n";
                         }
                         else{
-                            text += "\u21E6 Turn left \n";
+                            text += "\u21B0 Turn left \n";
                         }
 
                     }
@@ -1293,58 +1386,58 @@ public class EmergencyController {
                 }
                 else if((curDirection == 2 && nextDirection ==6) || (curDirection == 6 && nextDirection ==2)){
                     if(Math.abs(slopeBC)>Math.abs(slopeAB)){
-                        text += "\u21E8 Turn right\n";
+                        text += "\u21B1 Turn right\n";
                     }
                     else{
-                        text += "\u21E6 Turn left\n";
+                        text += "\u21B0 Turn left\n";
                     }
 
                 }
 
                 else if((curDirection == 8 && nextDirection ==4) || (curDirection == 6 && nextDirection ==2)){
                     if(Math.abs(slopeBC)>Math.abs(slopeAB)){
-                        text += "\u21E6 Turn left\n";
+                        text += "\u21B0 Turn left\n";
                     }
                     else{
-                        text += "\u21E8 Turn right\n";
+                        text += "\u21B1 Turn right\n";
                     }
 
                 }
 
                 else if(curDirection <= 5){
                     if(nextDirection < curDirection + 4 && nextDirection > curDirection){
-                        text += "\u21E8 Turn right\n";
+                        text += "\u21B1 Turn right\n";
                     }
                     else {
 
-                        text += "\u21E6 Turn left\n";
+                        text += "\u21B0 Turn left\n";
                     }
                 }
                 else{
                     if(curDirection == 6){
                         if(nextDirection == 7 || nextDirection == 8 || nextDirection == 1){
-                            text += "\u21E8 Turn right\n";
+                            text += "\u21B1 Turn right\n";
                         }
                         if(nextDirection == 5 || nextDirection == 4 || nextDirection == 3){
-                            text += "\u21E6 Turn left\n";
+                            text += "\u21B0 Turn left\n";
                         }
 
 
                     }
                     else if (curDirection ==7){
                         if(nextDirection == 8 || nextDirection == 1 || nextDirection == 2){
-                            text += "\u21E8 Turn right\n";
+                            text += "\u21B1 Turn right\n";
                         }
                         else if(nextDirection == 6 || nextDirection == 5 || nextDirection == 4){
-                            text += "\u21E6 Turn left\n";
+                            text += "\u21B0 Turn left\n";
                         }
                     }
                     else if(curDirection ==8){
                         if(nextDirection == 1 || nextDirection == 2 || nextDirection == 3){
-                            text += "\u21E8 Turn right\n";
+                            text += "\u21B1 Turn right\n";
                         }
                         else if(nextDirection == 5 || nextDirection == 6 || nextDirection == 7){
-                            text += "\u21E6 Turn left\n";
+                            text += "\u21B0 Turn left\n";
                         }
                         else {
 
@@ -1354,18 +1447,15 @@ public class EmergencyController {
                         //nothing handle error in case
                     }
                 }
-
+                if(i == A.size() - 3){
+                    return text;
+                }
 
             }
             if(i == A.size() - 3){
-                text += "\u21E7 Go straight to your destination " + A.get(A.size()-1).getLongName() +
-                        " (" + convertToExact(b.findDistance(c)) + " ft) \n";
+                text += "\u2191 Go straight to " + A.get(A.size()-1).getLongName() +
+                        " (" + convertToExact(A.get(A.size()-3).findDistance(A.get(A.size()-1))) + " ft) \n";
                 return text;
-            }
-            if(isStairELe(a) && isStairELe(b)){
-                //        System.out.println("Go to floor " + b.getFloor() + " by " + a.getLongName());
-                text += "Go to floor " + b.getFloor() + " by " + a.getLongName() +"\n";
-
             }
 
         }
@@ -1387,7 +1477,5 @@ public class EmergencyController {
         return (int) (minutes * 100) / 100.0;
 
     }
-
-
 
 }
