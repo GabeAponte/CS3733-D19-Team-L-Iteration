@@ -611,6 +611,7 @@ public class BookRoomController {
         else{
 
         }
+        fieldsEntered();
     }
 
     //todo checks if fields are null and populates table here
@@ -666,7 +667,6 @@ public class BookRoomController {
             for(int i = 0; i < emps.size(); i++) {
                 eventEmployees.getCheckModel().clearCheck(i);
             }
-
             availableRooms.setItems(listOfRooms);
             displayAllRooms();
         }
