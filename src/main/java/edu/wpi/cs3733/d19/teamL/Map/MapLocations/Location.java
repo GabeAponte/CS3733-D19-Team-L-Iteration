@@ -281,7 +281,7 @@ public class Location implements Comparable<Location>{
 
     @Override
     public String toString() {
-        return longName + "(" + floor + ")";
+        return longName;
     }
 
     public void removeEdge(ArrayList<Edge> e) {
