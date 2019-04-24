@@ -22,6 +22,22 @@ public class ReservationAccess extends DBAccess {
         }
     }
 
+    public void deleteReservation(String rID, String eID, String startDate, String endDate){
+        String sql = "Delete from reservation where rID = ? and eID = ? and startDate = ? and endDate = ?";
+
+        try (Connection conn = this.connect();
+             PreparedStatement pstmt = conn.prepareStatement(sql)){
+            pstmt.setString(1,rID);
+            pstmt.setString(2, eID);
+            pstmt.setString(3, startDate);
+            pstmt.setString(4, endDate);
+            pstmt.executeUpdate();
+        }catch (SQLException e){
+            System.out.println(e.getMessage());
+        }
+
+    }
+
     /**ANDREW MADE THIS
      * creates a reservation with the given parameters
      * @param rID
