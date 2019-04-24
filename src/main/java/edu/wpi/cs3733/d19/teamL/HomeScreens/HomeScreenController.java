@@ -412,7 +412,7 @@ public class HomeScreenController {
         stage = new Stage();
         root = FXMLLoader.load(getClass().getClassLoader().getResource("Brigham.fxml"));
         stage.setScene(new Scene(root));
-        stage.setTitle("Google");
+        stage.setTitle("Brigham and Women's Hospital");
         stage.initModality(Modality.APPLICATION_MODAL);
         single.setLastTime();
         stage.showAndWait();
