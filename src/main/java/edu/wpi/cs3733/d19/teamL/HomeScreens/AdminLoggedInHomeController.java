@@ -15,6 +15,8 @@ import edu.wpi.cs3733.d19.teamL.Singleton;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.animation.TranslateTransition;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -439,5 +441,22 @@ public class AdminLoggedInHomeController {
             Singleton single = Singleton.getInstance();
             single.setTimeoutSec(Integer.parseInt(timeoutTime.getText())*1000);
         }
+    }
+
+    @FXML
+    private void checkTimeout(){
+        timeoutTime.textProperty().addListener(new ChangeListener<String>() {
+            @Override
+            public void changed(ObservableValue<? extends String> observable, String oldValue,
+                                String newValue) {
+                if (!newValue.matches("\\d*")) {
+                    timeoutTime.setText(newValue.replaceAll("[^\\d]", ""));
+                }
+            }
+        });
+        timeoutTime.setOnKeyTyped(event ->{
+            int maxCharacters = 3;
+            if(timeoutTime.getText().length() > maxCharacters) event.consume();
+        });
     }
 }
