@@ -1110,7 +1110,7 @@ public class PathFindingController {
                 changeMapLabel();
             }
 
-            if(currentMap.equals("4")){
+            if(currentMap.equals("4") && single.isLoggedIn()){
                 displayFlexSpaces(single.getSimulation());
                 displayBookableRooms();
             }

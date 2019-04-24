@@ -684,7 +684,7 @@ public class BookRoomController {
     public void displayAllRooms() {
 
         if(firstTimeRan) {
-            double scaleRatio = 0;
+            double scaleRatio;
             scaleRatio = Math.min(roomImage.getFitWidth() / roomImage.getImage().getWidth(), roomImage.getFitHeight() / roomImage.getImage().getHeight());
             for (int i = 0; i < DisplayRooms.size(); i++) {
                 DisplayRooms.get(i).makePolygon(scaleRatio);
