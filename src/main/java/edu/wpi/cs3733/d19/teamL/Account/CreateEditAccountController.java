@@ -13,6 +13,7 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Rectangle2D;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -22,6 +23,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Modality;
+import javafx.stage.Screen;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
@@ -141,9 +143,16 @@ public class CreateEditAccountController {
                         single.setLastTime();
 
                         Stage thisStage = (Stage) firstName.getScene().getWindow();
+                        Screen screen = Screen.getPrimary();
+                        Rectangle2D bounds = screen.getVisualBounds();
 
                         Scene newScene = new Scene(sceneMain);
+                        thisStage.setMaximized(true);
                         thisStage.setScene(newScene);
+                        thisStage.setX(bounds.getMinX());
+                        thisStage.setY(bounds.getMinY());
+                        thisStage.setWidth(bounds.getWidth());
+                        thisStage.setHeight(bounds.getHeight());
                         timeout.stop();
                     } catch (IOException io) {
                         System.out.println(io.getMessage());

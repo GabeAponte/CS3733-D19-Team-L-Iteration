@@ -13,7 +13,7 @@ public abstract class DBAccess {
      */
     public Connection connect() {
         // SQLite connection string
-        String url = "jdbc:sqlite:myDB/MasterDB";
+        String url = "jdbc:sqlite:myTeamLDB/MasterDB";
         Connection conn = null;
         try {
             conn = DriverManager.getConnection(url);

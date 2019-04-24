@@ -31,6 +31,7 @@
 <AnchorPane fx:id="anchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720" prefWidth="1280" styleClass="AnchorPainMain" stylesheets="@Default.css" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.d19.teamL.RoomBooking.BookRoomController">
 
     <children>
+      <VBox prefHeight="200.0" prefWidth="100.0" styleClass="vboxImage" stylesheets="@Default.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
         <VBox prefHeight="200.0" prefWidth="100.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
             <children>
                 <JFXToolbar prefHeight="100.0" prefWidth="1280.0" styleClass="tool-barMain" stylesheets="@Default.css">
@@ -78,7 +79,7 @@
                                             <children>
                                                 <JFXButton fx:id="logOut" alignment="CENTER" buttonType="RAISED" contentDisplay="TOP" focusTraversable="false" graphicTextGap="0.0" minHeight="-Infinity" onAction="#logOut" prefHeight="75.0" prefWidth="100.0" ripplerFill="#b0b0b0" styleClass="buttonToolbar" stylesheets="@Default.css" text="Log Out" textAlignment="CENTER" textFill="#012d5a">
                                                     <font>
-                                                        <Font name="Trebuchet MS" size="17.0" />
+                                                        <Font name="Trebuchet MS Bold" size="17.0" />
                                                     </font>
                                                     <graphic>
                                                         <FontAwesomeIconView fill="#012d5a" glyphName="USER" size="35" strokeMiterLimit="0.0" textAlignment="CENTER" wrappingWidth="27.27392578125" />
@@ -87,13 +88,16 @@
                                                         <Insets right="20.0" />
                                                     </HBox.margin>
                                                 </JFXButton>
-                                                <JFXButton fx:id="homebtn" buttonType="RAISED" contentDisplay="GRAPHIC_ONLY" maxHeight="-Infinity" minHeight="-Infinity" onAction="#goHome" prefHeight="75.0" prefWidth="100.0" styleClass="buttonToolbar" stylesheets="@Default.css" textFill="#012d5a">
+                                                <JFXButton fx:id="homebtn" buttonType="RAISED" contentDisplay="TOP" graphicTextGap="0.0" maxHeight="-Infinity" minHeight="-Infinity" onAction="#goHome" prefHeight="75.0" prefWidth="100.0" styleClass="buttonToolbar" stylesheets="@Default.css" text="Home" textFill="#012d5a">
                                                     <graphic>
-                                                        <FontAwesomeIconView fx:id="home" fill="#012d5a" glyphName="HOME" size="50" />
+                                                        <FontAwesomeIconView fx:id="home" fill="#012d5a" glyphName="HOME" size="40" />
                                                     </graphic>
                                                     <HBox.margin>
                                                         <Insets right="10.0" />
                                                     </HBox.margin>
+                                       <font>
+                                          <Font name="Trebuchet MS Bold" size="17.0" />
+                                       </font>
                                                 </JFXButton>
                                             </children>
                                         </HBox>
@@ -182,7 +186,7 @@
                                         </VBox>
                                         <Label fx:id="roomName" alignment="TOP_CENTER" contentDisplay="CENTER" prefHeight="48.0" prefWidth="427.0" styleClass="labelTitle" stylesheets="@Default.css" text="Select a Room" textFill="#f5d96b" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="TOP">
                                             <font>
-                                                <Font size="24.0" />
+                                                <Font name="Trebuchet MS" size="25.0" />
                                             </font>
                                             <GridPane.margin>
                                                 <Insets right="40.0" />
@@ -354,7 +358,7 @@
                 </JFXTabPane>
             </children>
         </VBox>
-        <AnchorPane fx:id="reservationPane" layoutX="1287.0" layoutY="330.0" prefHeight="328.0" prefWidth="550.0" style="-fx-border-color: #f5d96b; -fx-background-radius: 10; -fx-border-radius: 10; -fx-border-width: 2;" styleClass="AnchorPainMain" stylesheets="@Default.css" AnchorPane.bottomAnchor="20.0">
+        <AnchorPane fx:id="reservationPane" layoutX="1287.0" layoutY="330.0" prefHeight="328.0" prefWidth="550.0" style="-fx-border-color: #f5d96b; -fx-background-radius: 10; -fx-border-radius: 10; -fx-border-width: 2; -fx-background-color: white;" stylesheets="@Default.css" AnchorPane.bottomAnchor="20.0">
             <children>
                 <GridPane layoutX="1.0" layoutY="12.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" onMouseMoved="#roundStartTime" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                     <columnConstraints>
@@ -372,35 +376,44 @@
                   <RowConstraints />
                     </rowConstraints>
                     <children>
-                        <Label fx:id="popupName" styleClass="labelTitle" stylesheets="@Default.css" text="Reserve Room X" GridPane.columnSpan="2" GridPane.halignment="CENTER">
+                        <Label fx:id="popupName" styleClass="labelPopupTitle" stylesheets="@Default.css" text="Reserve Room X" GridPane.columnSpan="2" GridPane.halignment="CENTER">
                             <font>
                                 <Font size="20.0" />
                             </font>
                         </Label>
-                        <JFXRadioButton fx:id="privateEvent" styleClass="radio-buttonDJ" stylesheets="@Default.css" text="Private Event" GridPane.halignment="LEFT" GridPane.rowIndex="4">
+                        <JFXRadioButton fx:id="privateEvent" stylesheets="@Default.css" text="Private Event" GridPane.halignment="LEFT" GridPane.rowIndex="4">
                             <font>
                                 <Font size="18.0" />
                             </font>
                         </JFXRadioButton>
-                        <JFXTextField fx:id="eventName" promptText="Event Name" styleClass="jfx-text-field-popup" stylesheets="@Default.css" GridPane.columnSpan="2" GridPane.rowIndex="1">
+                        <JFXTextField fx:id="eventName" promptText="Event Name" styleClass="jfx-text-field-normal" stylesheets="@Default.css" GridPane.columnSpan="2" GridPane.rowIndex="1">
                             <font>
                                 <Font size="18.0" />
                             </font>
                         </JFXTextField>
-                        <JFXTextArea fx:id="eventDescription" promptText="Event Description" styleClass="jfx-text-field-popup" stylesheets="@Default.css" GridPane.columnSpan="2" GridPane.rowIndex="2">
+                        <JFXTextArea fx:id="eventDescription" promptText="Event Description" styleClass="jfx-text-field-normal" stylesheets="@Default.css" GridPane.columnSpan="2" GridPane.rowIndex="2">
                             <font>
                                 <Font size="18.0" />
                             </font>
                      <GridPane.margin>
                         <Insets bottom="10.0" />
                      </GridPane.margin></JFXTextArea>
-                        <JFXComboBox fx:id="eventType" maxWidth="1.7976931348623157E308" promptText="Event Type" styleClass="jfx-combo-box-bookRoom" GridPane.rowIndex="3" />
-                        <JFXButton fx:id="requestRoom" onAction="#findRoom" style="-fx-border-radius: 100; -fx-background-radius: 100;" styleClass="buttonDJ" stylesheets="@Default.css" text="Make Reservation" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="5">
+                        <JFXComboBox fx:id="eventType" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" promptText="Event Type" styleClass="jfx-combo-box-bookRoom" GridPane.rowIndex="3">
+                     <GridPane.margin>
+                        <Insets right="2.5" />
+                     </GridPane.margin>
+                     <padding>
+                        <Insets left="5.0" />
+                     </padding></JFXComboBox>
+                        <JFXButton fx:id="requestRoom" onAction="#findRoom" style="-fx-border-radius: 100; -fx-background-radius: 100;" styleClass="buttonMain" stylesheets="@Default.css" text="Make Reservation" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="5">
                      <font>
                         <Font size="18.0" />
                      </font></JFXButton>
-                  <CheckComboBox fx:id="eventEmployees" maxWidth="1.7976931348623157E308" styleClass="check-combo-box" stylesheets="@Default.css" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-                  <Label text="Invite Employees" textFill="WHITE" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.rowIndex="3">
+                  <CheckComboBox fx:id="eventEmployees" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" styleClass="check-combo-box" stylesheets="@Default.css" GridPane.columnIndex="1" GridPane.rowIndex="3">
+                     <GridPane.margin>
+                        <Insets left="2.5" />
+                     </GridPane.margin></CheckComboBox>
+                  <Label text="Invite Employees" textFill="#012d5a" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.rowIndex="3">
                      <font>
                         <Font name="Trebuchet MS" size="14.0" />
                      </font>
@@ -408,7 +421,7 @@
                         <Insets left="10.0" />
                      </GridPane.margin>
                   </Label>
-                  <JFXButton fx:id="orderGifts" style="-fx-background-radius: 100; -fx-border-radius: 100;" styleClass="buttonDJ" stylesheets="@Default.css" text="Order Gifts" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="4">
+                  <JFXButton fx:id="orderGifts" style="-fx-background-radius: 100; -fx-border-radius: 100;" styleClass="buttonMain" stylesheets="@Default.css" text="Order Gifts" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="4">
                      <GridPane.margin>
                         <Insets right="25.0" />
                      </GridPane.margin>
@@ -416,7 +429,7 @@
                         <Font size="14.0" />
                      </font>
                   </JFXButton>
-                  <JFXButton fx:id="orderFood" style="-fx-background-radius: 100; -fx-border-radius: 100;" styleClass="buttonDJ" stylesheets="@Default.css" text="Order Food" GridPane.columnIndex="1" GridPane.rowIndex="4">
+                  <JFXButton fx:id="orderFood" style="-fx-background-radius: 100; -fx-border-radius: 100;" styleClass="buttonMain" stylesheets="@Default.css" text="Order Food" GridPane.columnIndex="1" GridPane.rowIndex="4">
                      <GridPane.margin>
                         <Insets left="25.0" />
                      </GridPane.margin>
@@ -436,7 +449,7 @@
                 </GridPane>
             </children>
         </AnchorPane>
-        <AnchorPane fx:id="bookedEventPane" layoutX="1287.0" layoutY="330.0" prefHeight="328.0" prefWidth="550.0" style="-fx-border-color: #f5d96b; -fx-background-radius: 10; -fx-border-radius: 10;" styleClass="AnchorPainMain" stylesheets="@Default.css" AnchorPane.bottomAnchor="20.0">
+        <AnchorPane fx:id="bookedEventPane" layoutX="1287.0" layoutY="330.0" prefHeight="328.0" prefWidth="550.0" style="-fx-border-color: #f5d96b; -fx-background-radius: 10; -fx-border-radius: 10; -fx-border-width: 2;" styleClass="AnchorPainMain" stylesheets="@Default.css" AnchorPane.bottomAnchor="20.0">
             <children>
                 <GridPane layoutX="1.0" layoutY="12.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" onMouseDragged="#roundStartTime" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                     <columnConstraints>
@@ -507,7 +520,7 @@
                         </Label>
                         <Label fx:id="roomNameLabel" styleClass="labelPopupDesc" stylesheets="@Default.css" text="Room Name" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="TOP">
                             <font>
-                                <Font size="14.0" />
+                                <Font name="Trebuchet MS" size="18.0" />
                             </font>
                         </Label>
                     </children>

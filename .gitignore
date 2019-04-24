@@ -1,11 +1,13 @@
 .gradle/
 .idea/
-myDB/MasterDB
+myDB/
+myDBTeamL/MasterDB
 MasterDB
 ServiceRequestDB
 GiftRequestDB
 gargoyle_food_request_db/
 TempOutput.jpg
+EMode.jpg
 DBInput.jpg
 classes/
 build/
