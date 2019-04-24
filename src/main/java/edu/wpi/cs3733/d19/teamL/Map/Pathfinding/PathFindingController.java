@@ -63,6 +63,7 @@ import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
 import javafx.stage.Modality;
+import javafx.stage.Screen;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 import javafx.scene.layout.GridPane;
@@ -313,8 +314,8 @@ public class PathFindingController {
         currentMap = "G";
 
         changeMapLabel();
-        displayKiosk();
         clear();
+        displayKiosk();
         hideFlexSpaces();
         gesturePane.reset();
         direction.clear();
@@ -326,9 +327,10 @@ public class PathFindingController {
         currentMap = "L1";
 
         changeMapLabel();
-        displayKiosk();
         clear();
+        displayKiosk();
         hideFlexSpaces();
+        gesturePane.reset();
         direction.clear();
     }
 
@@ -338,8 +340,8 @@ public class PathFindingController {
         currentMap = "L2";
 
         changeMapLabel();
-        displayKiosk();
         clear();
+        displayKiosk();
         hideFlexSpaces();
         gesturePane.reset();
         direction.clear();
@@ -351,8 +353,8 @@ public class PathFindingController {
         currentMap = "1";
 
         changeMapLabel();
-        displayKiosk();
         clear();
+        displayKiosk();
         hideFlexSpaces();
         gesturePane.reset();
         direction.clear();
@@ -364,8 +366,8 @@ public class PathFindingController {
         currentMap = "2";
 
         changeMapLabel();
-        displayKiosk();
         clear();
+        displayKiosk();
         hideFlexSpaces();
         gesturePane.reset();
         direction.clear();
@@ -377,20 +379,21 @@ public class PathFindingController {
         currentMap = "3";
 
         changeMapLabel();
-        displayKiosk();
         clear();
+        displayKiosk();
         hideFlexSpaces();
         gesturePane.reset();
         direction.clear();
     }
 
     @FXML
-    private void clicked4() {
+    private void clicked4(){
         single.setLastTime();
         Map.setImage(new Image("/SoftEng_UI_Mockup_Pics/04_thefourthfloor.png"));
         currentMap = "4";
 
         changeMapLabel();
+        clear();
         displayKiosk();
         if (single.isLoggedIn()) {
             displayFlexSpaces(single.getSimulation());
@@ -398,35 +401,36 @@ public class PathFindingController {
         }
         gesturePane.reset();
         gesturePane.zoomTo(4.0, new Point2D(4375*childPane.getWidth()/Map.getImage().getWidth(), 2260*childPane.getHeight()/Map.getImage().getHeight()));
-        clear();
         direction.clear();
     }
 
-        @FXML
-        private void changeMapLabel () {
-            if (currentMap.equals("L2")) {
-                thisMap.setText("Lower Level 2");
-            }
 
-            if (currentMap.equals("L1")) {
-                thisMap.setText("Lower Level 1");
-            }
 
-            if (currentMap.equals("G")) {
-                thisMap.setText("Ground Floor");
-            }
+    @FXML
+    private void changeMapLabel() {
+        if (currentMap.equals("L2")){
+            thisMap.setText("Lower Level 2");
+        }
 
-            if (currentMap.equals("1")) {
-                thisMap.setText("Floor 1");
-            }
+        if (currentMap.equals("L1")){
+            thisMap.setText("Lower Level 1");
+        }
 
-            if (currentMap.equals("2")) {
-                thisMap.setText("Floor 2");
-            }
+        if (currentMap.equals("G")){
+            thisMap.setText("Ground Floor");
+        }
 
-            if (currentMap.equals("3")) {
-                thisMap.setText("Floor 3");
-            }
+        if (currentMap.equals("1")){
+            thisMap.setText("Floor 1");
+        }
+
+        if (currentMap.equals("2")){
+            thisMap.setText("Floor 2");
+        }
+
+        if (currentMap.equals("3")){
+            thisMap.setText("Floor 3");
+        }
 
             if (currentMap.equals("4")) {
                 thisMap.setText("Floor 4");
@@ -447,17 +451,17 @@ public class PathFindingController {
         mapURLs.add("/SoftEng_UI_Mockup_Pics/04_thefourthfloor.png");
         }
 
-        private Label startLabel;
-        private Label endLabel;
-        private Label hereLabel;
-        private Location startNode;
-        private Location endNode;
+    private Label startLabel;
+    private Label endLabel;
+    private Label hereLabel;
+    private Location startNode;
+    private Location endNode;
 
-        @FXML
-        private void strategySelected () {
-            strategyAlgorithm = strategySelector.getValue();
-            single.setTypePathfind(strategyAlgorithm);
-        }
+    @FXML
+    private void strategySelected() {
+        strategyAlgorithm = strategySelector.getValue();
+        single.setTypePathfind(strategyAlgorithm);
+    }
 
         public void initialize () {
             Singleton single = Singleton.getInstance();
@@ -498,7 +502,9 @@ public class PathFindingController {
             timeout = new Timeline(new KeyFrame(Duration.seconds(2), new EventHandler<ActionEvent>() {
                 @Override
                 public void handle(ActionEvent event) {
-                    updateFlexSpaces(single.getSimulation());
+                    if(flexSpaces.size() > 0) {
+                        updateFlexSpaces(single.getSimulation());
+                    }
                     if ((System.currentTimeMillis() - single.getLastTime()) > single.getTimeoutSec()) {
                         try {
                             single.setLastTime();
@@ -514,9 +520,16 @@ public class PathFindingController {
                                 controller.displayPopup();
                             }
                             Stage thisStage = (Stage) homebtn.getScene().getWindow();
+                            Screen screen = Screen.getPrimary();
+                            Rectangle2D bounds = screen.getVisualBounds();
 
                             Scene newScene = new Scene(sceneMain);
+                            thisStage.setMaximized(true);
                             thisStage.setScene(newScene);
+                            thisStage.setX(bounds.getMinX());
+                            thisStage.setY(bounds.getMinY());
+                            thisStage.setWidth(bounds.getWidth());
+                            thisStage.setHeight(bounds.getHeight());
                             timeout.stop();
                         } catch (IOException io) {
                             System.out.println(io.getMessage());
@@ -527,12 +540,11 @@ public class PathFindingController {
             timeout.setCycleCount(Timeline.INDEFINITE);
             timeout.play();
 
-            filter();
-            floor();
-            noHall();
-            Filter.setItems(filterList);
-            Floor.setItems(floorList);
-            //initializeTable(na, ea);
+        filter();
+        floor();
+        noHall();
+        Filter.setItems(filterList);
+        Floor.setItems(floorList);
 
             pathPane = new AnchorPane();
             childPane = new StackPane();
@@ -631,8 +643,6 @@ public class PathFindingController {
             startLabel = new Label();
             endLabel = new Label();
             hereLabel = new Label();
-            //Adds the text to the screen
-            pathPane.getChildren().add(hereLabel);
             if (!single.isLoggedIn()) {
                 logOut.setVisible(false);
             }
@@ -731,27 +741,27 @@ public class PathFindingController {
         typeSelected = "selected";
     }
 
-        /**Nathan modified this to include a path preference choice (restriction)
-         * Nikhil modified this so it automatically switches the map to the starting floor.
-         */
-        @FXML
-        private void submitPressed () {
-            single.setLastTime();
-            //This handles if the user wants to set their own start location.
-            if (PathFindStartDrop.getValue() != null) {
-                startNode = single.lookup.get(PathFindStartDrop.getValue().getLocID());
-            }
-            endNode = single.lookup.get(PathFindEndDrop.getValue().getLocID());
-            String restriction = restrictChoice.getValue();
-            if (restriction == null || restriction.trim().equals("") || restriction.equals("Both")) {
-                restriction = "    ";
-            } else if (restriction.equals("Stairs Only")) {
-                restriction = "ELEV";
-            } else if (restriction.equals("Elevators Only")) {
-                restriction = "STAI";
-            } else {
-                restriction = "    ";
-            }
+    /**Nathan modified this to include a path preference choice (restriction)
+     * Nikhil modified this so it automatically switches the map to the starting floor.
+     */
+    @FXML
+    private void submitPressed(){
+        single.setLastTime();
+        //This handles if the user wants to set their own start location.
+        if(PathFindStartDrop.getValue() != null) {
+            startNode = single.lookup.get(PathFindStartDrop.getValue().getLocID());
+        }
+        endNode = single.lookup.get(PathFindEndDrop.getValue().getLocID());
+        String restriction = restrictChoice.getValue();
+        if(restriction == null || restriction.trim().equals("") || restriction.equals("Both")){
+            restriction = "    ";
+        } else if(restriction.equals("Stairs Only")){
+            restriction = "ELEV";
+        } else if (restriction.equals("Elevators Only")){
+            restriction = "STAI";
+        } else {
+            restriction = "    ";
+        }
 
             strategyAlgorithm = single.getTypePathfind();
             //System.out.println(strategyAlgorithm.toString());
@@ -760,25 +770,25 @@ public class PathFindingController {
 
             path = findAbstractPath(strategyAlgorithm, startNode, endNode, restriction);
 
-            //To switch the map displayed to the startNode map automatically
-            if (startNode.getFloor().equals("L2") && !currentMap.equals("L2")) {
-                clickedL2();
-            }
-            if (startNode.getFloor().equals("L1") && !currentMap.equals("L1")) {
-                clickedL1();
-            }
-            if (startNode.getFloor().equals("G") && !currentMap.equals("G")) {
-                clickedG();
-            }
-            if (startNode.getFloor().equals("1") && !currentMap.equals("1")) {
-                clicked1();
-            }
-            if (startNode.getFloor().equals("2") && !currentMap.equals("2")) {
-                clicked2();
-            }
-            if (startNode.getFloor().equals("3") && !currentMap.equals("3")) {
-                clicked3();
-            }
+        //To switch the map displayed to the startNode map automatically
+        if (startNode.getFloor().equals("L2") && !currentMap.equals("L2")) {
+            clickedL2();
+        }
+        if (startNode.getFloor().equals("L1") && !currentMap.equals("L1")) {
+            clickedL1();
+        }
+        if (startNode.getFloor().equals("G") && !currentMap.equals("G")) {
+            clickedG();
+        }
+        if (startNode.getFloor().equals("1") && !currentMap.equals("1")) {
+            clicked1();
+        }
+        if (startNode.getFloor().equals("2") && !currentMap.equals("2")) {
+            clicked2();
+        }
+        if (startNode.getFloor().equals("3") && !currentMap.equals("3")) {
+            clicked3();
+        }
         if (startNode.getFloor().equals("4") && !currentMap.equals("4")) {
             clicked4();
         }
@@ -795,33 +805,35 @@ public class PathFindingController {
             }
         }
 
-        /**
-         * @author: Nikhil: Displays the kiosk location automatically on the path navigation screen.
-         */
-        public void displayKiosk () {
-            checkAndSetKiosk();
-            Circle kiosk = new Circle();
-            kiosk.setCenterX(kioskTemp.getXcoord() * childPane.getWidth() / Map.getImage().getWidth());
-            kiosk.setCenterY(kioskTemp.getYcoord() * childPane.getHeight() / Map.getImage().getHeight());
-            kiosk.setRadius(Math.max(1.5, 1.5f * (gesturePane.getCurrentScale() / 4)));
-            kiosk.setStroke(Color.BLUE);
-            kiosk.setFill(Color.BLUE);
-            hereLabel.setLayoutX(kioskTemp.getXcoord() * childPane.getWidth() / Map.getImage().getWidth() - 20);
-            hereLabel.setLayoutY(kioskTemp.getYcoord() * childPane.getHeight() / Map.getImage().getHeight() - 20);
-            hereLabel.setText(" You are here ");
-            hereLabel.setStyle("-fx-text-fill: WHITE;-fx-font-size: 6; -fx-background-color: BLUE; -fx-border-color: WHITE; -fx-border-width: 2; -fx-min-width: 40;");
-            if (currentMap.equals(kioskTemp.getFloor())) {
-                kiosk.setVisible(true);
-                gesturePane.zoomTo(2, new Point2D(kioskTemp.getXcoord() - 1350, kioskTemp.getYcoord() - 2000));
-                hereLabel.setVisible(true);
-            } else {
-                hereLabel.setVisible(false);
-                kiosk.setVisible(false);
-            }
-            circles.add(kiosk);
-            pathPane.getChildren().add(kiosk);
-            labels.add(hereLabel);
+    /**
+     * @author: Nikhil: Displays the kiosk location automatically on the path navigation screen.
+     */
+    public void displayKiosk() {
+        checkAndSetKiosk();
+        Circle kiosk = new Circle();
+        kiosk.setCenterX(kioskTemp.getXcoord()*childPane.getWidth()/Map.getImage().getWidth());
+        kiosk.setCenterY(kioskTemp.getYcoord()*childPane.getHeight()/Map.getImage().getHeight());
+        kiosk.setRadius(Math.max(1.5, 1.5f * (gesturePane.getCurrentScale() / 4)));
+        kiosk.setStroke(Color.BLUE);
+        kiosk.setFill(Color.BLUE);
+        hereLabel.setLayoutX(kioskTemp.getXcoord()*childPane.getWidth()/Map.getImage().getWidth() -20);
+        hereLabel.setLayoutY(kioskTemp.getYcoord()*childPane.getHeight()/Map.getImage().getHeight() - 20);
+        hereLabel.setText(" You are here ");
+        hereLabel.setStyle("-fx-text-fill: WHITE;-fx-font-size: 6; -fx-background-color: rgba(0, 0, 255, 0.75); -fx-border-color: WHITE; -fx-border-width: 1; -fx-min-width: 40;");
+        if(currentMap.equals(kioskTemp.getFloor())) {
+            kiosk.setVisible(true);
+            autoZoom(kioskTemp, kioskTemp);
+            hereLabel.setVisible(true);
         }
+        else {
+            hereLabel.setVisible(false);
+            kiosk.setVisible(false);
+        }
+        circles.add(kiosk);
+        pathPane.getChildren().add(kiosk);
+        labels.add(hereLabel);
+        pathPane.getChildren().add(hereLabel);
+    }
 
         @FXML
         private void updateKiosk () {
@@ -1257,7 +1269,7 @@ public class PathFindingController {
          * @Author Nikhil
          * Method to clear all path display on map
          */
-        private void clear () {
+        private void clear() {
             for (Circle c : circles) {
                 pathPane.getChildren().remove(c);
             }

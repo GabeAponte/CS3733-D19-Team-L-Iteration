@@ -13,12 +13,14 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Rectangle2D;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Modality;
+import javafx.stage.Screen;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
@@ -72,9 +74,16 @@ public class ExternalTransportationController {
                             controller.displayPopup();
                         }
                         Stage thisStage = (Stage) uber.getScene().getWindow();
+                        Screen screen = Screen.getPrimary();
+                        Rectangle2D bounds = screen.getVisualBounds();
 
                         Scene newScene = new Scene(sceneMain);
+                        thisStage.setMaximized(true);
                         thisStage.setScene(newScene);
+                        thisStage.setX(bounds.getMinX());
+                        thisStage.setY(bounds.getMinY());
+                        thisStage.setWidth(bounds.getWidth());
+                        thisStage.setHeight(bounds.getHeight());
                         timeout.stop();
                     } catch (IOException io){
                         System.out.println(io.getMessage());
@@ -82,9 +91,12 @@ public class ExternalTransportationController {
                 }
             }
         }));
+        timeout.setCycleCount(Timeline.INDEFINITE);
+        timeout.play();
     }
     
     public void openBrowser() throws IOException {
+        timeout.stop();
         FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("Browser.fxml"));
         Parent sceneMain = loader.load();
 
@@ -95,6 +107,7 @@ public class ExternalTransportationController {
     }
 
     public void openMaps() throws IOException {
+        timeout.pause();
         Singleton single = Singleton.getInstance();
         Stage stage;
         Parent root;
@@ -105,11 +118,13 @@ public class ExternalTransportationController {
         stage.initModality(Modality.APPLICATION_MODAL);
         single.setLastTime();
         stage.showAndWait();
+        timeout.play();
         single = Singleton.getInstance();
         single.setLastTime();
     }
 
     public void openUber() throws IOException {
+        timeout.pause();
         Singleton single = Singleton.getInstance();
         Stage stage;
         Parent root;
@@ -120,11 +135,13 @@ public class ExternalTransportationController {
         stage.initModality(Modality.APPLICATION_MODAL);
         single.setLastTime();
         stage.showAndWait();
+        timeout.play();
         single = Singleton.getInstance();
         single.setLastTime();
     }
 
     public void openLyft() throws IOException {
+        timeout.pause();
         Singleton single = Singleton.getInstance();
         Stage stage;
         Parent root;
@@ -135,11 +152,13 @@ public class ExternalTransportationController {
         stage.initModality(Modality.APPLICATION_MODAL);
         single.setLastTime();
         stage.showAndWait();
+        timeout.play();
         single = Singleton.getInstance();
         single.setLastTime();
     }
 
     public void openTaxi() throws IOException {
+        timeout.pause();
         Singleton single = Singleton.getInstance();
         Stage stage;
         Parent root;
@@ -150,11 +169,13 @@ public class ExternalTransportationController {
         stage.initModality(Modality.APPLICATION_MODAL);
         single.setLastTime();
         stage.showAndWait();
+        timeout.play();
         single = Singleton.getInstance();
         single.setLastTime();
     }
 
     public void openFlight() throws IOException {
+        timeout.pause();
         Singleton single = Singleton.getInstance();
         Stage stage;
         Parent root;
@@ -165,6 +186,7 @@ public class ExternalTransportationController {
         stage.initModality(Modality.APPLICATION_MODAL);
         single.setLastTime();
         stage.showAndWait();
+        timeout.play();
         single = Singleton.getInstance();
         single.setLastTime();
     }

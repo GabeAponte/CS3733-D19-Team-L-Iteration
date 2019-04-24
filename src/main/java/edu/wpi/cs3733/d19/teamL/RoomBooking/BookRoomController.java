@@ -23,6 +23,7 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Point2D;
+import javafx.geometry.Rectangle2D;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -35,6 +36,7 @@ import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Polygon;
 import javafx.scene.transform.Translate;
+import javafx.stage.Screen;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -355,9 +357,16 @@ public class BookRoomController {
                         single.setLastTime();
 
                         Stage thisStage = (Stage) endTime.getScene().getWindow();
+                        Screen screen = Screen.getPrimary();
+                        Rectangle2D bounds = screen.getVisualBounds();
 
                         Scene newScene = new Scene(sceneMain);
+                        thisStage.setMaximized(true);
                         thisStage.setScene(newScene);
+                        thisStage.setX(bounds.getMinX());
+                        thisStage.setY(bounds.getMinY());
+                        thisStage.setWidth(bounds.getWidth());
+                        thisStage.setHeight(bounds.getHeight());
                         timeout.stop();
                     } catch (IOException io) {
                         System.out.println(io.getMessage());
@@ -494,8 +503,8 @@ public class BookRoomController {
             error.setText("Room booked.");
             String date = datePicker.getValue().toString();
             String endDate = endDatePicker.getValue().toString();
-            date += "T" + String.format("%2d", startTime.getValue().getHour()) + ":" + String.format("%2d", startTime.getValue().getMinute()) + ":00";
-            endDate += "T" + String.format("%2d", endTime.getValue().getHour()) + ":" + String.format("%2d", endTime.getValue().getMinute()) + ":00";
+            date += "T" + String.format("%02d", startTime.getValue().getHour()) + ":" + String.format("%02d", startTime.getValue().getMinute()) + ":00";
+            endDate += "T" + String.format("%02d", endTime.getValue().getHour()) + ":" + String.format("%02d", endTime.getValue().getMinute()) + ":00";
             String roomName = availableRooms.getValue().toString();
             EmployeeAccess ea = new EmployeeAccess();
             String employeeID = ea.getEmployeeInformation(single.getUsername()).get(0);
@@ -523,8 +532,8 @@ public class BookRoomController {
         if (startTime.getValue() != null && endTime.getValue() != null && datePicker.getValue() != null) {
             date = datePicker.getValue().toString();
             endDate = endDatePicker.getValue().toString();
-            date += "T" + String.format("%2d", startTime.getValue().getHour()) + ":" + String.format("%2d", startTime.getValue().getMinute()) + ":00";
-            endDate += "T" + String.format("%2d", endTime.getValue().getHour()) + ":" + String.format("%2d", endTime.getValue().getMinute()) + ":00";
+            date += "T" + String.format("%02d", startTime.getValue().getHour()) + ":" + String.format("%02d", startTime.getValue().getMinute()) + ":00";
+            endDate += "T" + String.format("%02d", endTime.getValue().getHour()) + ":" + String.format("%02d", endTime.getValue().getMinute()) + ":00";
             availableRooms.getSelectionModel().clearSelection();
 
             rooms = ra.getAvailRooms(date, endDate);
@@ -963,8 +972,8 @@ public class BookRoomController {
 
         String date = datePicker.getValue().toString();
         String endDate = endDatePicker.getValue().toString();
-        date += "T" + String.format("%2d", startTime.getValue().getHour()) + ":" + String.format("%2d", startTime.getValue().getMinute()) + ":00";
-        endDate += "T" + String.format("%2d", endTime.getValue().getHour()) + ":" + String.format("%2d", endTime.getValue().getMinute()) + ":00";
+        date += "T" + String.format("%02d", startTime.getValue().getHour()) + ":" + String.format("%02d", startTime.getValue().getMinute()) + ":00";
+        endDate += "T" + String.format("%02d", endTime.getValue().getHour()) + ":" + String.format("%02d", endTime.getValue().getMinute()) + ":00";
         RoomAccess ra = new RoomAccess();
 
         ArrayList<String[]> data = ra.getReservations(date, endDate, roomName);
@@ -1026,8 +1035,8 @@ public class BookRoomController {
         LocalTime startLT = LocalTime.of(0,0);
         LocalTime endLT = LocalTime.of(0, 30);
         for(int i = 0; i < 48; i++){
-            theDate = dailyDatePicker.getValue().toString() + "T" + String.format("%2d",startLT.getHour()) + ":" + String.format("%2d",startLT.getMinute()) + ":00";
-            endDate = dailyDatePicker.getValue().toString() + "T" + String.format("%2d",endLT.getHour()) + ":" + String.format("%2d",endLT.getMinute()) + ":00";
+            theDate = dailyDatePicker.getValue().toString() + "T" + String.format("%02d",startLT.getHour()) + ":" + String.format("%02d",startLT.getMinute()) + ":00";
+            endDate = dailyDatePicker.getValue().toString() + "T" + String.format("%02d",endLT.getHour()) + ":" + String.format("%02d",endLT.getMinute()) + ":00";
             // System.out.println("Start Time: " + startTime + " End Time: " + endTime);
             TreeItem<Room> bookedRooms = new TreeItem<Room>(new Room(startLT, endLT, ra.getAvailRooms(theDate, endDate)));
             Root.getChildren().add(bookedRooms);
