@@ -344,7 +344,6 @@ public class BookRoomController {
                 reservationPane.setMinSize(width, height);
                 reservationPane.setPrefSize(width, height);
                 reservationPane.setLayoutX(anchorPane.getWidth());
-                reservationPane.setLayoutY(anchorPane.getHeight()-reservationPane.getHeight()-10);
                 bookedEventPane.setMinSize(width, height);
                 bookedEventPane.setPrefSize(width, height);
                 fieldsEntered();
