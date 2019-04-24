@@ -107,9 +107,11 @@ public class Esp_Server extends Thread {
                         }
                         else if (message.equals("TOGGLE ON")) {
                             isEmergency = true;
+                            System.out.println("EMERGENCY ON");
                         }
                         else if (message.equals("TOGGLE OFF")) {
                             isEmergency = false;
+                            System.out.println("EMERGENCY OFF");
                         }
                         else if (message.equals("Hello server!")) {
                             System.out.println("ESP CONNECTED");
@@ -122,6 +124,10 @@ public class Esp_Server extends Thread {
                 }
         );
 
+    }
+
+    public void turnOffEmergency() {
+        isEmergency = false;
     }
 
     public boolean getFree() {
