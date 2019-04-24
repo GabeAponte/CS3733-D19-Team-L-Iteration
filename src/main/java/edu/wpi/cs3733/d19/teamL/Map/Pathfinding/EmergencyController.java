@@ -335,6 +335,7 @@ public class EmergencyController {
 
 
     private void activateEmergencyMode(){
+        DisableEmergMode.setDisable(false);
         //GOTO KIOSKFLOOR
         gotoKioskFloor();
         //does displaykiosk
@@ -356,7 +357,7 @@ public class EmergencyController {
         }
         gotoKioskFloor();
         displayExits();
-        DisableEmergMode.setDisable(false);
+
     }
 
 
@@ -406,10 +407,11 @@ public class EmergencyController {
         if(path != null){
             displayingPath = true;
             displayPath();
+            gesturePane.reset();
+            //direction.clear();
         }
         displayExits();
-        gesturePane.reset();
-        //direction.clear();
+
     }
     @FXML
     private void clickedL1() {
@@ -423,10 +425,11 @@ public class EmergencyController {
         if(path != null){
             displayingPath = true;
             displayPath();
+            gesturePane.reset();
+            //direction.clear();
         }
         displayExits();
-        gesturePane.reset();
-        //direction.clear();
+
     }
     @FXML
     public void clickedL2(){
@@ -440,10 +443,11 @@ public class EmergencyController {
         if(path != null){
             displayingPath = true;
             displayPath();
+            gesturePane.reset();
+            //direction.clear();
         }
         displayExits();
-        gesturePane.reset();
-        //direction.clear();
+
     }
     @FXML
     private void clicked1(){
@@ -457,10 +461,11 @@ public class EmergencyController {
         if(path != null){
             displayingPath = true;
             displayPath();
+            gesturePane.reset();
+            //direction.clear();
         }
         displayExits();
-        gesturePane.reset();
-        //direction.clear();
+
     }
     @FXML
     private void clicked2(){
@@ -474,10 +479,11 @@ public class EmergencyController {
         if(path != null){
             displayingPath = true;
             displayPath();
+            gesturePane.reset();
+            //direction.clear();
         }
         displayExits();
-        gesturePane.reset();
-        //direction.clear();
+
     }
     @FXML
     private void clicked3(){
@@ -491,10 +497,11 @@ public class EmergencyController {
         if(path != null){
             displayingPath = true;
             displayPath();
+            gesturePane.reset();
+            //direction.clear();
         }
         displayExits();
-        gesturePane.reset();
-        //direction.clear();
+
     }
 
 
