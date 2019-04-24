@@ -32,10 +32,10 @@ public class AudioVisualAccess extends DBAccess {
      * adds a new audioVisual request to the database
      *
      */
-    public void makeRequest(String desc, String destination, String location, String type){
+    public void makeRequest(String desc, String destination, String location, String type, String reportTime){
         String sql = "insert into audioVisualRequest(" +
-                "comment, location, destination, creationTime, creationDate, type)" +
-                "values (?, ?, ?, ?, ?, ?)";
+                "comment, location, destination, creationTime, creationDate, type, reportTime)" +
+                "values (?, ?, ?, ?, ?, ?, ?)";
 
         try (Connection conn = this.connect();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
@@ -46,6 +46,7 @@ public class AudioVisualAccess extends DBAccess {
             pstmt.setInt(4, Integer.parseInt(tdf.format(date.getTime())));
             pstmt.setString(5, sdf.format(date));
             pstmt.setString(6, type);
+            pstmt.setString(7, reportTime);
             pstmt.executeUpdate();
         } catch (SQLException e) {
             System.out.println(e.getMessage());

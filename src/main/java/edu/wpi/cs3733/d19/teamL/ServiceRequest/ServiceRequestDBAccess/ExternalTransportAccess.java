@@ -32,10 +32,10 @@ public class ExternalTransportAccess extends DBAccess {
      * adds a new religious request to the database
      *
      */
-    public void makeRequest(String desc, String location, String destination, String type, String phone){
+    public void makeRequest(String desc, String location, String destination, String type, String phone, String reportTime){
         String sql = "insert into externalTransportationRequest(" +
-                "comment, location, destination, type, phoneNumber, creationTime, creationDate)" +
-                "values (?, ?, ?, ?, ?, ?, ?)";
+                "comment, location, destination, type, phoneNumber, creationTime, creationDate, reportTime)" +
+                "values (?, ?, ?, ?, ?, ?, ?, ?)";
 
         try (Connection conn = this.connect();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
@@ -47,6 +47,7 @@ public class ExternalTransportAccess extends DBAccess {
             pstmt.setString(7, sdf.format(date));
             pstmt.setString(4, type);
             pstmt.setString(5, phone);
+            pstmt.setString(8, reportTime);
             pstmt.executeUpdate();
         } catch (SQLException e) {
             System.out.println(e.getMessage());

@@ -34,10 +34,10 @@ public class ReligiousRequestAccess extends DBAccess {
      * adds a new religious request to the database
      *
      */
-    public void makeRequest(String desc, String denom, String location, String name, String type){
+    public void makeRequest(String desc, String denom, String location, String name, String type, String reportTime){
         String sql = "insert into religiousRequest(" +
-                "comment, denomination, location, creationTime, creationDate, name, type)" +
-                "values (?, ?, ?, ?, ?, ?, ?)";
+                "comment, denomination, location, creationTime, creationDate, name, type, reportTime)" +
+                "values (?, ?, ?, ?, ?, ?, ?, ?)";
 
         try (Connection conn = this.connect();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
@@ -49,6 +49,7 @@ public class ReligiousRequestAccess extends DBAccess {
             pstmt.setString(5, sdf.format(date));
             pstmt.setString(6, name);
             pstmt.setString(7, type);
+            pstmt.setString(8, reportTime);
             pstmt.executeUpdate();
         } catch (SQLException e) {
             System.out.println(e.getMessage());

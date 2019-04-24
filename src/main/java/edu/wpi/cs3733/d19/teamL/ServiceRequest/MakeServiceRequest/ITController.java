@@ -3,6 +3,7 @@ package edu.wpi.cs3733.d19.teamL.ServiceRequest.MakeServiceRequest;
 import edu.wpi.cs3733.d19.teamL.HomeScreens.HomeScreenController;
 import edu.wpi.cs3733.d19.teamL.Map.Pathfinding.NodesAccess;
 import edu.wpi.cs3733.d19.teamL.Memento;
+import edu.wpi.cs3733.d19.teamL.Reports.requestReportAccess;
 import edu.wpi.cs3733.d19.teamL.ServiceRequest.ServiceRequestDBAccess.ServiceRequestAccess;
 import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXTextArea;
@@ -23,6 +24,7 @@ import javafx.stage.Stage;
 import javafx.util.Duration;
 
 import java.io.IOException;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 
 
@@ -102,10 +104,15 @@ public class ITController {
         single.setLastTime();
         single.setDoPopup(true);
         ServiceRequestAccess sra = new ServiceRequestAccess();
-        sra.makeITRequest(description.getText(), loc.getValue(), device.getValue(), problem.getValue());
+        String time = LocalDateTime.now().toString();
+        sra.makeITRequest(description.getText(), loc.getValue(), device.getValue(), problem.getValue(), time);
         Memento m = single.getOrig();
         Parent newPage = FXMLLoader.load(getClass().getClassLoader().getResource(m.getFxml()));
         ((Node) event.getSource()).getScene().setRoot(newPage);
+
+        requestReportAccess ra = new requestReportAccess();
+        ra.addReport(time, "none", "inprogress", "IT", problem.getValue(), loc.getValue());
+
 
     }
 

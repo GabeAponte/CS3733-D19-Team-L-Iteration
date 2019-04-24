@@ -8,10 +8,13 @@ import edu.wpi.cs3733.d19.teamL.Account.CreateEditAccountController;
 import edu.wpi.cs3733.d19.teamL.Account.EmployeeAccess;
 import edu.wpi.cs3733.d19.teamL.Map.Pathfinding.PathFindingController;
 import edu.wpi.cs3733.d19.teamL.Memento;
+import edu.wpi.cs3733.d19.teamL.Reports.ReportThread;
 import edu.wpi.cs3733.d19.teamL.Singleton;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.animation.TranslateTransition;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -66,6 +69,9 @@ public class AdminLoggedInHomeController {
     private Button settingBtn;
 
     @FXML
+    private Button menuBack;
+
+    @FXML
     private Button editAccount;
 
     @FXML
@@ -76,6 +82,9 @@ public class AdminLoggedInHomeController {
 
     @FXML
     private AnchorPane settingPane;
+
+    @FXML
+    private ComboBox<String> RequestType;
 
     @FXML
     private TextField timeoutTime;
@@ -121,6 +130,18 @@ public class AdminLoggedInHomeController {
         EmployeeAccess ea = new EmployeeAccess();
         welcome.setText("Welcome, " + ea.getEmployeeInformation(single.getUsername()).get(3));
 
+        ObservableList<String> requestTypes = FXCollections.observableArrayList();
+        requestTypes.add("AudioVisual");
+        requestTypes.add("InternalTransport");
+        requestTypes.add("IT");
+        requestTypes.add("Maintenance");
+        requestTypes.add("Prescription");
+        requestTypes.add("Religious");
+        requestTypes.add("Sanitation");
+        requestTypes.add("Security");
+        requestTypes.add("Language");
+        RequestType.setItems(requestTypes);
+
     }
 
     @FXML
@@ -134,12 +155,24 @@ public class AdminLoggedInHomeController {
                 openSetting.setToX(-325.0D);
                 openSetting.play();
             } else {
-                System.out.println("got here");
+                //System.out.println("got here");
                 closeSetting.setToX(this.settingPane.getWidth());
                 closeSetting.play();
             }
 
         });
+        this.menuBack.setOnAction((evt) -> {
+            //  settingPane.setLayoutX(mapColumn.getMaxWidth()-200);
+            if (this.settingPane.getTranslateX() != -325.0D) {
+                openSetting.setToX(-325.0D);
+                openSetting.play();
+            } else {
+                //System.out.println("got here");
+                closeSetting.setToX(this.settingPane.getWidth());
+                closeSetting.play();
+            }
+        });
+
 
     }
     @FXML
@@ -347,5 +380,26 @@ public class AdminLoggedInHomeController {
             // ... user chose CANCEL or closed the dialog
         }
 
+    }
+
+    @FXML
+    private void GeneratePathFindingReport() {
+        ReportThread rt = new ReportThread(1);
+        rt.start();
+    }
+
+    @FXML
+    private void GenerateGeneralServiceRequestOverview() {
+        ReportThread rt = new ReportThread(2);
+        rt.start();
+    }
+
+    @FXML
+    private void GenerateSpecificServiceRequest() {
+        if (RequestType!=null) {
+            ReportThread rt = new ReportThread(3);
+            rt.setRequestType(RequestType.getValue());
+            rt.start();
+        }
     }
 }
