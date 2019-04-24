@@ -103,6 +103,12 @@ public class Esp_Server extends Thread {
                         else if (message.equals("FREE")) {
                             isFree = true;
                         }
+                        else if (message.equals("Hello server!")) {
+                            System.out.println("ESP CONNECTED");
+                        }
+                        else if (message.equals("Hello server!1")){
+                            System.out.println("SECOND ESP CONNECTED");
+                        }
                         //System.out.println(message);
                     }
                 }

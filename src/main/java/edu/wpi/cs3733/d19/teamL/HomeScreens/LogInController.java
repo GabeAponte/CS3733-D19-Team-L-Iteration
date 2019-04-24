@@ -93,10 +93,10 @@ public class LogInController {
                         Rectangle2D bounds = screen.getVisualBounds();
 
                         Scene newScene = new Scene(sceneMain);
-                        thisStage.setMaximized(true);
+                       // thisStage.setMaximized(true);
                         thisStage.setScene(newScene);
-                        thisStage.setX(bounds.getMinX());
-                        thisStage.setY(bounds.getMinY());
+                      //  thisStage.setX(bounds.getMinX());
+                        //thisStage.setY(bounds.getMinY());
                         thisStage.setWidth(bounds.getWidth());
                         thisStage.setHeight(bounds.getHeight());
                         timeout.stop();
@@ -107,7 +107,9 @@ public class LogInController {
             }
         }));
         timeout.setCycleCount(Timeline.INDEFINITE);
+        login.setDisable(true);
         timeout.play();
+
     }
 
     @SuppressWarnings("Duplicates")
@@ -134,11 +136,10 @@ public class LogInController {
         Singleton single = Singleton.getInstance();
         single.setLastTime();
 
-        Boolean disable = (username.getText().isEmpty() || username.getText().trim().isEmpty() || password.getText().isEmpty() || password.getText().trim().isEmpty());
-        if (!disable) {
-            login.setDisable(false);
-        } else {
+        if (username.getText().isEmpty() || username.getText().trim().isEmpty() || password.getText().isEmpty() || password.getText().trim().isEmpty()) {
             login.setDisable(true);
+        } else {
+            login.setDisable(false);
         }
     }
 

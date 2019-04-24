@@ -199,7 +199,7 @@
                                                         <Font size="18.0" />
                                                     </font>
                                                 </Label>
-                                                <JFXDatePicker fx:id="datePicker" defaultColor="#f5d96b" onAction="#fieldsEntered" prefHeight="60.0" prefWidth="225.0" promptText="Start Date" styleClass="date-picker" stylesheets="@Default.css" />
+                                                <JFXDatePicker fx:id="datePicker" defaultColor="#f5d96b" onAction="#fieldsEntered" prefHeight="60.0" prefWidth="225.0" promptText="Start Date" styleClass="jfx-date-pickerB" stylesheets="@Default.css" />
                                             </children>
                                  <GridPane.margin>
                                     <Insets bottom="5.0" top="5.0" />
@@ -228,7 +228,7 @@
                                                         <Font size="18.0" />
                                                     </font>
                                                 </Label>
-                                                <JFXDatePicker fx:id="endDatePicker" defaultColor="#f5d96b" onAction="#fieldsEntered" prefHeight="50.0" prefWidth="225.0" promptText="End Date" styleClass="date-picker" stylesheets="@Default.css" />
+                                                <JFXDatePicker fx:id="endDatePicker" defaultColor="#f5d96b" onAction="#fieldsEntered" prefHeight="50.0" prefWidth="225.0" promptText="End Date" styleClass="jfx-date-pickerB" stylesheets="@Default.css" />
                                             </children>
                                  <GridPane.margin>
                                     <Insets bottom="5.0" top="15.0" />
