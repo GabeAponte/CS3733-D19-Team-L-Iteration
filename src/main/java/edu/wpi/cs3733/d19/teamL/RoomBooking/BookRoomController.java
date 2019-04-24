@@ -616,7 +616,7 @@ public class BookRoomController {
                             openEventInfo(false, null);
                         }else{
                             String temp = "";
-                            openEventInfo(true, temp);
+                            openEventInfo(true, DisplayRooms.get(k).getRoomName());
                         }
                     }
                     DisplayRooms.get(k).changePolygonColor("BLUE");
@@ -881,21 +881,21 @@ public class BookRoomController {
         endDate += "T" + endTime.getValue().getHour()  + ":" + endTime.getValue().getMinute() + ":00";
         RoomAccess ra = new RoomAccess();
 
-        ArrayList<String[]> data = ra.getReservations(date, endDate);
+        ArrayList<String[]> data = ra.getReservations(date, endDate, roomName);
 
         TranslateTransition openNav = new TranslateTransition(new Duration(400.0D), this.bookedEventPane);
         openNav.setToX(0.0D);
         TranslateTransition closeNav = new TranslateTransition(new Duration(400.0D), this.bookedEventPane);
         if (open == true){
             roomNameLabel.setText("Room name: " + data.get(0)[0]);
-            startTimeLabel.setText("Start time: " + startTime.getValue().getHour() + ":" + startTime.getValue().getMinute() + ":00");
-            endTimeLabel.setText("End time: " + endTime.getValue().getHour()  + ":" + endTime.getValue().getMinute() + ":00");
-            startDateLabel.setText("Start date: " + datePicker.getValue().toString());
-            endDateLabel.setText("End date: " + endDatePicker.getValue().toString());
+            startTimeLabel.setText("Start time: " + data.get(0)[7].substring(0,10));
+            endTimeLabel.setText("End time: " + data.get(0)[8].substring(0,10));
+            startDateLabel.setText("Start date: " + data.get(0)[7].substring(11));
+            endDateLabel.setText("End date: " + data.get(0)[8].substring(11));
             creatorLabel.setText("Creator: " + data.get(0)[1]);
-            eventTypeLabel.setText("Event type: " + data.get(0)[5]);
-            descriptionLabel.setText("Description: " + data.get(0)[4]);
-            invitedEmployeesLabel.setText("Invited Employees: " + data.get(0)[6]);
+            eventTypeLabel.setText("Event type: " + data.get(0)[4]);
+            descriptionLabel.setText("Description: " + data.get(0)[3]);
+            invitedEmployeesLabel.setText("Invited Employees: " + data.get(0)[5]);
 
             openNav.setToX(-570.0D-this.bookedEventPane.getWidth());
             openNav.play();

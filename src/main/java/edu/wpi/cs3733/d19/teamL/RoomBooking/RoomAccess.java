@@ -181,9 +181,9 @@ public class RoomAccess extends DBAccess {
      * @param endDate
      * @return
      */
-    public ArrayList<String[]> getReservations(String startDate, String endDate) {
-        String sql = "select re.rID, re.eID, re.title, re.description, re.type, re.guestList, re.privacy from room as ro, reservation as re" +
-                " where ro.roomID = re.rID and ((startDate <= ? and endDate > ?) or (startDate < ? and endDate >= ?))\n";
+    public ArrayList<String[]> getReservations(String startDate, String endDate, String roomName) {
+        String sql = "select re.* from room as ro, reservation as re" +
+                " where ro.roomID = re.rID and ((startDate <= ? and endDate > ?) or (startDate < ? and endDate >= ?)) and ro.name = ?";
 //                "            (\n" +
 //                "              select re.rID, re.eID, re.title, re.description, re.type, re.guestList, re.privacy\n" +
 //                "              from reservation as re\n" +
@@ -199,10 +199,11 @@ public class RoomAccess extends DBAccess {
             pstmt.setString(2, startDate);
             pstmt.setString(3, endDate);
             pstmt.setString(4, endDate);
+            pstmt.setString(5, roomName);
 
             ResultSet rs = pstmt.executeQuery();
             while(rs.next()){
-                String[] entry = new String[7];
+                String[] entry = new String[9];
                 entry[0] = rs.getString("rID");
                 entry[1] = rs.getString("eID");
                 entry[2] = rs.getString("title");
@@ -210,6 +211,9 @@ public class RoomAccess extends DBAccess {
                 entry[4] = rs.getString("type");
                 entry[5] = rs.getString("guestList");
                 entry[6] = rs.getString("privacy");
+                entry[7] = rs.getString("startDate");
+                entry[8] = rs.getString("endDate");
+
                 data.add(entry);
             }
             return data;
