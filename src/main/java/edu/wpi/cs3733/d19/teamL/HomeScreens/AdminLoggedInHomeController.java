@@ -342,22 +342,22 @@ public class AdminLoggedInHomeController {
             wp.setDisplayDebugInfo(true);
             wp.setImageSizeDisplayed(true);
             wp.setMirrored(true);
-            JFrame window = new JFrame("Hold still for 2.5 seconds");
-            window.add(wp);
-            window.setResizable(true);
-            window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-            window.pack();
-            window.setLocationRelativeTo(null);
-            window.setVisible(true);
+            //JFrame window = new JFrame("Hold still for 2.5 seconds");
+            //window.add(wp);
+            //window.setResizable(true);
+            //window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+            //window.pack();
+            //window.setLocationRelativeTo(null);
+            //window.setVisible(true);
             try {
-                sleep(2500);
+                sleep(200);
             } catch (InterruptedException e) {
                 System.out.println(e);
                 System.out.println(e.getMessage());
             }
             wp.stop();
             webcam.close();
-            window.dispose();
+            //window.dispose();
 
             webcam.open();
             BufferedImage image = webcam.getImage();
