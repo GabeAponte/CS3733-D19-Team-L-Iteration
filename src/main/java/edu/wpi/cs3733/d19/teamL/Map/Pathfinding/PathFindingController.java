@@ -429,7 +429,7 @@ public class PathFindingController {
             }
 
             if (currentMap.equals("4")) {
-                thisMap.setText("Flexible Workspace");
+                thisMap.setText("Floor 4");
             }
         }
         @FXML
@@ -462,7 +462,7 @@ public class PathFindingController {
         public void initialize () {
             Singleton single = Singleton.getInstance();
             single.setLastTime();
-            settingPressed();
+            //settingPressed();
 
             na = new NodesAccess();
             ea = new EdgesAccess();
@@ -633,13 +633,8 @@ public class PathFindingController {
             hereLabel = new Label();
             //Adds the text to the screen
             pathPane.getChildren().add(hereLabel);
-            menubtn.setVisible(false);
             if (!single.isLoggedIn()) {
                 logOut.setVisible(false);
-            }
-            if (single.isIsAdmin()) {
-                menubtn.setDisable(false);
-                menubtn.setVisible(true);
             }
 
             nameToLoc.clear();
@@ -826,25 +821,6 @@ public class PathFindingController {
             circles.add(kiosk);
             pathPane.getChildren().add(kiosk);
             labels.add(hereLabel);
-        }
-
-        @FXML
-        private void settingPressed () {
-            TranslateTransition openSetting = new TranslateTransition(new Duration(300.0D), this.settingPane);
-            openSetting.setToY(0.0D);
-            TranslateTransition closeSetting = new TranslateTransition(new Duration(300.0D), this.settingPane);
-            this.menubtn.setOnAction((evt) -> {
-                //  settingPane.setLayoutX(mapColumn.getMaxWidth()-200);
-                if (this.settingPane.getTranslateY() != 450.0D) {
-                    openSetting.setToY(450.0D);
-                    openSetting.play();
-                } else {
-                    closeSetting.setToY(-this.settingPane.getHeight());
-                    closeSetting.play();
-                }
-
-            });
-
         }
 
         @FXML
@@ -1136,7 +1112,13 @@ public class PathFindingController {
             dude.setCenterX(path.getPath().get(begin).getXcoord() * childPane.getWidth() / Map.getImage().getWidth());
             dude.setCenterY(path.getPath().get(begin).getYcoord() * childPane.getHeight() / Map.getImage().getHeight());
             dude.setRadius(Math.max(5, 5f));
-            dude.setFill(new ImagePattern((new Image("/SoftEng_UI_Mockup_Pics/IconPerson.png"))));
+            //Delightful extra feature
+            if(single.getUsername().equals("Wong")) {
+                dude.setFill(new ImagePattern((new Image("/SoftEng_UI_Mockup_Pics/WoongHead.jpg"))));
+            }
+            else {
+                dude.setFill(new ImagePattern((new Image("/SoftEng_UI_Mockup_Pics/IconPerson.png"))));
+            }
 
             javafx.scene.shape.Path path2 = new javafx.scene.shape.Path();
 

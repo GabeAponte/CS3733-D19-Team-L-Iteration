@@ -1,6 +1,5 @@
 package edu.wpi.cs3733.d19.teamL.HomeScreens;
 
-import edu.wpi.cs3733.d19.teamL.Account.EmployeeAccess;
 import edu.wpi.cs3733.d19.teamL.Memento;
 import edu.wpi.cs3733.d19.teamL.Singleton;
 import javafx.animation.KeyFrame;
@@ -13,17 +12,12 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
-import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
 import java.io.IOException;
 
-public class AboutPageFancyController {
-
-    private Stage thestage;
+public class CreditsPageController {
 
     @FXML
     private Button back;
@@ -91,20 +85,6 @@ public class AboutPageFancyController {
         Memento m = single.getOrig();
         Parent newPage = FXMLLoader.load(getClass().getClassLoader().getResource(m.getFxml()));
         ((Node) event.getSource()).getScene().setRoot(newPage);
-    }
-
-    @FXML
-    private void creditsPress(ActionEvent event){
-        timeout.stop();
-        saveState();
-        Singleton single = Singleton.getInstance();
-        single.setLastTime();
-        try {
-            Parent newPage = FXMLLoader.load(getClass().getClassLoader().getResource("CreditsPage.fxml"));
-            ((Node) event.getSource()).getScene().setRoot(newPage);
-
-        } catch (Exception e){
-        }
     }
 
     /**@author Nathan

@@ -49,6 +49,10 @@ import javafx.util.Duration;
 import org.controlsfx.control.CheckComboBox;
 import org.w3c.dom.Text;
 
+//Import APIs
+import giftRequest.GiftRequest;
+import foodRequest.FoodRequest;
+
 public class BookRoomController {
 
     @FXML
@@ -159,6 +163,12 @@ public class BookRoomController {
 
     @FXML
     private JFXButton requestRoom;
+
+    @FXML
+    private JFXButton orderGifts;
+
+    @FXML
+    private JFXButton orderFood;
 
     @FXML
     private JFXTimePicker startTime;
@@ -914,6 +924,7 @@ public class BookRoomController {
             openNav.play();
             resShowing = true;
             openEventInfo(false, null);
+            callServiceRequests();
             //System.out.println("ResShowing = true");
         } else {
             closeNav.setToX(-this.anchorPane.getWidth()+this.reservationPane.getWidth()+sizingPane.getLayoutX()+sizingPane.getWidth());
@@ -921,6 +932,28 @@ public class BookRoomController {
             resShowing = false;
             //System.out.println("ResShowing = false");
         }
+    }
+
+    private void callServiceRequests() {
+        orderFood.setOnAction((evt) -> {
+            FoodRequest foodRequest = new FoodRequest();
+            try{
+                foodRequest.run(0,0,1280,720,null,null,null);
+            }catch (Exception e){
+                System.out.println("Failed to run API");
+                e.printStackTrace();
+            }
+        });
+
+        orderGifts.setOnAction((evt) -> {
+            GiftRequest gr = new GiftRequest();
+            try{
+                gr.run(0,0,1280,720,null,null,null);
+            }catch (Exception e){
+                System.out.println("Failed to run API");
+                e.printStackTrace();
+            }
+        });
     }
 
     /** @author Isabella

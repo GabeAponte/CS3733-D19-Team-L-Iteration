@@ -32,9 +32,6 @@
                     <VBox.margin>
                         <Insets />
                     </VBox.margin>
-                    <padding>
-                        <Insets left="10.0" right="10.0" />
-                    </padding>
                     <center>
                         <HBox alignment="CENTER" prefHeight="100.0" prefWidth="1315.0" BorderPane.alignment="CENTER">
                             <children>
@@ -48,6 +45,7 @@
                                         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                                     </rowConstraints>
                                     <children>
+                                        <HBox fx:id="hi" alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" style="-fx-background-color: #ce2029;" GridPane.columnSpan="3" />
                                         <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1">
                                             <children>
                                                 <ImageView fitHeight="75.0" fitWidth="325.0" preserveRatio="true">
@@ -56,35 +54,29 @@
                                                     </image>
                                                 </ImageView>
                                             </children>
+                                 <GridPane.margin>
+                                    <Insets />
+                                 </GridPane.margin>
                                         </HBox>
-                                        <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0">
-                                 <children>
-                                          <Label text="EMERGENCY MODE" textFill="RED">
-                                              <font>
-                                                  <Font name="System Bold" size="45.0" />
-                                              </font>
-                                          </Label>
-                                 </children>
-                                        </HBox>
-                                        <HBox alignment="CENTER_RIGHT" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="2">
-                                            <children>
-                                            <JFXButton fx:id="AdminRemoveEmerg" alignment="CENTER" buttonType="RAISED" contentDisplay="TOP" focusTraversable="false" graphicTextGap="0.0" maxHeight="-Infinity" minHeight="-Infinity" onAction="#AdminRemoveEmergPress" prefHeight="72.0" prefWidth="110.0" ripplerFill="#b0b0b0" style="-fx-border-color: #012d5a; -fx-border-width: 2;" styleClass="buttonToolbar" stylesheets="@Default.css" text="Unlock" textAlignment="CENTER" textFill="#012d5a">
-                                                <font>
-                                                    <Font name="System Bold" size="17.0" />
-                                                </font>
-                                                <graphic>
-                                                    <FontAwesomeIconView fill="#012d5a" glyphName="LOCK" size="35" strokeMiterLimit="0.0" textAlignment="CENTER" wrappingWidth="27.27392578125" />
-                                                </graphic>
-                                            </JFXButton>
-                                            </children>
-                                        </HBox>
+                                        <HBox alignment="CENTER_RIGHT" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="2" />
+                                      <JFXButton fx:id="AdminRemoveEmerg" alignment="CENTER" buttonType="RAISED" contentDisplay="TOP" focusTraversable="false" graphicTextGap="0.0" maxHeight="-Infinity" minHeight="-Infinity" onAction="#AdminRemoveEmergPress" prefHeight="72.0" prefWidth="110.0" ripplerFill="#b0b0b0" style="-fx-border-color: #012d5a; -fx-border-width: 2;" styleClass="buttonToolbar" stylesheets="@Default.css" text="Unlock" textAlignment="CENTER" textFill="#012d5a">
+                                          <font>
+                                              <Font name="System Bold" size="17.0" />
+                                          </font>
+                                          <graphic>
+                                              <FontAwesomeIconView fill="#012d5a" glyphName="LOCK" size="35" strokeMiterLimit="0.0" textAlignment="CENTER" wrappingWidth="27.27392578125" />
+                                          </graphic>
+                                 <GridPane.margin>
+                                    <Insets left="20.0" />
+                                 </GridPane.margin>
+                                      </JFXButton>
                                     </children>
                                 </GridPane>
                             </children>
                         </HBox>
                     </center>
                 </JFXToolbar>
-                <JFXToolbar minHeight="-Infinity" prefHeight="10.0" prefWidth="1280.0" style="-fx-background-color: RED;" />
+                <JFXToolbar minHeight="-Infinity" prefHeight="10.0" prefWidth="1280.0" style="-fx-background-color: #ce2029;" />
                 <StackPane fx:id="mainContent" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" style="-fx-background-color:rgba(0,0,0,0.30)" VBox.vgrow="ALWAYS">
                     <children>
                         <GridPane fx:id="gridPane" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
@@ -101,38 +93,45 @@
                                 <RowConstraints />
                             </rowConstraints>
                             <children>
-                                <VBox fx:id="scrollVBox" alignment="TOP_CENTER" style="-fx-border-color: RED; -fx-border-radius: 15; -fx-border-width: 2.25;" GridPane.columnIndex="1" GridPane.hgrow="ALWAYS" GridPane.rowSpan="2" GridPane.vgrow="ALWAYS">
+                        <VBox prefHeight="200.0" prefWidth="100.0" styleClass="vboxPathImage" stylesheets="@Default.css" GridPane.columnIndex="1" />
+                                <VBox fx:id="scrollVBox" alignment="TOP_CENTER" style="-fx-border-color: #ce2029; -fx-border-radius: 15; -fx-border-width: 2.25;" GridPane.columnIndex="1" GridPane.hgrow="ALWAYS" GridPane.rowSpan="2" GridPane.vgrow="ALWAYS">
                                     <children>
                                         <GridPane alignment="TOP_CENTER" style="-fx-border-width: 4;" VBox.vgrow="ALWAYS">
                                             <columnConstraints>
-                                                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                                <ColumnConstraints hgrow="NEVER" minWidth="10.0" prefWidth="100.0" />
                                             </columnConstraints>
                                             <rowConstraints>
-                                                <RowConstraints maxHeight="1.7976931348623157E308" minHeight="0.0" prefHeight="211.66668701171875" vgrow="ALWAYS" />
-                                                <RowConstraints maxHeight="1.7976931348623157E308" minHeight="29.0" prefHeight="32.33331298828125" vgrow="ALWAYS" />
+                                                <RowConstraints maxHeight="-Infinity" minHeight="0.0" percentHeight="25.0" prefHeight="211.66668701171875" vgrow="NEVER" />
+                                                <RowConstraints maxHeight="-Infinity" minHeight="29.0" percentHeight="5.0" prefHeight="32.33331298828125" vgrow="NEVER" />
                                                 <RowConstraints maxHeight="487.0" minHeight="290.9999694824219" prefHeight="346.66668701171875" vgrow="ALWAYS" />
                                             </rowConstraints>
                                             <children>
-                                                <Label alignment="CENTER" prefHeight="229.0" prefWidth="318.0" text="PLEASE PROCEED TO THE NEAREST EXIT:" textAlignment="CENTER" textFill="RED" underline="true" wrapText="true" GridPane.columnSpan="2147483647" GridPane.halignment="CENTER" GridPane.vgrow="NEVER">
+                                                <Label alignment="CENTER" prefHeight="229.0" prefWidth="318.0" text="PLEASE PROCEED TO THE NEAREST EXIT:" textAlignment="CENTER" textFill="#ce2029" underline="true" wrapText="true" GridPane.columnSpan="2147483647" GridPane.halignment="CENTER" GridPane.vgrow="NEVER">
                                                     <font>
-                                                        <Font size="40.0" />
+                                                        <Font name="Trebuchet MS" size="37.0" />
                                                     </font>
                                                     <GridPane.margin>
-                                                        <Insets bottom="5.0" top="10.0" />
+                                                        <Insets />
                                                     </GridPane.margin>
+                                       <padding>
+                                          <Insets bottom="5.0" left="10.0" right="10.0" top="5.0" />
+                                       </padding>
                                                 </Label>
-                                                <Label fx:id="LongNameOfExit" alignment="CENTER" contentDisplay="CENTER" prefHeight="33.0" prefWidth="9.0" text=" " textFill="WHITE" wrapText="true" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
+                                                <Label fx:id="LongNameOfExit" alignment="CENTER" contentDisplay="CENTER" prefHeight="36.0" prefWidth="316.0" textFill="WHITE" wrapText="true" GridPane.halignment="CENTER" GridPane.hgrow="NEVER" GridPane.rowIndex="1" GridPane.valignment="TOP" GridPane.vgrow="NEVER">
                                                     <font>
-                                                        <Font size="30.0" />
+                                                        <Font name="Trebuchet MS" size="25.0" />
                                                     </font>
                                                 </Label>
-                                                <JFXTextArea fx:id="direction" focusColor="#ffffff00" stylesheets="@Default.css" text="Please follow the exit signs to your closest exit" unFocusColor="#ffffff00" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="2" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
+                                                <JFXTextArea fx:id="direction" editable="false" focusColor="#ffffff00" stylesheets="@Default.css" text="Please follow the exit signs to the closest exit" unFocusColor="#ffffff00" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="2" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
                                                     <font>
-                                                        <Font size="20.0" />
+                                                        <Font name="Trebuchet MS" size="20.0" />
                                                     </font>
                                        <GridPane.margin>
                                           <Insets left="10.0" right="10.0" />
                                        </GridPane.margin>
+                                       <padding>
+                                          <Insets top="10.0" />
+                                       </padding>
                                                 </JFXTextArea>
                                             </children>
                                         </GridPane>
@@ -151,68 +150,68 @@
                                         <Insets top="28.0" />
                                     </GridPane.margin>
                                     <font>
-                                        <Font name="System Bold" size="25.0" />
+                                        <Font name="Trebuchet MS Bold" size="25.0" />
                                     </font>
                                 </Label>
-                                <JFXButton fx:id="L2" alignment="CENTER" buttonType="RAISED" maxHeight="-Infinity" maxWidth="-Infinity" onAction="#clickedL2" prefHeight="46.0" prefWidth="80.0" style="-fx-border-color: #012d5a; -fx-border-radius: 100; -fx-background-radius: 100; -fx-border-width: 2;" text="L2" textFill="#012d5a" GridPane.halignment="CENTER" GridPane.valignment="BOTTOM">
+                                <JFXButton fx:id="L2" alignment="CENTER" buttonType="RAISED" maxHeight="-Infinity" maxWidth="-Infinity" onAction="#clickedL2" prefHeight="46.0" prefWidth="80.0" styleClass="buttonMap" stylesheets="@Default.css" text="L2" textFill="#012d5a" GridPane.halignment="CENTER" GridPane.valignment="BOTTOM">
                                     <font>
-                                        <Font name="System Bold" size="20.0" />
+                                        <Font name="Trebuchet MS Bold" size="20.0" />
                                     </font>
                                     <GridPane.margin>
                                         <Insets bottom="24.0" right="600.0" />
                                     </GridPane.margin>
                                 </JFXButton>
-                                <JFXButton fx:id="L1" alignment="CENTER" buttonType="RAISED" maxHeight="-Infinity" maxWidth="-Infinity" onAction="#clickedL1" prefHeight="46.0" prefWidth="80.0" style="-fx-border-color: #012d5a; -fx-border-radius: 100; -fx-background-radius: 100; -fx-border-width: 2;" text="L1" textFill="#012d5a" GridPane.halignment="CENTER" GridPane.valignment="BOTTOM">
+                                <JFXButton fx:id="L1" alignment="CENTER" buttonType="RAISED" maxHeight="-Infinity" maxWidth="-Infinity" onAction="#clickedL1" prefHeight="46.0" prefWidth="80.0" styleClass="buttonMap" stylesheets="@Default.css" text="L1" textFill="#012d5a" GridPane.halignment="CENTER" GridPane.valignment="BOTTOM">
                                     <font>
-                                        <Font name="System Bold" size="20.0" />
+                                        <Font name="Trebuchet MS Bold" size="20.0" />
                                     </font>
                                     <GridPane.margin>
                                         <Insets bottom="24.0" right="400.0" />
                                     </GridPane.margin>
                                 </JFXButton>
-                                <JFXButton fx:id="G" alignment="CENTER" buttonType="RAISED" maxHeight="-Infinity" maxWidth="-Infinity" onAction="#clickedG" prefHeight="46.0" prefWidth="80.0" style="-fx-border-color: #012d5a; -fx-border-radius: 100; -fx-background-radius: 100; -fx-border-width: 2;" text="G" textFill="#012d5a" GridPane.halignment="CENTER" GridPane.valignment="BOTTOM">
+                                <JFXButton fx:id="G" alignment="CENTER" buttonType="RAISED" maxHeight="-Infinity" maxWidth="-Infinity" onAction="#clickedG" prefHeight="46.0" prefWidth="80.0" styleClass="buttonMap" stylesheets="@Default.css" text="G" textFill="#012d5a" GridPane.halignment="CENTER" GridPane.valignment="BOTTOM">
                                     <font>
-                                        <Font name="System Bold" size="20.0" />
+                                        <Font name="Trebuchet MS Bold" size="20.0" />
                                     </font>
                                     <GridPane.margin>
                                         <Insets bottom="24.0" right="200.0" />
                                     </GridPane.margin>
                                 </JFXButton>
-                                <JFXButton fx:id="F1" alignment="CENTER" buttonType="RAISED" maxHeight="-Infinity" maxWidth="-Infinity" onAction="#clicked1" prefHeight="46.0" prefWidth="80.0" style="-fx-border-color: #012d5a; -fx-border-radius: 100; -fx-background-radius: 100; -fx-border-width: 2;" text="F1" textFill="#012d5a" GridPane.halignment="CENTER" GridPane.valignment="BOTTOM">
+                                <JFXButton fx:id="F1" alignment="CENTER" buttonType="RAISED" maxHeight="-Infinity" maxWidth="-Infinity" onAction="#clicked1" prefHeight="46.0" prefWidth="80.0" styleClass="buttonMap" stylesheets="@Default.css" text="F1" textFill="#012d5a" GridPane.halignment="CENTER" GridPane.valignment="BOTTOM">
                                     <font>
-                                        <Font name="System Bold" size="20.0" />
+                                        <Font name="Trebuchet MS Bold" size="20.0" />
                                     </font>
                                     <GridPane.margin>
                                         <Insets bottom="24.0" />
                                     </GridPane.margin>
                                 </JFXButton>
-                                <JFXButton fx:id="F2" alignment="CENTER" buttonType="RAISED" maxHeight="-Infinity" maxWidth="-Infinity" onAction="#clicked2" prefHeight="46.0" prefWidth="80.0" style="-fx-border-color: #012d5a; -fx-border-radius: 100; -fx-background-radius: 100; -fx-border-width: 2;" text="F2" textFill="#012d5a" GridPane.halignment="CENTER" GridPane.valignment="BOTTOM">
+                                <JFXButton fx:id="F2" alignment="CENTER" buttonType="RAISED" maxHeight="-Infinity" maxWidth="-Infinity" onAction="#clicked2" prefHeight="46.0" prefWidth="80.0" styleClass="buttonMap" stylesheets="@Default.css" text="F2" textFill="#012d5a" GridPane.halignment="CENTER" GridPane.valignment="BOTTOM">
                                     <font>
-                                        <Font name="System Bold" size="20.0" />
+                                        <Font name="Trebuchet MS Bold" size="20.0" />
                                     </font>
                                     <GridPane.margin>
                                         <Insets bottom="24.0" left="200.0" />
                                     </GridPane.margin>
                                 </JFXButton>
-                                <JFXButton fx:id="F3" alignment="CENTER" buttonType="RAISED" maxHeight="-Infinity" maxWidth="-Infinity" onAction="#clicked3" prefHeight="46.0" prefWidth="80.0" style="-fx-border-color: #012d5a; -fx-border-radius: 100; -fx-background-radius: 100; -fx-border-width: 2;" text="F3" textFill="#012d5a" GridPane.halignment="CENTER" GridPane.valignment="BOTTOM">
+                                <JFXButton fx:id="F3" alignment="CENTER" buttonType="RAISED" maxHeight="-Infinity" maxWidth="-Infinity" onAction="#clicked3" prefHeight="46.0" prefWidth="80.0" styleClass="buttonMap" stylesheets="@Default.css" text="F3" textFill="#012d5a" GridPane.halignment="CENTER" GridPane.valignment="BOTTOM">
                                     <font>
-                                        <Font name="System Bold" size="20.0" />
+                                        <Font name="Trebuchet MS Bold" size="20.0" />
                                     </font>
                                     <GridPane.margin>
                                         <Insets bottom="24.0" left="400.0" />
                                     </GridPane.margin>
                                 </JFXButton>
-                                <JFXButton fx:id="F4" alignment="CENTER" buttonType="RAISED" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="46.0" prefWidth="80.0" style="-fx-border-color: #012d5a; -fx-border-radius: 100; -fx-background-radius: 100; -fx-border-width: 2;" text="F4" textFill="#012d5a" GridPane.halignment="CENTER" GridPane.valignment="BOTTOM">
+                                <JFXButton fx:id="F4" alignment="CENTER" buttonType="RAISED" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="46.0" prefWidth="80.0" styleClass="buttonMap" stylesheets="@Default.css" text="F4" textFill="#012d5a" GridPane.halignment="CENTER" GridPane.valignment="BOTTOM">
                                     <font>
-                                        <Font name="System Bold" size="20.0" />
+                                        <Font name="Trebuchet MS Bold" size="20.0" />
                                     </font>
                                     <GridPane.margin>
                                         <Insets bottom="24.0" left="600.0" />
                                     </GridPane.margin>
                                 </JFXButton>
-                                <VBox fx:id="vLeft" maxWidth="-Infinity" minWidth="-Infinity" prefHeight="200.0" prefWidth="4.0" style="-fx-background-color: RED;" GridPane.halignment="LEFT" />
-                                <HBox fx:id="vBottom" maxHeight="-Infinity" minHeight="-Infinity" prefHeight="4.0" prefWidth="200.0" style="-fx-background-color: RED;" GridPane.valignment="BOTTOM" GridPane.vgrow="NEVER" />
-                                <VBox maxWidth="-Infinity" minWidth="-Infinity" prefHeight="200.0" prefWidth="3.25" style="-fx-background-color: RED;" GridPane.columnIndex="1" />
+                                <VBox fx:id="vLeft" maxWidth="-Infinity" minWidth="-Infinity" prefHeight="200.0" prefWidth="4.0" style="-fx-background-color: #ce2029;" GridPane.halignment="LEFT" />
+                                <HBox fx:id="vBottom" maxHeight="-Infinity" minHeight="-Infinity" prefHeight="4.0" prefWidth="200.0" style="-fx-background-color: #ce2029;" GridPane.valignment="BOTTOM" GridPane.vgrow="NEVER" />
+                                <VBox maxWidth="-Infinity" minWidth="-Infinity" prefHeight="200.0" prefWidth="3.25" style="-fx-background-color: #ce2029;" GridPane.columnIndex="1" />
                             </children>
                             <StackPane.margin>
                                 <Insets />
@@ -226,69 +225,77 @@
             </children>
         </VBox>
         <AnchorPane fx:id="navList" layoutX="-62.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="470.0" prefWidth="300.0" style="-fx-background-color: #012D5A; -fx-background-radius: 20; -fx-border-color: RED; -fx-border-radius: 15; -fx-border-width: 3;" translateX="-180" AnchorPane.leftAnchor="-122.0" AnchorPane.topAnchor="120.0">
-            <children>
-                <GridPane alignment="CENTER" layoutX="12.0" layoutY="12.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="353.0" prefWidth="278.0" AnchorPane.bottomAnchor="9.0" AnchorPane.leftAnchor="9.0" AnchorPane.rightAnchor="9.0" AnchorPane.topAnchor="9.0">
-                    <columnConstraints>
-                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                    </columnConstraints>
-                    <rowConstraints>
-                        <RowConstraints vgrow="ALWAYS" />
-                        <RowConstraints maxHeight="71.0" vgrow="ALWAYS" />
-                        <RowConstraints maxHeight="25.333343505859375" vgrow="ALWAYS" />
-                        <RowConstraints maxHeight="1.7976931348623157E308" vgrow="ALWAYS" />
-                        <RowConstraints maxHeight="1.7976931348623157E308" minHeight="10.0" prefHeight="30.0" vgrow="ALWAYS" />
-                    </rowConstraints>
-
-                    <children>
-                        <Label contentDisplay="CENTER" text="Enter Admin Login" textFill="RED" GridPane.columnSpan="2147483647" GridPane.halignment="LEFT">
-                            <font>
-                                <Font size="25.0" />
-                            </font>
-                            <GridPane.margin>
-                                <Insets left="10.0" top="3.0" />
-                            </GridPane.margin>
-                        </Label>
-
-                        <JFXButton fx:id="menuBack" buttonType="RAISED" contentDisplay="GRAPHIC_ONLY" onAction="#prepareSlideMenuAnimation" prefHeight="35.0" prefWidth="21.0" style="-fx-border-radius: 2; -fx-background-radius: 100000; -fx-border-color: WHITE; -fx-border-radius: 100; -fx-border-width: 1.5;" text="Back" textFill="WHITE" GridPane.columnIndex="1" GridPane.columnSpan="2147483647" GridPane.halignment="RIGHT">
-                            <font>
-                                <Font size="14.0" />
-                            </font>
-                            <graphic>
-                                <FontAwesomeIconView fill="WHITE" glyphName="ARROW_LEFT" size="20" wrappingWidth="17.5" />
-                            </graphic>
-                            <GridPane.margin>
-                                <Insets right="10.0" />
-                            </GridPane.margin>
-                        </JFXButton>
-                        <JFXTextField fx:id="adminUser" focusColor="#405aa800" prefHeight="31.0" prefWidth="266.0" promptText="Enter Username" style="-fx-background-color: WHITE;" unFocusColor="#4d4d4d00" GridPane.columnSpan="2147483647" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
-                            <GridPane.margin>
-                                <Insets bottom="20.0" left="10.0" right="10.0" top="20.0" />
-                            </GridPane.margin>
-                            <font>
-                                <Font size="15.0" />
-                            </font>
-                        </JFXTextField>
-                        <JFXPasswordField fx:id="adminPassword" focusColor="#405aa800" prefHeight="25.0" prefWidth="253.0" promptText="Enter Password" style="-fx-background-color: WHITE;" unFocusColor="#4d4d4d00" GridPane.columnSpan="2147483647" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER">
+         <children>
+            <GridPane alignment="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="435.0" prefWidth="276.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+               <columnConstraints>
+                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+               </columnConstraints>
+               <rowConstraints>
+                  <RowConstraints percentHeight="15.0" vgrow="ALWAYS" />
+                  <RowConstraints maxHeight="71.0" percentHeight="20.0" vgrow="ALWAYS" />
+                  <RowConstraints maxHeight="25.333343505859375" percentHeight="20.0" vgrow="ALWAYS" />
+                  <RowConstraints maxHeight="1.7976931348623157E308" percentHeight="25.0" vgrow="ALWAYS" />
+                  <RowConstraints maxHeight="1.7976931348623157E308" minHeight="10.0" percentHeight="20.0" prefHeight="30.0" vgrow="ALWAYS" />
+               </rowConstraints>
+               <children>
+                  <Label contentDisplay="CENTER" text="Admin Login" textFill="WHITE" GridPane.columnSpan="2147483647" GridPane.halignment="CENTER">
+                     <font>
+                        <Font name="Trebuchet MS" size="25.0" />
+                     </font>
                      <GridPane.margin>
-                        <Insets bottom="20.0" left="10.0" right="10.0" top="20.0" />
-                     </GridPane.margin></JFXPasswordField>
-                        <JFXButton fx:id="DisableEmergMode" buttonType="RAISED" disable="true" onAction="#DisableEmergModePress" onMouseClicked="#prepareSlideMenuAnimation" prefHeight="138.0" prefWidth="276.0" ripplerFill="WHITE" style="-fx-background-color: #F1F1F1; -fx-border-color: RED; -fx-border-radius: 3;" text="Disable Emergency Mode" textFill="RED" wrapText="true" GridPane.columnSpan="2147483647" GridPane.halignment="CENTER" GridPane.rowIndex="3">
-                            <font>
-                                <Font size="30.0" />
-                            </font>
-                            <GridPane.margin>
-                                <Insets bottom="20.0" top="10.0" />
-                            </GridPane.margin>
-                        </JFXButton>
-                        <Label fx:id="errorLabel" nodeOrientation="RIGHT_TO_LEFT" prefHeight="67.0" prefWidth="217.0" textFill="RED" wrapText="true" GridPane.columnSpan="2147483647" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="4" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
-                            <font>
-                                <Font size="15.0" />
-                            </font>
-                        </Label>
-                    </children>
-                </GridPane>
-            </children>
+                        <Insets left="10.0" top="3.0" />
+                     </GridPane.margin>
+                  </Label>
+                  <JFXButton fx:id="menuback" buttonType="RAISED" contentDisplay="GRAPHIC_ONLY" onAction="#AdminRemoveEmergPress" prefHeight="35.0" prefWidth="21.0" style="-fx-border-radius: 10; -fx-border-width: 1.5; -fx-border-color: ce2029; -fx-background-radius: 15;" styleClass="buttonBig" stylesheets="@Default.css" text="Back" textFill="WHITE" GridPane.columnSpan="2147483647" GridPane.halignment="RIGHT">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                     <graphic>
+                        <FontAwesomeIconView fill="WHITE" glyphName="ARROW_LEFT" size="20" wrappingWidth="17.5" />
+                     </graphic>
+                     <GridPane.margin>
+                        <Insets right="20.0" />
+                     </GridPane.margin>
+                  </JFXButton>
+                  <JFXTextField fx:id="adminUser" focusColor="#405aa800" onAction="#unDisable" onInputMethodTextChanged="#unDisable" onKeyPressed="#unDisable" onKeyReleased="#unDisable" onKeyTyped="#unDisable" prefHeight="31.0" prefWidth="266.0" promptText="Username" styleClass="jfx-text-field-emergency" stylesheets="@Default.css" unFocusColor="#4d4d4d00" GridPane.columnSpan="2147483647" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
+                     <GridPane.margin>
+                        <Insets left="20.0" right="20.0" />
+                     </GridPane.margin>
+                     <font>
+                        <Font name="Trebuchet MS" size="15.0" />
+                     </font>
+                     <padding>
+                        <Insets left="1.0" />
+                     </padding>
+                  </JFXTextField>
+                  <JFXPasswordField fx:id="adminPassword" focusColor="#405aa800" maxHeight="-Infinity" minHeight="-Infinity" onAction="#unDisable" onInputMethodTextChanged="#unDisable" onKeyPressed="#unDisable" onKeyReleased="#unDisable" onKeyTyped="#unDisable" prefHeight="31.0" prefWidth="253.0" promptText="Password" styleClass="jfx-text-field-emergency" stylesheets="@Default.css" unFocusColor="#4d4d4d00" GridPane.columnSpan="2147483647" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER">
+                     <GridPane.margin>
+                        <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+                     </GridPane.margin>
+                     <font>
+                        <Font name="Trebuchet MS" size="15.0" />
+                     </font>
+                     <padding>
+                        <Insets left="1.0" />
+                     </padding>
+                  </JFXPasswordField>
+                  <JFXButton fx:id="DisableEmergMode" buttonType="RAISED" onAction="#DisableEmergModePress" onMouseClicked="#prepareSlideMenuAnimation" prefHeight="64.0" prefWidth="145.0" ripplerFill="WHITE" style="-fx-border-color: ce2029; -fx-border-radius: 10; -fx-border-width: 2;" styleClass="buttonBig" stylesheets="@Default.css" text="Disable" textFill="RED" wrapText="true" GridPane.columnSpan="2147483647" GridPane.halignment="CENTER" GridPane.rowIndex="3">
+                     <font>
+                        <Font name="Trebuchet MS" size="25.0" />
+                     </font>
+                     <GridPane.margin>
+                        <Insets bottom="20.0" top="10.0" />
+                     </GridPane.margin>
+                  </JFXButton>
+                  <Label fx:id="errorLabel" alignment="CENTER" contentDisplay="CENTER" nodeOrientation="RIGHT_TO_LEFT" prefHeight="67.0" prefWidth="217.0" textFill="WHITE" wrapText="true" GridPane.columnSpan="2147483647" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="4" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
+                     <font>
+                        <Font size="15.0" />
+                     </font>
+                  </Label>
+               </children>
+            </GridPane>
+         </children>
         </AnchorPane>
 
     </children>
