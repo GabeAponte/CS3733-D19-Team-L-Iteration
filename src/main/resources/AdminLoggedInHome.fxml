@@ -100,7 +100,7 @@
                                           <FontAwesomeIconView fill="#012d5a" glyphName="USER" size="35" strokeMiterLimit="0.0" textAlignment="CENTER" wrappingWidth="27.27392578125" />
                                        </graphic>
                                        <HBox.margin>
-                                          <Insets right="20.0" />
+                                          <Insets right="10.0" />
                                        </HBox.margin>
                                     </JFXButton>
                                  </children>
@@ -117,17 +117,17 @@
                   <VBox alignment="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" prefHeight="610.0" prefWidth="773.0" HBox.hgrow="ALWAYS">
                      <children>
                         <GridPane prefHeight="612.0" prefWidth="707.0" VBox.vgrow="ALWAYS">
-                          <columnConstraints>
-                            <ColumnConstraints hgrow="ALWAYS" maxWidth="1.7976931348623157E308" percentWidth="25.0" prefWidth="320.0" />
-                            <ColumnConstraints hgrow="ALWAYS" maxWidth="1.7976931348623157E308" percentWidth="25.0" prefWidth="320.0" />
+                           <columnConstraints>
                               <ColumnConstraints hgrow="ALWAYS" maxWidth="1.7976931348623157E308" percentWidth="25.0" prefWidth="320.0" />
                               <ColumnConstraints hgrow="ALWAYS" maxWidth="1.7976931348623157E308" percentWidth="25.0" prefWidth="320.0" />
-                          </columnConstraints>
-                          <rowConstraints>
+                              <ColumnConstraints hgrow="ALWAYS" maxWidth="1.7976931348623157E308" percentWidth="25.0" prefWidth="320.0" />
+                              <ColumnConstraints hgrow="ALWAYS" maxWidth="1.7976931348623157E308" percentWidth="25.0" prefWidth="320.0" />
+                           </columnConstraints>
+                           <rowConstraints>
                               <RowConstraints minHeight="10.0" percentHeight="10.0" prefHeight="30.0" vgrow="NEVER" />
-                            <RowConstraints maxHeight="1.7976931348623157E308" percentHeight="45.0" vgrow="ALWAYS" />
                               <RowConstraints maxHeight="1.7976931348623157E308" percentHeight="45.0" vgrow="ALWAYS" />
-                          </rowConstraints>
+                              <RowConstraints maxHeight="1.7976931348623157E308" percentHeight="45.0" vgrow="ALWAYS" />
+                           </rowConstraints>
                            <children>
                               <JFXButton fx:id="newAccount" alignment="CENTER" buttonType="RAISED" contentDisplay="TOP" onAction="#SwitchToAddAccountScreen" prefHeight="185.0" prefWidth="844.0" ripplerFill="WHITE" style="-fx-border-radius: 10; -fx-border-width: 5; -fx-background-radius: 10;" styleClass="buttonBig" stylesheets="@Default.css" text="New Account" textFill="WHITE" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="2" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
                                  <font>
