@@ -98,9 +98,16 @@ public class ServiceRequestController {
                         single.setUsername("");
                         single.setIsAdmin(false);
                         Stage thisStage = (Stage) back.getScene().getWindow();
+                        Screen screen = Screen.getPrimary();
+                        Rectangle2D bounds = screen.getVisualBounds();
 
                         Scene newScene = new Scene(sceneMain);
+                        thisStage.setMaximized(true);
                         thisStage.setScene(newScene);
+                        thisStage.setX(bounds.getMinX());
+                        thisStage.setY(bounds.getMinY());
+                        thisStage.setWidth(bounds.getWidth());
+                        thisStage.setHeight(bounds.getHeight());
                         timeout.stop();
                     } catch (IOException io){
                         System.out.println(io.getMessage());

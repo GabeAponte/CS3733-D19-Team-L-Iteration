@@ -108,9 +108,8 @@ public class HomeScreenController {
     public void initialize() throws IOException {
         Singleton single = Singleton.getInstance();
 
-        updateWeatherDisplay();
-
         if(single.isDoPopup()) {
+            updateWeatherDisplay();
             single.setDoPopup(false);
             Text fillBox = single.getTxt();
 
@@ -142,6 +141,7 @@ public class HomeScreenController {
 
             clock = new Timeline(new KeyFrame(Duration.ZERO, e -> {
                 if((System.currentTimeMillis() - single.getStartTime()) > 1800000){
+                    System.out.println("updated");
                     single.setStartTime();
                     single.updateWeather();
 
@@ -172,10 +172,10 @@ public class HomeScreenController {
             );
             clock.setCycleCount(Animation.INDEFINITE);
             clock.play();
+            DateTimeFormatter dtf = DateTimeFormatter.ofPattern("MM/dd/yyyy");
+            LocalDate localDate = LocalDate.now();
+            dateLabel.setText(dtf.format(localDate));
         }
-        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("MM/dd/yyyy");
-        LocalDate localDate = LocalDate.now();
-        dateLabel.setText(dtf.format(localDate));
 
     }
 
@@ -331,6 +331,7 @@ public class HomeScreenController {
         Optional<ButtonType> result = alert.showAndWait();
         if (result.get() == ButtonType.OK){
             // ... user chose OK
+            saveState();
             Parent newPage = FXMLLoader.load(getClass().getClassLoader().getResource("EmergencyScreen.fxml"));
             ((Node) event.getSource()).getScene().setRoot(newPage);
         } else {
@@ -403,5 +404,20 @@ public class HomeScreenController {
         Memento m = single.getOrig();
         Parent newPage = FXMLLoader.load(getClass().getClassLoader().getResource(m.getFxml()));
         ((Node) event.getSource()).getScene().setRoot(newPage);
+    }
+
+    public void loadBrighams() throws IOException {
+        Singleton single = Singleton.getInstance();
+        Stage stage;
+        Parent root;
+        stage = new Stage();
+        root = FXMLLoader.load(getClass().getClassLoader().getResource("Brigham.fxml"));
+        stage.setScene(new Scene(root));
+        stage.setTitle("Brigham and Women's Hospital");
+        stage.initModality(Modality.APPLICATION_MODAL);
+        single.setLastTime();
+        stage.showAndWait();
+        single = Singleton.getInstance();
+        single.setLastTime();
     }
 }

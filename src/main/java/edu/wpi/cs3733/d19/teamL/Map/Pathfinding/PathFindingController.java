@@ -63,6 +63,7 @@ import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
 import javafx.stage.Modality;
+import javafx.stage.Screen;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 import javafx.scene.layout.GridPane;
@@ -498,7 +499,9 @@ public class PathFindingController {
             timeout = new Timeline(new KeyFrame(Duration.seconds(2), new EventHandler<ActionEvent>() {
                 @Override
                 public void handle(ActionEvent event) {
-                    updateFlexSpaces(single.getSimulation());
+                    if(flexSpaces.size() > 0) {
+                        updateFlexSpaces(single.getSimulation());
+                    }
                     if ((System.currentTimeMillis() - single.getLastTime()) > single.getTimeoutSec()) {
                         try {
                             single.setLastTime();
@@ -514,9 +517,16 @@ public class PathFindingController {
                                 controller.displayPopup();
                             }
                             Stage thisStage = (Stage) homebtn.getScene().getWindow();
+                            Screen screen = Screen.getPrimary();
+                            Rectangle2D bounds = screen.getVisualBounds();
 
                             Scene newScene = new Scene(sceneMain);
+                            thisStage.setMaximized(true);
                             thisStage.setScene(newScene);
+                            thisStage.setX(bounds.getMinX());
+                            thisStage.setY(bounds.getMinY());
+                            thisStage.setWidth(bounds.getWidth());
+                            thisStage.setHeight(bounds.getHeight());
                             timeout.stop();
                         } catch (IOException io) {
                             System.out.println(io.getMessage());
@@ -2789,7 +2799,7 @@ public class PathFindingController {
         flexSpaces.add(new Polygon((960+11310)* srWidth *.303, ( 1190+5624)* srHeight *.3023, ( 1060+11310)* srWidth *.303, ( 1190+5624)* srHeight *.3023, ( 1060+11310)* srWidth *.303, ( 1270+5624)* srHeight *.3023, ( 960+11310)* srWidth *.303, ( 1270+5624)* srHeight *.3023));
         flexSpaces.add(new Polygon((1060+11310)* srWidth *.303, ( 1190+5624)* srHeight *.3023, ( 1160+11310)* srWidth *.303, ( 1190+5624)* srHeight *.3023, ( 1160+11310)* srWidth *.303, ( 1270+5624)* srHeight *.3023, ( 1060+11310)* srWidth *.303, ( 1270+5624)* srHeight *.3023));
 
-        for(int i = 0; i < flexSpaces.size(); i++){
+        for(int i = 1; i < flexSpaces.size(); i++){
             if(flexSpaceAvailable.get(i)) {
                 flexSpaces.get(i).setStroke(Color.web("TURQUOISE"));
                 flexSpaces.get(i).setFill(Color.web("TURQUOISE"));
@@ -2801,6 +2811,17 @@ public class PathFindingController {
             }
             pathPane.getChildren().add(flexSpaces.get(i));
         }
+        if (single.isFree()) {
+            flexSpaces.get(0).setStroke(Color.web("TURQUOISE"));
+            flexSpaces.get(0).setFill(Color.web("TURQUOISE"));
+            flexSpaces.get(0).setOpacity(0.5);
+        }
+        else {
+            flexSpaces.get(0).setStroke(Color.web("RED"));
+            flexSpaces.get(0).setFill(Color.web("RED"));
+            flexSpaces.get(0).setOpacity(0.3);
+        }
+        pathPane.getChildren().add(flexSpaces.get(0));
     }
 
     private void displayBookableRooms(){
@@ -2883,7 +2904,7 @@ public class PathFindingController {
 
     private void updateFlexSpaces(ArrayList<Boolean> booleans){
         if(flexSpaces.size() > 0) {
-            for (int i = 0; i < booleans.size(); i++) {
+            for (int i = 1; i < booleans.size(); i++) {
                 if (booleans.get(i)) {
                     flexSpaces.get(i).setStroke(Color.web("TURQUOISE"));
                     flexSpaces.get(i).setFill(Color.web("TURQUOISE"));
@@ -2894,6 +2915,16 @@ public class PathFindingController {
                     flexSpaces.get(i).setOpacity(0.3);
                 }
             }
+        }
+        if (single.isFree()) {
+            flexSpaces.get(0).setStroke(Color.web("TURQUOISE"));
+            flexSpaces.get(0).setFill(Color.web("TURQUOISE"));
+            flexSpaces.get(0).setOpacity(0.5);
+        }
+        else {
+            flexSpaces.get(0).setStroke(Color.web("RED"));
+            flexSpaces.get(0).setFill(Color.web("RED"));
+            flexSpaces.get(0).setOpacity(0.3);
         }
     }
 
