@@ -178,7 +178,7 @@
                                                         <Font size="18.0" />
                                                     </font>
                                                 </Label>
-                                                <JFXTimePicker fx:id="endTime" defaultColor="#f5d96b" onAction="#fieldsEntered" prefHeight="50.0" prefWidth="225.0" promptText="End Time" styleClass="jfx-time-picker" stylesheets="@Default.css" />
+                                                <JFXTimePicker fx:id="endTime" defaultColor="#f5d96b" onAction="#roundEndTime" prefHeight="50.0" prefWidth="225.0" promptText="End Time" styleClass="jfx-time-picker" stylesheets="@Default.css" />
                                             </children>
                                  <GridPane.margin>
                                     <Insets top="15.0" />

@@ -538,8 +538,8 @@ public class BookRoomController {
     public void roundStartTime(){
         LocalTime selectedStartTime = startTime.getValue();
         int startMinute = selectedStartTime.getMinute();
-        if(startMinute == 0){
-            
+        if(startMinute == 0 || startMinute == 60){
+
         }
         else if(startMinute < 8)
         {
@@ -573,19 +573,21 @@ public class BookRoomController {
             startTime.setValue(selectedStartTime);
         }
         else if(startMinute >= 53 && startMinute < 60){
-            selectedStartTime = selectedStartTime.plusMinutes(60 - startMinute);
+            selectedStartTime = selectedStartTime.minusMinutes(startMinute);
             startTime.setValue(selectedStartTime);
         }
         else{
 
         }
-        roundEndTime();
     }
 
     public void roundEndTime(){
         LocalTime selectedEndTime = endTime.getValue();
         int endMinute = selectedEndTime.getMinute();
-        if(endMinute < 8)
+        if(endMinute == 0 || endMinute == 60){
+
+        }
+        else if(endMinute < 8)
         {
             selectedEndTime = selectedEndTime.minusMinutes(endMinute);
             endTime.setValue(selectedEndTime);
@@ -617,7 +619,7 @@ public class BookRoomController {
             endTime.setValue(selectedEndTime);
         }
         else if(endMinute >= 53 && endMinute < 60){
-            selectedEndTime = selectedEndTime.plusMinutes(60 - endMinute);
+            selectedEndTime = selectedEndTime.minusMinutes(endMinute);
             endTime.setValue(selectedEndTime);
         }
         else{
