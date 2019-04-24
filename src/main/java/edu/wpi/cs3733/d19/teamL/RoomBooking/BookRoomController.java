@@ -34,6 +34,7 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Polygon;
+import javafx.scene.transform.Translate;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -342,6 +343,8 @@ public class BookRoomController {
                 double height = sizingPane.getHeight() - 10;
                 reservationPane.setMinSize(width, height);
                 reservationPane.setPrefSize(width, height);
+                reservationPane.setLayoutX(anchorPane.getWidth());
+                reservationPane.setLayoutY(anchorPane.getHeight()-reservationPane.getHeight()-10);
                 bookedEventPane.setMinSize(width, height);
                 bookedEventPane.setPrefSize(width, height);
                 fieldsEntered();
@@ -841,7 +844,7 @@ public class BookRoomController {
         TranslateTransition closeNav = new TranslateTransition(new Duration(400.0D), this.reservationPane);
         if (open == true){
             System.out.println(reservationPane.getWidth());
-            openNav.setToX(-this.anchorPane.getWidth()-this.reservationPane.getWidth()+sizingPane.getLayoutX()+sizingPane.getWidth());
+            openNav.setToX(-this.anchorPane.getWidth()+this.sizingPane.getLayoutX());
             openNav.play();
             resShowing = true;
             openEventInfo(false, null);
