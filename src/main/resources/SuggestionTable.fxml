@@ -140,7 +140,7 @@
                                     </JFXTreeTableView>
                                  </children>
                               </HBox>
-                              <Label prefHeight="37.0" prefWidth="235.0" styleClass="labelTitle" stylesheets="@Default.css" text="Suggestion Box" textFill="#f5d96b" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+                              <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="51.0" prefWidth="604.0" styleClass="labelTitle" stylesheets="@Default.css" text="Suggestion Box" textFill="#f5d96b" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
                                  <font>
                                     <Font name="Trebuchet MS" size="35.0" />
                                  </font>
