@@ -1128,8 +1128,17 @@ public class BookRoomController {
     }
 
     public void editEventInfo(){
-        if(eventInfo.getText().equals("Delete Reservation")){
-            //delete reservation
+        ReservationAccess ra = new ReservationAccess();
+        RoomAccess roa = new RoomAccess();
+        String eventStartDate = datePicker.getValue().toString() + "T" + String.format("%02d", startTime.getValue().getHour()) + ":" + String.format("%02d", startTime.getValue().getMinute()) + ":00";
+        String eventEndDate = endDatePicker.getValue().toString() + "T" + String.format("%02d", endTime.getValue().getHour()) + ":" + String.format("%02d", endTime.getValue().getMinute()) + ":00";
+        ArrayList<String[]> data = roa.getReservations(eventStartDate, eventEndDate, roomName.getText());
+        String[] info = data.get(0);
+        Singleton single = Singleton.getInstance();
+        if(eventInfo.getText().equals("Cancel Reservation")){
+            ra.deleteReservation(info[0], info[1], info[7], info[8]);
+            displayAllRooms();
+            openEventInfo(false, "");
         }else{
             //send email to creator
         }
@@ -1199,10 +1208,10 @@ public class BookRoomController {
                 protected void updateItem(Boolean item, boolean empty) {
                     super.updateItem(item, empty);
                     if (item == null || !item){
-                        setStyle("-fx-background-color: red");
+                        setStyle("-fx-background-color: ee5253");
                         setText("Occupied");
                     } else {
-                        setStyle("-fx-background-color: green");
+                        setStyle("-fx-background-color: #7bed9f");
                         setText("Available");
                     }
                 }
@@ -1229,11 +1238,11 @@ public class BookRoomController {
                     super.updateItem(item, empty);
                     if (item == null || !item){
                         setText("Occupied");
-                        setStyle("-fx-background-color: red");
+                        setStyle("-fx-background-color: ee5253");
 
                     } else {
                         setText("Available");
-                        setStyle("-fx-background-color: green");
+                        setStyle("-fx-background-color: #7bed9f");
 
                     }
                 }
@@ -1260,10 +1269,10 @@ public class BookRoomController {
                     super.updateItem(item, empty);
                     if (item == null || !item){
                         setText("Occupied");
-                        setStyle("-fx-background-color: red");
+                        setStyle("-fx-background-color: ee5253");
                     } else {
                         setText("Available");
-                        setStyle("-fx-background-color: green");
+                        setStyle("-fx-background-color: #7bed9f");
                     }
                 }
             };
@@ -1289,10 +1298,10 @@ public class BookRoomController {
                     super.updateItem(item, empty);
                     if (item == null || !item){
                         setText("Occupied");
-                        setStyle("-fx-background-color: red");
+                        setStyle("-fx-background-color: ee5253");
                     } else {
                         setText("Available");
-                        setStyle("-fx-background-color: green");
+                        setStyle("-fx-background-color: #7bed9f");
                     }
                 }
             };
@@ -1318,10 +1327,10 @@ public class BookRoomController {
                     super.updateItem(item, empty);
                     if (item == null || !item){
                         setText("Occupied");
-                        setStyle("-fx-background-color: red");
+                        setStyle("-fx-background-color: ee5253");
                     } else {
                         setText("Available");
-                        setStyle("-fx-background-color: green");
+                        setStyle("-fx-background-color: #7bed9f");
                     }
                 }
             };
@@ -1347,10 +1356,10 @@ public class BookRoomController {
                     super.updateItem(item, empty);
                     if (item == null || !item){
                         setText("Occupied");
-                        setStyle("-fx-background-color: red");
+                        setStyle("-fx-background-color: ee5253");
                     } else {
                         setText("Available");
-                        setStyle("-fx-background-color: green");
+                        setStyle("-fx-background-color: #7bed9f");
                     }
                 }
             };
@@ -1376,10 +1385,10 @@ public class BookRoomController {
                     super.updateItem(item, empty);
                     if (item == null || !item){
                         setText("Occupied");
-                        setStyle("-fx-background-color: red");
+                        setStyle("-fx-background-color: ee5253");
                     } else {
                         setText("Available");
-                        setStyle("-fx-background-color: green");
+                        setStyle("-fx-background-color: #7bed9f");
                     }
                 }
             };
@@ -1405,10 +1414,10 @@ public class BookRoomController {
                     super.updateItem(item, empty);
                     if (item == null || !item){
                         setText("Occupied");
-                        setStyle("-fx-background-color: red");
+                        setStyle("-fx-background-color: ee5253");
                     } else {
                         setText("Available");
-                        setStyle("-fx-background-color: green");
+                        setStyle("-fx-background-color: #7bed9f");
                     }
                 }
             };
@@ -1434,10 +1443,10 @@ public class BookRoomController {
                     super.updateItem(item, empty);
                     if (item == null || !item){
                         setText("Occupied");
-                        setStyle("-fx-background-color: red");
+                        setStyle("-fx-background-color: ee5253");
                     } else {
                         setText("Available");
-                        setStyle("-fx-background-color: green");
+                        setStyle("-fx-background-color: #7bed9f");
                     }
                 }
             };
@@ -1463,10 +1472,10 @@ public class BookRoomController {
                     super.updateItem(item, empty);
                     if (item == null || !item){
                         setText("Occupied");
-                        setStyle("-fx-background-color: red");
+                        setStyle("-fx-background-color: ee5253");
                     } else {
                         setText("Available");
-                        setStyle("-fx-background-color: green");
+                        setStyle("-fx-background-color: #7bed9f");
                     }
                 }
             };
@@ -1560,10 +1569,10 @@ public class BookRoomController {
                     super.updateItem(item, empty);
                     if (item == null || !item){
                         setText("Occupied");
-                        setStyle("-fx-background-color: red");
+                        setStyle("-fx-background-color: ee5253");
                     } else {
                         setText("Available");
-                        setStyle("-fx-background-color: green");
+                        setStyle("-fx-background-color: #7bed9f");
                     }
                 }
             };
@@ -1589,10 +1598,10 @@ public class BookRoomController {
                     super.updateItem(item, empty);
                     if (item == null || !item){
                         setText("Occupied");
-                        setStyle("-fx-background-color: red");
+                        setStyle("-fx-background-color: ee5253");
                     } else {
                         setText("Available");
-                        setStyle("-fx-background-color: green");
+                        setStyle("-fx-background-color: #7bed9f");
                     }
                 }
             };
@@ -1618,10 +1627,10 @@ public class BookRoomController {
                     super.updateItem(item, empty);
                     if (item == null || !item){
                         setText("Occupied");
-                        setStyle("-fx-background-color: red");
+                        setStyle("-fx-background-color: ee5253");
                     } else {
                         setText("Available");
-                        setStyle("-fx-background-color: green");
+                        setStyle("-fx-background-color: #7bed9f");
                     }
                 }
             };
@@ -1647,10 +1656,10 @@ public class BookRoomController {
                     super.updateItem(item, empty);
                     if (item == null || !item){
                         setText("Occupied");
-                        setStyle("-fx-background-color: red");
+                        setStyle("-fx-background-color: ee5253");
                     } else {
                         setText("Available");
-                        setStyle("-fx-background-color: green");
+                        setStyle("-fx-background-color: #7bed9f");
                     }
                 }
             };
@@ -1676,10 +1685,10 @@ public class BookRoomController {
                     super.updateItem(item, empty);
                     if (item == null || !item){
                         setText("Occupied");
-                        setStyle("-fx-background-color: red");
+                        setStyle("-fx-background-color: ee5253");
                     } else {
                         setText("Available");
-                        setStyle("-fx-background-color: green");
+                        setStyle("-fx-background-color: #7bed9f");
                     }
                 }
             };
@@ -1705,10 +1714,10 @@ public class BookRoomController {
                     super.updateItem(item, empty);
                     if (item == null || !item){
                         setText("Occupied");
-                        setStyle("-fx-background-color: red");
+                        setStyle("-fx-background-color: ee5253");
                     } else {
                         setText("Available");
-                        setStyle("-fx-background-color: green");
+                        setStyle("-fx-background-color: #7bed9f");
                     }
                 }
             };
@@ -1734,10 +1743,10 @@ public class BookRoomController {
                     super.updateItem(item, empty);
                     if (item == null || !item){
                         setText("Occupied");
-                        setStyle("-fx-background-color: red");
+                        setStyle("-fx-background-color: ee5253");
                     } else {
                         setText("Available");
-                        setStyle("-fx-background-color: green");
+                        setStyle("-fx-background-color: #7bed9f");
                     }
                 }
             };
