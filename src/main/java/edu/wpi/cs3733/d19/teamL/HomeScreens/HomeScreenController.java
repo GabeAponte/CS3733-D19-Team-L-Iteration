@@ -404,4 +404,19 @@ public class HomeScreenController {
         Parent newPage = FXMLLoader.load(getClass().getClassLoader().getResource(m.getFxml()));
         ((Node) event.getSource()).getScene().setRoot(newPage);
     }
+
+    public void loadBrighams() throws IOException {
+        Singleton single = Singleton.getInstance();
+        Stage stage;
+        Parent root;
+        stage = new Stage();
+        root = FXMLLoader.load(getClass().getClassLoader().getResource("Brigham.fxml"));
+        stage.setScene(new Scene(root));
+        stage.setTitle("Brigham and Women's Hospital");
+        stage.initModality(Modality.APPLICATION_MODAL);
+        single.setLastTime();
+        stage.showAndWait();
+        single = Singleton.getInstance();
+        single.setLastTime();
+    }
 }

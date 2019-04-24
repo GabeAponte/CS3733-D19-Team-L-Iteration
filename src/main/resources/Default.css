@@ -258,6 +258,7 @@
 
 .prompt-text-text-field{
     -fx-prompt-text-fill: white;
+    -fx-text-fill: white;
 }
 
 .jfx-tree-table-view {
@@ -282,12 +283,16 @@
     -fx-alignment: CENTER;
     -fx-text-fill: BLACK;
     -fx-font-family: "Trebuchet MS";
+    -fx-font-size: 20;
 
 }
 
 .tab:selected .tab-label {
     -fx-alignment: CENTER;
     -fx-text-fill: BLACK;
+}
+.tab:right{
+    -fx-background-color: white;
 }
 
 .tab:hover{
@@ -301,11 +306,21 @@
 .jfx-tab-pane .tab:selected {
     -fx-background-color: #efc318;
     -fx-background-radius: 1000000;
+
 }
+
+.jfx-tab-pane .separator{
+    -fx-border-color: WHITE;
+    -fx-border-width: 3;
+    -fx-background-color: WHITE;
+
+}
+
 .tab:hover .tab-label {
     -fx-alignment: CENTER;
     -fx-text-fill: BLACK;
     -fx-font-family: "Trebuchet MS";
+    -fx-font-size: 20;
 }
 
 .jfx-tab-pane .tab-selected-line {
@@ -524,7 +539,7 @@
 }
 
 .jfx-combo-box-PathMenu2 {
-    -fx-font-size : 12 pt;
+    -fx-font-size : 12pt;
     -fx-text-fill : white;
     -jfx-focus-color: #f5d96b;
     -jfx-unfocus-color: white;
@@ -558,26 +573,51 @@
 
 }
 
+.jfx-combo-box-bookRoom{
+    -fx-font-size : 14 pt;
+    -fx-text-fill : #012d5a;
+    -fx-prompt-text-fill: #012d5a;
+    -fx-unfocus-color: #f5d96b;
+    -fx-focus-color: #f5d96b;
+    -fx-border-color: #012d5;
+    -fx-border-width: 2;
+}
+
+.jfx-combo-box-bookRoom .text-field {
+    -fx-text-fill : #012d5a;
+}
+
+.jfx-combo-box-bookRoom .arrow {
+    -fx-background-color: #f5d96b;
+}
+
+.jfx-combo-box-bookRoom .list-view .list-cell {
+    -fx-text-fill : black;
+}
+
+.jfx-combo-box-bookRoom .list-cell {
+    -fx-text-fill : white;
+}
 
 .jfx-date-picker{
     -fx-font-size: 20 pt;
     -fx-text-fill: white;
     -fx-prompt-text-fill: white;
-    -jfx-focus-color: #f5d96b;
+    -jfx-focus-color: #012d5a;
     -jfx-unfocus-color: white;
-    -jfx-default-color: #f5d96b;
+    -jfx-default-color: #012d5a;
 }
 
 .jfx-date-picker .text-field{
     -fx-font-size: 20 pt;
-    -fx-text-fill: white;
-    -fx-prompt-text-fill: white;
+    -fx-text-fill: #012d5a;
+    -fx-prompt-text-fill: #012d5a;
     -jfx-focus-color: #f5d96b;
     -jfx-unfocus-color: white;
     -jfx-default-color: #f5d96b;
 }
 .jfx-date-picker .input-line {
-    -fx-background-color: white;
+    -fx-background-color: #012d5a;
 }
 .jfx-date-picker .input-focused-line {
     -fx-background-color: #f5d96b;
@@ -588,23 +628,23 @@
     -fx-text-fill: white;
     -fx-prompt-text-fill: white;
     -jfx-focus-color: #f5d96b;
-    -jfx-unfocus-color: white;
-    -jfx-default-color: #f5d96b;
+    -jfx-unfocus-color: #012d5a;
+    -jfx-default-color: #012d5a;
 
 }
 
 .jfx-time-picker .text-field{
     -fx-font-size: 20 pt;
-    -fx-text-fill: white;
-    -fx-prompt-text-fill: white;
+    -fx-text-fill: #012d5a;
+    -fx-prompt-text-fill: #012d5a;
     -jfx-focus-color: #f5d96b;
-    -jfx-unfocus-color: white;
+    -jfx-unfocus-color: #012d5a;
     -jfx-default-color: #f5d96b;
 
 }
 
 .jfx-time-picker .input-line {
-    -fx-background-color: white;
+    -fx-background-color: #012d5a;
 }
 .jfx-time-picker .input-focused-line {
     -fx-background-color: #f5d96b;
@@ -682,10 +722,10 @@
     -fx-background-radius: 10px;
     -fx-font-size : 20 pt;
     -fx-font-family: "Trebuchet MS";
-    -fx-background-color:  #012d5a;
-    -fx-border-color: #f5d96b;
-    -fx-border-radius: 10px;
+    -fx-background-color:  white;
     -fx-text-fill: #012d5a;
+    -fx-border-color: #012d5;
+    -fx-border-width: 2;
 }
 
 .check-combo-box .arrow {
@@ -693,7 +733,7 @@
 }
 
 .check-combo-box .list-cell {
-    -fx-text-fill : #012d5a;
+    -fx-text-fill : white;
 }
 
 .check-combo-box .list-view .list-cell {

@@ -504,7 +504,7 @@ public class BookRoomController {
             roomReq.makeReservation(ra.getRoomID(roomName), employeeID, date, endDate, eventNameString, eventDescriptionString, listOfGuests, eventTypeString, eventIsPrivate);
             //add event name, event description, event type, guestList (String), privacy (boolean)
             openReservation(false);
-            openEventInfo(true, null);
+            openEventInfo(true, roomName);
             fieldsEntered();
         }
     }

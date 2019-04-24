@@ -1,0 +1,242 @@
+
+.vboxImage {
+    -fx-background-image: url("UI_Images/otherBackground.jpg");
+    -fx-background-size: cover;
+    -fx-opacity: .20;
+}
+
+.button{
+    -fx-background-color: white;
+    -fx-background-radius: 10;
+    -fx-border-color : #012D5A;
+    -fx-border-radius: 10;
+    -fx-border-width: 2;
+    -jfx-button-type: RAISED;
+}
+
+.labelTitle {
+    -fx-font-family: "Trebuchet MS";
+    -fx-text-fill: #f5d95b;
+    -fx-font-size: 35;
+}
+
+.labelSubTitle {
+    -fx-font-family: "Trebuchet MS";
+    -fx-text-fill: white;
+    -fx-font-size: 35;
+}
+
+
+.button:hover{
+    -fx-background-color: #012d5a;
+    -fx-text-fill: white;
+
+}
+
+.button:hover .glyph-icon{
+    -fx-fill: white;
+}
+
+
+.button2{
+    -fx-font-family: "Trebuchet MS";
+    -fx-font-size: 20;
+    -fx-text-fill: #012d5a;
+    -fx-prompt-text-fill: #012d5a;
+    -fx-border-color: #f5d95b;
+    -fx-border-radius: 10;
+    -fx-background-radius: 15;
+    -fx-background-color: white;
+    -fx-border-width: 3;
+}
+
+.button2:hover{
+    -fx-font-family: "Trebuchet MS";
+    -fx-font-size: 20;
+    -fx-background-color: #012d5a;
+    -fx-text-fill: white;
+    -fx-border-color: #f5d95b;
+    -fx-border-radius: 10;
+    -fx-background-radius: 15;
+}
+
+.jfx-text-field {
+    -fx-font-family: "Trebuchet MS";
+    -fx-font-size: 20;
+    -fx-prompt-text-fill: white;
+    -fx-text-fill: WHITE;
+    -fx-fill: WHITE;
+    -jfx-focus-color: #f5d95b;
+    -jfx-unfocus-color: #f5d95b;
+}
+
+.jfx-text-field:hover{
+    -fx-font-family: "Trebuchet MS";
+    -fx-font-size: 20;
+    -fx-prompt-text-fill: #BDBDBD;
+}
+
+
+.jfx-text-fieldCard {
+    -fx-font-family: "Trebuchet MS";
+    -fx-font-size: 20;
+    -fx-prompt-text-fill: #012d5a;
+    -fx-text-fill: #012d5a;
+    -fx-fill: WHITE;
+    -jfx-focus-color: #f5d95b;
+    -jfx-unfocus-color: #012d5a;
+}
+
+.jfx-text-fieldCard:hover{
+    -fx-font-family: "Trebuchet MS";
+    -fx-font-size: 20;
+    -fx-prompt-text-fill: #BDBDBD;
+}
+
+.jfx-text-area {
+    -fx-font-family: "Trebuchet MS";
+    -fx-font-size: 20;
+    -fx-prompt-text-fill: GRAY;
+    -fx-text-fill: BLACK;
+    -fx-fill: BLACK;
+    -fx-background-color: WHITE;
+    -fx-border-color: #f5d95b;
+    -fx-border-radius: 10;
+    -fx-border-width: 3;
+    -fx-background-radius: 10;
+    -jfx-unfocus-color: transparent;
+    -jfx-focus-color: transparent;
+}
+
+
+.jfx-text-areaPopup{
+    -fx-font-family: "Trebuchet MS";
+    -fx-font-size: 15;
+    -fx-prompt-text-fill: GRAY;
+    -fx-text-fill: BLACK;
+    -fx-fill: BLACK;
+    -fx-background-color: WHITE;
+    -fx-border-color: #f5d95b;
+    -fx-border-radius: 10;
+    -fx-border-width: 3;
+    -fx-background-radius: 10;
+    -jfx-unfocus-color: transparent;
+    -jfx-focus-color: transparent;
+}
+
+.jfx-combo-box > .list-cell > .label{
+    -fx-text-fill: BLACK;
+    -fx-prompt-text-fill: GRAY;
+    -fx-focus-color: #f5d95b;
+}
+
+.jfx-color-picker{
+    -fx-font-size: 20;
+    -fx-font-family: "Trebuchet MS";
+    -fx-border-color: #f5d95b;
+    -fx-border-radius: 10;
+    -fx-background-radius: 15;
+}
+
+
+.jfx-color-picker:hover{
+    -fx-font-size: 20;
+    -fx-font-family: "Trebuchet MS";
+    -fx-background-color: #BDBDBD;
+    -fx-border-radius: 10;
+    -fx-background-radius: 15;
+}
+.jfx-combo-box {
+    -fx-font-family: "Trebuchet MS";
+    -fx-font-size: 20;
+    -fx-prompt-text-fill: #012d5a;
+    -fx-text-fill: #012d5a;
+    -fx-background-color: WHITE;
+    -fx-border-color: WHITE;
+    -fx-focus-color: #f5d95b;
+    -fx-border-radius: 5;
+    -fx-background-radius: 5;
+    -jfx-unfocus-color: transparent;
+    -jfx-focus-color: transparent;
+
+}
+.jfx-combo-box:hover{
+    -fx-background-color: #BDBDBD;
+    -fx-border-color: #f5d95b;
+    -fx-border-radius: 5;
+    -fx-background-radius: 5;
+}
+
+.jfx-combobox-base{
+    -fx-background-color: WHITE;
+    -fx-focus-color: #f5d95b;
+}
+
+.jfx-tab-pane .headers-region {
+    -fx-background-color: #f5d96b;
+}
+.jfx-tab-pane .tab-header-background {
+    -fx-background-color: #f5d96b;
+}
+
+.tab .tab-label {
+    -fx-alignment: CENTER;
+    -fx-text-fill: BLACK;
+    -fx-font-family: "Trebuchet MS";
+    -fx-font-size: 20;
+
+}
+
+.tab:selected .tab-label {
+    -fx-alignment: CENTER;
+    -fx-text-fill: BLACK;
+}
+
+.tab:hover{
+    -fx-background-color: #f1cc39;;
+    -fx-background-radius: 1000000;
+    -fx-text-fill: BLACK;
+    /*
+    -fx-text-fill: #f5d96b ;
+     */
+}
+.jfx-tab-pane .tab:selected {
+    -fx-background-color: #efc318;
+    -fx-background-radius: 1000000;
+}
+.tab:hover .tab-label {
+    -fx-alignment: CENTER;
+    -fx-text-fill: BLACK;
+    -fx-font-family: "Trebuchet MS";
+    -fx-font-size: 20;
+}
+
+.jfx-tab-pane .tab-selected-line {
+    -fx-background-color: f1cc39;
+}
+.tree-table-view{
+    -fx-font-size: 15;
+    -fx-font-family: "Trebuchet MS";
+    -fx-border-radius: 20;
+    -fx-background-radius: 25;
+    -fx-border-width: 5;
+    -fx-border-color: #f5d96b;
+}
+
+.tool-barSecondary{
+    -fx-background-color: #f5d96b;
+}
+
+.vboxBackDrop{
+    -fx-background-color: white;
+    -fx-background-radius: 15;
+    -fx-border-radius: 10;
+    -fx-border-color: #f5d96b;
+    -fx-border-width: 3;
+}
+
+.labelError{
+    -fx-font-family: "Trebuchet MS";
+    -fx-font-size: 15;
+    -fx-text-fill: RED;
+}
