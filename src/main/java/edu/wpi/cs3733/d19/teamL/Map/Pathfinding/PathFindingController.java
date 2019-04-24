@@ -146,8 +146,6 @@ public class PathFindingController {
     @FXML
     private Button logOut;
 
-    @FXML
-    private JFXButton menubtn;
 
     @FXML
     private RadioButton bathroomRadButton;
@@ -462,7 +460,6 @@ public class PathFindingController {
         public void initialize () {
             Singleton single = Singleton.getInstance();
             single.setLastTime();
-            settingPressed();
 
             na = new NodesAccess();
             ea = new EdgesAccess();
@@ -630,13 +627,8 @@ public class PathFindingController {
             hereLabel = new Label();
             //Adds the text to the screen
             pathPane.getChildren().add(hereLabel);
-            menubtn.setVisible(false);
             if (!single.isLoggedIn()) {
                 logOut.setVisible(false);
-            }
-            if (single.isIsAdmin()) {
-                menubtn.setDisable(false);
-                menubtn.setVisible(true);
             }
 
             nameToLoc.clear();
@@ -823,25 +815,6 @@ public class PathFindingController {
             circles.add(kiosk);
             pathPane.getChildren().add(kiosk);
             labels.add(hereLabel);
-        }
-
-        @FXML
-        private void settingPressed () {
-            TranslateTransition openSetting = new TranslateTransition(new Duration(300.0D), this.settingPane);
-            openSetting.setToY(0.0D);
-            TranslateTransition closeSetting = new TranslateTransition(new Duration(300.0D), this.settingPane);
-            this.menubtn.setOnAction((evt) -> {
-                //  settingPane.setLayoutX(mapColumn.getMaxWidth()-200);
-                if (this.settingPane.getTranslateY() != 450.0D) {
-                    openSetting.setToY(450.0D);
-                    openSetting.play();
-                } else {
-                    closeSetting.setToY(-this.settingPane.getHeight());
-                    closeSetting.play();
-                }
-
-            });
-
         }
 
         @FXML

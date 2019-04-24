@@ -3,12 +3,14 @@ package edu.wpi.cs3733.d19.teamL.HomeScreens;
 import com.github.sarxos.webcam.Webcam;
 import com.github.sarxos.webcam.WebcamPanel;
 import com.github.sarxos.webcam.WebcamResolution;
+import com.jfoenix.controls.JFXTextField;
 import edu.wpi.cs3733.d19.teamL.API.ImageComparison;
 import edu.wpi.cs3733.d19.teamL.Account.CreateEditAccountController;
 import edu.wpi.cs3733.d19.teamL.Account.EmployeeAccess;
 import edu.wpi.cs3733.d19.teamL.Map.Pathfinding.PathFindingController;
 import edu.wpi.cs3733.d19.teamL.Memento;
 import edu.wpi.cs3733.d19.teamL.Reports.ReportThread;
+import edu.wpi.cs3733.d19.teamL.SearchingAlgorithms.PathfindingStrategy;
 import edu.wpi.cs3733.d19.teamL.Singleton;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
@@ -87,7 +89,11 @@ public class AdminLoggedInHomeController {
     private ComboBox<String> RequestType;
 
     @FXML
-    private TextField timeoutTime;
+    private ComboBox<PathfindingStrategy> strategySelector;
+
+
+    @FXML
+    private JFXTextField timeoutTime;
     Timeline timeout;
 
     public void initialize(){
@@ -386,6 +392,18 @@ public class AdminLoggedInHomeController {
     private void GeneratePathFindingReport() {
         ReportThread rt = new ReportThread(1);
         rt.start();
+    }
+
+    @FXML
+    private void strategySelected () {
+        Singleton single = Singleton.getInstance();
+        single.setTypePathfind(strategySelector.getValue());
+    }
+
+    @FXML
+    private void timeOutSubmitted() {
+        Singleton single = Singleton.getInstance();
+        single.setTimeoutSec(Integer.parseInt(timeoutTime.getText()));
     }
 
     @FXML
