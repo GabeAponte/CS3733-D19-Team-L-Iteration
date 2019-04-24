@@ -360,31 +360,9 @@ public class AdminLoggedInHomeController {
             //THE VIEW SIZE WILL PROBABLY CHANGE DEPENDING ON THE COMPUTER
             //IMAGE COMPARISON WILL FAIL IMMEDIATELY IF SIZE CHANGES
             webcam.setViewSize(WebcamResolution.VGA.getSize());
-            WebcamPanel wp = new WebcamPanel(webcam);
-            wp.setFPSDisplayed(true);
-            wp.setDisplayDebugInfo(true);
-            wp.setImageSizeDisplayed(true);
-            wp.setMirrored(true);
-            //JFrame window = new JFrame("Hold still for 2.5 seconds");
-            //window.add(wp);
-            //window.setResizable(true);
-            //window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-            //window.pack();
-            //window.setLocationRelativeTo(null);
-            //window.setVisible(true);
-            try {
-                sleep(200);
-            } catch (InterruptedException e) {
-                System.out.println(e);
-                System.out.println(e.getMessage());
-            }
-            wp.stop();
-            webcam.close();
-            //window.dispose();
-
             webcam.open();
             BufferedImage image = webcam.getImage();
-            ImageIO.write(image, "JPG", new File("TempOutput.jpg"));
+            ImageIO.write(image, "JPG", new File("EMode.jpg"));
             webcam.close();
 
 
