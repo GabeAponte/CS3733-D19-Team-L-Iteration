@@ -69,10 +69,10 @@
                                             <children>
                                                 <JFXButton fx:id="homebtn1" buttonType="RAISED" contentDisplay="TOP" graphicTextGap="0.0" layoutX="310.0" layoutY="23.0" maxHeight="-Infinity" minHeight="-Infinity" onAction="#goHome" prefHeight="75.0" prefWidth="100.0" styleClass="buttonToolbar" stylesheets="@Default.css" text="Home" textFill="#012d5a">
                                                     <graphic>
-                                                        <FontAwesomeIconView fx:id="home1" fill="#012d5a" glyphName="HOME" size="35" />
+                                                        <FontAwesomeIconView fx:id="home1" fill="#012d5a" glyphName="HOME" size="40" />
                                                     </graphic>
                                                     <font>
-                                                        <Font name="Trebuchet MS" size="17.0" />
+                                                        <Font name="Trebuchet MS Bold" size="17.0" />
                                                     </font>
                                        <HBox.margin>
                                           <Insets right="10.0" />
