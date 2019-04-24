@@ -883,6 +883,7 @@ public class BookRoomController {
             openNav.play();
             resShowing = true;
             openEventInfo(false, null);
+            callServiceRequests();
             //System.out.println("ResShowing = true");
         } else {
             closeNav.setToX(-this.anchorPane.getWidth()+this.reservationPane.getWidth()+sizingPane.getLayoutX()+sizingPane.getWidth());
