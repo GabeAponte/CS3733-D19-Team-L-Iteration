@@ -358,6 +358,13 @@
     -jfx-unfocus-color: white;
 }
 
+.jfx-text-field-emergency {
+    -fx-prompt-text-fill: white;
+    -fx-text-fill: white;
+    -jfx-focus-color:  ce2029;
+    -jfx-unfocus-color:  ce2029;
+}
+
 .jfx-text-field-servicerequest {
     -fx-prompt-text-fill: #012d5a;
     -fx-text-fill: #012d5a;

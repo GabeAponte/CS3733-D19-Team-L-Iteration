@@ -310,6 +310,7 @@ public class HomeScreenController {
         //CODE TO TAKE PICTURE
         try {
             Webcam webcam;
+
             webcam = Webcam.getDefault();
             //THE VIEW SIZE WILL PROBABLY CHANGE DEPENDING ON THE COMPUTER
             //IMAGE COMPARISON WILL FAIL IMMEDIATELY IF SIZE CHANGES

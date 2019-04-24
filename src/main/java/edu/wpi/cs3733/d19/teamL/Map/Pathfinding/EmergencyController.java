@@ -166,9 +166,9 @@ public class EmergencyController {
 
         String uname = adminUser.getText();
         String pass = adminPassword.getText();
-        if(!(uname.isEmpty() && pass.isEmpty())){
-            DisableEmergMode.setVisible(true);
-        }
+        /*if(!(uname.isEmpty() && pass.isEmpty())){
+            DisableEmergMode.setDisable(false);
+        }*/
 
         boolean validLogin;
         Singleton single = Singleton.getInstance();
@@ -339,7 +339,7 @@ public class EmergencyController {
 
 
     private void activateEmergencyMode(){
-        DisableEmergMode.setDisable(false);
+        //DisableEmergMode.setDisable(false);
         //GOTO KIOSKFLOOR
         gotoKioskFloor();
         //does displaykiosk
@@ -574,6 +574,13 @@ public class EmergencyController {
         this.prepareSlideMenuAnimation();
     }
 
+    public void unDisable() {
+        if (!adminPassword.getText().trim().equals("") && !adminUser.getText().trim().equals("")){
+            DisableEmergMode.setDisable(false);
+        } else{
+            DisableEmergMode.setDisable(true);
+        }
+    }
 
 
     public void initialize() {
@@ -581,6 +588,7 @@ public class EmergencyController {
         single.setLastTime();
 
         errorLabel.setText(null);
+        DisableEmergMode.setDisable(true);
         prepareSlideMenuAnimation();
         FadeTransition fadeTransition = new FadeTransition(Duration.seconds(2), hi);
         fadeTransition.setFromValue(1);

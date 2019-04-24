@@ -247,7 +247,7 @@
                         <Insets left="10.0" top="3.0" />
                      </GridPane.margin>
                   </Label>
-                  <JFXButton fx:id="menuback" buttonType="RAISED" contentDisplay="GRAPHIC_ONLY" onAction="#AdminRemoveEmergPress" prefHeight="35.0" prefWidth="21.0" style="-fx-border-radius: 10; -fx-border-width: 1.5; -fx-border-color: ce2029; -fx-background-radius: 15;" styleClass="buttonBig" stylesheets="@Default.css" text="Back" textFill="WHITE" GridPane.columnSpan="2147483647" GridPane.halignment="LEFT">
+                  <JFXButton fx:id="menuback" buttonType="RAISED" contentDisplay="GRAPHIC_ONLY" onAction="#AdminRemoveEmergPress" prefHeight="35.0" prefWidth="21.0" style="-fx-border-radius: 10; -fx-border-width: 1.5; -fx-border-color: ce2029; -fx-background-radius: 15;" styleClass="buttonBig" stylesheets="@Default.css" text="Back" textFill="WHITE" GridPane.columnSpan="2147483647" GridPane.halignment="RIGHT">
                      <font>
                         <Font size="14.0" />
                      </font>
@@ -255,10 +255,10 @@
                         <FontAwesomeIconView fill="WHITE" glyphName="ARROW_LEFT" size="20" wrappingWidth="17.5" />
                      </graphic>
                      <GridPane.margin>
-                        <Insets left="20.0" />
+                        <Insets right="20.0" />
                      </GridPane.margin>
                   </JFXButton>
-                  <JFXTextField fx:id="adminUser" focusColor="#405aa800" prefHeight="31.0" prefWidth="266.0" promptText="Username" style="-fx-background-color: WHITE;" unFocusColor="#4d4d4d00" GridPane.columnSpan="2147483647" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
+                  <JFXTextField fx:id="adminUser" focusColor="#405aa800" onAction="#unDisable" onInputMethodTextChanged="#unDisable" onKeyPressed="#unDisable" onKeyReleased="#unDisable" onKeyTyped="#unDisable" prefHeight="31.0" prefWidth="266.0" promptText="Username" styleClass="jfx-text-field-emergency" stylesheets="@Default.css" unFocusColor="#4d4d4d00" GridPane.columnSpan="2147483647" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
                      <GridPane.margin>
                         <Insets left="20.0" right="20.0" />
                      </GridPane.margin>
@@ -269,7 +269,7 @@
                         <Insets left="1.0" />
                      </padding>
                   </JFXTextField>
-                  <JFXPasswordField fx:id="adminPassword" focusColor="#405aa800" maxHeight="-Infinity" minHeight="-Infinity" prefHeight="31.0" prefWidth="253.0" promptText="Password" style="-fx-background-color: WHITE;" unFocusColor="#4d4d4d00" GridPane.columnSpan="2147483647" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER">
+                  <JFXPasswordField fx:id="adminPassword" focusColor="#405aa800" maxHeight="-Infinity" minHeight="-Infinity" onAction="#unDisable" onInputMethodTextChanged="#unDisable" onKeyPressed="#unDisable" onKeyReleased="#unDisable" onKeyTyped="#unDisable" prefHeight="31.0" prefWidth="253.0" promptText="Password" styleClass="jfx-text-field-emergency" stylesheets="@Default.css" unFocusColor="#4d4d4d00" GridPane.columnSpan="2147483647" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER">
                      <GridPane.margin>
                         <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
                      </GridPane.margin>
