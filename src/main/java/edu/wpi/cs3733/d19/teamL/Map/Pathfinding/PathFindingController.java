@@ -499,7 +499,9 @@ public class PathFindingController {
             timeout = new Timeline(new KeyFrame(Duration.seconds(2), new EventHandler<ActionEvent>() {
                 @Override
                 public void handle(ActionEvent event) {
-                    updateFlexSpaces(single.getSimulation());
+                    if(flexSpaces.size() > 0) {
+                        updateFlexSpaces(single.getSimulation());
+                    }
                     if ((System.currentTimeMillis() - single.getLastTime()) > single.getTimeoutSec()) {
                         try {
                             single.setLastTime();
