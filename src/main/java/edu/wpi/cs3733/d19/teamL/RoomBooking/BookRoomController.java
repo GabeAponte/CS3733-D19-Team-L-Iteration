@@ -866,7 +866,11 @@ public class BookRoomController {
      * Slides in the event information menu from the right side
      */
     private void openEventInfo(boolean open, String roomName) {  //Pass in the room name as a parameter here
-        //System.out.println("Open Event Info called");
+        double width = sizingPane.getWidth() - 10;
+        double height = sizingPane.getHeight() - 10;
+        bookedEventPane.setMinSize(width, height);
+        bookedEventPane.setPrefSize(width, height);
+
         TranslateTransition openNav = new TranslateTransition(new Duration(400.0D), this.bookedEventPane);
         openNav.setToX(0.0D);
         TranslateTransition closeNav = new TranslateTransition(new Duration(400.0D), this.bookedEventPane);
