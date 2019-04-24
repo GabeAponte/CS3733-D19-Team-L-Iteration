@@ -930,11 +930,13 @@ public class BookRoomController {
         dailySchedule.setRoot(null);
         Root.getChildren().clear();
         RoomAccess ra = new RoomAccess();
-        String theDate = dailyDatePicker.getValue().toString();
-        String endDate = dailyDatePicker.getValue().toString();
+        String theDate;
+        String endDate;
         LocalTime startLT = LocalTime.of(0,0);
         LocalTime endLT = LocalTime.of(0, 30);
         for(int i = 0; i < 48; i++){
+            theDate = dailyDatePicker.getValue().toString() + "T" + String.format("%2d",startLT.getHour()) + ":" + String.format("%2d",startLT.getMinute()) + ":00";
+            endDate = dailyDatePicker.getValue().toString() + "T" + String.format("%2d",endLT.getHour()) + ":" + String.format("%2d",endLT.getMinute()) + ":00";
             // System.out.println("Start Time: " + startTime + " End Time: " + endTime);
             TreeItem<Room> bookedRooms = new TreeItem<Room>(new Room(startLT, endLT, ra.getAvailRooms(theDate, endDate)));
             Root.getChildren().add(bookedRooms);
