@@ -135,6 +135,17 @@
                         <FontAwesomeIconView fill="WHITE" glyphName="BOOK" size="60" />
                      </graphic>
                         </JFXButton>
+                        <JFXButton fx:id="LanguageInterpreter" buttonType="RAISED" contentDisplay="TOP" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" onAction="#openLanguage" style="-fx-border-radius: 10; -fx-background-radius: 10; -fx-border-width: 5;" styleClass="buttonBig" stylesheets="@Default.css" text="Language Interpretrer" textFill="WHITE" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="3" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
+                            <font>
+                                <Font name="Trebuchet MS" size="25.0" />
+                            </font>
+                            <GridPane.margin>
+                                <Insets />
+                            </GridPane.margin>
+                     <graphic>
+                        <FontAwesomeIconView fill="WHITE" glyphName="LANGUAGE" size="60" />
+                     </graphic>
+                        </JFXButton>
                         <JFXButton fx:id="FacilitiesMaintenance" buttonType="RAISED" contentDisplay="TOP" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" onAction="#makeRequest" style="-fx-border-radius: 10; -fx-background-radius: 10; -fx-border-width: 5;" styleClass="buttonBig" stylesheets="@Default.css" text="Facilities Maintenance" textFill="WHITE" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
                             <font>
                                 <Font name="Trebuchet MS" size="25.0" />
@@ -144,6 +155,17 @@
                             </GridPane.margin>
                      <graphic>
                         <FontAwesomeIconView fill="WHITE" glyphName="WRENCH" size="60" />
+                     </graphic>
+                        </JFXButton>
+                        <JFXButton fx:id="SecurityStaff" buttonType="RAISED" contentDisplay="TOP" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" onAction="#makeRequest" style="-fx-border-radius: 10; -fx-background-radius: 10; -fx-border-width: 5;" styleClass="buttonBig" stylesheets="@Default.css" text="Security Staff" textFill="WHITE" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
+                            <font>
+                                <Font name="Trebuchet MS" size="25.0" />
+                            </font>
+                            <GridPane.margin>
+                                <Insets />
+                            </GridPane.margin>
+                     <graphic>
+                        <FontAwesomeIconView fill="WHITE" glyphName="EXCLAMATION_TRIANGLE" size="60" />
                      </graphic>
                         </JFXButton>
                         <JFXButton fx:id="SanitationServices" buttonType="RAISED" contentDisplay="TOP" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" onAction="#makeRequest" style="-fx-border-radius: 10; -fx-background-radius: 10; -fx-border-width: 5;" styleClass="buttonBig" stylesheets="@Default.css" text="Sanitation" textFill="WHITE" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="2" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
@@ -179,17 +201,6 @@
                         <FontAwesomeIconView fill="WHITE" glyphName="WHEELCHAIR" size="60" />
                      </graphic>
                         </JFXButton>
-                        <JFXButton fx:id="FoodServices" buttonType="RAISED" contentDisplay="TOP" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" onAction="#makeRequest" style="-fx-border-radius: 10; -fx-background-radius: 10; -fx-border-width: 5;" styleClass="buttonBig" stylesheets="@Default.css" text="Food Services" textFill="WHITE" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="3" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
-                            <font>
-                                <Font name="Trebuchet MS" size="25.0" />
-                            </font>
-                            <GridPane.margin>
-                                <Insets />
-                            </GridPane.margin>
-                     <graphic>
-                        <FontAwesomeIconView fill="WHITE" glyphName="COFFEE" size="60" />
-                     </graphic>
-                        </JFXButton>
                         <JFXButton fx:id="Florist" buttonType="RAISED" contentDisplay="TOP" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" onAction="#openGiftService" style="-fx-border-radius: 10; -fx-background-radius: 10; -fx-border-width: 5;" styleClass="buttonBig" stylesheets="@Default.css" text="Gift Store" textFill="WHITE" GridPane.rowIndex="3" GridPane.vgrow="ALWAYS">
                             <font>
                                 <Font name="Trebuchet MS" size="25.0" />
@@ -220,7 +231,7 @@
                                 <Blend />
                             </effect>
                         </Label>
-                  <JFXButton fx:id="MedImaging" buttonType="RAISED" contentDisplay="TOP" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" onAction="#openGiftService" style="-fx-border-radius: 10; -fx-background-radius: 10; -fx-border-width: 5;" styleClass="buttonBig" stylesheets="@Default.css" text="Medical Imaging" textFill="WHITE" GridPane.columnIndex="3" GridPane.rowIndex="3">
+                  <JFXButton fx:id="MedImaging" buttonType="RAISED" contentDisplay="TOP" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" onAction="#openMedical" style="-fx-border-radius: 10; -fx-background-radius: 10; -fx-border-width: 5;" styleClass="buttonBig" stylesheets="@Default.css" text="Medical Imaging" textFill="WHITE" GridPane.columnIndex="3" GridPane.rowIndex="3">
                      <font>
                         <Font name="Trebuchet MS" size="25.0" />
                      </font>
@@ -228,20 +239,12 @@
                         <FontAwesomeIconView fill="WHITE" glyphName="STETHOSCOPE" size="60" />
                      </graphic>
                   </JFXButton>
-                        <JFXButton fx:id="SecurityStaff" buttonType="RAISED" contentDisplay="TOP" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" onAction="#makeRequest" style="-fx-border-radius: 10; -fx-background-radius: 10; -fx-border-width: 5;" styleClass="buttonBig" stylesheets="@Default.css" text="Security Staff" textFill="WHITE" GridPane.columnIndex="2" GridPane.rowIndex="1">
+                        <JFXButton fx:id="FoodServices" buttonType="RAISED" contentDisplay="TOP" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" onAction="#openFood" style="-fx-border-radius: 10; -fx-background-radius: 10; -fx-border-width: 5;" styleClass="buttonBig" stylesheets="@Default.css" text="Food Services" textFill="WHITE" GridPane.columnIndex="2" GridPane.rowIndex="3">
                             <font>
                                 <Font name="Trebuchet MS" size="25.0" />
                             </font>
                      <graphic>
-                        <FontAwesomeIconView fill="WHITE" glyphName="EXCLAMATION_TRIANGLE" size="60" />
-                     </graphic>
-                        </JFXButton>
-                        <JFXButton fx:id="LanguageInterpreter" buttonType="RAISED" contentDisplay="TOP" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" onAction="#makeRequest" style="-fx-border-radius: 10; -fx-background-radius: 10; -fx-border-width: 5;" styleClass="buttonBig" stylesheets="@Default.css" text="Language Interpretrer" textFill="WHITE" GridPane.columnIndex="2" GridPane.rowIndex="3">
-                            <font>
-                                <Font name="Trebuchet MS" size="25.0" />
-                            </font>
-                     <graphic>
-                        <FontAwesomeIconView fill="WHITE" glyphName="LANGUAGE" size="60" />
+                        <FontAwesomeIconView fill="WHITE" glyphName="COFFEE" size="60" />
                      </graphic>
                         </JFXButton>
                     </children>
