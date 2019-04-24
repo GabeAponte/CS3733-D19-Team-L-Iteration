@@ -389,7 +389,7 @@ public class EditLocationController {
         }
 
         if (floorNum().equals("4")){
-            thisMap.setText("Flexible Workspace");
+            thisMap.setText("Floor 4");
         }
     }
 

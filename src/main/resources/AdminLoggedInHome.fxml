@@ -66,7 +66,7 @@
                                           <Insets left="10.0" />
                                        </HBox.margin>
                                     </JFXButton>
-                                    <JFXButton fx:id="EmergencyButton" alignment="CENTER" buttonType="RAISED" contentDisplay="GRAPHIC_ONLY" focusTraversable="false" graphicTextGap="0.0" minHeight="-Infinity" onAction="#ActivateEmergencyMode" prefHeight="75.0" prefWidth="100.0" ripplerFill="#b0b0b0" style="-fx-border-color: RED;" styleClass="buttonToolbar" stylesheets="@Default.css" text="ALERT" textAlignment="CENTER" textFill="RED">
+                                    <JFXButton fx:id="EmergencyButton" alignment="CENTER" buttonType="RAISED" contentDisplay="GRAPHIC_ONLY" focusTraversable="false" graphicTextGap="0.0" minHeight="-Infinity" onAction="#ActivateEmergencyMode" prefHeight="75.0" prefWidth="100.0" ripplerFill="#b0b0b0" styleClass="buttonEmergency" stylesheets="@Default.css" text="ALERT" textAlignment="CENTER" textFill="RED">
                                        <font>
                                           <Font name="Trebuchet MS Bold" size="17.0" />
                                        </font>
@@ -291,7 +291,7 @@
                         <Insets top="3.0" />
                      </GridPane.margin>
                   </Label>
-                  <JFXComboBox fx:id="strategySelector" maxWidth="1.7976931348623157E308" promptText="Search Strategy" styleClass="jfx-combo-box-PathMenu2" stylesheets="@Default.css" GridPane.columnSpan="2147483647" GridPane.rowIndex="2">
+                  <JFXComboBox fx:id="strategySelector" onAction="#strategySelected" maxWidth="1.7976931348623157E308" promptText="Search Strategy" styleClass="jfx-combo-box-PathMenu2" stylesheets="@Default.css" GridPane.columnSpan="2147483647" GridPane.rowIndex="2">
                      <GridPane.margin>
                         <Insets left="50.0" right="50.0" />
                      </GridPane.margin>

@@ -3,6 +3,8 @@
 myDB/MasterDB
 MasterDB
 ServiceRequestDB
+GiftRequestDB
+gargoyle_food_request_db/
 TempOutput.jpg
 DBInput.jpg
 classes/
@@ -16,3 +18,11 @@ derby.log
 *.lock
 *.iml
 *.pdf
+
+/target/
+.idea
+*.iml
+.project
+*.prefs
+CalendarFXApp/.classpath
+*.classpath

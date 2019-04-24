@@ -1,5 +1,8 @@
 package edu.wpi.cs3733.d19.teamL.HomeScreens;
 
+import com.github.sarxos.webcam.Webcam;
+import com.github.sarxos.webcam.WebcamPanel;
+import com.github.sarxos.webcam.WebcamResolution;
 import com.jfoenix.controls.JFXButton;
 import com.lowagie.text.DocumentException;
 import com.lowagie.text.pdf.PdfReader;
@@ -23,6 +26,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.*;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
@@ -38,7 +42,10 @@ import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 
 
 import java.awt.*;
+import javax.imageio.ImageIO;
 import javax.management.AttributeList;
+import javax.swing.*;
+import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -46,11 +53,11 @@ import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.Timer;
-import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.*;
 import java.util.List;
-import java.util.Map;
+import java.util.Timer;
+
+import static java.lang.Thread.sleep;
 
 
 public class HomeScreenController {
@@ -59,10 +66,10 @@ public class HomeScreenController {
     Button HomeFindPath;
 
     @FXML
-    private Button back;
+    Button back;
 
     @FXML
-    private JFXButton aboutButton;
+    JFXButton aboutButton;
 
     @FXML
     Button HomeServiceRequest;
@@ -278,7 +285,57 @@ public class HomeScreenController {
     }
 
     @FXML
-    private void AboutPress() throws IOException, JRException, SQLException, DocumentException, InterruptedException {
+    private void AboutPress(ActionEvent event){
+        stop();
+        saveState();
+        Singleton single = Singleton.getInstance();
+        single.setLastTime();
+        try {
+            Parent newPage = FXMLLoader.load(getClass().getClassLoader().getResource("AboutPage_fancy.fxml"));
+            ((Node) event.getSource()).getScene().setRoot(newPage);
+
+        } catch (Exception e){
+            e.printStackTrace();
+        }
+    }
+
+    @FXML
+    private void ActivateEmergencyMode(ActionEvent event) throws IOException {
+        // popup - activate emergency mode?
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("ACTIVATING EMERGENCY MODE");
+        alert.setHeaderText("YOU ARE ACTIVATING EMERGENCY MODE. THIS WILL HAVE CONSEQUENCES IF THERE IS NO REAL EMERGENCY PRESENT");
+        alert.setContentText("YOUR PICTURE HAS BEEN TAKEN. IF YOU PROCEED TO ACTIVATE EMERGENCY MODE, YOUR FACE WILL BE STORED IN OUR DATABASE. " +
+                "\n CONFIRM?");
+
+        //CODE TO TAKE PICTURE
+        try {
+            Webcam webcam;
+
+            webcam = Webcam.getDefault();
+            //THE VIEW SIZE WILL PROBABLY CHANGE DEPENDING ON THE COMPUTER
+            //IMAGE COMPARISON WILL FAIL IMMEDIATELY IF SIZE CHANGES
+            webcam.setViewSize(WebcamResolution.VGA.getSize());
+            webcam.open();
+            BufferedImage image = webcam.getImage();
+            ImageIO.write(image, "JPG", new File("EMode.jpg"));
+            webcam.close();
+
+
+        } catch (Exception e){
+            e.printStackTrace();
+        }
+
+
+        //when press ok, store pic in database
+        Optional<ButtonType> result = alert.showAndWait();
+        if (result.get() == ButtonType.OK){
+            // ... user chose OK
+            Parent newPage = FXMLLoader.load(getClass().getClassLoader().getResource("EmergencyScreen.fxml"));
+            ((Node) event.getSource()).getScene().setRoot(newPage);
+        } else {
+            // ... user chose CANCEL or closed the dialog
+        }
 
     }
 
