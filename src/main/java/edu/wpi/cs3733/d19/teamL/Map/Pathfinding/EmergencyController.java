@@ -113,7 +113,7 @@ public class EmergencyController {
     private VBox vLeft;
 
     @FXML
-    private JFXToolbar toolbar;
+    private HBox hi;
 
     Location kioskTemp;
 
@@ -547,11 +547,16 @@ public class EmergencyController {
         Singleton single = Singleton.getInstance();
         single.setLastTime();
 
-        FadeTransition fadeTransition = new FadeTransition(Duration.seconds(2), toolbar);
+        FadeTransition fadeTransition = new FadeTransition(Duration.seconds(2), hi);
         fadeTransition.setFromValue(1);
         fadeTransition.setToValue(0);
         fadeTransition.setCycleCount(Animation.INDEFINITE);
+        fadeTransition.setAutoReverse(true);
         fadeTransition.play();
+        Platform.runLater(new Runnable() {
+            @Override
+            public void run() {
+
 
         na = new NodesAccess();
         ea = new EdgesAccess();
@@ -645,6 +650,8 @@ public class EmergencyController {
 
                 activateEmergencyMode();
                 displayPath();
+            }
+        });
             }
         });
     }
