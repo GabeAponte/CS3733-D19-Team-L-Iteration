@@ -503,6 +503,7 @@ public class BookRoomController {
             RoomAccess ra = new RoomAccess();
             roomReq.makeReservation(ra.getRoomID(roomName), employeeID, date, endDate, eventNameString, eventDescriptionString, listOfGuests, eventTypeString, eventIsPrivate);
             //add event name, event description, event type, guestList (String), privacy (boolean)
+            Reservation r = new Reservation(ra.getRoomID(roomName), employeeID, date, endDate, eventNameString, eventDescriptionString, listOfGuests, eventTypeString, eventIsPrivate);
             openReservation(false);
             openEventInfo(true, null);
             fieldsEntered();
