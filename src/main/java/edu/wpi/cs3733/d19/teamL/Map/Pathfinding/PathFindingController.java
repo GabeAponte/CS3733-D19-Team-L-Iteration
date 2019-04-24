@@ -8,6 +8,7 @@ import edu.wpi.cs3733.d19.teamL.Map.MapLocations.AutoCompleteList;
 import edu.wpi.cs3733.d19.teamL.Map.MapLocations.Location;
 import edu.wpi.cs3733.d19.teamL.Map.MapLocations.Path;
 import edu.wpi.cs3733.d19.teamL.Memento;
+import edu.wpi.cs3733.d19.teamL.RoomBooking.BookRoomController;
 import edu.wpi.cs3733.d19.teamL.RoomBooking.RoomAccess;
 import edu.wpi.cs3733.d19.teamL.RoomBooking.RoomDisplay;
 import edu.wpi.cs3733.d19.teamL.Reports.pathReportAccess;
@@ -570,27 +571,27 @@ public class PathFindingController {
             @Override
             public void handle(MouseEvent event) {
                 if(event.getButton().equals(MouseButton.SECONDARY)) {
-                    Location clostestToClick = single.getData().get(0);
+                    Location closestToClick = single.getData().get(0);
 //                Point2D topLeftPoint = new Point2D(Math.abs(gesturePane.getCurrentX()), Math.abs(gesturePane.getCurrentY()));
 
                     for (Location l : single.getData()) {
                         double distanceToL = Math.pow(event.getX() * Map.getImage().getWidth() / childPane.getWidth() - l.getXcoord(), 2) + Math.pow(event.getY() * Map.getImage().getHeight() / childPane.getHeight() - l.getYcoord(), 2);
-                        double distanceToClosest = Math.pow(event.getX() * Map.getImage().getWidth() / childPane.getWidth() - clostestToClick.getXcoord(), 2) + Math.pow(event.getY() * Map.getImage().getHeight() / childPane.getHeight() - clostestToClick.getYcoord(), 2);
+                        double distanceToClosest = Math.pow(event.getX() * Map.getImage().getWidth() / childPane.getWidth() - closestToClick.getXcoord(), 2) + Math.pow(event.getY() * Map.getImage().getHeight() / childPane.getHeight() - closestToClick.getYcoord(), 2);
                         if (!l.getNodeType().equals("HALL") && currentMap.equals(l.getFloor()) && distanceToL < distanceToClosest) {
-                            clostestToClick = l;
+                            closestToClick = l;
                         }
                     }
 
-                    System.out.println(clostestToClick);
+                    System.out.println(closestToClick);
                     System.out.println(event.getX() * Map.getImage().getWidth() / childPane.getWidth() + " " + event.getY() * Map.getImage().getHeight() / childPane.getHeight());
-//                System.out.println(Math.pow(topLeftPoint.getX()+event.getX()*Map.getImage().getWidth()/gesturePane.getViewportWidth() - clostestToClick.getXcoord(), 2) + Math.pow(topLeftPoint.getY()+event.getY()*Map.getImage().getHeight()/gesturePane.getViewportHeight() - clostestToClick.getYcoord(), 2));
+//                System.out.println(Math.pow(topLeftPoint.getX()+event.getX()*Map.getImage().getWidth()/gesturePane.getViewportWidth() - closestToClick.getXcoord(), 2) + Math.pow(topLeftPoint.getY()+event.getY()*Map.getImage().getHeight()/gesturePane.getViewportHeight() - closestToClick.getYcoord(), 2));
 
-                    if (Math.pow(event.getX() * Map.getImage().getWidth() / childPane.getWidth() - clostestToClick.getXcoord(), 2) + Math.pow(event.getY() * Map.getImage().getHeight() / childPane.getHeight() - clostestToClick.getYcoord(), 2) <= 65 * 65) {
+                    if (Math.pow(event.getX() * Map.getImage().getWidth() / childPane.getWidth() - closestToClick.getXcoord(), 2) + Math.pow(event.getY() * Map.getImage().getHeight() / childPane.getHeight() - closestToClick.getYcoord(), 2) <= 65 * 65) {
                         Floor.setValue("All");
                         Filter.setValue("All");
                         noHall();
 
-                        PathFindEndDrop.setValue(clostestToClick);
+                        PathFindEndDrop.setValue(closestToClick);
 
                         submitPressed();
                     }
@@ -2836,17 +2837,22 @@ public class PathFindingController {
             for (int k = 0; k < DisplayRooms.size(); k++) {
                 Point2D mousePress = new Point2D(event.getX(), event.getY());
                 if (DisplayRooms.get(k).getPolygon().contains(mousePress)) {
-//                    System.out.println("Clicked on " + DisplayRooms.get(k).getRoomName());
-
                     try {
+                        System.out.println(DisplayRooms.get(k).getRoomName());
                         timeout.stop();
                         Singleton single = Singleton.getInstance();
                         single.setLastTime();
 
                         saveState();
 
-                        Parent newPage = FXMLLoader.load(getClass().getClassLoader().getResource("BookRoom.fxml"));
+                        FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("BookRoom.fxml"));
+                        Parent newPage = loader.load();
+
+                        BookRoomController brc = loader.getController();
+                        brc.loadWithRoomSelected(DisplayRooms.get(k).getRoomName());
+
                         ((Node) event.getSource()).getScene().setRoot(newPage);
+                        return;
                     } catch (IOException ex) {
 
                     }
