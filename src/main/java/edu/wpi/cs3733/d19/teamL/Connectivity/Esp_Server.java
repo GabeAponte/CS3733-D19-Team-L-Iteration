@@ -18,9 +18,11 @@ public class Esp_Server extends Thread {
 
     private String message = "";
     private boolean isFree;
+    private boolean isEmergency;
 
     public Esp_Server() {
         isFree = true;
+        isEmergency = false;
     }
 
     public void run() {
@@ -103,6 +105,20 @@ public class Esp_Server extends Thread {
                         else if (message.equals("FREE")) {
                             isFree = true;
                         }
+                        else if (message.equals("TOGGLE ON")) {
+                            isEmergency = true;
+                            System.out.println("EMERGENCY ON");
+                        }
+                        else if (message.equals("TOGGLE OFF")) {
+                            isEmergency = false;
+                            System.out.println("EMERGENCY OFF");
+                        }
+                        else if (message.equals("Hello server!")) {
+                            System.out.println("ESP CONNECTED");
+                        }
+                        else if (message.equals("Hello server!1")){
+                            System.out.println("SECOND ESP CONNECTED");
+                        }
                         //System.out.println(message);
                     }
                 }
@@ -110,8 +126,16 @@ public class Esp_Server extends Thread {
 
     }
 
+    public void turnOffEmergency() {
+        isEmergency = false;
+    }
+
     public boolean getFree() {
         return isFree;
+    }
+
+    public boolean getEmergency() {
+        return isEmergency;
     }
 
 }
