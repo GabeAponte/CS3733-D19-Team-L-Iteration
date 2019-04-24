@@ -109,7 +109,6 @@ public class LogInController {
         timeout.setCycleCount(Timeline.INDEFINITE);
         login.setDisable(true);
         timeout.play();
-        login.setDisable(true);
 
     }
 
