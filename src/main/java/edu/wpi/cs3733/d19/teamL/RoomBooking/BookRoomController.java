@@ -16,6 +16,7 @@ import javafx.application.Platform;
 import javafx.beans.property.ReadOnlyObjectWrapper;
 import javafx.beans.value.ChangeListener;
 import javafx.collections.FXCollections;
+import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -33,6 +34,7 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Polygon;
+import javafx.scene.transform.Translate;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -40,12 +42,22 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 import javafx.util.Duration;
+import org.controlsfx.control.CheckComboBox;
+import org.w3c.dom.Text;
+
+//Import APIs
+import giftRequest.GiftRequest;
+import foodRequest.FoodRequest;
 
 public class BookRoomController {
 
-    //Weekly Schedule Stuff
+    @FXML
+    private TabPane tabPane;
+
+    //Weekly Schedule Stuff ------------------------------------------------------------------------------------------
 
     @FXML
     private Label classroomLabel;
@@ -87,10 +99,7 @@ public class BookRoomController {
 
     private TreeItem WeeklyRoot = new TreeItem("rootxxx");
 
-    String chosenRoom;
-    LocalDate chosenDate;
-
-    //Daily Schedule Stuff
+    //Daily Schedule Stuff --------------------------------------------------------------------------------------------
 
     @FXML
     private JFXDatePicker dailyDatePicker;
@@ -131,7 +140,7 @@ public class BookRoomController {
     @FXML
     private TreeTableColumn<Room, Boolean> auditorium;
 
-    //Visual Display Stuff
+    //Visual Display Stuff --------------------------------------------------------------------------------------------
 
     @FXML
     private JFXDatePicker datePicker;
@@ -141,9 +150,6 @@ public class BookRoomController {
 
     @FXML
     private JFXComboBox<String> availableRooms;
-
-    @FXML
-    private JFXComboBox<String> eventType;
 
     @FXML
     private Label error;
@@ -156,6 +162,12 @@ public class BookRoomController {
 
     @FXML
     private JFXButton requestRoom;
+
+    @FXML
+    private JFXButton orderGifts;
+
+    @FXML
+    private JFXButton orderFood;
 
     @FXML
     private JFXTimePicker startTime;
@@ -171,6 +183,9 @@ public class BookRoomController {
 
     @FXML
     private Pane imagePane;
+
+    @FXML
+    private Pane sizingPane;
 
     @FXML
     private ImageView roomImage;
@@ -190,27 +205,63 @@ public class BookRoomController {
     @FXML
     private AnchorPane anchorPane;
 
+    //Event Info Pop-up ------------------------------------
+
     @FXML
-    private ListView<EmployeeAccess> myListView;
-    private ObservableList<EmployeeAccess> listViewData = FXCollections.observableArrayList();
+    private Label eventTitle;
+    @FXML
+    private Label roomNameLabel;
+    @FXML
+    private Label startTimeLabel;
+    @FXML
+    private Label endTimeLabel;
+    @FXML
+    private Label startDateLabel;
+    @FXML
+    private Label endDateLabel;
+    @FXML
+    private Label creatorLabel;
+    @FXML
+    private Label eventTypeLabel;
+    @FXML
+    private Label descriptionLabel;
+    @FXML
+    private Label invitedEmployeesLabel;
+
+    //Reservation Pop-up -----------------------------------
+    @FXML
+    private TextField eventName;
+
+    @FXML
+    private TextArea eventDescription;
+
+    @FXML
+    private RadioButton privateEvent;
+
+    @FXML
+    private JFXComboBox<String> eventType;
+
+    @FXML
+    CheckComboBox<String> eventEmployees;
+    final ObservableList<String> eventEmployeeData = FXCollections.observableArrayList();
 
     Timeline timeout;
-    VisualSimulationThread sim;
     private boolean firstTimeRan = true;
     private boolean resShowing = false;
     private boolean bookedEventShowing = false;
     private boolean calledFromVisualClick = false;
+    String previousEvent = "";
 
     final ObservableList<String> listOfRooms = FXCollections.observableArrayList();
     ArrayList<String> rooms = new ArrayList<>();
     ArrayList<String> allRooms = new ArrayList<String>();
     ArrayList<Boolean> availRooms = new ArrayList<Boolean>();
     ArrayList<Polygon> flexSpaces = new ArrayList<Polygon>();
+    private Singleton single;
     private ArrayList<RoomDisplay> DisplayRooms = new ArrayList<RoomDisplay>();
 
     public void initialize() {
-        sim = new VisualSimulationThread(86);
-        sim.start();
+        single = Singleton.getInstance();
 
         double room1[] = {2240, 1640, 2590, 1640, 2590, 1790, 2670, 1790, 2670, 1890, 2240, 1890};
         double room2[] = {2860, 1140, 3060, 1065, 3195, 1440, 2995, 1510};
@@ -237,39 +288,39 @@ public class BookRoomController {
         roomImage.fitWidthProperty().bind(imagePane.widthProperty());
         roomImage.fitHeightProperty().bind(imagePane.heightProperty());
 
-        anchorPane.sceneProperty().addListener((observableScene, oldScene, newScene) -> {
-            if (oldScene == null && newScene != null) {
-                // scene is set for the first time. Now its the time to listen stage changes.
-                newScene.windowProperty().addListener((observableWindow, oldWindow, newWindow) -> {
-                    if (oldWindow == null && newWindow != null) {
-                        // stage is set. now is the right time to do whatever we need to the stage in the controller.
-                        ChangeListener<Number> stageSizeListener = (observable, oldValue, newValue) -> {
-                        System.out.println("Screen resized");
-                            for(int i = 0; i < DisplayRooms.size(); i++){
-                                imagePane.getChildren().remove(DisplayRooms.get(i).getPolygon());
-                            }
+        displayFlexSpaces(single.getSimulation());
+//        anchorPane.sceneProperty().addListener((observableScene, oldScene, newScene) -> {
+//            if (oldScene == null && newScene != null) {
+//                // scene is set for the first time. Now its the time to listen stage changes.
+//                newScene.windowProperty().addListener((observableWindow, oldWindow, newWindow) -> {
+//                    if (oldWindow == null && newWindow != null) {
+//                        // stage is set. now is the right time to do whatever we need to the stage in the controller.
+//                        ChangeListener<Number> stageSizeListener = (observable, oldValue, newValue) -> {
+//                        System.out.println("Screen resized");
+//                            for(int i = 0; i < DisplayRooms.size(); i++){
+//                                imagePane.getChildren().remove(DisplayRooms.get(i).getPolygon());
+//                            }
+//
+//                            firstTimeRan = true;
+//                            timeout.setCycleCount(Timeline.INDEFINITE);
+//                            timeout.play();
+//                            Platform.runLater(new Runnable(){
+//                                @Override
+//                                public void run(){
+//                                    //displayFlexSpaces();
+//                                    fieldsEntered();
+//                                }
+//                            });
+//
+//                        };
+//
+//                        ((Stage) newWindow).widthProperty().addListener(stageSizeListener);
+//                        ((Stage) newWindow).heightProperty().addListener(stageSizeListener);
+//                    }
+//                });
+//            }
+//        });
 
-                            firstTimeRan = true;
-                            timeout.setCycleCount(Timeline.INDEFINITE);
-                            timeout.play();
-                            Platform.runLater(new Runnable(){
-                                @Override
-                                public void run(){
-                                    //displayFlexSpaces();
-                                    fieldsEntered();
-                                }
-                            });
-
-                        };
-
-                        ((Stage) newWindow).widthProperty().addListener(stageSizeListener);
-                        ((Stage) newWindow).heightProperty().addListener(stageSizeListener);
-                    }
-                });
-            }
-        });
-
-        displayFlexSpaces(sim.getSimulation());
 
         ArrayList<String> events = new ArrayList<String> (Arrays.asList("Meeting", "Party", "Conference", "Reception"));
         ObservableList obList = FXCollections.observableList(events);
@@ -278,17 +329,16 @@ public class BookRoomController {
         startTime.setValue(LocalTime.now().plusMinutes(1));
         endTime.setValue(LocalTime.now().plusHours(1).plusMinutes(1));
         datePicker.setValue(LocalDate.now());
+        single.setLastTime();
         endDatePicker.setValue(LocalDate.now());
         dailyDatePicker.setValue(LocalDate.now());
         weeklyDatePicker.setValue(LocalDate.now());
-        Singleton single = Singleton.getInstance();
-        single.setLastTime();
         timeout = new Timeline(new KeyFrame(Duration.millis(1500), new EventHandler<ActionEvent>() {
 
 
             @Override
             public void handle(ActionEvent event) {
-                displayFlexSpaces(sim.getSimulation());
+                displayFlexSpaces(single.getSimulation());
                 if ((System.currentTimeMillis() - single.getLastTime()) > single.getTimeoutSec()) {
                     try {
                         single.setLastTime();
@@ -296,12 +346,6 @@ public class BookRoomController {
                         single.setLoggedIn(false);
                         single.setUsername("");
                         single.setIsAdmin(false);
-                        try{
-                            sim.join();
-                        } catch (Exception e){
-                            e.printStackTrace();
-                            sim.stop();
-                        }
                         FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("HospitalHome.fxml"));
 
                         Parent sceneMain = loader.load();
@@ -325,19 +369,40 @@ public class BookRoomController {
 
         timeout.setCycleCount(Timeline.INDEFINITE);
         timeout.play();
-        Platform.runLater(new Runnable(){
+        Platform.runLater(new Runnable() {
             @Override
-            public void run(){
+            public void run() {
                 //displayFlexSpaces();
+                double width = sizingPane.getWidth() - 10;
+                double height = sizingPane.getHeight() - 10;
+                reservationPane.setMinSize(width, height);
+                reservationPane.setPrefSize(width, height);
+                reservationPane.setLayoutX(anchorPane.getWidth());
+                bookedEventPane.setMinSize(width, height);
+                bookedEventPane.setPrefSize(width, height);
+                bookedEventPane.setLayoutX(anchorPane.getWidth());
                 fieldsEntered();
             }
         });
+
+        EmployeeAccess ea = new EmployeeAccess();
+        ArrayList<ArrayList<String>> emps = ea.getEmployees("","");
+
+        for(int i = 0; i < emps.size(); i++){
+            String temp = "";
+            temp = emps.get(i).get(4) + " " + emps.get(i).get(5) + " " + "(" + emps.get(i).get(6) + ")";
+            eventEmployeeData.add(temp);
+        }
+
+        eventEmployees.getItems().addAll(eventEmployeeData);
 
         dailyDatePicker.setValue(LocalDate.now());
         findRooms();
         roomPicker.getItems().addAll("Room 1 - Computer", "Room 2 - Computer", "Room 3 - Computer", "Room 4 - Classroom", "Room 5 - Computer", "Room 6 - Classroom", "Room 7 - Computer", "Room 8 - Classroom", "Room 9 - Computer", "Mission Hall Auditorium");
         roomPicker.getSelectionModel().select(0);
         viewSched();
+
+
 
     }
 
@@ -351,7 +416,6 @@ public class BookRoomController {
      * to book any avaliable rooms
      */
     private void findRoom() {
-        Singleton single = Singleton.getInstance();
         single.setLastTime();
 
         LocalTime startTimeValue = startTime.getValue();
@@ -360,6 +424,23 @@ public class BookRoomController {
         LocalDate endRoomDate = endDatePicker.getValue();
         LocalDate curDate = LocalDate.now();
         LocalTime curTime = LocalTime.now();
+        boolean eventIsPrivate = false;
+        String eventTypeString = eventType.getSelectionModel().getSelectedItem();
+        String eventNameString = eventName.getText();
+        String eventDescriptionString = eventDescription.getText();
+        String listOfGuests = "";
+
+        List<String> guestList = eventEmployees.getCheckModel().getCheckedItems();
+        for(int i = 0; i < guestList.size(); i ++){
+            listOfGuests = listOfGuests + guestList.get(i) + ",";
+        }
+
+        System.out.println(listOfGuests);
+        System.out.println(guestList);
+
+        if(privateEvent.isSelected()){
+            eventIsPrivate = true;
+        }
 
         error.setTextFill(Color.RED);
 
@@ -383,14 +464,16 @@ public class BookRoomController {
             error.setText("Please select an end time and a date.");
         }
 
-        //Gabe - error when start time is blank
-        else if (startTimeValue == null) {
-            error.setText("Please select a start time.");
+        else if (eventNameString == null || eventNameString.isEmpty()) {
+            error.setText("Please enter an event name.");
         }
 
-        //Gabe - error when end time is blank
-        else if (endTimeValue == null) {
-            error.setText("Please select an end time.");
+        else if (eventDescriptionString == null || eventDescriptionString.isEmpty()) {
+            error.setText("Please enter an event description.");
+        }
+
+        else if (eventTypeString == null || eventTypeString.isEmpty()) {
+            error.setText("Please select an event type.");
         }
 
         //Gabe - error when date is blank
@@ -411,14 +494,17 @@ public class BookRoomController {
             error.setText("Room booked.");
             String date = datePicker.getValue().toString();
             String endDate = endDatePicker.getValue().toString();
-            date += "T" + startTime.getValue().getHour() + ":" + startTime.getValue().getMinute() + ":00";
-            endDate += "T" + endTime.getValue().getHour()  + ":" + endTime.getValue().getMinute() + ":00";
+            date += "T" + String.format("%2d", startTime.getValue().getHour()) + ":" + String.format("%2d", startTime.getValue().getMinute()) + ":00";
+            endDate += "T" + String.format("%2d", endTime.getValue().getHour()) + ":" + String.format("%2d", endTime.getValue().getMinute()) + ":00";
             String roomName = availableRooms.getValue().toString();
             EmployeeAccess ea = new EmployeeAccess();
             String employeeID = ea.getEmployeeInformation(single.getUsername()).get(0);
             ReservationAccess roomReq = new ReservationAccess();
             RoomAccess ra = new RoomAccess();
-            roomReq.makeReservation(ra.getRoomID(roomName), employeeID, date, endDate);
+            roomReq.makeReservation(ra.getRoomID(roomName), employeeID, date, endDate, eventNameString, eventDescriptionString, listOfGuests, eventTypeString, eventIsPrivate);
+            //add event name, event description, event type, guestList (String), privacy (boolean)
+            openReservation(false);
+            openEventInfo(true, null);
             fieldsEntered();
         }
     }
@@ -427,7 +513,6 @@ public class BookRoomController {
     // RA.getAvailRooms returns list of available rooms
     @FXML
     public void fieldsEntered() {
-        Singleton single = Singleton.getInstance();
         single.setLastTime();
         RoomAccess ra = new RoomAccess();
         int startTimeMil = 0;
@@ -438,8 +523,8 @@ public class BookRoomController {
         if (startTime.getValue() != null && endTime.getValue() != null && datePicker.getValue() != null) {
             date = datePicker.getValue().toString();
             endDate = endDatePicker.getValue().toString();
-            date += "T" + startTime.getValue().getHour() * 100 + ":" + startTime.getValue().getMinute() + ":00";
-            endDate += "T" + endTime.getValue().getHour() * 100 + ":" + endTime.getValue().getMinute() + ":00";
+            date += "T" + String.format("%2d", startTime.getValue().getHour()) + ":" + String.format("%2d", startTime.getValue().getMinute()) + ":00";
+            endDate += "T" + String.format("%2d", endTime.getValue().getHour()) + ":" + String.format("%2d", endTime.getValue().getMinute()) + ":00";
             availableRooms.getSelectionModel().clearSelection();
 
             rooms = ra.getAvailRooms(date, endDate);
@@ -453,10 +538,10 @@ public class BookRoomController {
                 DisplayRooms.get(i).setAvailable(false);
             }
 
-                //System.out.println("startTimeMil: " + startTimeMil + "\n endTimeMil:" + endTimeMil);
+            //System.out.println("startTimeMil: " + startTimeMil + "\n endTimeMil:" + endTimeMil);
             rooms = ra.getAvailRooms(date, endDate);
 
-            for(int j = 0; j < rooms.size(); j ++) {
+            for (int j = 0; j < rooms.size(); j++) {
                 listOfRooms.add(rooms.get(j));
                 for (int i = 0; i < DisplayRooms.size(); i++) {
                     //System.out.println("COMPARE " + DisplayRooms.get(i).roomName + " AND " + rooms.get(j));
@@ -466,6 +551,16 @@ public class BookRoomController {
                         break;
                     }
                 }
+            }
+
+            eventName.clear();
+            eventDescription.clear();
+            eventType.getSelectionModel().clearSelection();
+            privateEvent.setSelected(false);
+            EmployeeAccess ea = new EmployeeAccess();
+            ArrayList<ArrayList<String>> emps = ea.getEmployees("","");
+            for(int i = 0; i < emps.size(); i++) {
+                eventEmployees.getCheckModel().clearCheck(i);
             }
 
             availableRooms.setItems(listOfRooms);
@@ -486,6 +581,7 @@ public class BookRoomController {
             for (int i = 0; i < DisplayRooms.size(); i++) {
                 DisplayRooms.get(i).makePolygon(scaleRatio);
                 DisplayRooms.get(i).getPolygon().setOnMouseClicked(onMouseClickedEventHandler);
+                //DisplayRooms.get(i).getPolygon().setOnMouseClicked(mouseRightClicked);
                 DisplayRooms.get(i).getPolygon().setVisible(false);
                 imagePane.getChildren().add(DisplayRooms.get(i).getPolygon());
             }
@@ -494,7 +590,7 @@ public class BookRoomController {
 
         for (int i = 0; i < DisplayRooms.size(); i++) {
 
-            if(DisplayRooms.get(i).isAvailable()){
+            if (DisplayRooms.get(i).isAvailable()) {
                 DisplayRooms.get(i).changePolygonColor("GREEN");
             } else {
                 DisplayRooms.get(i).changePolygonColor("RED");
@@ -507,52 +603,78 @@ public class BookRoomController {
 
         @Override
         public void handle(MouseEvent event) {
-            boolean resPaneCalled = false;
-            calledFromVisualClick = true;
-            displayAllRooms();
-            for (int k = 0; k < DisplayRooms.size(); k++) {
-                Point2D mousePress = new Point2D(event.getX(), event.getY());
-                if (DisplayRooms.get(k).p.contains(mousePress)) {
-                    imagePane.getChildren().remove(DisplayRooms.get(k).getPolygon());
-                    roomName.setText(DisplayRooms.get(k).niceName);
-                    fieldsEntered();
-                    for(int z = 0; z<listOfRooms.size(); z++){
-                        if(DisplayRooms.get(k).getRoomName().equals(listOfRooms.get(z))){
-                            if(DisplayRooms.get(k).isAvailable()) {
-                                availableRooms.getSelectionModel().select(listOfRooms.get(z));
-                                if(popupName.getText().contains(DisplayRooms.get(k).niceName)){
-                                    resPaneCalled = true;
-                                    //System.out.println("Same");
-                                    if(resShowing) {
-                                        openReservation(false);
-                                    }else{
+            if (!event.isSecondaryButtonDown()) {
+                boolean resPaneCalled = false;
+                calledFromVisualClick = true;
+                displayAllRooms();
+                for (int k = 0; k < DisplayRooms.size(); k++) {
+                    Point2D mousePress = new Point2D(event.getX(), event.getY());
+                    if (DisplayRooms.get(k).p.contains(mousePress)) {
+                        imagePane.getChildren().remove(DisplayRooms.get(k).getPolygon());
+                        roomName.setText(DisplayRooms.get(k).niceName);
+                        fieldsEntered();
+                        for (int z = 0; z < listOfRooms.size(); z++) {
+                            if (DisplayRooms.get(k).getRoomName().equals(listOfRooms.get(z))) {
+                                if (DisplayRooms.get(k).isAvailable()) {
+                                    availableRooms.getSelectionModel().select(listOfRooms.get(z));
+                                    if (popupName.getText().contains(DisplayRooms.get(k).niceName)) {
+                                        resPaneCalled = true;
+                                        //System.out.println("Same");
+                                        if (resShowing) {
+                                            openReservation(false);
+                                        } else {
+                                            openReservation(true);
+                                        }
+                                    } else {
+                                        resPaneCalled = true;
+                                        popupName.setText("Reserve " + DisplayRooms.get(k).niceName);
+                                        //System.out.println("New");
                                         openReservation(true);
                                     }
-                                }else {
-                                    resPaneCalled = true;
-                                    popupName.setText("Reserve " + DisplayRooms.get(k).niceName);
-                                    //System.out.println("New");
-                                    openReservation(true);
                                 }
                             }
                         }
-                    }
-                    if(resPaneCalled == false){
-                        if(bookedEventShowing) {
-                            openEventInfo(false);
-                        }else{
-                            openEventInfo(true);
+                        if (resPaneCalled == false) {
+                            if (DisplayRooms.get(k).getRoomName().equals(previousEvent)) {
+                                if (bookedEventShowing) {
+                                    openEventInfo(false, null);
+                                } else {
+
+                                    openEventInfo(true, DisplayRooms.get(k).getRoomName());
+                                }
+                            } else {
+                                openEventInfo(true, DisplayRooms.get(k).getRoomName());
+                            }
                         }
+                        DisplayRooms.get(k).changePolygonColor("BLUE");
+                        imagePane.getChildren().add(DisplayRooms.get(k).getPolygon());
+                        calledFromVisualClick = false;
                     }
-                    DisplayRooms.get(k).changePolygonColor("BLUE");
-                    imagePane.getChildren().add(DisplayRooms.get(k).getPolygon());
-                    calledFromVisualClick = false;
                 }
             }
 
         }
 
     };
+
+/*
+    private EventHandler<MouseEvent> mouseRightClicked = new EventHandler<MouseEvent>() {
+
+        @Override
+        public void handle(MouseEvent event) {
+            if (event.isSecondaryButtonDown()) {
+                System.out.println("Right Click");
+                for (int k = 0; k < DisplayRooms.size(); k++) {
+                    Point2D mousePress = new Point2D(event.getX(), event.getY());
+                    if (DisplayRooms.get(k).p.contains(mousePress)) {
+                        tabPane.getSelectionModel().select(2);
+                        loadWeekly(DisplayRooms.get(k).niceName, datePicker.getValue());
+                    }
+                }
+            }
+        }
+    };
+*/
 
     public void highlightFromDropdown(){
         //System.out.println("VisClick:"+calledFromVisualClick);
@@ -580,9 +702,9 @@ public class BookRoomController {
     /** @author Isabella
      * Displays individual flex spaces that update randomly
      */
-    public void displayFlexSpaces(ArrayList<Boolean> flexSpaceAvailable){
+    public void displayFlexSpaces(ArrayList<Boolean> flexSpaceAvailable) {
         int i = 0;
-        for(i = 0; i < flexSpaces.size(); i++){
+        for (i = 0; i < flexSpaces.size(); i++) {
             imagePane.getChildren().remove(flexSpaces.get(i));
         }
         flexSpaces.clear();
@@ -590,120 +712,120 @@ public class BookRoomController {
         double sr = Math.min(roomImage.getFitWidth() / roomImage.getImage().getWidth(), roomImage.getFitHeight() / roomImage.getImage().getHeight());
 
         //large important room
-        flexSpaces.add(new Polygon(860*sr, 1270*sr, 1160*sr, 1270*sr, 1160*sr, 1580*sr, 860*sr, 1580*sr));
+        flexSpaces.add(new Polygon(860 * sr, 1270 * sr, 1160 * sr, 1270 * sr, 1160 * sr, 1580 * sr, 860 * sr, 1580 * sr));
 
-        flexSpaces.add(new Polygon(150*sr, 230*sr, 200*sr, 230*sr, 200*sr, 340*sr, 150*sr, 340*sr)); //left side desk top
-        flexSpaces.add(new Polygon(150*sr, 420*sr, 200*sr, 420*sr, 200*sr, 530*sr, 150*sr, 530*sr)); //left side desk middle
-        flexSpaces.add(new Polygon(150*sr, 590*sr, 200*sr, 590*sr, 200*sr, 740*sr, 150*sr, 740*sr)); //left side desk lower
-        flexSpaces.add(new Polygon(320*sr, 560*sr, 540*sr, 560*sr, 540*sr, 710*sr, 340*sr, 710*sr)); //left conference room
-        flexSpaces.add(new Polygon(200*sr, 1300*sr, 270*sr, 1300*sr, 270*sr, 1360*sr, 200*sr, 1360*sr)); //small three chairs
-        flexSpaces.add(new Polygon(570*sr, 1340*sr, 630*sr, 1340*sr, 630*sr, 1430*sr, 570*sr, 1430*sr)); //standalone square
-        flexSpaces.add(new Polygon(1320*sr, 2070*sr, 1380*sr, 2070*sr, 1380*sr, 2100*sr, 1320*sr, 2100*sr)); //small two chairs
-        flexSpaces.add(new Polygon(1980*sr, 1690*sr, 2230*sr, 1690*sr, 2230*sr, 1880*sr, 1980*sr, 1880*sr)); //bottom right room
-        flexSpaces.add(new Polygon(1760*sr, 2230*sr, 1820*sr, 2230*sr, 1820*sr, 2380*sr, 1760*sr, 2380*sr)); //bottom vertical top
-        flexSpaces.add(new Polygon(1740*sr, 2440*sr, 1800*sr, 2440*sr, 1800*sr, 2600*sr, 1740*sr, 2600*sr)); //bottom vertical bottom
+        flexSpaces.add(new Polygon(150 * sr, 230 * sr, 200 * sr, 230 * sr, 200 * sr, 340 * sr, 150 * sr, 340 * sr)); //left side desk top
+        flexSpaces.add(new Polygon(150 * sr, 420 * sr, 200 * sr, 420 * sr, 200 * sr, 530 * sr, 150 * sr, 530 * sr)); //left side desk middle
+        flexSpaces.add(new Polygon(150 * sr, 590 * sr, 200 * sr, 590 * sr, 200 * sr, 740 * sr, 150 * sr, 740 * sr)); //left side desk lower
+        flexSpaces.add(new Polygon(340 * sr, 560 * sr, 540 * sr, 560 * sr, 540 * sr, 710 * sr, 340 * sr, 710 * sr)); //left conference room
+        flexSpaces.add(new Polygon(200 * sr, 1300 * sr, 270 * sr, 1300 * sr, 270 * sr, 1360 * sr, 200 * sr, 1360 * sr)); //small three chairs
+        flexSpaces.add(new Polygon(570 * sr, 1340 * sr, 630 * sr, 1340 * sr, 630 * sr, 1430 * sr, 570 * sr, 1430 * sr)); //standalone square
+        flexSpaces.add(new Polygon(1320 * sr, 2070 * sr, 1380 * sr, 2070 * sr, 1380 * sr, 2100 * sr, 1320 * sr, 2100 * sr)); //small two chairs
+        flexSpaces.add(new Polygon(1980 * sr, 1690 * sr, 2230 * sr, 1690 * sr, 2230 * sr, 1880 * sr, 1980 * sr, 1880 * sr)); //bottom right room
+        flexSpaces.add(new Polygon(1760 * sr, 2230 * sr, 1820 * sr, 2230 * sr, 1820 * sr, 2380 * sr, 1760 * sr, 2380 * sr)); //bottom vertical top
+        flexSpaces.add(new Polygon(1740 * sr, 2440 * sr, 1800 * sr, 2440 * sr, 1800 * sr, 2600 * sr, 1740 * sr, 2600 * sr)); //bottom vertical bottom
 
         //top left desk bank
-        flexSpaces.add(new Polygon(240*sr, 240*sr, 305*sr, 240*sr, 305*sr, 290*sr, 240*sr, 290*sr));
-        flexSpaces.add(new Polygon(305*sr, 240*sr, 370*sr, 240*sr, 370*sr, 290*sr, 305*sr, 290*sr));
-        flexSpaces.add(new Polygon(370*sr, 240*sr, 435*sr, 240*sr, 435*sr, 290*sr, 370*sr, 290*sr));
-        flexSpaces.add(new Polygon(435*sr, 240*sr, 500*sr, 240*sr, 500*sr, 290*sr, 435*sr, 290*sr));
-        flexSpaces.add(new Polygon(240*sr, 290*sr, 305*sr, 290*sr, 305*sr, 340*sr, 240*sr, 340*sr));
-        flexSpaces.add(new Polygon(305*sr, 290*sr, 370*sr, 290*sr, 370*sr, 340*sr, 305*sr, 340*sr));
-        flexSpaces.add(new Polygon(370*sr, 290*sr, 435*sr, 290*sr, 435*sr, 340*sr, 370*sr, 340*sr));
-        flexSpaces.add(new Polygon(435*sr, 290*sr, 500*sr, 290*sr, 500*sr, 340*sr, 435*sr, 340*sr));
+        flexSpaces.add(new Polygon(240 * sr, 240 * sr, 305 * sr, 240 * sr, 305 * sr, 290 * sr, 240 * sr, 290 * sr));
+        flexSpaces.add(new Polygon(305 * sr, 240 * sr, 370 * sr, 240 * sr, 370 * sr, 290 * sr, 305 * sr, 290 * sr));
+        flexSpaces.add(new Polygon(370 * sr, 240 * sr, 435 * sr, 240 * sr, 435 * sr, 290 * sr, 370 * sr, 290 * sr));
+        flexSpaces.add(new Polygon(435 * sr, 240 * sr, 500 * sr, 240 * sr, 500 * sr, 290 * sr, 435 * sr, 290 * sr));
+        flexSpaces.add(new Polygon(240 * sr, 290 * sr, 305 * sr, 290 * sr, 305 * sr, 340 * sr, 240 * sr, 340 * sr));
+        flexSpaces.add(new Polygon(305 * sr, 290 * sr, 370 * sr, 290 * sr, 370 * sr, 340 * sr, 305 * sr, 340 * sr));
+        flexSpaces.add(new Polygon(370 * sr, 290 * sr, 435 * sr, 290 * sr, 435 * sr, 340 * sr, 370 * sr, 340 * sr));
+        flexSpaces.add(new Polygon(435 * sr, 290 * sr, 500 * sr, 290 * sr, 500 * sr, 340 * sr, 435 * sr, 340 * sr));
 
         //second down top left desk bank
-        flexSpaces.add(new Polygon(250*sr, 390*sr, 313*sr, 390*sr, 313*sr, 440*sr, 250*sr, 440*sr));
-        flexSpaces.add(new Polygon(313*sr, 390*sr, 375*sr, 390*sr, 375*sr, 440*sr, 313*sr, 440*sr));
-        flexSpaces.add(new Polygon(375*sr, 390*sr, 438*sr, 390*sr, 438*sr, 440*sr, 375*sr, 440*sr));
-        flexSpaces.add(new Polygon(438*sr, 390*sr, 500*sr, 390*sr, 500*sr, 440*sr, 438*sr, 440*sr));
-        flexSpaces.add(new Polygon(250*sr, 440*sr, 313*sr, 440*sr, 313*sr, 490*sr, 250*sr, 490*sr));
-        flexSpaces.add(new Polygon(313*sr, 440*sr, 375*sr, 440*sr, 375*sr, 490*sr, 313*sr, 490*sr));
-        flexSpaces.add(new Polygon(375*sr, 440*sr, 438*sr, 440*sr, 438*sr, 490*sr, 375*sr, 490*sr));
-        flexSpaces.add(new Polygon(438*sr, 440*sr, 500*sr, 440*sr, 500*sr, 490*sr, 438*sr, 490*sr));
+        flexSpaces.add(new Polygon(250 * sr, 390 * sr, 313 * sr, 390 * sr, 313 * sr, 440 * sr, 250 * sr, 440 * sr));
+        flexSpaces.add(new Polygon(313 * sr, 390 * sr, 375 * sr, 390 * sr, 375 * sr, 440 * sr, 313 * sr, 440 * sr));
+        flexSpaces.add(new Polygon(375 * sr, 390 * sr, 438 * sr, 390 * sr, 438 * sr, 440 * sr, 375 * sr, 440 * sr));
+        flexSpaces.add(new Polygon(438 * sr, 390 * sr, 500 * sr, 390 * sr, 500 * sr, 440 * sr, 438 * sr, 440 * sr));
+        flexSpaces.add(new Polygon(250 * sr, 440 * sr, 313 * sr, 440 * sr, 313 * sr, 490 * sr, 250 * sr, 490 * sr));
+        flexSpaces.add(new Polygon(313 * sr, 440 * sr, 375 * sr, 440 * sr, 375 * sr, 490 * sr, 313 * sr, 490 * sr));
+        flexSpaces.add(new Polygon(375 * sr, 440 * sr, 438 * sr, 440 * sr, 438 * sr, 490 * sr, 375 * sr, 490 * sr));
+        flexSpaces.add(new Polygon(438 * sr, 440 * sr, 500 * sr, 440 * sr, 500 * sr, 490 * sr, 438 * sr, 490 * sr));
 
         //center column of small rooms
-        flexSpaces.add(new Polygon(660*sr, 660*sr, 730*sr, 660*sr, 730*sr, 748*sr, 660*sr, 748*sr));
-        flexSpaces.add(new Polygon(660*sr, 748*sr, 730*sr, 748*sr, 730*sr, 836*sr, 660*sr, 836*sr));
-        flexSpaces.add(new Polygon(660*sr, 836*sr, 730*sr, 836*sr, 730*sr, 924*sr, 660*sr, 924*sr));
-        flexSpaces.add(new Polygon(660*sr, 924*sr, 730*sr, 924*sr, 730*sr, 1012*sr, 660*sr, 1012*sr));
-        flexSpaces.add(new Polygon(660*sr, 1012*sr, 730*sr, 1012*sr, 730*sr, 1100*sr, 660*sr, 1100*sr));
+        flexSpaces.add(new Polygon(660 * sr, 660 * sr, 730 * sr, 660 * sr, 730 * sr, 748 * sr, 660 * sr, 748 * sr));
+        flexSpaces.add(new Polygon(660 * sr, 748 * sr, 730 * sr, 748 * sr, 730 * sr, 836 * sr, 660 * sr, 836 * sr));
+        flexSpaces.add(new Polygon(660 * sr, 836 * sr, 730 * sr, 836 * sr, 730 * sr, 924 * sr, 660 * sr, 924 * sr));
+        flexSpaces.add(new Polygon(660 * sr, 924 * sr, 730 * sr, 924 * sr, 730 * sr, 1012 * sr, 660 * sr, 1012 * sr));
+        flexSpaces.add(new Polygon(660 * sr, 1012 * sr, 730 * sr, 1012 * sr, 730 * sr, 1100 * sr, 660 * sr, 1100 * sr));
 
         //upper vertical column of desks - right
-        flexSpaces.add(new Polygon(1410*sr, 190*sr, 1460*sr, 190*sr, 1460*sr, 260*sr, 1410*sr, 260*sr));
-        flexSpaces.add(new Polygon(1410*sr, 260*sr, 1460*sr, 260*sr, 1460*sr, 322*sr, 1410*sr, 322*sr));
-        flexSpaces.add(new Polygon(1410*sr, 322*sr, 1460*sr, 322*sr, 1460*sr, 388*sr, 1410*sr, 388*sr));
-        flexSpaces.add(new Polygon(1410*sr, 388*sr, 1460*sr, 388*sr, 1460*sr, 454*sr, 1410*sr, 454*sr));
-        flexSpaces.add(new Polygon(1410*sr, 454*sr, 1460*sr, 454*sr, 1460*sr, 520*sr, 1410*sr, 520*sr));
+        flexSpaces.add(new Polygon(1410 * sr, 190 * sr, 1460 * sr, 190 * sr, 1460 * sr, 260 * sr, 1410 * sr, 260 * sr));
+        flexSpaces.add(new Polygon(1410 * sr, 260 * sr, 1460 * sr, 260 * sr, 1460 * sr, 322 * sr, 1410 * sr, 322 * sr));
+        flexSpaces.add(new Polygon(1410 * sr, 322 * sr, 1460 * sr, 322 * sr, 1460 * sr, 388 * sr, 1410 * sr, 388 * sr));
+        flexSpaces.add(new Polygon(1410 * sr, 388 * sr, 1460 * sr, 388 * sr, 1460 * sr, 454 * sr, 1410 * sr, 454 * sr));
+        flexSpaces.add(new Polygon(1410 * sr, 454 * sr, 1460 * sr, 454 * sr, 1460 * sr, 520 * sr, 1410 * sr, 520 * sr));
 
         //upper vertical column of desks - left
-        flexSpaces.add(new Polygon(1360*sr, 270*sr, 1410*sr, 270*sr, 1410*sr, 333*sr, 1360*sr, 333*sr));
-        flexSpaces.add(new Polygon(1360*sr, 333*sr, 1410*sr, 333*sr, 1410*sr, 395*sr, 1360*sr, 395*sr));
-        flexSpaces.add(new Polygon(1360*sr, 395*sr, 1410*sr, 395*sr, 1410*sr, 458*sr, 1360*sr, 458*sr));
-        flexSpaces.add(new Polygon(1360*sr, 458*sr, 1410*sr, 458*sr, 1410*sr, 520*sr, 1360*sr, 520*sr));
+        flexSpaces.add(new Polygon(1360 * sr, 270 * sr, 1410 * sr, 270 * sr, 1410 * sr, 333 * sr, 1360 * sr, 333 * sr));
+        flexSpaces.add(new Polygon(1360 * sr, 333 * sr, 1410 * sr, 333 * sr, 1410 * sr, 395 * sr, 1360 * sr, 395 * sr));
+        flexSpaces.add(new Polygon(1360 * sr, 395 * sr, 1410 * sr, 395 * sr, 1410 * sr, 458 * sr, 1360 * sr, 458 * sr));
+        flexSpaces.add(new Polygon(1360 * sr, 458 * sr, 1410 * sr, 458 * sr, 1410 * sr, 520 * sr, 1360 * sr, 520 * sr));
 
         //center horizontal desks left
-        flexSpaces.add(new Polygon(1240*sr, 1540*sr, 1303*sr, 1540*sr, 1303*sr, 1590*sr, 1240*sr, 1590*sr));
-        flexSpaces.add(new Polygon(1303*sr, 1540*sr, 1367*sr, 1540*sr, 1367*sr, 1590*sr, 1303*sr, 1590*sr));
-        flexSpaces.add(new Polygon(1367*sr, 1540*sr, 1430*sr, 1540*sr, 1430*sr, 1590*sr, 1367*sr, 1590*sr));
-        flexSpaces.add(new Polygon(1240*sr, 1590*sr, 1303*sr, 1590*sr, 1303*sr, 1640*sr, 1240*sr, 1640*sr));
-        flexSpaces.add(new Polygon(1303*sr, 1590*sr, 1367*sr, 1590*sr, 1367*sr, 1640*sr, 1303*sr, 1640*sr));
-        flexSpaces.add(new Polygon(1367*sr, 1590*sr, 1430*sr, 1590*sr, 1430*sr, 1640*sr, 1367*sr, 1640*sr));
+        flexSpaces.add(new Polygon(1240 * sr, 1540 * sr, 1303 * sr, 1540 * sr, 1303 * sr, 1590 * sr, 1240 * sr, 1590 * sr));
+        flexSpaces.add(new Polygon(1303 * sr, 1540 * sr, 1367 * sr, 1540 * sr, 1367 * sr, 1590 * sr, 1303 * sr, 1590 * sr));
+        flexSpaces.add(new Polygon(1367 * sr, 1540 * sr, 1430 * sr, 1540 * sr, 1430 * sr, 1590 * sr, 1367 * sr, 1590 * sr));
+        flexSpaces.add(new Polygon(1240 * sr, 1590 * sr, 1303 * sr, 1590 * sr, 1303 * sr, 1640 * sr, 1240 * sr, 1640 * sr));
+        flexSpaces.add(new Polygon(1303 * sr, 1590 * sr, 1367 * sr, 1590 * sr, 1367 * sr, 1640 * sr, 1303 * sr, 1640 * sr));
+        flexSpaces.add(new Polygon(1367 * sr, 1590 * sr, 1430 * sr, 1590 * sr, 1430 * sr, 1640 * sr, 1367 * sr, 1640 * sr));
 
         //center horizontal desks right
-        flexSpaces.add(new Polygon(1490*sr, 1540*sr, 1553*sr, 1540*sr, 1553*sr, 1590*sr, 1490*sr, 1590*sr));
-        flexSpaces.add(new Polygon(1553*sr, 1540*sr, 1617*sr, 1540*sr, 1617*sr, 1590*sr, 1553*sr, 1590*sr));
-        flexSpaces.add(new Polygon(1617*sr, 1540*sr, 1680*sr, 1540*sr, 1680*sr, 1590*sr, 1617*sr, 1590*sr));
-        flexSpaces.add(new Polygon(1490*sr, 1590*sr, 1553*sr, 1590*sr, 1553*sr, 1640*sr, 1490*sr, 1640*sr));
-        flexSpaces.add(new Polygon(1553*sr, 1590*sr, 1617*sr, 1590*sr, 1617*sr, 1640*sr, 1553*sr, 1640*sr));
-        flexSpaces.add(new Polygon(1617*sr, 1590*sr, 1680*sr, 1590*sr, 1680*sr, 1640*sr, 1617*sr, 1640*sr));
+        flexSpaces.add(new Polygon(1490 * sr, 1540 * sr, 1553 * sr, 1540 * sr, 1553 * sr, 1590 * sr, 1490 * sr, 1590 * sr));
+        flexSpaces.add(new Polygon(1553 * sr, 1540 * sr, 1617 * sr, 1540 * sr, 1617 * sr, 1590 * sr, 1553 * sr, 1590 * sr));
+        flexSpaces.add(new Polygon(1617 * sr, 1540 * sr, 1680 * sr, 1540 * sr, 1680 * sr, 1590 * sr, 1617 * sr, 1590 * sr));
+        flexSpaces.add(new Polygon(1490 * sr, 1590 * sr, 1553 * sr, 1590 * sr, 1553 * sr, 1640 * sr, 1490 * sr, 1640 * sr));
+        flexSpaces.add(new Polygon(1553 * sr, 1590 * sr, 1617 * sr, 1590 * sr, 1617 * sr, 1640 * sr, 1553 * sr, 1640 * sr));
+        flexSpaces.add(new Polygon(1617 * sr, 1590 * sr, 1680 * sr, 1590 * sr, 1680 * sr, 1640 * sr, 1617 * sr, 1640 * sr));
 
         //center vertical column of desks
-        flexSpaces.add(new Polygon(1520*sr, 1190*sr, 1570*sr, 1190*sr, 1570*sr, 1252*sr, 1520*sr, 1252*sr));
-        flexSpaces.add(new Polygon(1520*sr, 1252*sr, 1570*sr, 1252*sr, 1570*sr, 1314*sr, 1520*sr, 1314*sr));
-        flexSpaces.add(new Polygon(1520*sr, 1314*sr, 1570*sr, 1314*sr, 1570*sr, 1376*sr, 1520*sr, 1376*sr));
-        flexSpaces.add(new Polygon(1520*sr, 1376*sr, 1570*sr, 1376*sr, 1570*sr, 1438*sr, 1520*sr, 1438*sr));
-        flexSpaces.add(new Polygon(1520*sr, 1438*sr, 1570*sr, 1438*sr, 1570*sr, 1500*sr, 1520*sr, 1500*sr));
-        flexSpaces.add(new Polygon(1570*sr, 1190*sr, 1620*sr, 1190*sr, 1620*sr, 1252*sr, 1570*sr, 1252*sr));
-        flexSpaces.add(new Polygon(1570*sr, 1252*sr, 1620*sr, 1252*sr, 1620*sr, 1314*sr, 1570*sr, 1314*sr));
-        flexSpaces.add(new Polygon(1570*sr, 1314*sr, 1620*sr, 1314*sr, 1620*sr, 1376*sr, 1570*sr, 1376*sr));
-        flexSpaces.add(new Polygon(1570*sr, 1376*sr, 1620*sr, 1376*sr, 1620*sr, 1438*sr, 1570*sr, 1438*sr));
-        flexSpaces.add(new Polygon(1570*sr, 1438*sr, 1620*sr, 1438*sr, 1620*sr, 1500*sr, 1570*sr, 1500*sr));
+        flexSpaces.add(new Polygon(1520 * sr, 1190 * sr, 1570 * sr, 1190 * sr, 1570 * sr, 1252 * sr, 1520 * sr, 1252 * sr));
+        flexSpaces.add(new Polygon(1520 * sr, 1252 * sr, 1570 * sr, 1252 * sr, 1570 * sr, 1314 * sr, 1520 * sr, 1314 * sr));
+        flexSpaces.add(new Polygon(1520 * sr, 1314 * sr, 1570 * sr, 1314 * sr, 1570 * sr, 1376 * sr, 1520 * sr, 1376 * sr));
+        flexSpaces.add(new Polygon(1520 * sr, 1376 * sr, 1570 * sr, 1376 * sr, 1570 * sr, 1438 * sr, 1520 * sr, 1438 * sr));
+        flexSpaces.add(new Polygon(1520 * sr, 1438 * sr, 1570 * sr, 1438 * sr, 1570 * sr, 1500 * sr, 1520 * sr, 1500 * sr));
+        flexSpaces.add(new Polygon(1570 * sr, 1190 * sr, 1620 * sr, 1190 * sr, 1620 * sr, 1252 * sr, 1570 * sr, 1252 * sr));
+        flexSpaces.add(new Polygon(1570 * sr, 1252 * sr, 1620 * sr, 1252 * sr, 1620 * sr, 1314 * sr, 1570 * sr, 1314 * sr));
+        flexSpaces.add(new Polygon(1570 * sr, 1314 * sr, 1620 * sr, 1314 * sr, 1620 * sr, 1376 * sr, 1570 * sr, 1376 * sr));
+        flexSpaces.add(new Polygon(1570 * sr, 1376 * sr, 1620 * sr, 1376 * sr, 1620 * sr, 1438 * sr, 1570 * sr, 1438 * sr));
+        flexSpaces.add(new Polygon(1570 * sr, 1438 * sr, 1620 * sr, 1438 * sr, 1620 * sr, 1500 * sr, 1570 * sr, 1500 * sr));
 
         //bottom right vertical column of desks - left
-        flexSpaces.add(new Polygon(1900*sr, 1890*sr, 1950*sr, 1890*sr, 1950*sr, 1955*sr, 1900*sr, 1955*sr));
-        flexSpaces.add(new Polygon(1900*sr, 1955*sr, 1950*sr, 1955*sr, 1950*sr, 2020*sr, 1900*sr, 2020*sr));
-        flexSpaces.add(new Polygon(1900*sr, 2020*sr, 1950*sr, 2020*sr, 1950*sr, 2085*sr, 1900*sr, 2085*sr));
-        flexSpaces.add(new Polygon(1900*sr, 2085*sr, 1950*sr, 2085*sr, 1950*sr, 2150*sr, 1900*sr, 2150*sr));
-        flexSpaces.add(new Polygon(1950*sr, 1890*sr, 2000*sr, 1890*sr, 2000*sr, 1955*sr, 1950*sr, 1955*sr));
-        flexSpaces.add(new Polygon(1950*sr, 1955*sr, 2000*sr, 1955*sr, 2000*sr, 2020*sr, 1950*sr, 2020*sr));
-        flexSpaces.add(new Polygon(1950*sr, 2020*sr, 2000*sr, 2020*sr, 2000*sr, 2085*sr, 1950*sr, 2085*sr));
-        flexSpaces.add(new Polygon(1950*sr, 2085*sr, 2000*sr, 2085*sr, 2000*sr, 2150*sr, 1950*sr, 2150*sr));
+        flexSpaces.add(new Polygon(1900 * sr, 1890 * sr, 1950 * sr, 1890 * sr, 1950 * sr, 1955 * sr, 1900 * sr, 1955 * sr));
+        flexSpaces.add(new Polygon(1900 * sr, 1955 * sr, 1950 * sr, 1955 * sr, 1950 * sr, 2020 * sr, 1900 * sr, 2020 * sr));
+        flexSpaces.add(new Polygon(1900 * sr, 2020 * sr, 1950 * sr, 2020 * sr, 1950 * sr, 2085 * sr, 1900 * sr, 2085 * sr));
+        flexSpaces.add(new Polygon(1900 * sr, 2085 * sr, 1950 * sr, 2085 * sr, 1950 * sr, 2150 * sr, 1900 * sr, 2150 * sr));
+        flexSpaces.add(new Polygon(1950 * sr, 1890 * sr, 2000 * sr, 1890 * sr, 2000 * sr, 1955 * sr, 1950 * sr, 1955 * sr));
+        flexSpaces.add(new Polygon(1950 * sr, 1955 * sr, 2000 * sr, 1955 * sr, 2000 * sr, 2020 * sr, 1950 * sr, 2020 * sr));
+        flexSpaces.add(new Polygon(1950 * sr, 2020 * sr, 2000 * sr, 2020 * sr, 2000 * sr, 2085 * sr, 1950 * sr, 2085 * sr));
+        flexSpaces.add(new Polygon(1950 * sr, 2085 * sr, 2000 * sr, 2085 * sr, 2000 * sr, 2150 * sr, 1950 * sr, 2150 * sr));
 
         //bottom right vertical column of desks - right
-        flexSpaces.add(new Polygon(2040*sr, 1890*sr, 2090*sr, 1890*sr, 2090*sr, 1955*sr, 2040*sr, 1955*sr));
-        flexSpaces.add(new Polygon(2040*sr, 1955*sr, 2090*sr, 1955*sr, 2090*sr, 2020*sr, 2040*sr, 2020*sr));
-        flexSpaces.add(new Polygon(2040*sr, 2020*sr, 2090*sr, 2020*sr, 2090*sr, 2085*sr, 2040*sr, 2085*sr));
-        flexSpaces.add(new Polygon(2040*sr, 2085*sr, 2090*sr, 2085*sr, 2090*sr, 2150*sr, 2040*sr, 2150*sr));
-        flexSpaces.add(new Polygon(2090*sr, 1890*sr, 2140*sr, 1890*sr, 2140*sr, 1955*sr, 2090*sr, 1955*sr));
-        flexSpaces.add(new Polygon(2090*sr, 1955*sr, 2140*sr, 1955*sr, 2140*sr, 2020*sr, 2090*sr, 2020*sr));
-        flexSpaces.add(new Polygon(2090*sr, 2020*sr, 2140*sr, 2020*sr, 2140*sr, 2085*sr, 2090*sr, 2085*sr));
-        flexSpaces.add(new Polygon(2090*sr, 2085*sr, 2140*sr, 2085*sr, 2140*sr, 2150*sr, 2090*sr, 2150*sr));
+        flexSpaces.add(new Polygon(2040 * sr, 1890 * sr, 2090 * sr, 1890 * sr, 2090 * sr, 1955 * sr, 2040 * sr, 1955 * sr));
+        flexSpaces.add(new Polygon(2040 * sr, 1955 * sr, 2090 * sr, 1955 * sr, 2090 * sr, 2020 * sr, 2040 * sr, 2020 * sr));
+        flexSpaces.add(new Polygon(2040 * sr, 2020 * sr, 2090 * sr, 2020 * sr, 2090 * sr, 2085 * sr, 2040 * sr, 2085 * sr));
+        flexSpaces.add(new Polygon(2040 * sr, 2085 * sr, 2090 * sr, 2085 * sr, 2090 * sr, 2150 * sr, 2040 * sr, 2150 * sr));
+        flexSpaces.add(new Polygon(2090 * sr, 1890 * sr, 2140 * sr, 1890 * sr, 2140 * sr, 1955 * sr, 2090 * sr, 1955 * sr));
+        flexSpaces.add(new Polygon(2090 * sr, 1955 * sr, 2140 * sr, 1955 * sr, 2140 * sr, 2020 * sr, 2090 * sr, 2020 * sr));
+        flexSpaces.add(new Polygon(2090 * sr, 2020 * sr, 2140 * sr, 2020 * sr, 2140 * sr, 2085 * sr, 2090 * sr, 2085 * sr));
+        flexSpaces.add(new Polygon(2090 * sr, 2085 * sr, 2140 * sr, 2085 * sr, 2140 * sr, 2150 * sr, 2090 * sr, 2150 * sr));
 
         //bottom right vertical rooms
-        flexSpaces.add(new Polygon(2220*sr, 2220*sr, 2290*sr, 2220*sr, 2290*sr, 2340*sr, 2220*sr, 2340*sr));
-        flexSpaces.add(new Polygon(2220*sr, 2340*sr, 2290*sr, 2340*sr, 2290*sr, 2430*sr, 2220*sr, 2430*sr));
-        flexSpaces.add(new Polygon(2220*sr, 2430*sr, 2290*sr, 2430*sr, 2290*sr, 2515*sr, 2220*sr, 2515*sr));
-        flexSpaces.add(new Polygon(2220*sr, 2515*sr, 2290*sr, 2515*sr, 2290*sr, 2620*sr, 2220*sr, 2620*sr));
+        flexSpaces.add(new Polygon(2220 * sr, 2220 * sr, 2290 * sr, 2220 * sr, 2290 * sr, 2340 * sr, 2220 * sr, 2340 * sr));
+        flexSpaces.add(new Polygon(2220 * sr, 2340 * sr, 2290 * sr, 2340 * sr, 2290 * sr, 2430 * sr, 2220 * sr, 2430 * sr));
+        flexSpaces.add(new Polygon(2220 * sr, 2430 * sr, 2290 * sr, 2430 * sr, 2290 * sr, 2515 * sr, 2220 * sr, 2515 * sr));
+        flexSpaces.add(new Polygon(2220 * sr, 2515 * sr, 2290 * sr, 2515 * sr, 2290 * sr, 2620 * sr, 2220 * sr, 2620 * sr));
 
         //little rooms above center room
-        flexSpaces.add(new Polygon(860*sr, 1190*sr, 960*sr, 1190*sr, 960*sr, 1270*sr, 860*sr, 1270*sr));
-        flexSpaces.add(new Polygon(960*sr, 1190*sr, 1060*sr, 1190*sr, 1060*sr, 1270*sr, 960*sr, 1270*sr));
-        flexSpaces.add(new Polygon(1060*sr, 1190*sr, 1160*sr, 1190*sr, 1160*sr, 1270*sr, 1060*sr, 1270*sr));
+        flexSpaces.add(new Polygon(860 * sr, 1190 * sr, 960 * sr, 1190 * sr, 960 * sr, 1270 * sr, 860 * sr, 1270 * sr));
+        flexSpaces.add(new Polygon(960 * sr, 1190 * sr, 1060 * sr, 1190 * sr, 1060 * sr, 1270 * sr, 960 * sr, 1270 * sr));
+        flexSpaces.add(new Polygon(1060 * sr, 1190 * sr, 1160 * sr, 1190 * sr, 1160 * sr, 1270 * sr, 1060 * sr, 1270 * sr));
 
-        for(i = 0; i < flexSpaces.size(); i++){
-            if(flexSpaceAvailable.get(i)) {
+        for (i = 0; i < flexSpaces.size(); i++) {
+            if (flexSpaceAvailable.get(i)) {
                 flexSpaces.get(i).setStroke(Color.web("TURQUOISE"));
                 flexSpaces.get(i).setFill(Color.web("TURQUOISE"));
                 flexSpaces.get(i).setOpacity(0.5);
@@ -716,59 +838,20 @@ public class BookRoomController {
         }
     }
 
-    public void switchToWeekly(ActionEvent event) throws IOException {
-        timeout.stop();
-        try{
-            sim.join();
-        } catch (Exception e){
-            e.printStackTrace();
-            sim.stop();
-        }
-        Singleton single = Singleton.getInstance();
-        single.setLastTime();
-        FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("WeeklySchedule.fxml"));
-        Parent sceneMain = loader.load();
-
-        WeeklyScheduleController wsc = loader.getController();
-        String name = roomName.getText();
-        //if the text is null
-        if(name == null || name.equals("Select a Room")){
-            //if there are no available rooms
-            if(listOfRooms.size() < 1){
-                name = "Room 1 - Computer";
-            } else {
-                name = listOfRooms.get(0);
-                //else set to first available room
-            }
-        }
-        System.out.println(name);
-        wsc.loadWeekly(name, datePicker.getValue());
-
-        ((Node) event.getSource()).getScene().setRoot(sceneMain);
-    }
-
     /**@author Nathan
      * Restores previous screen
-     * @throws IOException
      */
     @FXML
-    private void backPressed(ActionEvent event) throws IOException{
-        Singleton single = Singleton.getInstance();
+    private void backPressed(ActionEvent event) throws IOException {
         timeout.stop();
-        try{
-            sim.join();
-        } catch (Exception e){
-            e.printStackTrace();
-            sim.stop();
-        }
-
+        single = Singleton.getInstance();
         single.setLastTime();
         single.setDoPopup(true);
 
         Memento m = single.restore();
         FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource(m.getFxml()));
         Parent newPage = loader.load();
-        if(m.getFxml().contains("HospitalPathFinding")){
+        if (m.getFxml().contains("HospitalPathFinding")) {
             PathFindingController pfc = loader.getController();
             pfc.initWithMeme(m.getPathPref(), m.getTypeFilter(), m.getFloorFilter(), m.getStart(), m.getEnd());
         }
@@ -777,10 +860,11 @@ public class BookRoomController {
         ((Node) event.getSource()).getScene().setRoot(newPage);
     }
 
-    /**@author Nathan
+    /**
+     * @author Nathan
      * Saves the memento state
      */
-    private void saveState(){
+    private void saveState() {
         Singleton single = Singleton.getInstance();
         single.saveMemento("ActiveServiceRequests.fxml");
     }
@@ -788,12 +872,6 @@ public class BookRoomController {
     @FXML
     private void logOut(ActionEvent event) throws IOException {
         timeout.stop();
-        try{
-            sim.join();
-        } catch (Exception e){
-            e.printStackTrace();
-            sim.stop();
-        }
         Singleton single = Singleton.getInstance();
         single.setLastTime();
         single.setUsername("");
@@ -822,37 +900,91 @@ public class BookRoomController {
      */
     private void openReservation(boolean open) {
         TranslateTransition openNav = new TranslateTransition(new Duration(400.0D), this.reservationPane);
-        openNav.setToX(0.0D);
+        //openNav.setToX(0.0D);
         TranslateTransition closeNav = new TranslateTransition(new Duration(400.0D), this.reservationPane);
         if (open == true){
-            openNav.setToX(-20.0D-this.reservationPane.getWidth());
+            System.out.println(reservationPane.getWidth());
+            openNav.setToX(-this.anchorPane.getWidth()+this.sizingPane.getLayoutX());
             openNav.play();
             resShowing = true;
-            openEventInfo(false);
+            openEventInfo(false, null);
+            callServiceRequests();
             //System.out.println("ResShowing = true");
         } else {
-            closeNav.setToX(20+this.anchorPane.getWidth()+this.reservationPane.getWidth());
+            closeNav.setToX(-this.anchorPane.getWidth()+this.reservationPane.getWidth()+sizingPane.getLayoutX()+sizingPane.getWidth());
             closeNav.play();
             resShowing = false;
             //System.out.println("ResShowing = false");
         }
     }
 
+    private void callServiceRequests() {
+        orderFood.setOnAction((evt) -> {
+            FoodRequest foodRequest = new FoodRequest();
+            try{
+                foodRequest.run(0,0,1280,720,null,null,null);
+            }catch (Exception e){
+                System.out.println("Failed to run API");
+                e.printStackTrace();
+            }
+        });
+
+        orderGifts.setOnAction((evt) -> {
+            GiftRequest gr = new GiftRequest();
+            try{
+                gr.run(0,0,1280,720,null,null,null);
+            }catch (Exception e){
+                System.out.println("Failed to run API");
+                e.printStackTrace();
+            }
+        });
+    }
+
     /** @author Isabella
      * Slides in the event information menu from the right side
      */
-    private void openEventInfo(boolean open) {
-        //System.out.println("Open Event Info called");
+    private void openEventInfo(boolean open, String roomName) {  //Pass in the room name as a parameter here
+
+        previousEvent = roomName;
+
+        String date = datePicker.getValue().toString();
+        String endDate = endDatePicker.getValue().toString();
+        date += "T" + String.format("%2d", startTime.getValue().getHour()) + ":" + String.format("%2d", startTime.getValue().getMinute()) + ":00";
+        endDate += "T" + String.format("%2d", endTime.getValue().getHour()) + ":" + String.format("%2d", endTime.getValue().getMinute()) + ":00";
+        RoomAccess ra = new RoomAccess();
+
+        ArrayList<String[]> data = ra.getReservations(date, endDate, roomName);
+
         TranslateTransition openNav = new TranslateTransition(new Duration(400.0D), this.bookedEventPane);
         openNav.setToX(0.0D);
         TranslateTransition closeNav = new TranslateTransition(new Duration(400.0D), this.bookedEventPane);
         if (open == true){
-            openNav.setToX(-570.0D-this.bookedEventPane.getWidth());
+            if((data.get(0)[6]).equals("1")){
+                System.out.println("PRIVATE EVENT");
+                eventTitle.setText("Private Event");
+                creatorLabel.setText("Creator: Private");
+                eventTypeLabel.setText("Event type: Private");
+                descriptionLabel.setText("Description: Private");
+                invitedEmployeesLabel.setText("Invited Employees: Private");
+            }else{
+                eventTitle.setText(data.get(0)[2]);
+                creatorLabel.setText("Creator: " + data.get(0)[1]);
+                eventTypeLabel.setText("Event type: " + data.get(0)[4]);
+                descriptionLabel.setText("Description: " + data.get(0)[3]);
+                invitedEmployeesLabel.setText("Invited Employees: " + data.get(0)[5]);
+            }
+            roomNameLabel.setText("Room name: " + data.get(0)[0]);
+            startTimeLabel.setText("Start date: " + data.get(0)[7].substring(0,10));
+            endTimeLabel.setText("End date: " + data.get(0)[8].substring(0,10));
+            startDateLabel.setText("Start time: " + data.get(0)[7].substring(11));
+            endDateLabel.setText("End time: " + data.get(0)[8].substring(11));
+
+            openNav.setToX(-this.anchorPane.getWidth()+this.sizingPane.getLayoutX());
             openNav.play();
             openReservation(false);
             bookedEventShowing = true;
         } else {
-            closeNav.setToX(570+this.anchorPane.getWidth()+this.reservationPane.getWidth());
+            closeNav.setToX(-this.anchorPane.getWidth()+this.reservationPane.getWidth()+sizingPane.getLayoutX()+sizingPane.getWidth());
             closeNav.play();
             bookedEventShowing = false;
         }
@@ -865,7 +997,7 @@ public class BookRoomController {
     @FXML
     private void dailyTab() {
         openReservation(false);
-        openEventInfo(false);
+        openEventInfo(false, null);
     }
 
     @FXML
@@ -875,15 +1007,25 @@ public class BookRoomController {
         dailySchedule.setRoot(null);
         Root.getChildren().clear();
         RoomAccess ra = new RoomAccess();
-        String theDate = dailyDatePicker.getValue().toString();
+        String theDate;
+        String endDate;
         LocalTime startLT = LocalTime.of(0,0);
         LocalTime endLT = LocalTime.of(0, 30);
         for(int i = 0; i < 48; i++){
+            theDate = dailyDatePicker.getValue().toString() + "T" + String.format("%2d",startLT.getHour()) + ":" + String.format("%2d",startLT.getMinute()) + ":00";
+            endDate = dailyDatePicker.getValue().toString() + "T" + String.format("%2d",endLT.getHour()) + ":" + String.format("%2d",endLT.getMinute()) + ":00";
             // System.out.println("Start Time: " + startTime + " End Time: " + endTime);
-            TreeItem<Room> bookedRooms = new TreeItem<Room>(new Room(startLT, endLT, ra.getAvailRooms(theDate, theDate)));
+            TreeItem<Room> bookedRooms = new TreeItem<Room>(new Room(startLT, endLT, ra.getAvailRooms(theDate, endDate)));
             Root.getChildren().add(bookedRooms);
-            startLT = startLT.plusMinutes(30);
-            endLT = endLT.plusMinutes(30);
+
+            if(i == 46){
+                startLT = startLT.plusMinutes(30);
+                endLT = endLT.plusMinutes(29);
+            }
+            else {
+                startLT = startLT.plusMinutes(30);
+                endLT = endLT.plusMinutes(30);
+            }
         }
 
         //dailyTimeCol = new TreeTableColumn<Room, String>("Time");
@@ -912,11 +1054,11 @@ public class BookRoomController {
                 protected void updateItem(Boolean item, boolean empty) {
                     super.updateItem(item, empty);
                     if (item == null || !item){
-                        setText("Occupied");
                         setStyle("-fx-background-color: red");
+                        setText("Occupied");
                     } else {
-                        setText("Available");
                         setStyle("-fx-background-color: green");
+                        setText("Available");
                     }
                 }
             };
@@ -1202,7 +1344,7 @@ public class BookRoomController {
     @FXML
     private void weeklyTab(){
         openReservation(false);
-        openEventInfo(false);
+        openEventInfo(false, null);
     }
 
     @FXML
@@ -1224,7 +1366,6 @@ public class BookRoomController {
     }
 
     public void checkAvailability(String roomName, LocalDate theDate){
-        Singleton single = Singleton.getInstance();
         single.setLastTime();
         weeklySchedule.setRoot(null);
         WeeklyRoot.getChildren().clear();
@@ -1464,6 +1605,22 @@ public class BookRoomController {
         weeklySchedule.setRoot(WeeklyRoot);
         weeklySchedule.setShowRoot(false);
         single.setLastTime();
+    }
+
+    public void loadWithRoomSelected(String roomName){
+        Platform.runLater(new Runnable() {
+            @Override
+            public void run() {
+                fieldsEntered();
+                if(availableRooms.getItems().contains(roomName)) {
+                    availableRooms.getSelectionModel().select(roomName);
+                    openReservation(true);
+                }
+                else{
+                    openEventInfo(true, roomName);
+                }
+            }
+        });
     }
 
 }

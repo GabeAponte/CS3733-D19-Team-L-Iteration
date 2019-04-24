@@ -3,23 +3,29 @@ package edu.wpi.cs3733.d19.teamL.ServiceRequest.MakeServiceRequest;
 import edu.wpi.cs3733.d19.teamL.HomeScreens.HomeScreenController;
 import edu.wpi.cs3733.d19.teamL.Memento;
 import edu.wpi.cs3733.d19.teamL.Singleton;
+import edu.wpi.cs3733.d19.teamMService.Main;
+import giftRequest.GiftRequest;
 import giftRequest.ServiceException;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Rectangle2D;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.event.ActionEvent;
 import javafx.scene.control.Button;
 import javafx.scene.layout.AnchorPane;
+import javafx.stage.Screen;
 import javafx.stage.Stage;
 import javafx.util.Duration;
+import edu.wpi.cs3733.d19.teamMService.controllers.LanguageRequests;
+import imaging.*;
+import foodRequest.FoodRequest;
 
 import java.io.IOException;
-import giftRequest.GiftRequest;
 
 public class ServiceRequestController {
 
@@ -57,6 +63,9 @@ public class ServiceRequestController {
     private Button PrescriptionServices;
 
     @FXML
+    private Button logOut;
+
+    @FXML
     private Button GiftStoreServices;
 
 
@@ -68,6 +77,9 @@ public class ServiceRequestController {
     public void initialize(){
         Singleton single = Singleton.getInstance();
         single.setLastTime();
+        if(!single.isLoggedIn()){
+            logOut.setText("Log In");
+        }
         timeout = new Timeline(new KeyFrame(Duration.seconds(2), new EventHandler<ActionEvent>() {
 
             @Override
@@ -206,10 +218,48 @@ public class ServiceRequestController {
     private void openGiftService() throws ServiceException {
         GiftRequest gr = new GiftRequest();
         try{
-            gr.run(0,0,1280,720,null,null,null);
+            Rectangle2D bounds = Screen.getPrimary().getVisualBounds();
+            gr.run(0,0,(int)bounds.getWidth(),(int)bounds.getHeight(), "",null,null);
         }catch (Exception e){
             System.out.println("Failed to run API");
             e.printStackTrace();
+        }
+    }
+
+    @FXML
+    private void openMedical(){
+        ImagingRequest ir = new ImagingRequest();
+        try{
+            Rectangle2D bounds = Screen.getPrimary().getVisualBounds();
+
+            ir.run(0,0,(int)bounds.getHeight(),(int)bounds.getWidth(), "","ELABS00101", "ELABS00101");
+        }catch (Exception e){
+            System.out.println("Failed to run API");
+            e.printStackTrace();
+        }
+
+    }
+
+    @FXML
+    private void openFood(){
+        FoodRequest foodRequest = new FoodRequest();
+        try{
+            Rectangle2D bounds = Screen.getPrimary().getVisualBounds();
+            foodRequest.run(0,0,(int)bounds.getWidth(),(int)bounds.getHeight(),null,null,null);
+        }catch (Exception e){
+            System.out.println("Failed to run API");
+            e.printStackTrace();
+        }
+    }
+
+    @FXML
+    private void openLanguage(){
+        Main m = new Main();
+        try {
+            Rectangle2D bounds = Screen.getPrimary().getVisualBounds();
+            m.run(0, 0, (int)bounds.getWidth(),(int)bounds.getHeight(), "", null);
+        }catch(Exception e){
+            System.out.println("Failed to load Food API");
         }
     }
 
@@ -235,8 +285,15 @@ public class ServiceRequestController {
     @FXML
     private void logOut(ActionEvent event) throws IOException {
         timeout.stop();
+
         Singleton single = Singleton.getInstance();
         single.setLastTime();
+        if(!single.isLoggedIn()){
+            saveState();
+            Parent newPage = FXMLLoader.load(getClass().getClassLoader().getResource("LogIn.fxml"));
+            ((Node) event.getSource()).getScene().setRoot(newPage);
+            return;
+        }
         single.setUsername("");
         single.setIsAdmin(false);
         single.setLoggedIn(false);
@@ -252,7 +309,7 @@ public class ServiceRequestController {
         Singleton single = Singleton.getInstance();
         single.setLastTime();
         single.setDoPopup(true);
-        //saveState();
+        saveState();
         Memento m = single.getOrig();
         Parent newPage = FXMLLoader.load(getClass().getClassLoader().getResource(m.getFxml()));
         ((Node) event.getSource()).getScene().setRoot(newPage);

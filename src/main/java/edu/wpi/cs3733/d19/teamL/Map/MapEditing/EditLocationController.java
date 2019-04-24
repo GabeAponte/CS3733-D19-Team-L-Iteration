@@ -43,8 +43,11 @@ import javafx.scene.text.Font;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 import net.kurobako.gesturefx.GesturePane;
+import org.apache.commons.csv.CSVFormat;
 
 
+import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -329,6 +332,7 @@ public class EditLocationController {
         single.setLastTime();
         EdgesAccess ea = new EdgesAccess();
         ea.writeTableIntoCSV("");
+
     }
 
 
@@ -389,7 +393,7 @@ public class EditLocationController {
         }
 
         if (floorNum().equals("4")){
-            thisMap.setText("Flexible Workspace");
+            thisMap.setText("Floor 4");
         }
     }
 

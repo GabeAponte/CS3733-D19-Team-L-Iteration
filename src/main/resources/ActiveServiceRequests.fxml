@@ -102,11 +102,11 @@
                     <children>
                         <JFXTabPane fx:id="requestType" styleClass="jfx-tab-pane" stylesheets="@Default.css" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
                             <tabs>
-                                <Tab fx:id="tab9" onSelectionChanged="#filterTable" styleClass="fontType" text="Prescriptions">
+                                <Tab fx:id="tab2" onSelectionChanged="#filterTable" styleClass="fontType" text="Internal Transportation">
                                     <content>
                                         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="461.0" prefWidth="1280.0">
                                             <children>
-                                                <GridPane alignment="CENTER" layoutX="7.0" layoutY="-7.0" vgap="20.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                                <GridPane alignment="CENTER" layoutX="14.0" layoutY="32.0" vgap="20.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                                     <columnConstraints>
                                                         <ColumnConstraints halignment="CENTER" hgrow="ALWAYS" minWidth="-Infinity" />
                                                         <ColumnConstraints />
@@ -116,7 +116,7 @@
                                                         <RowConstraints valignment="CENTER" vgrow="SOMETIMES" />
                                                     </rowConstraints>
                                                     <children>
-                                                        <Label alignment="CENTER" prefHeight="45.0" prefWidth="444.0" styleClass="labelTitle" stylesheets="@Default.css" text="Active Prescription Requests" textFill="#f5d96b" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.valignment="CENTER" GridPane.vgrow="NEVER">
+                                                        <Label alignment="CENTER" prefHeight="45.0" prefWidth="823.0" stylesheets="@Default.css" text="Active Internal Transportation Requests" textFill="#f5d96b" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.valignment="CENTER" GridPane.vgrow="NEVER">
                                                             <font>
                                                                 <Font name="Trebuchet MS" size="30.0" />
                                                             </font>
@@ -124,14 +124,14 @@
                                                                 <Blend />
                                                             </effect>
                                                         </Label>
-                                                        <JFXTreeTableView fx:id="PrescriptionsRequests" onMouseClicked="#SwitchToFulfillRequestScreen" prefHeight="406.0" prefWidth="1169.0" styleClass="jfx-tree-table-view" stylesheets="@Default.css" GridPane.rowIndex="1">
+                                                        <JFXTreeTableView fx:id="InternalRequests" onMouseClicked="#SwitchToFulfillRequestScreen" prefHeight="406.0" prefWidth="1169.0" styleClass="jfx-tree-table-view" stylesheets="@Default.css" GridPane.rowIndex="1">
                                                             <columns>
                                                                 <TreeTableColumn fx:id="hi" prefWidth="188.01975631713867" text="Location" />
                                                                 <TreeTableColumn fx:id="type" prefWidth="161.36790466308594" text="Type" />
                                                                 <TreeTableColumn fx:id="name" prefWidth="231.40463256835938" text="Name" />
                                                                 <TreeTableColumn fx:id="dateRequested" minWidth="0.0" prefWidth="145.7279052734375" text="Date Requested" />
-                                                                <TreeTableColumn fx:id="timeRequested" minWidth="0.0" prefWidth="111.72808837890625" text="Time Requested" />
-                                                                <TreeTableColumn fx:id="comment" minWidth="8.5" prefWidth="319.37847900390625" text="Comments" />
+                                                                <TreeTableColumn fx:id="timeRequested" minWidth="0.0" prefWidth="127.0" text="Time Requested" />
+                                                                <TreeTableColumn fx:id="comment" minWidth="8.5" prefWidth="305.0" text="Comments" />
                                                                 <TreeTableColumn fx:id="assignedEmployee" prefWidth="265.7955322265625" text="Assigned To" />
                                                                 <TreeTableColumn fx:id="field1" prefWidth="194.0521240234375" text="field1" />
                                                                 <TreeTableColumn fx:id="field2" prefWidth="236.9478759765625" text="field2" />
@@ -181,263 +181,8 @@
                                                                 <TreeTableColumn fx:id="type" prefWidth="161.36790466308594" text="Type" />
                                                                 <TreeTableColumn fx:id="name" prefWidth="231.40463256835938" text="Name" />
                                                                 <TreeTableColumn fx:id="dateRequested" minWidth="0.0" prefWidth="145.7279052734375" text="Date Requested" />
-                                                                <TreeTableColumn fx:id="timeRequested" minWidth="0.0" prefWidth="111.72808837890625" text="Time Requested" />
-                                                                <TreeTableColumn fx:id="comment" minWidth="8.5" prefWidth="319.37847900390625" text="Comments" />
-                                                                <TreeTableColumn fx:id="assignedEmployee" prefWidth="265.7955322265625" text="Assigned To" />
-                                                                <TreeTableColumn fx:id="field1" prefWidth="194.0521240234375" text="field1" />
-                                                                <TreeTableColumn fx:id="field2" prefWidth="236.9478759765625" text="field2" />
-                                                                <TreeTableColumn fx:id="field3" minWidth="250.0" prefWidth="0.0" text="field3" />
-                                                            </columns>
-                                             <GridPane.margin>
-                                                <Insets bottom="25.0" left="50.0" right="50.0" />
-                                             </GridPane.margin>
-                                                        </JFXTreeTableView>
-                                                    </children>
-                                                    <opaqueInsets>
-                                                        <Insets />
-                                                    </opaqueInsets>
-                                                    <padding>
-                                                        <Insets bottom="30.0" left="30.0" right="30.0" top="25.0" />
-                                                    </padding>
-                                                </GridPane>
-                                            </children>
-                                        </AnchorPane>
-                                    </content>
-                                </Tab>
-                                <Tab fx:id="tab2" onSelectionChanged="#filterTable" styleClass="fontType" text="Internal Transportation">
-                                    <content>
-                                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="461.0" prefWidth="1280.0">
-                                            <children>
-                                                <GridPane alignment="CENTER" layoutX="14.0" layoutY="32.0" vgap="20.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                                                    <columnConstraints>
-                                                        <ColumnConstraints halignment="CENTER" hgrow="ALWAYS" minWidth="-Infinity" />
-                                                        <ColumnConstraints />
-                                                    </columnConstraints>
-                                                    <rowConstraints>
-                                                        <RowConstraints valignment="CENTER" />
-                                                        <RowConstraints valignment="CENTER" vgrow="SOMETIMES" />
-                                                    </rowConstraints>
-                                                    <children>
-                                                        <Label alignment="CENTER" prefHeight="45.0" prefWidth="823.0" stylesheets="@Default.css" text="Active Internal Transportation Requests" textFill="#f5d96b" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.valignment="CENTER" GridPane.vgrow="NEVER">
-                                                            <font>
-                                                                <Font name="Trebuchet MS" size="30.0" />
-                                                            </font>
-                                                            <effect>
-                                                                <Blend />
-                                                            </effect>
-                                                        </Label>
-                                                        <JFXTreeTableView fx:id="InternalRequests" onMouseClicked="#SwitchToFulfillRequestScreen" prefHeight="406.0" prefWidth="1169.0" styleClass="jfx-tree-table-view" stylesheets="@Default.css" GridPane.rowIndex="1">
-                                                            <columns>
-                                                                <TreeTableColumn fx:id="hi" prefWidth="188.01975631713867" text="Location" />
-                                                                <TreeTableColumn fx:id="type" prefWidth="161.36790466308594" text="Type" />
-                                                                <TreeTableColumn fx:id="name" prefWidth="231.40463256835938" text="Name" />
-                                                                <TreeTableColumn fx:id="dateRequested" minWidth="0.0" prefWidth="145.7279052734375" text="Date Requested" />
-                                                                <TreeTableColumn fx:id="timeRequested" minWidth="0.0" prefWidth="111.72808837890625" text="Time Requested" />
-                                                                <TreeTableColumn fx:id="comment" minWidth="8.5" prefWidth="319.37847900390625" text="Comments" />
-                                                                <TreeTableColumn fx:id="assignedEmployee" prefWidth="265.7955322265625" text="Assigned To" />
-                                                                <TreeTableColumn fx:id="field1" prefWidth="194.0521240234375" text="field1" />
-                                                                <TreeTableColumn fx:id="field2" prefWidth="236.9478759765625" text="field2" />
-                                                                <TreeTableColumn fx:id="field3" minWidth="250.0" prefWidth="0.0" text="field3" />
-                                                            </columns>
-                                             <GridPane.margin>
-                                                <Insets bottom="25.0" left="50.0" right="50.0" />
-                                             </GridPane.margin>
-                                                        </JFXTreeTableView>
-                                                    </children>
-                                                    <opaqueInsets>
-                                                        <Insets />
-                                                    </opaqueInsets>
-                                                    <padding>
-                                                        <Insets bottom="30.0" left="30.0" right="30.0" top="25.0" />
-                                                    </padding>
-                                                </GridPane>
-                                            </children>
-                                        </AnchorPane>
-                                    </content>
-                                </Tab>
-                                <Tab fx:id="tab3" onSelectionChanged="#filterTable" styleClass="fontType" text="External Transportation">
-                                    <content>
-                                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="461.0" prefWidth="1280.0">
-                                            <children>
-                                                <GridPane alignment="CENTER" layoutX="14.0" layoutY="32.0" vgap="20.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                                                    <columnConstraints>
-                                                        <ColumnConstraints halignment="CENTER" hgrow="ALWAYS" minWidth="-Infinity" />
-                                                        <ColumnConstraints />
-                                                    </columnConstraints>
-                                                    <rowConstraints>
-                                                        <RowConstraints valignment="CENTER" />
-                                                        <RowConstraints valignment="CENTER" vgrow="SOMETIMES" />
-                                                    </rowConstraints>
-                                                    <children>
-                                                        <Label alignment="CENTER" prefHeight="45.0" prefWidth="808.0" stylesheets="@Default.css" text="Active External Transportation Requests" textFill="#f5d96b" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.valignment="CENTER" GridPane.vgrow="NEVER">
-                                                            <font>
-                                                                <Font name="Trebuchet MS" size="30.0" />
-                                                            </font>
-                                                            <effect>
-                                                                <Blend />
-                                                            </effect>
-                                                        </Label>
-                                                        <JFXTreeTableView fx:id="ExternalRequests" onMouseClicked="#SwitchToFulfillRequestScreen" prefHeight="406.0" prefWidth="1169.0" styleClass="jfx-tree-table-view" stylesheets="@Default.css" GridPane.rowIndex="1">
-                                                            <columns>
-                                                                <TreeTableColumn fx:id="hi" prefWidth="188.01975631713867" text="Location" />
-                                                                <TreeTableColumn fx:id="type" prefWidth="161.36790466308594" text="Type" />
-                                                                <TreeTableColumn fx:id="name" prefWidth="231.40463256835938" text="Name" />
-                                                                <TreeTableColumn fx:id="dateRequested" minWidth="0.0" prefWidth="145.7279052734375" text="Date Requested" />
-                                                                <TreeTableColumn fx:id="timeRequested" minWidth="0.0" prefWidth="111.72808837890625" text="Time Requested" />
-                                                                <TreeTableColumn fx:id="comment" minWidth="8.5" prefWidth="319.37847900390625" text="Comments" />
-                                                                <TreeTableColumn fx:id="assignedEmployee" prefWidth="265.7955322265625" text="Assigned To" />
-                                                                <TreeTableColumn fx:id="field1" prefWidth="194.0521240234375" text="field1" />
-                                                                <TreeTableColumn fx:id="field2" prefWidth="236.9478759765625" text="field2" />
-                                                                <TreeTableColumn fx:id="field3" minWidth="250.0" prefWidth="0.0" text="field3" />
-                                                            </columns>
-                                             <GridPane.margin>
-                                                <Insets bottom="25.0" left="50.0" right="50.0" />
-                                             </GridPane.margin>
-                                                        </JFXTreeTableView>
-                                                    </children>
-                                                    <opaqueInsets>
-                                                        <Insets />
-                                                    </opaqueInsets>
-                                                    <padding>
-                                                        <Insets bottom="30.0" left="30.0" right="30.0" top="25.0" />
-                                                    </padding>
-                                                </GridPane>
-                                            </children>
-                                        </AnchorPane>
-                                    </content>
-                                </Tab>
-                                <Tab fx:id="tab4" onSelectionChanged="#filterTable" styleClass="fontType" text="Audio/Visual">
-                                    <content>
-                                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="461.0" prefWidth="1280.0">
-                                            <children>
-                                                <GridPane alignment="CENTER" layoutX="14.0" layoutY="32.0" vgap="20.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                                                    <columnConstraints>
-                                                        <ColumnConstraints halignment="CENTER" hgrow="ALWAYS" minWidth="-Infinity" />
-                                                        <ColumnConstraints />
-                                                    </columnConstraints>
-                                                    <rowConstraints>
-                                                        <RowConstraints valignment="CENTER" />
-                                                        <RowConstraints valignment="CENTER" vgrow="SOMETIMES" />
-                                                    </rowConstraints>
-                                                    <children>
-                                                        <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="45.0" prefWidth="641.0" stylesheets="@Default.css" text="Active Audio/Visual Requests" textFill="#f5d96b" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.valignment="CENTER" GridPane.vgrow="NEVER">
-                                                            <font>
-                                                                <Font name="Trebuchet MS" size="30.0" />
-                                                            </font>
-                                                            <effect>
-                                                                <Blend />
-                                                            </effect>
-                                                        </Label>
-                                                        <JFXTreeTableView fx:id="AVRequests" onMouseClicked="#SwitchToFulfillRequestScreen" prefHeight="406.0" prefWidth="1169.0" styleClass="jfx-tree-table-view" stylesheets="@Default.css" GridPane.rowIndex="1">
-                                                            <columns>
-                                                                <TreeTableColumn fx:id="hi" prefWidth="188.01975631713867" text="Location" />
-                                                                <TreeTableColumn fx:id="type" prefWidth="161.36790466308594" text="Type" />
-                                                                <TreeTableColumn fx:id="name" prefWidth="231.40463256835938" text="Name" />
-                                                                <TreeTableColumn fx:id="dateRequested" minWidth="0.0" prefWidth="145.7279052734375" text="Date Requested" />
-                                                                <TreeTableColumn fx:id="timeRequested" minWidth="0.0" prefWidth="111.72808837890625" text="Time Requested" />
-                                                                <TreeTableColumn fx:id="comment" minWidth="8.5" prefWidth="319.37847900390625" text="Comments" />
-                                                                <TreeTableColumn fx:id="assignedEmployee" prefWidth="265.7955322265625" text="Assigned To" />
-                                                                <TreeTableColumn fx:id="field1" prefWidth="194.0521240234375" text="field1" />
-                                                                <TreeTableColumn fx:id="field2" prefWidth="236.9478759765625" text="field2" />
-                                                                <TreeTableColumn fx:id="field3" minWidth="250.0" prefWidth="0.0" text="field3" />
-                                                            </columns>
-                                             <GridPane.margin>
-                                                <Insets bottom="25.0" left="50.0" right="50.0" />
-                                             </GridPane.margin>
-                                                        </JFXTreeTableView>
-                                                    </children>
-                                                    <opaqueInsets>
-                                                        <Insets />
-                                                    </opaqueInsets>
-                                                    <padding>
-                                                        <Insets bottom="30.0" left="30.0" right="30.0" top="25.0" />
-                                                    </padding>
-                                                </GridPane>
-                                            </children>
-                                        </AnchorPane>
-                                    </content>
-                                </Tab>
-                                <Tab fx:id="tab7" onSelectionChanged="#filterTable" styleClass="fontType" text="Language Assistance">
-                                    <content>
-                                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="461.0" prefWidth="1280.0">
-                                            <children>
-                                                <GridPane alignment="CENTER" layoutX="14.0" layoutY="32.0" vgap="20.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                                                    <columnConstraints>
-                                                        <ColumnConstraints halignment="CENTER" hgrow="ALWAYS" minWidth="-Infinity" />
-                                                        <ColumnConstraints />
-                                                    </columnConstraints>
-                                                    <rowConstraints>
-                                                        <RowConstraints valignment="CENTER" />
-                                                        <RowConstraints valignment="CENTER" vgrow="SOMETIMES" />
-                                                    </rowConstraints>
-                                                    <children>
-                                                        <Label alignment="CENTER" prefHeight="45.0" prefWidth="676.0" style="-fx-font: H;" stylesheets="@Default.css" text="Active Language Assistance Requests" textFill="#f5d96b" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.valignment="CENTER" GridPane.vgrow="NEVER">
-                                                            <font>
-                                                                <Font name="Trebuchet MS" size="30.0" />
-                                                            </font>
-                                                            <effect>
-                                                                <Blend />
-                                                            </effect>
-                                                        </Label>
-                                                        <JFXTreeTableView fx:id="LanguageRequests" onMouseClicked="#SwitchToFulfillRequestScreen" prefHeight="406.0" prefWidth="1169.0" styleClass="jfx-tree-table-view" stylesheets="@Default.css" GridPane.rowIndex="1">
-                                                            <columns>
-                                                                <TreeTableColumn fx:id="hi" prefWidth="188.01975631713867" text="Location" />
-                                                                <TreeTableColumn fx:id="type" prefWidth="161.36790466308594" text="Type" />
-                                                                <TreeTableColumn fx:id="name" prefWidth="231.40463256835938" text="Name" />
-                                                                <TreeTableColumn fx:id="dateRequested" minWidth="0.0" prefWidth="145.7279052734375" text="Date Requested" />
-                                                                <TreeTableColumn fx:id="timeRequested" minWidth="0.0" prefWidth="111.72808837890625" text="Time Requested" />
-                                                                <TreeTableColumn fx:id="comment" minWidth="8.5" prefWidth="319.37847900390625" text="Comments" />
-                                                                <TreeTableColumn fx:id="assignedEmployee" prefWidth="265.7955322265625" text="Assigned To" />
-                                                                <TreeTableColumn fx:id="field1" prefWidth="194.0521240234375" text="field1" />
-                                                                <TreeTableColumn fx:id="field2" prefWidth="236.9478759765625" text="field2" />
-                                                                <TreeTableColumn fx:id="field3" minWidth="250.0" prefWidth="0.0" text="field3" />
-                                                            </columns>
-                                             <GridPane.margin>
-                                                <Insets bottom="25.0" left="50.0" right="50.0" />
-                                             </GridPane.margin>
-                                                        </JFXTreeTableView>
-                                                    </children>
-                                                    <opaqueInsets>
-                                                        <Insets />
-                                                    </opaqueInsets>
-                                                    <padding>
-                                                        <Insets bottom="30.0" left="30.0" right="30.0" top="25.0" />
-                                                    </padding>
-                                                </GridPane>
-                                            </children>
-                                        </AnchorPane>
-                                    </content>
-                                </Tab>
-                                <Tab fx:id="tab" onSelectionChanged="#filterTable" styleClass="fontType" text="Religious">
-                                    <content>
-                                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="461.0" prefWidth="1280.0">
-                                            <children>
-                                                <GridPane alignment="CENTER" layoutX="14.0" layoutY="32.0" vgap="20.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                                                    <columnConstraints>
-                                                        <ColumnConstraints halignment="CENTER" hgrow="ALWAYS" minWidth="-Infinity" />
-                                                        <ColumnConstraints />
-                                                    </columnConstraints>
-                                                    <rowConstraints>
-                                                        <RowConstraints valignment="CENTER" />
-                                                        <RowConstraints valignment="CENTER" vgrow="SOMETIMES" />
-                                                    </rowConstraints>
-                                                    <children>
-                                                        <Label alignment="CENTER" prefHeight="45.0" prefWidth="567.0" stylesheets="@Default.css" text="Active Religious Requests" textFill="#f5d96b" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.valignment="CENTER" GridPane.vgrow="NEVER">
-                                                            <font>
-                                                                <Font name="Trebuchet MS" size="30.0" />
-                                                            </font>
-                                                            <effect>
-                                                                <Blend />
-                                                            </effect>
-                                                        </Label>
-                                                        <JFXTreeTableView fx:id="ReligiousRequests" onMouseClicked="#SwitchToFulfillRequestScreen" prefHeight="406.0" prefWidth="1169.0" styleClass="jfx-tree-table-view" stylesheets="@Default.css" GridPane.rowIndex="1">
-                                                            <columns>
-                                                                <TreeTableColumn fx:id="hi" prefWidth="188.01975631713867" text="Location" />
-                                                                <TreeTableColumn fx:id="type" prefWidth="161.36790466308594" text="Type" />
-                                                                <TreeTableColumn fx:id="name" prefWidth="231.40463256835938" text="Name" />
-                                                                <TreeTableColumn fx:id="dateRequested" minWidth="0.0" prefWidth="145.7279052734375" text="Date Requested" />
-                                                                <TreeTableColumn fx:id="timeRequested" minWidth="0.0" prefWidth="111.72808837890625" text="Time Requested" />
-                                                                <TreeTableColumn fx:id="comment" minWidth="8.5" prefWidth="319.37847900390625" text="Comments" />
+                                                                <TreeTableColumn fx:id="timeRequested" minWidth="0.0" prefWidth="125.0" text="Time Requested" />
+                                                                <TreeTableColumn fx:id="comment" minWidth="8.5" prefWidth="307.0" text="Comments" />
                                                                 <TreeTableColumn fx:id="assignedEmployee" prefWidth="265.7955322265625" text="Assigned To" />
                                                                 <TreeTableColumn fx:id="field1" prefWidth="194.0521240234375" text="field1" />
                                                                 <TreeTableColumn fx:id="field2" prefWidth="236.9478759765625" text="field2" />
@@ -487,8 +232,110 @@
                                                                 <TreeTableColumn fx:id="type" prefWidth="161.36790466308594" text="Type" />
                                                                 <TreeTableColumn fx:id="name" prefWidth="231.40463256835938" text="Name" />
                                                                 <TreeTableColumn fx:id="dateRequested" minWidth="0.0" prefWidth="145.7279052734375" text="Date Requested" />
-                                                                <TreeTableColumn fx:id="timeRequested" minWidth="0.0" prefWidth="111.72808837890625" text="Time Requested" />
-                                                                <TreeTableColumn fx:id="comment" minWidth="8.5" prefWidth="319.37847900390625" text="Comments" />
+                                                                <TreeTableColumn fx:id="timeRequested" minWidth="0.0" prefWidth="133.0" text="Time Requested" />
+                                                                <TreeTableColumn fx:id="comment" minWidth="8.5" prefWidth="299.0" text="Comments" />
+                                                                <TreeTableColumn fx:id="assignedEmployee" prefWidth="265.7955322265625" text="Assigned To" />
+                                                                <TreeTableColumn fx:id="field1" prefWidth="194.0521240234375" text="field1" />
+                                                                <TreeTableColumn fx:id="field2" prefWidth="236.9478759765625" text="field2" />
+                                                                <TreeTableColumn fx:id="field3" minWidth="250.0" prefWidth="0.0" text="field3" />
+                                                            </columns>
+                                             <GridPane.margin>
+                                                <Insets bottom="25.0" left="50.0" right="50.0" />
+                                             </GridPane.margin>
+                                                        </JFXTreeTableView>
+                                                    </children>
+                                                    <opaqueInsets>
+                                                        <Insets />
+                                                    </opaqueInsets>
+                                                    <padding>
+                                                        <Insets bottom="30.0" left="30.0" right="30.0" top="25.0" />
+                                                    </padding>
+                                                </GridPane>
+                                            </children>
+                                        </AnchorPane>
+                                    </content>
+                                </Tab>
+                                <Tab fx:id="tab9" onSelectionChanged="#filterTable" styleClass="fontType" text="Prescriptions">
+                                    <content>
+                                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="461.0" prefWidth="1280.0">
+                                            <children>
+                                                <GridPane alignment="CENTER" layoutX="7.0" layoutY="-7.0" vgap="20.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                                    <columnConstraints>
+                                                        <ColumnConstraints halignment="CENTER" hgrow="ALWAYS" minWidth="-Infinity" />
+                                                        <ColumnConstraints />
+                                                    </columnConstraints>
+                                                    <rowConstraints>
+                                                        <RowConstraints valignment="CENTER" />
+                                                        <RowConstraints valignment="CENTER" vgrow="SOMETIMES" />
+                                                    </rowConstraints>
+                                                    <children>
+                                                        <Label alignment="CENTER" prefHeight="45.0" prefWidth="444.0" styleClass="labelTitle" stylesheets="@Default.css" text="Active Prescription Requests" textFill="#f5d96b" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.valignment="CENTER" GridPane.vgrow="NEVER">
+                                                            <font>
+                                                                <Font name="Trebuchet MS" size="30.0" />
+                                                            </font>
+                                                            <effect>
+                                                                <Blend />
+                                                            </effect>
+                                                        </Label>
+                                                        <JFXTreeTableView fx:id="PrescriptionsRequests" onMouseClicked="#SwitchToFulfillRequestScreen" prefHeight="406.0" prefWidth="1169.0" styleClass="jfx-tree-table-view" stylesheets="@Default.css" GridPane.rowIndex="1">
+                                                            <columns>
+                                                                <TreeTableColumn fx:id="hi" prefWidth="188.01975631713867" text="Location" />
+                                                                <TreeTableColumn fx:id="type" prefWidth="161.36790466308594" text="Type" />
+                                                                <TreeTableColumn fx:id="name" prefWidth="231.40463256835938" text="Name" />
+                                                                <TreeTableColumn fx:id="dateRequested" minWidth="0.0" prefWidth="145.7279052734375" text="Date Requested" />
+                                                                <TreeTableColumn fx:id="timeRequested" minWidth="0.0" prefWidth="130.0" text="Time Requested" />
+                                                                <TreeTableColumn fx:id="comment" minWidth="8.5" prefWidth="302.0" text="Comments" />
+                                                                <TreeTableColumn fx:id="assignedEmployee" prefWidth="265.7955322265625" text="Assigned To" />
+                                                                <TreeTableColumn fx:id="field1" prefWidth="194.0521240234375" text="field1" />
+                                                                <TreeTableColumn fx:id="field2" prefWidth="236.9478759765625" text="field2" />
+                                                                <TreeTableColumn fx:id="field3" minWidth="250.0" prefWidth="0.0" text="field3" />
+                                                            </columns>
+                                             <GridPane.margin>
+                                                <Insets bottom="25.0" left="50.0" right="50.0" />
+                                             </GridPane.margin>
+                                                        </JFXTreeTableView>
+                                                    </children>
+                                                    <opaqueInsets>
+                                                        <Insets />
+                                                    </opaqueInsets>
+                                                    <padding>
+                                                        <Insets bottom="30.0" left="30.0" right="30.0" top="25.0" />
+                                                    </padding>
+                                                </GridPane>
+                                            </children>
+                                        </AnchorPane>
+                                    </content>
+                                </Tab>
+                                <Tab fx:id="tab" onSelectionChanged="#filterTable" styleClass="fontType" text="Religious">
+                                    <content>
+                                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="461.0" prefWidth="1280.0">
+                                            <children>
+                                                <GridPane alignment="CENTER" layoutX="14.0" layoutY="32.0" vgap="20.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                                    <columnConstraints>
+                                                        <ColumnConstraints halignment="CENTER" hgrow="ALWAYS" minWidth="-Infinity" />
+                                                        <ColumnConstraints />
+                                                    </columnConstraints>
+                                                    <rowConstraints>
+                                                        <RowConstraints valignment="CENTER" />
+                                                        <RowConstraints valignment="CENTER" vgrow="SOMETIMES" />
+                                                    </rowConstraints>
+                                                    <children>
+                                                        <Label alignment="CENTER" prefHeight="45.0" prefWidth="567.0" stylesheets="@Default.css" text="Active Religious Requests" textFill="#f5d96b" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.valignment="CENTER" GridPane.vgrow="NEVER">
+                                                            <font>
+                                                                <Font name="Trebuchet MS" size="30.0" />
+                                                            </font>
+                                                            <effect>
+                                                                <Blend />
+                                                            </effect>
+                                                        </Label>
+                                                        <JFXTreeTableView fx:id="ReligiousRequests" onMouseClicked="#SwitchToFulfillRequestScreen" prefHeight="406.0" prefWidth="1169.0" styleClass="jfx-tree-table-view" stylesheets="@Default.css" GridPane.rowIndex="1">
+                                                            <columns>
+                                                                <TreeTableColumn fx:id="hi" prefWidth="188.01975631713867" text="Location" />
+                                                                <TreeTableColumn fx:id="type" prefWidth="161.36790466308594" text="Type" />
+                                                                <TreeTableColumn fx:id="name" prefWidth="231.40463256835938" text="Name" />
+                                                                <TreeTableColumn fx:id="dateRequested" minWidth="0.0" prefWidth="145.7279052734375" text="Date Requested" />
+                                                                <TreeTableColumn fx:id="timeRequested" minWidth="0.0" prefWidth="125.5" text="Time Requested" />
+                                                                <TreeTableColumn fx:id="comment" minWidth="8.5" prefWidth="306.5" text="Comments" />
                                                                 <TreeTableColumn fx:id="assignedEmployee" prefWidth="265.7955322265625" text="Assigned To" />
                                                                 <TreeTableColumn fx:id="field1" prefWidth="194.0521240234375" text="field1" />
                                                                 <TreeTableColumn fx:id="field2" prefWidth="236.9478759765625" text="field2" />
@@ -538,8 +385,8 @@
                                                                 <TreeTableColumn fx:id="type" prefWidth="161.36790466308594" text="Type" />
                                                                 <TreeTableColumn fx:id="name" prefWidth="231.40463256835938" text="Name" />
                                                                 <TreeTableColumn fx:id="dateRequested" minWidth="0.0" prefWidth="145.7279052734375" text="Date Requested" />
-                                                                <TreeTableColumn fx:id="timeRequested" minWidth="0.0" prefWidth="111.72808837890625" text="Time Requested" />
-                                                                <TreeTableColumn fx:id="comment" minWidth="8.5" prefWidth="319.37847900390625" text="Comments" />
+                                                                <TreeTableColumn fx:id="timeRequested" minWidth="0.0" prefWidth="131.5" text="Time Requested" />
+                                                                <TreeTableColumn fx:id="comment" minWidth="8.5" prefWidth="300.5" text="Comments" />
                                                                 <TreeTableColumn fx:id="assignedEmployee" prefWidth="265.7955322265625" text="Assigned To" />
                                                                 <TreeTableColumn fx:id="field1" prefWidth="194.0521240234375" text="field1" />
                                                                 <TreeTableColumn fx:id="field2" prefWidth="236.9478759765625" text="field2" />
@@ -589,8 +436,8 @@
                                                                 <TreeTableColumn fx:id="type" prefWidth="161.36790466308594" text="Type" />
                                                                 <TreeTableColumn fx:id="name" prefWidth="231.40463256835938" text="Name" />
                                                                 <TreeTableColumn fx:id="dateRequested" minWidth="0.0" prefWidth="145.7279052734375" text="Date Requested" />
-                                                                <TreeTableColumn fx:id="timeRequested" minWidth="0.0" prefWidth="111.72808837890625" text="Time Requested" />
-                                                                <TreeTableColumn fx:id="comment" minWidth="8.5" prefWidth="319.37847900390625" text="Comments" />
+                                                                <TreeTableColumn fx:id="timeRequested" minWidth="0.0" prefWidth="131.0" text="Time Requested" />
+                                                                <TreeTableColumn fx:id="comment" minWidth="8.5" prefWidth="301.0" text="Comments" />
                                                                 <TreeTableColumn fx:id="assignedEmployee" prefWidth="265.7955322265625" text="Assigned To" />
                                                                 <TreeTableColumn fx:id="field1" prefWidth="194.0521240234375" text="field1" />
                                                                 <TreeTableColumn fx:id="field2" prefWidth="236.9478759765625" text="field2" />

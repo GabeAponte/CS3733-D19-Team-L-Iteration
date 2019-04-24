@@ -80,6 +80,9 @@ dependencies {
     compile files("jars/jxbrowser-win32-6.23.1.jar")
     compile files("jars/jxbrowser-win64-6.23.1.jar")
     compile files("jars/license.jar")
+    compile files("jars/TeamAMedicalImagingRequest-1.2.2.jar")
+    compile files("jars/LanguageRequest-1.0.1.jar")
+    compile files("jars/FoodRequest-1.0.0.jar")
 }
 
 check.dependsOn integrationTest
@@ -93,6 +96,7 @@ test {
 // This allows the jar to be created, it appears in the build/libs folder
 jar {
     manifest {
+        exclude 'META-INF/*.RSA', 'META-INF/*.SF', 'META-INF/*.DSA'
         attributes 'Main-Class': mainClassName
     }
     from configurations.runtime.collect { zipTree(it) }
