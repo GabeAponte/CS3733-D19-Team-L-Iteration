@@ -853,17 +853,17 @@ public class BookRoomController {
      */
     private void openReservation(boolean open) {
         TranslateTransition openNav = new TranslateTransition(new Duration(400.0D), this.reservationPane);
-        openNav.setToX(0.0D);
+        //openNav.setToX(0.0D);
         TranslateTransition closeNav = new TranslateTransition(new Duration(400.0D), this.reservationPane);
         if (open == true){
             System.out.println(reservationPane.getWidth());
-            openNav.setToX(-this.reservationPane.getWidth()-10);
+            openNav.setToX(-this.anchorPane.getWidth()-this.reservationPane.getWidth()+sizingPane.getLayoutX()+sizingPane.getWidth());
             openNav.play();
             resShowing = true;
             openEventInfo(false, null);
             //System.out.println("ResShowing = true");
         } else {
-            closeNav.setToX(this.reservationPane.getWidth()+10);
+            closeNav.setToX(-this.anchorPane.getWidth()+this.reservationPane.getWidth()+sizingPane.getLayoutX()+sizingPane.getWidth());
             closeNav.play();
             resShowing = false;
             //System.out.println("ResShowing = false");
