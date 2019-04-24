@@ -173,7 +173,7 @@
                                           </VBox>
                                           <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
                                              <children>
-                                                            <JFXDatePicker fx:id="datePicker" defaultColor="#f5d96b" onAction="#fieldsEntered" prefHeight="29.0" prefWidth="146.0" promptText="Start Date" styleClass="date-picker" stylesheets="@Default.css" />
+                                                            <JFXDatePicker fx:id="datePicker" defaultColor="#f5d96b" onAction="#fieldsEntered" prefHeight="29.0" prefWidth="146.0" promptText="Start Date" styleClass="jfx-date-pickerB" stylesheets="@Default.css" />
                                              </children>
                                           </VBox>
                                           <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" GridPane.rowIndex="2">
@@ -203,7 +203,7 @@
                                              <children>
                                                           <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0">
                                                    <children>
-                                                                  <JFXDatePicker fx:id="endDatePicker" defaultColor="#f5d96b" onAction="#fieldsEntered" prefHeight="29.0" prefWidth="143.0" promptText="End Date" styleClass="date-picker" stylesheets="@Default.css" />
+                                                                  <JFXDatePicker fx:id="endDatePicker" defaultColor="#f5d96b" onAction="#fieldsEntered" prefHeight="29.0" prefWidth="143.0" promptText="End Date" styleClass="jfx-date-pickerB" stylesheets="@Default.css" />
                                                    </children>
                                                           </VBox>
                                              </children>
