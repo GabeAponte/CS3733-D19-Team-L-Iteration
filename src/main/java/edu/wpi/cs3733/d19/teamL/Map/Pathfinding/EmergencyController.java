@@ -407,8 +407,9 @@ public class EmergencyController {
         if(path != null){
             displayingPath = true;
             displayPath();
+        }else{
             gesturePane.reset();
-            //direction.clear();
+            direction.clear();
         }
         displayExits();
 
@@ -425,8 +426,9 @@ public class EmergencyController {
         if(path != null){
             displayingPath = true;
             displayPath();
+        }else{
             gesturePane.reset();
-            //direction.clear();
+            direction.clear();
         }
         displayExits();
 
@@ -443,8 +445,9 @@ public class EmergencyController {
         if(path != null){
             displayingPath = true;
             displayPath();
+        }else{
             gesturePane.reset();
-            //direction.clear();
+            direction.clear();
         }
         displayExits();
 
@@ -461,8 +464,9 @@ public class EmergencyController {
         if(path != null){
             displayingPath = true;
             displayPath();
+        }else{
             gesturePane.reset();
-            //direction.clear();
+            direction.clear();
         }
         displayExits();
 
@@ -479,8 +483,9 @@ public class EmergencyController {
         if(path != null){
             displayingPath = true;
             displayPath();
+        }else{
             gesturePane.reset();
-            //direction.clear();
+            direction.clear();
         }
         displayExits();
 
@@ -497,8 +502,9 @@ public class EmergencyController {
         if(path != null){
             displayingPath = true;
             displayPath();
+        }else{
             gesturePane.reset();
-            //direction.clear();
+            direction.clear();
         }
         displayExits();
 
