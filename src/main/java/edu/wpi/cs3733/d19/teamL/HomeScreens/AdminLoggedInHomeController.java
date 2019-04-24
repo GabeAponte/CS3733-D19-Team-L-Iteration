@@ -117,9 +117,21 @@ public class AdminLoggedInHomeController {
         strategiesDropDown.add(depth);
         strategiesDropDown.add(breadth);
         strategySelector.setItems(strategiesDropDown);
-        strategySelector.setValue(single.getTypePathfind());
+        if (single.getTypePathfind().toString().equals("A-Star")){
+            strategySelector.setValue(aStarStrategy);
+        }
+        if (single.getTypePathfind().toString().equals("Dijkstra")){
+            strategySelector.setValue(dijkstraStrategy);
+        }
+        if (single.getTypePathfind().toString().equals("DepthFirst")){
+            strategySelector.setValue(depth);
+        }
+        if (single.getTypePathfind().toString().equals("BreadthFirst")){
+            strategySelector.setValue(breadth);
+        }
+        System.out.println((single.getTypePathfind().toString()));
         strategySelector.setPromptText(single.getTypePathfind().toString() + " Select");
-        timeoutTime.setText(Integer.toString(single.getTimeoutSec()));
+        timeoutTime.setText(Integer.toString(single.getTimeoutSec()/1000));
         timeout = new Timeline(new KeyFrame(Duration.seconds(2), new EventHandler<ActionEvent>() {
 
             @Override
@@ -423,9 +435,9 @@ public class AdminLoggedInHomeController {
 
     @FXML
     private void keyPressedTimeout() {
-        if (Integer.parseInt(timeoutTime.getText()) > 1000) {
+        if (Integer.parseInt(timeoutTime.getText()) > 1) {
             Singleton single = Singleton.getInstance();
-            single.setTimeoutSec(Integer.parseInt(timeoutTime.getText()));
+            single.setTimeoutSec(Integer.parseInt(timeoutTime.getText())*1000);
         }
     }
 }
