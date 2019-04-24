@@ -21,11 +21,13 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Rectangle2D;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
+import javafx.stage.Screen;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
@@ -116,6 +118,7 @@ public class AdminLoggedInHomeController {
         strategiesDropDown.add(breadth);
         strategySelector.setItems(strategiesDropDown);
         strategySelector.setValue(single.getTypePathfind());
+        strategySelector.setPromptText(single.getTypePathfind().toString() + " Select");
         timeoutTime.setText(Integer.toString(single.getTimeoutSec()));
         timeout = new Timeline(new KeyFrame(Duration.seconds(2), new EventHandler<ActionEvent>() {
 
@@ -137,9 +140,16 @@ public class AdminLoggedInHomeController {
                         single.setLastTime();
 
                         Stage thisStage = (Stage) newAccount.getScene().getWindow();
+                        Screen screen = Screen.getPrimary();
+                        Rectangle2D bounds = screen.getVisualBounds();
 
                         Scene newScene = new Scene(sceneMain);
+                        thisStage.setMaximized(true);
                         thisStage.setScene(newScene);
+                        thisStage.setX(bounds.getMinX());
+                        thisStage.setY(bounds.getMinY());
+                        thisStage.setWidth(bounds.getWidth());
+                        thisStage.setHeight(bounds.getHeight());
                         timeout.stop();
                     } catch (IOException io){
                         System.out.println(io.getMessage());
@@ -375,6 +385,7 @@ public class AdminLoggedInHomeController {
         Optional<ButtonType> result = alert.showAndWait();
         if (result.get() == ButtonType.OK){
             // ... user chose OK
+            saveState();
             Parent newPage = FXMLLoader.load(getClass().getClassLoader().getResource("EmergencyScreen.fxml"));
             ((Node) event.getSource()).getScene().setRoot(newPage);
         } else {
@@ -396,12 +407,6 @@ public class AdminLoggedInHomeController {
     }
 
     @FXML
-    private void timeOutSubmitted() {
-        Singleton single = Singleton.getInstance();
-        single.setTimeoutSec(Integer.parseInt(timeoutTime.getText()));
-    }
-
-    @FXML
     private void GenerateGeneralServiceRequestOverview() {
         ReportThread rt = new ReportThread(2);
         rt.start();
@@ -413,6 +418,14 @@ public class AdminLoggedInHomeController {
             ReportThread rt = new ReportThread(3);
             rt.setRequestType(RequestType.getValue());
             rt.start();
+        }
+    }
+
+    @FXML
+    private void keyPressedTimeout() {
+        if (Integer.parseInt(timeoutTime.getText()) > 1000) {
+            Singleton single = Singleton.getInstance();
+            single.setTimeoutSec(Integer.parseInt(timeoutTime.getText()));
         }
     }
 }
