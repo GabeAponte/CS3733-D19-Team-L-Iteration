@@ -473,8 +473,8 @@ public class BookRoomController {
             error.setText("Room booked.");
             String date = datePicker.getValue().toString();
             String endDate = endDatePicker.getValue().toString();
-            date += "T" + startTime.getValue().getHour() + ":" + startTime.getValue().getMinute() + ":00";
-            endDate += "T" + endTime.getValue().getHour() + ":" + endTime.getValue().getMinute() + ":00";
+            date += "T" + String.format("%2d", startTime.getValue().getHour()) + ":" + String.format("%2d", startTime.getValue().getMinute()) + ":00";
+            endDate += "T" + String.format("%2d", endTime.getValue().getHour()) + ":" + String.format("%2d", endTime.getValue().getMinute()) + ":00";
             String roomName = availableRooms.getValue().toString();
             EmployeeAccess ea = new EmployeeAccess();
             String employeeID = ea.getEmployeeInformation(single.getUsername()).get(0);
@@ -877,8 +877,8 @@ public class BookRoomController {
 
         String date = datePicker.getValue().toString();
         String endDate = endDatePicker.getValue().toString();
-        date += "T" + startTime.getValue().getHour() + ":" + startTime.getValue().getMinute() + ":00";
-        endDate += "T" + endTime.getValue().getHour()  + ":" + endTime.getValue().getMinute() + ":00";
+        date += "T" + String.format("%2d", startTime.getValue().getHour()) + ":" + String.format("%2d", startTime.getValue().getMinute()) + ":00";
+        endDate += "T" + String.format("%2d", endTime.getValue().getHour()) + ":" + String.format("%2d", endTime.getValue().getMinute()) + ":00";
         RoomAccess ra = new RoomAccess();
 
         ArrayList<String[]> data = ra.getReservations(date, endDate, roomName);
@@ -1535,7 +1535,7 @@ public class BookRoomController {
                     openReservation(true);
                 }
                 else{
-                    openEventInfo(true, null);
+                    openEventInfo(true, roomName);
                 }
             }
         });
