@@ -22,6 +22,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import javafx.util.Duration;
@@ -50,6 +51,9 @@ public class SanitationServiceRequestController {
     @FXML
     private JFXComboBox<String> urgencyLevel1;
 
+    @FXML
+    private Button logOut;
+
     private NodesAccess na;
     private final ObservableList<Location> data = FXCollections.observableArrayList();
     private HashMap<String, Location> lookup = new HashMap<String, Location>();
@@ -61,6 +65,9 @@ public class SanitationServiceRequestController {
     public void initialize(){
         Singleton single = Singleton.getInstance();
         single.setLastTime();
+        if(!single.isLoggedIn()){
+            logOut.setText("Log In");
+        }
         timeout = new Timeline(new KeyFrame(Duration.seconds(2), new EventHandler<ActionEvent>() {
 
             @Override
@@ -190,6 +197,11 @@ public class SanitationServiceRequestController {
         timeout.stop();
         Singleton single = Singleton.getInstance();
         single.setLastTime();
+        if(!single.isLoggedIn()){
+            Parent newPage = FXMLLoader.load(getClass().getClassLoader().getResource("LogIn.fxml"));
+            ((Node) event.getSource()).getScene().setRoot(newPage);
+            return;
+        }
         single.setUsername("");
         single.setIsAdmin(false);
         single.setLoggedIn(false);
