@@ -424,7 +424,7 @@
                                 <Font size="20.0" />
                             </font>
                         </Label>
-                        <JFXButton onAction="#findRoom" style="-fx-border-radius: 100; -fx-background-radius: 100;" styleClass="buttonDJ" stylesheets="@Default.css" text="Request Event Access" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="7" />
+                        <JFXButton style="-fx-border-radius: 100; -fx-background-radius: 100;" styleClass="buttonDJ" stylesheets="@Default.css" text="Request Event Access" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="7" />
                         <Label fx:id="creatorLabel" styleClass="labelPopupDesc" stylesheets="@Default.css" text="Creator:" GridPane.rowIndex="4" GridPane.valignment="TOP">
                             <font>
                                 <Font size="14.0" />

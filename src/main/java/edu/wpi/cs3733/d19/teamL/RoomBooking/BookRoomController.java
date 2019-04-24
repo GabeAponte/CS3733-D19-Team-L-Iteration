@@ -233,6 +233,7 @@ public class BookRoomController {
     private boolean resShowing = false;
     private boolean bookedEventShowing = false;
     private boolean calledFromVisualClick = false;
+    String previousEvent = "";
 
     final ObservableList<String> listOfRooms = FXCollections.observableArrayList();
     ArrayList<String> rooms = new ArrayList<>();
@@ -615,10 +616,14 @@ public class BookRoomController {
                         }
                     }
                     if(resPaneCalled == false){
-                        if(bookedEventShowing) {
-                            openEventInfo(false, null);
+                        if(DisplayRooms.get(k).getRoomName().equals(previousEvent)) {
+                            if (bookedEventShowing) {
+                                openEventInfo(false, null);
+                            } else {
+
+                                openEventInfo(true, DisplayRooms.get(k).getRoomName());
+                            }
                         }else{
-                            String temp = "";
                             openEventInfo(true, DisplayRooms.get(k).getRoomName());
                         }
                     }
@@ -877,6 +882,8 @@ public class BookRoomController {
      * Slides in the event information menu from the right side
      */
     private void openEventInfo(boolean open, String roomName) {  //Pass in the room name as a parameter here
+
+        previousEvent = roomName;
 
         String date = datePicker.getValue().toString();
         String endDate = endDatePicker.getValue().toString();
