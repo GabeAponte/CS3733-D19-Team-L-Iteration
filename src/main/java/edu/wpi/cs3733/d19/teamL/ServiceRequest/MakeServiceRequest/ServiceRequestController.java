@@ -4,6 +4,7 @@ import edu.wpi.cs3733.d19.teamL.HomeScreens.HomeScreenController;
 import edu.wpi.cs3733.d19.teamL.Memento;
 import edu.wpi.cs3733.d19.teamL.Singleton;
 import edu.wpi.cs3733.d19.teamMService.Main;
+import giftRequest.GiftRequest;
 import giftRequest.ServiceException;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
@@ -23,7 +24,6 @@ import imaging.*;
 import foodRequest.FoodRequest;
 
 import java.io.IOException;
-import giftRequest.GiftRequest;
 
 public class ServiceRequestController {
 
