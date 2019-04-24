@@ -931,11 +931,12 @@ public class BookRoomController {
         Root.getChildren().clear();
         RoomAccess ra = new RoomAccess();
         String theDate = dailyDatePicker.getValue().toString();
+        String endDate = dailyDatePicker.getValue().toString();
         LocalTime startLT = LocalTime.of(0,0);
         LocalTime endLT = LocalTime.of(0, 30);
         for(int i = 0; i < 48; i++){
             // System.out.println("Start Time: " + startTime + " End Time: " + endTime);
-            TreeItem<Room> bookedRooms = new TreeItem<Room>(new Room(startLT, endLT, ra.getAvailRooms(theDate, theDate)));
+            TreeItem<Room> bookedRooms = new TreeItem<Room>(new Room(startLT, endLT, ra.getAvailRooms(theDate, endDate)));
             Root.getChildren().add(bookedRooms);
             startLT = startLT.plusMinutes(30);
             endLT = endLT.plusMinutes(30);
