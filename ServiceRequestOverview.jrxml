@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 7.2.1.final using JasperReports Library version 6.6.0  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="GeneralServiceRequest" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20">
+    <subDataset name="chartDataSet">
+        <field name="serie" class="java.lang.String"/>
+        <field name="category" class="java.lang.String"/>
+        <field name="value" class="java.lang.Double"/>
+    </subDataset>
+    <subDataset name="piechartDataSet">
+        <field name="serie" class="java.lang.String"/>
+        <field name="value" class="java.lang.Double"/>
+    </subDataset>
+    <parameter name="TOP_10_LOCATIONS" class="net.sf.jasperreports.engine.data.JRBeanCollectionDataSource" isForPrompting="false"/>
+    <parameter name="PIE_CHART_TYPE" class="net.sf.jasperreports.engine.data.JRBeanCollectionDataSource" isForPrompting="false"/>
+    <parameter name="REPORTS_PER_WEEK" class="net.sf.jasperreports.engine.data.JRBeanCollectionDataSource" isForPrompting="false"/>
+    <background>
+        <band splitType="Stretch"/>
+    </background>
+    <title>
+        <band height="65" splitType="Stretch">
+            <staticText>
+                <reportElement x="47" y="10" width="460" height="50"/>
+                <textElement textAlignment="Center">
+                    <font size="18"/>
+                </textElement>
+                <text><![CDATA[Brigham and Women's Hospital- General Service Request Report]]></text>
+            </staticText>
+        </band>
+    </title>
+    <detail>
+        <band height="517" splitType="Stretch">
+            <barChart>
+                <chart evaluationTime="Column">
+                    <reportElement x="10" y="10" width="540" height="160"/>
+                    <chartTitle/>
+                    <chartSubtitle/>
+                    <chartLegend/>
+                </chart>
+                <categoryDataset>
+                    <dataset>
+                        <datasetRun subDataset="chartDataSet">
+                            <dataSourceExpression><![CDATA[$P{TOP_10_LOCATIONS}]]></dataSourceExpression>
+                        </datasetRun>
+                    </dataset>
+                    <categorySeries>
+                        <seriesExpression><![CDATA[$F{serie}]]></seriesExpression>
+                        <categoryExpression><![CDATA[$F{category}]]></categoryExpression>
+                        <valueExpression><![CDATA[$F{value}]]></valueExpression>
+                    </categorySeries>
+                </categoryDataset>
+                <barPlot>
+                    <plot/>
+                    <itemLabel/>
+                    <categoryAxisFormat>
+                        <axisFormat labelColor="#000000" tickLabelColor="#000000" axisLineColor="#000000"/>
+                    </categoryAxisFormat>
+                    <valueAxisFormat>
+                        <axisFormat labelColor="#000000" tickLabelColor="#000000" axisLineColor="#000000"/>
+                    </valueAxisFormat>
+                </barPlot>
+            </barChart>
+            <pieChart>
+                <chart evaluationTime="Report">
+                    <reportElement x="10" y="180" width="200" height="200"/>
+                    <chartTitle/>
+                    <chartSubtitle/>
+                    <chartLegend/>
+                </chart>
+                <pieDataset>
+                    <dataset>
+                        <datasetRun subDataset="piechartDataSet">
+                            <dataSourceExpression><![CDATA[$P{PIE_CHART_TYPE}]]></dataSourceExpression>
+                        </datasetRun>
+                    </dataset>
+                    <keyExpression><![CDATA[$F{serie}]]></keyExpression>
+                    <valueExpression><![CDATA[$F{value}]]></valueExpression>
+                </pieDataset>
+                <piePlot>
+                    <plot/>
+                    <itemLabel/>
+                </piePlot>
+            </pieChart>
+            <stackedBarChart>
+                <chart evaluationTime="Report">
+                    <reportElement x="220" y="180" width="330" height="200"/>
+                    <chartTitle/>
+                    <chartSubtitle/>
+                    <chartLegend/>
+                </chart>
+                <categoryDataset>
+                    <dataset>
+                        <datasetRun subDataset="chartDataSet">
+                            <dataSourceExpression><![CDATA[$P{REPORTS_PER_WEEK}]]></dataSourceExpression>
+                        </datasetRun>
+                    </dataset>
+                    <categorySeries>
+                        <seriesExpression><![CDATA[$F{serie}]]></seriesExpression>
+                        <categoryExpression><![CDATA[$F{category}]]></categoryExpression>
+                        <valueExpression><![CDATA[$F{value}]]></valueExpression>
+                    </categorySeries>
+                </categoryDataset>
+                <barPlot>
+                    <plot/>
+                    <itemLabel/>
+                    <categoryAxisFormat>
+                        <axisFormat labelColor="#000000" tickLabelColor="#000000" axisLineColor="#000000"/>
+                    </categoryAxisFormat>
+                    <valueAxisFormat>
+                        <axisFormat labelColor="#000000" tickLabelColor="#000000" axisLineColor="#000000"/>
+                    </valueAxisFormat>
+                </barPlot>
+            </stackedBarChart>
+        </band>
+    </detail>
+    <summary>
+        <band height="42" splitType="Stretch"/>
+    </summary>
+</jasperReport>

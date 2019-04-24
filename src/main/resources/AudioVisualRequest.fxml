@@ -115,7 +115,7 @@
                   <RowConstraints percentHeight="20.0" vgrow="NEVER" />
                </rowConstraints>
                <children>
-                  <VBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" style="-fx-background-color: white; -fx-border-radius: 10; -fx-background-radius: 15;" styleClass="jfx-text-areaServiceRequest" GridPane.rowIndex="1" GridPane.rowSpan="3">
+                  <VBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" style="-fx-background-color: white;" styleClass="jfx-text-areaServiceRequest" GridPane.rowIndex="1" GridPane.rowSpan="3">
                      <GridPane.margin>
                         <Insets left="150.0" right="50.0" />
                      </GridPane.margin>

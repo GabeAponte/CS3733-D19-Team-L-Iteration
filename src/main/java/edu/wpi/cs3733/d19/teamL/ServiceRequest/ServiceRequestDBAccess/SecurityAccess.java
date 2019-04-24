@@ -32,10 +32,10 @@ public class SecurityAccess extends DBAccess {
      * adds a new religious request to the database
      *
      */
-    public void makeRequest(String desc, String location, String name, String type, String threatLevel){
+    public void makeRequest(String desc, String location, String name, String type, String threatLevel, String reportTime){
         String sql = "insert into securityRequest(" +
-                "comment, identifiers, location, creationTime, creationDate, type, threatLevel)" +
-                "values (?, ?, ?, ?, ?, ?, ?)";
+                "comment, identifiers, location, creationTime, creationDate, type, threatLevel, reportTime)" +
+                "values (?, ?, ?, ?, ?, ?, ?, ?)";
 
         try (Connection conn = this.connect();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
@@ -47,6 +47,7 @@ public class SecurityAccess extends DBAccess {
             pstmt.setString(5, sdf.format(date));
             pstmt.setString(6, type);
             pstmt.setString(7, threatLevel);
+            pstmt.setString(8, reportTime);
             pstmt.executeUpdate();
         } catch (SQLException e) {
             System.out.println(e.getMessage());

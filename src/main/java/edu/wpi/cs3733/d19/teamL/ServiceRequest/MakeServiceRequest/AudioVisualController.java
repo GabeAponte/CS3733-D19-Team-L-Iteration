@@ -2,6 +2,7 @@ package edu.wpi.cs3733.d19.teamL.ServiceRequest.MakeServiceRequest;
 
 import edu.wpi.cs3733.d19.teamL.HomeScreens.HomeScreenController;
 import edu.wpi.cs3733.d19.teamL.Memento;
+import edu.wpi.cs3733.d19.teamL.Reports.requestReportAccess;
 import edu.wpi.cs3733.d19.teamL.ServiceRequest.ServiceRequestDBAccess.ServiceRequestAccess;
 import edu.wpi.cs3733.d19.teamL.Singleton;
 import com.jfoenix.controls.JFXComboBox;
@@ -22,6 +23,7 @@ import javafx.stage.Stage;
 import javafx.util.Duration;
 
 import java.io.IOException;
+import java.time.LocalDateTime;
 
 public class AudioVisualController {
     private boolean signedIn;
@@ -112,10 +114,13 @@ public class AudioVisualController {
         single.setLastTime();
         single.setDoPopup(true);
         ServiceRequestAccess sra = new ServiceRequestAccess();
-        sra.makeAudioRequest(Description.getText(), Name.getText(), Location.getText(), Type.getValue());
+        String time = LocalDateTime.now().toString();
+        sra.makeAudioRequest(Description.getText(), Name.getText(), Location.getText(), Type.getValue(), time);
         Memento m = single.getOrig();
         Parent newPage = FXMLLoader.load(getClass().getClassLoader().getResource(m.getFxml()));
         ((Node) event.getSource()).getScene().setRoot(newPage);
+        requestReportAccess ra = new requestReportAccess();
+        ra.addReport(time, "none", "inprogress", "AudioVisual", Type.getValue(), Location.getText());
     }
 
     @FXML
