@@ -91,9 +91,12 @@ public class ExternalTransportationController {
                 }
             }
         }));
+        timeout.setCycleCount(Timeline.INDEFINITE);
+        timeout.play();
     }
     
     public void openBrowser() throws IOException {
+        timeout.stop();
         FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("Browser.fxml"));
         Parent sceneMain = loader.load();
 
@@ -104,6 +107,7 @@ public class ExternalTransportationController {
     }
 
     public void openMaps() throws IOException {
+        timeout.pause();
         Singleton single = Singleton.getInstance();
         Stage stage;
         Parent root;
@@ -114,11 +118,13 @@ public class ExternalTransportationController {
         stage.initModality(Modality.APPLICATION_MODAL);
         single.setLastTime();
         stage.showAndWait();
+        timeout.play();
         single = Singleton.getInstance();
         single.setLastTime();
     }
 
     public void openUber() throws IOException {
+        timeout.pause();
         Singleton single = Singleton.getInstance();
         Stage stage;
         Parent root;
@@ -129,11 +135,13 @@ public class ExternalTransportationController {
         stage.initModality(Modality.APPLICATION_MODAL);
         single.setLastTime();
         stage.showAndWait();
+        timeout.play();
         single = Singleton.getInstance();
         single.setLastTime();
     }
 
     public void openLyft() throws IOException {
+        timeout.pause();
         Singleton single = Singleton.getInstance();
         Stage stage;
         Parent root;
@@ -144,11 +152,13 @@ public class ExternalTransportationController {
         stage.initModality(Modality.APPLICATION_MODAL);
         single.setLastTime();
         stage.showAndWait();
+        timeout.play();
         single = Singleton.getInstance();
         single.setLastTime();
     }
 
     public void openTaxi() throws IOException {
+        timeout.pause();
         Singleton single = Singleton.getInstance();
         Stage stage;
         Parent root;
@@ -159,11 +169,13 @@ public class ExternalTransportationController {
         stage.initModality(Modality.APPLICATION_MODAL);
         single.setLastTime();
         stage.showAndWait();
+        timeout.play();
         single = Singleton.getInstance();
         single.setLastTime();
     }
 
     public void openFlight() throws IOException {
+        timeout.pause();
         Singleton single = Singleton.getInstance();
         Stage stage;
         Parent root;
@@ -174,6 +186,7 @@ public class ExternalTransportationController {
         stage.initModality(Modality.APPLICATION_MODAL);
         single.setLastTime();
         stage.showAndWait();
+        timeout.play();
         single = Singleton.getInstance();
         single.setLastTime();
     }
