@@ -282,12 +282,16 @@
     -fx-alignment: CENTER;
     -fx-text-fill: BLACK;
     -fx-font-family: "Trebuchet MS";
+    -fx-font-size: 20;
 
 }
 
 .tab:selected .tab-label {
     -fx-alignment: CENTER;
     -fx-text-fill: BLACK;
+}
+.tab:right{
+    -fx-background-color: white;
 }
 
 .tab:hover{
@@ -301,11 +305,21 @@
 .jfx-tab-pane .tab:selected {
     -fx-background-color: #efc318;
     -fx-background-radius: 1000000;
+
 }
+
+.jfx-tab-pane .separator{
+    -fx-border-color: WHITE;
+    -fx-border-width: 3;
+    -fx-background-color: WHITE;
+
+}
+
 .tab:hover .tab-label {
     -fx-alignment: CENTER;
     -fx-text-fill: BLACK;
     -fx-font-family: "Trebuchet MS";
+    -fx-font-size: 20;
 }
 
 .jfx-tab-pane .tab-selected-line {

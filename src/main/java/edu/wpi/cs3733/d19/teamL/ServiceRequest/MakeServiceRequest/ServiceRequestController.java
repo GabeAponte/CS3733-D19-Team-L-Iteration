@@ -11,12 +11,14 @@ import javafx.animation.Timeline;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Rectangle2D;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.event.ActionEvent;
 import javafx.scene.control.Button;
 import javafx.scene.layout.AnchorPane;
+import javafx.stage.Screen;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 import edu.wpi.cs3733.d19.teamMService.controllers.LanguageRequests;
@@ -216,7 +218,8 @@ public class ServiceRequestController {
     private void openGiftService() throws ServiceException {
         GiftRequest gr = new GiftRequest();
         try{
-            gr.run(0,0,1280,720,null,null,null);
+            Rectangle2D bounds = Screen.getPrimary().getVisualBounds();
+            gr.run(0,0,(int)bounds.getWidth(),(int)bounds.getHeight(), "",null,null);
         }catch (Exception e){
             System.out.println("Failed to run API");
             e.printStackTrace();
@@ -227,7 +230,9 @@ public class ServiceRequestController {
     private void openMedical(){
         ImagingRequest ir = new ImagingRequest();
         try{
-            ir.run(0,0,720,1280, "","ELABS00101", "ELABS00101");
+            Rectangle2D bounds = Screen.getPrimary().getVisualBounds();
+
+            ir.run(0,0,(int)bounds.getHeight(),(int)bounds.getWidth(), "","ELABS00101", "ELABS00101");
         }catch (Exception e){
             System.out.println("Failed to run API");
             e.printStackTrace();
@@ -239,7 +244,8 @@ public class ServiceRequestController {
     private void openFood(){
         FoodRequest foodRequest = new FoodRequest();
         try{
-            foodRequest.run(0,0,1280,720,null,null,null);
+            Rectangle2D bounds = Screen.getPrimary().getVisualBounds();
+            foodRequest.run(0,0,(int)bounds.getWidth(),(int)bounds.getHeight(),null,null,null);
         }catch (Exception e){
             System.out.println("Failed to run API");
             e.printStackTrace();
@@ -250,7 +256,8 @@ public class ServiceRequestController {
     private void openLanguage(){
         Main m = new Main();
         try {
-            m.run(0, 0, 1280, 720, "", null);
+            Rectangle2D bounds = Screen.getPrimary().getVisualBounds();
+            m.run(0, 0, (int)bounds.getWidth(),(int)bounds.getHeight(), "", null);
         }catch(Exception e){
             System.out.println("Failed to load Food API");
         }
