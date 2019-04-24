@@ -92,25 +92,6 @@ public class BookRoomController {
 
     private TreeItem WeeklyRoot = new TreeItem("rootxxx");
 
-    @FXML
-    private Label roomNameLabel;
-    @FXML
-    private Label startTimeLabel;
-    @FXML
-    private Label endTimeLabel;
-    @FXML
-    private Label startDateLabel;
-    @FXML
-    private Label endDateLabel;
-    @FXML
-    private Label creatorLabel;
-    @FXML
-    private Label eventTypeLabel;
-    @FXML
-    private Label descriptionLabel;
-    @FXML
-    private Label invitedEmployeesLabel;
-
     //Daily Schedule Stuff --------------------------------------------------------------------------------------------
 
     @FXML
@@ -210,6 +191,29 @@ public class BookRoomController {
 
     @FXML
     private AnchorPane anchorPane;
+
+    //Event Info Pop-up ------------------------------------
+
+    @FXML
+    private Label eventTitle;
+    @FXML
+    private Label roomNameLabel;
+    @FXML
+    private Label startTimeLabel;
+    @FXML
+    private Label endTimeLabel;
+    @FXML
+    private Label startDateLabel;
+    @FXML
+    private Label endDateLabel;
+    @FXML
+    private Label creatorLabel;
+    @FXML
+    private Label eventTypeLabel;
+    @FXML
+    private Label descriptionLabel;
+    @FXML
+    private Label invitedEmployeesLabel;
 
     //Reservation Pop-up -----------------------------------
     @FXML
@@ -897,11 +901,12 @@ public class BookRoomController {
         openNav.setToX(0.0D);
         TranslateTransition closeNav = new TranslateTransition(new Duration(400.0D), this.bookedEventPane);
         if (open == true){
+            eventTitle.setText(data.get(0)[2]);
             roomNameLabel.setText("Room name: " + data.get(0)[0]);
-            startTimeLabel.setText("Start time: " + data.get(0)[7].substring(0,10));
-            endTimeLabel.setText("End time: " + data.get(0)[8].substring(0,10));
-            startDateLabel.setText("Start date: " + data.get(0)[7].substring(11));
-            endDateLabel.setText("End date: " + data.get(0)[8].substring(11));
+            startTimeLabel.setText("Start date: " + data.get(0)[7].substring(0,10));
+            endTimeLabel.setText("End date: " + data.get(0)[8].substring(0,10));
+            startDateLabel.setText("Start time: " + data.get(0)[7].substring(11));
+            endDateLabel.setText("End time: " + data.get(0)[8].substring(11));
             creatorLabel.setText("Creator: " + data.get(0)[1]);
             eventTypeLabel.setText("Event type: " + data.get(0)[4]);
             descriptionLabel.setText("Description: " + data.get(0)[3]);
