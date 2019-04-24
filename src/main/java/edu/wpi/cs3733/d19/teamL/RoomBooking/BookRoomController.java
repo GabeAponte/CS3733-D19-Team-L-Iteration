@@ -1,5 +1,6 @@
 package edu.wpi.cs3733.d19.teamL.RoomBooking;
 
+import com.twilio.rest.api.v2010.account.incomingphonenumber.Local;
 import edu.wpi.cs3733.d19.teamL.Account.EmployeeAccess;
 import edu.wpi.cs3733.d19.teamL.HomeScreens.HomeScreenController;
 import com.jfoenix.controls.JFXButton;
@@ -316,8 +317,23 @@ public class BookRoomController {
         ObservableList obList = FXCollections.observableList(events);
         eventType.setItems(obList);
 
-        startTime.setValue(LocalTime.now().plusMinutes(1));
-        endTime.setValue(LocalTime.now().plusHours(1).plusMinutes(1));
+        LocalTime currentTime = LocalTime.now();
+        int currentMinute = currentTime.getMinute();
+        if(currentMinute < 15)
+        {
+            currentTime = currentTime.plusMinutes(15 - currentMinute);
+        }
+        else if(currentMinute >= 15 && currentMinute < 30){
+            currentTime = currentTime.plusMinutes(30 - currentMinute);
+        }
+        else if(currentMinute >= 30 && currentMinute < 45){
+            currentTime = currentTime.plusMinutes(45 - currentMinute);
+        }
+        else if(currentMinute >= 45 && currentMinute < 60){
+            currentTime = currentTime.plusMinutes(60 - currentMinute);
+        }
+        startTime.setValue(currentTime);
+        endTime.setValue(currentTime.plusHours(1));
         datePicker.setValue(LocalDate.now());
         single.setLastTime();
         endDatePicker.setValue(LocalDate.now());
