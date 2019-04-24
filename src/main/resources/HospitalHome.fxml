@@ -81,7 +81,7 @@
                                           <Font name="Trebuchet MS Bold" size="17.0" />
                                        </font>
                                        <graphic>
-                                          <FontAwesomeIconView fill="#012d5a" glyphName="USER" size="35" text="" />
+                                          <FontAwesomeIconView fill="#012d5a" glyphName="LAPTOP" size="40" />
                                        </graphic>
                                        <HBox.margin>
                                           <Insets left="20.0" />
