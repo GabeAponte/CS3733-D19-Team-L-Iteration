@@ -108,6 +108,8 @@ public class LogInController {
         }));
         timeout.setCycleCount(Timeline.INDEFINITE);
         timeout.play();
+        login.setDisable(true);
+
     }
 
     @SuppressWarnings("Duplicates")
@@ -134,11 +136,10 @@ public class LogInController {
         Singleton single = Singleton.getInstance();
         single.setLastTime();
 
-        Boolean disable = (username.getText().isEmpty() || username.getText().trim().isEmpty() || password.getText().isEmpty() || password.getText().trim().isEmpty());
-        if (!disable) {
-            login.setDisable(false);
-        } else {
+        if (username.getText().isEmpty() || username.getText().trim().isEmpty() || password.getText().isEmpty() || password.getText().trim().isEmpty()) {
             login.setDisable(true);
+        } else {
+            login.setDisable(false);
         }
     }
 
