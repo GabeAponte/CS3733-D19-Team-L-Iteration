@@ -76,6 +76,17 @@
                                           <Insets left="20.0" />
                                        </HBox.margin>
                                     </JFXButton>
+                                    <JFXButton fx:id="openWebsite" alignment="CENTER" buttonType="RAISED" contentDisplay="TOP" focusTraversable="false" graphicTextGap="0.0" onAction="#loadBrighams" prefHeight="75.0" prefWidth="111.0" ripplerFill="#b0b0b0" styleClass="buttonToolbar" stylesheets="@Default.css" text="Website" textFill="#012d5a">
+                                       <font>
+                                          <Font name="Trebuchet MS Bold" size="17.0" />
+                                       </font>
+                                       <graphic>
+                                          <FontAwesomeIconView fill="#012d5a" glyphName="USER" size="35" text="" />
+                                       </graphic>
+                                       <HBox.margin>
+                                          <Insets left="20.0" />
+                                       </HBox.margin>
+                                    </JFXButton>
                                  </children>
                               </HBox>
                               <HBox alignment="CENTER_RIGHT" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="2">
