@@ -660,7 +660,7 @@
 .jfx-date-picker{
     -fx-font-family: "Trebuchet MS";
     -fx-font-size: 15;
-    -fx-text-fill: white;
+    -fx-text-fill: black;
     -fx-prompt-text-fill: white;
     -jfx-focus-color: #012d5a;
     -jfx-unfocus-color: #f5d96b;
