@@ -147,6 +147,13 @@ public class HomeScreenController {
 
                     updateWeatherDisplay();
                 }
+                if (single.isEmergency()) {
+                    try {
+                        ActivateEmergencyMode();
+                    } catch (IOException e1) {
+                        e1.printStackTrace();
+                    }
+                }
                 long minute = LocalDateTime.now().getMinute();
                 long hour = LocalDateTime.now().getHour();
                 if(hour > 12){
@@ -297,6 +304,45 @@ public class HomeScreenController {
         } catch (Exception e){
             e.printStackTrace();
         }
+    }
+
+    private void ActivateEmergencyMode() throws IOException {
+        // popup - activate emergency mode?
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("ACTIVATING EMERGENCY MODE");
+        alert.setHeaderText("YOU ARE ACTIVATING EMERGENCY MODE. THIS WILL HAVE CONSEQUENCES IF THERE IS NO REAL EMERGENCY PRESENT");
+        alert.setContentText("YOUR PICTURE HAS BEEN TAKEN. IF YOU PROCEED TO ACTIVATE EMERGENCY MODE, YOUR FACE WILL BE STORED IN OUR DATABASE. " +
+                "\n CONFIRM?");
+
+        //CODE TO TAKE PICTURE
+        try {
+            Webcam webcam;
+
+            webcam = Webcam.getDefault();
+            //THE VIEW SIZE WILL PROBABLY CHANGE DEPENDING ON THE COMPUTER
+            //IMAGE COMPARISON WILL FAIL IMMEDIATELY IF SIZE CHANGES
+            webcam.setViewSize(WebcamResolution.VGA.getSize());
+            webcam.open();
+            BufferedImage image = webcam.getImage();
+            ImageIO.write(image, "JPG", new File("EMode.jpg"));
+            webcam.close();
+
+
+        } catch (Exception e){
+            e.printStackTrace();
+        }
+
+
+        //when press ok, store pic in database
+        Optional<ButtonType> result = alert.showAndWait();
+        if (result.get() == ButtonType.OK){
+            // ... user chose OK
+            Parent newPage = FXMLLoader.load(getClass().getClassLoader().getResource("EmergencyScreen.fxml"));
+            back.getScene().setRoot(newPage);
+        } else {
+            // ... user chose CANCEL or closed the dialog
+        }
+
     }
 
     @FXML
