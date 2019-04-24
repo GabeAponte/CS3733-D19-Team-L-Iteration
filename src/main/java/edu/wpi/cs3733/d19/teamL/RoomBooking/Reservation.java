@@ -1,5 +1,6 @@
 package edu.wpi.cs3733.d19.teamL.RoomBooking;
 
+import edu.wpi.cs3733.d19.teamL.Account.EmployeeAccess;
 import edu.wpi.cs3733.d19.teamL.Account.employeeID;
 
 public class Reservation {
@@ -98,15 +99,17 @@ public class Reservation {
     }
 
     public String toString(){
+        RoomAccess ra = new RoomAccess();
+        EmployeeAccess ea = new EmployeeAccess();
         String result = "";
-        result += "Room ID: " + rID;
-        result += "Creator: " + eID;
-        result += "Start Date: " + sDate;
-        result += "End Date: " + eDate;
-        result += "Event Title: " + title;
-        result += "Description: " + desc;
-        result += "Type of Event: " + type;
-        result += "Private Event: " + isPrivate;
+        result += "Room ID: " + ra.getRoomName(rID);
+        result += "\nCreator: " + ea.getEmployeeUsername(eID);
+        result += "\nStart Date: " + sDate;
+        result += "\nEnd Date: " + eDate;
+        result += "\nEvent Title: " + title;
+        result += "\nDescription: " + desc;
+        result += "\nType of Event: " + type;
+        result += "\nPrivate Event: " + isPrivate;
         return result;
     }
 }
