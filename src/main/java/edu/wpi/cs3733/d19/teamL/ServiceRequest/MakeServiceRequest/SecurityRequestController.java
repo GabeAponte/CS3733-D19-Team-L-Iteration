@@ -182,6 +182,11 @@ public class SecurityRequestController {
         timeout.stop();
         Singleton single = Singleton.getInstance();
         single.setLastTime();
+        if(!single.isLoggedIn()){
+            Parent newPage = FXMLLoader.load(getClass().getClassLoader().getResource("LogIn.fxml"));
+            ((Node) event.getSource()).getScene().setRoot(newPage);
+            return;
+        }
         single.setUsername("");
         single.setIsAdmin(false);
         single.setLoggedIn(false);
