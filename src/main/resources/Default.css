@@ -587,6 +587,18 @@
     -fx-text-fill : #012d5a;
 }
 
+.jfx-combo-box-bookRoom .text-area {
+    -fx-text-fill : #012d5a;
+}
+
+.jfx-combo-box-bookRoom .list-view .list-cell {
+    -fx-text-fill : black;
+}
+
+.jfx-combo-box-bookRoom .list-cell {
+    -fx-text-fill : #012d5a;
+}
+
 .jfx-combo-box-bookRoom .arrow {
     -fx-background-color: #f5d96b;
 }
@@ -596,7 +608,7 @@
 }
 
 .jfx-combo-box-bookRoom .list-cell {
-    -fx-text-fill : white;
+    -fx-text-fill : #012d5a;
 }
 
 .jfx-date-picker{

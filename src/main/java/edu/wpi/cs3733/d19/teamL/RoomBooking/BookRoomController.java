@@ -291,38 +291,6 @@ public class BookRoomController {
         roomImage.fitHeightProperty().bind(imagePane.heightProperty());
 
         displayFlexSpaces(single.getSimulation());
-//        anchorPane.sceneProperty().addListener((observableScene, oldScene, newScene) -> {
-//            if (oldScene == null && newScene != null) {
-//                // scene is set for the first time. Now its the time to listen stage changes.
-//                newScene.windowProperty().addListener((observableWindow, oldWindow, newWindow) -> {
-//                    if (oldWindow == null && newWindow != null) {
-//                        // stage is set. now is the right time to do whatever we need to the stage in the controller.
-//                        ChangeListener<Number> stageSizeListener = (observable, oldValue, newValue) -> {
-//                        System.out.println("Screen resized");
-//                            for(int i = 0; i < DisplayRooms.size(); i++){
-//                                imagePane.getChildren().remove(DisplayRooms.get(i).getPolygon());
-//                            }
-//
-//                            firstTimeRan = true;
-//                            timeout.setCycleCount(Timeline.INDEFINITE);
-//                            timeout.play();
-//                            Platform.runLater(new Runnable(){
-//                                @Override
-//                                public void run(){
-//                                    //displayFlexSpaces();
-//                                    fieldsEntered();
-//                                }
-//                            });
-//
-//                        };
-//
-//                        ((Stage) newWindow).widthProperty().addListener(stageSizeListener);
-//                        ((Stage) newWindow).heightProperty().addListener(stageSizeListener);
-//                    }
-//                });
-//            }
-//        });
-
 
         ArrayList<String> events = new ArrayList<String> (Arrays.asList("Meeting", "Party", "Conference", "Reception"));
         ObservableList obList = FXCollections.observableList(events);
