@@ -24,7 +24,7 @@
       <VBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" styleClass="vboxImage" stylesheets="@Default.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
       <VBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
-            <JFXToolbar prefHeight="100.0" prefWidth="1280.0" styleClass="tool-barMain" stylesheets="@Default.css">
+            <JFXToolbar maxHeight="-Infinity" minHeight="-Infinity" prefHeight="100.0" prefWidth="1280.0" styleClass="tool-barMain" stylesheets="@Default.css">
                <VBox.margin>
                   <Insets />
                </VBox.margin>
@@ -165,7 +165,7 @@
                            <children>
                               <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" GridPane.columnSpan="2147483647" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
                                  <children>
-                                    <JFXTextField fx:id="destinationField" focusColor="#f6bd38" onAction="#reenableSubmit" promptText="Destination" styleClass="jfx-text-field-normal" stylesheets="@Default.css" unFocusColor="WHITE">
+                                    <JFXTextField fx:id="destinationField" focusColor="#f6bd38" maxWidth="1.7976931348623157E308" onAction="#reenableSubmit" promptText="Destination" styleClass="jfx-text-field-normal" stylesheets="@Default.css" unFocusColor="WHITE">
                                        <font>
                                           <Font name="Trebuchet MS" size="20.0" />
                                        </font>
@@ -177,7 +177,7 @@
                               </VBox>
                               <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" GridPane.columnSpan="2147483647" GridPane.rowIndex="1">
                                  <children>
-                                    <JFXTextField fx:id="deliveryTimeField" focusColor="#f6bd38" onAction="#reenableSubmit" promptText="Medicine Type" styleClass="jfx-text-field-normal" stylesheets="@Default.css" unFocusColor="WHITE">
+                                    <JFXTextField fx:id="deliveryTimeField" focusColor="#f6bd38" maxWidth="1.7976931348623157E308" onAction="#reenableSubmit" promptText="Medicine Type" styleClass="jfx-text-field-normal" stylesheets="@Default.css" unFocusColor="WHITE">
                                        <font>
                                           <Font name="Trebuchet MS" size="20.0" />
                                        </font>
@@ -189,7 +189,7 @@
                               </VBox>
                               <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" GridPane.columnSpan="2147483647" GridPane.rowIndex="2">
                                  <children>
-                                    <JFXTextField fx:id="medicineTypeField" focusColor="#f6bd38" onAction="#reenableSubmit" promptText="Delivery Time" styleClass="jfx-text-field-normal" stylesheets="@Default.css" unFocusColor="WHITE">
+                                    <JFXTextField fx:id="medicineTypeField" focusColor="#f6bd38" maxWidth="1.7976931348623157E308" onAction="#reenableSubmit" promptText="Delivery Time" styleClass="jfx-text-field-normal" stylesheets="@Default.css" unFocusColor="WHITE">
                                        <font>
                                           <Font name="Trebuchet MS" size="20.0" />
                                        </font>
@@ -201,7 +201,7 @@
                               </VBox>
                               <VBox alignment="CENTER_RIGHT" prefHeight="200.0" prefWidth="100.0" GridPane.columnSpan="2147483647" GridPane.halignment="CENTER" GridPane.rowIndex="3" GridPane.valignment="CENTER">
                                  <children>
-                                    <JFXTextField fx:id="amountField" focusColor="#f6bd38" onAction="#reenableSubmit" promptText="Amount" styleClass="jfx-text-field-normal" stylesheets="@Default.css" unFocusColor="WHITE">
+                                    <JFXTextField fx:id="amountField" focusColor="#f6bd38" maxWidth="1.7976931348623157E308" onAction="#reenableSubmit" promptText="Amount" styleClass="jfx-text-field-normal" stylesheets="@Default.css" unFocusColor="WHITE">
                                        <font>
                                           <Font name="Trebuchet MS" size="20.0" />
                                        </font>

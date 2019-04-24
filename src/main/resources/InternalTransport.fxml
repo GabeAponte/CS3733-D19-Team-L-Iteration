@@ -144,7 +144,7 @@
                               </VBox>
                               <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" GridPane.columnSpan="2147483647" GridPane.rowIndex="1">
                                  <children>
-                                    <JFXComboBox fx:id="endBox" focusColor="#f6bd38" onAction="#reenableSubmit" prefHeight="44.0" prefWidth="428.0" promptText="End Location" stylesheets="@Default.css" unFocusColor="WHITE">
+                                    <JFXComboBox fx:id="endBox" focusColor="#f6bd38" maxWidth="1.7976931348623157E308" onAction="#reenableSubmit" prefHeight="44.0" prefWidth="428.0" promptText="End Location" stylesheets="@Default.css" unFocusColor="WHITE">
                                        <VBox.margin>
                                           <Insets bottom="10.0" left="50.0" right="50.0" />
                                        </VBox.margin>
@@ -153,7 +153,7 @@
                               </VBox>
                               <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" GridPane.columnSpan="2147483647" GridPane.rowIndex="2">
                                  <children>
-                                    <JFXComboBox fx:id="typeField" focusColor="#f6bd38" onAction="#reenableSubmit" prefHeight="44.0" prefWidth="428.0" promptText="Type" style="-jfx-focus-color: white;" stylesheets="@Default.css" unFocusColor="WHITE">
+                                    <JFXComboBox fx:id="typeField" focusColor="#f6bd38" maxWidth="1.7976931348623157E308" onAction="#reenableSubmit" prefHeight="44.0" prefWidth="428.0" promptText="Type" style="-jfx-focus-color: white;" stylesheets="@Default.css" unFocusColor="WHITE">
                                        <VBox.margin>
                                           <Insets bottom="10.0" left="50.0" right="50.0" />
                                        </VBox.margin>
@@ -162,9 +162,9 @@
                               </VBox>
                               <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" GridPane.columnSpan="2147483647" GridPane.rowIndex="3">
                                  <children>
-                                    <JFXTextField fx:id="phoneField" focusColor="#f6bd38" onInputMethodTextChanged="#reenableSubmit" onKeyPressed="#reenableSubmit" onKeyReleased="#reenableSubmit" onKeyTyped="#reenableSubmit" prefHeight="40.0" prefWidth="526.0" promptText="Enter Phone Number (555)-555-5555" styleClass="jfx-text-field-normal" stylesheets="@Default.css" unFocusColor="WHITE">
+                                    <JFXTextField fx:id="phoneField" focusColor="#f6bd38" maxWidth="1.7976931348623157E308" onInputMethodTextChanged="#reenableSubmit" onKeyPressed="#reenableSubmit" onKeyReleased="#reenableSubmit" onKeyTyped="#reenableSubmit" prefHeight="40.0" prefWidth="526.0" promptText="Phone Number (555)-555-5555" styleClass="jfx-text-field-normal" stylesheets="@Default.css" unFocusColor="WHITE">
                                        <font>
-                                          <Font name="Trebuchet MS" size="18.0" />
+                                          <Font name="Trebuchet MS" size="20.0" />
                                        </font>
                                        <VBox.margin>
                                           <Insets bottom="10.0" left="50.0" right="50.0" />
