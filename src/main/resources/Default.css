@@ -438,6 +438,18 @@
 
 }
 
+.jfx-combo-boxRoom {
+    -fx-font-size : 30;
+    -fx-font-family: "Trebuchet MS";
+    -fx-text-fill : #012d5a;
+    -jfx-focus-color: #012d5a;
+    -jfx-unfocus-color: #012d5a;
+    -fx-prompt-text-fill: #012d5a;
+
+
+}
+
+
 .jfx-combo-box {
     -fx-font-size : 20 pt;
     -fx-font-family: "Trebuchet MS";
@@ -474,6 +486,38 @@
 .jfx-combo-box .arrow {
     -fx-background-color: #012d5a;
 }
+
+
+.jfx-combo-box-Room .text-field {
+    -fx-text-fill : #012d5a;
+    -fx-font-size : 30;
+    -fx-font-family: "Trebuchet MS";
+
+
+}
+
+.jfx-combo-box-Room .text-area {
+    -fx-text-fill : #012d5a;
+    -fx-font-size : 30;
+    -fx-font-family: "Trebuchet MS";
+
+
+}
+
+.jfx-combo-box-Room .list-view .list-cell {
+    -fx-text-fill : black;
+
+}
+
+.jfx-combo-box-Room .list-cell {
+    -fx-text-fill : #012d5a;
+
+}
+
+.jfx-combo-box-Room .arrow {
+    -fx-background-color: #012d5a;
+}
+
 
 .jfx-combo-box-Popup {
     -fx-font-size : 15 pt;
@@ -574,7 +618,7 @@
 }
 
 .jfx-combo-box-bookRoom{
-    -fx-font-size : 14 pt;
+    -fx-font-size : 12 pt;
     -fx-text-fill : #012d5a;
     -fx-prompt-text-fill: #012d5a;
     -fx-unfocus-color: #f5d96b;
@@ -600,7 +644,8 @@
 }
 
 .jfx-date-picker{
-    -fx-font-size: 20 pt;
+    -fx-font-family: "Trebuchet MS";
+    -fx-font-size: 15;
     -fx-text-fill: white;
     -fx-prompt-text-fill: white;
     -jfx-focus-color: #012d5a;
@@ -609,7 +654,8 @@
 }
 
 .jfx-date-picker .text-field{
-    -fx-font-size: 20 pt;
+    -fx-font-family: "Trebuchet MS";
+    -fx-font-size: 15;
     -fx-text-fill: #012d5a;
     -fx-prompt-text-fill: #012d5a;
     -jfx-focus-color: #f5d96b;
@@ -624,7 +670,8 @@
 }
 
 .jfx-time-picker{
-    -fx-font-size: 20 pt;
+    -fx-font-family: "Trebuchet MS";
+    -fx-font-size: 15;
     -fx-text-fill: white;
     -fx-prompt-text-fill: white;
     -jfx-focus-color: #f5d96b;
@@ -634,7 +681,8 @@
 }
 
 .jfx-time-picker .text-field{
-    -fx-font-size: 20 pt;
+    -fx-font-family: "Trebuchet MS";
+    -fx-font-size: 15;
     -fx-text-fill: #012d5a;
     -fx-prompt-text-fill: #012d5a;
     -jfx-focus-color: #f5d96b;
