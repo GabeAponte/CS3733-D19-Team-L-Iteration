@@ -36,7 +36,7 @@ public class ReligiousRequestAccess extends DBAccess {
      */
     public void makeRequest(String desc, String denom, String location, String name, String type, String reportTime){
         String sql = "insert into religiousRequest(" +
-                "comment, denomination, location, creationTime, creationDate, name, type, reportTIme)" +
+                "comment, denomination, location, creationTime, creationDate, name, type, reportTime)" +
                 "values (?, ?, ?, ?, ?, ?, ?, ?)";
 
         try (Connection conn = this.connect();

@@ -111,7 +111,6 @@ public class ReportThread extends Thread {
                 pieChartData.add(new PieChartData("poi", counts.get(1)));
                 pieChartData.add(new PieChartData("selected", counts.get(2)));
 
-                System.out.println("LOOPS COMPLETE");
                 File f = new File("PathFindStats.jrxml");
                 JasperReport jasperReport = null;
                 String filePath = f.getAbsolutePath().replace('\\', '/');
@@ -138,6 +137,11 @@ public class ReportThread extends Thread {
                 reader.close();
             } catch (Exception e) {
                 e.printStackTrace();
+            } finally {
+                File file = new File("outputPDF.pdf");
+                if (file.exists()) {
+                    file.delete();
+                }
             }
         }
         //general one
@@ -219,7 +223,6 @@ public class ReportThread extends Thread {
                 }
 
                 //build chart- series = month, category = type, value = value
-                System.out.println("LOOPS COMPLETE");
                 File f = new File("ServiceRequestOverview.jrxml");
                 JasperReport jasperReport = null;
                 String filePath = f.getAbsolutePath().replace('\\', '/');
@@ -246,11 +249,14 @@ public class ReportThread extends Thread {
                 stamper = new PdfStamper(reader, new FileOutputStream("ServiceRequestOverview.pdf"));
                 stamper.close();
                 reader.close();
-                System.out.println("SUCCESS");
-
 
             } catch (Exception e) {
                 e.printStackTrace();
+            } finally {
+                File file = new File("outputPDF2.pdf");
+                if (file.exists()) {
+                    file.delete();
+                }
             }
         }
         //specific one
@@ -297,7 +303,6 @@ public class ReportThread extends Thread {
                 }
                 List<MeterChartData> meterNum = new ArrayList<MeterChartData>();
                 meterNum.add(new MeterChartData(countMeter));
-                System.out.println("LOOPS COMPLETE");
                 File f = new File("ServiceRequestDetail.jrxml");
                 JasperReport jasperReport = null;
                 String filePath = f.getAbsolutePath().replace('\\', '/');
@@ -326,9 +331,13 @@ public class ReportThread extends Thread {
                 stamper = new PdfStamper(reader, new FileOutputStream("ServiceRequestDetail"+this.requestType+".pdf"));
                 stamper.close();
                 reader.close();
-                System.out.println("SUCCESS");
             } catch (Exception e) {
                 e.printStackTrace();
+            } finally {
+                File file = new File("outputPDF3.pdf");
+                if (file.exists()) {
+                    file.delete();
+                }
             }
 
         }
