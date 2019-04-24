@@ -76,6 +76,7 @@ public class Singleton {
         sim = new VisualSimulationThread(86);
         sim.start();
         esp = new Esp_Server();
+        //esp.setDaemon(true);
         esp.start();
     }
 

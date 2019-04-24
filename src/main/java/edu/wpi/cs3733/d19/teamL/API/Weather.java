@@ -39,7 +39,6 @@ public class Weather {
             fio.setUnits(ForecastIO.UNITS_US);
             fio.setLang(ForecastIO.LANG_ENGLISH);
             fio.getForecast("42.269478", "-71.807783");
-            //System.out.println("Timezone: "+fio.getTimezone());
             currently = new FIOCurrently(fio);
             if(currently == null){
                 throw new NullPointerException();
@@ -50,14 +49,15 @@ public class Weather {
                 fio.setUnits(ForecastIO.UNITS_US);
                 fio.setLang(ForecastIO.LANG_ENGLISH);
                 fio.getForecast("42.269478", "-71.807783");
-                //System.out.println("Timezone: "+fio.getTimezone());
                 currently = new FIOCurrently(fio);
+                if(currently == null){
+                    throw new NullPointerException();
+                }
             } catch (Exception p){
                 fio = new ForecastIO("de4722e74e8f300584d166321bd11d2e");
                 fio.setUnits(ForecastIO.UNITS_US);
                 fio.setLang(ForecastIO.LANG_ENGLISH);
                 fio.getForecast("42.269478", "-71.807783");
-                //System.out.println("Timezone: "+fio.getTimezone());
                 currently = new FIOCurrently(fio);
             }
         }

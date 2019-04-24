@@ -131,7 +131,7 @@
                                     <children>
                               <VBox prefHeight="200.0" prefWidth="100.0" style="-fx-background-color: white; -fx-border-color: #f5d96b; -fx-border-radius: 10; -fx-background-radius: 10; -fx-border-width: 2;" stylesheets="@Default.css" GridPane.columnIndex="2" GridPane.columnSpan="2" GridPane.rowIndex="1" GridPane.rowSpan="3">
                                  <GridPane.margin>
-                                    <Insets left="10.0" right="10.0" />
+                                    <Insets bottom="5.0" left="10.0" right="10.0" />
                                  </GridPane.margin>
                               </VBox>
                                         <Pane fx:id="sizingPane" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" GridPane.columnIndex="2" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="4" GridPane.rowSpan="3" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
@@ -165,10 +165,10 @@
                                                         <Font size="18.0" />
                                                     </font>
                                                 </Label>
-                                                <JFXTimePicker fx:id="startTime" defaultColor="#f5d96b" onAction="#fieldsEntered" prefHeight="50.0" prefWidth="225.0" promptText="Start Time" styleClass="jfx-time-picker" stylesheets="@Default.css" />
+                                                <JFXTimePicker fx:id="startTime" defaultColor="#f5d96b" onAction="#roundStartTime" prefHeight="50.0" prefWidth="225.0" promptText="Start Time" styleClass="jfx-time-picker" stylesheets="@Default.css" />
                                             </children>
                                  <GridPane.margin>
-                                    <Insets top="5.0" />
+                                    <Insets bottom="5.0" top="5.0" />
                                  </GridPane.margin>
                                         </VBox>
                                         <VBox alignment="CENTER" layoutX="874.0" layoutY="200.0" prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="2" GridPane.rowIndex="2">
@@ -178,10 +178,10 @@
                                                         <Font size="18.0" />
                                                     </font>
                                                 </Label>
-                                                <JFXTimePicker fx:id="endTime" defaultColor="#f5d96b" onAction="#fieldsEntered" prefHeight="50.0" prefWidth="225.0" promptText="End Time" styleClass="jfx-time-picker" stylesheets="@Default.css" />
+                                                <JFXTimePicker fx:id="endTime" defaultColor="#f5d96b" onAction="#roundEndTime" prefHeight="50.0" prefWidth="225.0" promptText="End Time" styleClass="jfx-time-picker" stylesheets="@Default.css" />
                                             </children>
                                  <GridPane.margin>
-                                    <Insets top="15.0" />
+                                    <Insets bottom="5.0" top="15.0" />
                                  </GridPane.margin>
                                         </VBox>
                                         <Label fx:id="roomName" alignment="TOP_CENTER" contentDisplay="CENTER" prefHeight="48.0" prefWidth="427.0" styleClass="labelTitle" stylesheets="@Default.css" text="Select a Room" textFill="#f5d96b" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="TOP">
@@ -199,10 +199,10 @@
                                                         <Font size="18.0" />
                                                     </font>
                                                 </Label>
-                                                <JFXDatePicker fx:id="datePicker" defaultColor="#f5d96b" onAction="#fieldsEntered" prefHeight="60.0" prefWidth="225.0" promptText="Start Date" styleClass="date-picker" stylesheets="@Default.css" />
+                                                <JFXDatePicker fx:id="datePicker" defaultColor="#f5d96b" onAction="#fieldsEntered" prefHeight="60.0" prefWidth="225.0" promptText="Start Date" styleClass="jfx-date-pickerB" stylesheets="@Default.css" />
                                             </children>
                                  <GridPane.margin>
-                                    <Insets top="5.0" />
+                                    <Insets bottom="5.0" top="5.0" />
                                  </GridPane.margin>
                                         </VBox>
                                         <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="2" GridPane.columnSpan="2" GridPane.rowIndex="3">
@@ -218,7 +218,7 @@
                                        </VBox.margin></JFXComboBox>
                                             </children>
                                  <GridPane.margin>
-                                    <Insets top="20.0" />
+                                    <Insets bottom="5.0" top="20.0" />
                                  </GridPane.margin>
                                         </VBox>
                                         <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="3" GridPane.rowIndex="2">
@@ -228,10 +228,10 @@
                                                         <Font size="18.0" />
                                                     </font>
                                                 </Label>
-                                                <JFXDatePicker fx:id="endDatePicker" defaultColor="#f5d96b" onAction="#fieldsEntered" prefHeight="50.0" prefWidth="225.0" promptText="End Date" styleClass="date-picker" stylesheets="@Default.css" />
+                                                <JFXDatePicker fx:id="endDatePicker" defaultColor="#f5d96b" onAction="#fieldsEntered" prefHeight="50.0" prefWidth="225.0" promptText="End Date" styleClass="jfx-date-pickerB" stylesheets="@Default.css" />
                                             </children>
                                  <GridPane.margin>
-                                    <Insets top="15.0" />
+                                    <Insets bottom="5.0" top="15.0" />
                                  </GridPane.margin>
                                         </VBox>
                                     </children>
@@ -335,16 +335,16 @@
                                                 </JFXButton>
                                             </children>
                                         </VBox>
-                                        <JFXTreeTableView fx:id="weeklySchedule" styleClass="jfx-tree-table-view" stylesheets="@Default.css" GridPane.columnSpan="3" GridPane.rowIndex="1" GridPane.rowSpan="4">
+                                        <JFXTreeTableView fx:id="weeklySchedule" maxWidth="-Infinity" prefWidth="1000.0" styleClass="jfx-tree-table-view" stylesheets="@Default.css" GridPane.columnSpan="3" GridPane.halignment="CENTER" GridPane.hgrow="NEVER" GridPane.rowIndex="1" GridPane.rowSpan="4">
                                             <columns>
                                                 <TreeTableColumn fx:id="weeklyTimeCol" minWidth="200.0" prefWidth="200.0" text="Time" />
-                                                <TreeTableColumn fx:id="sunCol" editable="false" minWidth="120.0" prefWidth="130.0" sortable="false" text="Sunday" />
-                                                <TreeTableColumn fx:id="monCol" editable="false" minWidth="120.0" prefWidth="130.0" sortable="false" text="Monday" />
-                                                <TreeTableColumn fx:id="tueCol" editable="false" minWidth="120.0" prefWidth="130.0" sortable="false" text="Tuesday" />
-                                                <TreeTableColumn fx:id="wedCol" editable="false" minWidth="120.0" prefWidth="130.0" sortable="false" text="Wednesday" />
-                                                <TreeTableColumn fx:id="thuCol" editable="false" minWidth="120.0" prefWidth="130.0" sortable="false" text="Thursday" />
-                                                <TreeTableColumn fx:id="friCol" editable="false" minWidth="120.0" prefWidth="130.0" sortable="false" text="Friday" />
-                                                <TreeTableColumn fx:id="satCol" editable="false" minWidth="120.0" prefWidth="130.0" sortable="false" text="Saturday" />
+                                                <TreeTableColumn fx:id="sunCol" editable="false" minWidth="120.0" prefWidth="150.0" sortable="false" text="Sunday" />
+                                                <TreeTableColumn fx:id="monCol" editable="false" minWidth="120.0" prefWidth="150.0" sortable="false" text="Monday" />
+                                                <TreeTableColumn fx:id="tueCol" editable="false" minWidth="120.0" prefWidth="150.0" sortable="false" text="Tuesday" />
+                                                <TreeTableColumn fx:id="wedCol" editable="false" minWidth="120.0" prefWidth="150.0" sortable="false" text="Wednesday" />
+                                                <TreeTableColumn fx:id="thuCol" editable="false" minWidth="120.0" prefWidth="150.0" sortable="false" text="Thursday" />
+                                                <TreeTableColumn fx:id="friCol" editable="false" minWidth="120.0" prefWidth="150.0" sortable="false" text="Friday" />
+                                                <TreeTableColumn fx:id="satCol" editable="false" minWidth="120.0" prefWidth="150.0" sortable="false" text="Saturday" />
                                             </columns>
                                             <GridPane.margin>
                                                 <Insets left="30.0" />
@@ -449,7 +449,7 @@
                 </GridPane>
             </children>
         </AnchorPane>
-        <AnchorPane fx:id="bookedEventPane" layoutX="1287.0" layoutY="330.0" prefHeight="328.0" prefWidth="550.0" style="-fx-border-color: #f5d96b; -fx-background-radius: 10; -fx-border-radius: 10; -fx-border-width: 2;" styleClass="AnchorPainMain" stylesheets="@Default.css" AnchorPane.bottomAnchor="20.0">
+        <AnchorPane fx:id="bookedEventPane" layoutX="1287.0" layoutY="330.0" prefHeight="328.0" prefWidth="550.0" style="-fx-border-color: #f5d96b; -fx-background-radius: 10; -fx-border-radius: 10; -fx-border-width: 2; -fx-background-color: white;" stylesheets="@Default.css" AnchorPane.bottomAnchor="20.0">
             <children>
                 <GridPane layoutX="1.0" layoutY="12.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                     <columnConstraints>
@@ -465,60 +465,59 @@
                         <RowConstraints maxHeight="101.0" minHeight="10.0" percentHeight="15.0" prefHeight="101.0" vgrow="SOMETIMES" />
                         <RowConstraints minHeight="10.0" percentHeight="15.0" prefHeight="30.0" vgrow="SOMETIMES" />
                         <RowConstraints minHeight="10.0" percentHeight="15.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                  <RowConstraints minHeight="10.0" percentHeight="15.0" prefHeight="30.0" vgrow="SOMETIMES" />
                     </rowConstraints>
                     <children>
-                        <Label fx:id="eventTitle" styleClass="labelTitle" stylesheets="@Default.css" text="Event Title" GridPane.columnSpan="2" GridPane.halignment="CENTER">
+                        <Label fx:id="eventTitle" styleClass="labelPopupTitle" stylesheets="@Default.css" text="Event Title" GridPane.columnSpan="2" GridPane.halignment="CENTER">
                             <font>
                                 <Font size="20.0" />
                             </font>
                         </Label>
-                        <JFXButton style="-fx-border-radius: 100; -fx-background-radius: 100;" styleClass="buttonDJ" stylesheets="@Default.css" text="Request Event Access" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="8">
+                        <JFXButton fx:id="eventInfo" onAction="#editEventInfo" style="-fx-border-radius: 100; -fx-background-radius: 100;" styleClass="buttonMain" stylesheets="@Default.css" text="Request Event Access" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="7">
                      <font>
                         <Font size="18.0" />
                      </font>
                   </JFXButton>
-                        <Label fx:id="creatorLabel" styleClass="labelPopupDesc" stylesheets="@Default.css" text="Creator:" GridPane.rowIndex="4" GridPane.valignment="TOP">
+                        <Label fx:id="creatorLabel" styleClass="labelPopupTitle" stylesheets="@Default.css" text="Creator:" GridPane.rowIndex="4" GridPane.valignment="TOP">
                             <font>
                                 <Font size="14.0" />
                             </font>
                         </Label>
-                        <Label fx:id="descriptionLabel" styleClass="labelPopupDesc" stylesheets="@Default.css" text="Description:" GridPane.rowIndex="5" GridPane.valignment="TOP">
+                        <Label fx:id="descriptionLabel" styleClass="labelPopupTitle" stylesheets="@Default.css" text="Description:" GridPane.rowIndex="5" GridPane.valignment="TOP">
                             <font>
                                 <Font size="14.0" />
                             </font>
                         </Label>
-                        <Label fx:id="eventTypeLabel" styleClass="labelPopupDesc" stylesheets="@Default.css" text="Event Type:" GridPane.columnIndex="1" GridPane.rowIndex="4" GridPane.valignment="TOP">
+                        <Label fx:id="eventTypeLabel" styleClass="labelPopupTitle" stylesheets="@Default.css" text="Event Type:" GridPane.columnIndex="1" GridPane.rowIndex="4" GridPane.valignment="TOP">
                             <font>
                                 <Font size="14.0" />
                             </font>
                         </Label>
-                        <Label fx:id="invitedEmployeesLabel" prefHeight="26.0" prefWidth="528.0" styleClass="labelPopupDesc" stylesheets="@Default.css" text="Invited Employees:" GridPane.columnSpan="2" GridPane.hgrow="ALWAYS" GridPane.rowIndex="6" GridPane.valignment="TOP">
+                        <Label fx:id="invitedEmployeesLabel" prefHeight="26.0" prefWidth="528.0" styleClass="labelPopupTitle" stylesheets="@Default.css" text="Invited Employees:" GridPane.columnSpan="2" GridPane.hgrow="ALWAYS" GridPane.rowIndex="6" GridPane.valignment="TOP">
                             <font>
                                 <Font size="14.0" />
                             </font>
                         </Label>
-                        <Label fx:id="startTimeLabel" styleClass="labelPopupDesc" stylesheets="@Default.css" text="Start Time:" GridPane.rowIndex="2" GridPane.valignment="TOP">
+                        <Label fx:id="startTimeLabel" styleClass="labelPopupTitle" stylesheets="@Default.css" text="Start Time:" GridPane.rowIndex="2" GridPane.valignment="TOP">
                             <font>
                                 <Font size="14.0" />
                             </font>
                         </Label>
-                        <Label fx:id="endTimeLabel" styleClass="labelPopupDesc" stylesheets="@Default.css" text="End Time:" GridPane.columnIndex="1" GridPane.rowIndex="2" GridPane.valignment="TOP">
+                        <Label fx:id="endTimeLabel" styleClass="labelPopupTitle" stylesheets="@Default.css" text="End Time:" GridPane.columnIndex="1" GridPane.rowIndex="2" GridPane.valignment="TOP">
                             <font>
                                 <Font size="14.0" />
                             </font>
                         </Label>
-                        <Label fx:id="startDateLabel" styleClass="labelPopupDesc" stylesheets="@Default.css" text="Start Date" GridPane.rowIndex="3" GridPane.valignment="TOP">
+                        <Label fx:id="startDateLabel" styleClass="labelPopupTitle" stylesheets="@Default.css" text="Start Date" GridPane.rowIndex="3" GridPane.valignment="TOP">
                             <font>
                                 <Font size="14.0" />
                             </font>
                         </Label>
-                        <Label fx:id="endDateLabel" styleClass="labelPopupDesc" stylesheets="@Default.css" text="End Date:" GridPane.columnIndex="1" GridPane.rowIndex="3" GridPane.valignment="TOP">
+                        <Label fx:id="endDateLabel" styleClass="labelPopupTitle" stylesheets="@Default.css" text="End Date:" GridPane.columnIndex="1" GridPane.rowIndex="3" GridPane.valignment="TOP">
                             <font>
                                 <Font size="14.0" />
                             </font>
                         </Label>
-                        <Label fx:id="roomNameLabel" styleClass="labelPopupDesc" stylesheets="@Default.css" text="Room Name" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="TOP">
+                        <Label fx:id="roomNameLabel" styleClass="labelPopupTitle" stylesheets="@Default.css" text="Room Name" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="TOP">
                             <font>
                                 <Font name="Trebuchet MS" size="18.0" />
                             </font>
@@ -529,6 +528,9 @@
                     </padding>
                 </GridPane>
             </children>
+         <opaqueInsets>
+            <Insets />
+         </opaqueInsets>
         </AnchorPane>
     </children>
 </AnchorPane>

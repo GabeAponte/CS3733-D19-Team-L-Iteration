@@ -1110,7 +1110,7 @@ public class PathFindingController {
                 changeMapLabel();
             }
 
-            if(currentMap.equals("4")){
+            if(currentMap.equals("4") && single.isLoggedIn()){
                 displayFlexSpaces(single.getSimulation());
                 displayBookableRooms();
             }
@@ -2912,22 +2912,23 @@ public class PathFindingController {
                     flexSpaces.get(i).setFill(Color.web("TURQUOISE"));
                     flexSpaces.get(i).setOpacity(0.5);
                 } else {
-                    flexSpaces.get(i).setStroke(Color.web("RED"));
-                    flexSpaces.get(i).setFill(Color.web("RED"));
+                    flexSpaces.get(i).setStroke(Color.web("ORANGERED"));
+                    flexSpaces.get(i).setFill(Color.web("ORANGERED"));
                     flexSpaces.get(i).setOpacity(0.3);
                 }
             }
+            if (single.isFree()) {
+                flexSpaces.get(0).setStroke(Color.web("TURQUOISE"));
+                flexSpaces.get(0).setFill(Color.web("TURQUOISE"));
+                flexSpaces.get(0).setOpacity(0.5);
+            }
+            else {
+                flexSpaces.get(0).setStroke(Color.web("ORANGERED"));
+                flexSpaces.get(0).setFill(Color.web("ORANGERED"));
+                flexSpaces.get(0).setOpacity(0.3);
+            }
         }
-        if (single.isFree()) {
-            flexSpaces.get(0).setStroke(Color.web("TURQUOISE"));
-            flexSpaces.get(0).setFill(Color.web("TURQUOISE"));
-            flexSpaces.get(0).setOpacity(0.5);
-        }
-        else {
-            flexSpaces.get(0).setStroke(Color.web("RED"));
-            flexSpaces.get(0).setFill(Color.web("RED"));
-            flexSpaces.get(0).setOpacity(0.3);
-        }
+
     }
 
     private void hideFlexSpaces(){

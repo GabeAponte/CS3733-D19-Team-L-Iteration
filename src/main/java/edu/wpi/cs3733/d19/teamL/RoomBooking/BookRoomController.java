@@ -1,5 +1,6 @@
 package edu.wpi.cs3733.d19.teamL.RoomBooking;
 
+import com.twilio.rest.api.v2010.account.incomingphonenumber.Local;
 import edu.wpi.cs3733.d19.teamL.Account.EmployeeAccess;
 import edu.wpi.cs3733.d19.teamL.HomeScreens.HomeScreenController;
 import com.jfoenix.controls.JFXButton;
@@ -210,6 +211,9 @@ public class BookRoomController {
     //Event Info Pop-up ------------------------------------
 
     @FXML
+    private Button eventInfo;
+
+    @FXML
     private Label eventTitle;
     @FXML
     private Label roomNameLabel;
@@ -291,45 +295,28 @@ public class BookRoomController {
         roomImage.fitHeightProperty().bind(imagePane.heightProperty());
 
         displayFlexSpaces(single.getSimulation());
-//        anchorPane.sceneProperty().addListener((observableScene, oldScene, newScene) -> {
-//            if (oldScene == null && newScene != null) {
-//                // scene is set for the first time. Now its the time to listen stage changes.
-//                newScene.windowProperty().addListener((observableWindow, oldWindow, newWindow) -> {
-//                    if (oldWindow == null && newWindow != null) {
-//                        // stage is set. now is the right time to do whatever we need to the stage in the controller.
-//                        ChangeListener<Number> stageSizeListener = (observable, oldValue, newValue) -> {
-//                        System.out.println("Screen resized");
-//                            for(int i = 0; i < DisplayRooms.size(); i++){
-//                                imagePane.getChildren().remove(DisplayRooms.get(i).getPolygon());
-//                            }
-//
-//                            firstTimeRan = true;
-//                            timeout.setCycleCount(Timeline.INDEFINITE);
-//                            timeout.play();
-//                            Platform.runLater(new Runnable(){
-//                                @Override
-//                                public void run(){
-//                                    //displayFlexSpaces();
-//                                    fieldsEntered();
-//                                }
-//                            });
-//
-//                        };
-//
-//                        ((Stage) newWindow).widthProperty().addListener(stageSizeListener);
-//                        ((Stage) newWindow).heightProperty().addListener(stageSizeListener);
-//                    }
-//                });
-//            }
-//        });
-
 
         ArrayList<String> events = new ArrayList<String> (Arrays.asList("Meeting", "Party", "Conference", "Reception"));
         ObservableList obList = FXCollections.observableList(events);
         eventType.setItems(obList);
 
-        startTime.setValue(LocalTime.now().plusMinutes(1));
-        endTime.setValue(LocalTime.now().plusHours(1).plusMinutes(1));
+        LocalTime currentTime = LocalTime.now();
+        int currentMinute = currentTime.getMinute();
+        if(currentMinute < 15)
+        {
+            currentTime = currentTime.plusMinutes(15 - currentMinute);
+        }
+        else if(currentMinute >= 15 && currentMinute < 30){
+            currentTime = currentTime.plusMinutes(30 - currentMinute);
+        }
+        else if(currentMinute >= 30 && currentMinute < 45){
+            currentTime = currentTime.plusMinutes(45 - currentMinute);
+        }
+        else if(currentMinute >= 45 && currentMinute < 60){
+            currentTime = currentTime.plusMinutes(60 - currentMinute);
+        }
+        startTime.setValue(currentTime);
+        endTime.setValue(currentTime.plusHours(1));
         datePicker.setValue(LocalDate.now());
         single.setLastTime();
         endDatePicker.setValue(LocalDate.now());
@@ -399,7 +386,7 @@ public class BookRoomController {
 
         for(int i = 0; i < emps.size(); i++){
             String temp = "";
-            temp = emps.get(i).get(4) + " " + emps.get(i).get(5) + " " + "(" + emps.get(i).get(6) + ")";
+            temp = emps.get(i).get(4) + " " + emps.get(i).get(5) + " " + "(" + emps.get(i).get(8) + ")";
             eventEmployeeData.add(temp);
         }
 
@@ -512,10 +499,122 @@ public class BookRoomController {
             RoomAccess ra = new RoomAccess();
             roomReq.makeReservation(ra.getRoomID(roomName), employeeID, date, endDate, eventNameString, eventDescriptionString, listOfGuests, eventTypeString, eventIsPrivate);
             //add event name, event description, event type, guestList (String), privacy (boolean)
+            Reservation r = new Reservation(ra.getRoomID(roomName), employeeID, date, endDate, eventNameString, eventDescriptionString, listOfGuests, eventTypeString, eventIsPrivate);
+            for(int i = 0; i < listOfGuests.length(); i++){
+                int idx = listOfGuests.indexOf("(", i);
+                int lastidx = listOfGuests.indexOf(")", i);
+                String recipient = "";
+                if(idx == -1 || lastidx == -1){
+                    i = Integer.MAX_VALUE;
+                } else {
+                    i=lastidx + 1;
+                }
+                for(int j = idx + 1; j < lastidx; j++){
+                    recipient+=listOfGuests.charAt(j);
+                }
+                if(recipient != ""){
+                    InviteThread it = new InviteThread(r, ea.getEmpEmail(recipient));
+                    it.start();
+                }
+            }
             openReservation(false);
             openEventInfo(true, roomName);
             fieldsEntered();
         }
+    }
+
+    @FXML
+    public void roundStartTime(){
+        LocalTime selectedStartTime = startTime.getValue();
+        int startMinute = selectedStartTime.getMinute();
+        if(startMinute == 0 || startMinute == 60){
+
+        }
+        else if(startMinute < 8)
+        {
+            selectedStartTime = selectedStartTime.minusMinutes(startMinute);
+            startTime.setValue(selectedStartTime);
+        }
+        else if(startMinute >= 8 && startMinute < 15){
+            selectedStartTime = selectedStartTime.plusMinutes(15 - startMinute);
+            startTime.setValue(selectedStartTime);
+
+        }
+        else if(startMinute > 15 && startMinute < 23){
+            selectedStartTime = selectedStartTime.plusMinutes(15 - startMinute);
+            startTime.setValue(selectedStartTime);
+
+        }
+        else if(startMinute >= 23 && startMinute < 30){
+            selectedStartTime = selectedStartTime.plusMinutes(30 - startMinute);
+            startTime.setValue(selectedStartTime);
+        }
+        else if(startMinute > 30 && startMinute < 38){
+            selectedStartTime = selectedStartTime.plusMinutes(30 - startMinute);
+            startTime.setValue(selectedStartTime);
+        }
+        else if(startMinute >= 38 && startMinute < 45){
+            selectedStartTime = selectedStartTime.plusMinutes(45 - startMinute);
+            startTime.setValue(selectedStartTime);
+        }
+        else if(startMinute > 45 && startMinute < 53){
+            selectedStartTime = selectedStartTime.plusMinutes(45 - startMinute);
+            startTime.setValue(selectedStartTime);
+        }
+        else if(startMinute >= 53 && startMinute < 60){
+            selectedStartTime = selectedStartTime.minusMinutes(startMinute);
+            startTime.setValue(selectedStartTime);
+        }
+        else{
+
+        }
+    }
+
+    public void roundEndTime(){
+        LocalTime selectedEndTime = endTime.getValue();
+        int endMinute = selectedEndTime.getMinute();
+        if(endMinute == 0 || endMinute == 60){
+
+        }
+        else if(endMinute < 8)
+        {
+            selectedEndTime = selectedEndTime.minusMinutes(endMinute);
+            endTime.setValue(selectedEndTime);
+        }
+        else if(endMinute >= 8 && endMinute < 15){
+            selectedEndTime = selectedEndTime.plusMinutes(15 - endMinute);
+            endTime.setValue(selectedEndTime);
+
+        }
+        else if(endMinute > 15 && endMinute < 23){
+            selectedEndTime = selectedEndTime.plusMinutes(15 - endMinute);
+            endTime.setValue(selectedEndTime);
+
+        }
+        else if(endMinute >= 23 && endMinute < 30){
+            selectedEndTime = selectedEndTime.plusMinutes(30 - endMinute);
+            endTime.setValue(selectedEndTime);
+        }
+        else if(endMinute > 30 && endMinute < 38){
+            selectedEndTime = selectedEndTime.plusMinutes(30 - endMinute);
+            endTime.setValue(selectedEndTime);
+        }
+        else if(endMinute >= 38 && endMinute < 45){
+            selectedEndTime = selectedEndTime.plusMinutes(45 - endMinute);
+            endTime.setValue(selectedEndTime);
+        }
+        else if(endMinute > 45 && endMinute < 53){
+            selectedEndTime = selectedEndTime.plusMinutes(45 - endMinute);
+            endTime.setValue(selectedEndTime);
+        }
+        else if(endMinute >= 53 && endMinute < 60){
+            selectedEndTime = selectedEndTime.minusMinutes(endMinute);
+            endTime.setValue(selectedEndTime);
+        }
+        else{
+
+        }
+        fieldsEntered();
     }
 
     //todo checks if fields are null and populates table here
@@ -565,13 +664,13 @@ public class BookRoomController {
             eventName.clear();
             eventDescription.clear();
             eventType.getSelectionModel().clearSelection();
+            error.setText("");
             privateEvent.setSelected(false);
             EmployeeAccess ea = new EmployeeAccess();
             ArrayList<ArrayList<String>> emps = ea.getEmployees("","");
             for(int i = 0; i < emps.size(); i++) {
                 eventEmployees.getCheckModel().clearCheck(i);
             }
-
             availableRooms.setItems(listOfRooms);
             displayAllRooms();
         }
@@ -585,7 +684,7 @@ public class BookRoomController {
     public void displayAllRooms() {
 
         if(firstTimeRan) {
-            double scaleRatio = 0;
+            double scaleRatio;
             scaleRatio = Math.min(roomImage.getFitWidth() / roomImage.getImage().getWidth(), roomImage.getFitHeight() / roomImage.getImage().getHeight());
             for (int i = 0; i < DisplayRooms.size(); i++) {
                 DisplayRooms.get(i).makePolygon(scaleRatio);
@@ -840,23 +939,23 @@ public class BookRoomController {
                 flexSpaces.get(i).setFill(Color.web("TURQUOISE"));
                 flexSpaces.get(i).setOpacity(0.5);
             }else{
-                flexSpaces.get(i).setStroke(Color.web("RED"));
-                flexSpaces.get(i).setFill(Color.web("RED"));
-                flexSpaces.get(i).setOpacity(0.3);
+                flexSpaces.get(i).setStroke(Color.web("ORANGERED"));
+                flexSpaces.get(i).setFill(Color.web("ORANGERED"));
+                flexSpaces.get(i).setOpacity(0.5);
             }
             imagePane.getChildren().add(flexSpaces.get(i));
         }
         if (single.isFree()) {
-            System.out.println("Set T");
+            //System.out.println("Set T");
             flexSpaces.get(0).setStroke(Color.web("TURQUOISE"));
             flexSpaces.get(0).setFill(Color.web("TURQUOISE"));
             flexSpaces.get(0).setOpacity(0.5);
         }
         else {
-            System.out.println("Set R");
-            flexSpaces.get(0).setStroke(Color.web("RED"));
-            flexSpaces.get(0).setFill(Color.web("RED"));
-            flexSpaces.get(0).setOpacity(0.3);
+            //System.out.println("Set R");
+            flexSpaces.get(0).setStroke(Color.web("ORANGERED"));
+            flexSpaces.get(0).setFill(Color.web("ORANGERED"));
+            flexSpaces.get(0).setOpacity(0.5);
         }
         imagePane.getChildren().add(flexSpaces.get(0));
     }
@@ -945,7 +1044,8 @@ public class BookRoomController {
         orderFood.setOnAction((evt) -> {
             FoodRequest foodRequest = new FoodRequest();
             try{
-                foodRequest.run(0,0,1280,720,null,null,null);
+                Rectangle2D bounds = Screen.getPrimary().getVisualBounds();
+                foodRequest.run(0,0,(int)bounds.getWidth(),(int)bounds.getHeight(),null,null,null);
             }catch (Exception e){
                 System.out.println("Failed to run API");
                 e.printStackTrace();
@@ -955,7 +1055,8 @@ public class BookRoomController {
         orderGifts.setOnAction((evt) -> {
             GiftRequest gr = new GiftRequest();
             try{
-                gr.run(0,0,1280,720,null,null,null);
+                Rectangle2D bounds = Screen.getPrimary().getVisualBounds();
+                gr.run(0,0,(int)bounds.getWidth(),(int)bounds.getHeight(), "",null,null);
             }catch (Exception e){
                 System.out.println("Failed to run API");
                 e.printStackTrace();
@@ -982,7 +1083,22 @@ public class BookRoomController {
         openNav.setToX(0.0D);
         TranslateTransition closeNav = new TranslateTransition(new Duration(400.0D), this.bookedEventPane);
         if (open == true){
-            if((data.get(0)[6]).equals("1")){
+
+            EmployeeAccess ea = new EmployeeAccess();
+            ArrayList<String> empAccess = ea.getEmployeeInformation(Singleton.getUsername());
+            String temp = empAccess.get(0);
+
+            if((data.get(0)[1]).equals(temp)){
+                eventInfo.setVisible(true);
+                eventInfo.setText("Cancel Reservation");
+            }else if (data.get(0)[5].contains(Singleton.getUsername())) {
+                eventInfo.setVisible(false);
+            } else{
+                eventInfo.setVisible(true);
+                eventInfo.setText("Request Event Access");
+            }
+
+            if(((data.get(0)[6]).equals("1") && !(data.get(0)[1]).equals(temp))){
                 System.out.println("PRIVATE EVENT");
                 eventTitle.setText("Private Event");
                 creatorLabel.setText("Creator: Private");
@@ -996,7 +1112,7 @@ public class BookRoomController {
                 descriptionLabel.setText("Description: " + data.get(0)[3]);
                 invitedEmployeesLabel.setText("Invited Employees: " + data.get(0)[5]);
             }
-            roomNameLabel.setText("Room name: " + data.get(0)[0]);
+            roomNameLabel.setText("Room name: " + roomName);
             startTimeLabel.setText("Start date: " + data.get(0)[7].substring(0,10));
             endTimeLabel.setText("End date: " + data.get(0)[8].substring(0,10));
             startDateLabel.setText("Start time: " + data.get(0)[7].substring(11));
@@ -1010,6 +1126,32 @@ public class BookRoomController {
             closeNav.setToX(-this.anchorPane.getWidth()+this.reservationPane.getWidth()+sizingPane.getLayoutX()+sizingPane.getWidth());
             closeNav.play();
             bookedEventShowing = false;
+        }
+    }
+
+    public void editEventInfo(){
+        ReservationAccess ra = new ReservationAccess();
+        RoomAccess roa = new RoomAccess();
+        String eventStartDate = datePicker.getValue().toString() + "T" + String.format("%02d", startTime.getValue().getHour()) + ":" + String.format("%02d", startTime.getValue().getMinute()) + ":00";
+        String eventEndDate = endDatePicker.getValue().toString() + "T" + String.format("%02d", endTime.getValue().getHour()) + ":" + String.format("%02d", endTime.getValue().getMinute()) + ":00";
+        ArrayList<String[]> data = roa.getReservations(eventStartDate, eventEndDate, roomName.getText());
+        String[] info = data.get(0);
+        Singleton single = Singleton.getInstance();
+        if(eventInfo.getText().equals("Cancel Reservation")){
+            ra.deleteReservation(info[0], info[1], info[7], info[8]);
+            fieldsEntered();
+            openEventInfo(false, "");
+        }else{
+            String sender = Singleton.getUsername();
+            boolean privateEventInfo = false;
+            if((info[6]).equals("1")){
+                privateEventInfo = true;
+            }//rID, eID, sdate, endate, title, desc, type, isPrivate
+            Reservation thisEvent = new Reservation (info[0], info[1], info[7], info[8], info[2], info[3], info[5], info[4], privateEventInfo);
+            EmployeeAccess ea = new EmployeeAccess();
+            String recipient = ea.getEmpEmail(ea.getEmployeeUsername(info[1]));
+            AddToEventThread emailEvent = new AddToEventThread(thisEvent, recipient, sender);
+            emailEvent.start();
         }
     }
 
@@ -1077,10 +1219,10 @@ public class BookRoomController {
                 protected void updateItem(Boolean item, boolean empty) {
                     super.updateItem(item, empty);
                     if (item == null || !item){
-                        setStyle("-fx-background-color: red");
+                        setStyle("-fx-background-color: ee5253");
                         setText("Occupied");
                     } else {
-                        setStyle("-fx-background-color: green");
+                        setStyle("-fx-background-color: #7bed9f");
                         setText("Available");
                     }
                 }
@@ -1107,11 +1249,11 @@ public class BookRoomController {
                     super.updateItem(item, empty);
                     if (item == null || !item){
                         setText("Occupied");
-                        setStyle("-fx-background-color: red");
+                        setStyle("-fx-background-color: ee5253");
 
                     } else {
                         setText("Available");
-                        setStyle("-fx-background-color: green");
+                        setStyle("-fx-background-color: #7bed9f");
 
                     }
                 }
@@ -1138,10 +1280,10 @@ public class BookRoomController {
                     super.updateItem(item, empty);
                     if (item == null || !item){
                         setText("Occupied");
-                        setStyle("-fx-background-color: red");
+                        setStyle("-fx-background-color: ee5253");
                     } else {
                         setText("Available");
-                        setStyle("-fx-background-color: green");
+                        setStyle("-fx-background-color: #7bed9f");
                     }
                 }
             };
@@ -1167,10 +1309,10 @@ public class BookRoomController {
                     super.updateItem(item, empty);
                     if (item == null || !item){
                         setText("Occupied");
-                        setStyle("-fx-background-color: red");
+                        setStyle("-fx-background-color: ee5253");
                     } else {
                         setText("Available");
-                        setStyle("-fx-background-color: green");
+                        setStyle("-fx-background-color: #7bed9f");
                     }
                 }
             };
@@ -1196,10 +1338,10 @@ public class BookRoomController {
                     super.updateItem(item, empty);
                     if (item == null || !item){
                         setText("Occupied");
-                        setStyle("-fx-background-color: red");
+                        setStyle("-fx-background-color: ee5253");
                     } else {
                         setText("Available");
-                        setStyle("-fx-background-color: green");
+                        setStyle("-fx-background-color: #7bed9f");
                     }
                 }
             };
@@ -1225,10 +1367,10 @@ public class BookRoomController {
                     super.updateItem(item, empty);
                     if (item == null || !item){
                         setText("Occupied");
-                        setStyle("-fx-background-color: red");
+                        setStyle("-fx-background-color: ee5253");
                     } else {
                         setText("Available");
-                        setStyle("-fx-background-color: green");
+                        setStyle("-fx-background-color: #7bed9f");
                     }
                 }
             };
@@ -1254,10 +1396,10 @@ public class BookRoomController {
                     super.updateItem(item, empty);
                     if (item == null || !item){
                         setText("Occupied");
-                        setStyle("-fx-background-color: red");
+                        setStyle("-fx-background-color: ee5253");
                     } else {
                         setText("Available");
-                        setStyle("-fx-background-color: green");
+                        setStyle("-fx-background-color: #7bed9f");
                     }
                 }
             };
@@ -1283,10 +1425,10 @@ public class BookRoomController {
                     super.updateItem(item, empty);
                     if (item == null || !item){
                         setText("Occupied");
-                        setStyle("-fx-background-color: red");
+                        setStyle("-fx-background-color: ee5253");
                     } else {
                         setText("Available");
-                        setStyle("-fx-background-color: green");
+                        setStyle("-fx-background-color: #7bed9f");
                     }
                 }
             };
@@ -1312,10 +1454,10 @@ public class BookRoomController {
                     super.updateItem(item, empty);
                     if (item == null || !item){
                         setText("Occupied");
-                        setStyle("-fx-background-color: red");
+                        setStyle("-fx-background-color: ee5253");
                     } else {
                         setText("Available");
-                        setStyle("-fx-background-color: green");
+                        setStyle("-fx-background-color: #7bed9f");
                     }
                 }
             };
@@ -1341,10 +1483,10 @@ public class BookRoomController {
                     super.updateItem(item, empty);
                     if (item == null || !item){
                         setText("Occupied");
-                        setStyle("-fx-background-color: red");
+                        setStyle("-fx-background-color: ee5253");
                     } else {
                         setText("Available");
-                        setStyle("-fx-background-color: green");
+                        setStyle("-fx-background-color: #7bed9f");
                     }
                 }
             };
@@ -1438,10 +1580,10 @@ public class BookRoomController {
                     super.updateItem(item, empty);
                     if (item == null || !item){
                         setText("Occupied");
-                        setStyle("-fx-background-color: red");
+                        setStyle("-fx-background-color: ee5253");
                     } else {
                         setText("Available");
-                        setStyle("-fx-background-color: green");
+                        setStyle("-fx-background-color: #7bed9f");
                     }
                 }
             };
@@ -1467,10 +1609,10 @@ public class BookRoomController {
                     super.updateItem(item, empty);
                     if (item == null || !item){
                         setText("Occupied");
-                        setStyle("-fx-background-color: red");
+                        setStyle("-fx-background-color: ee5253");
                     } else {
                         setText("Available");
-                        setStyle("-fx-background-color: green");
+                        setStyle("-fx-background-color: #7bed9f");
                     }
                 }
             };
@@ -1496,10 +1638,10 @@ public class BookRoomController {
                     super.updateItem(item, empty);
                     if (item == null || !item){
                         setText("Occupied");
-                        setStyle("-fx-background-color: red");
+                        setStyle("-fx-background-color: ee5253");
                     } else {
                         setText("Available");
-                        setStyle("-fx-background-color: green");
+                        setStyle("-fx-background-color: #7bed9f");
                     }
                 }
             };
@@ -1525,10 +1667,10 @@ public class BookRoomController {
                     super.updateItem(item, empty);
                     if (item == null || !item){
                         setText("Occupied");
-                        setStyle("-fx-background-color: red");
+                        setStyle("-fx-background-color: ee5253");
                     } else {
                         setText("Available");
-                        setStyle("-fx-background-color: green");
+                        setStyle("-fx-background-color: #7bed9f");
                     }
                 }
             };
@@ -1554,10 +1696,10 @@ public class BookRoomController {
                     super.updateItem(item, empty);
                     if (item == null || !item){
                         setText("Occupied");
-                        setStyle("-fx-background-color: red");
+                        setStyle("-fx-background-color: ee5253");
                     } else {
                         setText("Available");
-                        setStyle("-fx-background-color: green");
+                        setStyle("-fx-background-color: #7bed9f");
                     }
                 }
             };
@@ -1583,10 +1725,10 @@ public class BookRoomController {
                     super.updateItem(item, empty);
                     if (item == null || !item){
                         setText("Occupied");
-                        setStyle("-fx-background-color: red");
+                        setStyle("-fx-background-color: ee5253");
                     } else {
                         setText("Available");
-                        setStyle("-fx-background-color: green");
+                        setStyle("-fx-background-color: #7bed9f");
                     }
                 }
             };
@@ -1612,10 +1754,10 @@ public class BookRoomController {
                     super.updateItem(item, empty);
                     if (item == null || !item){
                         setText("Occupied");
-                        setStyle("-fx-background-color: red");
+                        setStyle("-fx-background-color: ee5253");
                     } else {
                         setText("Available");
-                        setStyle("-fx-background-color: green");
+                        setStyle("-fx-background-color: #7bed9f");
                     }
                 }
             };
