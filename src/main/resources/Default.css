@@ -648,11 +648,11 @@
 .jfx-date-picker{
     -fx-font-family: "Trebuchet MS";
     -fx-font-size: 15;
-    -fx-text-fill: white;
+    -fx-text-fill: black;
     -fx-prompt-text-fill: white;
     -jfx-focus-color: #012d5a;
     -jfx-unfocus-color: white;
-    -jfx-default-color: white;
+    -jfx-default-color: #f5d96b;
 }
 
 .jfx-date-picker .text-field{
