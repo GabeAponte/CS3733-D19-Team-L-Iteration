@@ -224,17 +224,8 @@
                                     <Insets top="10.0" />
                                  </GridPane.margin>
                                         </VBox>
-                                        <JFXButton fx:id="viewWeekly" buttonType="RAISED" disable="false" onAction="#switchToWeekly" prefHeight="60.0" prefWidth="304.0" ripplerFill="WHITE" style="-fx-border-radius: 100; -fx-border-width: 2; -fx-background-radius: 100;" styleClass="buttonMain" stylesheets="@Default.css" text="View Weekly Schedule" textFill="WHITE" visible="false" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="5" GridPane.valignment="CENTER">
-                                            <font>
-                                                <Font size="24.0" />
-                                            </font>
-                                            <GridPane.margin>
-                                                <Insets top="30.0" />
-                                            </GridPane.margin>
-                                        </JFXButton>
                                     </children>
                                 </GridPane>
-
                             </content>
                         </Tab>
                         <Tab onSelectionChanged="#dailyTab" text="Daily Schedule">

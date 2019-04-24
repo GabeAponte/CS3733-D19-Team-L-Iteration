@@ -766,37 +766,6 @@ public class BookRoomController {
         }
     }
 
-    public void switchToWeekly(ActionEvent event) throws IOException {
-        timeout.stop();
-        try{
-            sim.join();
-        } catch (Exception e){
-            e.printStackTrace();
-            sim.stop();
-        }
-        Singleton single = Singleton.getInstance();
-        single.setLastTime();
-        FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("WeeklySchedule.fxml"));
-        Parent sceneMain = loader.load();
-
-        WeeklyScheduleController wsc = loader.getController();
-        String name = roomName.getText();
-        //if the text is null
-        if(name == null || name.equals("Select a Room")){
-            //if there are no available rooms
-            if(listOfRooms.size() < 1){
-                name = "Room 1 - Computer";
-            } else {
-                name = listOfRooms.get(0);
-                //else set to first available room
-            }
-        }
-        System.out.println(name);
-        wsc.loadWeekly(name, datePicker.getValue());
-
-        ((Node) event.getSource()).getScene().setRoot(sceneMain);
-    }
-
     /**@author Nathan
      * Restores previous screen
      * @throws IOException
@@ -886,7 +855,7 @@ public class BookRoomController {
             openEventInfo(false, null);
             //System.out.println("ResShowing = true");
         } else {
-            closeNav.setToX(this.anchorPane.getWidth()+this.reservationPane.getWidth());
+            closeNav.setToX(this.reservationPane.getWidth());
             closeNav.play();
             resShowing = false;
             //System.out.println("ResShowing = false");
@@ -897,7 +866,11 @@ public class BookRoomController {
      * Slides in the event information menu from the right side
      */
     private void openEventInfo(boolean open, String roomName) {  //Pass in the room name as a parameter here
-        //System.out.println("Open Event Info called");
+        double width = sizingPane.getWidth() - 10;
+        double height = sizingPane.getHeight() - 10;
+        bookedEventPane.setMinSize(width, height);
+        bookedEventPane.setPrefSize(width, height);
+
         TranslateTransition openNav = new TranslateTransition(new Duration(400.0D), this.bookedEventPane);
         openNav.setToX(0.0D);
         TranslateTransition closeNav = new TranslateTransition(new Duration(400.0D), this.bookedEventPane);
@@ -930,15 +903,25 @@ public class BookRoomController {
         dailySchedule.setRoot(null);
         Root.getChildren().clear();
         RoomAccess ra = new RoomAccess();
-        String theDate = dailyDatePicker.getValue().toString();
+        String theDate;
+        String endDate;
         LocalTime startLT = LocalTime.of(0,0);
         LocalTime endLT = LocalTime.of(0, 30);
         for(int i = 0; i < 48; i++){
+            theDate = dailyDatePicker.getValue().toString() + "T" + String.format("%2d",startLT.getHour()) + ":" + String.format("%2d",startLT.getMinute()) + ":00";
+            endDate = dailyDatePicker.getValue().toString() + "T" + String.format("%2d",endLT.getHour()) + ":" + String.format("%2d",endLT.getMinute()) + ":00";
             // System.out.println("Start Time: " + startTime + " End Time: " + endTime);
-            TreeItem<Room> bookedRooms = new TreeItem<Room>(new Room(startLT, endLT, ra.getAvailRooms(theDate, theDate)));
+            TreeItem<Room> bookedRooms = new TreeItem<Room>(new Room(startLT, endLT, ra.getAvailRooms(theDate, endDate)));
             Root.getChildren().add(bookedRooms);
-            startLT = startLT.plusMinutes(30);
-            endLT = endLT.plusMinutes(30);
+
+            if(i == 46){
+                startLT = startLT.plusMinutes(30);
+                endLT = endLT.plusMinutes(29);
+            }
+            else {
+                startLT = startLT.plusMinutes(30);
+                endLT = endLT.plusMinutes(30);
+            }
         }
 
         //dailyTimeCol = new TreeTableColumn<Room, String>("Time");

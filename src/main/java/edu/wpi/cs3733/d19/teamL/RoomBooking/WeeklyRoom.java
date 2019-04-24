@@ -54,8 +54,8 @@ public class WeeklyRoom{
         String eDate = "";
         switch(dayOfWeek){
             case "SUNDAY":
-                sDate = weekDay.toString() + "T" + startTime.getHour() + ":" + startTime.getMinute() + ":00";
-                eDate = weekDay.toString() + "T" + endTime.getHour() + ":" + endTime.getMinute() + ":00";
+                sDate = weekDay.toString() + "T" + String.format("%2d",startTime.getHour()) + ":" + String.format("%2d",startTime.getMinute()) + ":00";
+                eDate = weekDay.toString() + "T" + String.format("%2d",endTime.getHour()) + ":" + String.format("%2d",endTime.getMinute()) + ":00";
                 isSunday = ra.checkRoom(sDate, eDate,classroomName);
                 sDate = weekDay.plusDays(1).toString() + "T" + String.format("%2d",startTime.getHour()) + ":" + String.format("%2d",startTime.getMinute()) + ":00";
                 eDate = weekDay.plusDays(1).toString() + "T" + String.format("%2d",endTime.getHour()) + ":" + String.format("%2d",endTime.getMinute()) + ":00";
