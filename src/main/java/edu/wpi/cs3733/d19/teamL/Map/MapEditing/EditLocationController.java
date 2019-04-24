@@ -24,6 +24,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
 import javafx.geometry.Point2D;
 import javafx.geometry.Pos;
+import javafx.geometry.Rectangle2D;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -40,11 +41,15 @@ import javafx.scene.shape.Circle;
 import javafx.scene.shape.Line;
 import javafx.scene.shape.Polygon;
 import javafx.scene.text.Font;
+import javafx.stage.Screen;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 import net.kurobako.gesturefx.GesturePane;
+import org.apache.commons.csv.CSVFormat;
 
 
+import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -266,9 +271,16 @@ public class EditLocationController {
                         controller.displayPopup();
 
                         Stage thisStage = (Stage) back.getScene().getWindow();
+                        Screen screen = Screen.getPrimary();
+                        Rectangle2D bounds = screen.getVisualBounds();
 
                         Scene newScene = new Scene(sceneMain);
+                        thisStage.setMaximized(true);
                         thisStage.setScene(newScene);
+                        thisStage.setX(bounds.getMinX());
+                        thisStage.setY(bounds.getMinY());
+                        thisStage.setWidth(bounds.getWidth());
+                        thisStage.setHeight(bounds.getHeight());
                         timeout.stop();
                     } catch (IOException io){
                         System.out.println(io.getMessage());
@@ -329,6 +341,7 @@ public class EditLocationController {
         single.setLastTime();
         EdgesAccess ea = new EdgesAccess();
         ea.writeTableIntoCSV("");
+
     }
 
 

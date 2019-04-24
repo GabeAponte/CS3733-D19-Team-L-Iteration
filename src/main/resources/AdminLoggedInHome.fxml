@@ -247,7 +247,7 @@
             </HBox>
          </children>
       </VBox>
-      <AnchorPane fx:id="settingPane" layoutX="1288.0" layoutY="181.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="470.0" prefWidth="300.0" style="-fx-background-radius: 20; -fx-border-color: F5D96B; -fx-border-radius: 15; -fx-border-width: 3;" styleClass="AnchorPainMain" stylesheets="@Default.css" AnchorPane.bottomAnchor="69.0" AnchorPane.rightAnchor="-308.0">
+      <AnchorPane fx:id="settingPane" layoutX="1288.0" layoutY="181.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="470.0" prefWidth="300.0" style="-fx-background-radius: 20; -fx-border-color: F5D96B; -fx-border-radius: 15; -fx-border-width: 3;" styleClass="AnchorPainMain" stylesheets="@Default.css" AnchorPane.rightAnchor="-308.0" AnchorPane.topAnchor="181.0">
          <children>
             <GridPane alignment="CENTER" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                <columnConstraints>
@@ -272,7 +272,7 @@
                </rowConstraints>
                <children>
                   <VBox prefHeight="200.0" prefWidth="100.0" GridPane.columnSpan="2147483647" GridPane.rowSpan="2147483647" />
-                  <JFXButton fx:id="menuBack" buttonType="RAISED" contentDisplay="GRAPHIC_ONLY" graphicTextGap="0.0" onAction="#settingPressed" prefHeight="39.0" prefWidth="43.0" style="-fx-border-width: 2.5;" styleClass="buttonBig" text="back" textFill="WHITE" GridPane.columnIndex="1" GridPane.halignment="RIGHT">
+                  <JFXButton fx:id="menuBack" buttonType="RAISED" contentDisplay="GRAPHIC_ONLY" graphicTextGap="0.0" onAction="#settingPressed" prefHeight="39.0" prefWidth="43.0" style="-fx-border-width: 2;" styleClass="buttonBig" text="back" textFill="WHITE" GridPane.columnIndex="1" GridPane.halignment="RIGHT">
                      <font>
                         <Font size="14.0" />
                      </font>
@@ -291,17 +291,17 @@
                         <Insets top="3.0" />
                      </GridPane.margin>
                   </Label>
-                  <JFXComboBox fx:id="strategySelector" onAction="#strategySelected" maxWidth="1.7976931348623157E308" promptText="Search Strategy" styleClass="jfx-combo-box-PathMenu2" stylesheets="@Default.css" GridPane.columnSpan="2147483647" GridPane.rowIndex="2">
+                  <JFXComboBox fx:id="strategySelector" maxWidth="1.7976931348623157E308" onAction="#strategySelected" styleClass="jfx-combo-box-PathMenu2" stylesheets="@Default.css" GridPane.columnSpan="2147483647" GridPane.rowIndex="2">
                      <GridPane.margin>
                         <Insets left="50.0" right="50.0" />
                      </GridPane.margin>
                   </JFXComboBox>
-                  <JFXTextField fx:id="timeoutTime" focusColor="#f5d96b" promptText="Timeout (sec.)" styleClass="prompt-text-text-field" stylesheets="@Default.css" unFocusColor="WHITE" GridPane.columnSpan="2147483647" GridPane.halignment="CENTER" GridPane.rowIndex="1">
+                  <JFXTextField fx:id="timeoutTime" onAction="#keyPressedTimeout" focusColor="#f5d96b" promptText="Timeout (sec.)" styleClass="prompt-text-text-field" stylesheets="@Default.css" unFocusColor="WHITE" GridPane.columnSpan="2147483647" GridPane.halignment="CENTER" GridPane.rowIndex="1">
                      <GridPane.margin>
                         <Insets left="50.0" right="50.0" />
                      </GridPane.margin>
                      <font>
-                        <Font name="Trebuchet MS" size="13.0" />
+                        <Font name="Trebuchet MS" size="15.0" />
                      </font>
                   </JFXTextField>
                   <JFXButton fx:id="PathFindReport" buttonType="RAISED" onMouseClicked="#GeneratePathFindingReport" prefHeight="35.0" prefWidth="135.0" style="-fx-border-width: 2.5;" styleClass="buttonMainNoB" stylesheets="@Default.css" text="Pathfinding" textFill="WHITE" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="4">
@@ -314,16 +314,22 @@
                         <Font name="Trebuchet MS" size="15.0" />
                      </font>
                   </JFXButton>
-                  <JFXComboBox fx:id="RequestType" promptText="Specific Requests" GridPane.rowIndex="6" />
+                  <JFXComboBox fx:id="RequestType" promptText="Specific Request" styleClass="jfx-combo-box-PathMenu2" GridPane.columnSpan="2" GridPane.rowIndex="6">
+                     <GridPane.margin>
+                        <Insets bottom="15.0" left="15.0" right="100.0" />
+                     </GridPane.margin></JFXComboBox>
                   <Label contentDisplay="CENTER" styleClass="labelTitle" stylesheets="@Default.css" text="Reports" textFill="#f5d96b" GridPane.columnSpan="2147483647" GridPane.halignment="CENTER" GridPane.rowIndex="3">
                      <font>
                         <Font name="Trebuchet MS" size="25.0" />
                      </font>
                   </Label>
-                  <JFXButton fx:id="enter" buttonType="RAISED" onMouseClicked="#GenerateSpecificServiceRequest" prefHeight="35.0" prefWidth="65.0" style="-fx-border-width: 2.5;" styleClass="buttonMainNoB" stylesheets="@Default.css" text="Enter" textFill="WHITE" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="6">
+                  <JFXButton fx:id="enter" buttonType="RAISED" onMouseClicked="#GenerateSpecificServiceRequest" prefHeight="35.0" prefWidth="65.0" style="-fx-border-width: 2.5;" styleClass="buttonMainNoB" stylesheets="@Default.css" text="Enter" textFill="WHITE" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="6">
                      <font>
                         <Font name="Trebuchet MS" size="15.0" />
                      </font>
+                     <GridPane.margin>
+                        <Insets bottom="15.0" right="20.0" />
+                     </GridPane.margin>
                   </JFXButton>
                </children>
             </GridPane>

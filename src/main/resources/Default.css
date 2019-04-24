@@ -258,6 +258,7 @@
 
 .prompt-text-text-field{
     -fx-prompt-text-fill: white;
+    -fx-text-fill: white;
 }
 
 .jfx-tree-table-view {
@@ -282,12 +283,16 @@
     -fx-alignment: CENTER;
     -fx-text-fill: BLACK;
     -fx-font-family: "Trebuchet MS";
+    -fx-font-size: 20;
 
 }
 
 .tab:selected .tab-label {
     -fx-alignment: CENTER;
     -fx-text-fill: BLACK;
+}
+.tab:right{
+    -fx-background-color: white;
 }
 
 .tab:hover{
@@ -301,11 +306,21 @@
 .jfx-tab-pane .tab:selected {
     -fx-background-color: #efc318;
     -fx-background-radius: 1000000;
+
 }
+
+.jfx-tab-pane .separator{
+    -fx-border-color: WHITE;
+    -fx-border-width: 3;
+    -fx-background-color: WHITE;
+
+}
+
 .tab:hover .tab-label {
     -fx-alignment: CENTER;
     -fx-text-fill: BLACK;
     -fx-font-family: "Trebuchet MS";
+    -fx-font-size: 20;
 }
 
 .jfx-tab-pane .tab-selected-line {
@@ -524,7 +539,7 @@
 }
 
 .jfx-combo-box-PathMenu2 {
-    -fx-font-size : 12 pt;
+    -fx-font-size : 12pt;
     -fx-text-fill : white;
     -jfx-focus-color: #f5d96b;
     -jfx-unfocus-color: white;
@@ -564,7 +579,7 @@
     -fx-prompt-text-fill: #012d5a;
     -fx-unfocus-color: #f5d96b;
     -fx-focus-color: #f5d96b;
-    -fx-border-color: #012d5;
+    -fx-border-color: #012d5a;
     -fx-border-width: 2;
 }
 
@@ -709,7 +724,7 @@
     -fx-font-family: "Trebuchet MS";
     -fx-background-color:  white;
     -fx-text-fill: #012d5a;
-    -fx-border-color: #012d5;
+    -fx-border-color: #012d5a;
     -fx-border-width: 2;
 }
 
