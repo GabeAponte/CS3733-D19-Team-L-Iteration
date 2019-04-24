@@ -913,8 +913,15 @@ public class BookRoomController {
             // System.out.println("Start Time: " + startTime + " End Time: " + endTime);
             TreeItem<Room> bookedRooms = new TreeItem<Room>(new Room(startLT, endLT, ra.getAvailRooms(theDate, endDate)));
             Root.getChildren().add(bookedRooms);
-            startLT = startLT.plusMinutes(30);
-            endLT = endLT.plusMinutes(30);
+
+            if(i == 46){
+                startLT = startLT.plusMinutes(30);
+                endLT = endLT.plusMinutes(29);
+            }
+            else {
+                startLT = startLT.plusMinutes(30);
+                endLT = endLT.plusMinutes(30);
+            }
         }
 
         //dailyTimeCol = new TreeTableColumn<Room, String>("Time");
