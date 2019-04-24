@@ -648,3 +648,9 @@
     -fx-background-color:  #ff1100;
     -fx-text-fill: #012d5a;
 }
+
+.text-area .about-text-areas{
+    -fx-text-fill: white;
+    -fx-alignment: CENTER;
+    -fx-text-alignment: CENTER;
+}

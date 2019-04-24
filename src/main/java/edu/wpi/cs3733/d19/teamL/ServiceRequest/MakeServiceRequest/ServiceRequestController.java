@@ -265,7 +265,7 @@ public class ServiceRequestController {
         Singleton single = Singleton.getInstance();
         single.setLastTime();
         single.setDoPopup(true);
-        //saveState();
+        saveState();
         Memento m = single.getOrig();
         Parent newPage = FXMLLoader.load(getClass().getClassLoader().getResource(m.getFxml()));
         ((Node) event.getSource()).getScene().setRoot(newPage);
