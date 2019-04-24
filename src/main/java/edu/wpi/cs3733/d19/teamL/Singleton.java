@@ -80,7 +80,7 @@ public class Singleton {
     }
 
     public static boolean isFree() {
-        System.out.println("SINGLETON: " + esp.getFree());
+        //System.out.println("SINGLETON: " + esp.getFree());
         return esp.getFree();
     }
 
