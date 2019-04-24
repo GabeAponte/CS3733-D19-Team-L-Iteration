@@ -1087,8 +1087,12 @@ public class BookRoomController {
             String temp = empAccess.get(0);
 
             if((data.get(0)[1]).equals(temp)){
+                eventInfo.setVisible(true);
                 eventInfo.setText("Cancel Reservation");
-            }else{
+            }else if (data.get(0)[5].contains(Singleton.getUsername())) {
+                eventInfo.setVisible(false);
+            } else{
+                eventInfo.setVisible(true);
                 eventInfo.setText("Request Event Access");
             }
 
