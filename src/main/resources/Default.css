@@ -564,8 +564,9 @@
     -fx-prompt-text-fill: white;
     -fx-border-color: #f5d96b;
     -fx-border-radius: 5;
-    -jfx-unfocus-color: #f5d96b;
-    -jfx-focus-color: #f5d96b;
+    -fx-unfocus-color: #f5d96b;
+    -fx-focus-color: #f5d96b;
+    -fx-border-radius: 10;
 }
 
 .jfx-combo-box-bookRoom .arrow {
