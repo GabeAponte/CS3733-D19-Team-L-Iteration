@@ -558,6 +558,27 @@
 
 }
 
+.jfx-combo-box-bookRoom{
+    -fx-font-size : 14 pt;
+    -fx-text-fill : white;
+    -fx-prompt-text-fill: white;
+    -fx-border-color: #f5d96b;
+    -fx-border-radius: 5;
+    -jfx-unfocus-color: #f5d96b;
+    -jfx-focus-color: #f5d96b;
+}
+
+.jfx-combo-box-bookRoom .arrow {
+    -fx-background-color: #f5d96b;
+}
+
+.jfx-combo-box-bookRoom .list-view .list-cell {
+    -fx-text-fill : black;
+}
+
+.jfx-combo-box-bookRoom .list-cell {
+    -fx-text-fill : white;
+}
 
 .jfx-date-picker{
     -fx-font-size: 20 pt;
