@@ -63,6 +63,9 @@ public class SecurityRequestController {
     @FXML
     public Label UrgencyLabel;
 
+    @FXML
+    private Button logOut;
+
     Timeline timeout;
 
     String Level;
@@ -70,6 +73,9 @@ public class SecurityRequestController {
     public void initialize(){
         Singleton single = Singleton.getInstance();
         single.setLastTime();
+        if(!single.isLoggedIn()){
+            logOut.setText("Log In");
+        }
         timeout = new Timeline(new KeyFrame(Duration.seconds(2), new EventHandler<ActionEvent>() {
 
             @Override
