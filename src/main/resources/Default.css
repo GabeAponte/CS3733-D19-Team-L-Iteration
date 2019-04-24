@@ -158,6 +158,28 @@
     -fx-fill: white;
 }
 
+
+.buttonEmergency{
+    -fx-background-color: white;
+    -fx-background-radius: 15;
+    -fx-border-color : RED;
+    -fx-border-radius: 10;
+    -fx-border-width: 2;
+    -fx-pref-height: 75;
+    -fx-pref-width: 110;
+    -jfx-button-type: RAISED;
+}
+
+.buttonEmergency:hover{
+    -fx-background-color: RED;
+    -fx-text-fill: white;
+
+}
+
+.buttonEmergency:hover .glyph-icon{
+    -fx-fill: white;
+}
+
 .buttonMap{
     -fx-background-radius: 15;
     -fx-border-color : #012D5A;

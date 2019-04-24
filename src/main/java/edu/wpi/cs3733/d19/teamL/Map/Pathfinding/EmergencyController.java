@@ -112,6 +112,9 @@ public class EmergencyController {
     @FXML
     private VBox vLeft;
 
+    @FXML
+    private JFXToolbar toolbar;
+
     Location kioskTemp;
 
     private boolean displayingPath;
@@ -219,6 +222,7 @@ public class EmergencyController {
             }
         }
     }
+
 
     private void cleanMap(){
         for (Circle c: circles) {
@@ -542,6 +546,12 @@ public class EmergencyController {
     public void initialize() {
         Singleton single = Singleton.getInstance();
         single.setLastTime();
+
+        FadeTransition fadeTransition = new FadeTransition(Duration.seconds(2), toolbar);
+        fadeTransition.setFromValue(1);
+        fadeTransition.setToValue(0);
+        fadeTransition.setCycleCount(Animation.INDEFINITE);
+        fadeTransition.play();
 
         na = new NodesAccess();
         ea = new EdgesAccess();

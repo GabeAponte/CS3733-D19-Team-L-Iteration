@@ -1,5 +1,8 @@
 package edu.wpi.cs3733.d19.teamL.HomeScreens;
 
+import com.github.sarxos.webcam.Webcam;
+import com.github.sarxos.webcam.WebcamPanel;
+import com.github.sarxos.webcam.WebcamResolution;
 import com.jfoenix.controls.JFXButton;
 import com.lowagie.text.DocumentException;
 import com.lowagie.text.pdf.PdfReader;
@@ -23,6 +26,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.*;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
@@ -38,7 +42,10 @@ import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 
 
 import java.awt.*;
+import javax.imageio.ImageIO;
 import javax.management.AttributeList;
+import javax.swing.*;
+import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -46,11 +53,11 @@ import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.Timer;
-import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.*;
 import java.util.List;
-import java.util.Map;
+import java.util.Timer;
+
+import static java.lang.Thread.sleep;
 
 
 public class HomeScreenController {
@@ -279,6 +286,67 @@ public class HomeScreenController {
 
     @FXML
     private void AboutPress() throws IOException, JRException, SQLException, DocumentException, InterruptedException {
+
+    }
+
+    @FXML
+    private void ActivateEmergencyMode(ActionEvent event) throws IOException {
+        // popup - activate emergency mode?
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("ACTIVATING EMERGENCY MODE");
+        alert.setHeaderText("YOU ARE ACTIVATING EMERGENCY MODE. THIS WILL HAVE CONSEQUENCES IF THERE IS NO REAL EMERGENCY PRESENT");
+        alert.setContentText("YOUR PICTURE HAS BEEN TAKEN. IF YOU PROCEED TO ACTIVATE EMERGENCY MODE, YOUR FACE WILL BE STORED IN OUR DATABASE. " +
+                "\n CONFIRM?");
+
+        //CODE TO TAKE PICTURE
+        try {
+            Webcam webcam;
+            webcam = Webcam.getDefault();
+            //THE VIEW SIZE WILL PROBABLY CHANGE DEPENDING ON THE COMPUTER
+            //IMAGE COMPARISON WILL FAIL IMMEDIATELY IF SIZE CHANGES
+            webcam.setViewSize(WebcamResolution.VGA.getSize());
+            WebcamPanel wp = new WebcamPanel(webcam);
+            wp.setFPSDisplayed(true);
+            wp.setDisplayDebugInfo(true);
+            wp.setImageSizeDisplayed(true);
+            wp.setMirrored(true);
+            JFrame window = new JFrame("Hold still for 3 seconds");
+            window.add(wp);
+            window.setResizable(true);
+            window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+            window.pack();
+            window.setLocationRelativeTo(null);
+            window.setVisible(true);
+            try {
+                sleep(2500);
+            } catch (InterruptedException e) {
+                System.out.println(e);
+                System.out.println(e.getMessage());
+            }
+            wp.stop();
+            webcam.close();
+            window.dispose();
+
+            webcam.open();
+            BufferedImage image = webcam.getImage();
+            ImageIO.write(image, "JPG", new File("TempOutput.jpg"));
+            webcam.close();
+
+
+        } catch (Exception e){
+            e.printStackTrace();
+        }
+
+
+        //when press ok, store pic in database
+        Optional<ButtonType> result = alert.showAndWait();
+        if (result.get() == ButtonType.OK){
+            // ... user chose OK
+            Parent newPage = FXMLLoader.load(getClass().getClassLoader().getResource("EmergencyScreen.fxml"));
+            ((Node) event.getSource()).getScene().setRoot(newPage);
+        } else {
+            // ... user chose CANCEL or closed the dialog
+        }
 
     }
 
