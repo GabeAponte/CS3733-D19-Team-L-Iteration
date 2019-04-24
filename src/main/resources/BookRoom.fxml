@@ -472,7 +472,7 @@
                                 <Font size="20.0" />
                             </font>
                         </Label>
-                        <JFXButton style="-fx-border-radius: 100; -fx-background-radius: 100;" styleClass="buttonMain" stylesheets="@Default.css" text="Request Event Access" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="7">
+                        <JFXButton fx:id="eventInfo" onAction="#editEventInfo" style="-fx-border-radius: 100; -fx-background-radius: 100;" styleClass="buttonMain" stylesheets="@Default.css" text="Request Event Access" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="7">
                      <font>
                         <Font size="18.0" />
                      </font>

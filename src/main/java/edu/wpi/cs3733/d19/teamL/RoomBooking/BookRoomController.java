@@ -211,6 +211,9 @@ public class BookRoomController {
     //Event Info Pop-up ------------------------------------
 
     @FXML
+    private Button eventInfo;
+
+    @FXML
     private Label eventTitle;
     @FXML
     private Label roomNameLabel;
@@ -1078,6 +1081,17 @@ public class BookRoomController {
         openNav.setToX(0.0D);
         TranslateTransition closeNav = new TranslateTransition(new Duration(400.0D), this.bookedEventPane);
         if (open == true){
+
+            EmployeeAccess ea = new EmployeeAccess();
+            ArrayList<String> empAccess = ea.getEmployeeInformation(Singleton.getUsername());
+            String temp = empAccess.get(0);
+
+            if((data.get(0)[1]).equals(temp)){
+                eventInfo.setText("Cancel Reservation");
+            }else{
+                eventInfo.setText("Request Event Access");
+            }
+
             if((data.get(0)[6]).equals("1")){
                 System.out.println("PRIVATE EVENT");
                 eventTitle.setText("Private Event");
@@ -1106,6 +1120,14 @@ public class BookRoomController {
             closeNav.setToX(-this.anchorPane.getWidth()+this.reservationPane.getWidth()+sizingPane.getLayoutX()+sizingPane.getWidth());
             closeNav.play();
             bookedEventShowing = false;
+        }
+    }
+
+    public void editEventInfo(){
+        if(eventInfo.getText().equals("Delete Reservation")){
+            //delete reservation
+        }else{
+            //send email to creator
         }
     }
 
