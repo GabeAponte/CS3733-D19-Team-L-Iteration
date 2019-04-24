@@ -383,6 +383,7 @@ public class PathFindingController {
             displayBookableRooms();
         }
         gesturePane.reset();
+        gesturePane.zoomTo(4.0, new Point2D(4375*childPane.getWidth()/Map.getImage().getWidth(), 2260*childPane.getHeight()/Map.getImage().getHeight()));
         clear();
         direction.clear();
     }
@@ -767,9 +768,9 @@ public class PathFindingController {
             if (startNode.getFloor().equals("3") && !currentMap.equals("3")) {
                 clicked3();
             }
-        if (startNode.getFloor().equals("4") && !currentMap.equals("4")) {
-            clicked4();
-        }
+            if (startNode.getFloor().equals("4") && !currentMap.equals("4")) {
+                clicked4();
+            }
 
             displayPath();
 
@@ -971,7 +972,7 @@ public class PathFindingController {
                     int counterstore1 = counter;
                     fBut.setOnAction(event -> {
                         displaySelected(startstore1, counterstore1);
-                    event.consume();
+                        event.consume();
                     });
                     floorButtons.add(fBut);
                     gridPane.getChildren().add(fBut);
@@ -1019,6 +1020,7 @@ public class PathFindingController {
                         int counterstore1 = floors.size() - 1;
                         fBut1.setOnAction(event -> {
                             displaySelected(startstore1, counterstore1);
+                            event.consume();
                         });
                         floorButtons.add(fBut1);
                         gridPane.getChildren().add(fBut1);
@@ -1100,11 +1102,19 @@ public class PathFindingController {
                 currentMap = "3";
                 changeMapLabel();
             }
-        if(floor.equals("4")) {
-            Map.setImage(new Image("/SoftEng_UI_Mockup_Pics/04_thefourthfloor.png"));
-            currentMap = "4";
-            changeMapLabel();
-        }
+            if(floor.equals("4")) {
+                Map.setImage(new Image("/SoftEng_UI_Mockup_Pics/04_thefourthfloor.png"));
+                currentMap = "4";
+                changeMapLabel();
+            }
+
+            if(currentMap.equals("4")){
+                displayFlexSpaces(single.getSimulation());
+                displayBookableRooms();
+            }
+            else{
+                hideFlexSpaces();
+            }
 
 
             //Create all necessary objects for animating path.
@@ -1241,7 +1251,6 @@ public class PathFindingController {
             direction.setWrapText(true);
             direction.setDisable(false);
             direction.setEditable(false);
-
         }
 
         /**
