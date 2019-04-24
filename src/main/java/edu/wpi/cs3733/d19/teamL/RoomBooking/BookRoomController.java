@@ -425,12 +425,16 @@ public class BookRoomController {
             error.setText("Please select an end time and a date.");
         }
 
-        else if (eventNameString == null) {
+        else if (eventNameString == null || eventNameString.isEmpty()) {
             error.setText("Please enter an event name.");
         }
 
-        else if (eventDescriptionString == null) {
+        else if (eventDescriptionString == null || eventDescriptionString.isEmpty()) {
             error.setText("Please enter an event description.");
+        }
+
+        else if (eventTypeString == null || eventTypeString.isEmpty()) {
+            error.setText("Please select an event type.");
         }
 
         //Gabe - error when date is blank
@@ -460,6 +464,7 @@ public class BookRoomController {
             RoomAccess ra = new RoomAccess();
             roomReq.makeReservation(ra.getRoomID(roomName), employeeID, date, endDate, eventNameString, eventDescriptionString, listOfGuests, eventTypeString, eventIsPrivate);
             //add event name, event description, event type, guestList (String), privacy (boolean)
+            openReservation(false);
             fieldsEntered();
         }
     }
@@ -882,7 +887,7 @@ public class BookRoomController {
     /** @author Isabella
      * Slides in the event information menu from the right side
      */
-    private void openEventInfo(boolean open) {
+    private void openEventInfo(boolean open) {  //Pass in the room name as a parameter here
         //System.out.println("Open Event Info called");
         TranslateTransition openNav = new TranslateTransition(new Duration(400.0D), this.bookedEventPane);
         openNav.setToX(0.0D);
