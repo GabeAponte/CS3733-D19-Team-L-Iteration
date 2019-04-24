@@ -525,6 +525,94 @@ public class BookRoomController {
         }
     }
 
+    @FXML
+    public void roundStartTime(){
+        LocalTime selectedStartTime = startTime.getValue();
+        int startMinute = selectedStartTime.getMinute();
+        if(startMinute < 8)
+        {
+            selectedStartTime = selectedStartTime.minusMinutes(startMinute);
+            startTime.setValue(selectedStartTime);
+        }
+        else if(startMinute >= 8 && startMinute < 15){
+            selectedStartTime = selectedStartTime.plusMinutes(15 - startMinute);
+            startTime.setValue(selectedStartTime);
+
+        }
+        else if(startMinute > 15 && startMinute < 23){
+            selectedStartTime = selectedStartTime.plusMinutes(15 - startMinute);
+            startTime.setValue(selectedStartTime);
+
+        }
+        else if(startMinute >= 23 && startMinute < 30){
+            selectedStartTime = selectedStartTime.plusMinutes(30 - startMinute);
+            startTime.setValue(selectedStartTime);
+        }
+        else if(startMinute > 30 && startMinute < 38){
+            selectedStartTime = selectedStartTime.plusMinutes(30 - startMinute);
+            startTime.setValue(selectedStartTime);
+        }
+        else if(startMinute >= 38 && startMinute < 45){
+            selectedStartTime = selectedStartTime.plusMinutes(45 - startMinute);
+            startTime.setValue(selectedStartTime);
+        }
+        else if(startMinute > 45 && startMinute < 53){
+            selectedStartTime = selectedStartTime.plusMinutes(45 - startMinute);
+            startTime.setValue(selectedStartTime);
+        }
+        else if(startMinute >= 53 && startMinute < 60){
+            selectedStartTime = selectedStartTime.plusMinutes(60 - startMinute);
+            startTime.setValue(selectedStartTime);
+        }
+        else{
+
+        }
+        roundEndTime();
+    }
+
+    public void roundEndTime(){
+        LocalTime selectedEndTime = endTime.getValue();
+        int endMinute = selectedEndTime.getMinute();
+        if(endMinute < 8)
+        {
+            selectedEndTime = selectedEndTime.minusMinutes(endMinute);
+            endTime.setValue(selectedEndTime);
+        }
+        else if(endMinute >= 8 && endMinute < 15){
+            selectedEndTime = selectedEndTime.plusMinutes(15 - endMinute);
+            endTime.setValue(selectedEndTime);
+
+        }
+        else if(endMinute > 15 && endMinute < 23){
+            selectedEndTime = selectedEndTime.plusMinutes(15 - endMinute);
+            endTime.setValue(selectedEndTime);
+
+        }
+        else if(endMinute >= 23 && endMinute < 30){
+            selectedEndTime = selectedEndTime.plusMinutes(30 - endMinute);
+            endTime.setValue(selectedEndTime);
+        }
+        else if(endMinute > 30 && endMinute < 38){
+            selectedEndTime = selectedEndTime.plusMinutes(30 - endMinute);
+            endTime.setValue(selectedEndTime);
+        }
+        else if(endMinute >= 38 && endMinute < 45){
+            selectedEndTime = selectedEndTime.plusMinutes(45 - endMinute);
+            endTime.setValue(selectedEndTime);
+        }
+        else if(endMinute > 45 && endMinute < 53){
+            selectedEndTime = selectedEndTime.plusMinutes(45 - endMinute);
+            endTime.setValue(selectedEndTime);
+        }
+        else if(endMinute >= 53 && endMinute < 60){
+            selectedEndTime = selectedEndTime.plusMinutes(60 - endMinute);
+            endTime.setValue(selectedEndTime);
+        }
+        else{
+
+        }
+    }
+
     //todo checks if fields are null and populates table here
     // RA.getAvailRooms returns list of available rooms
     @FXML
