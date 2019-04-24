@@ -871,21 +871,22 @@ public class BookRoomController {
      * Slides in the reservation menu from the right side
      */
     private void openReservation(boolean open) {
-        bookedEventPane.setPrefSize(sizingPane.getWidth(), sizingPane.getHeight());
-        bookedEventPane.setMinSize(sizingPane.getWidth(), sizingPane.getHeight());
-        bookedEventPane.setMaxSize(sizingPane.getWidth(), sizingPane.getHeight());
+        double width = sizingPane.getWidth() - 10;
+        double height = sizingPane.getHeight() - 10;
+        reservationPane.setMinSize(width, height);
+        reservationPane.setPrefSize(width, height);
 
         TranslateTransition openNav = new TranslateTransition(new Duration(400.0D), this.reservationPane);
         openNav.setToX(0.0D);
         TranslateTransition closeNav = new TranslateTransition(new Duration(400.0D), this.reservationPane);
         if (open == true){
-            openNav.setToX(-20.0D-this.sizingPane.getWidth());
+            openNav.setToX(-this.reservationPane.getWidth());
             openNav.play();
             resShowing = true;
             openEventInfo(false, null);
             //System.out.println("ResShowing = true");
         } else {
-            closeNav.setToX(20+this.anchorPane.getWidth()+this.sizingPane.getWidth());
+            closeNav.setToX(this.anchorPane.getWidth()+this.reservationPane.getWidth());
             closeNav.play();
             resShowing = false;
             //System.out.println("ResShowing = false");
