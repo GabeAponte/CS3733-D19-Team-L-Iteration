@@ -1,6 +1,7 @@
 .gradle/
 .idea/
 myDB/MasterDB
+myDBTeamL/MasterDB
 MasterDB
 ServiceRequestDB
 GiftRequestDB
