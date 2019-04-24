@@ -28,7 +28,7 @@
 <?import javafx.scene.text.Font?>
 <?import org.controlsfx.control.CheckComboBox?>
 
-<AnchorPane fx:id="anchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720" prefWidth="1280" styleClass="AnchorPainMain" stylesheets="@Default.css" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.d19.teamL.RoomBooking.BookRoomController">
+<AnchorPane fx:id="anchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720" prefWidth="1280" styleClass="AnchorPainMain" stylesheets="@Default.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.d19.teamL.RoomBooking.BookRoomController">
 
     <children>
         <VBox prefHeight="200.0" prefWidth="100.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
@@ -87,13 +87,16 @@
                                                         <Insets right="20.0" />
                                                     </HBox.margin>
                                                 </JFXButton>
-                                                <JFXButton fx:id="homebtn" buttonType="RAISED" contentDisplay="GRAPHIC_ONLY" maxHeight="-Infinity" minHeight="-Infinity" onAction="#goHome" prefHeight="75.0" prefWidth="100.0" styleClass="buttonToolbar" stylesheets="@Default.css" textFill="#012d5a">
+                                                <JFXButton fx:id="homebtn" buttonType="RAISED" contentDisplay="TOP" graphicTextGap="0.0" maxHeight="-Infinity" minHeight="-Infinity" onAction="#goHome" prefHeight="75.0" prefWidth="100.0" styleClass="buttonToolbar" stylesheets="@Default.css" text="Home" textFill="#012d5a">
                                                     <graphic>
-                                                        <FontAwesomeIconView fx:id="home" fill="#012d5a" glyphName="HOME" size="50" />
+                                                        <FontAwesomeIconView fx:id="home" fill="#012d5a" glyphName="HOME" size="40" />
                                                     </graphic>
                                                     <HBox.margin>
                                                         <Insets right="10.0" />
                                                     </HBox.margin>
+                                       <font>
+                                          <Font name="Trebuchet MS" size="17.0" />
+                                       </font>
                                                 </JFXButton>
                                             </children>
                                         </HBox>
@@ -255,7 +258,7 @@
                                     <children>
                                         <Label alignment="BOTTOM_CENTER" contentDisplay="BOTTOM" styleClass="labelTitle" stylesheets="@Default.css" text="Booked Rooms" textFill="#f5d96b" GridPane.columnSpan="3" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.valignment="CENTER">
                                             <font>
-                                                <Font name="Avenir Book" size="36.0" />
+                                                <Font name="Trebuchet MS" size="36.0" />
                                             </font>
                                             <GridPane.margin>
                                                 <Insets left="30.0" />
@@ -264,7 +267,7 @@
                                         <VBox alignment="CENTER" layoutX="874.0" layoutY="200.0" prefHeight="200.0" prefWidth="100.0" spacing="30.0" GridPane.columnIndex="3" GridPane.rowIndex="1">
                                             <children>
                                                 <JFXDatePicker fx:id="dailyDatePicker" defaultColor="#f5d96b" prefHeight="51.0" prefWidth="200.0" promptText="Select Date" styleClass="jfx-date-picker" stylesheets="@Default.css" />
-                                                <JFXButton onAction="#findRooms" prefHeight="57.0" prefWidth="187.0" style="-fx-border-radius: 50; -fx-background-radius: 50; -fx-border-width: 2;" styleClass="buttonDJ" stylesheets="@Default.css" text="View Schedule" textFill="white">
+                                                <JFXButton onAction="#findRooms" prefHeight="57.0" prefWidth="187.0" style="-fx-border-width: 3; -fx-border-radius: 10; -fx-background-radius: 15;" styleClass="buttonDJ" stylesheets="@Default.css" text="View Schedule" textFill="white">
                                                     <font>
                                                         <Font name="Avenir Book" size="18.0" />
                                                     </font>
@@ -314,7 +317,7 @@
                                     <children>
                                         <Label fx:id="classroomLabel" alignment="BOTTOM_CENTER" contentDisplay="BOTTOM" styleClass="labelTitle" stylesheets="@Default.css" text="Weekly Schedule" textFill="#f5d96b" GridPane.columnSpan="3" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.valignment="CENTER">
                                             <font>
-                                                <Font name="Avenir Book" size="36.0" />
+                                                <Font name="Trebuchet MS" size="36.0" />
                                             </font>
                                             <GridPane.margin>
                                                 <Insets left="30.0" />
@@ -324,7 +327,7 @@
                                             <children>
                                                 <JFXComboBox fx:id="roomPicker" onAction="#changeRooms" prefHeight="51.0" prefWidth="200.0" promptText="Choose Room" styleClass="jfx-combo-box-PathMenu" stylesheets="@Default.css" />
                                                 <JFXDatePicker fx:id="weeklyDatePicker" defaultColor="#f5d96b" onAction="#changeRooms" prefHeight="51.0" prefWidth="200.0" promptText="Select Date" styleClass="jfx-date-picker" stylesheets="@Default.css" />
-                                                <JFXButton onAction="#viewSched" prefHeight="57.0" prefWidth="187.0" style="-fx-border-radius: 50; -fx-background-radius: 50; -fx-border-width: 2;" styleClass="buttonDJ" stylesheets="@Default.css" text="View Schedule" textFill="white">
+                                                <JFXButton onAction="#viewSched" prefHeight="57.0" prefWidth="187.0" style="-fx-border-radius: 10; -fx-background-radius: 15; -fx-border-width: 3;" styleClass="buttonDJ" stylesheets="@Default.css" text="View Schedule" textFill="white">
                                                     <font>
                                                         <Font name="Avenir Book" size="18.0" />
                                                     </font>
