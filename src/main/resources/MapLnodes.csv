@@ -641,3 +641,5 @@ LHALL00904,3610,1886,4,FlexibleWorkspace,HALL,Hallway FW Node 9 ,Hallway L0904
 LHALL01004,3609,2044,4,FlexibleWorkspace,HALL,Hallway FW Node 10,Hallway L1004
 LHALL01104,3951,2356,4,FlexibleWorkspace,HALL,Hallway FW Node 11,Hallway L1104
 LHALL01204,3946,2038,4,FlexibleWorkspace,HALL,Hallway FW Node 12,Hallway L1204
+LKIOS00102,4304,657,2,15 Francis,KIOS,Kiosk Floor 2,Kiosk F2
+LCLAS00904,3976,1917,4,FlexibleWorkspace,COMP,Classroom 9 (Computer),Classroom L0904
