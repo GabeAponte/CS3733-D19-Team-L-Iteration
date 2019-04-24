@@ -1137,10 +1137,19 @@ public class BookRoomController {
         Singleton single = Singleton.getInstance();
         if(eventInfo.getText().equals("Cancel Reservation")){
             ra.deleteReservation(info[0], info[1], info[7], info[8]);
-            displayAllRooms();
+            fieldsEntered();
             openEventInfo(false, "");
         }else{
-            //send email to creator
+            String sender = Singleton.getUsername();
+            boolean privateEventInfo = false;
+            if((info[6]).equals("1")){
+                privateEventInfo = true;
+            }//rID, eID, sdate, endate, title, desc, type, isPrivate
+            Reservation thisEvent = new Reservation (info[0], info[1], info[7], info[8], info[2], info[3], info[5], info[4], privateEventInfo);
+            EmployeeAccess ea = new EmployeeAccess();
+            String recipient = ea.getEmpEmail(ea.getEmployeeUsername(info[1]));
+            AddToEventThread emailEvent = new AddToEventThread(thisEvent, recipient, sender);
+            emailEvent.start();
         }
     }
 
