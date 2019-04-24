@@ -342,7 +342,7 @@ public class AdminLoggedInHomeController {
             wp.setDisplayDebugInfo(true);
             wp.setImageSizeDisplayed(true);
             wp.setMirrored(true);
-            JFrame window = new JFrame("Hold still for 2.5 seconds");
+            JFrame window = new JFrame("Hold still for 3 seconds");
             window.add(wp);
             window.setResizable(true);
             window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
