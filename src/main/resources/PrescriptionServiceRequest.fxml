@@ -138,7 +138,7 @@
                         <Insets />
                      </GridPane.margin>
                   </JFXButton>
-                  <Label alignment="CENTER" contentDisplay="CENTER" styleClass="labelTitle" stylesheets="@Default.css" text="Perscription Service Request" textFill="#f5d96b" GridPane.columnSpan="2147483647" GridPane.halignment="CENTER">
+                  <Label alignment="CENTER" contentDisplay="CENTER" styleClass="labelTitle" stylesheets="@Default.css" text="Prescription Service Request" textFill="#f5d96b" GridPane.columnSpan="2147483647" GridPane.halignment="CENTER">
                      <font>
                         <Font name="Trebuchet MS" size="35.0" />
                      </font>
