@@ -579,7 +579,7 @@
     -fx-prompt-text-fill: #012d5a;
     -fx-unfocus-color: #f5d96b;
     -fx-focus-color: #f5d96b;
-    -fx-border-color: #012d5;
+    -fx-border-color: #012d5a;
     -fx-border-width: 2;
 }
 
@@ -724,7 +724,7 @@
     -fx-font-family: "Trebuchet MS";
     -fx-background-color:  white;
     -fx-text-fill: #012d5a;
-    -fx-border-color: #012d5;
+    -fx-border-color: #012d5a;
     -fx-border-width: 2;
 }
 
