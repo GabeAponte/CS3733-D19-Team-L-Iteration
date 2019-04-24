@@ -48,7 +48,6 @@
     -fx-fill: white;
 }
 
-
 .buttonLogIn{
     -fx-background-color: white;
     -fx-border-color: #F5D96B;
@@ -57,7 +56,6 @@
     -fx-text-fill: #012d5a;
     -fx-background-radius: 15;
     -jfx-button-type: RAISED;
-
 }
 
 .buttonLogIn .glyph-icon {
@@ -67,7 +65,6 @@
 .buttonLogIn:hover{
     -fx-background-color: #012d5a;
     -fx-text-fill: white;
-
 }
 
 .buttonLogIn:hover .glyph-icon{
@@ -235,7 +232,10 @@
 
 .text-area{
     -fx-text-fill: white;
+}
 
+.prompt-text-text-field{
+    -fx-prompt-text-fill: white;
 }
 
 .jfx-tree-table-view {
@@ -355,8 +355,6 @@
     -fx-text-fill: #012d5a;
     -jfx-focus-color: #f5d96b;
     -jfx-unfocus-color: transparent;
-
-
 }
 
 .password-field-login{
@@ -505,7 +503,6 @@
 
 .jfx-combo-box-PathMenu2 .text-field {
     -fx-text-fill : white;
-
 }
 
 .jfx-combo-box-PathMenu2 .text-area {
@@ -631,25 +628,21 @@
 .buttonSecurity4{
     -fx-border-color: #ff7700;
     -fx-text-fill: white;
-
 }
 
 .buttonSecurity4:hover{
     -fx-border-color: white;
     -fx-background-color: #ff7700;
     -fx-text-fill: #012d5a;
-
 }
 
 .buttonSecurity5{
     -fx-border-color: #ff1100;
     -fx-text-fill: white;
-
 }
 
 .buttonSecurity5:hover{
     -fx-border-color: white;
     -fx-background-color:  #ff1100;
     -fx-text-fill: #012d5a;
-
 }

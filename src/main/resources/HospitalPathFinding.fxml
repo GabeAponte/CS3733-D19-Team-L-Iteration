@@ -336,7 +336,7 @@
       </VBox>
       <AnchorPane fx:id="navList" layoutX="-62.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="470.0" prefWidth="300.0" style="-fx-background-radius: 20; -fx-border-color: F5D96B; -fx-border-radius: 15; -fx-border-width: 3;" styleClass="AnchorPainMain" stylesheets="@Default.css" translateX="-180" AnchorPane.leftAnchor="-122.0" AnchorPane.topAnchor="120.0">
          <children>
-            <VBox layoutX="6.0" layoutY="6.0" prefHeight="461.0" prefWidth="127.0" styleClass="vboxPopup" stylesheets="@Default.css" AnchorPane.bottomAnchor="3.0" AnchorPane.leftAnchor="3.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="3.0" />
+            <VBox layoutX="6.0" layoutY="6.0" prefHeight="461.0" prefWidth="127.0" AnchorPane.bottomAnchor="3.0" AnchorPane.leftAnchor="3.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="3.0" />
             <GridPane alignment="CENTER" layoutX="6.0" prefHeight="470.0" prefWidth="294.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                <columnConstraints>
                   <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
