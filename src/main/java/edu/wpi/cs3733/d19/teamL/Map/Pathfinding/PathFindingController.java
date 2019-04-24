@@ -2,9 +2,12 @@ package edu.wpi.cs3733.d19.teamL.Map.Pathfinding;
 
 import com.jfoenix.controls.*;
 import com.jfoenix.controls.JFXButton;
+import com.jfoenix.controls.JFXScrollPane;
+import com.jfoenix.controls.JFXTextArea;
 import com.jfoenix.controls.JFXComboBox;
 import edu.wpi.cs3733.d19.teamL.HomeScreens.HomeScreenController;
 import edu.wpi.cs3733.d19.teamL.Map.MapLocations.AutoCompleteList;
+import edu.wpi.cs3733.d19.teamL.Map.MapLocations.CircleLocation;
 import edu.wpi.cs3733.d19.teamL.Map.MapLocations.Location;
 import edu.wpi.cs3733.d19.teamL.Map.MapLocations.Path;
 import edu.wpi.cs3733.d19.teamL.Memento;
@@ -14,7 +17,11 @@ import edu.wpi.cs3733.d19.teamL.Reports.pathReportAccess;
 import edu.wpi.cs3733.d19.teamL.SearchingAlgorithms.*;
 import edu.wpi.cs3733.d19.teamL.Singleton;
 import javafx.animation.*;
+import javafx.beans.binding.Bindings;
+import javafx.beans.binding.NumberBinding;
 import javafx.application.Platform;
+import javafx.beans.property.DoubleProperty;
+import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
@@ -26,13 +33,16 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.*;
 import javafx.scene.Node;
+import javafx.geometry.Dimension2D;
 import javafx.geometry.Insets;
 import javafx.geometry.Point2D;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
@@ -44,11 +54,14 @@ import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.*;
+import javafx.scene.paint.Paint;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Line;
 import javafx.scene.shape.Polygon;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
+import javafx.scene.text.TextAlignment;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 import javafx.scene.layout.GridPane;
@@ -641,14 +654,14 @@ public class PathFindingController {
             suggestions.setPrefWidth(searchField.getPrefWidth());
             suggestions.setStyle("-fx-background-color:  #012d5a;");
 
-            //Code to immediately set kiosk
-            Platform.runLater(new Runnable() {
-                @Override
-                public void run() {
-                    displayKiosk();
-                    startNode = kioskTemp;
-                }
-            });
+        //Code to immediately set kiosk
+        Platform.runLater(new Runnable() {
+            @Override
+            public void run() {
+                displayKiosk();
+                PathFindStartDrop.setValue(kioskTemp);
+            }
+        });
 
             sliderBar.valueProperty().addListener(new ChangeListener<Number>() {
                 @Override
@@ -699,26 +712,25 @@ public class PathFindingController {
             Memento m = single.restore();
             single.setDoPopup(true);
 
-            Parent newPage = FXMLLoader.load(getClass().getClassLoader().getResource(m.getFxml()));
-            ((Node) event.getSource()).getScene().setRoot(newPage);
+        Parent newPage = FXMLLoader.load(getClass().getClassLoader().getResource(m.getFxml()));
+        ((Node) event.getSource()).getScene().setRoot(newPage);
+    }
+    /**
+     * Modified by Nikhil: Now defaults the start location to kiosk node.
+     */
+    @FXML
+    private void locationsSelected(){
+        single.setLastTime();
+        if((PathFindStartDrop.getValue() != null) && PathFindEndDrop.getValue() != null){
+            PathFindSubmit.setDisable(false);
         }
-
-        /**
-         * Modified by Nikhil: Now defaults the start location to kiosk node.
-         */
-        @FXML
-        private void locationsSelected () {
-            single.setLastTime();
-            if ((PathFindStartDrop.getValue() != null || startNode != null) && PathFindEndDrop.getValue() != null) {
-                PathFindSubmit.setDisable(false);
-            } else {
-                PathFindSubmit.setDisable(true);
-                direction.setDisable(true);
-                direction.setEditable(false);
-            }
-            typeSelected = "selected";
-            System.out.println("selected");
+        else{
+            PathFindSubmit.setDisable(true);
+            direction.setDisable(true);
+            direction.setEditable(false);
         }
+        typeSelected = "selected";
+    }
 
         /**Nathan modified this to include a path preference choice (restriction)
          * Nikhil modified this so it automatically switches the map to the starting floor.
@@ -768,9 +780,9 @@ public class PathFindingController {
             if (startNode.getFloor().equals("3") && !currentMap.equals("3")) {
                 clicked3();
             }
-            if (startNode.getFloor().equals("4") && !currentMap.equals("4")) {
-                clicked4();
-            }
+        if (startNode.getFloor().equals("4") && !currentMap.equals("4")) {
+            clicked4();
+        }
 
             displayPath();
 
@@ -781,7 +793,6 @@ public class PathFindingController {
             p.addReport(Long.toString(System.currentTimeMillis()), startNode.getLongName(), endNode.getLongName(), typeSelected);
             if (typeSelected.equals("search")) {
                 typeSelected = "selected"; //only way to reset properly
-                System.out.println("sick");
             }
         }
 
@@ -920,27 +931,28 @@ public class PathFindingController {
             }
         }
 
-        /**
-         * @Author: Nikhil
-         * This function automatically zooms on our map when we display paths.
-         * @param start
-         * @param end
-         */
-        private void autoZoom (Location start, Location end){
-            if ((Math.abs((start.getXcoord() - end.getXcoord()))) < 3200 && Math.abs(((start.getYcoord() - end.getYcoord()))) < 1050
-                    || (Math.abs((start.getXcoord() - end.getXcoord()))) < 2500 && Math.abs(((start.getYcoord() - end.getYcoord()))) < 3050) {
-                double x = gesturePane.getWidth() / (Math.abs((start.getXcoord() - end.getXcoord())));
-                double y = gesturePane.getHeight() / Math.abs(((start.getYcoord() - end.getYcoord())));
-                double scale = (Math.min(x, y) / 2) + 1.1;
-                gesturePane.reset();
-                gesturePane.zoomTo(scale, gesturePane.targetPointAtViewportCentre());
-                double xSameVal = (start.getXcoord() + end.getXcoord()) / 2.0 * childPane.getWidth() / Map.getImage().getWidth();
-                double ySameVal = (start.getYcoord() + end.getYcoord()) / 2.0 * childPane.getHeight() / Map.getImage().getHeight();
-                gesturePane.centreOn(new Point2D(xSameVal, ySameVal));
-            } else {
-                gesturePane.reset();
-            }
+    /**
+     * @Author: Nikhil
+     * This function automatically zooms on our map when we display paths.
+     * @param start
+     * @param end
+     */
+    private void autoZoom(Location start, Location end) {
+        if((Math.abs((start.getXcoord() - end.getXcoord()))) < 3200 && Math.abs(((start.getYcoord() - end.getYcoord()))) < 1050
+                || (Math.abs((start.getXcoord() - end.getXcoord()))) < 2500 && Math.abs(((start.getYcoord() - end.getYcoord()))) < 3050 ){
+            double x = gesturePane.getWidth()/(Math.abs((start.getXcoord() - end.getXcoord())));
+            double y = gesturePane.getHeight()/Math.abs(((start.getYcoord() - end.getYcoord())));
+            double scale = (Math.min(x, y)/2) + 1.1;
+            gesturePane.reset();
+            gesturePane.zoomTo(scale, gesturePane.targetPointAtViewportCentre());
+            double xSameVal = (start.getXcoord() + end.getXcoord()) / 2.0*childPane.getWidth()/Map.getImage().getWidth();
+            double ySameVal = (start.getYcoord() + end.getYcoord()) / 2.0*childPane.getHeight()/Map.getImage().getHeight();
+            gesturePane.centreOn(new Point2D(xSameVal, ySameVal));
         }
+        else {
+            gesturePane.reset();
+        }
+    }
 
         //Globals used for makeButtons
         int start = 0;
@@ -972,7 +984,6 @@ public class PathFindingController {
                     int counterstore1 = counter;
                     fBut.setOnAction(event -> {
                         displaySelected(startstore1, counterstore1);
-                        event.consume();
                     });
                     floorButtons.add(fBut);
                     gridPane.getChildren().add(fBut);
@@ -982,58 +993,57 @@ public class PathFindingController {
                     int diff = center - numOfBut;
                     gridPane.setMargin(fBut, new Insets(65, 0, 0, diff * (200) + shift));
 
-                    //Reduce this as we go so we know how many buttons we have left
-                    numOfBut--;
-                    //Reset
-                    start = i + 1;
-                    change = true;
-                }
-                //This is the final button
-                else if (numOfBut == 1 && change) {
-                    fBut.setPrefSize(50, 50);
-                    fBut.setText(floors.get(i));
-                    fBut.setStyle("-fx-font-weight: BOLD");
-                    fBut.getStyleClass().add("buttonMap");
+                //Reduce this as we go so we know how many buttons we have left
+                numOfBut--;
+                //Reset
+                start = i+1;
+                change = true;
+            }
+            //This is the final button
+            else if(numOfBut == 1 && change){
+                fBut.setPrefSize(50,50);
+                fBut.setText(floors.get(i));
+                fBut.setStyle("-fx-font-weight: BOLD");
+                fBut.getStyleClass().add("buttonMap");
+                int startstore1 = start;
+                int counterstore1 =floors.size() - 1 ;
+                fBut.setOnAction(event -> {
+                    displaySelected(startstore1, counterstore1);
+                });
+                floorButtons.add(fBut);
+                gridPane.getChildren().add(fBut);
+                gridPane.setHalignment(fBut, HPos.CENTER);
+                gridPane.setValignment(fBut, VPos.TOP);
+                //int diff  = numOfBut - center;
+                int diff  = center - numOfBut;
+                numOfBut--;
+                gridPane.setMargin(fBut,new Insets(65,0,0,diff*(200)+ shift));
+            }
+            if(totalNum > 1){
+                if(i == floors.size()-2 && !floors.get(i+1).equals(floors.get(start-1)) && numOfBut ==1)
+                {
+                    JFXButton fBut1 = new JFXButton();
+                    fBut1.setPrefSize(50,50);
+                    fBut1.setText(floors.get(i+1));
+                    fBut1.setStyle("-fx-font-weight: BOLD");
+                    fBut1.getStyleClass().add("buttonMap");
                     int startstore1 = start;
-                    int counterstore1 = floors.size() - 1;
-                    fBut.setOnAction(event -> {
+                    int counterstore1 =floors.size() - 1 ;
+                    fBut1.setOnAction(event -> {
                         displaySelected(startstore1, counterstore1);
-                    event.consume();
                     });
-                    floorButtons.add(fBut);
-                    gridPane.getChildren().add(fBut);
-                    gridPane.setHalignment(fBut, HPos.CENTER);
-                    gridPane.setValignment(fBut, VPos.TOP);
+                    floorButtons.add(fBut1);
+                    gridPane.getChildren().add(fBut1);
+                    gridPane.setHalignment(fBut1, HPos.CENTER);
+                    gridPane.setValignment(fBut1, VPos.TOP);
                     //int diff  = numOfBut - center;
-                    int diff = center - numOfBut;
+                    int diff  = center - numOfBut;
                     numOfBut--;
-                    gridPane.setMargin(fBut, new Insets(65, 0, 0, diff * (200) + shift));
+                    gridPane.setMargin(fBut1,new Insets(65,0,0,diff*(200)+ shift));
                 }
-                if (totalNum > 1) {
-                    if (i == floors.size() - 2 && !floors.get(i + 1).equals(floors.get(start - 1)) && numOfBut == 1) {
-                        JFXButton fBut1 = new JFXButton();
-                        fBut1.setPrefSize(50, 50);
-                        fBut1.setText(floors.get(i + 1));
-                        fBut1.setStyle("-fx-font-weight: BOLD");
-                        fBut1.getStyleClass().add("buttonMap");
-                        int startstore1 = start;
-                        int counterstore1 = floors.size() - 1;
-                        fBut1.setOnAction(event -> {
-                            displaySelected(startstore1, counterstore1);
-                            event.consume();
-                        });
-                        floorButtons.add(fBut1);
-                        gridPane.getChildren().add(fBut1);
-                        gridPane.setHalignment(fBut1, HPos.CENTER);
-                        gridPane.setValignment(fBut1, VPos.TOP);
-                        //int diff  = numOfBut - center;
-                        int diff = center - numOfBut;
-                        numOfBut--;
-                        gridPane.setMargin(fBut1, new Insets(65, 0, 0, diff * (200) + shift));
-                    }
-                }
-                counter++;
-                //Displays the part of the path you're on by highlighting the button.
+            }
+            counter++;
+            //Displays the part of the path you're on by highlighting the button.
 //            if(fBut.getText().equals(currentMap)) {
 //                fBut.setStyle("-fx-background-color: #012d5a; -fx-text-fill: white");
 //            }
@@ -1199,12 +1209,15 @@ public class PathFindingController {
             //Handles cases when you only display one location
             if (path.getPath().get(begin).getLocID().equals(path.getPath().get(count).getLocID()) && path.getPath().get(begin).getLocID().equals(startNode.getLocID())) {
                 endLabel.setVisible(false);
+                endCircle.setVisible(false);
             } else if (path.getPath().get(begin).getLocID().equals(path.getPath().get(count).getLocID())) {
                 startLabel.setVisible(false);
                 endLabel.setVisible(true);
+                endCircle.setVisible(true);
             } else {
                 startLabel.setVisible(true);
                 endLabel.setVisible(true);
+                endCircle.setVisible(true);
             }
             //Adding everything necessary to display the path
             labels.add(startLabel);
@@ -1251,6 +1264,7 @@ public class PathFindingController {
             direction.setWrapText(true);
             direction.setDisable(false);
             direction.setEditable(false);
+
         }
 
         /**
@@ -1327,18 +1341,17 @@ public class PathFindingController {
         }
         }
 
-        /**
-         * Modified by Nikhil: When start is cleared the start node resets to the kiosk location, to display kiosk location properly.
-         */
-        @FXML
-        private void clearStart () {
-            single.setLastTime();
-            PathFindStartDrop.getSelectionModel().clearSelection();
-            PathFindStartDrop.setValue(null);
-            startNode = kioskTemp;
-            PathFindSubmit.setDisable(true);
-            noHall();
-        }
+    /**
+     * Modified by Nikhil: When start is cleared the start node resets to the kiosk location, to display kiosk location properly.
+     */
+    @FXML
+    private void clearStart(){
+        single.setLastTime();
+        PathFindStartDrop.getSelectionModel().clearSelection();
+        PathFindStartDrop.setValue(null);
+        PathFindSubmit.setDisable(true);
+        noHall();
+    }
 
         @FXML
         private void clearEnd () {
@@ -2047,7 +2060,14 @@ public class PathFindingController {
         //if not set kiosk to random (first location stuff) thing
         if(single.getKiosk() == null){
             //Location kioskTemp = single.getData().get(0); //initially at floor 2
-            single.setKiosk(single.getData().get(0));
+            for(int i = 0; i < single.lookup.size() - 1; i++) {
+                if(single.getData().get(i).getLocID().contains("KIOS")) {
+                    single.setKiosk(single.getData().get(i));
+                }
+            }
+            if(single.getKiosk() == null) {
+                single.setKiosk(single.getData().get(0));
+            }
         }
         //find actual "location" of kiosk
         for(int i=0; i<single.getData().size(); i++){
