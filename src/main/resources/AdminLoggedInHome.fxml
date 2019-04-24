@@ -100,7 +100,7 @@
                                           <FontAwesomeIconView fill="#012d5a" glyphName="USER" size="35" strokeMiterLimit="0.0" textAlignment="CENTER" wrappingWidth="27.27392578125" />
                                        </graphic>
                                        <HBox.margin>
-                                          <Insets right="20.0" />
+                                          <Insets right="10.0" />
                                        </HBox.margin>
                                     </JFXButton>
                                  </children>

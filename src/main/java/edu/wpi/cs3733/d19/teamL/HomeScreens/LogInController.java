@@ -93,10 +93,10 @@ public class LogInController {
                         Rectangle2D bounds = screen.getVisualBounds();
 
                         Scene newScene = new Scene(sceneMain);
-                        thisStage.setMaximized(true);
+                       // thisStage.setMaximized(true);
                         thisStage.setScene(newScene);
-                        thisStage.setX(bounds.getMinX());
-                        thisStage.setY(bounds.getMinY());
+                      //  thisStage.setX(bounds.getMinX());
+                        //thisStage.setY(bounds.getMinY());
                         thisStage.setWidth(bounds.getWidth());
                         thisStage.setHeight(bounds.getHeight());
                         timeout.stop();
@@ -107,6 +107,7 @@ public class LogInController {
             }
         }));
         timeout.setCycleCount(Timeline.INDEFINITE);
+        login.setDisable(true);
         timeout.play();
     }
 
