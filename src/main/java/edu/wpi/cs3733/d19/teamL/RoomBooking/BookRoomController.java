@@ -195,7 +195,6 @@ public class BookRoomController {
     private ObservableList<EmployeeAccess> listViewData = FXCollections.observableArrayList();
 
     Timeline timeout;
-    VisualSimulationThread sim;
     private boolean firstTimeRan = true;
     private boolean resShowing = false;
     private boolean bookedEventShowing = false;
@@ -209,8 +208,7 @@ public class BookRoomController {
     private ArrayList<RoomDisplay> DisplayRooms = new ArrayList<RoomDisplay>();
 
     public void initialize() {
-        sim = new VisualSimulationThread(86);
-        sim.start();
+        Singleton single = Singleton.getInstance();
 
         double room1[] = {2240, 1640, 2590, 1640, 2590, 1790, 2670, 1790, 2670, 1890, 2240, 1890};
         double room2[] = {2860, 1140, 3060, 1065, 3195, 1440, 2995, 1510};
@@ -237,6 +235,7 @@ public class BookRoomController {
         roomImage.fitWidthProperty().bind(imagePane.widthProperty());
         roomImage.fitHeightProperty().bind(imagePane.heightProperty());
 
+        displayFlexSpaces(single.getSimulation());
         anchorPane.sceneProperty().addListener((observableScene, oldScene, newScene) -> {
             if (oldScene == null && newScene != null) {
                 // scene is set for the first time. Now its the time to listen stage changes.
@@ -269,7 +268,6 @@ public class BookRoomController {
             }
         });
 
-        displayFlexSpaces(sim.getSimulation());
 
         ArrayList<String> events = new ArrayList<String> (Arrays.asList("Meeting", "Party", "Conference", "Reception"));
         ObservableList obList = FXCollections.observableList(events);
@@ -278,17 +276,16 @@ public class BookRoomController {
         startTime.setValue(LocalTime.now().plusMinutes(1));
         endTime.setValue(LocalTime.now().plusHours(1).plusMinutes(1));
         datePicker.setValue(LocalDate.now());
+        single.setLastTime();
         endDatePicker.setValue(LocalDate.now());
         dailyDatePicker.setValue(LocalDate.now());
         weeklyDatePicker.setValue(LocalDate.now());
-        Singleton single = Singleton.getInstance();
-        single.setLastTime();
         timeout = new Timeline(new KeyFrame(Duration.millis(1500), new EventHandler<ActionEvent>() {
 
 
             @Override
             public void handle(ActionEvent event) {
-                displayFlexSpaces(sim.getSimulation());
+                displayFlexSpaces(single.getSimulation());
                 if ((System.currentTimeMillis() - single.getLastTime()) > single.getTimeoutSec()) {
                     try {
                         single.setLastTime();
@@ -296,12 +293,6 @@ public class BookRoomController {
                         single.setLoggedIn(false);
                         single.setUsername("");
                         single.setIsAdmin(false);
-                        try{
-                            sim.join();
-                        } catch (Exception e){
-                            e.printStackTrace();
-                            sim.stop();
-                        }
                         FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("HospitalHome.fxml"));
 
                         Parent sceneMain = loader.load();
@@ -325,9 +316,9 @@ public class BookRoomController {
 
         timeout.setCycleCount(Timeline.INDEFINITE);
         timeout.play();
-        Platform.runLater(new Runnable(){
+        Platform.runLater(new Runnable() {
             @Override
-            public void run(){
+            public void run() {
                 //displayFlexSpaces();
                 fieldsEntered();
             }
@@ -344,6 +335,17 @@ public class BookRoomController {
     public void loadFromPathfind(String roomName){
 
     }
+
+    @FXML
+    private void switchToTable(ActionEvent event) throws IOException {
+        timeout.stop();
+        Singleton single = Singleton.getInstance();
+        single.setLastTime();
+        Parent newPage = FXMLLoader.load(getClass().getClassLoader().getResource("BookRoom2.fxml"));
+        ((Node) event.getSource()).getScene().setRoot(newPage);
+    }
+
+    //LocalTime startTimeValue = null;
 
     @FXML
     /** @author Gabe, Nikhil
@@ -412,7 +414,7 @@ public class BookRoomController {
             String date = datePicker.getValue().toString();
             String endDate = endDatePicker.getValue().toString();
             date += "T" + startTime.getValue().getHour() + ":" + startTime.getValue().getMinute() + ":00";
-            endDate += "T" + endTime.getValue().getHour()  + ":" + endTime.getValue().getMinute() + ":00";
+            endDate += "T" + endTime.getValue().getHour() + ":" + endTime.getValue().getMinute() + ":00";
             String roomName = availableRooms.getValue().toString();
             EmployeeAccess ea = new EmployeeAccess();
             String employeeID = ea.getEmployeeInformation(single.getUsername()).get(0);
@@ -438,10 +440,13 @@ public class BookRoomController {
         if (startTime.getValue() != null && endTime.getValue() != null && datePicker.getValue() != null) {
             date = datePicker.getValue().toString();
             endDate = endDatePicker.getValue().toString();
-            date += "T" + startTime.getValue().getHour() * 100 + ":" + startTime.getValue().getMinute() + ":00";
-            endDate += "T" + endTime.getValue().getHour() * 100 + ":" + endTime.getValue().getMinute() + ":00";
+            date += "T" + String.format("%2d", startTime.getValue().getHour()) + ":" + String.format("%2d", startTime.getValue().getMinute()) + ":00";
+            endDate += "T" + String.format("%2d", endTime.getValue().getHour()) + ":" + String.format("%2d", endTime.getValue().getMinute()) + ":00";
             availableRooms.getSelectionModel().clearSelection();
 
+            System.out.println(ra.getAvailRooms(date, endDate));
+
+            System.out.println(endDate);
             rooms = ra.getAvailRooms(date, endDate);
             /*for (int i = 0; i < rooms.size(); i++) {
                 System.out.println("Available Rooms: " + rooms.get(i));
@@ -453,10 +458,10 @@ public class BookRoomController {
                 DisplayRooms.get(i).setAvailable(false);
             }
 
-                //System.out.println("startTimeMil: " + startTimeMil + "\n endTimeMil:" + endTimeMil);
+            //System.out.println("startTimeMil: " + startTimeMil + "\n endTimeMil:" + endTimeMil);
             rooms = ra.getAvailRooms(date, endDate);
 
-            for(int j = 0; j < rooms.size(); j ++) {
+            for (int j = 0; j < rooms.size(); j++) {
                 listOfRooms.add(rooms.get(j));
                 for (int i = 0; i < DisplayRooms.size(); i++) {
                     //System.out.println("COMPARE " + DisplayRooms.get(i).roomName + " AND " + rooms.get(j));
@@ -494,7 +499,7 @@ public class BookRoomController {
 
         for (int i = 0; i < DisplayRooms.size(); i++) {
 
-            if(DisplayRooms.get(i).isAvailable()){
+            if (DisplayRooms.get(i).isAvailable()) {
                 DisplayRooms.get(i).changePolygonColor("GREEN");
             } else {
                 DisplayRooms.get(i).changePolygonColor("RED");
@@ -516,9 +521,9 @@ public class BookRoomController {
                     imagePane.getChildren().remove(DisplayRooms.get(k).getPolygon());
                     roomName.setText(DisplayRooms.get(k).niceName);
                     fieldsEntered();
-                    for(int z = 0; z<listOfRooms.size(); z++){
-                        if(DisplayRooms.get(k).getRoomName().equals(listOfRooms.get(z))){
-                            if(DisplayRooms.get(k).isAvailable()) {
+                    for (int z = 0; z < listOfRooms.size(); z++) {
+                        if (DisplayRooms.get(k).getRoomName().equals(listOfRooms.get(z))) {
+                            if (DisplayRooms.get(k).isAvailable()) {
                                 availableRooms.getSelectionModel().select(listOfRooms.get(z));
                                 if(popupName.getText().contains(DisplayRooms.get(k).niceName)){
                                     resPaneCalled = true;
@@ -577,12 +582,10 @@ public class BookRoomController {
 
     }
 
-    /** @author Isabella
-     * Displays individual flex spaces that update randomly
-     */
-    public void displayFlexSpaces(ArrayList<Boolean> flexSpaceAvailable){
+
+    public void displayFlexSpaces(ArrayList<Boolean> flexSpaceAvailable) {
         int i = 0;
-        for(i = 0; i < flexSpaces.size(); i++){
+        for (i = 0; i < flexSpaces.size(); i++) {
             imagePane.getChildren().remove(flexSpaces.get(i));
         }
         flexSpaces.clear();
@@ -590,120 +593,120 @@ public class BookRoomController {
         double sr = Math.min(roomImage.getFitWidth() / roomImage.getImage().getWidth(), roomImage.getFitHeight() / roomImage.getImage().getHeight());
 
         //large important room
-        flexSpaces.add(new Polygon(860*sr, 1270*sr, 1160*sr, 1270*sr, 1160*sr, 1580*sr, 860*sr, 1580*sr));
+        flexSpaces.add(new Polygon(860 * sr, 1270 * sr, 1160 * sr, 1270 * sr, 1160 * sr, 1580 * sr, 860 * sr, 1580 * sr));
 
-        flexSpaces.add(new Polygon(150*sr, 230*sr, 200*sr, 230*sr, 200*sr, 340*sr, 150*sr, 340*sr)); //left side desk top
-        flexSpaces.add(new Polygon(150*sr, 420*sr, 200*sr, 420*sr, 200*sr, 530*sr, 150*sr, 530*sr)); //left side desk middle
-        flexSpaces.add(new Polygon(150*sr, 590*sr, 200*sr, 590*sr, 200*sr, 740*sr, 150*sr, 740*sr)); //left side desk lower
-        flexSpaces.add(new Polygon(320*sr, 560*sr, 540*sr, 560*sr, 540*sr, 710*sr, 340*sr, 710*sr)); //left conference room
-        flexSpaces.add(new Polygon(200*sr, 1300*sr, 270*sr, 1300*sr, 270*sr, 1360*sr, 200*sr, 1360*sr)); //small three chairs
-        flexSpaces.add(new Polygon(570*sr, 1340*sr, 630*sr, 1340*sr, 630*sr, 1430*sr, 570*sr, 1430*sr)); //standalone square
-        flexSpaces.add(new Polygon(1320*sr, 2070*sr, 1380*sr, 2070*sr, 1380*sr, 2100*sr, 1320*sr, 2100*sr)); //small two chairs
-        flexSpaces.add(new Polygon(1980*sr, 1690*sr, 2230*sr, 1690*sr, 2230*sr, 1880*sr, 1980*sr, 1880*sr)); //bottom right room
-        flexSpaces.add(new Polygon(1760*sr, 2230*sr, 1820*sr, 2230*sr, 1820*sr, 2380*sr, 1760*sr, 2380*sr)); //bottom vertical top
-        flexSpaces.add(new Polygon(1740*sr, 2440*sr, 1800*sr, 2440*sr, 1800*sr, 2600*sr, 1740*sr, 2600*sr)); //bottom vertical bottom
+        flexSpaces.add(new Polygon(150 * sr, 230 * sr, 200 * sr, 230 * sr, 200 * sr, 340 * sr, 150 * sr, 340 * sr)); //left side desk top
+        flexSpaces.add(new Polygon(150 * sr, 420 * sr, 200 * sr, 420 * sr, 200 * sr, 530 * sr, 150 * sr, 530 * sr)); //left side desk middle
+        flexSpaces.add(new Polygon(150 * sr, 590 * sr, 200 * sr, 590 * sr, 200 * sr, 740 * sr, 150 * sr, 740 * sr)); //left side desk lower
+        flexSpaces.add(new Polygon(340 * sr, 560 * sr, 540 * sr, 560 * sr, 540 * sr, 710 * sr, 340 * sr, 710 * sr)); //left conference room
+        flexSpaces.add(new Polygon(200 * sr, 1300 * sr, 270 * sr, 1300 * sr, 270 * sr, 1360 * sr, 200 * sr, 1360 * sr)); //small three chairs
+        flexSpaces.add(new Polygon(570 * sr, 1340 * sr, 630 * sr, 1340 * sr, 630 * sr, 1430 * sr, 570 * sr, 1430 * sr)); //standalone square
+        flexSpaces.add(new Polygon(1320 * sr, 2070 * sr, 1380 * sr, 2070 * sr, 1380 * sr, 2100 * sr, 1320 * sr, 2100 * sr)); //small two chairs
+        flexSpaces.add(new Polygon(1980 * sr, 1690 * sr, 2230 * sr, 1690 * sr, 2230 * sr, 1880 * sr, 1980 * sr, 1880 * sr)); //bottom right room
+        flexSpaces.add(new Polygon(1760 * sr, 2230 * sr, 1820 * sr, 2230 * sr, 1820 * sr, 2380 * sr, 1760 * sr, 2380 * sr)); //bottom vertical top
+        flexSpaces.add(new Polygon(1740 * sr, 2440 * sr, 1800 * sr, 2440 * sr, 1800 * sr, 2600 * sr, 1740 * sr, 2600 * sr)); //bottom vertical bottom
 
         //top left desk bank
-        flexSpaces.add(new Polygon(240*sr, 240*sr, 305*sr, 240*sr, 305*sr, 290*sr, 240*sr, 290*sr));
-        flexSpaces.add(new Polygon(305*sr, 240*sr, 370*sr, 240*sr, 370*sr, 290*sr, 305*sr, 290*sr));
-        flexSpaces.add(new Polygon(370*sr, 240*sr, 435*sr, 240*sr, 435*sr, 290*sr, 370*sr, 290*sr));
-        flexSpaces.add(new Polygon(435*sr, 240*sr, 500*sr, 240*sr, 500*sr, 290*sr, 435*sr, 290*sr));
-        flexSpaces.add(new Polygon(240*sr, 290*sr, 305*sr, 290*sr, 305*sr, 340*sr, 240*sr, 340*sr));
-        flexSpaces.add(new Polygon(305*sr, 290*sr, 370*sr, 290*sr, 370*sr, 340*sr, 305*sr, 340*sr));
-        flexSpaces.add(new Polygon(370*sr, 290*sr, 435*sr, 290*sr, 435*sr, 340*sr, 370*sr, 340*sr));
-        flexSpaces.add(new Polygon(435*sr, 290*sr, 500*sr, 290*sr, 500*sr, 340*sr, 435*sr, 340*sr));
+        flexSpaces.add(new Polygon(240 * sr, 240 * sr, 305 * sr, 240 * sr, 305 * sr, 290 * sr, 240 * sr, 290 * sr));
+        flexSpaces.add(new Polygon(305 * sr, 240 * sr, 370 * sr, 240 * sr, 370 * sr, 290 * sr, 305 * sr, 290 * sr));
+        flexSpaces.add(new Polygon(370 * sr, 240 * sr, 435 * sr, 240 * sr, 435 * sr, 290 * sr, 370 * sr, 290 * sr));
+        flexSpaces.add(new Polygon(435 * sr, 240 * sr, 500 * sr, 240 * sr, 500 * sr, 290 * sr, 435 * sr, 290 * sr));
+        flexSpaces.add(new Polygon(240 * sr, 290 * sr, 305 * sr, 290 * sr, 305 * sr, 340 * sr, 240 * sr, 340 * sr));
+        flexSpaces.add(new Polygon(305 * sr, 290 * sr, 370 * sr, 290 * sr, 370 * sr, 340 * sr, 305 * sr, 340 * sr));
+        flexSpaces.add(new Polygon(370 * sr, 290 * sr, 435 * sr, 290 * sr, 435 * sr, 340 * sr, 370 * sr, 340 * sr));
+        flexSpaces.add(new Polygon(435 * sr, 290 * sr, 500 * sr, 290 * sr, 500 * sr, 340 * sr, 435 * sr, 340 * sr));
 
         //second down top left desk bank
-        flexSpaces.add(new Polygon(250*sr, 390*sr, 313*sr, 390*sr, 313*sr, 440*sr, 250*sr, 440*sr));
-        flexSpaces.add(new Polygon(313*sr, 390*sr, 375*sr, 390*sr, 375*sr, 440*sr, 313*sr, 440*sr));
-        flexSpaces.add(new Polygon(375*sr, 390*sr, 438*sr, 390*sr, 438*sr, 440*sr, 375*sr, 440*sr));
-        flexSpaces.add(new Polygon(438*sr, 390*sr, 500*sr, 390*sr, 500*sr, 440*sr, 438*sr, 440*sr));
-        flexSpaces.add(new Polygon(250*sr, 440*sr, 313*sr, 440*sr, 313*sr, 490*sr, 250*sr, 490*sr));
-        flexSpaces.add(new Polygon(313*sr, 440*sr, 375*sr, 440*sr, 375*sr, 490*sr, 313*sr, 490*sr));
-        flexSpaces.add(new Polygon(375*sr, 440*sr, 438*sr, 440*sr, 438*sr, 490*sr, 375*sr, 490*sr));
-        flexSpaces.add(new Polygon(438*sr, 440*sr, 500*sr, 440*sr, 500*sr, 490*sr, 438*sr, 490*sr));
+        flexSpaces.add(new Polygon(250 * sr, 390 * sr, 313 * sr, 390 * sr, 313 * sr, 440 * sr, 250 * sr, 440 * sr));
+        flexSpaces.add(new Polygon(313 * sr, 390 * sr, 375 * sr, 390 * sr, 375 * sr, 440 * sr, 313 * sr, 440 * sr));
+        flexSpaces.add(new Polygon(375 * sr, 390 * sr, 438 * sr, 390 * sr, 438 * sr, 440 * sr, 375 * sr, 440 * sr));
+        flexSpaces.add(new Polygon(438 * sr, 390 * sr, 500 * sr, 390 * sr, 500 * sr, 440 * sr, 438 * sr, 440 * sr));
+        flexSpaces.add(new Polygon(250 * sr, 440 * sr, 313 * sr, 440 * sr, 313 * sr, 490 * sr, 250 * sr, 490 * sr));
+        flexSpaces.add(new Polygon(313 * sr, 440 * sr, 375 * sr, 440 * sr, 375 * sr, 490 * sr, 313 * sr, 490 * sr));
+        flexSpaces.add(new Polygon(375 * sr, 440 * sr, 438 * sr, 440 * sr, 438 * sr, 490 * sr, 375 * sr, 490 * sr));
+        flexSpaces.add(new Polygon(438 * sr, 440 * sr, 500 * sr, 440 * sr, 500 * sr, 490 * sr, 438 * sr, 490 * sr));
 
         //center column of small rooms
-        flexSpaces.add(new Polygon(660*sr, 660*sr, 730*sr, 660*sr, 730*sr, 748*sr, 660*sr, 748*sr));
-        flexSpaces.add(new Polygon(660*sr, 748*sr, 730*sr, 748*sr, 730*sr, 836*sr, 660*sr, 836*sr));
-        flexSpaces.add(new Polygon(660*sr, 836*sr, 730*sr, 836*sr, 730*sr, 924*sr, 660*sr, 924*sr));
-        flexSpaces.add(new Polygon(660*sr, 924*sr, 730*sr, 924*sr, 730*sr, 1012*sr, 660*sr, 1012*sr));
-        flexSpaces.add(new Polygon(660*sr, 1012*sr, 730*sr, 1012*sr, 730*sr, 1100*sr, 660*sr, 1100*sr));
+        flexSpaces.add(new Polygon(660 * sr, 660 * sr, 730 * sr, 660 * sr, 730 * sr, 748 * sr, 660 * sr, 748 * sr));
+        flexSpaces.add(new Polygon(660 * sr, 748 * sr, 730 * sr, 748 * sr, 730 * sr, 836 * sr, 660 * sr, 836 * sr));
+        flexSpaces.add(new Polygon(660 * sr, 836 * sr, 730 * sr, 836 * sr, 730 * sr, 924 * sr, 660 * sr, 924 * sr));
+        flexSpaces.add(new Polygon(660 * sr, 924 * sr, 730 * sr, 924 * sr, 730 * sr, 1012 * sr, 660 * sr, 1012 * sr));
+        flexSpaces.add(new Polygon(660 * sr, 1012 * sr, 730 * sr, 1012 * sr, 730 * sr, 1100 * sr, 660 * sr, 1100 * sr));
 
         //upper vertical column of desks - right
-        flexSpaces.add(new Polygon(1410*sr, 190*sr, 1460*sr, 190*sr, 1460*sr, 260*sr, 1410*sr, 260*sr));
-        flexSpaces.add(new Polygon(1410*sr, 260*sr, 1460*sr, 260*sr, 1460*sr, 322*sr, 1410*sr, 322*sr));
-        flexSpaces.add(new Polygon(1410*sr, 322*sr, 1460*sr, 322*sr, 1460*sr, 388*sr, 1410*sr, 388*sr));
-        flexSpaces.add(new Polygon(1410*sr, 388*sr, 1460*sr, 388*sr, 1460*sr, 454*sr, 1410*sr, 454*sr));
-        flexSpaces.add(new Polygon(1410*sr, 454*sr, 1460*sr, 454*sr, 1460*sr, 520*sr, 1410*sr, 520*sr));
+        flexSpaces.add(new Polygon(1410 * sr, 190 * sr, 1460 * sr, 190 * sr, 1460 * sr, 260 * sr, 1410 * sr, 260 * sr));
+        flexSpaces.add(new Polygon(1410 * sr, 260 * sr, 1460 * sr, 260 * sr, 1460 * sr, 322 * sr, 1410 * sr, 322 * sr));
+        flexSpaces.add(new Polygon(1410 * sr, 322 * sr, 1460 * sr, 322 * sr, 1460 * sr, 388 * sr, 1410 * sr, 388 * sr));
+        flexSpaces.add(new Polygon(1410 * sr, 388 * sr, 1460 * sr, 388 * sr, 1460 * sr, 454 * sr, 1410 * sr, 454 * sr));
+        flexSpaces.add(new Polygon(1410 * sr, 454 * sr, 1460 * sr, 454 * sr, 1460 * sr, 520 * sr, 1410 * sr, 520 * sr));
 
         //upper vertical column of desks - left
-        flexSpaces.add(new Polygon(1360*sr, 270*sr, 1410*sr, 270*sr, 1410*sr, 333*sr, 1360*sr, 333*sr));
-        flexSpaces.add(new Polygon(1360*sr, 333*sr, 1410*sr, 333*sr, 1410*sr, 395*sr, 1360*sr, 395*sr));
-        flexSpaces.add(new Polygon(1360*sr, 395*sr, 1410*sr, 395*sr, 1410*sr, 458*sr, 1360*sr, 458*sr));
-        flexSpaces.add(new Polygon(1360*sr, 458*sr, 1410*sr, 458*sr, 1410*sr, 520*sr, 1360*sr, 520*sr));
+        flexSpaces.add(new Polygon(1360 * sr, 270 * sr, 1410 * sr, 270 * sr, 1410 * sr, 333 * sr, 1360 * sr, 333 * sr));
+        flexSpaces.add(new Polygon(1360 * sr, 333 * sr, 1410 * sr, 333 * sr, 1410 * sr, 395 * sr, 1360 * sr, 395 * sr));
+        flexSpaces.add(new Polygon(1360 * sr, 395 * sr, 1410 * sr, 395 * sr, 1410 * sr, 458 * sr, 1360 * sr, 458 * sr));
+        flexSpaces.add(new Polygon(1360 * sr, 458 * sr, 1410 * sr, 458 * sr, 1410 * sr, 520 * sr, 1360 * sr, 520 * sr));
 
         //center horizontal desks left
-        flexSpaces.add(new Polygon(1240*sr, 1540*sr, 1303*sr, 1540*sr, 1303*sr, 1590*sr, 1240*sr, 1590*sr));
-        flexSpaces.add(new Polygon(1303*sr, 1540*sr, 1367*sr, 1540*sr, 1367*sr, 1590*sr, 1303*sr, 1590*sr));
-        flexSpaces.add(new Polygon(1367*sr, 1540*sr, 1430*sr, 1540*sr, 1430*sr, 1590*sr, 1367*sr, 1590*sr));
-        flexSpaces.add(new Polygon(1240*sr, 1590*sr, 1303*sr, 1590*sr, 1303*sr, 1640*sr, 1240*sr, 1640*sr));
-        flexSpaces.add(new Polygon(1303*sr, 1590*sr, 1367*sr, 1590*sr, 1367*sr, 1640*sr, 1303*sr, 1640*sr));
-        flexSpaces.add(new Polygon(1367*sr, 1590*sr, 1430*sr, 1590*sr, 1430*sr, 1640*sr, 1367*sr, 1640*sr));
+        flexSpaces.add(new Polygon(1240 * sr, 1540 * sr, 1303 * sr, 1540 * sr, 1303 * sr, 1590 * sr, 1240 * sr, 1590 * sr));
+        flexSpaces.add(new Polygon(1303 * sr, 1540 * sr, 1367 * sr, 1540 * sr, 1367 * sr, 1590 * sr, 1303 * sr, 1590 * sr));
+        flexSpaces.add(new Polygon(1367 * sr, 1540 * sr, 1430 * sr, 1540 * sr, 1430 * sr, 1590 * sr, 1367 * sr, 1590 * sr));
+        flexSpaces.add(new Polygon(1240 * sr, 1590 * sr, 1303 * sr, 1590 * sr, 1303 * sr, 1640 * sr, 1240 * sr, 1640 * sr));
+        flexSpaces.add(new Polygon(1303 * sr, 1590 * sr, 1367 * sr, 1590 * sr, 1367 * sr, 1640 * sr, 1303 * sr, 1640 * sr));
+        flexSpaces.add(new Polygon(1367 * sr, 1590 * sr, 1430 * sr, 1590 * sr, 1430 * sr, 1640 * sr, 1367 * sr, 1640 * sr));
 
         //center horizontal desks right
-        flexSpaces.add(new Polygon(1490*sr, 1540*sr, 1553*sr, 1540*sr, 1553*sr, 1590*sr, 1490*sr, 1590*sr));
-        flexSpaces.add(new Polygon(1553*sr, 1540*sr, 1617*sr, 1540*sr, 1617*sr, 1590*sr, 1553*sr, 1590*sr));
-        flexSpaces.add(new Polygon(1617*sr, 1540*sr, 1680*sr, 1540*sr, 1680*sr, 1590*sr, 1617*sr, 1590*sr));
-        flexSpaces.add(new Polygon(1490*sr, 1590*sr, 1553*sr, 1590*sr, 1553*sr, 1640*sr, 1490*sr, 1640*sr));
-        flexSpaces.add(new Polygon(1553*sr, 1590*sr, 1617*sr, 1590*sr, 1617*sr, 1640*sr, 1553*sr, 1640*sr));
-        flexSpaces.add(new Polygon(1617*sr, 1590*sr, 1680*sr, 1590*sr, 1680*sr, 1640*sr, 1617*sr, 1640*sr));
+        flexSpaces.add(new Polygon(1490 * sr, 1540 * sr, 1553 * sr, 1540 * sr, 1553 * sr, 1590 * sr, 1490 * sr, 1590 * sr));
+        flexSpaces.add(new Polygon(1553 * sr, 1540 * sr, 1617 * sr, 1540 * sr, 1617 * sr, 1590 * sr, 1553 * sr, 1590 * sr));
+        flexSpaces.add(new Polygon(1617 * sr, 1540 * sr, 1680 * sr, 1540 * sr, 1680 * sr, 1590 * sr, 1617 * sr, 1590 * sr));
+        flexSpaces.add(new Polygon(1490 * sr, 1590 * sr, 1553 * sr, 1590 * sr, 1553 * sr, 1640 * sr, 1490 * sr, 1640 * sr));
+        flexSpaces.add(new Polygon(1553 * sr, 1590 * sr, 1617 * sr, 1590 * sr, 1617 * sr, 1640 * sr, 1553 * sr, 1640 * sr));
+        flexSpaces.add(new Polygon(1617 * sr, 1590 * sr, 1680 * sr, 1590 * sr, 1680 * sr, 1640 * sr, 1617 * sr, 1640 * sr));
 
         //center vertical column of desks
-        flexSpaces.add(new Polygon(1520*sr, 1190*sr, 1570*sr, 1190*sr, 1570*sr, 1252*sr, 1520*sr, 1252*sr));
-        flexSpaces.add(new Polygon(1520*sr, 1252*sr, 1570*sr, 1252*sr, 1570*sr, 1314*sr, 1520*sr, 1314*sr));
-        flexSpaces.add(new Polygon(1520*sr, 1314*sr, 1570*sr, 1314*sr, 1570*sr, 1376*sr, 1520*sr, 1376*sr));
-        flexSpaces.add(new Polygon(1520*sr, 1376*sr, 1570*sr, 1376*sr, 1570*sr, 1438*sr, 1520*sr, 1438*sr));
-        flexSpaces.add(new Polygon(1520*sr, 1438*sr, 1570*sr, 1438*sr, 1570*sr, 1500*sr, 1520*sr, 1500*sr));
-        flexSpaces.add(new Polygon(1570*sr, 1190*sr, 1620*sr, 1190*sr, 1620*sr, 1252*sr, 1570*sr, 1252*sr));
-        flexSpaces.add(new Polygon(1570*sr, 1252*sr, 1620*sr, 1252*sr, 1620*sr, 1314*sr, 1570*sr, 1314*sr));
-        flexSpaces.add(new Polygon(1570*sr, 1314*sr, 1620*sr, 1314*sr, 1620*sr, 1376*sr, 1570*sr, 1376*sr));
-        flexSpaces.add(new Polygon(1570*sr, 1376*sr, 1620*sr, 1376*sr, 1620*sr, 1438*sr, 1570*sr, 1438*sr));
-        flexSpaces.add(new Polygon(1570*sr, 1438*sr, 1620*sr, 1438*sr, 1620*sr, 1500*sr, 1570*sr, 1500*sr));
+        flexSpaces.add(new Polygon(1520 * sr, 1190 * sr, 1570 * sr, 1190 * sr, 1570 * sr, 1252 * sr, 1520 * sr, 1252 * sr));
+        flexSpaces.add(new Polygon(1520 * sr, 1252 * sr, 1570 * sr, 1252 * sr, 1570 * sr, 1314 * sr, 1520 * sr, 1314 * sr));
+        flexSpaces.add(new Polygon(1520 * sr, 1314 * sr, 1570 * sr, 1314 * sr, 1570 * sr, 1376 * sr, 1520 * sr, 1376 * sr));
+        flexSpaces.add(new Polygon(1520 * sr, 1376 * sr, 1570 * sr, 1376 * sr, 1570 * sr, 1438 * sr, 1520 * sr, 1438 * sr));
+        flexSpaces.add(new Polygon(1520 * sr, 1438 * sr, 1570 * sr, 1438 * sr, 1570 * sr, 1500 * sr, 1520 * sr, 1500 * sr));
+        flexSpaces.add(new Polygon(1570 * sr, 1190 * sr, 1620 * sr, 1190 * sr, 1620 * sr, 1252 * sr, 1570 * sr, 1252 * sr));
+        flexSpaces.add(new Polygon(1570 * sr, 1252 * sr, 1620 * sr, 1252 * sr, 1620 * sr, 1314 * sr, 1570 * sr, 1314 * sr));
+        flexSpaces.add(new Polygon(1570 * sr, 1314 * sr, 1620 * sr, 1314 * sr, 1620 * sr, 1376 * sr, 1570 * sr, 1376 * sr));
+        flexSpaces.add(new Polygon(1570 * sr, 1376 * sr, 1620 * sr, 1376 * sr, 1620 * sr, 1438 * sr, 1570 * sr, 1438 * sr));
+        flexSpaces.add(new Polygon(1570 * sr, 1438 * sr, 1620 * sr, 1438 * sr, 1620 * sr, 1500 * sr, 1570 * sr, 1500 * sr));
 
         //bottom right vertical column of desks - left
-        flexSpaces.add(new Polygon(1900*sr, 1890*sr, 1950*sr, 1890*sr, 1950*sr, 1955*sr, 1900*sr, 1955*sr));
-        flexSpaces.add(new Polygon(1900*sr, 1955*sr, 1950*sr, 1955*sr, 1950*sr, 2020*sr, 1900*sr, 2020*sr));
-        flexSpaces.add(new Polygon(1900*sr, 2020*sr, 1950*sr, 2020*sr, 1950*sr, 2085*sr, 1900*sr, 2085*sr));
-        flexSpaces.add(new Polygon(1900*sr, 2085*sr, 1950*sr, 2085*sr, 1950*sr, 2150*sr, 1900*sr, 2150*sr));
-        flexSpaces.add(new Polygon(1950*sr, 1890*sr, 2000*sr, 1890*sr, 2000*sr, 1955*sr, 1950*sr, 1955*sr));
-        flexSpaces.add(new Polygon(1950*sr, 1955*sr, 2000*sr, 1955*sr, 2000*sr, 2020*sr, 1950*sr, 2020*sr));
-        flexSpaces.add(new Polygon(1950*sr, 2020*sr, 2000*sr, 2020*sr, 2000*sr, 2085*sr, 1950*sr, 2085*sr));
-        flexSpaces.add(new Polygon(1950*sr, 2085*sr, 2000*sr, 2085*sr, 2000*sr, 2150*sr, 1950*sr, 2150*sr));
+        flexSpaces.add(new Polygon(1900 * sr, 1890 * sr, 1950 * sr, 1890 * sr, 1950 * sr, 1955 * sr, 1900 * sr, 1955 * sr));
+        flexSpaces.add(new Polygon(1900 * sr, 1955 * sr, 1950 * sr, 1955 * sr, 1950 * sr, 2020 * sr, 1900 * sr, 2020 * sr));
+        flexSpaces.add(new Polygon(1900 * sr, 2020 * sr, 1950 * sr, 2020 * sr, 1950 * sr, 2085 * sr, 1900 * sr, 2085 * sr));
+        flexSpaces.add(new Polygon(1900 * sr, 2085 * sr, 1950 * sr, 2085 * sr, 1950 * sr, 2150 * sr, 1900 * sr, 2150 * sr));
+        flexSpaces.add(new Polygon(1950 * sr, 1890 * sr, 2000 * sr, 1890 * sr, 2000 * sr, 1955 * sr, 1950 * sr, 1955 * sr));
+        flexSpaces.add(new Polygon(1950 * sr, 1955 * sr, 2000 * sr, 1955 * sr, 2000 * sr, 2020 * sr, 1950 * sr, 2020 * sr));
+        flexSpaces.add(new Polygon(1950 * sr, 2020 * sr, 2000 * sr, 2020 * sr, 2000 * sr, 2085 * sr, 1950 * sr, 2085 * sr));
+        flexSpaces.add(new Polygon(1950 * sr, 2085 * sr, 2000 * sr, 2085 * sr, 2000 * sr, 2150 * sr, 1950 * sr, 2150 * sr));
 
         //bottom right vertical column of desks - right
-        flexSpaces.add(new Polygon(2040*sr, 1890*sr, 2090*sr, 1890*sr, 2090*sr, 1955*sr, 2040*sr, 1955*sr));
-        flexSpaces.add(new Polygon(2040*sr, 1955*sr, 2090*sr, 1955*sr, 2090*sr, 2020*sr, 2040*sr, 2020*sr));
-        flexSpaces.add(new Polygon(2040*sr, 2020*sr, 2090*sr, 2020*sr, 2090*sr, 2085*sr, 2040*sr, 2085*sr));
-        flexSpaces.add(new Polygon(2040*sr, 2085*sr, 2090*sr, 2085*sr, 2090*sr, 2150*sr, 2040*sr, 2150*sr));
-        flexSpaces.add(new Polygon(2090*sr, 1890*sr, 2140*sr, 1890*sr, 2140*sr, 1955*sr, 2090*sr, 1955*sr));
-        flexSpaces.add(new Polygon(2090*sr, 1955*sr, 2140*sr, 1955*sr, 2140*sr, 2020*sr, 2090*sr, 2020*sr));
-        flexSpaces.add(new Polygon(2090*sr, 2020*sr, 2140*sr, 2020*sr, 2140*sr, 2085*sr, 2090*sr, 2085*sr));
-        flexSpaces.add(new Polygon(2090*sr, 2085*sr, 2140*sr, 2085*sr, 2140*sr, 2150*sr, 2090*sr, 2150*sr));
+        flexSpaces.add(new Polygon(2040 * sr, 1890 * sr, 2090 * sr, 1890 * sr, 2090 * sr, 1955 * sr, 2040 * sr, 1955 * sr));
+        flexSpaces.add(new Polygon(2040 * sr, 1955 * sr, 2090 * sr, 1955 * sr, 2090 * sr, 2020 * sr, 2040 * sr, 2020 * sr));
+        flexSpaces.add(new Polygon(2040 * sr, 2020 * sr, 2090 * sr, 2020 * sr, 2090 * sr, 2085 * sr, 2040 * sr, 2085 * sr));
+        flexSpaces.add(new Polygon(2040 * sr, 2085 * sr, 2090 * sr, 2085 * sr, 2090 * sr, 2150 * sr, 2040 * sr, 2150 * sr));
+        flexSpaces.add(new Polygon(2090 * sr, 1890 * sr, 2140 * sr, 1890 * sr, 2140 * sr, 1955 * sr, 2090 * sr, 1955 * sr));
+        flexSpaces.add(new Polygon(2090 * sr, 1955 * sr, 2140 * sr, 1955 * sr, 2140 * sr, 2020 * sr, 2090 * sr, 2020 * sr));
+        flexSpaces.add(new Polygon(2090 * sr, 2020 * sr, 2140 * sr, 2020 * sr, 2140 * sr, 2085 * sr, 2090 * sr, 2085 * sr));
+        flexSpaces.add(new Polygon(2090 * sr, 2085 * sr, 2140 * sr, 2085 * sr, 2140 * sr, 2150 * sr, 2090 * sr, 2150 * sr));
 
         //bottom right vertical rooms
-        flexSpaces.add(new Polygon(2220*sr, 2220*sr, 2290*sr, 2220*sr, 2290*sr, 2340*sr, 2220*sr, 2340*sr));
-        flexSpaces.add(new Polygon(2220*sr, 2340*sr, 2290*sr, 2340*sr, 2290*sr, 2430*sr, 2220*sr, 2430*sr));
-        flexSpaces.add(new Polygon(2220*sr, 2430*sr, 2290*sr, 2430*sr, 2290*sr, 2515*sr, 2220*sr, 2515*sr));
-        flexSpaces.add(new Polygon(2220*sr, 2515*sr, 2290*sr, 2515*sr, 2290*sr, 2620*sr, 2220*sr, 2620*sr));
+        flexSpaces.add(new Polygon(2220 * sr, 2220 * sr, 2290 * sr, 2220 * sr, 2290 * sr, 2340 * sr, 2220 * sr, 2340 * sr));
+        flexSpaces.add(new Polygon(2220 * sr, 2340 * sr, 2290 * sr, 2340 * sr, 2290 * sr, 2430 * sr, 2220 * sr, 2430 * sr));
+        flexSpaces.add(new Polygon(2220 * sr, 2430 * sr, 2290 * sr, 2430 * sr, 2290 * sr, 2515 * sr, 2220 * sr, 2515 * sr));
+        flexSpaces.add(new Polygon(2220 * sr, 2515 * sr, 2290 * sr, 2515 * sr, 2290 * sr, 2620 * sr, 2220 * sr, 2620 * sr));
 
         //little rooms above center room
-        flexSpaces.add(new Polygon(860*sr, 1190*sr, 960*sr, 1190*sr, 960*sr, 1270*sr, 860*sr, 1270*sr));
-        flexSpaces.add(new Polygon(960*sr, 1190*sr, 1060*sr, 1190*sr, 1060*sr, 1270*sr, 960*sr, 1270*sr));
-        flexSpaces.add(new Polygon(1060*sr, 1190*sr, 1160*sr, 1190*sr, 1160*sr, 1270*sr, 1060*sr, 1270*sr));
+        flexSpaces.add(new Polygon(860 * sr, 1190 * sr, 960 * sr, 1190 * sr, 960 * sr, 1270 * sr, 860 * sr, 1270 * sr));
+        flexSpaces.add(new Polygon(960 * sr, 1190 * sr, 1060 * sr, 1190 * sr, 1060 * sr, 1270 * sr, 960 * sr, 1270 * sr));
+        flexSpaces.add(new Polygon(1060 * sr, 1190 * sr, 1160 * sr, 1190 * sr, 1160 * sr, 1270 * sr, 1060 * sr, 1270 * sr));
 
-        for(i = 0; i < flexSpaces.size(); i++){
-            if(flexSpaceAvailable.get(i)) {
+        for (i = 0; i < flexSpaces.size(); i++) {
+            if (flexSpaceAvailable.get(i)) {
                 flexSpaces.get(i).setStroke(Color.web("TURQUOISE"));
                 flexSpaces.get(i).setFill(Color.web("TURQUOISE"));
                 flexSpaces.get(i).setOpacity(0.5);
@@ -718,12 +721,6 @@ public class BookRoomController {
 
     public void switchToWeekly(ActionEvent event) throws IOException {
         timeout.stop();
-        try{
-            sim.join();
-        } catch (Exception e){
-            e.printStackTrace();
-            sim.stop();
-        }
         Singleton single = Singleton.getInstance();
         single.setLastTime();
         FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("WeeklySchedule.fxml"));
@@ -732,9 +729,9 @@ public class BookRoomController {
         WeeklyScheduleController wsc = loader.getController();
         String name = roomName.getText();
         //if the text is null
-        if(name == null || name.equals("Select a Room")){
+        if (name == null || name.equals("Select a Room")) {
             //if there are no available rooms
-            if(listOfRooms.size() < 1){
+            if (listOfRooms.size() < 1) {
                 name = "Room 1 - Computer";
             } else {
                 name = listOfRooms.get(0);
@@ -747,28 +744,23 @@ public class BookRoomController {
         ((Node) event.getSource()).getScene().setRoot(sceneMain);
     }
 
-    /**@author Nathan
-     * Restores previous screen
+    /**
      * @throws IOException
+     * @author Nathan
+     * Restores previous screen
      */
     @FXML
-    private void backPressed(ActionEvent event) throws IOException{
+    private void backPressed(ActionEvent event) throws IOException {
         Singleton single = Singleton.getInstance();
         timeout.stop();
-        try{
-            sim.join();
-        } catch (Exception e){
-            e.printStackTrace();
-            sim.stop();
-        }
-
+        single = Singleton.getInstance();
         single.setLastTime();
         single.setDoPopup(true);
 
         Memento m = single.restore();
         FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource(m.getFxml()));
         Parent newPage = loader.load();
-        if(m.getFxml().contains("HospitalPathFinding")){
+        if (m.getFxml().contains("HospitalPathFinding")) {
             PathFindingController pfc = loader.getController();
             pfc.initWithMeme(m.getPathPref(), m.getTypeFilter(), m.getFloorFilter(), m.getStart(), m.getEnd());
         }
@@ -777,10 +769,11 @@ public class BookRoomController {
         ((Node) event.getSource()).getScene().setRoot(newPage);
     }
 
-    /**@author Nathan
+    /**
+     * @author Nathan
      * Saves the memento state
      */
-    private void saveState(){
+    private void saveState() {
         Singleton single = Singleton.getInstance();
         single.saveMemento("ActiveServiceRequests.fxml");
     }
@@ -788,12 +781,6 @@ public class BookRoomController {
     @FXML
     private void logOut(ActionEvent event) throws IOException {
         timeout.stop();
-        try{
-            sim.join();
-        } catch (Exception e){
-            e.printStackTrace();
-            sim.stop();
-        }
         Singleton single = Singleton.getInstance();
         single.setLastTime();
         single.setUsername("");
