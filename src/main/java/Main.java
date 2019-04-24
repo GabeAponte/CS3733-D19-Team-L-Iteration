@@ -35,7 +35,7 @@ public class Main extends Application {
 
         single.setData();
         single.populateTweets();
-        single.updateWeather();
+        //single.updateWeather();
         launch(args);
 
 

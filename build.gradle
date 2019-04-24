@@ -93,6 +93,7 @@ test {
 // This allows the jar to be created, it appears in the build/libs folder
 jar {
     manifest {
+        exclude 'META-INF/*.RSA', 'META-INF/*.SF', 'META-INF/*.DSA'
         attributes 'Main-Class': mainClassName
     }
     from configurations.runtime.collect { zipTree(it) }
