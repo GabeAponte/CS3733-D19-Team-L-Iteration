@@ -76,6 +76,9 @@ public class EmergencyController {
     private Button F4;
 
     @FXML
+    private Button menuback;
+
+    @FXML
     private JFXTextField adminUser;
 
     @FXML
@@ -114,6 +117,9 @@ public class EmergencyController {
     @FXML
     private VBox vLeft;
 
+    @FXML
+    private HBox hi;
+
     Location kioskTemp;
 
     private boolean displayingPath;
@@ -151,7 +157,6 @@ public class EmergencyController {
 
 
 
-
     @FXML
     private void DisableEmergModePress(ActionEvent event) throws IOException {
         //TODO: this v
@@ -161,9 +166,9 @@ public class EmergencyController {
 
         String uname = adminUser.getText();
         String pass = adminPassword.getText();
-        if(!(uname.isEmpty() && pass.isEmpty())){
-            DisableEmergMode.setVisible(true);
-        }
+        /*if(!(uname.isEmpty() && pass.isEmpty())){
+            DisableEmergMode.setDisable(false);
+        }*/
 
         boolean validLogin;
         Singleton single = Singleton.getInstance();
@@ -187,7 +192,7 @@ public class EmergencyController {
     }
 
     private void displayError(){
-        errorLabel.setText("Login is incorrect. Cannot disable emergency mode.");
+        errorLabel.setText("Invalid Admin Login.");
     }
 
     private void displayExits(){
@@ -220,6 +225,7 @@ public class EmergencyController {
             }
         }
     }
+
 
     private void cleanMap(){
         for (Circle c: circles) {
@@ -333,7 +339,7 @@ public class EmergencyController {
 
 
     private void activateEmergencyMode(){
-        DisableEmergMode.setDisable(false);
+        //DisableEmergMode.setDisable(false);
         //GOTO KIOSKFLOOR
         gotoKioskFloor();
         //does displaykiosk
@@ -568,11 +574,28 @@ public class EmergencyController {
         this.prepareSlideMenuAnimation();
     }
 
+    public void unDisable() {
+        if (!adminPassword.getText().trim().equals("") && !adminUser.getText().trim().equals("")){
+            DisableEmergMode.setDisable(false);
+        } else{
+            DisableEmergMode.setDisable(true);
+        }
+    }
 
 
     public void initialize() {
         Singleton single = Singleton.getInstance();
         single.setLastTime();
+
+        errorLabel.setText(null);
+        DisableEmergMode.setDisable(true);
+        prepareSlideMenuAnimation();
+        FadeTransition fadeTransition = new FadeTransition(Duration.seconds(2), hi);
+        fadeTransition.setFromValue(1);
+        fadeTransition.setToValue(0);
+        fadeTransition.setCycleCount(Animation.INDEFINITE);
+        fadeTransition.setAutoReverse(true);
+        fadeTransition.play();
 
         na = new NodesAccess();
         ea = new EdgesAccess();
@@ -711,7 +734,7 @@ public class EmergencyController {
 
     @FXML
     private void AdminRemoveEmergPress(){
-        errorLabel.setText("");
+        errorLabel.setText(null);
         prepareSlideMenuAnimation();
     }
 
@@ -719,7 +742,7 @@ public class EmergencyController {
     private void prepareSlideMenuAnimation() {
         TranslateTransition openNav = new TranslateTransition(new Duration(300.0D), this.navList);
         openNav.setToX(0.0D);
-        TranslateTransition closeNav = new TranslateTransition(new Duration(5000.0D), this.navList);
+        TranslateTransition closeNav = new TranslateTransition(new Duration(300.0D), this.navList);
         this.AdminRemoveEmerg.setOnAction((evt) -> {
             if (this.navList.getTranslateX() != 130.0D) {
                 openNav.setToX(130);
@@ -731,8 +754,8 @@ public class EmergencyController {
 
         });
 
-        this.AdminRemoveEmerg.setOnAction((evt) -> {
-            if (this.navList.getTranslateX() != 130.0D) {
+        this.menuback.setOnAction((evt) -> {
+            if (this.navList.getTranslateX() != 130.0D ) {
                 openNav.setToX(130);
                 openNav.play();
             } else {
@@ -741,18 +764,8 @@ public class EmergencyController {
             }
 
         });
-        if (this.navList.getTranslateX() != 130.0D) {
-            openNav.setToX(130);
-            openNav.play();
-        } else {
-            closeNav.setToX(-this.navList.getWidth());
-            closeNav.play();
-        }
-
 
     }
-
-
 
     /**
      * @author: Nikhil: General method to set up displaying the path

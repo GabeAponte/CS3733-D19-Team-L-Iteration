@@ -141,7 +141,7 @@
                                           <Font name="Trebuchet MS" size="25.0" />
                                        </font>
                                        <GridPane.margin>
-                                          <Insets bottom="5.0" top="10.0" />
+                                          <Insets bottom="10.0" top="10.0" />
                                        </GridPane.margin>
                                     </Label>
                                     <VBox alignment="CENTER_LEFT" prefHeight="126.0" prefWidth="205.0" GridPane.columnSpan="2147483647" GridPane.halignment="CENTER" GridPane.rowIndex="3" GridPane.valignment="CENTER">
@@ -151,7 +151,7 @@
                                                 <Font name="Trebuchet MS" size="18.0" />
                                              </font>
                                              <VBox.margin>
-                                                <Insets bottom="5.0" />
+                                                <Insets bottom="15.0" />
                                              </VBox.margin>
                                           </JFXRadioButton>
                                           <JFXRadioButton fx:id="cafeRadButton" layoutX="10.0" layoutY="175.0" onAction="#cafeRadButtPressed" style="-jfx-selected-color: #f5d96b; -jfx-unselected-color: WHITE;" styleClass="radio-buttonDJ" text="Main Cafeteria" textFill="WHITE">
@@ -159,7 +159,7 @@
                                                 <Font name="Trebuchet MS" size="18.0" />
                                              </font>
                                              <VBox.margin>
-                                                <Insets bottom="5.0" />
+                                                <Insets bottom="15.0" />
                                              </VBox.margin>
                                           </JFXRadioButton>
                                           <JFXRadioButton fx:id="cuisineRadButton" layoutX="10.0" layoutY="42.0" onAction="#cuisineRadButtPressed" style="-jfx-selected-color: #f5d96b; -jfx-unselected-color: WHITE;" styleClass="radio-buttonDJ" text="Café" textFill="WHITE">
@@ -167,7 +167,7 @@
                                                 <Font name="Trebuchet MS" size="18.0" />
                                              </font>
                                              <VBox.margin>
-                                                <Insets bottom="5.0" />
+                                                <Insets bottom="15.0" />
                                              </VBox.margin>
                                           </JFXRadioButton>
                                           <JFXRadioButton fx:id="vendRadButton" onAction="#vendRadButtPressed" style="-jfx-selected-color: #f5d96b; -jfx-unselected-color: WHITE;" styleClass="radio-buttonDJ" text="Vending Machine" textFill="WHITE">
@@ -175,7 +175,7 @@
                                                 <Font name="Trebuchet MS" size="18.0" />
                                              </font>
                                              <VBox.margin>
-                                                <Insets bottom="5.0" />
+                                                <Insets bottom="15.0" />
                                              </VBox.margin>
                                           </JFXRadioButton>
                                           <JFXRadioButton fx:id="giftRadButton" onAction="#giftRadButtPressed" style="-jfx-selected-color: #f5d96b; -jfx-unselected-color: WHITE;" styleClass="radio-buttonDJ" text="Gift Shop" textFill="WHITE">
@@ -183,7 +183,7 @@
                                                 <Font name="Trebuchet MS" size="18.0" />
                                              </font>
                                              <VBox.margin>
-                                                <Insets bottom="5.0" />
+                                                <Insets bottom="15.0" />
                                              </VBox.margin>
                                           </JFXRadioButton>
                                           <JFXRadioButton fx:id="eleRadButton" onAction="#eleRadButtPressed" style="-jfx-selected-color: #f5d96b; -jfx-unselected-color: WHITE;" styleClass="radio-buttonDJ" text="Elevator" textFill="WHITE">
@@ -191,7 +191,7 @@
                                                 <Font name="Trebuchet MS" size="18.0" />
                                              </font>
                                              <VBox.margin>
-                                                <Insets bottom="5.0" />
+                                                <Insets bottom="15.0" />
                                              </VBox.margin>
                                           </JFXRadioButton>
                                           <JFXRadioButton fx:id="stairsRadButton" onAction="#stairsRadButtPressed" style="-jfx-selected-color: #f5d96b; -jfx-unselected-color: WHITE;" styleClass="radio-buttonDJ" text="Stairs" textFill="WHITE">
@@ -199,7 +199,7 @@
                                                 <Font name="Trebuchet MS" size="18.0" />
                                              </font>
                                              <VBox.margin>
-                                                <Insets bottom="5.0" />
+                                                <Insets bottom="15.0" />
                                              </VBox.margin>
                                           </JFXRadioButton>
                                        </children>
@@ -376,7 +376,7 @@
                         <Insets bottom="20.0" left="10.0" right="70.0" top="10.0" />
                      </GridPane.margin>
                   </JFXComboBox>
-                  <JFXButton buttonType="RAISED" contentDisplay="RIGHT" onAction="#clearStart" prefHeight="32.0" prefWidth="50.0" styleClass="buttonMainNoB" stylesheets="@Default.css" text="Clear" textFill="WHITE" GridPane.columnIndex="1" GridPane.rowIndex="4">
+                  <JFXButton buttonType="RAISED" contentDisplay="RIGHT" onAction="#clearStart" prefHeight="32.0" prefWidth="50.0" style="-fx-border-width: 2;" styleClass="buttonMainNoB" stylesheets="@Default.css" text="Clear" textFill="WHITE" GridPane.columnIndex="1" GridPane.rowIndex="4">
                      <GridPane.margin>
                         <Insets bottom="20.0" left="75.0" top="11.0" />
                      </GridPane.margin>
@@ -384,7 +384,7 @@
                         <Font name="Trebuchet MS" size="10.0" />
                      </font>
                   </JFXButton>
-                  <JFXButton buttonType="RAISED" contentDisplay="RIGHT" onAction="#clearEnd" prefHeight="32.0" prefWidth="50.0" styleClass="buttonMainNoB" text="Clear" textFill="WHITE" GridPane.columnIndex="1" GridPane.rowIndex="5">
+                  <JFXButton buttonType="RAISED" contentDisplay="RIGHT" onAction="#clearEnd" prefHeight="32.0" prefWidth="50.0" style="-fx-border-width: 2;" styleClass="buttonMainNoB" text="Clear" textFill="WHITE" GridPane.columnIndex="1" GridPane.rowIndex="5">
                      <GridPane.margin>
                         <Insets bottom="20.0" left="75.0" top="11.0" />
                      </GridPane.margin>
@@ -392,7 +392,7 @@
                         <Font name="Trebuchet MS" size="10.0" />
                      </font>
                   </JFXButton>
-                  <JFXButton fx:id="menuBack" buttonType="RAISED" contentDisplay="GRAPHIC_ONLY" onAction="#prepareSlideMenuAnimation" prefHeight="35.0" prefWidth="21.0" style="-fx-border-radius: 2; -fx-background-radius: 15; -fx-border-color: WHITE; -fx-border-radius: 10; -fx-border-width: 1.5;" text="back" textFill="WHITE" GridPane.columnIndex="1" GridPane.halignment="RIGHT">
+                  <JFXButton fx:id="menuBack" buttonType="RAISED" contentDisplay="GRAPHIC_ONLY" onAction="#prepareSlideMenuAnimation" prefHeight="35.0" prefWidth="21.0" style="-fx-border-radius: 2; -fx-background-radius: 15; -fx-border-color: WHITE; -fx-border-radius: 10; -fx-border-width: 1.5;" styleClass="buttonBig" stylesheets="@Default.css" text="back" textFill="WHITE" GridPane.columnIndex="1" GridPane.halignment="RIGHT">
                      <font>
                         <Font size="14.0" />
                      </font>
@@ -416,7 +416,7 @@
                         <Insets top="3.0" />
                      </GridPane.margin>
                   </Label>
-                  <JFXButton fx:id="PathFindSubmit" buttonType="RAISED" onAction="#submitPressed" onMouseClicked="#prepareSlideMenuAnimation" prefHeight="61.0" prefWidth="146.0" styleClass="buttonMainNoB" stylesheets="@Default.css" text="Submit" textFill="WHITE" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="7">
+                  <JFXButton fx:id="PathFindSubmit" buttonType="RAISED" onAction="#submitPressed" onMouseClicked="#prepareSlideMenuAnimation" prefHeight="61.0" prefWidth="146.0" style="-fx-border-width: 2;" styleClass="buttonMainNoB" stylesheets="@Default.css" text="Submit" textFill="WHITE" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="7">
                      <font>
                         <Font size="25.0" />
                      </font>
