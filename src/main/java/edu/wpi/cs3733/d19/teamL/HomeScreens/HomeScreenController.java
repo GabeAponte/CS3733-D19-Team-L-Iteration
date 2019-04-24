@@ -101,6 +101,8 @@ public class HomeScreenController {
     @FXML
     AnchorPane ap;
 
+    boolean emergencyActivated = false;
+
     Timeline clock;
     Timeline tweets;
     Boolean isAM = true;
@@ -146,6 +148,18 @@ public class HomeScreenController {
                     single.updateWeather();
 
                     updateWeatherDisplay();
+                }
+                if (single.isEmergency() && !emergencyActivated) {
+                    System.out.println("EMERGENCYNODE EMERGENCY");
+                    emergencyActivated = true;
+                    try {
+                        single.resetEmergency();
+                        ActivateEmergencyMode();
+
+
+                    } catch (IOException e1) {
+                        e1.printStackTrace();
+                    }
                 }
                 long minute = LocalDateTime.now().getMinute();
                 long hour = LocalDateTime.now().getHour();
@@ -297,6 +311,13 @@ public class HomeScreenController {
         } catch (Exception e){
             e.printStackTrace();
         }
+    }
+
+    private void ActivateEmergencyMode() throws IOException {
+        // popup - activate emergency mode?
+        Parent newPage = FXMLLoader.load(getClass().getClassLoader().getResource("EmergencyScreen.fxml"));
+        back.getScene().setRoot(newPage);
+
     }
 
     @FXML
