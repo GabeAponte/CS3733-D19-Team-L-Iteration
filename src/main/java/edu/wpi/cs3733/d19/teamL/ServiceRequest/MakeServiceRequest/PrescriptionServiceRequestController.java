@@ -107,7 +107,7 @@ public class PrescriptionServiceRequestController {
         Parent newPage = FXMLLoader.load(getClass().getClassLoader().getResource(m.getFxml()));
         ((Node) event.getSource()).getScene().setRoot(newPage);
         requestReportAccess ra = new requestReportAccess();
-        ra.addReport(time, "none", "inprogress", "Precription", medicineTypeField.getText(), destinationField.getText());
+        ra.addReport(time, "none", "inprogress", "Prescription", medicineTypeField.getText(), destinationField.getText());
 
     }
 
