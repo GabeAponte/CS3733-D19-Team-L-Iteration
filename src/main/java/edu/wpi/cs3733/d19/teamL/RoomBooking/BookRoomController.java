@@ -205,10 +205,11 @@ public class BookRoomController {
     ArrayList<String> allRooms = new ArrayList<String>();
     ArrayList<Boolean> availRooms = new ArrayList<Boolean>();
     ArrayList<Polygon> flexSpaces = new ArrayList<Polygon>();
+    private Singleton single;
     private ArrayList<RoomDisplay> DisplayRooms = new ArrayList<RoomDisplay>();
 
     public void initialize() {
-        Singleton single = Singleton.getInstance();
+        single = Singleton.getInstance();
 
         double room1[] = {2240, 1640, 2590, 1640, 2590, 1790, 2670, 1790, 2670, 1890, 2240, 1890};
         double room2[] = {2860, 1140, 3060, 1065, 3195, 1440, 2995, 1510};
@@ -236,37 +237,37 @@ public class BookRoomController {
         roomImage.fitHeightProperty().bind(imagePane.heightProperty());
 
         displayFlexSpaces(single.getSimulation());
-        anchorPane.sceneProperty().addListener((observableScene, oldScene, newScene) -> {
-            if (oldScene == null && newScene != null) {
-                // scene is set for the first time. Now its the time to listen stage changes.
-                newScene.windowProperty().addListener((observableWindow, oldWindow, newWindow) -> {
-                    if (oldWindow == null && newWindow != null) {
-                        // stage is set. now is the right time to do whatever we need to the stage in the controller.
-                        ChangeListener<Number> stageSizeListener = (observable, oldValue, newValue) -> {
-                        System.out.println("Screen resized");
-                            for(int i = 0; i < DisplayRooms.size(); i++){
-                                imagePane.getChildren().remove(DisplayRooms.get(i).getPolygon());
-                            }
-
-                            firstTimeRan = true;
-                            timeout.setCycleCount(Timeline.INDEFINITE);
-                            timeout.play();
-                            Platform.runLater(new Runnable(){
-                                @Override
-                                public void run(){
-                                    //displayFlexSpaces();
-                                    fieldsEntered();
-                                }
-                            });
-
-                        };
-
-                        ((Stage) newWindow).widthProperty().addListener(stageSizeListener);
-                        ((Stage) newWindow).heightProperty().addListener(stageSizeListener);
-                    }
-                });
-            }
-        });
+//        anchorPane.sceneProperty().addListener((observableScene, oldScene, newScene) -> {
+//            if (oldScene == null && newScene != null) {
+//                // scene is set for the first time. Now its the time to listen stage changes.
+//                newScene.windowProperty().addListener((observableWindow, oldWindow, newWindow) -> {
+//                    if (oldWindow == null && newWindow != null) {
+//                        // stage is set. now is the right time to do whatever we need to the stage in the controller.
+//                        ChangeListener<Number> stageSizeListener = (observable, oldValue, newValue) -> {
+//                        System.out.println("Screen resized");
+//                            for(int i = 0; i < DisplayRooms.size(); i++){
+//                                imagePane.getChildren().remove(DisplayRooms.get(i).getPolygon());
+//                            }
+//
+//                            firstTimeRan = true;
+//                            timeout.setCycleCount(Timeline.INDEFINITE);
+//                            timeout.play();
+//                            Platform.runLater(new Runnable(){
+//                                @Override
+//                                public void run(){
+//                                    //displayFlexSpaces();
+//                                    fieldsEntered();
+//                                }
+//                            });
+//
+//                        };
+//
+//                        ((Stage) newWindow).widthProperty().addListener(stageSizeListener);
+//                        ((Stage) newWindow).heightProperty().addListener(stageSizeListener);
+//                    }
+//                });
+//            }
+//        });
 
 
         ArrayList<String> events = new ArrayList<String> (Arrays.asList("Meeting", "Party", "Conference", "Reception"));
@@ -339,7 +340,6 @@ public class BookRoomController {
     @FXML
     private void switchToTable(ActionEvent event) throws IOException {
         timeout.stop();
-        Singleton single = Singleton.getInstance();
         single.setLastTime();
         Parent newPage = FXMLLoader.load(getClass().getClassLoader().getResource("BookRoom2.fxml"));
         ((Node) event.getSource()).getScene().setRoot(newPage);
@@ -353,7 +353,6 @@ public class BookRoomController {
      * to book any avaliable rooms
      */
     private void findRoom() {
-        Singleton single = Singleton.getInstance();
         single.setLastTime();
 
         LocalTime startTimeValue = startTime.getValue();
@@ -429,7 +428,6 @@ public class BookRoomController {
     // RA.getAvailRooms returns list of available rooms
     @FXML
     public void fieldsEntered() {
-        Singleton single = Singleton.getInstance();
         single.setLastTime();
         RoomAccess ra = new RoomAccess();
         int startTimeMil = 0;
@@ -721,7 +719,6 @@ public class BookRoomController {
 
     public void switchToWeekly(ActionEvent event) throws IOException {
         timeout.stop();
-        Singleton single = Singleton.getInstance();
         single.setLastTime();
         FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("WeeklySchedule.fxml"));
         Parent sceneMain = loader.load();
@@ -751,7 +748,6 @@ public class BookRoomController {
      */
     @FXML
     private void backPressed(ActionEvent event) throws IOException {
-        Singleton single = Singleton.getInstance();
         timeout.stop();
         single = Singleton.getInstance();
         single.setLastTime();
@@ -1211,7 +1207,6 @@ public class BookRoomController {
     }
 
     public void checkAvailability(String roomName, LocalDate theDate){
-        Singleton single = Singleton.getInstance();
         single.setLastTime();
         weeklySchedule.setRoot(null);
         WeeklyRoot.getChildren().clear();
@@ -1451,6 +1446,22 @@ public class BookRoomController {
         weeklySchedule.setRoot(WeeklyRoot);
         weeklySchedule.setShowRoot(false);
         single.setLastTime();
+    }
+
+    public void loadWithRoomSelected(String roomName){
+        Platform.runLater(new Runnable() {
+            @Override
+            public void run() {
+                fieldsEntered();
+                if(availableRooms.getItems().contains(roomName)) {
+                    availableRooms.getSelectionModel().select(roomName);
+                    openReservation(true);
+                }
+                else{
+                    openEventInfo(true);
+                }
+            }
+        });
     }
 
 }
