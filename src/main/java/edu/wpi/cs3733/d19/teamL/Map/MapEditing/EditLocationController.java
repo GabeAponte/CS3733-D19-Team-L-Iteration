@@ -442,6 +442,7 @@ public class EditLocationController {
                     thisCircle.setCenterX(nodes.get(temp).getXcoord()*childPane.getWidth()/Map.getImage().getWidth());
                     thisCircle.setCenterY(nodes.get(temp).getYcoord()*childPane.getHeight()/Map.getImage().getHeight());
                     thisCircle.setRadius(Math.max(2.0, 2.0f * gesturePane.getCurrentScale()/20));
+                    //Displays the kiosk node as blue.
                     if(nodes.get(temp).getLocID().contains("KIOS")) {
                         thisCircle.setStroke(Color.web("BLUE")); //#f5d96b
                         thisCircle.setFill(Color.web("BLUE"));
