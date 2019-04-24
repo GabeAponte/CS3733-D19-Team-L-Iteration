@@ -901,16 +901,26 @@ public class BookRoomController {
         openNav.setToX(0.0D);
         TranslateTransition closeNav = new TranslateTransition(new Duration(400.0D), this.bookedEventPane);
         if (open == true){
-            eventTitle.setText(data.get(0)[2]);
+            if((data.get(0)[6]).equals("1")){
+                System.out.println("PRIVATE EVENT");
+                eventTitle.setText("Private Event");
+                creatorLabel.setText("Creator: Private");
+                eventTypeLabel.setText("Event type: Private");
+                descriptionLabel.setText("Description: Private");
+                invitedEmployeesLabel.setText("Invited Employees: Private");
+            }else{
+                eventTitle.setText(data.get(0)[2]);
+                creatorLabel.setText("Creator: " + data.get(0)[1]);
+                eventTypeLabel.setText("Event type: " + data.get(0)[4]);
+                descriptionLabel.setText("Description: " + data.get(0)[3]);
+                invitedEmployeesLabel.setText("Invited Employees: " + data.get(0)[5]);
+            }
             roomNameLabel.setText("Room name: " + data.get(0)[0]);
             startTimeLabel.setText("Start date: " + data.get(0)[7].substring(0,10));
             endTimeLabel.setText("End date: " + data.get(0)[8].substring(0,10));
             startDateLabel.setText("Start time: " + data.get(0)[7].substring(11));
             endDateLabel.setText("End time: " + data.get(0)[8].substring(11));
-            creatorLabel.setText("Creator: " + data.get(0)[1]);
-            eventTypeLabel.setText("Event type: " + data.get(0)[4]);
-            descriptionLabel.setText("Description: " + data.get(0)[3]);
-            invitedEmployeesLabel.setText("Invited Employees: " + data.get(0)[5]);
+
             openNav.setToX(-this.anchorPane.getWidth()+this.sizingPane.getLayoutX());
             openNav.play();
             openReservation(false);
