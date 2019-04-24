@@ -50,9 +50,9 @@ public class FulfillRequestController {
     String field;
     @SuppressWarnings("Duplicates")
 
-    Timeline timeout;
 
     public void initialize() {
+
         Singleton single = Singleton.getInstance();
         single.setLastTime();
     }
@@ -61,7 +61,6 @@ public class FulfillRequestController {
      * Returns user to the Active Requests screen when the back button is pressed
      */
     private void backPressed() throws IOException {
-        timeout.stop();
         Stage stage = (Stage) submit.getScene().getWindow();
         stage.close();
     }
@@ -211,7 +210,6 @@ public class FulfillRequestController {
      * is updated in the database
      */
     private void SwitchToAdminServiceRequestTable() throws IOException {
-        timeout.stop();
         Singleton single = Singleton.getInstance();
         single.setLastTime();
         FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("ActiveServiceRequests.fxml"));
