@@ -10,7 +10,7 @@ import edu.wpi.cs3733.d19.teamL.Account.EmployeeAccess;
 import edu.wpi.cs3733.d19.teamL.Map.Pathfinding.PathFindingController;
 import edu.wpi.cs3733.d19.teamL.Memento;
 import edu.wpi.cs3733.d19.teamL.Reports.ReportThread;
-import edu.wpi.cs3733.d19.teamL.SearchingAlgorithms.PathfindingStrategy;
+import edu.wpi.cs3733.d19.teamL.SearchingAlgorithms.*;
 import edu.wpi.cs3733.d19.teamL.Singleton;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
@@ -91,6 +91,11 @@ public class AdminLoggedInHomeController {
     @FXML
     private ComboBox<PathfindingStrategy> strategySelector;
 
+    TemplatePathFinder aStarStrategy;
+    TemplatePathFinder dijkstraStrategy;
+    PathfindingStrategy depth;
+    PathfindingStrategy breadth;
+
 
     @FXML
     private JFXTextField timeoutTime;
@@ -100,6 +105,18 @@ public class AdminLoggedInHomeController {
         Singleton single = Singleton.getInstance();
         single.setLastTime();
         settingPressed();
+        ObservableList strategiesDropDown = FXCollections.observableArrayList();
+        aStarStrategy = new AStarStrategy(single.lookup);
+        dijkstraStrategy = new DijkstraStrategy(single.lookup);
+        depth = new DepthFirstStrategy(single.lookup);
+        breadth = new BreadthFirstStrategy(single.lookup);
+        strategiesDropDown.add(aStarStrategy);
+        strategiesDropDown.add(dijkstraStrategy);
+        strategiesDropDown.add(depth);
+        strategiesDropDown.add(breadth);
+        strategySelector.setItems(strategiesDropDown);
+        strategySelector.setValue(single.getTypePathfind());
+        timeoutTime.setText(Integer.toString(single.getTimeoutSec()));
         timeout = new Timeline(new KeyFrame(Duration.seconds(2), new EventHandler<ActionEvent>() {
 
             @Override
