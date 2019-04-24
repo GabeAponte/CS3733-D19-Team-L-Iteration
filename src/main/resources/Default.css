@@ -663,8 +663,8 @@
     -fx-text-fill: white;
     -fx-prompt-text-fill: white;
     -jfx-focus-color: #012d5a;
-    -jfx-unfocus-color: white;
-    -jfx-default-color: white;
+    -jfx-unfocus-color: #f5d96b;
+    -jfx-default-color: #f5d96b;
 }
 
 .jfx-date-picker .text-field{
@@ -673,7 +673,7 @@
     -fx-text-fill: white;
     -fx-prompt-text-fill: white;
     -jfx-focus-color: #f5d96b;
-    -jfx-unfocus-color: white;
+    -jfx-unfocus-color: #f5d96b;
     -jfx-default-color: #f5d96b;
 }
 .jfx-date-picker .input-line {
