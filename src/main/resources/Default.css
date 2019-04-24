@@ -258,6 +258,7 @@
 
 .prompt-text-text-field{
     -fx-prompt-text-fill: white;
+    -fx-text-fill: white;
 }
 
 .jfx-tree-table-view {
@@ -538,7 +539,7 @@
 }
 
 .jfx-combo-box-PathMenu2 {
-    -fx-font-size : 12 pt;
+    -fx-font-size : 12pt;
     -fx-text-fill : white;
     -jfx-focus-color: #f5d96b;
     -jfx-unfocus-color: white;
