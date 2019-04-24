@@ -335,7 +335,7 @@
                                                 </JFXButton>
                                             </children>
                                         </VBox>
-                                        <JFXTreeTableView fx:id="weeklySchedule" styleClass="jfx-tree-table-view" stylesheets="@Default.css" GridPane.columnSpan="3" GridPane.rowIndex="1" GridPane.rowSpan="4">
+                                        <JFXTreeTableView fx:id="weeklySchedule" maxWidth="-Infinity" prefWidth="1000.0" styleClass="jfx-tree-table-view" stylesheets="@Default.css" GridPane.columnSpan="3" GridPane.halignment="CENTER" GridPane.hgrow="NEVER" GridPane.rowIndex="1" GridPane.rowSpan="4">
                                             <columns>
                                                 <TreeTableColumn fx:id="weeklyTimeCol" minWidth="200.0" prefWidth="200.0" text="Time" />
                                                 <TreeTableColumn fx:id="sunCol" editable="false" minWidth="120.0" prefWidth="130.0" sortable="false" text="Sunday" />
