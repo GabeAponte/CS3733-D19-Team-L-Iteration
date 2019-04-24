@@ -886,7 +886,7 @@ public class BookRoomController {
             openEventInfo(false, null);
             //System.out.println("ResShowing = true");
         } else {
-            closeNav.setToX(this.anchorPane.getWidth()+this.reservationPane.getWidth());
+            closeNav.setToX(this.reservationPane.getWidth());
             closeNav.play();
             resShowing = false;
             //System.out.println("ResShowing = false");
