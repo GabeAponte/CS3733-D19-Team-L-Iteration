@@ -92,8 +92,24 @@ public class BookRoomController {
 
     private TreeItem WeeklyRoot = new TreeItem("rootxxx");
 
-    String chosenRoom;
-    LocalDate chosenDate;
+    @FXML
+    private Label roomNameLabel;
+    @FXML
+    private Label startTimeLabel;
+    @FXML
+    private Label endTimeLabel;
+    @FXML
+    private Label startDateLabel;
+    @FXML
+    private Label endDateLabel;
+    @FXML
+    private Label creatorLabel;
+    @FXML
+    private Label eventTypeLabel;
+    @FXML
+    private Label descriptionLabel;
+    @FXML
+    private Label invitedEmployeesLabel;
 
     //Daily Schedule Stuff --------------------------------------------------------------------------------------------
 
@@ -460,8 +476,8 @@ public class BookRoomController {
             error.setText("Room booked.");
             String date = datePicker.getValue().toString();
             String endDate = endDatePicker.getValue().toString();
-            date += "T" + startTime.getValue().getHour() + ":" + startTime.getValue().getMinute() + ":00";
-            endDate += "T" + endTime.getValue().getHour() + ":" + endTime.getValue().getMinute() + ":00";
+            date += "T" + String.format("%2d", startTime.getValue().getHour()) + ":" + String.format("%2d", startTime.getValue().getMinute()) + ":00";
+            endDate += "T" + String.format("%2d", endTime.getValue().getHour()) + ":" + String.format("%2d", endTime.getValue().getMinute()) + ":00";
             String roomName = availableRooms.getValue().toString();
             EmployeeAccess ea = new EmployeeAccess();
             String employeeID = ea.getEmployeeInformation(single.getUsername()).get(0);
@@ -603,7 +619,7 @@ public class BookRoomController {
                             openEventInfo(false, null);
                         }else{
                             String temp = "";
-                            openEventInfo(true, temp);
+                            openEventInfo(true, DisplayRooms.get(k).getRoomName());
                         }
                     }
                     DisplayRooms.get(k).changePolygonColor("BLUE");
@@ -862,10 +878,27 @@ public class BookRoomController {
      */
     private void openEventInfo(boolean open, String roomName) {  //Pass in the room name as a parameter here
 
+        String date = datePicker.getValue().toString();
+        String endDate = endDatePicker.getValue().toString();
+        date += "T" + String.format("%2d", startTime.getValue().getHour()) + ":" + String.format("%2d", startTime.getValue().getMinute()) + ":00";
+        endDate += "T" + String.format("%2d", endTime.getValue().getHour()) + ":" + String.format("%2d", endTime.getValue().getMinute()) + ":00";
+        RoomAccess ra = new RoomAccess();
+
+        ArrayList<String[]> data = ra.getReservations(date, endDate, roomName);
+
         TranslateTransition openNav = new TranslateTransition(new Duration(400.0D), this.bookedEventPane);
         openNav.setToX(0.0D);
         TranslateTransition closeNav = new TranslateTransition(new Duration(400.0D), this.bookedEventPane);
         if (open == true){
+            roomNameLabel.setText("Room name: " + data.get(0)[0]);
+            startTimeLabel.setText("Start time: " + data.get(0)[7].substring(0,10));
+            endTimeLabel.setText("End time: " + data.get(0)[8].substring(0,10));
+            startDateLabel.setText("Start date: " + data.get(0)[7].substring(11));
+            endDateLabel.setText("End date: " + data.get(0)[8].substring(11));
+            creatorLabel.setText("Creator: " + data.get(0)[1]);
+            eventTypeLabel.setText("Event type: " + data.get(0)[4]);
+            descriptionLabel.setText("Description: " + data.get(0)[3]);
+            invitedEmployeesLabel.setText("Invited Employees: " + data.get(0)[5]);
             openNav.setToX(-this.anchorPane.getWidth()+this.sizingPane.getLayoutX());
             openNav.play();
             openReservation(false);
@@ -1504,7 +1537,7 @@ public class BookRoomController {
                     openReservation(true);
                 }
                 else{
-                    openEventInfo(true, null);
+                    openEventInfo(true, roomName);
                 }
             }
         });
