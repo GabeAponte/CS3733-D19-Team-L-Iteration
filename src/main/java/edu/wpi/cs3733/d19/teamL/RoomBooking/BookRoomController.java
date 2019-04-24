@@ -939,9 +939,9 @@ public class BookRoomController {
                 flexSpaces.get(i).setFill(Color.web("TURQUOISE"));
                 flexSpaces.get(i).setOpacity(0.5);
             }else{
-                flexSpaces.get(i).setStroke(Color.web("RED"));
-                flexSpaces.get(i).setFill(Color.web("RED"));
-                flexSpaces.get(i).setOpacity(0.3);
+                flexSpaces.get(i).setStroke(Color.web("ORANGERED"));
+                flexSpaces.get(i).setFill(Color.web("ORANGERED"));
+                flexSpaces.get(i).setOpacity(0.5);
             }
             imagePane.getChildren().add(flexSpaces.get(i));
         }
@@ -953,9 +953,9 @@ public class BookRoomController {
         }
         else {
             //System.out.println("Set R");
-            flexSpaces.get(0).setStroke(Color.web("RED"));
-            flexSpaces.get(0).setFill(Color.web("RED"));
-            flexSpaces.get(0).setOpacity(0.3);
+            flexSpaces.get(0).setStroke(Color.web("ORANGERED"));
+            flexSpaces.get(0).setFill(Color.web("ORANGERED"));
+            flexSpaces.get(0).setOpacity(0.5);
         }
         imagePane.getChildren().add(flexSpaces.get(0));
     }
