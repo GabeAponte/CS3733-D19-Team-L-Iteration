@@ -45,7 +45,7 @@ public class MaintenanceAccess extends DBAccess {
             pstmt.setString(3, location);
             pstmt.setInt(4, Integer.parseInt(tdf.format(date.getTime())));
             pstmt.setString(5, sdf.format(date));
-            pstmt.setString(6, reportTime);
+            pstmt.setString(7, reportTime);
             if(isHazard.equals("true")) {
                 pstmt.setBoolean(6, true);
             }else {
