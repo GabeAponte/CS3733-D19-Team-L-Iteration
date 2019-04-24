@@ -171,7 +171,7 @@
                                           <Font name="Trebuchet MS" size="20.0" />
                                        </font>
                                        <VBox.margin>
-                                          <Insets left="50.0" right="50.0" />
+                                          <Insets bottom="10.0" left="50.0" right="50.0" />
                                        </VBox.margin>
                                     </JFXTextField>
                                  </children>
@@ -183,7 +183,7 @@
                                           <Font name="Trebuchet MS" size="20.0" />
                                        </font>
                                        <VBox.margin>
-                                          <Insets left="50.0" right="50.0" />
+                                          <Insets bottom="10.0" left="50.0" right="50.0" />
                                        </VBox.margin>
                                     </JFXTextField>
                                  </children>
@@ -194,9 +194,9 @@
                                        <font>
                                           <Font name="Trebuchet MS" size="20.0" />
                                        </font>
-                                       <padding>
-                                          <Insets left="50.0" right="50.0" />
-                                       </padding>
+                                       <VBox.margin>
+                                          <Insets bottom="10.0" left="50.0" right="50.0" />
+                                       </VBox.margin>
                                     </JFXTextField>
                                  </children>
                               </VBox>
