@@ -338,13 +338,13 @@
                                         <JFXTreeTableView fx:id="weeklySchedule" styleClass="jfx-tree-table-view" stylesheets="@Default.css" GridPane.columnSpan="3" GridPane.rowIndex="1" GridPane.rowSpan="4">
                                             <columns>
                                                 <TreeTableColumn fx:id="weeklyTimeCol" minWidth="200.0" prefWidth="200.0" text="Time" />
-                                                <TreeTableColumn fx:id="sunCol" editable="false" minWidth="120.0" prefWidth="130.0" sortable="false" text="Sunday" />
-                                                <TreeTableColumn fx:id="monCol" editable="false" minWidth="120.0" prefWidth="130.0" sortable="false" text="Monday" />
-                                                <TreeTableColumn fx:id="tueCol" editable="false" minWidth="120.0" prefWidth="130.0" sortable="false" text="Tuesday" />
-                                                <TreeTableColumn fx:id="wedCol" editable="false" minWidth="120.0" prefWidth="130.0" sortable="false" text="Wednesday" />
-                                                <TreeTableColumn fx:id="thuCol" editable="false" minWidth="120.0" prefWidth="130.0" sortable="false" text="Thursday" />
-                                                <TreeTableColumn fx:id="friCol" editable="false" minWidth="120.0" prefWidth="130.0" sortable="false" text="Friday" />
-                                                <TreeTableColumn fx:id="satCol" editable="false" minWidth="120.0" prefWidth="130.0" sortable="false" text="Saturday" />
+                                                <TreeTableColumn fx:id="sunCol" editable="false" minWidth="120.0" prefWidth="150.0" sortable="false" text="Sunday" />
+                                                <TreeTableColumn fx:id="monCol" editable="false" minWidth="120.0" prefWidth="150.0" sortable="false" text="Monday" />
+                                                <TreeTableColumn fx:id="tueCol" editable="false" minWidth="120.0" prefWidth="150.0" sortable="false" text="Tuesday" />
+                                                <TreeTableColumn fx:id="wedCol" editable="false" minWidth="120.0" prefWidth="150.0" sortable="false" text="Wednesday" />
+                                                <TreeTableColumn fx:id="thuCol" editable="false" minWidth="120.0" prefWidth="150.0" sortable="false" text="Thursday" />
+                                                <TreeTableColumn fx:id="friCol" editable="false" minWidth="120.0" prefWidth="150.0" sortable="false" text="Friday" />
+                                                <TreeTableColumn fx:id="satCol" editable="false" minWidth="120.0" prefWidth="150.0" sortable="false" text="Saturday" />
                                             </columns>
                                             <GridPane.margin>
                                                 <Insets left="30.0" />
