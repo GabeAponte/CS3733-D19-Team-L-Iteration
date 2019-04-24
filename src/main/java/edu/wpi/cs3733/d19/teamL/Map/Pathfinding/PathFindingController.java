@@ -427,7 +427,7 @@ public class PathFindingController {
             }
 
             if (currentMap.equals("4")) {
-                thisMap.setText("Flexible Workspace");
+                thisMap.setText("Floor 4");
             }
         }
         @FXML
