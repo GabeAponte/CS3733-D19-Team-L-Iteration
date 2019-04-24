@@ -838,13 +838,13 @@ public class BookRoomController {
             imagePane.getChildren().add(flexSpaces.get(i));
         }
         if (single.isFree()) {
-            System.out.println("Set T");
+            //System.out.println("Set T");
             flexSpaces.get(0).setStroke(Color.web("TURQUOISE"));
             flexSpaces.get(0).setFill(Color.web("TURQUOISE"));
             flexSpaces.get(0).setOpacity(0.5);
         }
         else {
-            System.out.println("Set R");
+            //System.out.println("Set R");
             flexSpaces.get(0).setStroke(Color.web("RED"));
             flexSpaces.get(0).setFill(Color.web("RED"));
             flexSpaces.get(0).setOpacity(0.3);
