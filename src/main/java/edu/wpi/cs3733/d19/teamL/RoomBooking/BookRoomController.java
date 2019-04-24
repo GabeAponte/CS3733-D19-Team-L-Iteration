@@ -159,6 +159,12 @@ public class BookRoomController {
     private JFXButton requestRoom;
 
     @FXML
+    private JFXButton orderGifts;
+
+    @FXML
+    private JFXButton orderFood;
+
+    @FXML
     private JFXTimePicker startTime;
 
     @FXML
@@ -860,6 +866,12 @@ public class BookRoomController {
             resShowing = false;
             //System.out.println("ResShowing = false");
         }
+    }
+
+    private void callServiceRequests() {
+        orderFood.setOnAction((evt) -> {
+
+        });
     }
 
     /** @author Isabella
