@@ -468,6 +468,7 @@ public class BookRoomController {
             roomReq.makeReservation(ra.getRoomID(roomName), employeeID, date, endDate, eventNameString, eventDescriptionString, listOfGuests, eventTypeString, eventIsPrivate);
             //add event name, event description, event type, guestList (String), privacy (boolean)
             openReservation(false);
+            openEventInfo(true, null);
             fieldsEntered();
         }
     }
@@ -515,6 +516,16 @@ public class BookRoomController {
                         break;
                     }
                 }
+            }
+
+            eventName.clear();
+            eventDescription.clear();
+            eventType.getSelectionModel().clearSelection();
+            privateEvent.setSelected(false);
+            EmployeeAccess ea = new EmployeeAccess();
+            ArrayList<ArrayList<String>> emps = ea.getEmployees("","");
+            for(int i = 0; i < emps.size(); i++) {
+                eventEmployees.getCheckModel().clearCheck(i);
             }
 
             availableRooms.setItems(listOfRooms);
