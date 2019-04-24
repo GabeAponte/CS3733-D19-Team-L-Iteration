@@ -175,17 +175,14 @@ public class EmergencyController {
             single.setLoggedIn(true);
             single.setUsername(uname);
             single.setIsAdmin(false);
-            if(ea.getEmployeeInformation(uname).get(2).equals("true")){
+            if(ea.getEmployeeInformation(uname).get(2).equals("true")) {
                 single.setIsAdmin(true);
                 Parent newPage = FXMLLoader.load(getClass().getClassLoader().getResource("HospitalPathFinding.fxml"));
                 ((Node) event.getSource()).getScene().setRoot(newPage);
             }
-            //do not do anything unless admin logs in correctly
-            //SwitchToSignedIn("EmployeeLoggedInHome.fxml");
-        } else {
-            displayError();
         }
 
+        displayError();
         //switch scenes to normal pathfind
     }
 
@@ -251,7 +248,7 @@ public class EmergencyController {
         }
         //if there are no nodes, fill with all exits on differnet floors
         if(nodes.isEmpty()){
-            System.out.println("nodes are empty???");
+            //System.out.println("nodes are empty???");
 
             for(int i=0; i<single.getData().size(); i++) {
                 //if nodetype contains keyword
@@ -324,10 +321,11 @@ public class EmergencyController {
 
             //set the closest location label here!
             LongNameOfExit.setText(closestLOC.getLongName());
-
-            displayPath();
             //printPath(path.getPath());
             direction.setText(printPath(path.getPath()));
+
+            displayPath();
+
 
         }
 
@@ -346,15 +344,20 @@ public class EmergencyController {
         //DISPLAYS ALL EXITS HERE
         displayExits();
 
+        //direction.setText("whaaaaaaaaaaaaHECK");
+
         //FINDS CLOSEST EXIT
         findClosestExit();
         //also sets the direction setTetxt stuff
         //sets the path
 
+
         if(path != null  &&  currentMap.equals(kioskTemp.getFloor())) {
             displayingPath = true;
             displayPath();
         }
+
+
         gotoKioskFloor();
         displayExits();
 
@@ -366,7 +369,7 @@ public class EmergencyController {
 
     private void gotoKioskFloor(){
         checkAndSetKiosk();
-
+        displayKiosk();
         //set current floor to the kiosk floor
         currentMap = kioskTemp.getFloor();
         changeMapLabel();
@@ -384,7 +387,7 @@ public class EmergencyController {
             clicked3();
         }
 
-        displayKiosk();
+
 
     }
 
@@ -403,13 +406,13 @@ public class EmergencyController {
         cleanMap();
         if(kioskTemp.getFloor().equals(currentMap)){
             displayKiosk();
+        }else{
+            gesturePane.reset();
+            //direction.clear();
         }
         if(path != null){
             displayingPath = true;
             displayPath();
-        }else{
-            gesturePane.reset();
-            direction.clear();
         }
         displayExits();
 
@@ -422,13 +425,13 @@ public class EmergencyController {
         cleanMap();
         if(kioskTemp.getFloor().equals(currentMap)){
             displayKiosk();
+        }else{
+            gesturePane.reset();
+            //direction.clear();
         }
         if(path != null){
             displayingPath = true;
             displayPath();
-        }else{
-            gesturePane.reset();
-            direction.clear();
         }
         displayExits();
 
@@ -441,13 +444,13 @@ public class EmergencyController {
         cleanMap();
         if(kioskTemp.getFloor().equals(currentMap)){
             displayKiosk();
+        }else{
+            gesturePane.reset();
+            //direction.clear();
         }
         if(path != null){
             displayingPath = true;
             displayPath();
-        }else{
-            gesturePane.reset();
-            direction.clear();
         }
         displayExits();
 
@@ -460,13 +463,13 @@ public class EmergencyController {
         cleanMap();
         if(kioskTemp.getFloor().equals(currentMap)){
             displayKiosk();
+        }else{
+            gesturePane.reset();
+            //direction.clear();
         }
         if(path != null){
             displayingPath = true;
             displayPath();
-        }else{
-            gesturePane.reset();
-            direction.clear();
         }
         displayExits();
 
@@ -479,13 +482,13 @@ public class EmergencyController {
         cleanMap();
         if(kioskTemp.getFloor().equals(currentMap)){
             displayKiosk();
+        }else{
+            gesturePane.reset();
+            //direction.clear();
         }
         if(path != null){
             displayingPath = true;
             displayPath();
-        }else{
-            gesturePane.reset();
-            direction.clear();
         }
         displayExits();
 
@@ -494,17 +497,18 @@ public class EmergencyController {
     private void clicked3(){
         Map.setImage(new Image("/SoftEng_UI_Mockup_Pics/03_thethirdfloor.png"));
         currentMap = "3";
+
         changeMapLabel();
         cleanMap();
         if(kioskTemp.getFloor().equals(currentMap)){
             displayKiosk();
+        }else{
+            gesturePane.reset();
+            //direction.clear();
         }
         if(path != null){
             displayingPath = true;
             displayPath();
-        }else{
-            gesturePane.reset();
-            direction.clear();
         }
         displayExits();
 
@@ -754,12 +758,15 @@ public class EmergencyController {
      * @author: Nikhil: General method to set up displaying the path
      */
     public void displayPath(){
-        single.setLastTime();
+        //single.setLastTime();
+
+        //System.out.println("begin displaying path");
 
         //Add an arraylist to keep track of what floors you are visiting
         ArrayList<String> floorsVisited = new ArrayList<>();
 
         if(displayingPath) {
+            //System.out.println("displayingpath is true");
             path.getPath().add(0,startNode);
             start = 0;
             counter = 0;
@@ -781,6 +788,7 @@ public class EmergencyController {
             }
             floorsVisited.add(path.getPath().get(path.getPath().size()-1).getFloor());
             if(floorsVisited.contains(currentMap)) {
+                //System.out.println("going to displayselected");
                 displaySelected(0, floorSwitch);
             }
             makeButtons(floorsVisited);
@@ -924,6 +932,7 @@ public class EmergencyController {
      */
     private void displaySelected(int begin, int count) {
 
+        //System.out.println("made it to displayselected");
         //Clears everything before displaying, needs to be different from clear() because we need the buttons
         for (Circle c : circles) {
             pathPane.getChildren().remove(c);
@@ -980,7 +989,7 @@ public class EmergencyController {
             changeMapLabel();
         }
 
-
+        //System.out.println("making the objects now");
         //Create all necessary objects for animating path.
         Circle dude  = new Circle();
         dude.setCenterX(path.getPath().get(begin).getXcoord()*childPane.getWidth()/Map.getImage().getWidth());
@@ -1002,7 +1011,7 @@ public class EmergencyController {
             line.setEndX(path.getPath().get(i+1).getXcoord()*childPane.getWidth()/Map.getImage().getWidth());
             line.setEndY(path.getPath().get(i+1).getYcoord()*childPane.getHeight()/Map.getImage().getHeight());
             line.setStrokeWidth(2.5);
-            line.setStroke(DODGERBLUE);
+            line.setStroke(RED);
             lines.add(line);
             pathPane.getChildren().add(line);
 
@@ -1081,8 +1090,8 @@ public class EmergencyController {
         circles.add(endCircle);
         pathPane.getChildren().add(startCircle);
         pathPane.getChildren().add(endCircle);
-        pathPane.getChildren().add(startLabel);
-        pathPane.getChildren().add(endLabel);
+        //pathPane.getChildren().add(startLabel);
+        //pathPane.getChildren().add(endLabel);
         //Displays the node that travels
         pathPane.getChildren().add(dude);
 
@@ -1094,6 +1103,8 @@ public class EmergencyController {
         travel.setCycleCount(Animation.INDEFINITE);
         travel.setAutoReverse(false);
         travel.play();
+
+        //System.out.println("before autozoom");
 
         //Auto-zooms the screen
         autoZoom(path.getPath().get(begin), path.getPath().get(count));
@@ -1121,6 +1132,7 @@ public class EmergencyController {
         direction.setDisable(false);
         direction.setEditable(false);
 
+        //System.out.println("end of displayselected");
     }
 
     /**
