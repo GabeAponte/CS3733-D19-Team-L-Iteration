@@ -54,7 +54,7 @@ public class InternalTransportController {
 
     @FXML
     JFXButton back;
-    
+
     @FXML
     private Button logOut;
 
