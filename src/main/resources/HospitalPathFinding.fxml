@@ -314,7 +314,7 @@
                               <Insets bottom="100.0" right="15.0" top="100.0" />
                            </GridPane.margin>
                         </JFXSlider>
-                        <Label fx:id="thisMap" alignment="CENTER" contentDisplay="CENTER" prefHeight="0.0" prefWidth="191.0" styleClass="labelMapFloor" stylesheets="@Default.css" text="Lower Level 1" textFill="#507090" GridPane.halignment="CENTER" GridPane.valignment="TOP">
+                        <Label fx:id="thisMap" alignment="CENTER" contentDisplay="CENTER" prefHeight="30.0" prefWidth="178.0" styleClass="labelMapFloor" stylesheets="@Default.css" text="Lower Level 1" textAlignment="CENTER" textFill="#507090" GridPane.halignment="CENTER" GridPane.valignment="TOP">
                            <GridPane.margin>
                               <Insets top="28.0" />
                            </GridPane.margin>
@@ -336,7 +336,8 @@
       </VBox>
       <AnchorPane fx:id="navList" layoutX="-62.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="470.0" prefWidth="300.0" style="-fx-background-radius: 20; -fx-border-color: F5D96B; -fx-border-radius: 15; -fx-border-width: 3;" styleClass="AnchorPainMain" stylesheets="@Default.css" translateX="-180" AnchorPane.leftAnchor="-122.0" AnchorPane.topAnchor="120.0">
          <children>
-            <GridPane alignment="CENTER" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <VBox layoutX="6.0" layoutY="6.0" prefHeight="461.0" prefWidth="127.0" styleClass="vboxlogo" stylesheets="@Default.css" AnchorPane.bottomAnchor="3.0" AnchorPane.leftAnchor="3.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="3.0" />
+            <GridPane alignment="CENTER" layoutX="6.0" prefHeight="470.0" prefWidth="294.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                <columnConstraints>
                   <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                   <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -352,7 +353,7 @@
                   <RowConstraints vgrow="NEVER" />
                </rowConstraints>
                <children>
-                  <JFXTextField fx:id="searchField" onAction="#submitSearchField" onInputMethodTextChanged="#submitSearchField" onMouseClicked="#submitSearchField" prefHeight="30.0" prefWidth="274.0" promptText="Search" styleClass="jfx-text-field-normal" stylesheets="@Default.css" unFocusColor="#d33636" GridPane.columnSpan="2147483647" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER">
+                  <JFXTextField fx:id="searchField" onAction="#submitSearchField" onInputMethodTextChanged="#submitSearchField" onMouseClicked="#submitSearchField" prefHeight="30.0" prefWidth="274.0" promptText="Search" styleClass="jfx-text-field-popup" stylesheets="@Default.css" unFocusColor="#d33636" GridPane.columnSpan="2147483647" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER">
                      <GridPane.margin>
                         <Insets bottom="20.0" left="10.0" right="10.0" top="20.0" />
                      </GridPane.margin>

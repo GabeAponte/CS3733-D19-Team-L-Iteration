@@ -17,6 +17,12 @@
     -fx-opacity: .17;
 }
 
+.vboxlogo {
+    -fx-background-image: url("SoftEng_UI_Mockup_Pics/popup.jpg");
+    -fx-background-size: cover;
+    -fx-opacity: .20;
+}
+
 .buttonMain{
     -fx-background-color: white;
     -fx-border-color: #012d5a;
@@ -319,6 +325,13 @@
     -fx-text-fill: #012d5a;
     -jfx-focus-color: #012d5a;
     -jfx-unfocus-color: #012d5a;
+}
+
+.jfx-text-field-popup {
+    -fx-prompt-text-fill: white;
+    -fx-text-fill: white;
+    -jfx-focus-color: white;
+    -jfx-unfocus-color: white;
 }
 
 .jfx-text-field-servicerequest {
