@@ -780,7 +780,6 @@ public class PathFindingController {
             p.addReport(Long.toString(System.currentTimeMillis()), startNode.getLongName(), endNode.getLongName(), typeSelected);
             if (typeSelected.equals("search")) {
                 typeSelected = "selected"; //only way to reset properly
-                System.out.println("sick");
             }
         }
 
