@@ -190,38 +190,15 @@ public class EmployeeLoggedInHomeController {
             //THE VIEW SIZE WILL PROBABLY CHANGE DEPENDING ON THE COMPUTER
             //IMAGE COMPARISON WILL FAIL IMMEDIATELY IF SIZE CHANGES
             webcam.setViewSize(WebcamResolution.VGA.getSize());
-            WebcamPanel wp = new WebcamPanel(webcam);
-            wp.setFPSDisplayed(true);
-            wp.setDisplayDebugInfo(true);
-            wp.setImageSizeDisplayed(true);
-            wp.setMirrored(true);
-            JFrame window = new JFrame("Hold still for 3 seconds");
-            window.add(wp);
-            window.setResizable(true);
-            window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-            window.pack();
-            window.setLocationRelativeTo(null);
-            window.setVisible(true);
-            try {
-                sleep(2500);
-            } catch (InterruptedException e) {
-                System.out.println(e);
-                System.out.println(e.getMessage());
-            }
-            wp.stop();
-            webcam.close();
-            window.dispose();
-
             webcam.open();
             BufferedImage image = webcam.getImage();
-            ImageIO.write(image, "JPG", new File("TempOutput.jpg"));
+            ImageIO.write(image, "JPG", new File("EMode.jpg"));
             webcam.close();
 
 
         } catch (Exception e){
             e.printStackTrace();
         }
-
 
         //when press ok, store pic in database
         Optional<ButtonType> result = alert.showAndWait();
