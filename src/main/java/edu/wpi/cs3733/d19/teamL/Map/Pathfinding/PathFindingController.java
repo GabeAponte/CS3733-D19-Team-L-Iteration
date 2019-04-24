@@ -384,6 +384,7 @@ public class PathFindingController {
             displayBookableRooms();
         }
         gesturePane.reset();
+        gesturePane.zoomTo(4.0, new Point2D(4375*childPane.getWidth()/Map.getImage().getWidth(), 2260*childPane.getHeight()/Map.getImage().getHeight()));
         clear();
         direction.clear();
     }
