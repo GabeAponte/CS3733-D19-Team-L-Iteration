@@ -9,6 +9,7 @@ package edu.wpi.cs3733.d19.teamL;
  */
 
 import edu.wpi.cs3733.d19.teamL.API.Weather;
+import edu.wpi.cs3733.d19.teamL.Connectivity.Esp_Server;
 import edu.wpi.cs3733.d19.teamL.Map.MapLocations.Edge;
 import edu.wpi.cs3733.d19.teamL.Map.MapLocations.Location;
 import edu.wpi.cs3733.d19.teamL.Map.Pathfinding.EdgesAccess;
@@ -43,6 +44,7 @@ public class Singleton {
     private static long startTime;
     private static CareTaker ct;
     private static VisualSimulationThread sim;
+    private static Esp_Server esp;
 
     private ObservableList<Location> data = FXCollections.observableArrayList();
     public HashMap<String, Location> lookup = new HashMap<String, Location>();
@@ -73,6 +75,13 @@ public class Singleton {
         ct = new CareTaker();
         sim = new VisualSimulationThread(86);
         sim.start();
+        esp = new Esp_Server();
+        esp.start();
+    }
+
+    public static boolean isFree() {
+        System.out.println("SINGLETON: " + esp.getFree());
+        return esp.getFree();
     }
 
     public static ArrayList<Boolean> getSimulation(){
