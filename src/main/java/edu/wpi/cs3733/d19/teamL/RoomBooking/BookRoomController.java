@@ -346,6 +346,7 @@ public class BookRoomController {
                 reservationPane.setLayoutX(anchorPane.getWidth());
                 bookedEventPane.setMinSize(width, height);
                 bookedEventPane.setPrefSize(width, height);
+                bookedEventPane.setLayoutX(anchorPane.getWidth());
                 fieldsEntered();
             }
         });
@@ -865,12 +866,12 @@ public class BookRoomController {
         openNav.setToX(0.0D);
         TranslateTransition closeNav = new TranslateTransition(new Duration(400.0D), this.bookedEventPane);
         if (open == true){
-            openNav.setToX(-570.0D-this.bookedEventPane.getWidth());
+            openNav.setToX(-this.anchorPane.getWidth()+this.sizingPane.getLayoutX());
             openNav.play();
             openReservation(false);
             bookedEventShowing = true;
         } else {
-            closeNav.setToX(570+this.anchorPane.getWidth()+this.reservationPane.getWidth());
+            closeNav.setToX(-this.anchorPane.getWidth()+this.reservationPane.getWidth()+sizingPane.getLayoutX()+sizingPane.getWidth());
             closeNav.play();
             bookedEventShowing = false;
         }
