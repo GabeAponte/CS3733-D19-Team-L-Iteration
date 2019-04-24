@@ -50,6 +50,9 @@ import org.w3c.dom.Text;
 
 public class BookRoomController {
 
+    @FXML
+    private TabPane tabPane;
+
     //Weekly Schedule Stuff ------------------------------------------------------------------------------------------
 
     @FXML
@@ -568,6 +571,7 @@ public class BookRoomController {
             for (int i = 0; i < DisplayRooms.size(); i++) {
                 DisplayRooms.get(i).makePolygon(scaleRatio);
                 DisplayRooms.get(i).getPolygon().setOnMouseClicked(onMouseClickedEventHandler);
+                //DisplayRooms.get(i).getPolygon().setOnMouseClicked(mouseRightClicked);
                 DisplayRooms.get(i).getPolygon().setVisible(false);
                 imagePane.getChildren().add(DisplayRooms.get(i).getPolygon());
             }
@@ -589,57 +593,78 @@ public class BookRoomController {
 
         @Override
         public void handle(MouseEvent event) {
-            boolean resPaneCalled = false;
-            calledFromVisualClick = true;
-            displayAllRooms();
-            for (int k = 0; k < DisplayRooms.size(); k++) {
-                Point2D mousePress = new Point2D(event.getX(), event.getY());
-                if (DisplayRooms.get(k).p.contains(mousePress)) {
-                    imagePane.getChildren().remove(DisplayRooms.get(k).getPolygon());
-                    roomName.setText(DisplayRooms.get(k).niceName);
-                    fieldsEntered();
-                    for (int z = 0; z < listOfRooms.size(); z++) {
-                        if (DisplayRooms.get(k).getRoomName().equals(listOfRooms.get(z))) {
-                            if (DisplayRooms.get(k).isAvailable()) {
-                                availableRooms.getSelectionModel().select(listOfRooms.get(z));
-                                if(popupName.getText().contains(DisplayRooms.get(k).niceName)){
-                                    resPaneCalled = true;
-                                    //System.out.println("Same");
-                                    if(resShowing) {
-                                        openReservation(false);
-                                    }else{
+            if (!event.isSecondaryButtonDown()) {
+                boolean resPaneCalled = false;
+                calledFromVisualClick = true;
+                displayAllRooms();
+                for (int k = 0; k < DisplayRooms.size(); k++) {
+                    Point2D mousePress = new Point2D(event.getX(), event.getY());
+                    if (DisplayRooms.get(k).p.contains(mousePress)) {
+                        imagePane.getChildren().remove(DisplayRooms.get(k).getPolygon());
+                        roomName.setText(DisplayRooms.get(k).niceName);
+                        fieldsEntered();
+                        for (int z = 0; z < listOfRooms.size(); z++) {
+                            if (DisplayRooms.get(k).getRoomName().equals(listOfRooms.get(z))) {
+                                if (DisplayRooms.get(k).isAvailable()) {
+                                    availableRooms.getSelectionModel().select(listOfRooms.get(z));
+                                    if (popupName.getText().contains(DisplayRooms.get(k).niceName)) {
+                                        resPaneCalled = true;
+                                        //System.out.println("Same");
+                                        if (resShowing) {
+                                            openReservation(false);
+                                        } else {
+                                            openReservation(true);
+                                        }
+                                    } else {
+                                        resPaneCalled = true;
+                                        popupName.setText("Reserve " + DisplayRooms.get(k).niceName);
+                                        //System.out.println("New");
                                         openReservation(true);
                                     }
-                                }else {
-                                    resPaneCalled = true;
-                                    popupName.setText("Reserve " + DisplayRooms.get(k).niceName);
-                                    //System.out.println("New");
-                                    openReservation(true);
                                 }
                             }
                         }
-                    }
-                    if(resPaneCalled == false){
-                        if(DisplayRooms.get(k).getRoomName().equals(previousEvent)) {
-                            if (bookedEventShowing) {
-                                openEventInfo(false, null);
-                            } else {
+                        if (resPaneCalled == false) {
+                            if (DisplayRooms.get(k).getRoomName().equals(previousEvent)) {
+                                if (bookedEventShowing) {
+                                    openEventInfo(false, null);
+                                } else {
 
+                                    openEventInfo(true, DisplayRooms.get(k).getRoomName());
+                                }
+                            } else {
                                 openEventInfo(true, DisplayRooms.get(k).getRoomName());
                             }
-                        }else{
-                            openEventInfo(true, DisplayRooms.get(k).getRoomName());
                         }
+                        DisplayRooms.get(k).changePolygonColor("BLUE");
+                        imagePane.getChildren().add(DisplayRooms.get(k).getPolygon());
+                        calledFromVisualClick = false;
                     }
-                    DisplayRooms.get(k).changePolygonColor("BLUE");
-                    imagePane.getChildren().add(DisplayRooms.get(k).getPolygon());
-                    calledFromVisualClick = false;
                 }
             }
 
         }
 
     };
+
+/*
+    private EventHandler<MouseEvent> mouseRightClicked = new EventHandler<MouseEvent>() {
+
+        @Override
+        public void handle(MouseEvent event) {
+            if (event.isSecondaryButtonDown()) {
+                System.out.println("Right Click");
+                for (int k = 0; k < DisplayRooms.size(); k++) {
+                    Point2D mousePress = new Point2D(event.getX(), event.getY());
+                    if (DisplayRooms.get(k).p.contains(mousePress)) {
+                        tabPane.getSelectionModel().select(2);
+                        loadWeekly(DisplayRooms.get(k).niceName, datePicker.getValue());
+                    }
+                }
+            }
+        }
+    };
+*/
 
     public void highlightFromDropdown(){
         //System.out.println("VisClick:"+calledFromVisualClick);
@@ -996,11 +1021,11 @@ public class BookRoomController {
                 protected void updateItem(Boolean item, boolean empty) {
                     super.updateItem(item, empty);
                     if (item == null || !item){
-                        setText("Occupied");
                         setStyle("-fx-background-color: red");
+                        setText("Occupied");
                     } else {
-                        setText("Available");
                         setStyle("-fx-background-color: green");
+                        setText("Available");
                     }
                 }
             };
