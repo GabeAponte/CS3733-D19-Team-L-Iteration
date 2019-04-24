@@ -23,6 +23,7 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Point2D;
+import javafx.geometry.Rectangle2D;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -35,6 +36,7 @@ import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Polygon;
 import javafx.scene.transform.Translate;
+import javafx.stage.Screen;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -355,9 +357,16 @@ public class BookRoomController {
                         single.setLastTime();
 
                         Stage thisStage = (Stage) endTime.getScene().getWindow();
+                        Screen screen = Screen.getPrimary();
+                        Rectangle2D bounds = screen.getVisualBounds();
 
                         Scene newScene = new Scene(sceneMain);
+                        thisStage.setMaximized(true);
                         thisStage.setScene(newScene);
+                        thisStage.setX(bounds.getMinX());
+                        thisStage.setY(bounds.getMinY());
+                        thisStage.setWidth(bounds.getWidth());
+                        thisStage.setHeight(bounds.getHeight());
                         timeout.stop();
                     } catch (IOException io) {
                         System.out.println(io.getMessage());

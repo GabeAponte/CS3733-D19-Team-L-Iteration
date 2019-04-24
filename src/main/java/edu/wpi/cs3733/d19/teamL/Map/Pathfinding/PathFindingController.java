@@ -63,6 +63,7 @@ import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
 import javafx.stage.Modality;
+import javafx.stage.Screen;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 import javafx.scene.layout.GridPane;
@@ -514,9 +515,16 @@ public class PathFindingController {
                                 controller.displayPopup();
                             }
                             Stage thisStage = (Stage) homebtn.getScene().getWindow();
+                            Screen screen = Screen.getPrimary();
+                            Rectangle2D bounds = screen.getVisualBounds();
 
                             Scene newScene = new Scene(sceneMain);
+                            thisStage.setMaximized(true);
                             thisStage.setScene(newScene);
+                            thisStage.setX(bounds.getMinX());
+                            thisStage.setY(bounds.getMinY());
+                            thisStage.setWidth(bounds.getWidth());
+                            thisStage.setHeight(bounds.getHeight());
                             timeout.stop();
                         } catch (IOException io) {
                             System.out.println(io.getMessage());

@@ -55,39 +55,6 @@ public class FulfillRequestController {
     public void initialize() {
         Singleton single = Singleton.getInstance();
         single.setLastTime();
-        timeout = new Timeline(new KeyFrame(Duration.seconds(2), new EventHandler<ActionEvent>() {
-
-            @Override
-            public void handle(ActionEvent event) {
-                if ((System.currentTimeMillis() - single.getLastTime()) > single.getTimeoutSec()) {
-                    try {
-                        single.setLastTime();
-                        single.setDoPopup(true);
-                        single.setLoggedIn(false);
-                        single.setUsername("");
-                        single.setIsAdmin(false);
-                        FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("HospitalHome.fxml"));
-
-                        Parent sceneMain = loader.load();
-                        HomeScreenController controller = loader.<HomeScreenController>getController();
-                        single.setLastTime();
-                        controller.displayPopup();
-                        single.setLastTime();
-
-                        Stage thisStage = (Stage) submit.getScene().getWindow();
-
-                        Scene newScene = new Scene(sceneMain);
-                        thisStage.setScene(newScene);
-                        timeout.stop();
-                    } catch (IOException io) {
-                        System.out.println(io.getMessage());
-                    }
-                }
-            }
-        }));
-        timeout.setCycleCount(Timeline.INDEFINITE);
-        timeout.play();
-
     }
     @FXML
     /**@author Gabe
