@@ -45,12 +45,21 @@ public class Weather {
                 throw new NullPointerException();
             }
         } catch (Exception e){
-            fio = new ForecastIO("8bbd411df62726b90761db369453bcc8");
-            fio.setUnits(ForecastIO.UNITS_US);
-            fio.setLang(ForecastIO.LANG_ENGLISH);
-            fio.getForecast("42.269478", "-71.807783");
-            //System.out.println("Timezone: "+fio.getTimezone());
-            currently = new FIOCurrently(fio);
+            try {
+                fio = new ForecastIO("8bbd411df62726b90761db369453bcc8");
+                fio.setUnits(ForecastIO.UNITS_US);
+                fio.setLang(ForecastIO.LANG_ENGLISH);
+                fio.getForecast("42.269478", "-71.807783");
+                //System.out.println("Timezone: "+fio.getTimezone());
+                currently = new FIOCurrently(fio);
+            } catch (Exception p){
+                fio = new ForecastIO("de4722e74e8f300584d166321bd11d2e");
+                fio.setUnits(ForecastIO.UNITS_US);
+                fio.setLang(ForecastIO.LANG_ENGLISH);
+                fio.getForecast("42.269478", "-71.807783");
+                //System.out.println("Timezone: "+fio.getTimezone());
+                currently = new FIOCurrently(fio);
+            }
         }
     }
 
