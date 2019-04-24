@@ -120,20 +120,20 @@
                         <Insets left="150.0" right="50.0" />
                      </GridPane.margin>
                   </VBox>
-                  <JFXTextField fx:id="Location" focusColor="#f6bd38" onAction="#reenableSubmit" onKeyReleased="#reenableSubmit" promptText="Location" styleClass="jfx-text-field-normal" stylesheets="@Default.css" unFocusColor="WHITE" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER">
+                  <JFXTextField fx:id="Location" focusColor="#f6bd38" maxWidth="1.7976931348623157E308" onAction="#reenableSubmit" onKeyReleased="#reenableSubmit" promptText="Location" styleClass="jfx-text-field-normal" stylesheets="@Default.css" unFocusColor="WHITE" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER">
                      <font>
                         <Font name="Trebuchet MS" size="20.0" />
                      </font>
                      <GridPane.margin>
-                        <Insets bottom="10.0" left="225.0" right="125.0" />
+                        <Insets bottom="10.0" left="200.0" right="100.0" />
                      </GridPane.margin>
                   </JFXTextField>
-                  <JFXTextField fx:id="field1" focusColor="#f6bd38" onKeyReleased="#reenableSubmit" prefHeight="0.0" prefWidth="240.0" promptText="Type" styleClass="jfx-text-field-normal" stylesheets="@Default.css" unFocusColor="WHITE" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
+                  <JFXTextField fx:id="field1" focusColor="#f6bd38" maxWidth="1.7976931348623157E308" onKeyReleased="#reenableSubmit" prefHeight="0.0" prefWidth="240.0" promptText="Type" styleClass="jfx-text-field-normal" stylesheets="@Default.css" unFocusColor="WHITE" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
                      <font>
                         <Font name="Trebuchet MS" size="20.0" />
                      </font>
                      <GridPane.margin>
-                        <Insets bottom="10.0" left="225.0" right="125.0" />
+                        <Insets bottom="10.0" left="200.0" right="100.0" />
                      </GridPane.margin>
                   </JFXTextField>
                   <JFXTextArea fx:id="Description" focusColor="#f6bd38" onInputMethodTextChanged="#reenableSubmit" onKeyPressed="#reenableSubmit" onKeyReleased="#reenableSubmit" onKeyTyped="#reenableSubmit" prefHeight="245.0" prefWidth="403.0" promptText="Add a description here" styleClass="jfx-text-areaServiceRequest" stylesheets="@Default.css" unFocusColor="#ffffff00" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.rowIndex="1" GridPane.rowSpan="3" GridPane.valignment="CENTER">
@@ -171,12 +171,12 @@
                         <Insets left="475.0" />
                      </GridPane.margin>
                   </JFXRadioButton>
-                  <Label alignment="CENTER" graphicTextGap="0.0" prefHeight="27.0" prefWidth="246.0" styleClass="labelMapFloor" stylesheets="@Default.css" text="Is this problem hazardous?" textFill="WHITE" GridPane.columnSpan="2147483647" GridPane.halignment="LEFT" GridPane.rowIndex="3">
+                  <Label alignment="CENTER" graphicTextGap="0.0" prefHeight="27.0" prefWidth="246.0" styleClass="labelMapFloor" stylesheets="@Default.css" text="Is this problem hazardous?" textFill="WHITE" GridPane.rowIndex="3">
                      <font>
                         <Font name="Trebuchet MS" size="20.0" />
                      </font>
                      <GridPane.margin>
-                        <Insets left="220.0" right="200.0" />
+                        <Insets left="200.0" />
                      </GridPane.margin>
                   </Label>
                </children>

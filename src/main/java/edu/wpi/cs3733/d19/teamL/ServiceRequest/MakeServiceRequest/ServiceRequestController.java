@@ -57,6 +57,9 @@ public class ServiceRequestController {
     private Button PrescriptionServices;
 
     @FXML
+    private Button logOut;
+
+    @FXML
     private Button GiftStoreServices;
 
 
@@ -68,6 +71,9 @@ public class ServiceRequestController {
     public void initialize(){
         Singleton single = Singleton.getInstance();
         single.setLastTime();
+        if(!single.isLoggedIn()){
+            logOut.setText("Log In");
+        }
         timeout = new Timeline(new KeyFrame(Duration.seconds(2), new EventHandler<ActionEvent>() {
 
             @Override
@@ -235,8 +241,15 @@ public class ServiceRequestController {
     @FXML
     private void logOut(ActionEvent event) throws IOException {
         timeout.stop();
+
         Singleton single = Singleton.getInstance();
         single.setLastTime();
+        if(!single.isLoggedIn()){
+            saveState();
+            Parent newPage = FXMLLoader.load(getClass().getClassLoader().getResource("LogIn.fxml"));
+            ((Node) event.getSource()).getScene().setRoot(newPage);
+            return;
+        }
         single.setUsername("");
         single.setIsAdmin(false);
         single.setLoggedIn(false);
@@ -252,7 +265,7 @@ public class ServiceRequestController {
         Singleton single = Singleton.getInstance();
         single.setLastTime();
         single.setDoPopup(true);
-        //saveState();
+        saveState();
         Memento m = single.getOrig();
         Parent newPage = FXMLLoader.load(getClass().getClassLoader().getResource(m.getFxml()));
         ((Node) event.getSource()).getScene().setRoot(newPage);

@@ -22,7 +22,7 @@
         <VBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" styleClass="vboxImage" stylesheets="@Default.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
         <VBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
             <children>
-                <JFXToolbar prefHeight="100.0" prefWidth="1280.0" styleClass="tool-barMain" stylesheets="@Default.css">
+                <JFXToolbar maxHeight="-Infinity" minHeight="-Infinity" prefHeight="100.0" prefWidth="1280.0" styleClass="tool-barMain" stylesheets="@Default.css">
                     <VBox.margin>
                         <Insets />
                     </VBox.margin>
@@ -98,7 +98,7 @@
                         </HBox>
                     </center>
                 </JFXToolbar>
-                <JFXToolbar prefHeight="10.0" prefWidth="1280.0" styleClass="tool-barSecondary" stylesheets="@Default.css" />
+                <JFXToolbar maxHeight="-Infinity" minHeight="-Infinity" prefHeight="10.0" prefWidth="1280.0" styleClass="tool-barSecondary" stylesheets="@Default.css" />
                 <GridPane hgap="30.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="492.0" prefWidth="1280.0" vgap="50.0" VBox.vgrow="ALWAYS">
                     <columnConstraints>
                         <ColumnConstraints halignment="CENTER" hgrow="ALWAYS" maxWidth="1.7976931348623157E308" minWidth="10.0" percentWidth="25.0" />
@@ -201,7 +201,7 @@
                         <FontAwesomeIconView fill="WHITE" glyphName="WHEELCHAIR" size="60" />
                      </graphic>
                         </JFXButton>
-                        <JFXButton fx:id="AudioVisual" buttonType="RAISED" contentDisplay="TOP" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" onAction="#makeRequest" style="-fx-border-radius: 10; -fx-background-radius: 10; -fx-border-width: 5;" styleClass="buttonBig" stylesheets="@Default.css" text="Audio/Visual" textFill="WHITE" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
+                        <JFXButton fx:id="FoodServices" buttonType="RAISED" contentDisplay="TOP" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" onAction="#makeRequest" style="-fx-border-radius: 10; -fx-background-radius: 10; -fx-border-width: 5;" styleClass="buttonBig" stylesheets="@Default.css" text="Food Services" textFill="WHITE" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
                             <font>
                                 <Font name="Trebuchet MS" size="25.0" />
                             </font>
@@ -209,7 +209,7 @@
                                 <Insets />
                             </GridPane.margin>
                      <graphic>
-                        <FontAwesomeIconView fill="WHITE" glyphName="BULLHORN" size="60" />
+                        <FontAwesomeIconView fill="WHITE" glyphName="COFFEE" size="60" />
                      </graphic>
                         </JFXButton>
                         <JFXButton fx:id="Florist" buttonType="RAISED" contentDisplay="TOP" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" onAction="#openGiftService" style="-fx-border-radius: 10; -fx-background-radius: 10; -fx-border-width: 5;" styleClass="buttonBig" stylesheets="@Default.css" text="Gift Store" textFill="WHITE" GridPane.columnIndex="2" GridPane.rowIndex="3" GridPane.vgrow="ALWAYS">
@@ -242,6 +242,14 @@
                                 <Blend />
                             </effect>
                         </Label>
+                  <JFXButton fx:id="MedImaging" buttonType="RAISED" contentDisplay="TOP" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" onAction="#openGiftService" style="-fx-border-radius: 10; -fx-background-radius: 10; -fx-border-width: 5;" styleClass="buttonBig" stylesheets="@Default.css" text="Medical Imaging" textFill="WHITE" GridPane.columnIndex="3" GridPane.rowIndex="3">
+                     <font>
+                        <Font name="Trebuchet MS" size="25.0" />
+                     </font>
+                     <graphic>
+                        <FontAwesomeIconView fill="WHITE" glyphName="STETHOSCOPE" size="60" />
+                     </graphic>
+                  </JFXButton>
                     </children>
                     <padding>
                         <Insets bottom="75.0" left="25.0" right="25.0" top="50.0" />
