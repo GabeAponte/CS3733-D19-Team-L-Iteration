@@ -18,3 +18,11 @@ derby.log
 *.lock
 *.iml
 *.pdf
+
+/target/
+.idea
+*.iml
+.project
+*.prefs
+CalendarFXApp/.classpath
+*.classpath
