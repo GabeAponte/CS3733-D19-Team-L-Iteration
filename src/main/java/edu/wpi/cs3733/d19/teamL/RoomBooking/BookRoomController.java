@@ -1124,8 +1124,14 @@ public class BookRoomController {
     }
 
     public void editEventInfo(){
+        ReservationAccess ra = new ReservationAccess();
+        RoomAccess roa = new RoomAccess();
+        String startDate = "T" + String.format("%02d", startTime.getValue().getHour()) + ":" + String.format("%02d", startTime.getValue().getMinute()) + ":00";
+        String endDate = "T" + String.format("%02d", endTime.getValue().getHour()) + ":" + String.format("%02d", endTime.getValue().getMinute()) + ":00";
+        roa.getRoomName();
+        Singleton single = Singleton.getInstance();
         if(eventInfo.getText().equals("Delete Reservation")){
-            //delete reservation
+            ra.deleteRecords();
         }else{
             //send email to creator
         }
