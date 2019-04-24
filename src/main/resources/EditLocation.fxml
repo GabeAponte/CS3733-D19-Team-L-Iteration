@@ -123,7 +123,6 @@
                               </image>
                            </ImageView>
                         </Pane>
-                        <VBox prefHeight="200.0" prefWidth="100.0" />
                         <VBox fx:id="scrollVBox" alignment="CENTER_LEFT" prefHeight="550.0" prefWidth="242.0" GridPane.columnIndex="1">
                            <children>
                               <GridPane prefHeight="260.0" prefWidth="384.0" VBox.vgrow="ALWAYS">
