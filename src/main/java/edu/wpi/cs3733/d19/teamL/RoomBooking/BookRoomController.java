@@ -766,37 +766,6 @@ public class BookRoomController {
         }
     }
 
-    public void switchToWeekly(ActionEvent event) throws IOException {
-        timeout.stop();
-        try{
-            sim.join();
-        } catch (Exception e){
-            e.printStackTrace();
-            sim.stop();
-        }
-        Singleton single = Singleton.getInstance();
-        single.setLastTime();
-        FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("WeeklySchedule.fxml"));
-        Parent sceneMain = loader.load();
-
-        WeeklyScheduleController wsc = loader.getController();
-        String name = roomName.getText();
-        //if the text is null
-        if(name == null || name.equals("Select a Room")){
-            //if there are no available rooms
-            if(listOfRooms.size() < 1){
-                name = "Room 1 - Computer";
-            } else {
-                name = listOfRooms.get(0);
-                //else set to first available room
-            }
-        }
-        System.out.println(name);
-        wsc.loadWeekly(name, datePicker.getValue());
-
-        ((Node) event.getSource()).getScene().setRoot(sceneMain);
-    }
-
     /**@author Nathan
      * Restores previous screen
      * @throws IOException
