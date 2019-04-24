@@ -137,7 +137,7 @@ public class EmergencyController {
 
     private NodesAccess na;
     private EdgesAccess ea;
-    private HashMap<String, Location> nameToLoc = new HashMap<>();;
+    private HashMap<String, Location> nameToLoc = new HashMap<>();
 
     private final ObservableList<String> floorList = FXCollections.observableArrayList();
     private Singleton single = Singleton.getInstance();
