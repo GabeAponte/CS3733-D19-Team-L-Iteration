@@ -1126,12 +1126,15 @@ public class BookRoomController {
     public void editEventInfo(){
         ReservationAccess ra = new ReservationAccess();
         RoomAccess roa = new RoomAccess();
-        String startDate = "T" + String.format("%02d", startTime.getValue().getHour()) + ":" + String.format("%02d", startTime.getValue().getMinute()) + ":00";
-        String endDate = "T" + String.format("%02d", endTime.getValue().getHour()) + ":" + String.format("%02d", endTime.getValue().getMinute()) + ":00";
-        roa.getRoomName();
+        String eventStartDate = datePicker.getValue().toString() + "T" + String.format("%02d", startTime.getValue().getHour()) + ":" + String.format("%02d", startTime.getValue().getMinute()) + ":00";
+        String eventEndDate = endDatePicker.getValue().toString() + "T" + String.format("%02d", endTime.getValue().getHour()) + ":" + String.format("%02d", endTime.getValue().getMinute()) + ":00";
+        ArrayList<String[]> data = roa.getReservations(eventStartDate, eventEndDate, roomName.getText());
+        String[] info = data.get(0);
         Singleton single = Singleton.getInstance();
-        if(eventInfo.getText().equals("Delete Reservation")){
-            ra.deleteRecords();
+        if(eventInfo.getText().equals("Cancel Reservation")){
+            ra.deleteReservation(info[0], info[1], info[7], info[8]);
+            displayAllRooms();
+            openEventInfo(false, "");
         }else{
             //send email to creator
         }
