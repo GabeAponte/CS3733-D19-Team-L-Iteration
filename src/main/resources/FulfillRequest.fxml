@@ -51,7 +51,7 @@
                         <RowConstraints maxHeight="59.111358642578125" valignment="CENTER" vgrow="ALWAYS" />
                     </rowConstraints>
                     <children>
-                        <JFXButton fx:id="submit" buttonType="RAISED" onAction="#submitPressed" prefHeight="36.0" prefWidth="129.0" style="-fx-border-width: 5;" styleClass="buttonMainNoB" stylesheets="@Default.css" text="Submit" textFill="WHITE" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="3" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
+                        <JFXButton fx:id="submit" buttonType="RAISED" onAction="#submitPressed" prefHeight="36.0" prefWidth="129.0" style="-fx-border-width: 2.5;" styleClass="buttonMainNoB" stylesheets="@Default.css" text="Submit" textFill="WHITE" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="3" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
                             <font>
                                 <Font name="Trebuchet MS" size="25.0" />
                             </font>
