@@ -28,7 +28,7 @@
 <?import javafx.scene.text.Font?>
 <?import org.controlsfx.control.CheckComboBox?>
 
-<AnchorPane fx:id="anchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720" prefWidth="1280" styleClass="AnchorPainMain" stylesheets="@Default.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.d19.teamL.RoomBooking.BookRoomController">
+<AnchorPane fx:id="anchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720" prefWidth="1280" styleClass="AnchorPainMain" stylesheets="@Default.css" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.d19.teamL.RoomBooking.BookRoomController">
 
     <children>
       <VBox prefHeight="200.0" prefWidth="100.0" styleClass="vboxImage" stylesheets="@Default.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
@@ -165,7 +165,7 @@
                                                         <Font size="18.0" />
                                                     </font>
                                                 </Label>
-                                                <JFXTimePicker fx:id="startTime" defaultColor="#f5d96b" onAction="#fieldsEntered" prefHeight="50.0" prefWidth="225.0" promptText="Start Time" styleClass="jfx-time-picker" stylesheets="@Default.css" />
+                                                <JFXTimePicker fx:id="startTime" defaultColor="#f5d96b" onAction="#roundStartTime" prefHeight="50.0" prefWidth="225.0" promptText="Start Time" styleClass="jfx-time-picker" stylesheets="@Default.css" />
                                             </children>
                                  <GridPane.margin>
                                     <Insets bottom="5.0" top="5.0" />
@@ -178,7 +178,7 @@
                                                         <Font size="18.0" />
                                                     </font>
                                                 </Label>
-                                                <JFXTimePicker fx:id="endTime" defaultColor="#f5d96b" onAction="#fieldsEntered" prefHeight="50.0" prefWidth="225.0" promptText="End Time" styleClass="jfx-time-picker" stylesheets="@Default.css" />
+                                                <JFXTimePicker fx:id="endTime" defaultColor="#f5d96b" onAction="#roundEndTime" prefHeight="50.0" prefWidth="225.0" promptText="End Time" styleClass="jfx-time-picker" stylesheets="@Default.css" />
                                             </children>
                                  <GridPane.margin>
                                     <Insets bottom="5.0" top="15.0" />
