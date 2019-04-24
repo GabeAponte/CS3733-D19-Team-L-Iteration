@@ -35,7 +35,7 @@
                   </Label>
                </center>
             </JFXToolbar>
-            <JFXToolbar minHeight="-Infinity" prefHeight="5.0" prefWidth="1280.0" styleClass="tool-barSecondary" stylesheets="@Default.css" />
+            <JFXToolbar maxHeight="-Infinity" minHeight="-Infinity" prefHeight="5.0" prefWidth="1280.0" styleClass="tool-barSecondary" stylesheets="@Default.css" />
             <GridPane VBox.vgrow="ALWAYS">
               <columnConstraints>
                 <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -54,7 +54,7 @@
                         <Insets top="10.0" />
                      </GridPane.margin>
                   </Label>
-                  <JFXButton fx:id="yes" onAction="#yesPressed" prefHeight="46.0" prefWidth="109.0" ripplerFill="WHITE" style="-fx-border-width: 2.5;" styleClass="buttonMainNoB" stylesheets="@Default.css" text="Okay" textFill="WHITE" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="1">
+                  <JFXButton fx:id="yes" onAction="#yesPressed" prefHeight="45.0" prefWidth="100.0" ripplerFill="WHITE" style="-fx-border-width: 2.5;" styleClass="buttonMainNoB" stylesheets="@Default.css" text="Okay" textFill="WHITE" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="1">
                      <font>
                         <Font size="20.0" />
                      </font>

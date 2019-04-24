@@ -18,7 +18,7 @@
    <children>
       <VBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
-            <JFXToolbar minHeight="-Infinity" prefHeight="40.0" prefWidth="1280.0" styleClass="tool-barMain" stylesheets="@Default.css">
+            <JFXToolbar maxHeight="-Infinity" minHeight="-Infinity" prefHeight="40.0" prefWidth="1280.0" styleClass="tool-barMain" stylesheets="@Default.css">
                <VBox.margin>
                   <Insets />
                </VBox.margin>
@@ -36,7 +36,7 @@
                   </Label>
                </center>
             </JFXToolbar>
-            <JFXToolbar minHeight="-Infinity" prefHeight="3.0" prefWidth="1280.0" styleClass="tool-barSecondary" stylesheets="@Default.css" />
+            <JFXToolbar maxHeight="-Infinity" minHeight="-Infinity" prefHeight="5.0" prefWidth="1280.0" styleClass="tool-barSecondary" stylesheets="@Default.css" />
             <GridPane VBox.vgrow="ALWAYS">
               <columnConstraints>
                 <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />

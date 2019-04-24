@@ -48,7 +48,6 @@
     -fx-fill: white;
 }
 
-
 .buttonLogIn{
     -fx-background-color: white;
     -fx-border-color: #F5D96B;
@@ -57,7 +56,6 @@
     -fx-text-fill: #012d5a;
     -fx-background-radius: 15;
     -jfx-button-type: RAISED;
-
 }
 
 .buttonLogIn .glyph-icon {
@@ -67,7 +65,6 @@
 .buttonLogIn:hover{
     -fx-background-color: #012d5a;
     -fx-text-fill: white;
-
 }
 
 .buttonLogIn:hover .glyph-icon{
@@ -235,7 +232,10 @@
 
 .text-area{
     -fx-text-fill: white;
+}
 
+.prompt-text-text-field{
+    -fx-prompt-text-fill: white;
 }
 
 .jfx-tree-table-view {
@@ -243,7 +243,7 @@
     -fx-background-radius: 20;
     -fx-border-width: 5;
     -fx-border-radius: 20;
-    -fx-font-size: 20;
+    -fx-font-size: 15;
     -fx-font-family: "Trebuchet MS";
 
 }
@@ -259,6 +259,7 @@
 .tab .tab-label {
     -fx-alignment: CENTER;
     -fx-text-fill: BLACK;
+    -fx-font-family: "Trebuchet MS";
 
 }
 
@@ -282,6 +283,7 @@
 .tab:hover .tab-label {
     -fx-alignment: CENTER;
     -fx-text-fill: BLACK;
+    -fx-font-family: "Trebuchet MS";
 }
 
 .jfx-tab-pane .tab-selected-line {
@@ -351,17 +353,15 @@
 
 .jfx-text-field-login{
     -fx-background-color: white;
-    -fx-prompt-text-fill: black;
-    -fx-text-fill: black;
+    -fx-prompt-text-fill: #012d5a;
+    -fx-text-fill: #012d5a;
     -jfx-focus-color: #f5d96b;
     -jfx-unfocus-color: transparent;
-
-
 }
 
 .password-field-login{
     -fx-background-color: white;
-    -fx-prompt-text-fill: black;
+    -fx-prompt-text-fill: #012d5a;
     -fx-text-fill: #012d5a;
     -jfx-focus-color: #f5d96b;
     -jfx-unfocus-color: transparent
@@ -505,7 +505,6 @@
 
 .jfx-combo-box-PathMenu2 .text-field {
     -fx-text-fill : white;
-
 }
 
 .jfx-combo-box-PathMenu2 .text-area {
@@ -631,25 +630,21 @@
 .buttonSecurity4{
     -fx-border-color: #ff7700;
     -fx-text-fill: white;
-
 }
 
 .buttonSecurity4:hover{
     -fx-border-color: white;
     -fx-background-color: #ff7700;
     -fx-text-fill: #012d5a;
-
 }
 
 .buttonSecurity5{
     -fx-border-color: #ff1100;
     -fx-text-fill: white;
-
 }
 
 .buttonSecurity5:hover{
     -fx-border-color: white;
     -fx-background-color:  #ff1100;
     -fx-text-fill: #012d5a;
-
 }

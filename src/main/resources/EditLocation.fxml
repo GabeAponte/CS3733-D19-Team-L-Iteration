@@ -140,12 +140,12 @@
                                     <VBox prefHeight="200.0" prefWidth="100.0" styleClass="vboxPathImage" stylesheets="@Default.css" GridPane.columnSpan="2147483647" GridPane.rowSpan="2147483647" />
                                     <JFXButton fx:id="downloadNode" buttonType="RAISED" onAction="#downloadNodes" prefHeight="28.0" ripplerFill="#b0b0b0" styleClass="buttonMainNoB" stylesheets="@Default.css" text="Download node csv" textFill="WHITE" GridPane.halignment="CENTER" GridPane.rowIndex="3" GridPane.valignment="CENTER">
                                        <font>
-                                          <Font size="15.0" />
+                                          <Font name="Trebuchet MS" size="15.0" />
                                        </font>
                                     </JFXButton>
                                     <JFXButton fx:id="downloadEdge" buttonType="RAISED" onAction="#downloadEdges" prefHeight="28.0" ripplerFill="#b0b0b0" styleClass="buttonMainNoB" stylesheets="@Default.css" text="Download edge csv" textFill="WHITE" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="3">
                                        <font>
-                                          <Font size="15.0" />
+                                          <Font name="Trebuchet MS" size="15.0" />
                                        </font>
                                     </JFXButton>
                                     <Label alignment="CENTER" maxWidth="1.7976931348623157E308" styleClass="labelTitle" stylesheets="@Default.css" text="Directions for use:" textAlignment="CENTER" textFill="#f5d96b" underline="true" wrapText="true" GridPane.columnSpan="2147483647" GridPane.rowIndex="1">
@@ -156,7 +156,7 @@
                                           <Font name="Trebuchet MS" size="24.0" />
                                        </font>
                                     </Label>
-                                    <JFXTextArea editable="false" focusColor="#405aa800" styleClass="text-area" stylesheets="@Default.css" text="-Right click on node to show information&#10;- Shift click on a node to show all edges between it&#10;- Right click to add a node anywhere&#10;- Control click and drag to move a node&#10;- This change can be confirmed by clicking on the node and clicking the checkmark, otherwise you can cancel the movement by clicking the X&#10;- Shift right click to add an edge from the clicked node to the selected node&#10;- Alt click to delete a node or edge&#10;" unFocusColor="#4d4d4d00" GridPane.columnSpan="2147483647" GridPane.rowIndex="2">
+                                    <JFXTextArea editable="false" focusColor="#405aa800" styleClass="text-area" stylesheets="@Default.css" text="-Right click on node to show information&#10;- Shift click on a node to show all edges between it&#10;- Right click to add a node anywhere&#10;- Control click and drag to move a node&#10;- This change can be confirmed by clicking on the node and clicking the checkmark, otherwise you can cancel the movement by clicking the X&#10;- Shift right click to add an edge from the clicked node to the selected node&#10;- Alt click to delete a node or edge&#10;- The current Kiosk location (displayed in blue) is set on Floor 2 in the 15 Lobby near Thoracic Surgery Clinic and is connected to all its neighboring nodes, to modify the Kiosk you must change its values just like any other node (see above instructions)&#10;" unFocusColor="#4d4d4d00" GridPane.columnSpan="2147483647" GridPane.rowIndex="2">
                                        <font>
                                           <Font name="Trebuchet MS" size="18.0" />
                                        </font>
@@ -166,7 +166,7 @@
                                     </JFXTextArea>
                                     <JFXButton alignment="CENTER" buttonType="RAISED" maxHeight="-Infinity" maxWidth="-Infinity" onAction="#buttonShowEdges" prefHeight="34.0" prefWidth="104.0" styleClass="buttonMainNoB" stylesheets="@Default.css" text="All Edges" textFill="#012d5a" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
                                        <font>
-                                          <Font size="15.0" />
+                                          <Font name="Trebuchet MS" size="15.0" />
                                        </font>
                                        <GridPane.margin>
                                           <Insets />
@@ -181,12 +181,12 @@
                               <Insets top="28.0" />
                            </GridPane.margin>
                            <font>
-                              <Font name="System Bold" size="25.0" />
+                              <Font name="Trebuchet MS Bold" size="25.0" />
                            </font>
                         </Label>
                         <JFXButton fx:id="L21" alignment="CENTER" buttonType="RAISED" maxHeight="-Infinity" maxWidth="-Infinity" onAction="#clickedL2" prefHeight="46.0" prefWidth="80.0" styleClass="buttonMap" stylesheets="@Default.css" text="L2" textFill="#012d5a" GridPane.halignment="CENTER" GridPane.valignment="BOTTOM">
                            <font>
-                              <Font name="System Bold" size="20.0" />
+                              <Font name="Trebuchet MS Bold" size="20.0" />
                            </font>
                            <GridPane.margin>
                               <Insets bottom="24.0" right="600.0" />
@@ -194,7 +194,7 @@
                         </JFXButton>
                         <JFXButton fx:id="L11" alignment="CENTER" buttonType="RAISED" maxHeight="-Infinity" maxWidth="-Infinity" onAction="#clickedL1" prefHeight="46.0" prefWidth="80.0" styleClass="buttonMap" stylesheets="@Default.css" text="L1" textFill="#012d5a" GridPane.halignment="CENTER" GridPane.valignment="BOTTOM">
                            <font>
-                              <Font name="System Bold" size="20.0" />
+                              <Font name="Trebuchet MS Bold" size="20.0" />
                            </font>
                            <GridPane.margin>
                               <Insets bottom="24.0" right="400.0" />
@@ -202,7 +202,7 @@
                         </JFXButton>
                         <JFXButton fx:id="G1" alignment="CENTER" buttonType="RAISED" maxHeight="-Infinity" maxWidth="-Infinity" onAction="#clickedG" prefHeight="46.0" prefWidth="80.0" styleClass="buttonMap" stylesheets="@Default.css" text="G" textFill="#012d5a" GridPane.halignment="CENTER" GridPane.valignment="BOTTOM">
                            <font>
-                              <Font name="System Bold" size="20.0" />
+                              <Font name="Trebuchet MS Bold" size="20.0" />
                            </font>
                            <GridPane.margin>
                               <Insets bottom="24.0" right="200.0" />
@@ -210,7 +210,7 @@
                         </JFXButton>
                         <JFXButton fx:id="F11" alignment="CENTER" buttonType="RAISED" maxHeight="-Infinity" maxWidth="-Infinity" onAction="#clicked1" prefHeight="46.0" prefWidth="80.0" styleClass="buttonMap" stylesheets="@Default.css" text="F1" textFill="#012d5a" GridPane.halignment="CENTER" GridPane.valignment="BOTTOM">
                            <font>
-                              <Font name="System Bold" size="20.0" />
+                              <Font name="Trebuchet MS Bold" size="20.0" />
                            </font>
                            <GridPane.margin>
                               <Insets bottom="24.0" />
@@ -218,7 +218,7 @@
                         </JFXButton>
                         <JFXButton fx:id="F21" alignment="CENTER" buttonType="RAISED" maxHeight="-Infinity" maxWidth="-Infinity" onAction="#clicked2" prefHeight="46.0" prefWidth="80.0" styleClass="buttonMap" stylesheets="@Default.css" text="F2" textFill="#012d5a" GridPane.halignment="CENTER" GridPane.valignment="BOTTOM">
                            <font>
-                              <Font name="System Bold" size="20.0" />
+                              <Font name="Trebuchet MS Bold" size="20.0" />
                            </font>
                            <GridPane.margin>
                               <Insets bottom="24.0" left="200.0" />
@@ -226,7 +226,7 @@
                         </JFXButton>
                         <JFXButton fx:id="F31" alignment="CENTER" buttonType="RAISED" maxHeight="-Infinity" maxWidth="-Infinity" onAction="#clicked3" prefHeight="46.0" prefWidth="80.0" styleClass="buttonMap" stylesheets="@Default.css" text="F3" textFill="#012d5a" GridPane.halignment="CENTER" GridPane.valignment="BOTTOM">
                            <font>
-                              <Font name="System Bold" size="20.0" />
+                              <Font name="Trebuchet MS Bold" size="20.0" />
                            </font>
                            <GridPane.margin>
                               <Insets bottom="24.0" left="400.0" />
@@ -234,7 +234,7 @@
                         </JFXButton>
                         <JFXButton fx:id="F4" alignment="CENTER" buttonType="RAISED" maxHeight="-Infinity" maxWidth="-Infinity" onAction="#clicked4" prefHeight="46.0" prefWidth="80.0" styleClass="buttonMap" stylesheets="@Default.css" text="F4" textFill="#012d5a" GridPane.halignment="CENTER" GridPane.valignment="BOTTOM">
                            <font>
-                              <Font name="System Bold" size="20.0" />
+                              <Font name="Trebuchet MS Bold" size="20.0" />
                            </font>
                            <GridPane.margin>
                               <Insets bottom="24.0" left="600.0" />

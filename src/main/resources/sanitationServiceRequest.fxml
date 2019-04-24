@@ -24,7 +24,7 @@
         <VBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" styleClass="vboxImage" stylesheets="@Default.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
         <VBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
             <children>
-                <JFXToolbar prefHeight="100.0" prefWidth="1280.0" styleClass="tool-barMain" stylesheets="@Default.css">
+                <JFXToolbar maxHeight="-Infinity" minHeight="-Infinity" prefHeight="100.0" prefWidth="1280.0" styleClass="tool-barMain" stylesheets="@Default.css">
                     <VBox.margin>
                         <Insets />
                     </VBox.margin>
@@ -164,7 +164,7 @@
                            <children>
                               <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" GridPane.columnSpan="2147483647" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.valignment="CENTER">
                                  <children>
-                                    <JFXComboBox fx:id="location1" onMouseReleased="#checkSubmit" prefHeight="39.0" prefWidth="551.0" promptText="Location" stylesheets="@Default.css">
+                                    <JFXComboBox fx:id="location1" maxWidth="1.7976931348623157E308" onMouseReleased="#checkSubmit" prefHeight="39.0" prefWidth="551.0" promptText="Location" stylesheets="@Default.css">
                                        <VBox.margin>
                                           <Insets left="50.0" right="50.0" />
                                        </VBox.margin>
@@ -173,7 +173,7 @@
                               </VBox>
                               <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" GridPane.columnSpan="2147483647" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" GridPane.valignment="CENTER">
                                  <children>
-                                    <JFXComboBox fx:id="typeBox1" prefHeight="25.0" prefWidth="441.0" promptText="Type" stylesheets="@Default.css">
+                                    <JFXComboBox fx:id="typeBox1" maxWidth="1.7976931348623157E308" prefHeight="25.0" prefWidth="441.0" promptText="Type" stylesheets="@Default.css">
                                        <VBox.margin>
                                           <Insets left="50.0" right="50.0" />
                                        </VBox.margin>
@@ -182,7 +182,7 @@
                               </VBox>
                               <VBox alignment="CENTER_RIGHT" prefHeight="200.0" prefWidth="100.0" GridPane.columnSpan="2147483647" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="2" GridPane.valignment="CENTER">
                                  <children>
-                                    <JFXComboBox fx:id="urgencyLevel1" prefHeight="39.0" prefWidth="491.0" promptText="Urgency Level" stylesheets="@Default.css">
+                                    <JFXComboBox fx:id="urgencyLevel1" maxWidth="1.7976931348623157E308" prefHeight="39.0" prefWidth="491.0" promptText="Urgency Level" stylesheets="@Default.css">
                                        <VBox.margin>
                                           <Insets left="50.0" right="50.0" />
                                        </VBox.margin>
