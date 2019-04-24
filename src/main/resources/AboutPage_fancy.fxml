@@ -173,7 +173,7 @@
                                     <Font name="Trebuchet MS" size="20.0" />
                                  </font>
                               </Label>
-                              <Label layoutX="10.0" layoutY="10.0" text="Adrew Bonaventura" textFill="WHITE">
+                              <Label layoutX="10.0" layoutY="10.0" text="Andrew Bonaventura" textFill="WHITE">
                                  <font>
                                     <Font name="Trebuchet MS" size="20.0" />
                                  </font>

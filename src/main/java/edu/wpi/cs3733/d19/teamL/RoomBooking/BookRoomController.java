@@ -1044,7 +1044,8 @@ public class BookRoomController {
         orderFood.setOnAction((evt) -> {
             FoodRequest foodRequest = new FoodRequest();
             try{
-                foodRequest.run(0,0,1280,720,null,null,null);
+                Rectangle2D bounds = Screen.getPrimary().getVisualBounds();
+                foodRequest.run(0,0,(int)bounds.getWidth(),(int)bounds.getHeight(),null,null,null);
             }catch (Exception e){
                 System.out.println("Failed to run API");
                 e.printStackTrace();
@@ -1054,7 +1055,8 @@ public class BookRoomController {
         orderGifts.setOnAction((evt) -> {
             GiftRequest gr = new GiftRequest();
             try{
-                gr.run(0,0,1280,720,null,null,null);
+                Rectangle2D bounds = Screen.getPrimary().getVisualBounds();
+                gr.run(0,0,(int)bounds.getWidth(),(int)bounds.getHeight(), "",null,null);
             }catch (Exception e){
                 System.out.println("Failed to run API");
                 e.printStackTrace();
