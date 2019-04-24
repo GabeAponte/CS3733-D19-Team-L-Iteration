@@ -74,6 +74,9 @@
                                                     <font>
                                                         <Font name="Trebuchet MS" size="17.0" />
                                                     </font>
+                                       <HBox.margin>
+                                          <Insets right="10.0" />
+                                       </HBox.margin>
                                                 </JFXButton>
                                             </children>
                                         </HBox>

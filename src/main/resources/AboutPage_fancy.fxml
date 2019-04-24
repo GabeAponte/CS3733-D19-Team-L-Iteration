@@ -73,7 +73,7 @@
                                                      <FontAwesomeIconView fx:id="home" fill="#012d5a" glyphName="FILM" size="35" />
                                                  </graphic>
                                                  <HBox.margin>
-                                                     <Insets right="10.0" />
+                                                     <Insets right="20.0" />
                                                  </HBox.margin>
                                        <font>
                                           <Font name="Trebuchet MS" size="17.0" />
@@ -86,6 +86,9 @@
                                        <font>
                                           <Font name="Trebuchet MS" size="17.0" />
                                        </font>
+                                       <HBox.margin>
+                                          <Insets right="10.0" />
+                                       </HBox.margin>
                                     </JFXButton>
                                          </children>
                                      </HBox>
