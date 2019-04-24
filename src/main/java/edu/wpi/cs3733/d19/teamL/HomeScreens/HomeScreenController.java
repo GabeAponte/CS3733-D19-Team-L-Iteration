@@ -331,6 +331,7 @@ public class HomeScreenController {
         Optional<ButtonType> result = alert.showAndWait();
         if (result.get() == ButtonType.OK){
             // ... user chose OK
+            saveState();
             Parent newPage = FXMLLoader.load(getClass().getClassLoader().getResource("EmergencyScreen.fxml"));
             ((Node) event.getSource()).getScene().setRoot(newPage);
         } else {
