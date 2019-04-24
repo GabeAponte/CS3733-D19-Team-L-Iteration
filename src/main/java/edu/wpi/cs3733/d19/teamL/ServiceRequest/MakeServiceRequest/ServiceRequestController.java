@@ -227,7 +227,7 @@ public class ServiceRequestController {
     private void openMedical(){
         ImagingRequest ir = new ImagingRequest();
         try{
-            ir.run(0,0,720,1280, "",null, null);
+            ir.run(0,0,720,1280, "","ELABS00101", "ELABS00101");
         }catch (Exception e){
             System.out.println("Failed to run API");
             e.printStackTrace();
