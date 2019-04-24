@@ -1092,7 +1092,7 @@ public class BookRoomController {
                 eventInfo.setText("Request Event Access");
             }
 
-            if((data.get(0)[6]).equals("1")){
+            if(((data.get(0)[6]).equals("1") && !(data.get(0)[1]).equals(temp))){
                 System.out.println("PRIVATE EVENT");
                 eventTitle.setText("Private Event");
                 creatorLabel.setText("Creator: Private");
