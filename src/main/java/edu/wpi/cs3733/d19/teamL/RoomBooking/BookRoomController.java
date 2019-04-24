@@ -982,7 +982,7 @@ public class BookRoomController {
                 descriptionLabel.setText("Description: " + data.get(0)[3]);
                 invitedEmployeesLabel.setText("Invited Employees: " + data.get(0)[5]);
             }
-            roomNameLabel.setText("Room name: " + data.get(0)[0]);
+            roomNameLabel.setText("Room name: " + roomName);
             startTimeLabel.setText("Start date: " + data.get(0)[7].substring(0,10));
             endTimeLabel.setText("End date: " + data.get(0)[8].substring(0,10));
             startDateLabel.setText("Start time: " + data.get(0)[7].substring(11));
