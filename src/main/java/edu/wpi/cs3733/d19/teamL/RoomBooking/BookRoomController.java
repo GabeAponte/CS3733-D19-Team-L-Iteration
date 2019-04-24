@@ -709,6 +709,7 @@ public class BookRoomController {
         }
         flexSpaces.clear();
 
+
         double sr = Math.min(roomImage.getFitWidth() / roomImage.getImage().getWidth(), roomImage.getFitHeight() / roomImage.getImage().getHeight());
 
         //large important room
@@ -824,7 +825,7 @@ public class BookRoomController {
         flexSpaces.add(new Polygon(960 * sr, 1190 * sr, 1060 * sr, 1190 * sr, 1060 * sr, 1270 * sr, 960 * sr, 1270 * sr));
         flexSpaces.add(new Polygon(1060 * sr, 1190 * sr, 1160 * sr, 1190 * sr, 1160 * sr, 1270 * sr, 1060 * sr, 1270 * sr));
 
-        for (i = 0; i < flexSpaces.size(); i++) {
+        for (i = 1; i < flexSpaces.size(); i++) {
             if (flexSpaceAvailable.get(i)) {
                 flexSpaces.get(i).setStroke(Color.web("TURQUOISE"));
                 flexSpaces.get(i).setFill(Color.web("TURQUOISE"));
@@ -836,6 +837,19 @@ public class BookRoomController {
             }
             imagePane.getChildren().add(flexSpaces.get(i));
         }
+        if (single.isFree()) {
+            System.out.println("Set T");
+            flexSpaces.get(0).setStroke(Color.web("TURQUOISE"));
+            flexSpaces.get(0).setFill(Color.web("TURQUOISE"));
+            flexSpaces.get(0).setOpacity(0.5);
+        }
+        else {
+            System.out.println("Set R");
+            flexSpaces.get(0).setStroke(Color.web("RED"));
+            flexSpaces.get(0).setFill(Color.web("RED"));
+            flexSpaces.get(0).setOpacity(0.3);
+        }
+        imagePane.getChildren().add(flexSpaces.get(0));
     }
 
     /**@author Nathan

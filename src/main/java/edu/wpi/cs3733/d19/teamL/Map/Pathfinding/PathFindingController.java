@@ -2789,7 +2789,7 @@ public class PathFindingController {
         flexSpaces.add(new Polygon((960+11310)* srWidth *.303, ( 1190+5624)* srHeight *.3023, ( 1060+11310)* srWidth *.303, ( 1190+5624)* srHeight *.3023, ( 1060+11310)* srWidth *.303, ( 1270+5624)* srHeight *.3023, ( 960+11310)* srWidth *.303, ( 1270+5624)* srHeight *.3023));
         flexSpaces.add(new Polygon((1060+11310)* srWidth *.303, ( 1190+5624)* srHeight *.3023, ( 1160+11310)* srWidth *.303, ( 1190+5624)* srHeight *.3023, ( 1160+11310)* srWidth *.303, ( 1270+5624)* srHeight *.3023, ( 1060+11310)* srWidth *.303, ( 1270+5624)* srHeight *.3023));
 
-        for(int i = 0; i < flexSpaces.size(); i++){
+        for(int i = 1; i < flexSpaces.size(); i++){
             if(flexSpaceAvailable.get(i)) {
                 flexSpaces.get(i).setStroke(Color.web("TURQUOISE"));
                 flexSpaces.get(i).setFill(Color.web("TURQUOISE"));
@@ -2801,6 +2801,17 @@ public class PathFindingController {
             }
             pathPane.getChildren().add(flexSpaces.get(i));
         }
+        if (single.isFree()) {
+            flexSpaces.get(0).setStroke(Color.web("TURQUOISE"));
+            flexSpaces.get(0).setFill(Color.web("TURQUOISE"));
+            flexSpaces.get(0).setOpacity(0.5);
+        }
+        else {
+            flexSpaces.get(0).setStroke(Color.web("RED"));
+            flexSpaces.get(0).setFill(Color.web("RED"));
+            flexSpaces.get(0).setOpacity(0.3);
+        }
+        pathPane.getChildren().add(flexSpaces.get(0));
     }
 
     private void displayBookableRooms(){
@@ -2883,7 +2894,7 @@ public class PathFindingController {
 
     private void updateFlexSpaces(ArrayList<Boolean> booleans){
         if(flexSpaces.size() > 0) {
-            for (int i = 0; i < booleans.size(); i++) {
+            for (int i = 1; i < booleans.size(); i++) {
                 if (booleans.get(i)) {
                     flexSpaces.get(i).setStroke(Color.web("TURQUOISE"));
                     flexSpaces.get(i).setFill(Color.web("TURQUOISE"));
@@ -2894,6 +2905,16 @@ public class PathFindingController {
                     flexSpaces.get(i).setOpacity(0.3);
                 }
             }
+        }
+        if (single.isFree()) {
+            flexSpaces.get(0).setStroke(Color.web("TURQUOISE"));
+            flexSpaces.get(0).setFill(Color.web("TURQUOISE"));
+            flexSpaces.get(0).setOpacity(0.5);
+        }
+        else {
+            flexSpaces.get(0).setStroke(Color.web("RED"));
+            flexSpaces.get(0).setFill(Color.web("RED"));
+            flexSpaces.get(0).setOpacity(0.3);
         }
     }
 

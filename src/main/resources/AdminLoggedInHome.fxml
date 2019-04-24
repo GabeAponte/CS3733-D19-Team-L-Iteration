@@ -291,12 +291,12 @@
                         <Insets top="3.0" />
                      </GridPane.margin>
                   </Label>
-                  <JFXComboBox fx:id="strategySelector" maxWidth="1.7976931348623157E308" onAction="#strategySelected" promptText="Search Strategy" styleClass="jfx-combo-box-PathMenu2" stylesheets="@Default.css" GridPane.columnSpan="2147483647" GridPane.rowIndex="2">
+                  <JFXComboBox fx:id="strategySelector" maxWidth="1.7976931348623157E308" onAction="#strategySelected" styleClass="jfx-combo-box-PathMenu2" stylesheets="@Default.css" GridPane.columnSpan="2147483647" GridPane.rowIndex="2">
                      <GridPane.margin>
                         <Insets left="50.0" right="50.0" />
                      </GridPane.margin>
                   </JFXComboBox>
-                  <JFXTextField fx:id="timeoutTime" focusColor="#f5d96b" promptText="Timeout (sec.)" styleClass="prompt-text-text-field" stylesheets="@Default.css" unFocusColor="WHITE" GridPane.columnSpan="2147483647" GridPane.halignment="CENTER" GridPane.rowIndex="1">
+                  <JFXTextField fx:id="timeoutTime" onAction="#keyPressedTimeout" focusColor="#f5d96b" promptText="Timeout (sec.)" styleClass="prompt-text-text-field" stylesheets="@Default.css" unFocusColor="WHITE" GridPane.columnSpan="2147483647" GridPane.halignment="CENTER" GridPane.rowIndex="1">
                      <GridPane.margin>
                         <Insets left="50.0" right="50.0" />
                      </GridPane.margin>
