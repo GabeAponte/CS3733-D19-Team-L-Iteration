@@ -538,7 +538,10 @@ public class BookRoomController {
     public void roundStartTime(){
         LocalTime selectedStartTime = startTime.getValue();
         int startMinute = selectedStartTime.getMinute();
-        if(startMinute < 8)
+        if(startMinute == 0){
+            
+        }
+        else if(startMinute < 8)
         {
             selectedStartTime = selectedStartTime.minusMinutes(startMinute);
             startTime.setValue(selectedStartTime);

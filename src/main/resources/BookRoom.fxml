@@ -165,7 +165,7 @@
                                                         <Font size="18.0" />
                                                     </font>
                                                 </Label>
-                                                <JFXTimePicker fx:id="startTime" defaultColor="#f5d96b" onMouseExited="#roundStartTime" prefHeight="50.0" prefWidth="225.0" promptText="Start Time" styleClass="jfx-time-picker" stylesheets="@Default.css" />
+                                                <JFXTimePicker fx:id="startTime" defaultColor="#f5d96b" onAction="#roundStartTime" onMouseExited="#roundStartTime" prefHeight="50.0" prefWidth="225.0" promptText="Start Time" styleClass="jfx-time-picker" stylesheets="@Default.css" />
                                             </children>
                                  <GridPane.margin>
                                     <Insets top="5.0" />
