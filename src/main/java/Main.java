@@ -16,7 +16,7 @@ public class Main extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception {
         Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getClassLoader().getResource("HospitalHome.fxml")));
-        primaryStage.setTitle("Team L Iteration 3");
+        primaryStage.setTitle("Team L Iteration 4");
         primaryStage.setScene(new Scene(root));
         primaryStage.setMaximized(true);
         //primaryStage.setResizable(false);
@@ -29,9 +29,9 @@ public class Main extends Application {
         NodesAccess na = new NodesAccess();
         EdgesAccess ea = new EdgesAccess();
         pathReportAccess p = new pathReportAccess();
-        //ea.deleteRecords();
-        //na.readCSVintoTable();
-        //ea.readCSVintoTable();
+//        ea.deleteRecords();
+//        na.readCSVintoTable();
+//        ea.readCSVintoTable();
 
         single.setData();
         single.populateTweets();

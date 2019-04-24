@@ -16,6 +16,7 @@ import javafx.application.Platform;
 import javafx.beans.property.ReadOnlyObjectWrapper;
 import javafx.beans.value.ChangeListener;
 import javafx.collections.FXCollections;
+import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -33,6 +34,7 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Polygon;
+import javafx.scene.transform.Translate;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -40,12 +42,22 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 import javafx.util.Duration;
+import org.controlsfx.control.CheckComboBox;
+import org.w3c.dom.Text;
+
+//Import APIs
+import giftRequest.GiftRequest;
+import foodRequest.FoodRequest;
 
 public class BookRoomController {
 
-    //Weekly Schedule Stuff
+    @FXML
+    private TabPane tabPane;
+
+    //Weekly Schedule Stuff ------------------------------------------------------------------------------------------
 
     @FXML
     private Label classroomLabel;
@@ -87,10 +99,7 @@ public class BookRoomController {
 
     private TreeItem WeeklyRoot = new TreeItem("rootxxx");
 
-    String chosenRoom;
-    LocalDate chosenDate;
-
-    //Daily Schedule Stuff
+    //Daily Schedule Stuff --------------------------------------------------------------------------------------------
 
     @FXML
     private JFXDatePicker dailyDatePicker;
@@ -131,7 +140,7 @@ public class BookRoomController {
     @FXML
     private TreeTableColumn<Room, Boolean> auditorium;
 
-    //Visual Display Stuff
+    //Visual Display Stuff --------------------------------------------------------------------------------------------
 
     @FXML
     private JFXDatePicker datePicker;
@@ -141,9 +150,6 @@ public class BookRoomController {
 
     @FXML
     private JFXComboBox<String> availableRooms;
-
-    @FXML
-    private JFXComboBox<String> eventType;
 
     @FXML
     private Label error;
@@ -156,6 +162,12 @@ public class BookRoomController {
 
     @FXML
     private JFXButton requestRoom;
+
+    @FXML
+    private JFXButton orderGifts;
+
+    @FXML
+    private JFXButton orderFood;
 
     @FXML
     private JFXTimePicker startTime;
@@ -171,6 +183,9 @@ public class BookRoomController {
 
     @FXML
     private Pane imagePane;
+
+    @FXML
+    private Pane sizingPane;
 
     @FXML
     private ImageView roomImage;
@@ -190,15 +205,52 @@ public class BookRoomController {
     @FXML
     private AnchorPane anchorPane;
 
+    //Event Info Pop-up ------------------------------------
+
     @FXML
-    private ListView<EmployeeAccess> myListView;
-    private ObservableList<EmployeeAccess> listViewData = FXCollections.observableArrayList();
+    private Label eventTitle;
+    @FXML
+    private Label roomNameLabel;
+    @FXML
+    private Label startTimeLabel;
+    @FXML
+    private Label endTimeLabel;
+    @FXML
+    private Label startDateLabel;
+    @FXML
+    private Label endDateLabel;
+    @FXML
+    private Label creatorLabel;
+    @FXML
+    private Label eventTypeLabel;
+    @FXML
+    private Label descriptionLabel;
+    @FXML
+    private Label invitedEmployeesLabel;
+
+    //Reservation Pop-up -----------------------------------
+    @FXML
+    private TextField eventName;
+
+    @FXML
+    private TextArea eventDescription;
+
+    @FXML
+    private RadioButton privateEvent;
+
+    @FXML
+    private JFXComboBox<String> eventType;
+
+    @FXML
+    CheckComboBox<String> eventEmployees;
+    final ObservableList<String> eventEmployeeData = FXCollections.observableArrayList();
 
     Timeline timeout;
     private boolean firstTimeRan = true;
     private boolean resShowing = false;
     private boolean bookedEventShowing = false;
     private boolean calledFromVisualClick = false;
+    String previousEvent = "";
 
     final ObservableList<String> listOfRooms = FXCollections.observableArrayList();
     ArrayList<String> rooms = new ArrayList<>();
@@ -321,9 +373,28 @@ public class BookRoomController {
             @Override
             public void run() {
                 //displayFlexSpaces();
+                double width = sizingPane.getWidth() - 10;
+                double height = sizingPane.getHeight() - 10;
+                reservationPane.setMinSize(width, height);
+                reservationPane.setPrefSize(width, height);
+                reservationPane.setLayoutX(anchorPane.getWidth());
+                bookedEventPane.setMinSize(width, height);
+                bookedEventPane.setPrefSize(width, height);
+                bookedEventPane.setLayoutX(anchorPane.getWidth());
                 fieldsEntered();
             }
         });
+
+        EmployeeAccess ea = new EmployeeAccess();
+        ArrayList<ArrayList<String>> emps = ea.getEmployees("","");
+
+        for(int i = 0; i < emps.size(); i++){
+            String temp = "";
+            temp = emps.get(i).get(4) + " " + emps.get(i).get(5) + " " + "(" + emps.get(i).get(6) + ")";
+            eventEmployeeData.add(temp);
+        }
+
+        eventEmployees.getItems().addAll(eventEmployeeData);
 
         dailyDatePicker.setValue(LocalDate.now());
         findRooms();
@@ -331,21 +402,13 @@ public class BookRoomController {
         roomPicker.getSelectionModel().select(0);
         viewSched();
 
+
+
     }
 
     public void loadFromPathfind(String roomName){
 
     }
-
-    @FXML
-    private void switchToTable(ActionEvent event) throws IOException {
-        timeout.stop();
-        single.setLastTime();
-        Parent newPage = FXMLLoader.load(getClass().getClassLoader().getResource("BookRoom2.fxml"));
-        ((Node) event.getSource()).getScene().setRoot(newPage);
-    }
-
-    //LocalTime startTimeValue = null;
 
     @FXML
     /** @author Gabe, Nikhil
@@ -361,6 +424,23 @@ public class BookRoomController {
         LocalDate endRoomDate = endDatePicker.getValue();
         LocalDate curDate = LocalDate.now();
         LocalTime curTime = LocalTime.now();
+        boolean eventIsPrivate = false;
+        String eventTypeString = eventType.getSelectionModel().getSelectedItem();
+        String eventNameString = eventName.getText();
+        String eventDescriptionString = eventDescription.getText();
+        String listOfGuests = "";
+
+        List<String> guestList = eventEmployees.getCheckModel().getCheckedItems();
+        for(int i = 0; i < guestList.size(); i ++){
+            listOfGuests = listOfGuests + guestList.get(i) + ",";
+        }
+
+        System.out.println(listOfGuests);
+        System.out.println(guestList);
+
+        if(privateEvent.isSelected()){
+            eventIsPrivate = true;
+        }
 
         error.setTextFill(Color.RED);
 
@@ -384,14 +464,16 @@ public class BookRoomController {
             error.setText("Please select an end time and a date.");
         }
 
-        //Gabe - error when start time is blank
-        else if (startTimeValue == null) {
-            error.setText("Please select a start time.");
+        else if (eventNameString == null || eventNameString.isEmpty()) {
+            error.setText("Please enter an event name.");
         }
 
-        //Gabe - error when end time is blank
-        else if (endTimeValue == null) {
-            error.setText("Please select an end time.");
+        else if (eventDescriptionString == null || eventDescriptionString.isEmpty()) {
+            error.setText("Please enter an event description.");
+        }
+
+        else if (eventTypeString == null || eventTypeString.isEmpty()) {
+            error.setText("Please select an event type.");
         }
 
         //Gabe - error when date is blank
@@ -412,14 +494,17 @@ public class BookRoomController {
             error.setText("Room booked.");
             String date = datePicker.getValue().toString();
             String endDate = endDatePicker.getValue().toString();
-            date += "T" + startTime.getValue().getHour() + ":" + startTime.getValue().getMinute() + ":00";
-            endDate += "T" + endTime.getValue().getHour() + ":" + endTime.getValue().getMinute() + ":00";
+            date += "T" + String.format("%2d", startTime.getValue().getHour()) + ":" + String.format("%2d", startTime.getValue().getMinute()) + ":00";
+            endDate += "T" + String.format("%2d", endTime.getValue().getHour()) + ":" + String.format("%2d", endTime.getValue().getMinute()) + ":00";
             String roomName = availableRooms.getValue().toString();
             EmployeeAccess ea = new EmployeeAccess();
             String employeeID = ea.getEmployeeInformation(single.getUsername()).get(0);
             ReservationAccess roomReq = new ReservationAccess();
             RoomAccess ra = new RoomAccess();
-            roomReq.makeReservation(ra.getRoomID(roomName), employeeID, date, endDate);
+            roomReq.makeReservation(ra.getRoomID(roomName), employeeID, date, endDate, eventNameString, eventDescriptionString, listOfGuests, eventTypeString, eventIsPrivate);
+            //add event name, event description, event type, guestList (String), privacy (boolean)
+            openReservation(false);
+            openEventInfo(true, null);
             fieldsEntered();
         }
     }
@@ -442,9 +527,6 @@ public class BookRoomController {
             endDate += "T" + String.format("%2d", endTime.getValue().getHour()) + ":" + String.format("%2d", endTime.getValue().getMinute()) + ":00";
             availableRooms.getSelectionModel().clearSelection();
 
-            System.out.println(ra.getAvailRooms(date, endDate));
-
-            System.out.println(endDate);
             rooms = ra.getAvailRooms(date, endDate);
             /*for (int i = 0; i < rooms.size(); i++) {
                 System.out.println("Available Rooms: " + rooms.get(i));
@@ -471,6 +553,16 @@ public class BookRoomController {
                 }
             }
 
+            eventName.clear();
+            eventDescription.clear();
+            eventType.getSelectionModel().clearSelection();
+            privateEvent.setSelected(false);
+            EmployeeAccess ea = new EmployeeAccess();
+            ArrayList<ArrayList<String>> emps = ea.getEmployees("","");
+            for(int i = 0; i < emps.size(); i++) {
+                eventEmployees.getCheckModel().clearCheck(i);
+            }
+
             availableRooms.setItems(listOfRooms);
             displayAllRooms();
         }
@@ -489,6 +581,7 @@ public class BookRoomController {
             for (int i = 0; i < DisplayRooms.size(); i++) {
                 DisplayRooms.get(i).makePolygon(scaleRatio);
                 DisplayRooms.get(i).getPolygon().setOnMouseClicked(onMouseClickedEventHandler);
+                //DisplayRooms.get(i).getPolygon().setOnMouseClicked(mouseRightClicked);
                 DisplayRooms.get(i).getPolygon().setVisible(false);
                 imagePane.getChildren().add(DisplayRooms.get(i).getPolygon());
             }
@@ -510,52 +603,78 @@ public class BookRoomController {
 
         @Override
         public void handle(MouseEvent event) {
-            boolean resPaneCalled = false;
-            calledFromVisualClick = true;
-            displayAllRooms();
-            for (int k = 0; k < DisplayRooms.size(); k++) {
-                Point2D mousePress = new Point2D(event.getX(), event.getY());
-                if (DisplayRooms.get(k).p.contains(mousePress)) {
-                    imagePane.getChildren().remove(DisplayRooms.get(k).getPolygon());
-                    roomName.setText(DisplayRooms.get(k).niceName);
-                    fieldsEntered();
-                    for (int z = 0; z < listOfRooms.size(); z++) {
-                        if (DisplayRooms.get(k).getRoomName().equals(listOfRooms.get(z))) {
-                            if (DisplayRooms.get(k).isAvailable()) {
-                                availableRooms.getSelectionModel().select(listOfRooms.get(z));
-                                if(popupName.getText().contains(DisplayRooms.get(k).niceName)){
-                                    resPaneCalled = true;
-                                    //System.out.println("Same");
-                                    if(resShowing) {
-                                        openReservation(false);
-                                    }else{
+            if (!event.isSecondaryButtonDown()) {
+                boolean resPaneCalled = false;
+                calledFromVisualClick = true;
+                displayAllRooms();
+                for (int k = 0; k < DisplayRooms.size(); k++) {
+                    Point2D mousePress = new Point2D(event.getX(), event.getY());
+                    if (DisplayRooms.get(k).p.contains(mousePress)) {
+                        imagePane.getChildren().remove(DisplayRooms.get(k).getPolygon());
+                        roomName.setText(DisplayRooms.get(k).niceName);
+                        fieldsEntered();
+                        for (int z = 0; z < listOfRooms.size(); z++) {
+                            if (DisplayRooms.get(k).getRoomName().equals(listOfRooms.get(z))) {
+                                if (DisplayRooms.get(k).isAvailable()) {
+                                    availableRooms.getSelectionModel().select(listOfRooms.get(z));
+                                    if (popupName.getText().contains(DisplayRooms.get(k).niceName)) {
+                                        resPaneCalled = true;
+                                        //System.out.println("Same");
+                                        if (resShowing) {
+                                            openReservation(false);
+                                        } else {
+                                            openReservation(true);
+                                        }
+                                    } else {
+                                        resPaneCalled = true;
+                                        popupName.setText("Reserve " + DisplayRooms.get(k).niceName);
+                                        //System.out.println("New");
                                         openReservation(true);
                                     }
-                                }else {
-                                    resPaneCalled = true;
-                                    popupName.setText("Reserve " + DisplayRooms.get(k).niceName);
-                                    //System.out.println("New");
-                                    openReservation(true);
                                 }
                             }
                         }
-                    }
-                    if(resPaneCalled == false){
-                        if(bookedEventShowing) {
-                            openEventInfo(false);
-                        }else{
-                            openEventInfo(true);
+                        if (resPaneCalled == false) {
+                            if (DisplayRooms.get(k).getRoomName().equals(previousEvent)) {
+                                if (bookedEventShowing) {
+                                    openEventInfo(false, null);
+                                } else {
+
+                                    openEventInfo(true, DisplayRooms.get(k).getRoomName());
+                                }
+                            } else {
+                                openEventInfo(true, DisplayRooms.get(k).getRoomName());
+                            }
                         }
+                        DisplayRooms.get(k).changePolygonColor("BLUE");
+                        imagePane.getChildren().add(DisplayRooms.get(k).getPolygon());
+                        calledFromVisualClick = false;
                     }
-                    DisplayRooms.get(k).changePolygonColor("BLUE");
-                    imagePane.getChildren().add(DisplayRooms.get(k).getPolygon());
-                    calledFromVisualClick = false;
                 }
             }
 
         }
 
     };
+
+/*
+    private EventHandler<MouseEvent> mouseRightClicked = new EventHandler<MouseEvent>() {
+
+        @Override
+        public void handle(MouseEvent event) {
+            if (event.isSecondaryButtonDown()) {
+                System.out.println("Right Click");
+                for (int k = 0; k < DisplayRooms.size(); k++) {
+                    Point2D mousePress = new Point2D(event.getX(), event.getY());
+                    if (DisplayRooms.get(k).p.contains(mousePress)) {
+                        tabPane.getSelectionModel().select(2);
+                        loadWeekly(DisplayRooms.get(k).niceName, datePicker.getValue());
+                    }
+                }
+            }
+        }
+    };
+*/
 
     public void highlightFromDropdown(){
         //System.out.println("VisClick:"+calledFromVisualClick);
@@ -580,7 +699,9 @@ public class BookRoomController {
 
     }
 
-
+    /** @author Isabella
+     * Displays individual flex spaces that update randomly
+     */
     public void displayFlexSpaces(ArrayList<Boolean> flexSpaceAvailable) {
         int i = 0;
         for (i = 0; i < flexSpaces.size(); i++) {
@@ -717,33 +838,7 @@ public class BookRoomController {
         }
     }
 
-    public void switchToWeekly(ActionEvent event) throws IOException {
-        timeout.stop();
-        single.setLastTime();
-        FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("WeeklySchedule.fxml"));
-        Parent sceneMain = loader.load();
-
-        WeeklyScheduleController wsc = loader.getController();
-        String name = roomName.getText();
-        //if the text is null
-        if (name == null || name.equals("Select a Room")) {
-            //if there are no available rooms
-            if (listOfRooms.size() < 1) {
-                name = "Room 1 - Computer";
-            } else {
-                name = listOfRooms.get(0);
-                //else set to first available room
-            }
-        }
-        System.out.println(name);
-        wsc.loadWeekly(name, datePicker.getValue());
-
-        ((Node) event.getSource()).getScene().setRoot(sceneMain);
-    }
-
-    /**
-     * @throws IOException
-     * @author Nathan
+    /**@author Nathan
      * Restores previous screen
      */
     @FXML
@@ -805,37 +900,91 @@ public class BookRoomController {
      */
     private void openReservation(boolean open) {
         TranslateTransition openNav = new TranslateTransition(new Duration(400.0D), this.reservationPane);
-        openNav.setToX(0.0D);
+        //openNav.setToX(0.0D);
         TranslateTransition closeNav = new TranslateTransition(new Duration(400.0D), this.reservationPane);
         if (open == true){
-            openNav.setToX(-20.0D-this.reservationPane.getWidth());
+            System.out.println(reservationPane.getWidth());
+            openNav.setToX(-this.anchorPane.getWidth()+this.sizingPane.getLayoutX());
             openNav.play();
             resShowing = true;
-            openEventInfo(false);
+            openEventInfo(false, null);
+            callServiceRequests();
             //System.out.println("ResShowing = true");
         } else {
-            closeNav.setToX(20+this.anchorPane.getWidth()+this.reservationPane.getWidth());
+            closeNav.setToX(-this.anchorPane.getWidth()+this.reservationPane.getWidth()+sizingPane.getLayoutX()+sizingPane.getWidth());
             closeNav.play();
             resShowing = false;
             //System.out.println("ResShowing = false");
         }
     }
 
+    private void callServiceRequests() {
+        orderFood.setOnAction((evt) -> {
+            FoodRequest foodRequest = new FoodRequest();
+            try{
+                foodRequest.run(0,0,1280,720,null,null,null);
+            }catch (Exception e){
+                System.out.println("Failed to run API");
+                e.printStackTrace();
+            }
+        });
+
+        orderGifts.setOnAction((evt) -> {
+            GiftRequest gr = new GiftRequest();
+            try{
+                gr.run(0,0,1280,720,null,null,null);
+            }catch (Exception e){
+                System.out.println("Failed to run API");
+                e.printStackTrace();
+            }
+        });
+    }
+
     /** @author Isabella
      * Slides in the event information menu from the right side
      */
-    private void openEventInfo(boolean open) {
-        //System.out.println("Open Event Info called");
+    private void openEventInfo(boolean open, String roomName) {  //Pass in the room name as a parameter here
+
+        previousEvent = roomName;
+
+        String date = datePicker.getValue().toString();
+        String endDate = endDatePicker.getValue().toString();
+        date += "T" + String.format("%2d", startTime.getValue().getHour()) + ":" + String.format("%2d", startTime.getValue().getMinute()) + ":00";
+        endDate += "T" + String.format("%2d", endTime.getValue().getHour()) + ":" + String.format("%2d", endTime.getValue().getMinute()) + ":00";
+        RoomAccess ra = new RoomAccess();
+
+        ArrayList<String[]> data = ra.getReservations(date, endDate, roomName);
+
         TranslateTransition openNav = new TranslateTransition(new Duration(400.0D), this.bookedEventPane);
         openNav.setToX(0.0D);
         TranslateTransition closeNav = new TranslateTransition(new Duration(400.0D), this.bookedEventPane);
         if (open == true){
-            openNav.setToX(-570.0D-this.bookedEventPane.getWidth());
+            if((data.get(0)[6]).equals("1")){
+                System.out.println("PRIVATE EVENT");
+                eventTitle.setText("Private Event");
+                creatorLabel.setText("Creator: Private");
+                eventTypeLabel.setText("Event type: Private");
+                descriptionLabel.setText("Description: Private");
+                invitedEmployeesLabel.setText("Invited Employees: Private");
+            }else{
+                eventTitle.setText(data.get(0)[2]);
+                creatorLabel.setText("Creator: " + data.get(0)[1]);
+                eventTypeLabel.setText("Event type: " + data.get(0)[4]);
+                descriptionLabel.setText("Description: " + data.get(0)[3]);
+                invitedEmployeesLabel.setText("Invited Employees: " + data.get(0)[5]);
+            }
+            roomNameLabel.setText("Room name: " + data.get(0)[0]);
+            startTimeLabel.setText("Start date: " + data.get(0)[7].substring(0,10));
+            endTimeLabel.setText("End date: " + data.get(0)[8].substring(0,10));
+            startDateLabel.setText("Start time: " + data.get(0)[7].substring(11));
+            endDateLabel.setText("End time: " + data.get(0)[8].substring(11));
+
+            openNav.setToX(-this.anchorPane.getWidth()+this.sizingPane.getLayoutX());
             openNav.play();
             openReservation(false);
             bookedEventShowing = true;
         } else {
-            closeNav.setToX(570+this.anchorPane.getWidth()+this.reservationPane.getWidth());
+            closeNav.setToX(-this.anchorPane.getWidth()+this.reservationPane.getWidth()+sizingPane.getLayoutX()+sizingPane.getWidth());
             closeNav.play();
             bookedEventShowing = false;
         }
@@ -848,7 +997,7 @@ public class BookRoomController {
     @FXML
     private void dailyTab() {
         openReservation(false);
-        openEventInfo(false);
+        openEventInfo(false, null);
     }
 
     @FXML
@@ -858,15 +1007,25 @@ public class BookRoomController {
         dailySchedule.setRoot(null);
         Root.getChildren().clear();
         RoomAccess ra = new RoomAccess();
-        String theDate = dailyDatePicker.getValue().toString();
+        String theDate;
+        String endDate;
         LocalTime startLT = LocalTime.of(0,0);
         LocalTime endLT = LocalTime.of(0, 30);
         for(int i = 0; i < 48; i++){
+            theDate = dailyDatePicker.getValue().toString() + "T" + String.format("%2d",startLT.getHour()) + ":" + String.format("%2d",startLT.getMinute()) + ":00";
+            endDate = dailyDatePicker.getValue().toString() + "T" + String.format("%2d",endLT.getHour()) + ":" + String.format("%2d",endLT.getMinute()) + ":00";
             // System.out.println("Start Time: " + startTime + " End Time: " + endTime);
-            TreeItem<Room> bookedRooms = new TreeItem<Room>(new Room(startLT, endLT, ra.getAvailRooms(theDate, theDate)));
+            TreeItem<Room> bookedRooms = new TreeItem<Room>(new Room(startLT, endLT, ra.getAvailRooms(theDate, endDate)));
             Root.getChildren().add(bookedRooms);
-            startLT = startLT.plusMinutes(30);
-            endLT = endLT.plusMinutes(30);
+
+            if(i == 46){
+                startLT = startLT.plusMinutes(30);
+                endLT = endLT.plusMinutes(29);
+            }
+            else {
+                startLT = startLT.plusMinutes(30);
+                endLT = endLT.plusMinutes(30);
+            }
         }
 
         //dailyTimeCol = new TreeTableColumn<Room, String>("Time");
@@ -895,11 +1054,11 @@ public class BookRoomController {
                 protected void updateItem(Boolean item, boolean empty) {
                     super.updateItem(item, empty);
                     if (item == null || !item){
-                        setText("Occupied");
                         setStyle("-fx-background-color: red");
+                        setText("Occupied");
                     } else {
-                        setText("Available");
                         setStyle("-fx-background-color: green");
+                        setText("Available");
                     }
                 }
             };
@@ -1185,7 +1344,7 @@ public class BookRoomController {
     @FXML
     private void weeklyTab(){
         openReservation(false);
-        openEventInfo(false);
+        openEventInfo(false, null);
     }
 
     @FXML
@@ -1458,7 +1617,7 @@ public class BookRoomController {
                     openReservation(true);
                 }
                 else{
-                    openEventInfo(true);
+                    openEventInfo(true, roomName);
                 }
             }
         });

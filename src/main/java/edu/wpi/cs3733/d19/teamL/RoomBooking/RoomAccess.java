@@ -175,7 +175,55 @@ public class RoomAccess extends DBAccess {
         return data;
     }
 
+    /**ALEX MADE THIS
+     * returns an arraylist of reservations that are between these two datetimes
+     * @param startDate
+     * @param endDate
+     * @return
+     */
+    public ArrayList<String[]> getReservations(String startDate, String endDate, String roomName) {
+        String sql = "select re.* from room as ro, reservation as re" +
+                " where ro.roomID = re.rID and ((startDate <= ? and endDate > ?) or (startDate < ? and endDate >= ?)) and ro.name = ?";
+//                "            (\n" +
+//                "              select re.rID, re.eID, re.title, re.description, re.type, re.guestList, re.privacy\n" +
+//                "              from reservation as re\n" +
+//                "              where (startDate <= ? and endDate > ?)\n" +
+//                "                or (startDate < ? and endDate >= ?)\n" +
+//
+//                "\n" +
+//                "             )";
+        ArrayList<String[]> data = new ArrayList<String[]>();
+        try (Connection conn = this.connect();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            pstmt.setString(1, startDate);
+            pstmt.setString(2, startDate);
+            pstmt.setString(3, endDate);
+            pstmt.setString(4, endDate);
+            pstmt.setString(5, roomName);
 
+            ResultSet rs = pstmt.executeQuery();
+            while(rs.next()){
+                String[] entry = new String[9];
+                entry[0] = rs.getString("rID");
+                entry[1] = rs.getString("eID");
+                entry[2] = rs.getString("title");
+                entry[3] = rs.getString("description");
+                entry[4] = rs.getString("type");
+                entry[5] = rs.getString("guestList");
+                entry[6] = rs.getString("privacy");
+                entry[7] = rs.getString("startDate");
+                entry[8] = rs.getString("endDate");
+
+                data.add(entry);
+            }
+            return data;
+
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+
+        return null;
+    }
 
 
     /*public static void main(String[] args) {

@@ -68,17 +68,28 @@
                                      </HBox>
                                      <HBox alignment="CENTER_RIGHT" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="2">
                                          <children>
-                                             <JFXButton fx:id="homebtn" alignment="CENTER" buttonType="RAISED" contentDisplay="TOP" graphicTextGap="0.0" maxHeight="-Infinity" minHeight="-Infinity" onAction="#goHome" prefHeight="75.0" prefWidth="100.0" styleClass="buttonToolbar" stylesheets="@Default.css" text="Home" textFill="#012d5a">
+                                             <JFXButton fx:id="creditsButton" buttonType="RAISED" contentDisplay="TOP" graphicTextGap="1.0" maxHeight="-Infinity" minHeight="-Infinity" onAction="#creditsPress" prefHeight="75.0" prefWidth="100.0" styleClass="buttonToolbar" stylesheets="@Default.css" text="Credits" textFill="#012d5a">
                                                  <graphic>
-                                                     <FontAwesomeIconView fx:id="home" fill="#012d5a" glyphName="HOME" size="40" />
+                                                     <FontAwesomeIconView fx:id="home" fill="#012d5a" glyphName="FILM" size="35" />
                                                  </graphic>
                                                  <HBox.margin>
-                                                     <Insets right="10.0" />
+                                                     <Insets right="20.0" />
                                                  </HBox.margin>
                                        <font>
-                                          <Font name="Trebuchet MS Bold" size="17.0" />
+                                          <Font name="Trebuchet MS" size="17.0" />
                                        </font>
                                              </JFXButton>
+                                    <JFXButton fx:id="homebtn1" buttonType="RAISED" contentDisplay="TOP" graphicTextGap="0.0" layoutX="310.0" layoutY="23.0" maxHeight="-Infinity" minHeight="-Infinity" onAction="#goHome" prefHeight="75.0" prefWidth="100.0" styleClass="buttonToolbar" stylesheets="@Default.css" text="Home" textFill="#012d5a">
+                                       <graphic>
+                                          <FontAwesomeIconView fx:id="home1" fill="#012d5a" glyphName="HOME" size="35" />
+                                       </graphic>
+                                       <font>
+                                          <Font name="Trebuchet MS" size="17.0" />
+                                       </font>
+                                       <HBox.margin>
+                                          <Insets right="10.0" />
+                                       </HBox.margin>
+                                    </JFXButton>
                                          </children>
                                      </HBox>
                                  </children>
@@ -98,16 +109,13 @@
                   <RowConstraints minHeight="10.0" valignment="BOTTOM" vgrow="ALWAYS" />
                </rowConstraints>
                <children>
-                  <VBox prefHeight="200.0" prefWidth="100.0" styleClass="vboxImage" stylesheets="@Default.css" GridPane.columnSpan="2147483647" GridPane.halignment="CENTER" GridPane.rowSpan="2147483647" GridPane.valignment="CENTER" />
+                  <VBox prefHeight="200.0" prefWidth="100.0" styleClass="vboxImage" stylesheets="@Default.css" GridPane.columnSpan="2147483647" GridPane.rowSpan="2147483647" />
                   <Label alignment="CENTER" contentDisplay="CENTER" text="About Team L : The Lavender Loraxes" textAlignment="CENTER" textFill="#f5d96b" GridPane.halignment="CENTER">
                      <font>
                         <Font name="Trebuchet MS" size="30.0" />
                      </font>
-                     <GridPane.margin>
-                        <Insets left="50.0" />
-                     </GridPane.margin>
                   </Label>
-                  <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" GridPane.halignment="CENTER" GridPane.hgrow="NEVER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
+                  <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" GridPane.hgrow="NEVER" GridPane.rowIndex="1">
                      <children>
                         <VBox alignment="TOP_RIGHT" layoutX="750.0" layoutY="10.0" prefHeight="200.0" prefWidth="100.0" spacing="5.0" HBox.hgrow="ALWAYS">
                            <children>
@@ -278,20 +286,17 @@
                         </VBox>
                      </children>
                      <GridPane.margin>
-                        <Insets left="100.0" top="25.0" />
+                        <Insets top="25.0" />
                      </GridPane.margin>
                   </HBox>
                   <VBox alignment="CENTER" maxHeight="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="150.0" prefWidth="100.0" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="2" GridPane.valignment="BOTTOM" GridPane.vgrow="ALWAYS">
                      <children>
                         <HBox alignment="BOTTOM_CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" VBox.vgrow="ALWAYS">
                            <children>
-                              <JFXTextArea editable="false" focusColor="#ffffff00" maxWidth="1.7976931348623157E308" prefHeight="108.0" prefWidth="1028.0" styleClass="about-text-areas" stylesheets="@Default.css" text="The Lavender Loraxes would like to thank the WPI Computer Science Department, CS3733-D19 Software Engineering, Professor Wilson Wong, and our team coach, Matt Le May.  We would also like to give a special thanks to Brigham and Women’s Faulkner Hospital and their representative, Andrew Shinn, for their time and input. " unFocusColor="#ffffff00" wrapText="true" HBox.hgrow="ALWAYS">
+                              <JFXTextArea editable="false" focusColor="#ffffff00" maxWidth="1.7976931348623157E308" styleClass="about-text-areas" stylesheets="@Default.css" text="The Lavender Loraxes would like to thank the WPI Computer Science Department, CS3733-D19 Software Engineering, Professor Wilson Wong, and our team coach, Matt Le May.  We would also like to give a special thanks to Brigham and Women’s Faulkner Hospital and their representative, Andrew Shinn, for their time and input. " unFocusColor="#ffffff00" wrapText="true" HBox.hgrow="ALWAYS">
                                  <font>
                                     <Font name="Trebuchet MS" size="18.0" />
                                  </font>
-                                 <HBox.margin>
-                                    <Insets left="75.0" />
-                                 </HBox.margin>
                               </JFXTextArea>
                            </children>
                         </HBox>
@@ -299,9 +304,6 @@
                            <font>
                               <Font name="Trebuchet MS" size="15.0" />
                            </font>
-                           <VBox.margin>
-                              <Insets left="75.0" />
-                           </VBox.margin>
                         </JFXTextArea>
                      </children>
                      <GridPane.margin>
