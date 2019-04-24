@@ -3,6 +3,8 @@ package edu.wpi.cs3733.d19.teamL.ServiceRequest.MakeServiceRequest;
 import edu.wpi.cs3733.d19.teamL.HomeScreens.HomeScreenController;
 import edu.wpi.cs3733.d19.teamL.Memento;
 import edu.wpi.cs3733.d19.teamL.Singleton;
+import edu.wpi.cs3733.d19.teamMService.Main;
+import giftRequest.GiftRequest;
 import giftRequest.ServiceException;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
@@ -17,9 +19,11 @@ import javafx.scene.control.Button;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import javafx.util.Duration;
+import edu.wpi.cs3733.d19.teamMService.controllers.LanguageRequests;
+import imaging.*;
+import foodRequest.FoodRequest;
 
 import java.io.IOException;
-import giftRequest.GiftRequest;
 
 public class ServiceRequestController {
 
@@ -216,6 +220,33 @@ public class ServiceRequestController {
         }catch (Exception e){
             System.out.println("Failed to run API");
             e.printStackTrace();
+        }
+    }
+
+    @FXML
+    private void openMedical(){
+        ImagingRequest ir = new ImagingRequest();
+        ir.run(0,0,720,1280, "","ELABS00101", "ELABS00101");
+    }
+
+    @FXML
+    private void openFood(){
+        FoodRequest foodRequest = new FoodRequest();
+        try{
+            foodRequest.run(0,0,1280,720,null,null,null);
+        }catch (Exception e){
+            System.out.println("Failed to run API");
+            e.printStackTrace();
+        }
+    }
+
+    @FXML
+    private void openLanguage(){
+        Main m = new Main();
+        try {
+            m.run(0, 0, 1280, 720, "", null);
+        }catch(Exception e){
+            System.out.println("Failed to load Food API");
         }
     }
 
