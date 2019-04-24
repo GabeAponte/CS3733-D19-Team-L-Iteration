@@ -59,10 +59,10 @@ public class HomeScreenController {
     Button HomeFindPath;
 
     @FXML
-    private Button back;
+    Button back;
 
     @FXML
-    private JFXButton aboutButton;
+    JFXButton aboutButton;
 
     @FXML
     Button HomeServiceRequest;
@@ -288,6 +288,7 @@ public class HomeScreenController {
             ((Node) event.getSource()).getScene().setRoot(newPage);
 
         } catch (Exception e){
+            e.printStackTrace();
         }
     }
 
