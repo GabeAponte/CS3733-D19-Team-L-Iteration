@@ -22,6 +22,7 @@ import javafx.util.Duration;
 
 import java.io.IOException;
 import java.time.LocalDate;
+import java.time.LocalTime;
 
 public class WeeklyScheduleController
 {
@@ -29,7 +30,7 @@ public class WeeklyScheduleController
     private Label classroomLabel;
 
     @FXML
-    private JFXDatePicker datePicker;
+    private JFXDatePicker weeklyDatePicker;
 
     @FXML
     private JFXComboBox roomPicker;
@@ -41,10 +42,10 @@ public class WeeklyScheduleController
     private Button goToBookRoom;
 
     @FXML
-    private TreeTableView<WeeklyRoom> bookedTime;
+    private TreeTableView<WeeklyRoom> weeklySchedule;
 
     @FXML
-    private TreeTableColumn<WeeklyRoom, String> timeCol;
+    private TreeTableColumn<WeeklyRoom, String> weeklyTimeCol;
 
     @FXML
     private TreeTableColumn<WeeklyRoom, Boolean> sunCol;
@@ -121,13 +122,13 @@ public class WeeklyScheduleController
 
     @FXML
     private void changeRooms(){
-        loadWeekly(roomPicker.getValue().toString(), datePicker.getValue());
+        loadWeekly(roomPicker.getValue().toString(), weeklyDatePicker.getValue());
     }
 
     public void loadWeekly(String theRoom, LocalDate theDate){
         roomPicker.setValue(theRoom);
         classroomLabel.setText(theRoom + " Weekly Schedule");
-        datePicker.setValue(theDate);
+        weeklyDatePicker.setValue(theDate);
 
         checkAvailability(theRoom, theDate);
     }
@@ -135,41 +136,29 @@ public class WeeklyScheduleController
     public void checkAvailability(String roomName, LocalDate theDate){
         Singleton single = Singleton.getInstance();
         single.setLastTime();
-        bookedTime.setRoot(null);
+        weeklySchedule.setRoot(null);
         Root.getChildren().clear();
         RoomAccess ra = new RoomAccess();
-        LocalDate givenDate = datePicker.getValue();
-        int startTime = 0;
-        int endTime = 30;
-        for(int i = 0; i < 47; i++){
-            // System.out.println("Start Time: " + startTime + " End Time: " + endTime);
-            TreeItem<WeeklyRoom> bookedRooms = new TreeItem<WeeklyRoom>(new WeeklyRoom(startTime, endTime, theDate, roomName ));
+        LocalDate givenDate = weeklyDatePicker.getValue();
+        LocalTime startLT = LocalTime.of(0,0);
+        LocalTime endLT = LocalTime.of(0, 30);
+        for(int i = 0; i < 48; i++) {
+            //System.out.println("Start Time: " + startLT + " End Time: " + endLT);
+            TreeItem<WeeklyRoom> bookedRooms = new TreeItem<WeeklyRoom>(new WeeklyRoom(startLT, endLT, theDate, roomName));
             Root.getChildren().add(bookedRooms);
-            //System.out.println(bookedRooms.getValue().getTime());
-            if(i == 33) {
-                // System.out.println("Start Time: " + startTime + "End Time: " +endTime);
-            }
-            if(i == 0){
-                startTime += 30;
-                endTime += 70;
-            }
-            else if(i%2 == 0) {
-                startTime += 30;
-                endTime += 70;
+
+            if(i == 46){
+                startLT = startLT.plusMinutes(30);
+                endLT = endLT.plusMinutes(29);
             }
             else{
-                startTime +=70;
-                endTime +=30;
-            }
-            startTime %= 2400;
-            endTime %= 2400;
-        }
-        //System.out.println("Start Time: " + startTime + " End Time: " + endTime);
-        TreeItem<WeeklyRoom> bookedRooms = new TreeItem<WeeklyRoom>(new WeeklyRoom(startTime, endTime, theDate, roomName));
-        Root.getChildren().add(bookedRooms);
+                startLT = startLT.plusMinutes(30);
+                endLT = endLT.plusMinutes(30);
 
-        //timeCol = new TreeTableColumn<Room, String>("Time");
-        timeCol.setCellValueFactory(cellData -> {
+            }
+        }
+        //weeklyTimeCol = new TreeTableColumn<Room, String>("Time");
+        weeklyTimeCol.setCellValueFactory(cellData -> {
             if(cellData.getValue().getValue()instanceof WeeklyRoom) {
                 return new ReadOnlyObjectWrapper(cellData.getValue().getValue().getTime());
             }
@@ -379,11 +368,11 @@ public class WeeklyScheduleController
             return cell;
         });
 
-        bookedTime.getColumns().clear();
-        bookedTime.getColumns().addAll(timeCol, sunCol, monCol, tueCol, wedCol, thuCol, friCol, satCol);
-        bookedTime.setTreeColumn(timeCol);
-        bookedTime.setRoot(Root);
-        bookedTime.setShowRoot(false);
+        weeklySchedule.getColumns().clear();
+        weeklySchedule.getColumns().addAll(weeklyTimeCol, sunCol, monCol, tueCol, wedCol, thuCol, friCol, satCol);
+        weeklySchedule.setTreeColumn(weeklyTimeCol);
+        weeklySchedule.setRoot(Root);
+        weeklySchedule.setShowRoot(false);
         single.setLastTime();
     }
 

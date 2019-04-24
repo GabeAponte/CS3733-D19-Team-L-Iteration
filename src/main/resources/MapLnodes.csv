@@ -604,3 +604,40 @@ WHALL00702,1740,1500,2,Tower,HALL,Hallway Connector 7 Floor 2,Hallway W0702
 WHALL00802,1720,1745,2,Shapiro,HALL,Hallway Connector 8 Floor 2,Hallway W0802
 WHALL00902,1690,2240,2,Shapiro,HALL,Hallway Connector 9 Floor 2,Hallway W0902
 WHALL01002,1690,2455,2,BTM,HALL,Hallway Connector 10 Floor 2,Hallway W1002
+LHALL00102,4241,849,2,Outside,HALL,Hallway Node 1 Level 2,Hallway L0102
+LHALL00202,4269,979,2,Outside,HALL,Hallway Node 2 Level 2,Hallway L0202
+LHALL00302,4397,1520,2,Outside,HALL,Hallway Node 3 Level 2,Hallway L0302
+LHALL00402,4317,1679,2,FlexibleWorkspace,HALL,Hallway Node 4 Level 2,Hallway L0402
+LHALL00502,4317,1938,2,FlexibleWorkspace,HALL,Hallway Node 5 Level 2,Hallway L0502
+LHALL00602,4280,2049,2,FlexibleWorkspace,HALL,Hallway Node 6 Level 2,Hallway L0602
+LHALL00702,4303,2166,2,FlexibleWorkspace,HALL,Hallway Node 7 Level 2,Hallway L0702
+LELEV00102,4234,2174,2,FlexibleWorkspace,ELEV,Elevator FW Level 2,Elevator L0102
+LELEV00104,4234,2174,4,FlexibleWorkspace,ELEV,Elevator FW Level 4,Elevator L0104
+LHALL00104,4284,2170,4,FlexibleWorkspace,HALL,Hallway FW Node 1 Level 4,Hallway FW L0104
+LADUI00104,4347,2168,4,FlexibleWorkspace,ADUI,Mission Hall Auditorium,Mission Hall Auditorium
+LCLAS00104,4229,2260,4,FlexibleWorkspace,COMP,Classroom 1 (Computer),Classroom L0104
+LCONF00104,4229,2281,4,FlexibleWorkspace,CONF,Conference Room 1 FW,Conferece Room L0104
+LHALL00204,4261,2270,4,FlexibleWorkspace,HALL,Hallway FW Node 2 ,Hallway L0204
+LPANT00104,4241,2375,4,FlexibleWorkspace,PANTRY,Pantry FW Level 4,Pantry L0104
+LWOZO00504,4113,2354,4,FlexibleWorkspace,WOZO,Work Zone 5 Leve 4 ,Work Zone L0504
+LCLAS00204,4333,2149,4,FlexibleWorkspace,COMP,Classroom 2 (Computer),Classroom L0204
+LHALL00304,4294,2095,4,FlexibleWorkspace,HALL,Hallway FW Node 3,Hallway L0304
+LHALL00404,4263,2029,4,FlexibleWorkspace,HALL,Hallway FW Node 4,Hallway L0404
+LCLAS00304,4289,2032,4,FlexibleWorkspace,COMP,Classroom 3 (Computer),Classroom L0304
+LHALL00504,4226,1901,4,FlexibleWorkspace,HALL,Hallway FW Node 5,Hallway L0504
+LCLAS00404,4236,1867,4,FlexibleWorkspace,CLASS,Classroom 4,Classroom L0404
+LCLAS00504,4183,1908,4,FlexibleWorkspace,COMP,Classroom 5 (Computer),Classroom L0504
+LHALL00604,4149,1889,4,FlexibleWorkspace,HALL,Hallway FW Node 6,Hallway L0604
+LCLAS00604,4145,1863,4,FlexibleWorkspace,CLASS,Classroom 6,Classroom L0604
+LHALL00704,4073,1885,4,FlexibleWorkspace,HALL,Hallway FW Node 7,Hallway L0704
+LCLAS00704,4088,1912,4,FlexibleWorkspace,COMP,Classroom 7 (Computer),Classroom L0704
+LCLAS00804,4048,1865,4,FlexibleWorkspace,CLASS,Classroom 8,Classroom L0804
+LWOZO00204,3969,1887,4,FlexibleWorkspace,WOZO,Work Zone 2 Level 4,Work Zone L0204
+LWOZO00304,3716,1882,4,FlexibleWorkspace,WOZO,Work Zone 3 Level 4,Work Zone L0304
+LWOZO00104,4004,2040,4,FlexibleWorkspace,WOZO,Work Zone 1 Level 4,Work Zone L0104
+LHALL00804,4168,2043,4,FlexibleWorkspace,HALL,Hallway FW Node 8,Hallway L0804
+LWOZO00404,3677,2040,4,FlexibleWorkspace,WOZO,Work Zone 4 Level 4,Work Zone L0404
+LHALL00904,3610,1886,4,FlexibleWorkspace,HALL,Hallway FW Node 9 ,Hallway L0904
+LHALL01004,3609,2044,4,FlexibleWorkspace,HALL,Hallway FW Node 10,Hallway L1004
+LHALL01104,3951,2356,4,FlexibleWorkspace,HALL,Hallway FW Node 11,Hallway L1104
+LHALL01204,3946,2038,4,FlexibleWorkspace,HALL,Hallway FW Node 12,Hallway L1204

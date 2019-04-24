@@ -12,33 +12,23 @@
     </subDataset>
     <parameter name="CHART_DATASET" class="net.sf.jasperreports.engine.data.JRBeanCollectionDataSource" isForPrompting="false"/>
     <parameter name="PIE_CHART" class="net.sf.jasperreports.engine.data.JRBeanCollectionDataSource" isForPrompting="false"/>
+    <parameter name="CHART_DATASET_NOSEARCH" class="net.sf.jasperreports.engine.data.JRBeanCollectionDataSource" isForPrompting="false"/>
     <background>
         <band splitType="Stretch"/>
     </background>
     <title>
         <band height="79" splitType="Stretch">
             <staticText>
-                <reportElement x="154" y="30" width="254" height="30"/>
+                <reportElement x="85" y="10" width="450" height="30"/>
                 <textElement>
-                    <font size="18"/>
+                    <font size="16"/>
                 </textElement>
-                <text><![CDATA[Brigham and Women's Hospital]]></text>
+                <text><![CDATA[Brigham and Women's Hospital- Pathfinding Report]]></text>
             </staticText>
         </band>
     </title>
-    <pageHeader>
-        <band height="54" splitType="Stretch">
-            <staticText>
-                <reportElement x="180" y="10" width="200" height="30"/>
-                <textElement>
-                    <font size="14"/>
-                </textElement>
-                <text><![CDATA[Pathfinding Application Report]]></text>
-            </staticText>
-        </band>
-    </pageHeader>
     <detail>
-        <band height="500" splitType="Stretch">
+        <band height="700" splitType="Stretch">
             <barChart>
                 <chart evaluationTime="Report">
                     <reportElement x="10" y="27" width="500" height="200"/>
@@ -53,7 +43,7 @@
                         </datasetRun>
                     </dataset>
                     <categorySeries>
-                        <seriesExpression><![CDATA["Location"]]></seriesExpression>
+                        <seriesExpression><![CDATA["Location- Searched"]]></seriesExpression>
                         <categoryExpression><![CDATA[$F{category}]]></categoryExpression>
                         <valueExpression><![CDATA[$F{value}]]></valueExpression>
                     </categorySeries>
@@ -71,7 +61,7 @@
             </barChart>
             <pieChart>
                 <chart evaluationTime="Report">
-                    <reportElement x="140" y="210" width="270" height="200"/>
+                    <reportElement x="140" y="220" width="270" height="200"/>
                     <chartTitle/>
                     <chartSubtitle/>
                     <chartLegend/>
@@ -90,15 +80,36 @@
                     <itemLabel/>
                 </piePlot>
             </pieChart>
+            <barChart>
+            <chart evaluationTime="Report">
+                <reportElement x="10" y="430" width="500" height="200"/>
+                <chartTitle/>
+                <chartSubtitle/>
+                <chartLegend/>
+            </chart>
+            <categoryDataset>
+                <dataset>
+                    <datasetRun subDataset="chartDataSet">
+                        <dataSourceExpression><![CDATA[$P{CHART_DATASET_NOSEARCH}]]></dataSourceExpression>
+                    </datasetRun>
+                </dataset>
+                <categorySeries>
+                    <seriesExpression><![CDATA["Locations- Traveled To"]]></seriesExpression>
+                    <categoryExpression><![CDATA[$F{category}]]></categoryExpression>
+                    <valueExpression><![CDATA[$F{value}]]></valueExpression>
+                </categorySeries>
+            </categoryDataset>
+            <barPlot>
+                <plot/>
+                <itemLabel/>
+                <categoryAxisFormat>
+                    <axisFormat labelColor="#000000" tickLabelColor="#000000" axisLineColor="#000000"/>
+                </categoryAxisFormat>
+                <valueAxisFormat>
+                    <axisFormat labelColor="#000000" tickLabelColor="#000000" axisLineColor="#000000"/>
+                </valueAxisFormat>
+            </barPlot>
+            </barChart>
         </band>
     </detail>
-    <columnFooter>
-        <band height="45" splitType="Stretch"/>
-    </columnFooter>
-    <pageFooter>
-        <band height="54" splitType="Stretch"/>
-    </pageFooter>
-    <summary>
-        <band height="42" splitType="Stretch"/>
-    </summary>
 </jasperReport>

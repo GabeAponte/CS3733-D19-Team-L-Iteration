@@ -11,6 +11,18 @@
     -fx-opacity: .20;
 }
 
+.vboxPathImage {
+    -fx-background-image: url("SoftEng_UI_Mockup_Pics/pathfindBackground.jpg");
+    -fx-background-size: cover;
+    -fx-opacity: .17;
+}
+
+.vboxPopup {
+    -fx-background-image: url("SoftEng_UI_Mockup_Pics/popup.jpg");
+    -fx-background-size: cover;
+    -fx-opacity: .20;
+}
+
 .buttonMain{
     -fx-background-color: white;
     -fx-border-color: #012d5a;
@@ -130,7 +142,7 @@
 
 .buttonToolbar{
     -fx-background-color: white;
-    -fx-background-radius: 10;
+    -fx-background-radius: 15;
     -fx-border-color : #012D5A;
     -fx-border-radius: 10;
     -fx-border-width: 2;
@@ -150,9 +162,9 @@
 }
 
 .buttonMap{
-    -fx-background-radius: 10000;
+    -fx-background-radius: 15;
     -fx-border-color : #012D5A;
-    -fx-border-radius: 100;
+    -fx-border-radius: 10;
     -fx-border-width: 2;
     -fx-pref-height: 46;
     -fx-text-fill:  #012d5a ;
@@ -191,6 +203,12 @@
 
     -jfx-unselected-color: #012d5a;
     -fx-text-fill: #012d5a;
+}
+
+.radio-buttonDJ{
+    -jfx-selected-color:  #f5d96b;
+    -jfx-unselected-color: white;
+    -fx-text-fill: white;
 }
 
 .labelTitle {
@@ -274,24 +292,24 @@
     -fx-text-fill: #F5D96B;
 }
 
-/*.buttonMain{
+.buttonDJ{
     -fx-border-color: #F5D96B;
     -fx-background-color: #012d5a;
     -fx-text-fill: white;
 }
 
-.buttonMain .glyph-icon {
+.buttonDJ .glyph-icon {
     -fx-fill: white;
 }
 
-.buttonMain:hover {
+.buttonDJ:hover {
     -fx-background-color: white;
     -fx-text-fill: #012d5a;
 }
 
-.buttonMain:hover .glyph-icon{
+.buttonDJ:hover .glyph-icon{
     -fx-fill: #012d5a;
-}*/
+}
 
 .jfx-text-field-twitter {
     -fx-background-color: white;
@@ -307,6 +325,13 @@
     -fx-text-fill: #012d5a;
     -jfx-focus-color: #012d5a;
     -jfx-unfocus-color: #012d5a;
+}
+
+.jfx-text-field-popup {
+    -fx-prompt-text-fill: white;
+    -fx-text-fill: white;
+    -jfx-focus-color: white;
+    -jfx-unfocus-color: white;
 }
 
 .jfx-text-field-servicerequest {
@@ -336,7 +361,7 @@
 
 .password-field-login{
     -fx-background-color: white;
-    -fx-prompt-text-fill: #012d5a;
+    -fx-prompt-text-fill: black;
     -fx-text-fill: #012d5a;
     -jfx-focus-color: #f5d96b;
     -jfx-unfocus-color: transparent

@@ -213,6 +213,19 @@ public class EditLocationController {
         }
         showEdge=false;
     }
+    @FXML
+    private void clicked4(){
+        Singleton single = Singleton.getInstance();
+        single.setLastTime();
+        Map.setImage(new Image("/SoftEng_UI_Mockup_Pics/04_thefourthfloor.png"));
+        floorSelected = 4;
+        changeMapLabel();
+        if(displayingNodes) {
+            eraseNodes();
+            drawNodes();
+        }
+        showEdge=false;
+    }
 
     @FXML
     /**
@@ -226,6 +239,7 @@ public class EditLocationController {
         mapURLs.add("/SoftEng_UI_Mockup_Pics/00_thelowerlevel2.png");
         mapURLs.add("/SoftEng_UI_Mockup_Pics/01_thefirstfloor.png");
         mapURLs.add("/SoftEng_UI_Mockup_Pics/02_thesecondfloor.png");
+        mapURLs.add("/SoftEng_UI_Mockup_Pics/04_thefourthfloor.png");
     }
 
     @SuppressWarnings("Convert2Diamond")
@@ -338,6 +352,9 @@ public class EditLocationController {
         }
         else if(floorSelected == -1){
             return "L1";
+        }
+        else if(floorSelected == 4){
+            return "4";
         }
         else {
             return "L2";
