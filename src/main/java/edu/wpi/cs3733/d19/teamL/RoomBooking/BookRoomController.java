@@ -585,9 +585,10 @@ public class BookRoomController {
                     }
                     if(resPaneCalled == false){
                         if(bookedEventShowing) {
-                            openEventInfo(false);
+                            openEventInfo(false, null);
                         }else{
-                            openEventInfo(true);
+                            String temp = "";
+                            openEventInfo(true, temp);
                         }
                     }
                     DisplayRooms.get(k).changePolygonColor("BLUE");
@@ -874,7 +875,7 @@ public class BookRoomController {
             openNav.setToX(-20.0D-this.reservationPane.getWidth());
             openNav.play();
             resShowing = true;
-            openEventInfo(false);
+            openEventInfo(false, null);
             //System.out.println("ResShowing = true");
         } else {
             closeNav.setToX(20+this.anchorPane.getWidth()+this.reservationPane.getWidth());
@@ -887,7 +888,7 @@ public class BookRoomController {
     /** @author Isabella
      * Slides in the event information menu from the right side
      */
-    private void openEventInfo(boolean open) {  //Pass in the room name as a parameter here
+    private void openEventInfo(boolean open, String roomName) {  //Pass in the room name as a parameter here
         //System.out.println("Open Event Info called");
         TranslateTransition openNav = new TranslateTransition(new Duration(400.0D), this.bookedEventPane);
         openNav.setToX(0.0D);
@@ -911,7 +912,7 @@ public class BookRoomController {
     @FXML
     private void dailyTab() {
         openReservation(false);
-        openEventInfo(false);
+        openEventInfo(false, null);
     }
 
     @FXML
@@ -1248,7 +1249,7 @@ public class BookRoomController {
     @FXML
     private void weeklyTab(){
         openReservation(false);
-        openEventInfo(false);
+        openEventInfo(false, null);
     }
 
     @FXML

@@ -125,6 +125,7 @@
                                         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="ALWAYS" />
                                     </rowConstraints>
                                     <children>
+                                        <Pane fx:id="sizingPane" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" GridPane.columnIndex="2" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="4" GridPane.rowSpan="3" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS"/>
                                         <Label alignment="BOTTOM_CENTER" contentDisplay="BOTTOM" styleClass="labelTitle" stylesheets="@Default.css" text="Reserve a Room" textFill="#f5d96b" GridPane.columnSpan="4" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="0" GridPane.valignment="CENTER">
                                             <font>
                                                 <Font name="Avenir Book" size="36.0" />
