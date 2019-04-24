@@ -82,7 +82,7 @@
                                     </JFXButton>
                                     <JFXButton fx:id="logOut" alignment="CENTER" buttonType="RAISED" contentDisplay="TOP" focusTraversable="false" graphicTextGap="0.0" minHeight="-Infinity" onAction="#logOut" prefHeight="75.0" prefWidth="100.0" ripplerFill="#b0b0b0" styleClass="buttonToolbar" stylesheets="@Default.css" text="Log Out" textAlignment="CENTER" textFill="#012d5a">
                                        <font>
-                                          <Font name="System Bold" size="17.0" />
+                                          <Font name="Trebuchet MS Bold" size="17.0" />
                                        </font>
                                        <graphic>
                                           <FontAwesomeIconView fill="#012d5a" glyphName="USER" size="35" strokeMiterLimit="0.0" textAlignment="CENTER" wrappingWidth="27.27392578125" />
@@ -91,13 +91,16 @@
                                           <Insets right="20.0" />
                                        </HBox.margin>
                                     </JFXButton>
-                                    <JFXButton fx:id="homebtn" buttonType="RAISED" contentDisplay="GRAPHIC_ONLY" maxHeight="-Infinity" minHeight="-Infinity" onAction="#goHome" prefHeight="75.0" prefWidth="100.0" styleClass="buttonToolbar" stylesheets="@Default.css" textFill="#012d5a">
+                                    <JFXButton fx:id="homebtn" buttonType="RAISED" contentDisplay="TOP" graphicTextGap="0.0" maxHeight="-Infinity" minHeight="-Infinity" onAction="#goHome" prefHeight="75.0" prefWidth="100.0" styleClass="buttonToolbar" stylesheets="@Default.css" text="Home" textFill="#012d5a">
                                        <graphic>
-                                          <FontAwesomeIconView fx:id="home" fill="#012d5a" glyphName="HOME" size="50" />
+                                          <FontAwesomeIconView fx:id="home" fill="#012d5a" glyphName="HOME" size="40" />
                                        </graphic>
                                        <HBox.margin>
                                           <Insets right="10.0" />
                                        </HBox.margin>
+                                       <font>
+                                          <Font name="Trebuchet MS Bold" size="17.0" />
+                                       </font>
                                     </JFXButton>
                                  </children>
                               </HBox>
@@ -124,6 +127,7 @@
                         <RowConstraints />
                      </rowConstraints>
                      <children>
+                        <VBox prefHeight="200.0" prefWidth="100.0" styleClass="vboxPathImage" GridPane.columnIndex="1" />
                         <VBox fx:id="scrollVBox" alignment="TOP_CENTER" style="-fx-border-radius: 15; -fx-border-width: 2.25;" styleClass="vboxTextfieldOutline" stylesheets="@Default.css" GridPane.columnIndex="1" GridPane.hgrow="ALWAYS" GridPane.rowSpan="2" GridPane.vgrow="ALWAYS">
                            <children>
                               <GridPane alignment="CENTER" style="-fx-border-width: 4;" VBox.vgrow="ALWAYS">
@@ -142,7 +146,7 @@
                                  <children>
                                     <Label alignment="CENTER" styleClass="labelTitle" stylesheets="@Default.css" text="Find Nearest:" textAlignment="CENTER" textFill="#e4e2da" underline="true" GridPane.columnSpan="2147483647" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.vgrow="NEVER">
                                        <font>
-                                          <Font size="25.0" />
+                                          <Font name="Trebuchet MS" size="25.0" />
                                        </font>
                                        <GridPane.margin>
                                           <Insets bottom="5.0" top="10.0" />
@@ -150,57 +154,57 @@
                                     </Label>
                                     <VBox alignment="CENTER_LEFT" prefHeight="126.0" prefWidth="205.0" GridPane.columnSpan="2147483647" GridPane.halignment="CENTER" GridPane.rowIndex="3" GridPane.valignment="CENTER">
                                        <children>
-                                          <JFXRadioButton fx:id="bathroomRadButton" contentDisplay="CENTER" onAction="#bathRadButtPressed" stylesheets="@Default.css" text="Bathroom" textFill="WHITE">
+                                          <JFXRadioButton fx:id="bathroomRadButton" contentDisplay="CENTER" onAction="#bathRadButtPressed" styleClass="radio-buttonDJ" text="Bathroom" textFill="WHITE">
                                              <font>
-                                                <Font size="18.0" />
+                                                <Font name="Trebuchet MS" size="18.0" />
                                              </font>
                                              <VBox.margin>
                                                 <Insets bottom="5.0" />
                                              </VBox.margin>
                                           </JFXRadioButton>
-                                          <JFXRadioButton fx:id="cafeRadButton" layoutX="10.0" layoutY="175.0" onAction="#cafeRadButtPressed" style="-jfx-selected-color: #f5d96b; -jfx-unselected-color: WHITE;" text="Main Cafeteria" textFill="WHITE">
+                                          <JFXRadioButton fx:id="cafeRadButton" layoutX="10.0" layoutY="175.0" onAction="#cafeRadButtPressed" style="-jfx-selected-color: #f5d96b; -jfx-unselected-color: WHITE;" styleClass="radio-buttonDJ" text="Main Cafeteria" textFill="WHITE">
                                              <font>
-                                                <Font size="18.0" />
+                                                <Font name="Trebuchet MS" size="18.0" />
                                              </font>
                                              <VBox.margin>
                                                 <Insets bottom="5.0" />
                                              </VBox.margin>
                                           </JFXRadioButton>
-                                          <JFXRadioButton fx:id="cuisineRadButton" layoutX="10.0" layoutY="42.0" onAction="#cuisineRadButtPressed" style="-jfx-selected-color: #f5d96b; -jfx-unselected-color: WHITE;" text="Café" textFill="WHITE">
+                                          <JFXRadioButton fx:id="cuisineRadButton" layoutX="10.0" layoutY="42.0" onAction="#cuisineRadButtPressed" style="-jfx-selected-color: #f5d96b; -jfx-unselected-color: WHITE;" styleClass="radio-buttonDJ" text="Café" textFill="WHITE">
                                              <font>
-                                                <Font size="18.0" />
+                                                <Font name="Trebuchet MS" size="18.0" />
                                              </font>
                                              <VBox.margin>
                                                 <Insets bottom="5.0" />
                                              </VBox.margin>
                                           </JFXRadioButton>
-                                          <JFXRadioButton fx:id="vendRadButton" onAction="#vendRadButtPressed" style="-jfx-selected-color: #f5d96b; -jfx-unselected-color: WHITE;" text="Vending Machine" textFill="WHITE">
+                                          <JFXRadioButton fx:id="vendRadButton" onAction="#vendRadButtPressed" style="-jfx-selected-color: #f5d96b; -jfx-unselected-color: WHITE;" styleClass="radio-buttonDJ" text="Vending Machine" textFill="WHITE">
                                              <font>
-                                                <Font size="18.0" />
+                                                <Font name="Trebuchet MS" size="18.0" />
                                              </font>
                                              <VBox.margin>
                                                 <Insets bottom="5.0" />
                                              </VBox.margin>
                                           </JFXRadioButton>
-                                          <JFXRadioButton fx:id="giftRadButton" onAction="#giftRadButtPressed" style="-jfx-selected-color: #f5d96b; -jfx-unselected-color: WHITE;" text="Gift Shop" textFill="WHITE">
+                                          <JFXRadioButton fx:id="giftRadButton" onAction="#giftRadButtPressed" style="-jfx-selected-color: #f5d96b; -jfx-unselected-color: WHITE;" styleClass="radio-buttonDJ" text="Gift Shop" textFill="WHITE">
                                              <font>
-                                                <Font size="18.0" />
+                                                <Font name="Trebuchet MS" size="18.0" />
                                              </font>
                                              <VBox.margin>
                                                 <Insets bottom="5.0" />
                                              </VBox.margin>
                                           </JFXRadioButton>
-                                          <JFXRadioButton fx:id="eleRadButton" onAction="#eleRadButtPressed" style="-jfx-selected-color: #f5d96b; -jfx-unselected-color: WHITE;" text="Elevator" textFill="WHITE">
+                                          <JFXRadioButton fx:id="eleRadButton" onAction="#eleRadButtPressed" style="-jfx-selected-color: #f5d96b; -jfx-unselected-color: WHITE;" styleClass="radio-buttonDJ" text="Elevator" textFill="WHITE">
                                              <font>
-                                                <Font size="18.0" />
+                                                <Font name="Trebuchet MS" size="18.0" />
                                              </font>
                                              <VBox.margin>
                                                 <Insets bottom="5.0" />
                                              </VBox.margin>
                                           </JFXRadioButton>
-                                          <JFXRadioButton fx:id="stairsRadButton" onAction="#stairsRadButtPressed" style="-jfx-selected-color: #f5d96b; -jfx-unselected-color: WHITE;" text="Stairs" textFill="WHITE">
+                                          <JFXRadioButton fx:id="stairsRadButton" onAction="#stairsRadButtPressed" style="-jfx-selected-color: #f5d96b; -jfx-unselected-color: WHITE;" styleClass="radio-buttonDJ" text="Stairs" textFill="WHITE">
                                              <font>
-                                                <Font size="18.0" />
+                                                <Font name="Trebuchet MS" size="18.0" />
                                              </font>
                                              <VBox.margin>
                                                 <Insets bottom="5.0" />
@@ -211,7 +215,7 @@
                                           <Insets bottom="5.0" left="50.0" />
                                        </GridPane.margin>
                                     </VBox>
-                                    <JFXTextArea fx:id="direction" stylesheets="@Default.css" unFocusColor="TRANSPARENT" GridPane.columnSpan="2147483647" GridPane.rowIndex="5" GridPane.vgrow="ALWAYS">
+                                    <JFXTextArea fx:id="direction" styleClass="text-area" stylesheets="@Default.css" unFocusColor="TRANSPARENT" GridPane.columnSpan="2147483647" GridPane.rowIndex="5" GridPane.vgrow="ALWAYS">
                                        <GridPane.margin>
                                           <Insets bottom="5.0" left="10.0" right="10.0" top="5.0" />
                                        </GridPane.margin>
@@ -220,7 +224,7 @@
                                        </font></JFXTextArea>
                                     <Label alignment="CENTER" styleClass="labelTitle" stylesheets="@Default.css" text="Text Directions:" textAlignment="CENTER" textFill="#f5d96b" underline="true" GridPane.columnSpan="2147483647" GridPane.halignment="CENTER" GridPane.rowIndex="4">
                                        <font>
-                                          <Font size="25.0" />
+                                          <Font name="Trebuchet MS" size="25.0" />
                                        </font>
                                     </Label>
                                  </children>
@@ -248,7 +252,7 @@
                         </JFXButton>
                         <JFXButton fx:id="L2" alignment="CENTER" buttonType="RAISED" maxHeight="-Infinity" maxWidth="-Infinity" onAction="#clickedL2" prefHeight="46.0" prefWidth="80.0" styleClass="buttonMap" stylesheets="@Default.css" text="L2" textFill="#012d5a" GridPane.halignment="CENTER" GridPane.valignment="BOTTOM">
                            <font>
-                              <Font name="System Bold" size="20.0" />
+                              <Font name="Trebuchet MS Bold" size="20.0" />
                            </font>
                            <GridPane.margin>
                               <Insets bottom="24.0" right="600.0" />
@@ -256,7 +260,7 @@
                         </JFXButton>
                         <JFXButton fx:id="L1" alignment="CENTER" buttonType="RAISED" maxHeight="-Infinity" maxWidth="-Infinity" onAction="#clickedL1" prefHeight="46.0" prefWidth="80.0" styleClass="buttonMap" stylesheets="@Default.css" text="L1" textFill="#012d5a" GridPane.halignment="CENTER" GridPane.valignment="BOTTOM">
                            <font>
-                              <Font name="System Bold" size="20.0" />
+                              <Font name="Trebuchet MS Bold" size="20.0" />
                            </font>
                            <GridPane.margin>
                               <Insets bottom="24.0" right="400.0" />
@@ -264,7 +268,7 @@
                         </JFXButton>
                         <JFXButton fx:id="G" alignment="CENTER" buttonType="RAISED" maxHeight="-Infinity" maxWidth="-Infinity" onAction="#clickedG" prefHeight="46.0" prefWidth="80.0" styleClass="buttonMap" stylesheets="@Default.css" text="G" textFill="#012d5a" GridPane.halignment="CENTER" GridPane.valignment="BOTTOM">
                            <font>
-                              <Font name="System Bold" size="20.0" />
+                              <Font name="Trebuchet MS Bold" size="20.0" />
                            </font>
                            <GridPane.margin>
                               <Insets bottom="24.0" right="200.0" />
@@ -272,7 +276,7 @@
                         </JFXButton>
                         <JFXButton fx:id="F1" alignment="CENTER" buttonType="RAISED" maxHeight="-Infinity" maxWidth="-Infinity" onAction="#clicked1" prefHeight="46.0" prefWidth="80.0" styleClass="buttonMap" stylesheets="@Default.css" text="F1" textFill="#012d5a" GridPane.halignment="CENTER" GridPane.valignment="BOTTOM">
                            <font>
-                              <Font name="System Bold" size="20.0" />
+                              <Font name="Trebuchet MS Bold" size="20.0" />
                            </font>
                            <GridPane.margin>
                               <Insets bottom="24.0" />
@@ -280,7 +284,7 @@
                         </JFXButton>
                         <JFXButton fx:id="F2" alignment="CENTER" buttonType="RAISED" maxHeight="-Infinity" maxWidth="-Infinity" onAction="#clicked2" prefHeight="46.0" prefWidth="80.0" styleClass="buttonMap" stylesheets="@Default.css" text="F2" textFill="#012d5a" GridPane.halignment="CENTER" GridPane.valignment="BOTTOM">
                            <font>
-                              <Font name="System Bold" size="20.0" />
+                              <Font name="Trebuchet MS Bold" size="20.0" />
                            </font>
                            <GridPane.margin>
                               <Insets bottom="24.0" left="200.0" />
@@ -288,7 +292,7 @@
                         </JFXButton>
                         <JFXButton fx:id="F3" alignment="CENTER" buttonType="RAISED" maxHeight="-Infinity" maxWidth="-Infinity" onAction="#clicked3" prefHeight="46.0" prefWidth="80.0" styleClass="buttonMap" stylesheets="@Default.css" text="F3" textFill="#012d5a" GridPane.halignment="CENTER" GridPane.valignment="BOTTOM">
                            <font>
-                              <Font name="System Bold" size="20.0" />
+                              <Font name="Trebuchet MS Bold" size="20.0" />
                            </font>
                            <GridPane.margin>
                               <Insets bottom="24.0" left="400.0" />
@@ -296,7 +300,7 @@
                         </JFXButton>
                         <JFXButton fx:id="F4" alignment="CENTER" buttonType="RAISED" maxHeight="-Infinity" maxWidth="-Infinity" onAction="#clicked4" prefHeight="46.0" prefWidth="80.0" styleClass="buttonMap" stylesheets="@Default.css" text="F4" textFill="#012d5a" GridPane.halignment="CENTER" GridPane.valignment="BOTTOM">
                            <font>
-                              <Font name="System Bold" size="20.0" />
+                              <Font name="Trebuchet MS Bold" size="20.0" />
                            </font>
                            <GridPane.margin>
                               <Insets bottom="24.0" left="600.0" />
@@ -310,12 +314,12 @@
                               <Insets bottom="100.0" right="15.0" top="100.0" />
                            </GridPane.margin>
                         </JFXSlider>
-                        <Label fx:id="thisMap" alignment="CENTER" contentDisplay="CENTER" prefHeight="0.0" prefWidth="191.0" styleClass="labelMapFloor" stylesheets="@Default.css" text="Lower Level 1" textFill="#507090" GridPane.halignment="CENTER" GridPane.valignment="TOP">
+                        <Label fx:id="thisMap" alignment="CENTER" contentDisplay="CENTER" prefHeight="30.0" prefWidth="178.0" styleClass="labelMapFloor" stylesheets="@Default.css" text="Lower Level 1" textAlignment="CENTER" textFill="#507090" GridPane.halignment="CENTER" GridPane.valignment="TOP">
                            <GridPane.margin>
                               <Insets top="28.0" />
                            </GridPane.margin>
                            <font>
-                              <Font name="System Bold" size="25.0" />
+                              <Font name="Trebuchet MS Bold" size="25.0" />
                            </font>
                         </Label>
                      </children>
@@ -332,7 +336,8 @@
       </VBox>
       <AnchorPane fx:id="navList" layoutX="-62.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="470.0" prefWidth="300.0" style="-fx-background-radius: 20; -fx-border-color: F5D96B; -fx-border-radius: 15; -fx-border-width: 3;" styleClass="AnchorPainMain" stylesheets="@Default.css" translateX="-180" AnchorPane.leftAnchor="-122.0" AnchorPane.topAnchor="120.0">
          <children>
-            <GridPane alignment="CENTER" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <VBox layoutX="6.0" layoutY="6.0" prefHeight="461.0" prefWidth="127.0" styleClass="vboxPopup" stylesheets="@Default.css" AnchorPane.bottomAnchor="3.0" AnchorPane.leftAnchor="3.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="3.0" />
+            <GridPane alignment="CENTER" layoutX="6.0" prefHeight="470.0" prefWidth="294.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                <columnConstraints>
                   <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                   <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -348,7 +353,7 @@
                   <RowConstraints vgrow="NEVER" />
                </rowConstraints>
                <children>
-                  <JFXTextField fx:id="searchField" onAction="#submitSearchField" onInputMethodTextChanged="#submitSearchField" onMouseClicked="#submitSearchField" prefHeight="30.0" prefWidth="274.0" promptText="Search" styleClass="jfx-text-field-normal" stylesheets="@Default.css" unFocusColor="#d33636" GridPane.columnSpan="2147483647" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER">
+                  <JFXTextField fx:id="searchField" onAction="#submitSearchField" onInputMethodTextChanged="#submitSearchField" onMouseClicked="#submitSearchField" prefHeight="30.0" prefWidth="274.0" promptText="Search" styleClass="jfx-text-field-popup" stylesheets="@Default.css" unFocusColor="#d33636" GridPane.columnSpan="2147483647" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER">
                      <GridPane.margin>
                         <Insets bottom="20.0" left="10.0" right="10.0" top="20.0" />
                      </GridPane.margin>
@@ -379,23 +384,23 @@
                         <Insets bottom="20.0" left="10.0" right="70.0" top="10.0" />
                      </GridPane.margin>
                   </JFXComboBox>
-                  <JFXButton buttonType="RAISED" contentDisplay="RIGHT" onAction="#clearStart" prefHeight="32.0" prefWidth="55.0" style="-fx-background-radius: 10000; -fx-border-radius: 1000;" styleClass="buttonBig" stylesheets="@Default.css" text="Clear" textFill="WHITE" GridPane.columnIndex="1" GridPane.rowIndex="4">
+                  <JFXButton buttonType="RAISED" contentDisplay="RIGHT" onAction="#clearStart" prefHeight="32.0" prefWidth="55.0" styleClass="buttonMainNoB" stylesheets="@Default.css" text="Clear" textFill="WHITE" GridPane.columnIndex="1" GridPane.rowIndex="4">
                      <GridPane.margin>
                         <Insets bottom="20.0" left="75.0" top="11.0" />
                      </GridPane.margin>
                      <font>
-                        <Font size="14.0" />
+                        <Font name="Trebuchet MS" size="10.0" />
                      </font>
                   </JFXButton>
-                  <JFXButton buttonType="RAISED" contentDisplay="RIGHT" onAction="#clearEnd" prefHeight="32.0" prefWidth="54.0" style="-fx-background-radius: 100000; -fx-border-radius: 100000;" styleClass="buttonBig" text="Clear" textFill="WHITE" GridPane.columnIndex="1" GridPane.rowIndex="5">
+                  <JFXButton buttonType="RAISED" contentDisplay="RIGHT" onAction="#clearEnd" prefHeight="32.0" prefWidth="54.0" styleClass="buttonMainNoB" text="Clear" textFill="WHITE" GridPane.columnIndex="1" GridPane.rowIndex="5">
                      <GridPane.margin>
                         <Insets bottom="20.0" left="75.0" top="11.0" />
                      </GridPane.margin>
                      <font>
-                        <Font size="14.0" />
+                        <Font name="Trebuchet MS" size="10.0" />
                      </font>
                   </JFXButton>
-                  <JFXButton fx:id="menuBack" buttonType="RAISED" contentDisplay="GRAPHIC_ONLY" onAction="#prepareSlideMenuAnimation" prefHeight="35.0" prefWidth="21.0" style="-fx-border-radius: 2; -fx-background-radius: 100000; -fx-border-color: WHITE; -fx-border-radius: 100; -fx-border-width: 1.5;" text="back" textFill="WHITE" GridPane.columnIndex="1" GridPane.halignment="RIGHT">
+                  <JFXButton fx:id="menuBack" buttonType="RAISED" contentDisplay="GRAPHIC_ONLY" onAction="#prepareSlideMenuAnimation" prefHeight="35.0" prefWidth="21.0" style="-fx-border-radius: 2; -fx-background-radius: 15; -fx-border-color: WHITE; -fx-border-radius: 10; -fx-border-width: 1.5;" text="back" textFill="WHITE" GridPane.columnIndex="1" GridPane.halignment="RIGHT">
                      <font>
                         <Font size="14.0" />
                      </font>
@@ -413,15 +418,15 @@
                   </JFXComboBox>
                   <Label contentDisplay="CENTER" styleClass="labelTitle" stylesheets="@Default.css" text="Find a Path" textFill="#f5d96b" GridPane.columnSpan="2147483647" GridPane.halignment="CENTER">
                      <font>
-                        <Font size="25.0" />
+                        <Font name="Trebuchet MS" size="25.0" />
                      </font>
                      <GridPane.margin>
                         <Insets top="3.0" />
                      </GridPane.margin>
                   </Label>
-                  <JFXButton fx:id="PathFindSubmit" buttonType="RAISED" onAction="#submitPressed" onMouseClicked="#prepareSlideMenuAnimation" prefHeight="61.0" prefWidth="146.0" style="-fx-border-width: 2; -fx-border-radius: 50; -fx-background-radius: 50;" styleClass="buttonMain" stylesheets="@Default.css" text="Submit" textFill="WHITE" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="7">
+                  <JFXButton fx:id="PathFindSubmit" buttonType="RAISED" onAction="#submitPressed" onMouseClicked="#prepareSlideMenuAnimation" prefHeight="61.0" prefWidth="146.0" styleClass="buttonMainNoB" stylesheets="@Default.css" text="Submit" textFill="WHITE" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="7">
                      <font>
-                        <Font size="30.0" />
+                        <Font size="25.0" />
                      </font>
                   </JFXButton>
                </children>

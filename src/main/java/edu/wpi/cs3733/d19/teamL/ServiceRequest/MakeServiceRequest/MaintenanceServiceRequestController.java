@@ -2,6 +2,7 @@ package edu.wpi.cs3733.d19.teamL.ServiceRequest.MakeServiceRequest;
 
 import edu.wpi.cs3733.d19.teamL.HomeScreens.HomeScreenController;
 import edu.wpi.cs3733.d19.teamL.Memento;
+import edu.wpi.cs3733.d19.teamL.Reports.requestReportAccess;
 import edu.wpi.cs3733.d19.teamL.ServiceRequest.ServiceRequestDBAccess.ServiceRequestAccess;
 import com.jfoenix.controls.JFXTextArea;
 import com.jfoenix.controls.JFXTextField;
@@ -22,6 +23,7 @@ import javafx.stage.Stage;
 import javafx.util.Duration;
 
 import java.io.IOException;
+import java.time.LocalDateTime;
 
 public class MaintenanceServiceRequestController {
     @FXML
@@ -104,10 +106,15 @@ public class MaintenanceServiceRequestController {
         }else {
             check = false;
         }
-        sra.makeMaintenanceRequest(Description.getText(), Location.getText(), field1.getText(), Boolean.toString(check));
+        String time = LocalDateTime.now().toString();
+        sra.makeMaintenanceRequest(Description.getText(), Location.getText(), field1.getText(), Boolean.toString(check), time);
         Memento m = single.getOrig();
         Parent newPage = FXMLLoader.load(getClass().getClassLoader().getResource(m.getFxml()));
         ((Node) event.getSource()).getScene().setRoot(newPage);
+
+        requestReportAccess ra = new requestReportAccess();
+        ra.addReport(time, "none", "inprogress", "Maintenance", field1.getText(), Location.getText());
+
     }
 
     @FXML

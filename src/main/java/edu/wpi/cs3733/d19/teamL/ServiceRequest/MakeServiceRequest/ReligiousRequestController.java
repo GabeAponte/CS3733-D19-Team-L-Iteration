@@ -2,10 +2,12 @@ package edu.wpi.cs3733.d19.teamL.ServiceRequest.MakeServiceRequest;
 
 import edu.wpi.cs3733.d19.teamL.HomeScreens.HomeScreenController;
 import edu.wpi.cs3733.d19.teamL.Memento;
+import edu.wpi.cs3733.d19.teamL.Reports.requestReportAccess;
 import edu.wpi.cs3733.d19.teamL.ServiceRequest.ServiceRequestDBAccess.ReligiousRequestAccess;
 import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXTextArea;
 import com.jfoenix.controls.JFXTextField;
+import edu.wpi.cs3733.d19.teamL.ServiceRequest.ServiceRequestDBAccess.ServiceRequestAccess;
 import edu.wpi.cs3733.d19.teamL.Singleton;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
@@ -22,6 +24,7 @@ import javafx.stage.Stage;
 import javafx.util.Duration;
 
 import java.io.IOException;
+import java.time.LocalDateTime;
 
 public class ReligiousRequestController {
     @FXML
@@ -100,11 +103,14 @@ public class ReligiousRequestController {
         Singleton single = Singleton.getInstance();
         single.setLastTime();
         single.setDoPopup(true);
-        ReligiousRequestAccess rra = new ReligiousRequestAccess();
-        rra.makeRequest(Description.getText(), Denomination.getText(),Location.getText(), Name.getText(), Type.getValue());
+        ServiceRequestAccess sra = new ServiceRequestAccess();
+        String time = LocalDateTime.now().toString();
+        sra.makeReligiousRequest(Description.getText(), Denomination.getText(),Location.getText(), Name.getText(), Type.getValue(), time);
         Memento m = single.getOrig();
         Parent newPage = FXMLLoader.load(getClass().getClassLoader().getResource(m.getFxml()));
         ((Node) event.getSource()).getScene().setRoot(newPage);
+        requestReportAccess ra = new requestReportAccess();
+        ra.addReport(time, "none", "inprogress", "Religious", Type.getValue(), Location.getText());
     }
 
     @FXML
@@ -116,6 +122,7 @@ public class ReligiousRequestController {
         Memento m = single.restore();
         Parent newPage = FXMLLoader.load(getClass().getClassLoader().getResource(m.getFxml()));
         ((Node) event.getSource()).getScene().setRoot(newPage);
+
     }
 
     @FXML

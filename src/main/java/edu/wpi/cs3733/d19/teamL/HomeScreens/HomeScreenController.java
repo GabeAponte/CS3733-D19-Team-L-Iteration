@@ -1,11 +1,15 @@
 package edu.wpi.cs3733.d19.teamL.HomeScreens;
 
 import com.jfoenix.controls.JFXButton;
+import com.lowagie.text.DocumentException;
+import com.lowagie.text.pdf.PdfReader;
+import com.lowagie.text.pdf.PdfStamper;
 import edu.wpi.cs3733.d19.teamL.Map.MapLocations.Location;
 import edu.wpi.cs3733.d19.teamL.Map.Pathfinding.PathFindingController;
 import edu.wpi.cs3733.d19.teamL.Memento;
 import edu.wpi.cs3733.d19.teamL.Reports.BarGraphChartData;
 import edu.wpi.cs3733.d19.teamL.Reports.PieChartData;
+import edu.wpi.cs3733.d19.teamL.Reports.ReportThread;
 import edu.wpi.cs3733.d19.teamL.Reports.pathReportAccess;
 import edu.wpi.cs3733.d19.teamL.ServiceRequest.MakeServiceRequest.ServiceRequestController;
 import edu.wpi.cs3733.d19.teamL.Singleton;
@@ -36,6 +40,7 @@ import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 import java.awt.*;
 import javax.management.AttributeList;
 import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.time.LocalDate;
@@ -204,20 +209,20 @@ public class HomeScreenController {
         Singleton single = Singleton.getInstance();
         single.updateWeather();
         try {
-                clock.pause();
-                Stage stage;
-                Parent root;
-                stage = new Stage();
-                root = FXMLLoader.load(getClass().getClassLoader().getResource("TimeoutPopup.fxml"));
-                stage.setScene(new Scene(root));
-                stage.setTitle("Inactivity Popup");
-                stage.initModality(Modality.APPLICATION_MODAL);
-                single.setLastTime();
-                stage.setResizable(false);
-                stage.show();
-                single = Singleton.getInstance();
-                single.setLastTime();
-                clock.play();
+            clock.pause();
+            Stage stage;
+            Parent root;
+            stage = new Stage();
+            root = FXMLLoader.load(getClass().getClassLoader().getResource("TimeoutPopup.fxml"));
+            stage.setScene(new Scene(root));
+            stage.setTitle("Inactivity Popup");
+            stage.initModality(Modality.APPLICATION_MODAL);
+            single.setLastTime();
+            stage.setResizable(false);
+            stage.show();
+            single = Singleton.getInstance();
+            single.setLastTime();
+            clock.play();
         } catch (Exception e){
             System.out.println(e.getMessage());
         }
@@ -273,74 +278,8 @@ public class HomeScreenController {
     }
 
     @FXML
-    private void AboutPress() throws IOException, JRException, SQLException {
-        pathReportAccess p = new pathReportAccess();
-        //Complete Pathfinding report
-        Singleton single = Singleton.getInstance();
-        ArrayList<Location> toAdd = new ArrayList<Location>();
-        for (Location l : single.lookup.values()) {
-            if (toAdd.size() < 10) {
-                if (toAdd.size() == 0) {
-                    toAdd.add(l);
-                }
-                else {
-                    boolean hotFix = false;
-                    for (int j = 0; j < toAdd.size(); j++) {
-                        if (p.getNumSearched(l.getLongName()) > p.getNumSearched(toAdd.get(j).getLongName())) {
-                            //System.out.println("ADDING: size < 10");
-                            toAdd.add(j, l);
-                            hotFix = true;
-                            break;
-                        }
-                    }
-                    if (!hotFix) {
-                        toAdd.add(l);
-                    }
-                }
-                }
-            else {
-                for (int i = 0; i < 10; i++) {
-                    if (p.getNumSearched(l.getLongName()) > p.getNumSearched(toAdd.get(i).getLongName())) {
-                        //System.out.println("ADDING: size > 10");
-                        toAdd.add(i, l);
-                        toAdd.remove(10);
-                        break;
-                    }
-                }
-            }
-        }
+    private void AboutPress() throws IOException, JRException, SQLException, DocumentException, InterruptedException {
 
-
-        List<BarGraphChartData> cList = new ArrayList<BarGraphChartData>();
-        for (int k = 0; k < 5; k++) {
-            cList.add(new BarGraphChartData("Locations", toAdd.get(k).getLongName(),p.getNumSearched(toAdd.get(k).getLongName())));
-        }
-
-        ArrayList<Integer> counts = p.getTypeCounts();
-        List<PieChartData> pieChartData = new ArrayList<PieChartData>();
-        pieChartData.add(new PieChartData("search", counts.get(0)));
-        pieChartData.add(new PieChartData("poi", counts.get(1)));
-        pieChartData.add(new PieChartData("selected", counts.get(2)));
-        System.out.println(counts.get(0));
-        System.out.println(counts.get(1));
-        System.out.println(counts.get(2));
-
-        System.out.println("LOOPS COMPLETE");
-        File f = new File("PathFindStats.jrxml");
-        JasperReport jasperReport = null;
-        String filePath = f.getAbsolutePath().replace('\\','/');
-        jasperReport = JasperCompileManager.compileReport(filePath);
-        Map<String, Object> paramMap = new HashMap<String, Object>();
-        paramMap.put("CHART_DATASET", new JRBeanCollectionDataSource(cList));
-        paramMap.put("PIE_CHART", new JRBeanCollectionDataSource(pieChartData));
-        List<Object> data = new ArrayList<Object>();
-        data.add(cList);
-        data.add(pieChartData);
-        JRBeanCollectionDataSource dataSource = new JRBeanCollectionDataSource(data);
-        JasperPrint print2 = JasperFillManager.fillReport(jasperReport, paramMap);
-        JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, paramMap, dataSource);
-        String outputPath = "outputPDF.pdf";
-        JasperExportManager.exportReportToPdfFile(jasperPrint, outputPath);
     }
 
     @FXML

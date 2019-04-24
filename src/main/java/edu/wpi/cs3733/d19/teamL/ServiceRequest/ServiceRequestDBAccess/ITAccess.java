@@ -32,10 +32,10 @@ public class ITAccess extends DBAccess {
      * adds a new religious request to the database
      *
      */
-    public void makeRequest(String desc, String location, String device, String problem){
+    public void makeRequest(String desc, String location, String device, String problem, String reportTime){
         String sql = "insert into ITRequest(" +
-                "comment, device, location, creationTime, creationDate, problem)" +
-                "values (?, ?, ?, ?, ?, ?)";
+                "comment, device, location, creationTime, creationDate, problem, reportTime)" +
+                "values (?, ?, ?, ?, ?, ?, ?)";
 
         try (Connection conn = this.connect();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
@@ -46,6 +46,7 @@ public class ITAccess extends DBAccess {
             pstmt.setInt(4, Integer.parseInt(tdf.format(date.getTime())));
             pstmt.setString(5, sdf.format(date));
             pstmt.setString(6, problem);
+            pstmt.setString(7, reportTime);
             pstmt.executeUpdate();
         } catch (SQLException e) {
             System.out.println(e.getMessage());
