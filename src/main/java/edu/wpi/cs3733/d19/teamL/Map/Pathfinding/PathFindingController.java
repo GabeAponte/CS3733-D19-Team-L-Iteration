@@ -604,10 +604,13 @@ public class PathFindingController {
                         Floor.setValue("All");
                         Filter.setValue("All");
                         noHall();
-
-                        PathFindEndDrop.setValue(closestToClick);
-
-                        submitPressed();
+                        if(!(PathFindStartDrop.getValue() == null)){
+                            PathFindEndDrop.setValue(closestToClick);
+                            submitPressed();
+                        }
+                        else{
+                            PathFindStartDrop.setValue(closestToClick);
+                        }
                     }
                 }
             }
@@ -2633,7 +2636,12 @@ public class PathFindingController {
                         String toString = ((JFXButton) event1.getSource()).getText();
                         for (Location l : single.lookup.values()) {
                             if (l.toString().equals(toString)) {
-                                PathFindEndDrop.setValue(l);
+                                if(!(PathFindStartDrop.getValue() == null)) {
+                                    PathFindEndDrop.setValue(l);
+                                }
+                                else{
+                                    PathFindStartDrop.setValue(l);
+                                }
                                 typeSelected = "search";
                                 searchField.setText(l.toString());
                             }
