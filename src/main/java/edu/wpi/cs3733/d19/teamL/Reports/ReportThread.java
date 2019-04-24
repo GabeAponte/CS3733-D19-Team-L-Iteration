@@ -181,9 +181,9 @@ public class ReportThread extends Thread {
                         specificMonthHash.put(x, 1);
                         if (monthName.equals("APRIL")) {
                             monthHash.put(x, "April");
-                        } else if (monthHash.equals("MARCH")) {
+                        } else if (monthName.equals("MARCH")) {
                             monthHash.put(x, "March");
-                        } else if (monthHash.equals("FEBRUARY")) {
+                        } else if (monthName.equals("FEBRUARY")) {
                             monthHash.put(x, "February");
                         }
                     } else {

@@ -9,6 +9,8 @@ gargoyle_food_request_db/
 TempOutput.jpg
 EMode.jpg
 DBInput.jpg
+MedicalImagingRequests.csv
+MedicalImagingEmployees.csv
 classes/
 build/
 out/

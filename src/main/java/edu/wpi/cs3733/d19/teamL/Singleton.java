@@ -84,6 +84,14 @@ public class Singleton {
         return esp.getFree();
     }
 
+    public static void resetEmergency() {
+        esp.turnOffEmergency();
+    }
+
+    public static boolean isEmergency() {
+        return esp.getEmergency();
+    }
+
     public static ArrayList<Boolean> getSimulation(){
         return sim.getSimulation();
     }
