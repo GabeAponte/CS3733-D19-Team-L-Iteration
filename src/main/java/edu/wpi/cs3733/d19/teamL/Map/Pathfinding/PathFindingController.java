@@ -320,6 +320,7 @@ public class PathFindingController {
         changeMapLabel();
         displayKiosk();
         clear();
+        gesturePane.reset();
         direction.clear();
     }
 
@@ -760,10 +761,10 @@ public class PathFindingController {
         hereLabel.setLayoutX(kioskTemp.getXcoord()*childPane.getWidth()/Map.getImage().getWidth() -20);
         hereLabel.setLayoutY(kioskTemp.getYcoord()*childPane.getHeight()/Map.getImage().getHeight() - 20);
         hereLabel.setText(" You are here ");
-        hereLabel.setStyle("-fx-text-fill: WHITE;-fx-font-size: 6; -fx-background-color: BLUE; -fx-border-color: WHITE; -fx-border-width: 2; -fx-min-width: 40;");
+        hereLabel.setStyle("-fx-text-fill: WHITE;-fx-font-size: 6; -fx-background-color: rgba(0, 0, 255, 0.75); -fx-border-color: WHITE; -fx-border-width: 1; -fx-min-width: 40;");
         if(currentMap.equals(kioskTemp.getFloor())) {
             kiosk.setVisible(true);
-            gesturePane.zoomTo(2, new Point2D(kioskTemp.getXcoord() - 1350, kioskTemp.getYcoord() - 2000));
+            autoZoom(kioskTemp, kioskTemp);
             hereLabel.setVisible(true);
         }
         else {
@@ -773,6 +774,7 @@ public class PathFindingController {
         circles.add(kiosk);
         pathPane.getChildren().add(kiosk);
         labels.add(hereLabel);
+        pathPane.getChildren().add(hereLabel);
     }
 
     @FXML
