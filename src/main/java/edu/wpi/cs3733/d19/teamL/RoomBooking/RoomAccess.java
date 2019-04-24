@@ -20,6 +20,23 @@ public class RoomAccess extends DBAccess {
         }
     }
 
+    public String getRoomName(String rID){
+        String sql = "SELECT name FROM room WHERE roomID = ?";
+        try (Connection conn = this.connect();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            pstmt.setString(1, rID);
+
+            ResultSet rs = pstmt.executeQuery();
+            while(rs.next()){
+                return rs.getString("name");
+            }
+
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        return null;
+    }
+
     /**ANDREW MADE THIS
      * returns the record fields for the given index in room
      * @param getNum

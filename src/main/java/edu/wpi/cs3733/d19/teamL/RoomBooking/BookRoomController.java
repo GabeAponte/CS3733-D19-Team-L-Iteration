@@ -292,38 +292,6 @@ public class BookRoomController {
         roomImage.fitHeightProperty().bind(imagePane.heightProperty());
 
         displayFlexSpaces(single.getSimulation());
-//        anchorPane.sceneProperty().addListener((observableScene, oldScene, newScene) -> {
-//            if (oldScene == null && newScene != null) {
-//                // scene is set for the first time. Now its the time to listen stage changes.
-//                newScene.windowProperty().addListener((observableWindow, oldWindow, newWindow) -> {
-//                    if (oldWindow == null && newWindow != null) {
-//                        // stage is set. now is the right time to do whatever we need to the stage in the controller.
-//                        ChangeListener<Number> stageSizeListener = (observable, oldValue, newValue) -> {
-//                        System.out.println("Screen resized");
-//                            for(int i = 0; i < DisplayRooms.size(); i++){
-//                                imagePane.getChildren().remove(DisplayRooms.get(i).getPolygon());
-//                            }
-//
-//                            firstTimeRan = true;
-//                            timeout.setCycleCount(Timeline.INDEFINITE);
-//                            timeout.play();
-//                            Platform.runLater(new Runnable(){
-//                                @Override
-//                                public void run(){
-//                                    //displayFlexSpaces();
-//                                    fieldsEntered();
-//                                }
-//                            });
-//
-//                        };
-//
-//                        ((Stage) newWindow).widthProperty().addListener(stageSizeListener);
-//                        ((Stage) newWindow).heightProperty().addListener(stageSizeListener);
-//                    }
-//                });
-//            }
-//        });
-
 
         ArrayList<String> events = new ArrayList<String> (Arrays.asList("Meeting", "Party", "Conference", "Reception"));
         ObservableList obList = FXCollections.observableList(events);
@@ -415,7 +383,7 @@ public class BookRoomController {
 
         for(int i = 0; i < emps.size(); i++){
             String temp = "";
-            temp = emps.get(i).get(4) + " " + emps.get(i).get(5) + " " + "(" + emps.get(i).get(6) + ")";
+            temp = emps.get(i).get(4) + " " + emps.get(i).get(5) + " " + "(" + emps.get(i).get(8) + ")";
             eventEmployeeData.add(temp);
         }
 
@@ -528,6 +496,24 @@ public class BookRoomController {
             RoomAccess ra = new RoomAccess();
             roomReq.makeReservation(ra.getRoomID(roomName), employeeID, date, endDate, eventNameString, eventDescriptionString, listOfGuests, eventTypeString, eventIsPrivate);
             //add event name, event description, event type, guestList (String), privacy (boolean)
+            Reservation r = new Reservation(ra.getRoomID(roomName), employeeID, date, endDate, eventNameString, eventDescriptionString, listOfGuests, eventTypeString, eventIsPrivate);
+            for(int i = 0; i < listOfGuests.length(); i++){
+                int idx = listOfGuests.indexOf("(", i);
+                int lastidx = listOfGuests.indexOf(")", i);
+                String recipient = "";
+                if(idx == -1 || lastidx == -1){
+                    i = Integer.MAX_VALUE;
+                } else {
+                    i=lastidx + 1;
+                }
+                for(int j = idx + 1; j < lastidx; j++){
+                    recipient+=listOfGuests.charAt(j);
+                }
+                if(recipient != ""){
+                    InviteThread it = new InviteThread(r, ea.getEmpEmail(recipient));
+                    it.start();
+                }
+            }
             openReservation(false);
             openEventInfo(true, roomName);
             fieldsEntered();
@@ -1105,7 +1091,7 @@ public class BookRoomController {
                 descriptionLabel.setText("Description: " + data.get(0)[3]);
                 invitedEmployeesLabel.setText("Invited Employees: " + data.get(0)[5]);
             }
-            roomNameLabel.setText("Room name: " + data.get(0)[0]);
+            roomNameLabel.setText("Room name: " + roomName);
             startTimeLabel.setText("Start date: " + data.get(0)[7].substring(0,10));
             endTimeLabel.setText("End date: " + data.get(0)[8].substring(0,10));
             startDateLabel.setText("Start time: " + data.get(0)[7].substring(11));
